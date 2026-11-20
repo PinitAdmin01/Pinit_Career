@@ -678,6 +678,44 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
   assert.ok(!replyHi3.includes('tackled'), 'Must never say tackled for repeated hi');
   assert.ok(!replyHi3.includes('initial approach'), 'Must never say initial approach for repeated hi');
   assert.ok(!replyHi3.includes('pragmatic decision'), 'Must never say pragmatic decision for repeated hi');
+
+  // Test 5: Candidate Readiness ("ok im ready") -> Must classify as readiness and welcome to start
+  const analysisReady = analyzeCandidateTurn('ok im ready', 'Full-Stack Software Developer');
+  assert.equal(analysisReady.intent, 'readiness', 'Must classify "ok im ready" as readiness');
+  const replyReady = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Full-Stack Software Developer',
+    history: [{ role: 'assistant', content: 'Whenever you are ready, let us begin.' }, { role: 'user', content: 'ok im ready' }],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyReady.includes('insightful observation around im ready'), 'Must never praise "im ready" as an insightful observation');
+  assert.ok(replyReady.includes('dive right in') || replyReady.includes('introduce yourself'), 'Must invite candidate to start');
+
+  // Test 6: Candidate Clarification ("can u exaplin in depth") -> Must classify as clarification
+  const analysisClarify = analyzeCandidateTurn('can u exaplin in depth', 'Full-Stack Software Developer');
+  assert.equal(analysisClarify.intent, 'clarification', 'Must classify "can u exaplin in depth" as clarification');
+  const replyClarify = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Full-Stack Software Developer',
+    history: [{ role: 'assistant', content: 'What trade-off did you navigate?' }, { role: 'user', content: 'can u exaplin in depth' }],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyClarify.includes('approach with u exaplin depth'), 'Must never treat explanation request as an approach');
+  assert.ok(replyClarify.includes('simply') || replyClarify.includes('course'), 'Must clarify question gracefully');
+
+  // Test 7: Candidate Coaching Request ("how to answer") -> Must classify as coaching_request
+  const analysisCoaching = analyzeCandidateTurn('how to answer', 'Full-Stack Software Developer');
+  assert.equal(analysisCoaching.intent, 'coaching_request', 'Must classify "how to answer" as coaching_request');
+  const replyCoaching = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Full-Stack Software Developer',
+    history: [{ role: 'assistant', content: 'Tell me about a challenge.' }, { role: 'user', content: 'how to answer' }],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(replyCoaching.includes('STAR'), 'Must provide STAR framework coaching');
 });
 
 test('Task 4 & Task 7: Round 2 Non-Tech Case Study Studio and Skip Challenge integration', () => {

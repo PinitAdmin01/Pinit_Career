@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import { AssistModeDrawer } from './AssistModeDrawer';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -56,6 +57,20 @@ export interface Round2CodingProps {
   setTerminalLogs: React.Dispatch<React.SetStateAction<string[]>>;
   onRequestHint?: (level: 1 | 2 | 3) => void;
   onSkipChallenge?: () => void;
+  isAssistModeActive?: boolean;
+  setIsAssistModeActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  assistData?: any;
+  isFetchingAssist?: boolean;
+  assistTab?: 'script' | 'bullets' | 'delivery';
+  setAssistTab?: React.Dispatch<React.SetStateAction<'script' | 'bullets' | 'delivery'>>;
+  assistScriptLevel?: 'standard' | 'advanced';
+  setAssistScriptLevel?: React.Dispatch<React.SetStateAction<'standard' | 'advanced'>>;
+  fetchAssistScript?: (q: string) => void;
+  liveSpeechTranscript?: string;
+  messages?: any[];
+  difficulty?: string;
+  speakWithAvatarRaw?: any;
+  setAnimState?: (state: 'idle' | 'talking' | 'thinking') => void;
 }
 
 export const Round2Coding: React.FC<Round2CodingProps> = ({
@@ -88,6 +103,20 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
   setTerminalLogs,
   onRequestHint,
   onSkipChallenge,
+  isAssistModeActive = false,
+  setIsAssistModeActive,
+  assistData,
+  isFetchingAssist = false,
+  assistTab = 'script',
+  setAssistTab,
+  assistScriptLevel = 'standard',
+  setAssistScriptLevel,
+  fetchAssistScript,
+  liveSpeechTranscript = '',
+  messages = [],
+  difficulty = 'normal',
+  speakWithAvatarRaw,
+  setAnimState,
 }) => {
   const [hintLevel, setHintLevel] = React.useState<0 | 1 | 2 | 3>(0);
   const runCodeAndTestsRef = React.useRef(runCodeAndTests);
@@ -319,7 +348,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
         </div>
 
         {/* Full Monaco Code Editor Area */}
-        <div style={{ height: 340, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--border)' }}>
+        <div style={{ flex: 1, minHeight: 280, height: '100%', borderRadius: 10, overflow: 'hidden', border: '1px solid var(--border)' }}>
           <MonacoEditor
             height="100%"
             language={selectedLang === 'sql' ? 'sql' : selectedLang === 'python' ? 'python' : selectedLang === 'java' ? 'java' : selectedLang === 'cpp' ? 'cpp' : 'javascript'}
@@ -350,17 +379,45 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
       </div>
 
       {/* Right 30%: Avatar Viewport & Execution Terminal */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflow: 'hidden' }}>
-        <div style={{ height: 160, flexShrink: 0, background: 'var(--bg3)', borderRadius: 14, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: '100%', minHeight: 0, overflow: 'hidden' }}>
+        <div style={{ height: 130, flexShrink: 0, background: 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
-          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
+          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '2px 7px', borderRadius: 5, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 10.5, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
 
-        <div className="iv-panel" style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 8, flex: 1, minHeight: 0, overflowY: 'auto' }} aria-live="polite">
-          <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Interviewer</div>
-          <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.45 }}>{lastInterviewerSpeech}</div>
+        {isAssistModeActive && (
+          <div style={{ flexShrink: 0, maxHeight: 180, overflowY: 'auto' }}>
+            <AssistModeDrawer
+              compact
+              isScoredStage={false}
+              isCodingRound
+              activeStage="round2_coding"
+              activeTopicName={currentCodingProb.title}
+              questionText={`${currentCodingProb.title}: ${currentCodingProb.description}`}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive || (() => {})}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel || (() => {})}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab || (() => {})}
+              isFetchingAssist={isFetchingAssist}
+              assistData={assistData ?? null}
+              liveSpeechTranscript={liveSpeechTranscript}
+              messages={messages as any}
+              activeTeacher={activeTeacher as any}
+              difficulty={difficulty}
+              fetchAssistScript={fetchAssistScript || (() => {})}
+              speakWithAvatarRaw={speakWithAvatarRaw}
+              setAnimState={setAnimState}
+            />
+          </div>
+        )}
+
+        <div className="iv-panel" style={{ padding: 10, display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0, maxHeight: 160, overflowY: 'auto' }} aria-live="polite">
+          <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Interviewer</div>
+          <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.4 }}>{lastInterviewerSpeech}</div>
           {codeReviewQuestionReady && !canProceed && !codeRunFailed && (
             <form onSubmit={(event) => {
               event.preventDefault();
@@ -383,19 +440,19 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                 }}
                 disabled={isSendingInterviewMessage}
                 aria-label="Your code review answer"
-                placeholder="Explain your approach or answer the reviewer… (Enter or Ctrl+↵ to send)"
-                style={{ flex: 1, minWidth: 0, padding: '8px 10px', borderRadius: 7, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 12 }}
+                placeholder="Explain your approach… (Ctrl+↵ to send)"
+                style={{ flex: 1, minWidth: 0, padding: '6px 8px', borderRadius: 6, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 11.5 }}
               />
-              <button type="submit" disabled={!manualTextInput.trim() || isSendingInterviewMessage} style={{ padding: '8px 10px', borderRadius: 7, border: 0, background: 'var(--accent)', color: '#ffffff', fontSize: 11, fontWeight: 800, cursor: isSendingInterviewMessage ? 'wait' : 'pointer' }}>
-                {isSendingInterviewMessage ? 'Sending…' : 'Send'}
+              <button type="submit" disabled={!manualTextInput.trim() || isSendingInterviewMessage} style={{ padding: '6px 10px', borderRadius: 6, border: 0, background: 'var(--accent)', color: '#ffffff', fontSize: 11, fontWeight: 800, cursor: isSendingInterviewMessage ? 'wait' : 'pointer' }}>
+                {isSendingInterviewMessage ? '...' : 'Send'}
               </button>
             </form>
           )}
         </div>
 
-        <div style={{ flex: 1, background: '#020617', borderRadius: 14, border: '1px solid var(--border)', padding: 12, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>EXECUTION CONSOLE</div>
+        <div style={{ flex: 1, minHeight: 100, background: '#020617', borderRadius: 10, border: '1px solid var(--border)', padding: 10, display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+            <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>EXECUTION CONSOLE</div>
             <button
               onClick={() => {
                 console.log('[Interview] Terminal console cleared by candidate.');
@@ -405,8 +462,8 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                 background: 'transparent',
                 border: '1px solid rgba(255,255,255,0.15)',
                 borderRadius: 4,
-                padding: '2px 6px',
-                fontSize: 10.5,
+                padding: '1px 5px',
+                fontSize: 10,
                 color: 'var(--t3)',
                 cursor: 'pointer'
               }}
@@ -414,9 +471,9 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
               Clear
             </button>
           </div>
-          <div style={{ flex: 1, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--success-bright)', overflowY: 'auto', maxHeight: 160 }}>
+          <div style={{ flex: 1, fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--success-bright)', overflowY: 'auto' }}>
             {terminalLogs.length > 0 ? (
-              terminalLogs.map((l, idx) => <div key={idx} style={{ marginBottom: 4 }}>{l}</div>)
+              terminalLogs.map((l, idx) => <div key={idx} style={{ marginBottom: 3 }}>{l}</div>)
             ) : (
               <div style={{ color: 'var(--text-dim)', fontStyle: 'italic' }}>Click &apos;Run Code &amp; Tests&apos; to verify solution...</div>
             )}

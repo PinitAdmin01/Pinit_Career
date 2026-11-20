@@ -1673,26 +1673,35 @@ body[data-arena-active="true"] .page-content {
 
 .iv-session-header {
   flex-shrink: 0;
+  height: 68px;
+  min-height: 68px;
+  max-height: 68px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px 14px;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 5px 14px;
   background: color-mix(in srgb, var(--card, var(--bg2)) 92%, transparent);
   backdrop-filter: blur(16px);
   border-radius: 12px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
 .iv-voice-hud {
   flex-shrink: 0;
+  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
   border-radius: 10px;
-  padding: 5px 12px;
+  padding: 4px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow: hidden;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 

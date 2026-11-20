@@ -195,51 +195,69 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
       </div>
 
       {/* Right 28%: Avatar Viewport, Review Comments & Defense Input */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflow: 'hidden' }}>
-        <div style={{ height: 160, flexShrink: 0, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
-          <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
-          <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '3px 8px', borderRadius: 6, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 11, fontWeight: 800 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, height: '100%', minHeight: 0, overflow: 'hidden' }}>
+        {/* Avatar Viewport (Medium/Normal Size: 125px) */}
+        <div style={{ height: 125, flexShrink: 0, background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
+          <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.5} />
+          <div style={{ position: 'absolute', bottom: 5, left: 6, padding: '2px 7px', borderRadius: 5, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 10.5, fontWeight: 800 }}>
             {activeTeacher.emoji} {activeTeacher.name}
           </div>
         </div>
 
-        <div className="iv-panel" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK & QUESTIONS</div>
-          <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
-            <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
+        {/* Panel Container for Feedback, Assist, and Defense Input */}
+        <div className="iv-panel" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {/* Interviewer Feedback Card */}
+          <div style={{
+            padding: '8px 10px',
+            borderRadius: 8,
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4
+          }}>
+            <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', letterSpacing: 0.5, textTransform: 'uppercase' }}>
+              Interviewer Feedback & Questions
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 100 }}>
+              <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
+            </div>
           </div>
+
           {isSendingInterviewMessage && (
-            <div className="iv-typing-bubble">
-              <span>{activeTeacher.name} is evaluating your defense</span>
+            <div className="iv-typing-bubble" style={{ padding: '6px 10px', margin: 0 }}>
+              <span style={{ fontSize: 11 }}>{activeTeacher.name} is evaluating your defense</span>
               <span className="iv-typing-dots" aria-hidden="true"><span /><span /><span /></span>
             </div>
           )}
 
-          {/* 🎯 Unified Assist Mode AI Teleprompter for Round 3 */}
+          {/* 🎯 Unified Assist Mode AI Teleprompter for Round 3 (Compact & Contained) */}
           {isAssistModeActive && (
-            <AssistModeDrawer
-              compact
-              isScoredStage={true}
-              isCodingRound={false}
-              activeStage="round3_systems"
-              activeTopicName={activeTopicName}
-              questionText={lastInterviewerSpeech}
-              isAssistModeActive={isAssistModeActive}
-              setIsAssistModeActive={setIsAssistModeActive || (() => {})}
-              assistScriptLevel={assistScriptLevel}
-              setAssistScriptLevel={setAssistScriptLevel || (() => {})}
-              assistTab={assistTab}
-              setAssistTab={setAssistTab || (() => {})}
-              isFetchingAssist={isFetchingAssist}
-              assistData={assistData ?? null}
-              liveSpeechTranscript={liveSpeechTranscript}
-              messages={messages as any}
-              activeTeacher={activeTeacher as any}
-              difficulty={difficulty}
-              fetchAssistScript={fetchAssistScript || (() => {})}
-              speakWithAvatarRaw={speakWithAvatarRaw}
-              setAnimState={setAnimState}
-            />
+            <div style={{ maxHeight: 185, flexShrink: 1, overflowY: 'auto' }}>
+              <AssistModeDrawer
+                compact
+                isScoredStage={true}
+                isCodingRound={false}
+                activeStage="round3_systems"
+                activeTopicName={activeTopicName}
+                questionText={lastInterviewerSpeech}
+                isAssistModeActive={isAssistModeActive}
+                setIsAssistModeActive={setIsAssistModeActive || (() => {})}
+                assistScriptLevel={assistScriptLevel}
+                setAssistScriptLevel={setAssistScriptLevel || (() => {})}
+                assistTab={assistTab}
+                setAssistTab={setAssistTab || (() => {})}
+                isFetchingAssist={isFetchingAssist}
+                assistData={assistData ?? null}
+                liveSpeechTranscript={liveSpeechTranscript}
+                messages={messages as any}
+                activeTeacher={activeTeacher as any}
+                difficulty={difficulty}
+                fetchAssistScript={fetchAssistScript || (() => {})}
+                speakWithAvatarRaw={speakWithAvatarRaw}
+                setAnimState={setAnimState}
+              />
+            </div>
           )}
 
           {/* ⌨️ Architectural Defense Typed Input Fallback */}
@@ -252,7 +270,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                 setManualTextInput('');
                 onSendMessage(textToSend);
               }}
-              style={{ marginTop: 'auto', display: 'flex', gap: 6 }}
+              style={{ marginTop: 'auto', display: 'flex', gap: 6, paddingTop: 4 }}
             >
               <input
                 type="text"
@@ -276,7 +294,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   border: '1px solid var(--border)',
                   background: 'var(--bg3)',
                   color: 'var(--t1)',
-                  fontSize: 12
+                  fontSize: 11.5
                 }}
               />
               <button
@@ -288,9 +306,10 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                   border: 'none',
                   background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
                   color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
-                  fontSize: 12,
+                  fontSize: 11.5,
                   fontWeight: 800,
-                  cursor: manualTextInput.trim() ? 'pointer' : 'default'
+                  cursor: manualTextInput.trim() ? 'pointer' : 'default',
+                  flexShrink: 0
                 }}
               >
                 {isSendingInterviewMessage ? 'Reviewing…' : 'Send ➔'}

@@ -88,27 +88,29 @@ export function InterviewSessionHeader({
   const currentRound = rounds[activeRoundIndex];
   return (
     <div className="iv-session-header">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span style={{ fontSize: 22 }}>{activeTeacher.emoji}</span>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'nowrap', minWidth: 0 }}>
+       <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0, overflow: 'hidden' }}>
+        <span style={{ fontSize: 20, flexShrink: 0 }}>{activeTeacher.emoji}</span>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'nowrap', overflow: 'hidden' }}>
+            <span style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {activeTeacher.name} ({activeTeacher.title})
             </span>
             {domainSubTopic && (
               <span
                 data-testid="header-track-badge"
                 style={{
-                  fontSize: 10,
+                  fontSize: 9.5,
                   fontWeight: 800,
-                  padding: '2px 8px',
-                  borderRadius: 6,
+                  padding: '1px 6px',
+                  borderRadius: 5,
                   background: domainStream === 'non_tech' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(168, 85, 247, 0.12)',
                   color: domainStream === 'non_tech' ? '#38bdf8' : 'var(--accent)',
                   border: domainStream === 'non_tech' ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid rgba(168, 85, 247, 0.3)',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.04em'
+                  letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
                 }}
               >
                 🎯 {domainSubTopic.replace(/_/g, ' ')}
@@ -118,14 +120,16 @@ export function InterviewSessionHeader({
               <span
                 data-testid="header-company-badge"
                 style={{
-                  fontSize: 10,
+                  fontSize: 9.5,
                   fontWeight: 800,
-                  padding: '2px 8px',
-                  borderRadius: 6,
+                  padding: '1px 6px',
+                  borderRadius: 5,
                   background: 'rgba(16, 185, 129, 0.14)',
                   color: 'var(--green-mid)',
                   border: '1px solid rgba(16, 185, 129, 0.35)',
-                  letterSpacing: '0.03em'
+                  letterSpacing: '0.03em',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
                 }}
               >
                 🏢 {companyName}
@@ -134,10 +138,10 @@ export function InterviewSessionHeader({
             <span
               data-testid="header-voice-badge"
               style={{
-                fontSize: 10,
+                fontSize: 9.5,
                 fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: 6,
+                padding: '1px 6px',
+                borderRadius: 5,
                 background: isTabInactive
                   ? 'rgba(234, 179, 8, 0.15)'
                   : isAvatarSpeaking
@@ -161,19 +165,21 @@ export function InterviewSessionHeader({
                   : '1px solid var(--border)',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 4
+                gap: 4,
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
             >
               {isTabInactive ? '⏸️ Paused (Tab Inactive)' : isAvatarSpeaking ? '🗣️ Speaking' : isVoiceListening ? '🎙️ Mic Live' : '💤 Mic Standby'}
             </span>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--accent-mid)' }}>
+          <div style={{ fontSize: 10.5, color: 'var(--accent-mid)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {currentRound ? `Round ${activeRoundIndex + 1} of ${rounds.length} · ${currentRound.label}` : 'Interview'} · {activeTopicName} · {formatElapsed(elapsedSeconds)}{isTabInactive ? ' · ⏸️ (Paused)' : ''}
           </div>
         </div>
       </div>
 
-       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'nowrap', flexShrink: 0 }}>
         <div style={{ position: 'relative', display: 'inline-block' }}>
           <button
             data-testid="header-assist-toggle"
