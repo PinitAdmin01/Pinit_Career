@@ -55,6 +55,7 @@ export interface Round2CodingProps {
   terminalLogs: string[];
   setTerminalLogs: React.Dispatch<React.SetStateAction<string[]>>;
   onRequestHint?: (level: 1 | 2 | 3) => void;
+  onSkipChallenge?: () => void;
 }
 
 export const Round2Coding: React.FC<Round2CodingProps> = ({
@@ -86,6 +87,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
   terminalLogs,
   setTerminalLogs,
   onRequestHint,
+  onSkipChallenge,
 }) => {
   const [hintLevel, setHintLevel] = React.useState<0 | 1 | 2 | 3>(0);
   const runCodeAndTestsRef = React.useRef(runCodeAndTests);
@@ -132,20 +134,22 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '4px 0 0', lineHeight: 1.4 }}>
               {currentCodingProb.description}
             </p>
-            {/* 5-Tier Boundary Testing Status Strip */}
+            {/* Friendly Test Case Results */}
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', marginTop: 8 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', letterSpacing: '0.5px' }}>5-TIER BATTERY:</span>
+              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', letterSpacing: '0.5px' }}>
+                TEST CASES {testOutcomes ? `(${testOutcomes.filter(o => o.passed).length}/5 Passed):` : ':'}
+              </span>
               {(() => {
                 const defaultTiers = [
-                  { label: 'T1: Standard', name: 'Standard Case' },
-                  { label: 'T2: Scale', name: 'Scale / Burst' },
-                  { label: 'T3: Zero/Empty', name: 'Zero / Empty' },
-                  { label: 'T4: Edge/Negative', name: 'Edge Case' },
-                  { label: 'T5: Complexity', name: 'Complexity Bounds' }
+                  { label: '1. Standard Case', name: 'Standard Case' },
+                  { label: '2. Large Scale', name: 'Scale / Burst' },
+                  { label: '3. Zero/Empty', name: 'Zero / Empty' },
+                  { label: '4. Edge Values', name: 'Edge Case' },
+                  { label: '5. Complexity', name: 'Complexity Bounds' }
                 ];
                 const tiers = (currentCodingProb.testCases && currentCodingProb.testCases.length >= 5)
                   ? currentCodingProb.testCases.map((tc, i) => ({
-                      label: tc.tierLabel || defaultTiers[i]?.label || `T${i + 1}`,
+                      label: tc.tierLabel ? `${i + 1}. ${tc.tierLabel.replace(/^T\d+:\s*/, '')}` : defaultTiers[i]?.label || `Test ${i + 1}`,
                       name: tc.name || defaultTiers[i]?.name || `Test ${i + 1}`
                     }))
                   : defaultTiers;
@@ -179,16 +183,38 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
               })()}
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            {canProceed ? <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
-              Continue to architecture ➔
-            </button> : codeRunFailed ? (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            {canProceed ? (
+              <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12 }}>
+                Continue to architecture ➔
+              </button>
+            ) : codeRunFailed ? (
               <button onClick={onRetryChallenge} style={{ background: 'var(--amber-light)', border: '1px solid var(--amber)', color: 'var(--amber-mid)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
                 Try a different challenge
               </button>
             ) : codeSubmitted && (
               <button onClick={onReviewSolution} disabled={isSendingInterviewMessage || codeReviewStarted} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12, cursor: isSendingInterviewMessage || codeReviewStarted ? 'wait' : 'pointer', opacity: isSendingInterviewMessage || codeReviewStarted ? 0.7 : 1 }}>
                 {isSendingInterviewMessage || codeReviewStarted ? 'Waiting for interviewer…' : 'Submit solution for review'}
+              </button>
+            )}
+            {!canProceed && onSkipChallenge && (
+              <button
+                type="button"
+                data-testid="round2-skip-challenge-btn"
+                onClick={onSkipChallenge}
+                title="Skip this coding challenge (allows advancing to Round 3 with a skip recorded)"
+                style={{
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t2)',
+                  borderRadius: 8,
+                  padding: '7px 12px',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                ⏭ Skip Challenge
               </button>
             )}
           </div>
@@ -215,16 +241,16 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
           }}
         >
           {canProceed
-            ? '✅ Code & Review Defense Verified — Click "Continue to architecture ➔" above!'
+            ? '✅ Code Verified & Approved — Click "Continue to architecture ➔" above to proceed!'
             : codeRunFailed
-            ? '⚠️ The interviewer wants stronger reasoning or all 5 boundary tiers passing. Refine your solution or try a different challenge.'
+            ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or click "Skip Challenge" to move on.`
             : codeSubmitted && codeReviewQuestionReady
             ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s code review question in the Interviewer panel on the right to unlock Round 3.`
             : codeSubmitted && codeReviewStarted
             ? `⏳ Submitting solution to ${activeTeacher.name} for code review...`
             : codeSubmitted
-            ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Click "Submit solution for review" above so the interviewer can ask about your approach.'
-            : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your approach in code review.'}
+            ? '✅ Step 1 of 2 Complete: All test cases passed! Click "Submit solution for review" above so the interviewer can ask about your approach.'
+            : '🧪 Step 1 of 2: Write your solution and pass all test cases (Ctrl+↵), then defend your approach in code review.'}
         </div>
 
         {/* Language Selector */}

@@ -65,7 +65,163 @@ const MINDSET_BOOKS = [
   { title: 'The Millionaire Fastlane (MJ DeMarco)', focus: 'Producer vs consumer mindset, high-agency execution.' },
 ];
 
-const INCIDENTS = [
+export type RoleplayIncident = {
+  id: string;
+  title: string;
+  system: string;
+  pressure: string;
+  hook: string;
+  initialChoices?: RoleplayChoice[];
+};
+
+const INCIDENTS: RoleplayIncident[] = [
+  // ── 5 First-Year / 10+2 Student Situations (Pushed to Front) ──
+  {
+    id: 'lab-presentation-corrupt',
+    title: 'Corrupted Lab Presentation File',
+    system: 'shared project presentation file',
+    pressure: 'faculty evaluation starts in 15 minutes',
+    hook: 'the presentation slides file shows a corrupted file error on the lab projector',
+    initialChoices: [
+      {
+        text: 'Stay calm and check our cloud drive version history to download the last saved auto-backup, while letting the faculty know our exact 5-minute recovery timeline.',
+        delta: 4,
+        rationale: 'Calm composure, immediate backup recovery, and transparent communication',
+      },
+      {
+        text: 'Use the PDF draft exported on my phone to present the key slides on the projector while a teammate recovers the original slides file.',
+        delta: 2,
+        rationale: 'Practical mitigation using an existing offline fallback copy',
+      },
+      {
+        text: 'Frantically keep double-clicking the corrupted file and restart the lab projector repeatedly without checking for backups.',
+        delta: -2,
+        rationale: 'Repetitive panic actions that waste critical preparation minutes',
+      },
+      {
+        text: "Quickly copy and rename a senior's old presentation slides from last semester and pretend it is our original work.",
+        delta: -4,
+        rationale: 'Severe academic dishonesty and plagiarism under deadline pressure',
+      },
+    ],
+  },
+  {
+    id: 'proxy-attendance-pressure',
+    title: 'Class Proxy Attendance Pressure',
+    system: 'daily attendance roll call',
+    pressure: 'the professor is calling roll numbers right now',
+    hook: 'your close friend woke up late and is repeatedly texting you to sign their proxy attendance on the sheet',
+    initialChoices: [
+      {
+        text: 'Refuse to fake the signature: advise your friend to come to class immediately, explain their genuine reason to the professor, and offer to share lecture notes.',
+        delta: 4,
+        rationale: 'Ethical courage, upholding academic integrity, and offering constructive support',
+      },
+      {
+        text: 'Quietly tell the professor that your friend had a sudden transit delay and is on their way, without falsely marking the attendance sheet.',
+        delta: 2,
+        rationale: 'Truthful advocacy for a classmate without compromising rules',
+      },
+      {
+        text: "Ignore your friend's texts completely and pretend you never saw their messages while acting panicked during roll call.",
+        delta: -2,
+        rationale: 'Avoidance behavior that fails to communicate boundaries or expectations',
+      },
+      {
+        text: "Sign your friend's name with a forged signature on the official sheet while the professor looks the other way.",
+        delta: -4,
+        rationale: 'Fraudulent attendance forgery that risks disciplinary debarment',
+      },
+    ],
+  },
+  {
+    id: 'wrong-file-submission',
+    title: 'Wrong File Uploaded on College Portal',
+    system: 'college assignment portal',
+    pressure: 'the submission portal closes in 10 minutes',
+    hook: 'you just noticed you submitted an empty notes file instead of your completed assignment code',
+    initialChoices: [
+      {
+        text: 'Immediately upload the correct file with a clear timestamped commit, and email the professor with the attachment before the deadline closes.',
+        delta: 4,
+        rationale: 'Fast verification, proactive submission correction, and paper-trail hygiene',
+      },
+      {
+        text: 'Use the portal re-submission button to replace the file with your local draft, and take a screenshot of the successful upload receipt.',
+        delta: 2,
+        rationale: 'Practical use of platform re-upload features with proof',
+      },
+      {
+        text: "Panic and assume the professor won't notice the empty file, hoping they will just give everyone average passing marks.",
+        delta: -2,
+        rationale: 'Passive wishful thinking that guarantees a zero grade later',
+      },
+      {
+        text: 'Blame the college website for "corrupting" your file and demand an extension while fabricating an error screenshot.',
+        delta: -4,
+        rationale: 'Deceptive fabrication and false blaming of campus infrastructure',
+      },
+    ],
+  },
+  {
+    id: 'teammate-ghosting-crisis',
+    title: 'Teammate Unresponsive Before Demo',
+    system: 'group project assignment',
+    pressure: 'your group has to present to the faculty in 30 minutes',
+    hook: 'one teammate did not finish their assigned slides and has stopped answering phone calls',
+    initialChoices: [
+      {
+        text: 'Stay calm, redistribute their 3 remaining slides among the present team members, and honestly inform the evaluator about who completed which sections.',
+        delta: 4,
+        rationale: 'Decisive team restructuring, accountability, and transparent boundary management',
+      },
+      {
+        text: 'Focus on presenting the completed 80% of the project strongly, and ask the professor for permission to submit the missing section by evening.',
+        delta: 2,
+        rationale: 'Protecting the team deliverables while requesting a structured remediation window',
+      },
+      {
+        text: 'Spend the entire 30 minutes furiously complaining in the group chat and arguing about whose fault it is.',
+        delta: -2,
+        rationale: 'Toxic emotional spiraling that wastes available presentation prep time',
+      },
+      {
+        text: "Delete the absent teammate's name from the title slide out of anger right before walking into the evaluation room.",
+        delta: -4,
+        rationale: 'Passive-aggressive retaliation without professional process or faculty notification',
+      },
+    ],
+  },
+  {
+    id: 'accidental-group-leak',
+    title: 'Accidental Notes Leak in Class Group',
+    system: 'official college batch group',
+    pressure: 'classmates and professors are actively reading notifications',
+    hook: 'a private voice note criticizing a teammate was mistakenly forwarded to the official batch announcement group',
+    initialChoices: [
+      {
+        text: 'Immediately delete the message for everyone if possible, post a sincere public apology for the mistake, and speak directly with the affected teammate in private.',
+        delta: 4,
+        rationale: 'Fast damage limitation, genuine public accountability, and empathetic resolution',
+      },
+      {
+        text: 'Politely clarify the miscommunication in the group, take responsibility for the wrong forward, and ask everyone to disregard the accidental message.',
+        delta: 2,
+        rationale: 'Prompt ownership and measured clarification in public channels',
+      },
+      {
+        text: 'Pretend your phone was hacked or that someone else sent the message from your device, avoiding direct accountability.',
+        delta: -2,
+        rationale: 'Transparent, unconvincing excuses that destroy peer trust',
+      },
+      {
+        text: 'Delete your own WhatsApp account in panic and leave all project groups without apologizing or explaining anything.',
+        delta: -4,
+        rationale: 'Disappearing and abandoning social and academic responsibilities under fear',
+      },
+    ],
+  },
+  // ── Existing Campus & Technical Incidents (Preserved) ──
   { id: 'payments-cascade', title: 'Student Fees Payment Glitch', system: 'college payment portal', pressure: 'late-fee deadline closes in 30 minutes', hook: 'students are seeing double-deduction errors on their screen' },
   { id: 'auth-lockout', title: 'Campus Portal Login Outage', system: 'student login portal', pressure: 'online mid-term exam starts in 15 minutes', hook: 'students are getting locked out of their accounts' },
   { id: 'pii-leak', title: 'Student Records Privacy Leak', system: 'college file storage', pressure: 'department head was just alerted', hook: 'a folder containing private student phone numbers was set to public' },
