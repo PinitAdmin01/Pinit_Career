@@ -155,22 +155,31 @@ export async function GET(req: Request) {
 
     // 1. Fetch current user's profile to know their current league
     let currentUserLeague: LeagueTier = 'browns';
-    let currentUserHasJoined = false;
+    // null means the membership lookup could not be confirmed; don't tell the
+    // client that a failed database read is proof the user has not joined.
+    let currentUserHasJoined: boolean | null = null;
     let currentUserTotalXp = 0;
     if (currentUserId && admin) {
       try {
-        const { data: userProfile } = await admin
+        const { data: userProfile, error: userProfileError } = await admin
           .from('users')
           .select('league_tier, league_joined_at, xp_total')
           .eq('id', currentUserId)
           .maybeSingle();
 
-        currentUserHasJoined = Boolean(userProfile?.league_joined_at);
-        currentUserTotalXp = Number(userProfile?.xp_total) || 0;
-        if (userProfile?.league_tier && validLeagues.has(userProfile.league_tier.toLowerCase() as LeagueTier)) {
-          currentUserLeague = userProfile.league_tier.toLowerCase() as LeagueTier;
+        if (userProfileError) {
+          console.warn("[Leaderboard] Could not confirm current user's league membership:", userProfileError.message);
+        } else {
+          currentUserHasJoined = Boolean(userProfile?.league_joined_at);
+          const parsedTotalXp = Number(userProfile?.xp_total);
+          currentUserTotalXp = Number.isFinite(parsedTotalXp) ? Math.max(0, parsedTotalXp) : 0;
+          if (userProfile?.league_tier && validLeagues.has(userProfile.league_tier.toLowerCase() as LeagueTier)) {
+            currentUserLeague = userProfile.league_tier.toLowerCase() as LeagueTier;
+          }
         }
-      } catch {}
+      } catch (error) {
+        console.warn('[Leaderboard] Current-user membership lookup failed:', error);
+      }
     }
 
     const activeLeague: LeagueTier = validLeagues.has(requestedLeague)

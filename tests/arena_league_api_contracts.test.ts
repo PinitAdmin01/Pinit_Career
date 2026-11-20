@@ -140,6 +140,7 @@ test('Arena and league API handlers enforce the public contracts without externa
     let profileXp = 99;
     let profileElo = 1200;
     let profileWins = 0;
+    let profileJoinedAt: string | null = null;
     let savedMembership: Record<string, unknown> | null = null;
     const admin = {
       from(table: string) {
@@ -155,7 +156,7 @@ test('Arena and league API handlers enforce the public contracts without externa
                       role: 'student',
                       xp_total: profileXp,
                       league_tier: 'browns',
-                      league_joined_at: null,
+                      league_joined_at: profileJoinedAt,
                       arena_elo: profileElo,
                       arena_wins: profileWins,
                     },
@@ -167,9 +168,30 @@ test('Arena and league API handlers enforce the public contracts without externa
           },
           update(payload: Record<string, unknown>) {
             return {
-              eq: async () => {
-                savedMembership = payload;
-                return { error: null };
+              eq() {
+                return {
+                  is() {
+                    return {
+                      select() {
+                        return {
+                          maybeSingle: async () => {
+                            savedMembership = payload;
+                            profileJoinedAt = String(payload.league_joined_at);
+                            return {
+                              data: {
+                                league_tier: payload.league_tier,
+                                league_joined_at: profileJoinedAt,
+                                arena_elo: payload.arena_elo,
+                                arena_wins: profileWins,
+                              },
+                              error: null,
+                            };
+                          },
+                        };
+                      },
+                    };
+                  },
+                };
               },
             };
           },
@@ -200,6 +222,8 @@ test('Arena and league API handlers enforce the public contracts without externa
     assert.equal(savedMembership?.league_tier, 'browns');
     assert.ok(typeof savedMembership?.league_joined_at === 'string');
     assert.equal(savedMembership?.arena_elo, 100, 'A legacy zero-win 1200 rating is repaired to the agreed 100 baseline');
+    assert.equal(joined.currentUserHasJoined, true, 'The API returns an explicit persisted membership confirmation');
+    assert.equal(joined.joinedAt, profileJoinedAt);
 
     // Ensure the mocked values are all used so accidental test fixture drift is visible.
     assert.equal(profileElo, 1200);

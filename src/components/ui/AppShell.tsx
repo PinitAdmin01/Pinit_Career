@@ -141,7 +141,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [liteUiMode, setLiteUiMode] = useState(false);
   const [isGdCall, setIsGdCall] = useState(false);
   const [isRoleplayParamActive, setIsRoleplayParamActive] = useState(false);
-  const [isArenaDuelActive, setIsArenaDuelActive] = useState(false);
   const [isInterviewActiveState, setIsInterviewActiveState] = useState(false);
   const [activeTourRoute, setActiveTourRoute] = useState<string | null>(null);
   const [activeTourTabKey, setActiveTourTabKey] = useState<string | null>(null);
@@ -307,12 +306,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const activeRoleplay = window.location.pathname.startsWith('/missions') && isRoleplay;
       setIsRoleplayParamActive(activeRoleplay);
 
-      const isDuel = e?.detail !== undefined && e.detail.isArenaDuel !== undefined
-        ? Boolean(e.detail.isArenaDuel)
-        : (Boolean((window as any).__pinitArenaDuelActive) || (window.location.pathname.startsWith('/arena') && window.location.search.includes('duel=true')));
-      const activeDuel = window.location.pathname.startsWith('/arena') && isDuel;
-      setIsArenaDuelActive(activeDuel);
-
       const isInterview = e?.detail !== undefined && e.detail.active !== undefined
         ? Boolean(e.detail.active)
         : (Boolean((window as any).__pinitInterviewActive) || (typeof document !== 'undefined' && document.body.getAttribute('data-interview-active') === 'true'));
@@ -322,12 +315,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     checkCallAndRoleplay();
     window.addEventListener('popstate', checkCallAndRoleplay);
     window.addEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
-    window.addEventListener('pinit-arena-duel-toggle', checkCallAndRoleplay);
     window.addEventListener('pinit-interview-toggle', checkCallAndRoleplay);
     return () => {
       window.removeEventListener('popstate', checkCallAndRoleplay);
       window.removeEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
-      window.removeEventListener('pinit-arena-duel-toggle', checkCallAndRoleplay);
       window.removeEventListener('pinit-interview-toggle', checkCallAndRoleplay);
     };
   }, [pathname, searchParams]);
@@ -365,7 +356,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isLessonOrDetail = cleanPath.startsWith('/quests/') && cleanPath !== '/quests';
   const isGroupDiscussionCall = isGdCall;
   const isRoleplayActive = isRoleplayParamActive;
-  const effectiveFocusMode = focusMode || isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive || isArenaDuelActive || isInterviewActiveState;
+  const effectiveFocusMode = focusMode || isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive || isInterviewActiveState;
 
   useEffect(() => {
     if (typeof window !== 'undefined' && user) {
@@ -495,72 +486,103 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     if (typeof window === 'undefined') return;
     let lastShiftSpaceTime = 0;
 
+    const isFullscreen = () => {
+      const docAny = document as any;
+      return Boolean(document.fullscreenElement || docAny.webkitFullscreenElement);
+    };
+
     const handleFullscreenChange = () => {
-      const active = Boolean(document.fullscreenElement || (document as any).webkitFullscreenElement);
-      if (active) {
-        setShowGamingPill(true);
-        const timer = setTimeout(() => setShowGamingPill(false), 3000);
-        return () => clearTimeout(timer);
-      } else {
-        setShowGamingPill(false);
+      // The HUD reflects the actual browser state. Do not hide it on a timer
+      // while fullscreen is still active.
+      setShowGamingPill(isFullscreen());
+    };
+
+    const isEditableTarget = (element: Element | null): boolean => {
+      const editableSelector = [
+        'input',
+        'textarea',
+        'select',
+        '[contenteditable=""]',
+        '[contenteditable="true"]',
+        '[role="textbox"]',
+        '.monaco-editor',
+        '.cm-editor',
+        '.CodeMirror',
+        '.ace_editor',
+        'iframe',
+      ].join(',');
+
+      let current = element;
+      while (current) {
+        if (current.matches(editableSelector) || (current as HTMLElement).isContentEditable) return true;
+        const root = current.getRootNode();
+        current = root instanceof ShadowRoot ? root.host : current.parentElement;
       }
+      return false;
     };
 
     const handleGlobalKeyDown = async (e: KeyboardEvent) => {
-      // Shift + twice Spacebar -> Toggle Fullscreen Gaming Mode
-      if (e.shiftKey && (e.code === 'Space' || e.key === ' ')) {
-        const target = e.target as HTMLElement | null;
-        const isInputField = target && (
-          target.tagName === 'INPUT' ||
-          target.tagName === 'TEXTAREA' ||
-          Boolean(target.isContentEditable) ||
-          target.closest('.monaco-editor') !== null
-        );
-        if (!isInputField) {
-          const now = Date.now();
-          if (now - lastShiftSpaceTime < 700) {
-            e.preventDefault();
-            lastShiftSpaceTime = 0;
-            try {
-              const docAny = document as any;
-              const elAny = document.documentElement as any;
-              if (document.fullscreenElement || docAny.webkitFullscreenElement) {
-                if (document.exitFullscreen) {
-                  await document.exitFullscreen();
-                } else if (docAny.webkitExitFullscreen) {
-                  await docAny.webkitExitFullscreen();
-                }
-              } else {
-                if (elAny.requestFullscreen) {
-                  await elAny.requestFullscreen();
-                } else if (elAny.webkitRequestFullscreen) {
-                  await elAny.webkitRequestFullscreen();
-                } else if (elAny.mozRequestFullScreen) {
-                  await elAny.mozRequestFullScreen();
-                }
+      // Arena has its own explicit Fullscreen button. Disable this global
+      // shortcut on Arena so typing or editor key repeat cannot toggle it.
+      const isArenaRoute = window.location.pathname === '/arena' || window.location.pathname.startsWith('/arena/');
+      const eventTarget = e.target instanceof Element ? e.target : null;
+      const focusTarget = document.activeElement instanceof Element ? document.activeElement : null;
+      const isShortcutPress =
+        !isArenaRoute &&
+        e.shiftKey &&
+        !e.ctrlKey &&
+        !e.altKey &&
+        !e.metaKey &&
+        e.code === 'Space' &&
+        !e.repeat &&
+        !isEditableTarget(eventTarget) &&
+        !isEditableTarget(focusTarget);
+
+      if (isShortcutPress) {
+        e.preventDefault();
+        const now = Date.now();
+        if (now - lastShiftSpaceTime < 700) {
+          lastShiftSpaceTime = 0;
+          try {
+            const docAny = document as any;
+            const elAny = document.documentElement as any;
+            if (isFullscreen()) {
+              if (document.exitFullscreen) {
+                await document.exitFullscreen();
+              } else if (docAny.webkitExitFullscreen) {
+                await docAny.webkitExitFullscreen();
               }
-            } catch (_err) {
-              setShowGamingPill(true);
-              setTimeout(() => setShowGamingPill(false), 3000);
+            } else if (elAny.requestFullscreen) {
+              await elAny.requestFullscreen();
+            } else if (elAny.webkitRequestFullscreen) {
+              await elAny.webkitRequestFullscreen();
+            } else if (elAny.mozRequestFullScreen) {
+              await elAny.mozRequestFullScreen();
             }
-          } else {
-            lastShiftSpaceTime = now;
+          } catch {
+            // Fullscreenchange remains the source of truth if the browser
+            // rejects the request.
+            handleFullscreenChange();
           }
+        } else {
+          lastShiftSpaceTime = now;
         }
+      } else if (lastShiftSpaceTime) {
+        lastShiftSpaceTime = 0;
       }
 
-      // Escape to exit fullscreen if active
-      if (e.code === 'Escape' || e.key === 'Escape') {
+      // Escape to exit fullscreen if active.
+      if ((e.code === 'Escape' || e.key === 'Escape') && isFullscreen()) {
         const docAny = document as any;
-        if (document.fullscreenElement || docAny.webkitFullscreenElement) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen().catch(() => {});
-          } else if (docAny.webkitExitFullscreen) {
-            docAny.webkitExitFullscreen();
-          }
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (docAny.webkitExitFullscreen) {
+          docAny.webkitExitFullscreen();
         }
       }
     };
+
+    handleFullscreenChange();
 
     window.addEventListener('keydown', handleGlobalKeyDown);
     document.addEventListener('fullscreenchange', handleFullscreenChange);
@@ -730,7 +752,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <AppHeader
           isLessonOrDetail={isLessonOrDetail}
           isGroupDiscussionCall={isGroupDiscussionCall}
-          isRoleplayActive={isRoleplayActive || isArenaDuelActive || isInterviewActiveState}
+          isRoleplayActive={isRoleplayActive || isInterviewActiveState}
           effectiveFocusMode={effectiveFocusMode}
           toggleFocusMode={toggleFocusMode}
           mobileOpen={mobileOpen}
@@ -762,9 +784,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main 
           className="page-content animate-fade-in"
           style={{
-            padding: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive || isInterviewActiveState) ? '0px' : (isGroupDiscussionCall ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
-            maxWidth: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive || isInterviewActiveState) ? '100%' : (isGroupDiscussionCall ? '95%' : (effectiveFocusMode ? 960 : '100%')),
-            margin: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive || isInterviewActiveState) ? '0' : (isGroupDiscussionCall ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0')),
+            padding: (isLessonOrDetail || isRoleplayActive || isInterviewActiveState) ? '0px' : (isGroupDiscussionCall ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
+            maxWidth: (isLessonOrDetail || isRoleplayActive || isInterviewActiveState) ? '100%' : (isGroupDiscussionCall ? '95%' : (effectiveFocusMode ? 960 : '100%')),
+            margin: (isLessonOrDetail || isRoleplayActive || isInterviewActiveState) ? '0' : (isGroupDiscussionCall ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0')),
             width: '100%',
             transition: 'padding 0.25s, max-width 0.25s'
           }}
@@ -1018,7 +1040,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </aside>
       )}
 
-      {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && !isArenaDuelActive && !isInterviewActiveState && (
+      {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && !isInterviewActiveState && (
         <GlobalAvatar
           user={user}
           profile={profile}
@@ -1166,7 +1188,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           letterSpacing: '0.02em',
         }}>
           <span>🎮</span>
-          <span>Gaming Mode Active · Press Shift + Space twice or Esc to exit</span>
+          <span>Fullscreen active · Press Esc to exit</span>
         </div>
       )}
 

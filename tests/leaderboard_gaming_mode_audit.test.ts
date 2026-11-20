@@ -7,7 +7,9 @@ const ROOT = path.join(__dirname, '..');
 
 // Read files under test
 const leaderboardPagePath = path.join(ROOT, 'src/app/leaderboard/page.tsx');
+const competitionStylesPath = path.join(ROOT, 'src/app/competition-experience.module.css');
 const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts');
+const leaderboardJoinRoutePath = path.join(ROOT, 'src/app/api/leaderboard/join/route.ts');
 const questCompletePath = path.join(ROOT, 'src/app/api/quest/complete/route.ts');
 const pythonRunnerPath = path.join(ROOT, 'src/app/api/code/run-python/route.ts');
 const javaRunnerPath = path.join(ROOT, 'src/app/api/code/run-java/route.ts');
@@ -16,7 +18,9 @@ const appHeaderPath = path.join(ROOT, 'src/components/ui/AppHeader.tsx');
 const appShellPath = path.join(ROOT, 'src/components/ui/AppShell.tsx');
 
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
+const competitionStyles = fs.readFileSync(competitionStylesPath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
+const leaderboardJoinRoute = fs.readFileSync(leaderboardJoinRoutePath, 'utf8');
 const questComplete = fs.readFileSync(questCompletePath, 'utf8');
 const pythonRunner = fs.readFileSync(pythonRunnerPath, 'utf8');
 const javaRunner = fs.readFileSync(javaRunnerPath, 'utf8');
@@ -26,14 +30,16 @@ const appShell = fs.readFileSync(appShellPath, 'utf8');
 
 // ── TASK 1 AUDIT: Light Mode Styling & Semantic Tokens ─────────────────────────
 test('Task 1: Cockpit banner must use theme-adaptive semantic gradient, not hardcoded dark background', () => {
+  const cockpitStyles = competitionStyles.match(/\.leagueCockpit\s*\{([\s\S]*?)\n\}/)?.[1] || '';
   assert.ok(
-    leaderboardPage.includes("background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)'"),
-    'Cockpit banner must use linear-gradient with var(--card) and var(--bg3) to look pristine in light mode'
+    /linear-gradient\(120deg,\s*var\(--card\),\s*color-mix\(in srgb, var\(--card\) 88%, var\(--bg3\)\)/.test(cockpitStyles),
+    'Cockpit banner must use semantic card and background tokens so it adapts to light mode'
   );
   assert.ok(
-    !leaderboardPage.includes("background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95)"),
+    !/rgba\(15,\s*23,\s*42,\s*0\.95\)/.test(cockpitStyles),
     'Cockpit banner must not use dark slate background in light mode'
   );
+  assert.ok(competitionStyles.includes(":global(.light-theme) .leagueCockpit"), 'The light theme must also receive the cockpit treatment');
 });
 
 test('Task 1: League inspection cards use semantic tokens and standings use three focused tabs', () => {
@@ -52,6 +58,23 @@ test('Task 1: League inspection cards use semantic tokens and standings use thre
   assert.ok(!leaderboardPage.includes('TECH DOMAIN'));
   assert.ok(!leaderboardPage.includes('DATA DOMAIN'));
   assert.ok(!leaderboardPage.includes('AI DOMAIN'));
+});
+
+test('League membership survives stale requests and resynchronizes from the account-specific server state', () => {
+  assert.ok(leaderboardPage.includes('function hasStoredLeagueMembership(userId?: string | null)'), 'Join persistence is scoped to the signed-in account');
+  assert.ok(
+    leaderboardPage.includes('membershipRevisionAtStart === membershipRevisionRef.current'),
+    'A response started before a successful join cannot overwrite that confirmation'
+  );
+  assert.ok(
+    leaderboardPage.includes('storeLeagueMembership(requestUserId, data.currentUserHasJoined)'),
+    'A fresh server answer synchronizes or clears the account-scoped browser fallback'
+  );
+  assert.ok(leaderboardPage.includes('const accountChanged = membershipUserIdRef.current !== userId'), 'Membership state is reset when the signed-in account changes');
+  assert.ok(leaderboardPage.includes('(!accountChanged && currentUserHasJoined)'), 'A previous account response cannot mark the next account as joined');
+  assert.ok(leaderboardPage.includes('membershipStatusRef.current = { userId: joiningUserId, joined: true }'), 'A successful POST becomes the current account’s confirmed membership state');
+  assert.ok(leaderboardPage.includes('membershipStatusRef.current?.userId === membershipUserId'), 'The rendered join button uses membership belonging to the active account');
+  assert.ok(leaderboardPage.includes('eventUserId === membershipUserId'), 'A profile event from another account cannot mark this account as joined');
 });
 
 test('Task 1: High-contrast rank colors and Silver/Gold YOU badges', () => {
@@ -104,6 +127,20 @@ test('Task 3: Leaderboard API sets anti-stale Cache-Control headers', () => {
     leaderboardPage.includes("cache: 'no-store'"),
     'Client fetch must pass cache: no-store'
   );
+});
+
+test('Leaderboard API distinguishes unknown membership from a confirmed non-member', () => {
+  assert.ok(leaderboardRoute.includes('let currentUserHasJoined: boolean | null = null'), 'Database lookup failures remain unknown instead of becoming false');
+  assert.ok(leaderboardRoute.includes('if (userProfileError)'), 'The API checks and preserves membership query failures');
+  assert.ok(leaderboardRoute.includes('currentUserHasJoined = Boolean(userProfile?.league_joined_at)'), 'Only a successful profile read resolves membership to true or false');
+});
+
+test('League join only reports success after membership persistence is confirmed', () => {
+  assert.ok(leaderboardJoinRoute.includes(".is('league_joined_at', null)"), 'Concurrent join attempts must use a compare-and-set update');
+  assert.ok(leaderboardJoinRoute.includes(".select('league_tier, league_joined_at, arena_elo, arena_wins')"), 'The successful write must return the saved membership and rating');
+  assert.ok(/\.from\('users'\)\s*\.select\('league_tier, league_joined_at, arena_elo, arena_wins'\)/.test(leaderboardJoinRoute), 'A no-row update must be verified by reading the saved profile');
+  assert.ok(leaderboardJoinRoute.includes('LEAGUE_JOIN_NOT_PERSISTED'), 'The API must not report success when membership was not saved');
+  assert.ok(leaderboardJoinRoute.includes('currentUserHasJoined: true'), 'Success responses must explicitly confirm membership');
 });
 
 test('Task 3: Browns leaderboard includes only qualified, explicitly joined members', () => {
@@ -162,32 +199,25 @@ test('Task 4: UserService maps weeklyXp and includes weekly_xp in directFields',
   );
 });
 
-// ── TASK 5 AUDIT: Global Double Shift + Space Gaming Mode ─────────────────────
-test('Task 5: AppShell contains global keydown listener for double Shift + Space', () => {
+// ── TASK 5 AUDIT: Guarded Fullscreen Gaming Mode ──────────────────────────────
+test('Task 5: AppShell protects editors and Arena from accidental fullscreen toggles', () => {
+  assert.ok(appShell.includes("e.code === 'Space'") && appShell.includes('e.shiftKey'), 'AppShell must detect the documented Shift + Space combo');
+  assert.ok(appShell.includes('700'), 'AppShell must use a 700ms double-tap threshold');
+  assert.ok(appShell.includes('!e.repeat'), 'Held keys must not count as two shortcut presses');
   assert.ok(
-    appShell.includes("e.shiftKey && (e.code === 'Space' || e.key === ' ')"),
-    'AppShell must detect Shift + Space combo'
+    appShell.includes("window.location.pathname.startsWith('/arena/')") && appShell.includes("window.location.pathname === '/arena'"),
+    'Arena must use its explicit fullscreen button instead of the global keyboard shortcut'
   );
+  for (const editorSelector of ['[role="textbox"]', '.monaco-editor', '.cm-editor', '.CodeMirror', '.ace_editor']) {
+    assert.ok(appShell.includes(editorSelector), `AppShell must ignore keyboard shortcuts inside ${editorSelector}`);
+  }
+  assert.ok(appShell.includes('requestFullscreen'), 'AppShell must call requestFullscreen for native browser immersion');
+  assert.ok(appShell.includes('webkitRequestFullscreen'), 'AppShell must provide Safari fallback for fullscreen');
   assert.ok(
-    appShell.includes('700'),
-    'AppShell must use natural double-tap threshold (700ms)'
+    appShell.includes('setShowGamingPill(isFullscreen())') && appShell.includes('Fullscreen active · Press Esc to exit'),
+    'Fullscreen HUD must reflect actual browser state'
   );
-  assert.ok(
-    appShell.includes("target.isContentEditable"),
-    'AppShell must ignore keydown when typing in contentEditable or input'
-  );
-  assert.ok(
-    appShell.includes("requestFullscreen"),
-    'AppShell must call requestFullscreen for native browser immersion'
-  );
-  assert.ok(
-    appShell.includes("webkitRequestFullscreen"),
-    'AppShell must provide Safari fallback for fullscreen'
-  );
-  assert.ok(
-    appShell.includes('Gaming Mode Active · Press Shift + Space twice or Esc to exit'),
-    'AppShell must display non-intrusive floating HUD overlay'
-  );
+  assert.ok(!appShell.includes('setTimeout(() => setShowGamingPill(false), 3000)'), 'Fullscreen HUD must not disappear while fullscreen remains active');
 });
 
 // ── TASK 6 AUDIT: Removal of Focus Button and Feature ──────────────────────────
@@ -264,27 +294,28 @@ test('Behavioral: League Promotion and Demotion Cutoff Zones with 100 students',
   assert.strictEqual(rank95Zone, 'demotion');
 });
 
-test('Behavioral: Gaming Mode Double Shift + Space timing and input guard logic', () => {
+test('Behavioral: Fullscreen shortcut ignores Arena, editors, and repeated keydown events', () => {
   class GamingModeSimulator {
     lastShiftSpaceTime = 0;
     fullscreenActive = false;
     hudVisible = false;
 
-    handleKeyDown(event: { shiftKey: boolean; code: string; isInput: boolean; timeMs: number }) {
+    handleKeyDown(event: { shiftKey: boolean; code: string; isInput: boolean; isArena: boolean; repeat: boolean; timeMs: number }) {
       if (event.shiftKey && event.code === 'Space') {
-        if (!event.isInput) {
-          if (event.timeMs - this.lastShiftSpaceTime < 700) {
-            this.fullscreenActive = !this.fullscreenActive;
-            this.hudVisible = this.fullscreenActive;
-            this.lastShiftSpaceTime = 0;
-            return 'TOGGLED';
-          } else {
-            this.lastShiftSpaceTime = event.timeMs;
-            return 'RECORDED_FIRST_TAP';
-          }
+        if (event.isInput || event.isArena || event.repeat) {
+          this.lastShiftSpaceTime = 0;
+          return event.isArena ? 'IGNORED_ARENA' : event.isInput ? 'IGNORED_INPUT' : 'IGNORED_REPEAT';
         }
-        return 'IGNORED_INPUT';
+        if (event.timeMs - this.lastShiftSpaceTime < 700) {
+          this.fullscreenActive = !this.fullscreenActive;
+          this.hudVisible = this.fullscreenActive;
+          this.lastShiftSpaceTime = 0;
+          return 'TOGGLED';
+        }
+        this.lastShiftSpaceTime = event.timeMs;
+        return 'RECORDED_FIRST_TAP';
       }
+      this.lastShiftSpaceTime = 0;
       if (event.code === 'Escape' && this.fullscreenActive) {
         this.fullscreenActive = false;
         this.hudVisible = false;
@@ -296,26 +327,30 @@ test('Behavioral: Gaming Mode Double Shift + Space timing and input guard logic'
 
   const sim = new GamingModeSimulator();
 
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: true, repeat: false, timeMs: 900 }), 'IGNORED_ARENA');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, isArena: false, repeat: false, timeMs: 950 }), 'IGNORED_INPUT');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: true, timeMs: 975 }), 'IGNORED_REPEAT');
+
   // Tap 1: Shift + Space at t=1000ms
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 1000 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 1000 }), 'RECORDED_FIRST_TAP');
   assert.strictEqual(sim.fullscreenActive, false);
 
   // Tap 2: Shift + Space at t=1400ms (400ms delta <= 700ms)
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 1400 }), 'TOGGLED');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 1400 }), 'TOGGLED');
   assert.strictEqual(sim.fullscreenActive, true);
   assert.strictEqual(sim.hudVisible, true);
 
   // Tap in an input box: ignored even if Shift + Space
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, timeMs: 1500 }), 'IGNORED_INPUT');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: true, isArena: false, repeat: false, timeMs: 1500 }), 'IGNORED_INPUT');
   assert.strictEqual(sim.fullscreenActive, true);
 
   // Press Escape: Exits gaming mode
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: false, code: 'Escape', isInput: false, timeMs: 1600 }), 'EXITED_FULLSCREEN');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: false, code: 'Escape', isInput: false, isArena: false, repeat: false, timeMs: 1600 }), 'EXITED_FULLSCREEN');
   assert.strictEqual(sim.fullscreenActive, false);
   assert.strictEqual(sim.hudVisible, false);
 
   // Slow taps: Tap 1 at t=2000ms, Tap 2 at t=2800ms (800ms delta > 700ms) -> Not toggled
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 2000 }), 'RECORDED_FIRST_TAP');
-  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, timeMs: 2800 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 2000 }), 'RECORDED_FIRST_TAP');
+  assert.strictEqual(sim.handleKeyDown({ shiftKey: true, code: 'Space', isInput: false, isArena: false, repeat: false, timeMs: 2800 }), 'RECORDED_FIRST_TAP');
   assert.strictEqual(sim.fullscreenActive, false);
 });

@@ -65,4 +65,28 @@ describe('Arena lobby, standings link, and scoring rules', () => {
       'Zero fake/dummy data must be present'
     );
   });
+
+  it('never enters or exits browser fullscreen when a match starts or state changes', () => {
+    assert.ok(
+      !arenaContent.includes('pinit-arena-duel-toggle') && !arenaContent.includes('__pinitArenaDuelActive'),
+      'Arena match state must not control global gaming or focus mode'
+    );
+    assert.ok(
+      arenaContent.includes('requestFullscreen.call(rootAny)'),
+      'Fullscreen should only be requested from the explicit Arena control'
+    );
+    assert.ok(
+      !/useEffect\(\(\) => \{[\s\S]*?requestFullscreen[\s\S]*?\}, \[activeRoom, soloMatch\]\);/.test(arenaContent),
+      'A match-state effect must not request browser fullscreen'
+    );
+    assert.ok(
+      arenaContent.includes("title={isArenaFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}"),
+      'The player must retain a visible, intentional fullscreen control'
+    );
+    assert.ok(
+      arenaContent.includes('setIsArenaFullscreen(Boolean(document.fullscreenElement || docAny.webkitFullscreenElement))') &&
+      arenaContent.includes('🎮 FULLSCREEN ACTIVE · PRESS ESC TO EXIT'),
+      'Fullscreen status shown to the player must follow the browser state'
+    );
+  });
 });

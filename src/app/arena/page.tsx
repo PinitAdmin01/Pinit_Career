@@ -261,7 +261,22 @@ function ArenaContent() {
   const [showBattleReport, setShowBattleReport] = useState<boolean>(false);
   const [isStrategyExpanded, setIsStrategyExpanded] = useState<boolean>(true);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [isArenaFullscreen, setIsArenaFullscreen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const syncFullscreenState = () => {
+      const docAny = document as any;
+      setIsArenaFullscreen(Boolean(document.fullscreenElement || docAny.webkitFullscreenElement));
+    };
+    syncFullscreenState();
+    document.addEventListener('fullscreenchange', syncFullscreenState);
+    document.addEventListener('webkitfullscreenchange', syncFullscreenState);
+    return () => {
+      document.removeEventListener('fullscreenchange', syncFullscreenState);
+      document.removeEventListener('webkitfullscreenchange', syncFullscreenState);
+    };
+  }, []);
 
   useEffect(() => {
     if (!user?.id) {
@@ -1035,35 +1050,9 @@ function ArenaContent() {
       });
   }, [isMatchOver, soloMatch, code, language, studentId, cOS, refresh, soloSettlementRetry, user]);
 
-  // Synchronize 1v1 Arena Code War battle status with AppShell Gaming / Focus Mode
+  // Keep the arena layout immersive while a duel is active. Fullscreen is an
+  // explicit user action; starting a match must never change browser mode.
   const inDuel = Boolean(((activeRoom && activeRoom.status !== 'waiting') || soloMatch) && !isMatchOver);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const active = Boolean((activeRoom && activeRoom.status !== 'waiting') || soloMatch);
-      (window as any).__pinitArenaDuelActive = active;
-      window.dispatchEvent(new CustomEvent('pinit-arena-duel-toggle', { detail: { isArenaDuel: active } }));
-
-      if (active) {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
-        }
-      } else {
-        if (document.fullscreenElement) {
-          document.exitFullscreen().catch(() => {});
-        }
-      }
-    }
-    return () => {
-      if (typeof window !== 'undefined') {
-        (window as any).__pinitArenaDuelActive = false;
-        window.dispatchEvent(new CustomEvent('pinit-arena-duel-toggle', { detail: { isArenaDuel: false } }));
-        if (document.fullscreenElement) {
-          document.exitFullscreen().catch(() => {});
-        }
-      }
-    };
-  }, [activeRoom, soloMatch]);
 
   return (
     <div className={inDuel ? undefined : styles.competitionPage} style={{
@@ -1531,37 +1520,44 @@ function ArenaContent() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                  <span
-                    style={{
-                      background: 'rgba(99, 102, 241, 0.14)',
-                      border: '1px solid rgba(99, 102, 241, 0.35)',
-                      color: '#818cf8',
-                      fontSize: 11.5,
-                      fontWeight: 800,
-                      padding: '5px 12px',
-                      borderRadius: 999,
-                      fontFamily: "'JetBrains Mono', monospace",
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      letterSpacing: '0.5px',
-                      boxShadow: '0 0 12px rgba(99,102,241,0.2)',
-                    }}
-                  >
-                    🎮 GAMING MODE ACTIVE · 100% IMMERSIVE
-                  </span>
+                  {isArenaFullscreen && (
+                    <span
+                      style={{
+                        background: 'rgba(99, 102, 241, 0.14)',
+                        border: '1px solid rgba(99, 102, 241, 0.35)',
+                        color: '#818cf8',
+                        fontSize: 11.5,
+                        fontWeight: 800,
+                        padding: '5px 12px',
+                        borderRadius: 999,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        letterSpacing: '0.5px',
+                        boxShadow: '0 0 12px rgba(99,102,241,0.2)',
+                      }}
+                    >
+                      🎮 FULLSCREEN ACTIVE · PRESS ESC TO EXIT
+                    </span>
+                  )}
 
                   <button
                     type="button"
                     onClick={() => {
                       if (typeof document !== 'undefined') {
-                        if (!document.fullscreenElement) {
-                          document.documentElement.requestFullscreen().catch(() => {});
+                        const docAny = document as any;
+                        if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+                          const exitFullscreen = document.exitFullscreen || docAny.webkitExitFullscreen;
+                          if (exitFullscreen) Promise.resolve(exitFullscreen.call(document)).catch(() => {});
                         } else {
-                          document.exitFullscreen().catch(() => {});
+                          const rootAny = document.documentElement as any;
+                          const requestFullscreen = rootAny.requestFullscreen || rootAny.webkitRequestFullscreen;
+                          if (requestFullscreen) Promise.resolve(requestFullscreen.call(rootAny)).catch(() => {});
                         }
                       }
                     }}
+                    aria-pressed={isArenaFullscreen}
                     style={{
                       padding: '5px 12px',
                       borderRadius: 8,
@@ -1575,9 +1571,9 @@ function ArenaContent() {
                       alignItems: 'center',
                       gap: 6
                     }}
-                    title="Toggle Fullscreen"
+                    title={isArenaFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
                   >
-                    ⛶ Fullscreen
+                    {isArenaFullscreen ? '⛶ Exit Fullscreen' : '⛶ Fullscreen'}
                   </button>
 
                   <button

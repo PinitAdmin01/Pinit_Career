@@ -51,6 +51,26 @@ export type TabMode = 'campus' | 'global' | 'guild';
 
 const ALL_LEAGUES: LeagueTier[] = ['browns', 'silver', 'gold', 'platinum', 'ruby'];
 
+function hasStoredLeagueMembership(userId?: string | null): boolean {
+  if (!userId || typeof window === 'undefined') return false;
+  try {
+    return localStorage.getItem(`pinit_joined_league_${userId}`) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function storeLeagueMembership(userId: string | null | undefined, joined: boolean): void {
+  if (!userId || typeof window === 'undefined') return;
+  try {
+    const key = `pinit_joined_league_${userId}`;
+    if (joined) localStorage.setItem(key, 'true');
+    else localStorage.removeItem(key);
+  } catch {
+    // Server state remains authoritative when browser storage is unavailable.
+  }
+}
+
 function formatCountdown(ms: number): string {
   if (ms <= 0) return 'Resetting sprint...';
   const totalSeconds = Math.floor(ms / 1000);
@@ -67,6 +87,10 @@ function formatCountdown(ms: number): string {
 
 function LeaderboardContent() {
   const { user } = useAuth();
+  const membershipUserId = user?.id || null;
+  const profileLeagueJoinedAt = (user as any)?.league_joined_at;
+  const latestMembershipUserIdRef = useRef<string | null>(membershipUserId);
+  latestMembershipUserIdRef.current = membershipUserId;
   const cOS = useCareerOS();
   const searchParams = useSearchParams();
 
@@ -103,6 +127,9 @@ function LeaderboardContent() {
   const [joiningLeague, setJoiningLeague] = useState(false);
   const [currentUserHasJoined, setCurrentUserHasJoined] = useState(false);
   const [serverCareerXp, setServerCareerXp] = useState<number | null>(null);
+  const joinAttemptUserIdRef = useRef<string | null>(null);
+  const membershipRevisionRef = useRef(0);
+  const membershipStatusRef = useRef<{ userId: string; joined: boolean } | null>(null);
 
   const [showXpReqTooltip, setShowXpReqTooltip] = useState(false);
   const [showResetTooltip, setShowResetTooltip] = useState(false);
@@ -140,42 +167,100 @@ function LeaderboardContent() {
 
   const [joinedLeague, setJoinedLeague] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
-    const stored = localStorage.getItem(`pinit_joined_league_${user?.id || 'default'}`);
-    return stored === 'true' || Boolean((user as any)?.league_joined_at);
+    return hasStoredLeagueMembership(user?.id) || Boolean((user as any)?.league_joined_at);
   });
+  const membershipUserIdRef = useRef<string | null>(membershipUserId);
+  const joinedForCurrentAccount = membershipStatusRef.current?.userId === membershipUserId
+    ? membershipStatusRef.current.joined
+    : membershipUserIdRef.current === membershipUserId
+      ? joinedLeague || currentUserHasJoined
+      : Boolean(profileLeagueJoinedAt) || hasStoredLeagueMembership(membershipUserId);
 
   const handleJoinLeague = async () => {
-    if (!user?.id || joiningLeague) return;
+    const joiningUserId = user?.id;
+    if (!joiningUserId || joinAttemptUserIdRef.current === joiningUserId) return;
     if (userTotalXp < 100) {
       toast.error('League Locked', `You need 100 lifetime Career XP to join Browns. You currently have ${userTotalXp} XP.`);
       return;
     }
+    joinAttemptUserIdRef.current = joiningUserId;
+    membershipRevisionRef.current += 1;
     setJoiningLeague(true);
+    let joinConfirmed = false;
     try {
-      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
       const { data: { session } } = await supabase.auth.getSession();
-      if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
-      const response = await fetch('/api/leaderboard/join', { method: 'POST', headers, body: '{}' });
-      const result = await response.json();
-      if (!response.ok || !result.ok) {
-        toast.error('Could not join league', result.error === 'LEAGUE_ENTRY_LOCKED'
-          ? 'Reach 100 Career XP to unlock Browns League.'
-          : 'Please try again in a moment.');
+      if (!session?.access_token) {
+        toast.error('Session expired', 'Sign in again, then retry joining Browns League.');
         return;
       }
+      if (latestMembershipUserIdRef.current !== joiningUserId || session.user?.id !== joiningUserId) return;
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.access_token}`,
+      };
+      const controller = new AbortController();
+      const requestTimeout = window.setTimeout(() => controller.abort(), 15_000);
+      let response: Response;
+      try {
+        response = await fetch('/api/leaderboard/join', {
+          method: 'POST',
+          headers,
+          body: '{}',
+          signal: controller.signal,
+        });
+      } finally {
+        window.clearTimeout(requestTimeout);
+      }
+      const result = await response.json().catch(() => null);
+      if (latestMembershipUserIdRef.current !== joiningUserId) return;
+      if (!response.ok || !result?.ok) {
+        const message = result?.error === 'LEAGUE_ENTRY_LOCKED'
+          ? 'Reach 100 Career XP to unlock Browns League.'
+          : result?.error === 'STUDENTS_ONLY'
+            ? 'Only student accounts can join a ranked league.'
+            : result?.error === 'LEAGUE_JOIN_NOT_PERSISTED' || result?.error === 'LEAGUE_JOIN_STATUS_UNAVAILABLE'
+              ? 'We could not confirm your membership was saved. Refresh the page and check before retrying.'
+              : response.status === 401
+                ? 'Your sign-in expired. Sign in again, then retry.'
+                : 'Please try again in a moment.';
+        toast.error('Could not join league', message);
+        return;
+      }
+      if (result.currentUserHasJoined !== true || typeof result.joinedAt !== 'string') {
+        toast.error('Could not confirm your join', 'Refresh the page to check your league status before retrying.');
+        return;
+      }
+      membershipRevisionRef.current += 1;
+      membershipStatusRef.current = { userId: joiningUserId, joined: true };
+      joinConfirmed = true;
+      const joinedTier = normalizeLeagueTier(result.leagueTier);
+      const joinedTierTitle = `${joinedTier.charAt(0).toUpperCase()}${joinedTier.slice(1)}`;
       setJoinedLeague(true);
       setCurrentUserHasJoined(true);
-      setCurrentUserLeague(normalizeLeagueTier(result.leagueTier));
-      setSelectedLeague(normalizeLeagueTier(result.leagueTier));
+      setCurrentUserLeague(joinedTier);
+      setSelectedLeague(joinedTier);
       setServerCareerXp(Number(result.careerXp) || userTotalXp);
-      if (typeof window !== 'undefined') localStorage.setItem(`pinit_joined_league_${user.id}`, 'true');
-      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', { detail: { league_tier: result.leagueTier, league_joined_at: new Date().toISOString() } }));
+      storeLeagueMembership(joiningUserId, true);
+      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+        detail: { user_id: joiningUserId, league_tier: result.leagueTier, league_joined_at: result.joinedAt },
+      }));
       setRefreshTrigger(prev => prev + 1);
-      toast.success('You joined Browns League', 'Your first sprint starts now. Climb by earning League Points.');
+      toast.success(
+        result.alreadyJoined ? `You’re already in ${joinedTierTitle} League` : 'You joined Browns League',
+        result.alreadyJoined ? 'Your membership is active.' : 'Your first sprint starts now. Climb by earning League Points.',
+      );
     } catch {
-      toast.error('Could not join league', 'Please try again in a moment.');
+      if (latestMembershipUserIdRef.current === joiningUserId) {
+        toast.error('Could not join league', 'Please check your league status, then retry if needed.');
+      }
     } finally {
-      setJoiningLeague(false);
+      if (joinAttemptUserIdRef.current === joiningUserId) {
+        joinAttemptUserIdRef.current = null;
+        if (latestMembershipUserIdRef.current === joiningUserId) {
+          setJoiningLeague(false);
+          if (!joinConfirmed) setRefreshTrigger(prev => prev + 1);
+        }
+      }
     }
   };
 
@@ -209,17 +294,34 @@ function LeaderboardContent() {
   // Synchronize joinedLeague reactively when user hydrates or server profile arrives
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if ((user as any)?.league_joined_at || currentUserHasJoined) {
-      setJoinedLeague(true);
-      return;
+    const userId = membershipUserId;
+    const accountChanged = membershipUserIdRef.current !== userId;
+    membershipUserIdRef.current = userId;
+
+    if (accountChanged) {
+      membershipRevisionRef.current += 1;
+      membershipStatusRef.current = null;
+      joinAttemptUserIdRef.current = null;
+      setJoiningLeague(false);
+      setServerCareerXp(null);
+      setServerCurrentUser(null);
+      setCurrentUserLeague('browns');
     }
-    if (user?.id) {
-      const stored = localStorage.getItem(`pinit_joined_league_${user.id}`);
-      if (stored === 'true') {
-        setJoinedLeague(true);
-      }
+
+    // currentUserHasJoined belongs to the account used by the previous fetch.
+    // Don't carry it across sign-in changes; rehydrate from this account's own
+    // profile or account-scoped confirmation instead.
+    const savedServerStatus = membershipStatusRef.current;
+    const hasJoined = savedServerStatus?.userId === userId
+      ? savedServerStatus.joined
+      : Boolean(profileLeagueJoinedAt) ||
+        hasStoredLeagueMembership(userId) ||
+        (!accountChanged && currentUserHasJoined);
+    setJoinedLeague(hasJoined);
+    if (accountChanged || hasJoined !== currentUserHasJoined) {
+      setCurrentUserHasJoined(hasJoined);
     }
-  }, [user, currentUserHasJoined]);
+  }, [membershipUserId, profileLeagueJoinedAt, currentUserHasJoined]);
 
   // Modal Escape key listener and body scroll-lock
   useEffect(() => {
@@ -242,7 +344,14 @@ function LeaderboardContent() {
     const handleProfileUpdate = (e: any) => {
       console.log('[LEADERBOARD_CLIENT][Profile Update Event Received]', e?.detail);
       if (e?.detail) {
-        if (e.detail.league_joined_at) {
+        const eventUserId = typeof e.detail.user_id === 'string' ? e.detail.user_id : null;
+        if (eventUserId && eventUserId !== latestMembershipUserIdRef.current) return;
+        if (e.detail.league_joined_at && membershipUserId && eventUserId === membershipUserId) {
+          if (membershipStatusRef.current?.userId !== membershipUserId || !membershipStatusRef.current.joined) {
+            membershipRevisionRef.current += 1;
+          }
+          membershipStatusRef.current = { userId: membershipUserId, joined: true };
+          storeLeagueMembership(membershipUserId, true);
           setJoinedLeague(true);
           setCurrentUserHasJoined(true);
         }
@@ -289,21 +398,23 @@ function LeaderboardContent() {
       window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
       return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
     }
-  }, [user]);
+  }, [user, membershipUserId]);
 
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
     let isMounted = true;
-    const queryKey = `${user?.id || 'guest'}:${activeTab}:${selectedLeague}`;
+    const queryKey = `${membershipUserId || 'guest'}:${activeTab}:${selectedLeague}`;
     async function fetchLeaderboard() {
+      const requestUserId = membershipUserId;
+      const membershipRevisionAtStart = membershipRevisionRef.current;
       if (loadedQueryKeyRef.current !== queryKey) setLoading(true);
       try {
         const params = new URLSearchParams({
           mode: activeTab === 'guild' ? 'guild_projects' : 'weekly_leagues',
           league: selectedLeague,
         });
-        if (user?.id) {
-          params.set('userId', user.id);
+        if (membershipUserId) {
+          params.set('userId', membershipUserId);
         }
 
         let authHeader: Record<string, string> = {};
@@ -317,14 +428,14 @@ function LeaderboardContent() {
         console.log('[LEADERBOARD_CLIENT][Fetch Inflight]', {
           mode: activeTab === 'guild' ? 'guild_projects' : 'weekly_leagues',
           league: selectedLeague,
-          userId: user?.id || 'guest',
+          userId: membershipUserId || 'guest',
         });
         const clientStartTime = performance.now();
 
         const res = await fetch(`/api/leaderboard?${params.toString()}`, {
           headers: {
             ...authHeader,
-            ...(user?.id ? { 'x-user-id': user.id } : {}),
+            ...(membershipUserId ? { 'x-user-id': membershipUserId } : {}),
           },
           cache: 'no-store',
         });
@@ -348,8 +459,17 @@ function LeaderboardContent() {
             setServerCurrentUser(data.currentUser);
           }
           if (typeof data.currentUserHasJoined === 'boolean') {
-            setCurrentUserHasJoined(data.currentUserHasJoined);
-            setJoinedLeague(data.currentUserHasJoined);
+            // Ignore a response that began before a successful join, but let a
+            // fresh server answer clear stale browser state (for example after
+            // an administrator revokes membership).
+            const responseStillMatchesAccount = requestUserId && requestUserId === latestMembershipUserIdRef.current;
+            const responseIsCurrent = membershipRevisionAtStart === membershipRevisionRef.current;
+            if (responseStillMatchesAccount && responseIsCurrent) {
+              membershipStatusRef.current = { userId: requestUserId, joined: data.currentUserHasJoined };
+              storeLeagueMembership(requestUserId, data.currentUserHasJoined);
+              setCurrentUserHasJoined(data.currentUserHasJoined);
+              setJoinedLeague(data.currentUserHasJoined);
+            }
           }
           if (Number.isFinite(data.currentUserTotalXp)) {
             setServerCareerXp(Number(data.currentUserTotalXp));
@@ -382,7 +502,7 @@ function LeaderboardContent() {
 
     fetchLeaderboard();
     return () => { isMounted = false; };
-  }, [activeTab, selectedLeague, user?.id, refreshTrigger]);
+  }, [activeTab, selectedLeague, membershipUserId, refreshTrigger]);
 
   // User's college for Regional filter
   const userCollege = (user as any)?.college || (cOS as any)?.onboardingAnswers?.college || 'RV College of Engineering';
@@ -474,7 +594,7 @@ function LeaderboardContent() {
           </div>
           <div>
             <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: activeLeagueMeta.color, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>{currentUserHasJoined && selectedLeague === currentUserLeague ? 'Active Division' : 'Viewing Division'}</span>
+              <span>{joinedForCurrentAccount && selectedLeague === currentUserLeague ? 'Active Division' : 'Viewing Division'}</span>
               <span style={{ fontSize: 9.5, padding: '1px 5px', borderRadius: 4, background: `${activeLeagueMeta.color}22`, border: `1px solid ${activeLeagueMeta.color}50`, textTransform: 'none' }}>
                 Switch ▾
               </span>
@@ -501,7 +621,7 @@ function LeaderboardContent() {
             <span key={currentUserEntry?.leaguePoints ?? 0} className={`${styles.leaguePoints} ${styles.metricValueChanged}`}>
               {currentUserEntry
                 ? `${(currentUserEntry.leaguePoints || 0).toLocaleString()} League Points`
-                : (currentUserHasJoined ? `Inspecting ${activeLeagueMeta.title}` : 'Join Browns to start your sprint')}
+                : (joinedForCurrentAccount ? `Inspecting ${activeLeagueMeta.title}` : 'Join Browns to start your sprint')}
             </span>
           </div>
 
@@ -814,7 +934,7 @@ function LeaderboardContent() {
             </div>
           </div>
         </div>
-      ) : !joinedLeague ? (
+      ) : !joinedForCurrentAccount ? (
         <div
           data-testid="league-qualified-banner"
           className={styles.qualifiedBanner}
@@ -859,7 +979,7 @@ function LeaderboardContent() {
 
           <button
             onClick={handleJoinLeague}
-            disabled={joiningLeague}
+            disabled={joiningLeague || !user?.id}
             data-testid="join-league-btn"
             style={{
               padding: '10px 22px',
@@ -874,7 +994,7 @@ function LeaderboardContent() {
               boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
             }}
           >
-            {joiningLeague ? 'Joining…' : 'Join Browns League'}
+            {!user?.id ? 'Sign in to join' : joiningLeague ? 'Joining…' : 'Join Browns League'}
           </button>
         </div>
       ) : null}
@@ -1037,7 +1157,7 @@ function LeaderboardContent() {
               {ALL_LEAGUES.map(tier => {
                 const meta = LEAGUE_CONFIGS[tier];
                 const isSelected = selectedLeague === tier;
-                const isUserTier = currentUserHasJoined && currentUserLeague === tier;
+                const isUserTier = joinedForCurrentAccount && currentUserLeague === tier;
                 const count = leagueCounts[tier] || 0;
 
                 return (
