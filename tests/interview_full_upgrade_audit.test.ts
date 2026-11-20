@@ -769,4 +769,62 @@ test('Task 4 & Task 7: Round 2 Non-Tech Case Study Studio and Skip Challenge int
 
   assert.ok(codingHtml.includes('data-testid="round2-skip-challenge-btn"'), 'Must render Skip Challenge button in coding round');
   assert.ok(codingHtml.includes('TEST CASES'), 'Must render friendly TEST CASES label');
+
+  // Test Non-Tech progression labels across Round 1, Round 2, and Header
+  const round1NonTechHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(Round1Behavioral, {
+      domainStream: 'non_tech',
+      activeTeacher: { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', title: 'HR Director' },
+      animState: 'idle',
+      showCameraPreview: false,
+      videoPreviewRef: { current: null },
+      eyeContactScore: null,
+      wpmScore: null,
+      isAvatarSpeaking: false,
+      isVoiceListening: false,
+      lastInterviewerSpeech: 'Welcome to your behavioral round.',
+      onProceed: () => {},
+      canProceed: true,
+      fillerWordCount: 0,
+      messages: [
+        { role: 'assistant', content: 'Tell me about yourself.' },
+        { role: 'user', content: 'I have 3 years experience in accounting.' },
+        { role: 'assistant', content: 'What was a major challenge?' },
+        { role: 'user', content: 'Reconciling ledger entries.' },
+        { role: 'assistant', content: 'How did you handle deadlines?' },
+        { role: 'user', content: 'Prioritized quarterly accounts.' }
+      ],
+      messagesEndRef: { current: null },
+      manualTextInput: '',
+      setManualTextInput: () => {},
+      onSendMessage: () => {}
+    })
+  );
+  assert.ok(round1NonTechHtml.includes('Continue to case study ➔'), 'Round 1 non-tech must say Continue to case study, not Continue to coding');
+  assert.ok(round1NonTechHtml.includes('Ready for Round 2 Case Study!'), 'Round 1 non-tech pill must announce Case Study');
+
+  const headerNonTechHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(InterviewSessionHeader, {
+      activeTeacher: { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', title: 'HR Director' },
+      activeTopicName: 'Finance & Accounting (B.Com)',
+      activeStage: 'round1_behavioral',
+      domainStream: 'non_tech',
+      elapsedSeconds: 120,
+      formatElapsed: (s: number) => `2:00`,
+      isScoredStage: true,
+      isAssistModeActive: false,
+      setIsAssistModeActive: () => {},
+      messages: [],
+      fetchAssistScript: () => {},
+      avatarVolume: 0.9,
+      handleVolumeChange: () => {},
+      showCameraPreview: false,
+      toggleCameraPreview: () => {},
+      isAvatarSpeaking: false,
+      interruptSpeech: () => {},
+      exitInterview: () => {}
+    })
+  );
+  assert.ok(headerNonTechHtml.includes('Case Study'), 'Non-tech header must display Case Study for Round 2');
+  assert.ok(headerNonTechHtml.includes('Strategy'), 'Non-tech header must display Strategy for Round 3');
 });

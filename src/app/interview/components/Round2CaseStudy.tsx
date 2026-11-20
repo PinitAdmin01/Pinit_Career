@@ -326,7 +326,7 @@ export const Round2CaseStudy: React.FC<Round2CodingProps> = ({
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             {canProceed ? (
               <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12 }}>
-                Continue to architecture ➔
+                Continue to business strategy ➔
               </button>
             ) : codeRunFailed ? (
               <button onClick={onRetryChallenge} style={{ background: 'var(--amber-light)', border: '1px solid var(--amber)', color: 'var(--amber-mid)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
@@ -383,7 +383,7 @@ export const Round2CaseStudy: React.FC<Round2CodingProps> = ({
           }}
         >
           {canProceed
-            ? '✅ Financial Analysis Approved — Click "Continue to architecture ➔" above to proceed!'
+            ? '✅ Financial Analysis Approved — Click "Continue to business strategy ➔" above to proceed!'
             : auditSummary || '📊 Step 1 of 2: Compute the quantitative indicators below, provide your strategic recommendation, then click "Audit & Verify Analysis (Ctrl+↵)".'}
         </div>
 

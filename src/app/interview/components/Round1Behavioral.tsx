@@ -17,6 +17,7 @@ export interface Message {
 }
 
 export interface Round1BehavioralProps {
+  domainStream?: 'tech' | 'non_tech';
   activeTeacher: { id: string; name: string; emoji: string; title: string };
   animState: AnimState;
   showCameraPreview: boolean;
@@ -62,6 +63,7 @@ export interface Round1BehavioralProps {
 }
 
 export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
+  domainStream = 'tech',
   activeTeacher,
   animState,
   showCameraPreview,
@@ -197,9 +199,11 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
             <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
           </div>
-          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
-            Continue to coding ➔
-          </button>}
+          {canProceed && (
+            <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
+              {domainStream === 'non_tech' ? 'Continue to case study ➔' : 'Continue to coding ➔'}
+            </button>
+          )}
         </div>
 
         <div
@@ -217,7 +221,9 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
           }}
         >
           {canProceed
-            ? '✅ 3/3 Behavioral responses complete — Ready for Round 2 Coding!'
+            ? (domainStream === 'non_tech'
+                ? '✅ 3/3 Behavioral responses complete — Ready for Round 2 Case Study!'
+                : '✅ 3/3 Behavioral responses complete — Ready for Round 2 Coding!')
             : `💬 Progress: ${Math.min(3, userResponseCount)}/3 responses completed — answer ${Math.max(1, 3 - userResponseCount)} more topic-specific question${3 - userResponseCount === 1 ? '' : 's'} to unlock Round 2.`}
         </div>
 

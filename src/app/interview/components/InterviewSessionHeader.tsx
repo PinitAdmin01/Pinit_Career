@@ -80,8 +80,8 @@ export function InterviewSessionHeader({
 
   const rounds = [
     { id: 'round1_behavioral', label: 'Background' },
-    { id: 'round2_coding', label: 'Challenge' },
-    { id: 'round3_systems', label: 'Architecture' },
+    { id: 'round2_coding', label: domainStream === 'non_tech' ? 'Case Study' : 'Challenge' },
+    { id: 'round3_systems', label: domainStream === 'non_tech' ? 'Strategy' : 'Architecture' },
     { id: 'round4_star', label: 'Deep dive' },
   ];
   const activeRoundIndex = rounds.findIndex(round => round.id === activeStage);
