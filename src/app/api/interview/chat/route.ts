@@ -479,7 +479,7 @@ export async function POST(req: Request) {
       if (historyLength <= 1) {
         stageContext = `This is Round 1 (Behavioral & Background). Acknowledge the candidate warmly, introduce yourself briefly as ${selectedInterviewer.name}, and ask them to introduce their background and experience with ${subTopic}. Keep under 3 sentences.`;
       } else {
-        stageContext = `This is Round 1 (Behavioral). Listen to the candidate's last answer. Acknowledge one specific detail they mentioned, then ask a structured behavioral or background follow-up question related to ${subTopic}. Keep under 3 sentences.`;
+        stageContext = `This is Round 1 (Behavioral). Listen to the candidate's last answer. If the candidate merely says "hi", "hello", or gives a vague greeting, do NOT praise them or pretend they made a decision; instead, politely re-ask them to introduce themselves and highlight one project or practical experience in ${subTopic}. If they gave a substantive response, acknowledge one specific detail they mentioned, then ask a structured behavioral or background follow-up question related to ${subTopic}. Keep under 3 sentences.`;
       }
     } else if (stage === 'round2_coding') {
       stageContext = reviewDecision
