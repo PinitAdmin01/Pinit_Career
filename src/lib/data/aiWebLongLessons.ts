@@ -7543,7 +7543,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       {
         "title": "The Master Capstone: Complete Enterprise Agentic RAG Platform",
         "say": [
-          "In this final capstone execution for Day 30 and Course 9, we assemble the entire production Enterprise Agentic RAG Platform.",
+          "In this final capstone execution for Day 30 and Applied AI, we assemble the entire production Enterprise Agentic RAG Platform.",
           "We unite all 7 pillars into a cohesive, production-certified execution engine in TypeScript.",
           "We simulate processing an incoming executive inquiry from an authenticated enterprise employee: 'What is our company 401k match on a $120,000 salary? Contact: jane.doe@corp.com'.",
           "Stage 1: Security Guardrail sanitizes PII, redacting the email address and verifying zero prompt injections.",
@@ -13768,7 +13768,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "output": "{\n  platform: 'Planetary Autonomous AI SRE Mesh & Self-Healing Operating System',\n  activeAgents: [\n    'Alert Triage Specialist Agent',\n    'Diagnostic Heap & Flamegraph Investigator',\n    'Remediation Kubernetes Actuator',\n    'Executive Post-Mortem & Communications Synthesizer'\n  ],\n  productionMetrics: {\n    totalMonitoredMicroservices: 1000,\n    simulatedCascadingIncidents: 50,\n    autonomousResolutionRatePct: 100,\n    meanTimeToDetectionSeconds: 1.4,\n    meanTimeToRemediationSeconds: 18.6,\n    zeroDowntimeMaintained: true\n  },\n  complianceCertification: 'SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER',\n  courseGraduationStatus: 'COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED'\n}"
     },
     {
-      "title": "Course 12 Official Graduation: Complete Mastery Of Applied AI & Autonomous Agent Systems",
+      "title": "Applied AI Official Graduation: Complete Mastery Of Applied AI & Autonomous Agent Systems",
       "say": [
         "Completing Course Twelve marks the graduation milestone in applied AI and autonomous agent systems engineering. Over sixty intensive, rigorously designed days of curriculum expansion, you have journeyed through the entire intellectual and practical landscape of artificial intelligence. You began on Day 1 exploring the mathematical foundations of vector spaces, gradient descent optimization, and loss function topologies; mastered modern deep neural architectures, attention mechanisms, and Transformer transformer designs; conquered advanced alignment paradigms including Direct Preference Optimization, Kahneman-Tversky Optimization, and Group Relative Policy Optimization; engineered deterministic tool-calling frameworks and pushdown automata sandboxes; and now, have built a planetary-scale, self-healing autonomous AI SRE operating system.",
         "From foundational machine learning to SRE meshes, this curriculum excels in delivering uncompromising depth, mathematical rigor, and production reality. You have not merely memorized high-level conceptual summaries; you have authored and debugged thousands of lines of robust TypeScript and Python code, implemented deterministic algorithms, enforced Gate v2 visual envelopes, passed hundreds of comprehensive unit test suites, and validated production-grade system invariants across multi-cloud environments. This comprehensive pedagogical journey has forged you into a rare and elite technologist: an AI Systems Architect capable of designing, building, and governing autonomous computational intelligence at enterprise scale.",
@@ -13782,7 +13782,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "example": "Flight directors earn operational certification through simulated aborts.",
       "tryIt": "Graduate Course Twelve with complete mastery of applied artificial systems.",
       "check": {
-        "question": "What core engineering authority does an official graduate of Course 12 possess?",
+        "question": "What core engineering authority does an official graduate of Applied AI possess?",
         "options": [
           "Complete architectural and practical mastery in designing, aligning, and operating production-scale autonomous AI and self-healing systems",
           "Theoretical knowledge of basic linear regression limited strictly to toy spreadsheet datasets",
@@ -13791,7 +13791,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         ],
         "answer": 0,
         "answerIndex": 0,
-        "why": "Course 12 graduates possess full-stack theoretical and production mastery across neural foundations, transformers, alignment, agent tool use, and planetary autonomous SRE operating systems."
+        "why": "Applied AI graduates possess full-stack theoretical and production mastery across neural foundations, transformers, alignment, agent tool use, and planetary autonomous SRE operating systems."
       },
       "code": "export function testDay60GrandCapstoneAutonomousSREMesh() {\n  const meshTelemetry = {\n    platform: \"Planetary Autonomous AI SRE Mesh & Self-Healing Operating System\",\n    activeAgents: [\n      \"Alert Triage Specialist Agent\",\n      \"Diagnostic Heap & Flamegraph Investigator\",\n      \"Remediation Kubernetes Actuator\",\n      \"Executive Post-Mortem & Communications Synthesizer\"\n    ],\n    productionMetrics: {\n      totalMonitoredMicroservices: 1000,\n      simulatedCascadingIncidents: 50,\n      autonomousResolutionRatePct: 100,\n      meanTimeToDetectionSeconds: 1.4,\n      meanTimeToRemediationSeconds: 18.6,\n      zeroDowntimeMaintained: true\n    },\n    complianceCertification: \"SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER\",\n    courseGraduationStatus: \"COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED\"\n  };\n\n  return meshTelemetry;\n}",
       "output": "{\n  platform: 'Planetary Autonomous AI SRE Mesh & Self-Healing Operating System',\n  activeAgents: [\n    'Alert Triage Specialist Agent',\n    'Diagnostic Heap & Flamegraph Investigator',\n    'Remediation Kubernetes Actuator',\n    'Executive Post-Mortem & Communications Synthesizer'\n  ],\n  productionMetrics: {\n    totalMonitoredMicroservices: 1000,\n    simulatedCascadingIncidents: 50,\n    autonomousResolutionRatePct: 100,\n    meanTimeToDetectionSeconds: 1.4,\n    meanTimeToRemediationSeconds: 18.6,\n    zeroDowntimeMaintained: true\n  },\n  complianceCertification: 'SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER',\n  courseGraduationStatus: 'COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED'\n}"

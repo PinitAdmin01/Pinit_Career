@@ -7886,7 +7886,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateMultiWindowCore handles core evaluation logic for Multi-Window Multi-Burn-Rate SLO Alerting by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7931,7 +7931,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeMultiThreshold handles threshold computation for Multi-Window Multi-Burn-Rate SLO Alerting — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7976,7 +7976,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeMultiPipeline handles pipeline optimization for Multi-Window Multi-Burn-Rate SLO Alerting — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8021,7 +8021,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateMultiGuard handles guard validation for Multi-Window Multi-Burn-Rate SLO Alerting — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8066,7 +8066,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditMultiTelemetry handles telemetry auditing for Multi-Window Multi-Burn-Rate SLO Alerting by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8135,7 +8135,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateCompositeServiceCore handles core evaluation logic for Composite Service SLOs by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8180,7 +8180,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeCompositeThreshold handles threshold computation for Composite Service SLOs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8225,7 +8225,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeCompositePipeline handles pipeline optimization for Composite Service SLOs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8270,7 +8270,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateCompositeGuard handles guard validation for Composite Service SLOs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8315,7 +8315,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditCompositeTelemetry handles telemetry auditing for Composite Service SLOs by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8384,7 +8384,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateHighCardinalityCore handles core evaluation logic for High-Cardinality OpenTelemetry Trace Sampling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8429,7 +8429,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeHighThreshold handles threshold computation for High-Cardinality OpenTelemetry Trace Sampling — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8474,7 +8474,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeHighPipeline handles pipeline optimization for High-Cardinality OpenTelemetry Trace Sampling — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8519,7 +8519,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateHighGuard handles guard validation for High-Cardinality OpenTelemetry Trace Sampling — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8564,7 +8564,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditHighTelemetry handles telemetry auditing for High-Cardinality OpenTelemetry Trace Sampling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8633,7 +8633,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateRedUseCore handles core evaluation logic for RED & USE Telemetry Pipelines by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8678,7 +8678,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeRedThreshold handles threshold computation for RED & USE Telemetry Pipelines — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8723,7 +8723,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeRedPipeline handles pipeline optimization for RED & USE Telemetry Pipelines — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8768,7 +8768,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateRedGuard handles guard validation for RED & USE Telemetry Pipelines — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8813,7 +8813,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditRedTelemetry handles telemetry auditing for RED & USE Telemetry Pipelines by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8882,7 +8882,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateMultiBurnCore handles core evaluation logic for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8927,7 +8927,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeMultiThreshold handles threshold computation for Milestone 7 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8972,7 +8972,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeMultiPipeline handles pipeline optimization for Milestone 7 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9017,7 +9017,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateMultiGuard handles guard validation for Milestone 7 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9062,7 +9062,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditMultiTelemetry handles telemetry auditing for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9131,7 +9131,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateAdaptiveCircuitCore handles core evaluation logic for Adaptive Circuit Breakers by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9176,7 +9176,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeAdaptiveThreshold handles threshold computation for Adaptive Circuit Breakers — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9221,7 +9221,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeAdaptivePipeline handles pipeline optimization for Adaptive Circuit Breakers — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9266,7 +9266,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateAdaptiveGuard handles guard validation for Adaptive Circuit Breakers — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9311,7 +9311,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditAdaptiveTelemetry handles telemetry auditing for Adaptive Circuit Breakers by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9380,7 +9380,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateLittleLawCore handles core evaluation logic for Little's Law Concurrency Limiters & AIMD Backpressure by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9425,7 +9425,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeLittleThreshold handles threshold computation for Little's Law Concurrency Limiters & AIMD Backpressure — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9470,7 +9470,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeLittlePipeline handles pipeline optimization for Little's Law Concurrency Limiters & AIMD Backpressure — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9515,7 +9515,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateLittleGuard handles guard validation for Little's Law Concurrency Limiters & AIMD Backpressure — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9560,7 +9560,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditLittleTelemetry handles telemetry auditing for Little's Law Concurrency Limiters & AIMD Backpressure by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9629,7 +9629,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateTokenBucketCore handles core evaluation logic for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9674,7 +9674,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeTokenThreshold handles threshold computation for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9719,7 +9719,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeTokenPipeline handles pipeline optimization for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9764,7 +9764,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateTokenGuard handles guard validation for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9809,7 +9809,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditTokenTelemetry handles telemetry auditing for Token-Bucket & Leaky-Bucket Rate Limiters with Tenant Fairness Quotas by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9878,7 +9878,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateRetryStormsCore handles core evaluation logic for Retry Storms & Metastable Failures by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9923,7 +9923,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeRetryThreshold handles threshold computation for Retry Storms & Metastable Failures — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9968,7 +9968,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeRetryPipeline handles pipeline optimization for Retry Storms & Metastable Failures — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10013,7 +10013,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateRetryGuard handles guard validation for Retry Storms & Metastable Failures — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10058,7 +10058,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditRetryTelemetry handles telemetry auditing for Retry Storms & Metastable Failures by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10127,7 +10127,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateMetastableFailureCore handles core evaluation logic for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10172,7 +10172,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeMetastableThreshold handles threshold computation for Milestone 8 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10217,7 +10217,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeMetastablePipeline handles pipeline optimization for Milestone 8 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10262,7 +10262,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateMetastableGuard handles guard validation for Milestone 8 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10307,7 +10307,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditMetastableTelemetry handles telemetry auditing for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10376,7 +10376,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateMultiRegionCore handles core evaluation logic for Multi-Region Active-Active Traffic Steering by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10421,7 +10421,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeMultiThreshold handles threshold computation for Multi-Region Active-Active Traffic Steering — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10466,7 +10466,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeMultiPipeline handles pipeline optimization for Multi-Region Active-Active Traffic Steering — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10511,7 +10511,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateMultiGuard handles guard validation for Multi-Region Active-Active Traffic Steering — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10556,7 +10556,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditMultiTelemetry handles telemetry auditing for Multi-Region Active-Active Traffic Steering by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10625,7 +10625,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateCellularArchitectureCore handles core evaluation logic for Cellular Architecture & Shuffle Sharding by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10670,7 +10670,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeCellularThreshold handles threshold computation for Cellular Architecture & Shuffle Sharding — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10715,7 +10715,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeCellularPipeline handles pipeline optimization for Cellular Architecture & Shuffle Sharding — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10760,7 +10760,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateCellularGuard handles guard validation for Cellular Architecture & Shuffle Sharding — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10805,7 +10805,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditCellularTelemetry handles telemetry auditing for Cellular Architecture & Shuffle Sharding by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10874,7 +10874,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateGracefulDegradationCore handles core evaluation logic for Graceful Degradation Tiers by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10919,7 +10919,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeGracefulThreshold handles threshold computation for Graceful Degradation Tiers — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10964,7 +10964,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeGracefulPipeline handles pipeline optimization for Graceful Degradation Tiers — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11009,7 +11009,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateGracefulGuard handles guard validation for Graceful Degradation Tiers — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11054,7 +11054,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditGracefulTelemetry handles telemetry auditing for Graceful Degradation Tiers by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11123,7 +11123,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateAutomatedCanaryCore handles core evaluation logic for Automated Canary Analysis by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11168,7 +11168,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeAutomatedThreshold handles threshold computation for Automated Canary Analysis — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11213,7 +11213,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeAutomatedPipeline handles pipeline optimization for Automated Canary Analysis — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11258,7 +11258,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateAutomatedGuard handles guard validation for Automated Canary Analysis — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11303,7 +11303,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditAutomatedTelemetry handles telemetry auditing for Automated Canary Analysis by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11372,7 +11372,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateShuffleShardedCore handles core evaluation logic for Milestone 9 by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11417,7 +11417,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeShuffleThreshold handles threshold computation for Milestone 9 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11462,7 +11462,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeShufflePipeline handles pipeline optimization for Milestone 9 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11507,7 +11507,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateShuffleGuard handles guard validation for Milestone 9 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11552,7 +11552,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditShuffleTelemetry handles telemetry auditing for Milestone 9 by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11621,7 +11621,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateChaosEngineeringCore handles core evaluation logic for Chaos Engineering Injection Engine by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11666,7 +11666,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeChaosThreshold handles threshold computation for Chaos Engineering Injection Engine — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11711,7 +11711,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeChaosPipeline handles pipeline optimization for Chaos Engineering Injection Engine — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11756,7 +11756,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateChaosGuard handles guard validation for Chaos Engineering Injection Engine — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11801,7 +11801,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditChaosTelemetry handles telemetry auditing for Chaos Engineering Injection Engine by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11870,7 +11870,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateDistributedLockCore handles core evaluation logic for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11915,7 +11915,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeDistributedThreshold handles threshold computation for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11960,7 +11960,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeDistributedPipeline handles pipeline optimization for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12005,7 +12005,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateDistributedGuard handles guard validation for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12050,7 +12050,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditDistributedTelemetry handles telemetry auditing for Distributed Lock Leases, Fencing Tokens & Split-Brain Quorum Validation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12119,7 +12119,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateDatabaseConnectionCore handles core evaluation logic for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12164,7 +12164,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeDatabaseThreshold handles threshold computation for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12209,7 +12209,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeDatabasePipeline handles pipeline optimization for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12254,7 +12254,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateDatabaseGuard handles guard validation for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12299,7 +12299,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditDatabaseTelemetry handles telemetry auditing for Database Connection Pool Sizing, Queue Wait Timeouts & Read-Replica Lag Circuit Breaking by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12368,7 +12368,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateIdempotencyKeysCore handles core evaluation logic for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12413,7 +12413,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeIdempotencyThreshold handles threshold computation for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12458,7 +12458,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeIdempotencyPipeline handles pipeline optimization for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12503,7 +12503,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateIdempotencyGuard handles guard validation for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12548,7 +12548,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditIdempotencyTelemetry handles telemetry auditing for Idempotency Keys, At-Least-Once Webhook Deduplication & State Machine Locks by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12617,7 +12617,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateChaosFaultCore handles core evaluation logic for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12662,7 +12662,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeChaosThreshold handles threshold computation for Milestone 10 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12707,7 +12707,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeChaosPipeline handles pipeline optimization for Milestone 10 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12752,7 +12752,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateChaosGuard handles guard validation for Milestone 10 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12797,7 +12797,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditChaosTelemetry handles telemetry auditing for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12866,7 +12866,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateIncidentCommandCore handles core evaluation logic for Incident Command System by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12911,7 +12911,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeIncidentThreshold handles threshold computation for Incident Command System — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12956,7 +12956,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeIncidentPipeline handles pipeline optimization for Incident Command System — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13001,7 +13001,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateIncidentGuard handles guard validation for Incident Command System — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13046,7 +13046,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditIncidentTelemetry handles telemetry auditing for Incident Command System by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13115,7 +13115,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateExecutableRunbooksCore handles core evaluation logic for Executable Runbooks by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13160,7 +13160,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeExecutableThreshold handles threshold computation for Executable Runbooks — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13205,7 +13205,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeExecutablePipeline handles pipeline optimization for Executable Runbooks — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13250,7 +13250,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateExecutableGuard handles guard validation for Executable Runbooks — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13295,7 +13295,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditExecutableTelemetry handles telemetry auditing for Executable Runbooks by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13364,7 +13364,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateBlamelessPostmortemCore handles core evaluation logic for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13409,7 +13409,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeBlamelessThreshold handles threshold computation for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13454,7 +13454,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeBlamelessPipeline handles pipeline optimization for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13499,7 +13499,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateBlamelessGuard handles guard validation for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13544,7 +13544,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditBlamelessTelemetry handles telemetry auditing for Blameless Postmortem Action-Item Tracking & Risk-Prioritized Reliability Backlogs by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13613,7 +13613,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateCapacityPlanningCore handles core evaluation logic for Capacity Planning & Load Forecasting by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13658,7 +13658,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeCapacityThreshold handles threshold computation for Capacity Planning & Load Forecasting — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13703,7 +13703,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeCapacityPipeline handles pipeline optimization for Capacity Planning & Load Forecasting — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13748,7 +13748,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateCapacityGuard handles guard validation for Capacity Planning & Load Forecasting — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13793,7 +13793,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditCapacityTelemetry handles telemetry auditing for Capacity Planning & Load Forecasting by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13862,7 +13862,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateAutomatedRunbookCore handles core evaluation logic for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13907,7 +13907,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeAutomatedThreshold handles threshold computation for Milestone 11 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13952,7 +13952,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeAutomatedPipeline handles pipeline optimization for Milestone 11 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13997,7 +13997,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateAutomatedGuard handles guard validation for Milestone 11 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14042,7 +14042,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditAutomatedTelemetry handles telemetry auditing for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14111,7 +14111,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateZeroDowntimeCore handles core evaluation logic for Zero-Downtime Schema Migrations by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14156,7 +14156,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeZeroThreshold handles threshold computation for Zero-Downtime Schema Migrations — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14201,7 +14201,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeZeroPipeline handles pipeline optimization for Zero-Downtime Schema Migrations — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14246,7 +14246,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateZeroGuard handles guard validation for Zero-Downtime Schema Migrations — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14291,7 +14291,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditZeroTelemetry handles telemetry auditing for Zero-Downtime Schema Migrations by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14360,7 +14360,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateBackupIntegrityCore handles core evaluation logic for Backup Integrity Verification by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14405,7 +14405,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeBackupThreshold handles threshold computation for Backup Integrity Verification — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14450,7 +14450,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeBackupPipeline handles pipeline optimization for Backup Integrity Verification — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14495,7 +14495,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateBackupGuard handles guard validation for Backup Integrity Verification — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14540,7 +14540,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditBackupTelemetry handles telemetry auditing for Backup Integrity Verification by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14609,7 +14609,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateCertificateSecretCore handles core evaluation logic for Certificate & Secret Rotation Lifecycles by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14654,7 +14654,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeCertificateThreshold handles threshold computation for Certificate & Secret Rotation Lifecycles — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14699,7 +14699,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeCertificatePipeline handles pipeline optimization for Certificate & Secret Rotation Lifecycles — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14744,7 +14744,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateCertificateGuard handles guard validation for Certificate & Secret Rotation Lifecycles — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14789,7 +14789,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditCertificateTelemetry handles telemetry auditing for Certificate & Secret Rotation Lifecycles by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14858,7 +14858,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateFinopsReliabilityCore handles core evaluation logic for FinOps Reliability Trade-Offs by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14903,7 +14903,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeFinopsThreshold handles threshold computation for FinOps Reliability Trade-Offs — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14948,7 +14948,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeFinopsPipeline handles pipeline optimization for FinOps Reliability Trade-Offs — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14993,7 +14993,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateFinopsGuard handles guard validation for FinOps Reliability Trade-Offs — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15038,7 +15038,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditFinopsTelemetry handles telemetry auditing for FinOps Reliability Trade-Offs by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -15107,7 +15107,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateAutonomousMultiCore handles core evaluation logic for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15152,7 +15152,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeAutonomousThreshold handles threshold computation for Milestone 12 Capstone — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15197,7 +15197,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeAutonomousPipeline handles pipeline optimization for Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15242,7 +15242,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateAutonomousGuard handles guard validation for Milestone 12 Capstone — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15287,7 +15287,7 @@ export const SRE_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditAutonomousTelemetry handles telemetry auditing for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],

@@ -7618,7 +7618,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateAppendOnlyCore handles core evaluation logic for Append-Only Segmented Log Internals by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7663,7 +7663,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeAppendThreshold handles threshold computation for Append-Only Segmented Log Internals — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7708,7 +7708,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeAppendPipeline handles pipeline optimization for Append-Only Segmented Log Internals — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7753,7 +7753,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateAppendGuard handles guard validation for Append-Only Segmented Log Internals — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7798,7 +7798,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditAppendTelemetry handles telemetry auditing for Append-Only Segmented Log Internals by validating capacity bounds and enforcing deterministic thresholds specific to Day 31, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -7867,7 +7867,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateDeterministicPartitionCore handles core evaluation logic for Deterministic Partition Hashing & Hot-Key Salting Splitters by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7912,7 +7912,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeDeterministicThreshold handles threshold computation for Deterministic Partition Hashing & Hot-Key Salting Splitters — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -7957,7 +7957,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeDeterministicPipeline handles pipeline optimization for Deterministic Partition Hashing & Hot-Key Salting Splitters — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8002,7 +8002,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateDeterministicGuard handles guard validation for Deterministic Partition Hashing & Hot-Key Salting Splitters — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8047,7 +8047,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditDeterministicTelemetry handles telemetry auditing for Deterministic Partition Hashing & Hot-Key Salting Splitters by validating capacity bounds and enforcing deterministic thresholds specific to Day 32, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8116,7 +8116,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateProducerBatchingCore handles core evaluation logic for Producer Batching, Linger Latency vs Throughput Trade-Offs & Idempotent Sequence Numbers by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8161,7 +8161,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeProducerThreshold handles threshold computation for Producer Batching, Linger Latency vs Throughput Trade-Offs & Idempotent Sequence Numbers — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8206,7 +8206,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeProducerPipeline handles pipeline optimization for Producer Batching, Linger Latency vs Throughput Trade-Offs & Idempotent Sequence Numbers — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8251,7 +8251,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateProducerGuard handles guard validation for Producer Batching, Linger Latency vs Throughput Trade-Offs & Idempotent Sequence Numbers — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8296,7 +8296,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditProducerTelemetry handles telemetry auditing for Producer Batching, Linger Latency vs Throughput Trade-Offs & Idempotent Sequence Numbers by validating capacity bounds and enforcing deterministic thresholds specific to Day 33, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8365,7 +8365,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateConsumerGroupCore handles core evaluation logic for Consumer Group Rebalancing by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8410,7 +8410,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeConsumerThreshold handles threshold computation for Consumer Group Rebalancing — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8455,7 +8455,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeConsumerPipeline handles pipeline optimization for Consumer Group Rebalancing — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8500,7 +8500,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateConsumerGuard handles guard validation for Consumer Group Rebalancing — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8545,7 +8545,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditConsumerTelemetry handles telemetry auditing for Consumer Group Rebalancing by validating capacity bounds and enforcing deterministic thresholds specific to Day 34, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8614,7 +8614,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateSegmentedLogCore handles core evaluation logic for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8659,7 +8659,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeSegmentedThreshold handles threshold computation for Milestone 7 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8704,7 +8704,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeSegmentedPipeline handles pipeline optimization for Milestone 7 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8749,7 +8749,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateSegmentedGuard handles guard validation for Milestone 7 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8794,7 +8794,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditSegmentedTelemetry handles telemetry auditing for Milestone 7 by validating capacity bounds and enforcing deterministic thresholds specific to Day 35, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -8863,7 +8863,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateEventTimeCore handles core evaluation logic for Event-Time vs Processing-Time Semantics & Bounded-Out-of-Orderness Watermark Generators by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8908,7 +8908,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeEventThreshold handles threshold computation for Event-Time vs Processing-Time Semantics & Bounded-Out-of-Orderness Watermark Generators — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8953,7 +8953,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeEventPipeline handles pipeline optimization for Event-Time vs Processing-Time Semantics & Bounded-Out-of-Orderness Watermark Generators — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -8998,7 +8998,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateEventGuard handles guard validation for Event-Time vs Processing-Time Semantics & Bounded-Out-of-Orderness Watermark Generators — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9043,7 +9043,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditEventTelemetry handles telemetry auditing for Event-Time vs Processing-Time Semantics & Bounded-Out-of-Orderness Watermark Generators by validating capacity bounds and enforcing deterministic thresholds specific to Day 36, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9112,7 +9112,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateTumblingHoppingCore handles core evaluation logic for Tumbling, Hopping & Session Windows with Dynamic Gap Merging by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9157,7 +9157,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeTumblingThreshold handles threshold computation for Tumbling, Hopping & Session Windows with Dynamic Gap Merging — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9202,7 +9202,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeTumblingPipeline handles pipeline optimization for Tumbling, Hopping & Session Windows with Dynamic Gap Merging — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9247,7 +9247,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateTumblingGuard handles guard validation for Tumbling, Hopping & Session Windows with Dynamic Gap Merging — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9292,7 +9292,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditTumblingTelemetry handles telemetry auditing for Tumbling, Hopping & Session Windows with Dynamic Gap Merging by validating capacity bounds and enforcing deterministic thresholds specific to Day 37, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9361,7 +9361,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateLateArrivingCore handles core evaluation logic for Late-Arriving Event Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9406,7 +9406,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeLateThreshold handles threshold computation for Late-Arriving Event Handling — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9451,7 +9451,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeLatePipeline handles pipeline optimization for Late-Arriving Event Handling — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9496,7 +9496,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateLateGuard handles guard validation for Late-Arriving Event Handling — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9541,7 +9541,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditLateTelemetry handles telemetry auditing for Late-Arriving Event Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 38, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9610,7 +9610,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateStreamTableCore handles core evaluation logic for Stream-Table Duality by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9655,7 +9655,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeStreamThreshold handles threshold computation for Stream-Table Duality — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9700,7 +9700,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeStreamPipeline handles pipeline optimization for Stream-Table Duality — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9745,7 +9745,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateStreamGuard handles guard validation for Stream-Table Duality — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9790,7 +9790,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditStreamTelemetry handles telemetry auditing for Stream-Table Duality by validating capacity bounds and enforcing deterministic thresholds specific to Day 39, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -9859,7 +9859,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateWatermarkWindowingCore handles core evaluation logic for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9904,7 +9904,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeWatermarkThreshold handles threshold computation for Milestone 8 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9949,7 +9949,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeWatermarkPipeline handles pipeline optimization for Milestone 8 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -9994,7 +9994,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateWatermarkGuard handles guard validation for Milestone 8 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10039,7 +10039,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditWatermarkTelemetry handles telemetry auditing for Milestone 8 by validating capacity bounds and enforcing deterministic thresholds specific to Day 40, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10108,7 +10108,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateIntervalStreamCore handles core evaluation logic for Interval Stream-Stream Joins by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10153,7 +10153,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeIntervalThreshold handles threshold computation for Interval Stream-Stream Joins — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10198,7 +10198,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeIntervalPipeline handles pipeline optimization for Interval Stream-Stream Joins — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10243,7 +10243,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateIntervalGuard handles guard validation for Interval Stream-Stream Joins — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10288,7 +10288,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditIntervalTelemetry handles telemetry auditing for Interval Stream-Stream Joins by validating capacity bounds and enforcing deterministic thresholds specific to Day 41, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10357,7 +10357,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateTemporalVersionedCore handles core evaluation logic for Temporal Versioned Table Joins by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10402,7 +10402,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeTemporalThreshold handles threshold computation for Temporal Versioned Table Joins — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10447,7 +10447,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeTemporalPipeline handles pipeline optimization for Temporal Versioned Table Joins — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10492,7 +10492,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateTemporalGuard handles guard validation for Temporal Versioned Table Joins — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10537,7 +10537,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditTemporalTelemetry handles telemetry auditing for Temporal Versioned Table Joins by validating capacity bounds and enforcing deterministic thresholds specific to Day 42, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10606,7 +10606,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateExactlyOnceCore handles core evaluation logic for Exactly-Once Semantics by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10651,7 +10651,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeExactlyThreshold handles threshold computation for Exactly-Once Semantics — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10696,7 +10696,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeExactlyPipeline handles pipeline optimization for Exactly-Once Semantics — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10741,7 +10741,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateExactlyGuard handles guard validation for Exactly-Once Semantics — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10786,7 +10786,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditExactlyTelemetry handles telemetry auditing for Exactly-Once Semantics by validating capacity bounds and enforcing deterministic thresholds specific to Day 43, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -10855,7 +10855,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateChandyLamportCore handles core evaluation logic for Chandy-Lamport Distributed Asynchronous Snapshots & Barrier Alignment by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10900,7 +10900,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeChandyThreshold handles threshold computation for Chandy-Lamport Distributed Asynchronous Snapshots & Barrier Alignment — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10945,7 +10945,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeChandyPipeline handles pipeline optimization for Chandy-Lamport Distributed Asynchronous Snapshots & Barrier Alignment — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -10990,7 +10990,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateChandyGuard handles guard validation for Chandy-Lamport Distributed Asynchronous Snapshots & Barrier Alignment — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11035,7 +11035,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditChandyTelemetry handles telemetry auditing for Chandy-Lamport Distributed Asynchronous Snapshots & Barrier Alignment by validating capacity bounds and enforcing deterministic thresholds specific to Day 44, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11104,7 +11104,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateTemporalStreamCore handles core evaluation logic for Milestone 9 by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11149,7 +11149,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeTemporalThreshold handles threshold computation for Milestone 9 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11194,7 +11194,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeTemporalPipeline handles pipeline optimization for Milestone 9 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11239,7 +11239,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateTemporalGuard handles guard validation for Milestone 9 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11284,7 +11284,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditTemporalTelemetry handles telemetry auditing for Milestone 9 by validating capacity bounds and enforcing deterministic thresholds specific to Day 45, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11353,7 +11353,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateSchemaRegistryCore handles core evaluation logic for Schema Registry Compatibility Enforcement by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11398,7 +11398,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeSchemaThreshold handles threshold computation for Schema Registry Compatibility Enforcement — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11443,7 +11443,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeSchemaPipeline handles pipeline optimization for Schema Registry Compatibility Enforcement — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11488,7 +11488,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateSchemaGuard handles guard validation for Schema Registry Compatibility Enforcement — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11533,7 +11533,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditSchemaTelemetry handles telemetry auditing for Schema Registry Compatibility Enforcement by validating capacity bounds and enforcing deterministic thresholds specific to Day 46, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11602,7 +11602,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateChangeDataCore handles core evaluation logic for Change Data Capture by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11647,7 +11647,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeChangeThreshold handles threshold computation for Change Data Capture — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11692,7 +11692,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeChangePipeline handles pipeline optimization for Change Data Capture — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11737,7 +11737,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateChangeGuard handles guard validation for Change Data Capture — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11782,7 +11782,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditChangeTelemetry handles telemetry auditing for Change Data Capture by validating capacity bounds and enforcing deterministic thresholds specific to Day 47, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -11851,7 +11851,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateBackpressurePropagationCore handles core evaluation logic for Backpressure Propagation by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11896,7 +11896,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeBackpressureThreshold handles threshold computation for Backpressure Propagation — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11941,7 +11941,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeBackpressurePipeline handles pipeline optimization for Backpressure Propagation — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -11986,7 +11986,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateBackpressureGuard handles guard validation for Backpressure Propagation — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12031,7 +12031,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditBackpressureTelemetry handles telemetry auditing for Backpressure Propagation by validating capacity bounds and enforcing deterministic thresholds specific to Day 48, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12100,7 +12100,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateDeadLetterCore handles core evaluation logic for Dead-Letter Queue Exponential Replay Tiers & Poison-Pill Quarantine by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12145,7 +12145,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeDeadThreshold handles threshold computation for Dead-Letter Queue Exponential Replay Tiers & Poison-Pill Quarantine — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12190,7 +12190,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeDeadPipeline handles pipeline optimization for Dead-Letter Queue Exponential Replay Tiers & Poison-Pill Quarantine — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12235,7 +12235,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateDeadGuard handles guard validation for Dead-Letter Queue Exponential Replay Tiers & Poison-Pill Quarantine — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12280,7 +12280,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditDeadTelemetry handles telemetry auditing for Dead-Letter Queue Exponential Replay Tiers & Poison-Pill Quarantine by validating capacity bounds and enforcing deterministic thresholds specific to Day 49, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12349,7 +12349,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateSchemaEvolutionCore handles core evaluation logic for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12394,7 +12394,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeSchemaThreshold handles threshold computation for Milestone 10 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12439,7 +12439,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeSchemaPipeline handles pipeline optimization for Milestone 10 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12484,7 +12484,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateSchemaGuard handles guard validation for Milestone 10 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12529,7 +12529,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditSchemaTelemetry handles telemetry auditing for Milestone 10 by validating capacity bounds and enforcing deterministic thresholds specific to Day 50, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12598,7 +12598,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateComplexEventCore handles core evaluation logic for Complex Event Processing by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12643,7 +12643,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeComplexThreshold handles threshold computation for Complex Event Processing — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12688,7 +12688,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeComplexPipeline handles pipeline optimization for Complex Event Processing — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12733,7 +12733,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateComplexGuard handles guard validation for Complex Event Processing — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12778,7 +12778,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditComplexTelemetry handles telemetry auditing for Complex Event Processing by validating capacity bounds and enforcing deterministic thresholds specific to Day 51, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -12847,7 +12847,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateProbabilisticStreamingCore handles core evaluation logic for Probabilistic Streaming Aggregations by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12892,7 +12892,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeProbabilisticThreshold handles threshold computation for Probabilistic Streaming Aggregations — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12937,7 +12937,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeProbabilisticPipeline handles pipeline optimization for Probabilistic Streaming Aggregations — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -12982,7 +12982,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateProbabilisticGuard handles guard validation for Probabilistic Streaming Aggregations — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13027,7 +13027,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditProbabilisticTelemetry handles telemetry auditing for Probabilistic Streaming Aggregations by validating capacity bounds and enforcing deterministic thresholds specific to Day 52, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13096,7 +13096,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateRealTimeCore handles core evaluation logic for Real-Time Feature Store Materialization by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13141,7 +13141,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeRealThreshold handles threshold computation for Real-Time Feature Store Materialization — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13186,7 +13186,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeRealPipeline handles pipeline optimization for Real-Time Feature Store Materialization — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13231,7 +13231,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateRealGuard handles guard validation for Real-Time Feature Store Materialization — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13276,7 +13276,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditRealTelemetry handles telemetry auditing for Real-Time Feature Store Materialization by validating capacity bounds and enforcing deterministic thresholds specific to Day 53, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13345,7 +13345,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateMultiRegionCore handles core evaluation logic for Multi-Region Geo-Replication by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13390,7 +13390,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeMultiThreshold handles threshold computation for Multi-Region Geo-Replication — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13435,7 +13435,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeMultiPipeline handles pipeline optimization for Multi-Region Geo-Replication — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13480,7 +13480,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateMultiGuard handles guard validation for Multi-Region Geo-Replication — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13525,7 +13525,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditMultiTelemetry handles telemetry auditing for Multi-Region Geo-Replication by validating capacity bounds and enforcing deterministic thresholds specific to Day 54, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13594,7 +13594,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateCepPatternCore handles core evaluation logic for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13639,7 +13639,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeCepThreshold handles threshold computation for Milestone 11 — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13684,7 +13684,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeCepPipeline handles pipeline optimization for Milestone 11 — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13729,7 +13729,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateCepGuard handles guard validation for Milestone 11 — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13774,7 +13774,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditCepTelemetry handles telemetry auditing for Milestone 11 by validating capacity bounds and enforcing deterministic thresholds specific to Day 55, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -13843,7 +13843,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateConsumerLagCore handles core evaluation logic for Consumer Lag Telemetry by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13888,7 +13888,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeConsumerThreshold handles threshold computation for Consumer Lag Telemetry — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13933,7 +13933,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeConsumerPipeline handles pipeline optimization for Consumer Lag Telemetry — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -13978,7 +13978,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateConsumerGuard handles guard validation for Consumer Lag Telemetry — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14023,7 +14023,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditConsumerTelemetry handles telemetry auditing for Consumer Lag Telemetry by validating capacity bounds and enforcing deterministic thresholds specific to Day 56, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14092,7 +14092,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateLogCompactionCore handles core evaluation logic for Log Compaction by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14137,7 +14137,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeLogThreshold handles threshold computation for Log Compaction — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14182,7 +14182,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeLogPipeline handles pipeline optimization for Log Compaction — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14227,7 +14227,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateLogGuard handles guard validation for Log Compaction — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14272,7 +14272,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditLogTelemetry handles telemetry auditing for Log Compaction by validating capacity bounds and enforcing deterministic thresholds specific to Day 57, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14341,7 +14341,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateTieredStorageCore handles core evaluation logic for Tiered Storage Economics by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14386,7 +14386,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeTieredThreshold handles threshold computation for Tiered Storage Economics — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14431,7 +14431,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeTieredPipeline handles pipeline optimization for Tiered Storage Economics — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14476,7 +14476,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateTieredGuard handles guard validation for Tiered Storage Economics — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14521,7 +14521,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditTieredTelemetry handles telemetry auditing for Tiered Storage Economics by validating capacity bounds and enforcing deterministic thresholds specific to Day 58, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14590,7 +14590,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateRealTimeCore handles core evaluation logic for Real-Time Payment Fraud Pipeline by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14635,7 +14635,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeRealThreshold handles threshold computation for Real-Time Payment Fraud Pipeline — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14680,7 +14680,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeRealPipeline handles pipeline optimization for Real-Time Payment Fraud Pipeline — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14725,7 +14725,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateRealGuard handles guard validation for Real-Time Payment Fraud Pipeline — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14770,7 +14770,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditRealTelemetry handles telemetry auditing for Real-Time Payment Fraud Pipeline by validating capacity bounds and enforcing deterministic thresholds specific to Day 59, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],
@@ -14839,7 +14839,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "evaluateEnterpriseExactlyCore handles core evaluation logic for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14884,7 +14884,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "computeEnterpriseThreshold handles threshold computation for Milestone 12 Capstone — Core Algorithm & State Representation by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14929,7 +14929,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By validating capacity bounds, computing normalized utilization and headroom deterministically, and enforcing the 85% saturation threshold"
           ],
           "answer": 2,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "optimizeEnterprisePipeline handles pipeline optimization for Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -14974,7 +14974,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 0,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "validateEnterpriseGuard handles guard validation for Milestone 12 Capstone — Resilience Guardrails & Failure Recovery by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       },
       {
@@ -15019,7 +15019,7 @@ export const STREAM_WEB_LONG_LESSONS: LongLesson[] = [
             "By hardcoding a static boolean result and ignoring runtime load and weight parameters"
           ],
           "answer": 1,
-          "why": "Validating capacity > 0, rounding utilization and headroom to 4 decimals, and enforcing the <= 0.85 threshold prevents silent overload and provides deterministic status reporting."
+          "why": "auditEnterpriseTelemetry handles telemetry auditing for Milestone 12 Capstone by validating capacity bounds and enforcing deterministic thresholds specific to Day 60, ensuring predictable status reporting that the other options would compromise."
         }
       }
     ],

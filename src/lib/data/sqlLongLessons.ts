@@ -15860,7 +15860,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
     "day": 60,
     "coursePrefix": "sql-mastery",
     "title": "Milestone 12 Capstone: Planetary-Scale Enterprise SQL Career OS: Financial Ledger, Graph Analytics & Hybrid Vector Engine",
-    "goal": "Conquer the Grand Finale Capstone of Course 01: SQL Mastery. Synthesize all 60 days of database engineering into a unified, planetary-scale enterprise platform: architect multi-region geographic partitioning, build an immutable double-entry financial ledger with cryptographic hash chaining, execute recursive hierarchical graph analytics with cycle detection, fuse relational SQL queries with pgvector HNSW semantic vector search, and orchestrate autonomous query tuning and zero-loss disaster recovery runbooks.",
+    "goal": "Conquer the Grand Finale Capstone of SQL Mastery: SQL Mastery. Synthesize all 60 days of database engineering into a unified, planetary-scale enterprise platform: architect multi-region geographic partitioning, build an immutable double-entry financial ledger with cryptographic hash chaining, execute recursive hierarchical graph analytics with cycle detection, fuse relational SQL queries with pgvector HNSW semantic vector search, and orchestrate autonomous query tuning and zero-loss disaster recovery runbooks.",
     "minutes": 45,
     "recap": "Across Days 1 to 59, we mastered relational fundamentals, internal storage anatomy, query optimization, JIT compilation, graph analytics, and CDC logical replication. Today in Day 60, we unify all 60 days into the Planetary-Scale Enterprise SQL Career OS Grand Finale Capstone.",
     "parts": [

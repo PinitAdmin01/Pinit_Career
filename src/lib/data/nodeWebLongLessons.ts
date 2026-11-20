@@ -53,12 +53,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes V8's TurboFan compiler to trigger a deoptimization bailout in production backend code?",
           "options": [
-            "Passing unexpected object shapes or changing property orderings at runtime",
             "Allocating more than sixteen megabytes of buffer data in memory",
+            "Passing unexpected object shapes or changing property orderings at runtime",
             "Invoking console.log inside a synchronous while loop",
             "Setting the event loop poll timeout to zero milliseconds"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Passing polymorphic object shapes invalidates TurboFan speculative inline caches, forcing V8 to deoptimize to bytecode."
         }
       },
@@ -93,12 +93,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition does V8 promote an object from New Space to Old Space?",
           "options": [
-            "When the object survives two consecutive Scavenge garbage collection cycles",
-            "When the object size exceeds one hundred and twenty-eight bytes",
             "When the object is serialized into a JSON string format",
+            "When the object size exceeds one hundred and twenty-eight bytes",
+            "When the object survives two consecutive Scavenge garbage collection cycles",
             "When the event loop advances from the timers phase to the poll phase"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Objects surviving two consecutive nursery Scavenge cycles are classified as durable and promoted to Old Space."
         }
       },
@@ -134,12 +134,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following operations is offloaded to the libuv background thread pool rather than kernel epoll?",
           "options": [
-            "Asynchronous file system reads via fs.promises.readFile",
+            "Setting a timer callback with setTimeout in the event loop",
             "Receiving an incoming TCP connection on a net.Server",
             "Streaming incoming HTTP request body chunks over a socket",
-            "Setting a timer callback with setTimeout in the event loop"
+            "Asynchronous file system reads via fs.promises.readFile"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "File system operations are inherently blocking at the OS level and must be offloaded to libuv background worker threads."
         }
       },
@@ -216,12 +216,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of executing a synchronous CPU-intensive calculation on the Node.js main thread?",
           "options": [
-            "It blocks the event loop, freezing all concurrent requests and preventing I/O callbacks from executing",
             "It forces the operating system to shut down network socket interfaces immediately",
+            "It blocks the event loop, freezing all concurrent requests and preventing I/O callbacks from executing",
             "It triggers an automatic deallocation of all Old Space memory partitions",
             "It causes the V8 engine to switch permanently from Ignition bytecode to interpreted C++"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because JavaScript execution is single-threaded, synchronous CPU operations block the event loop for all concurrent requests."
         }
       }
@@ -281,12 +281,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which phase of the libuv event loop directly follows the Poll phase?",
           "options": [
-            "The Check phase (executing setImmediate callbacks)",
-            "The Timers phase (executing setTimeout callbacks)",
             "The Pending Callbacks phase (executing I/O error callbacks)",
+            "The Timers phase (executing setTimeout callbacks)",
+            "The Check phase (executing setImmediate callbacks)",
             "The Idle/Prepare phase (executing internal libuv routines)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The Check phase directly succeeds the Poll phase, enabling setImmediate callbacks to execute immediately after I/O polling."
         }
       },
@@ -323,12 +323,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does libuv use a binary min-heap data structure for managing timers in the Timers phase?",
           "options": [
-            "It allows inspecting the earliest expiring timer in O(1) time without scanning all scheduled timers",
+            "It executes timer callbacks concurrently across multiple operating system kernel threads",
             "It automatically encrypts timer payloads in resident physical RAM memory partitions",
             "It compiles timer callback closures into TurboFan native machine code instructions",
-            "It executes timer callbacks concurrently across multiple operating system kernel threads"
+            "It allows inspecting the earliest expiring timer in O(1) time without scanning all scheduled timers"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A binary min-heap places the earliest expiring timer at the root, enabling O(1) inspection of the next timer."
         }
       },
@@ -407,12 +407,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the libuv Poll phase timeout if setImmediate callbacks are waiting in the Check phase queue?",
           "options": [
-            "Zero milliseconds (do not block; process ready I/O and advance immediately to Check)",
             "One millisecond (mandatory minimum hardware clock tick delay)",
+            "Zero milliseconds (do not block; process ready I/O and advance immediately to Check)",
             "Equal to the expiration timestamp of the earliest scheduled setTimeout",
             "Indefinite blocking until an incoming TCP connection arrives"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If setImmediate callbacks exist, libuv sets poll timeout to 0ms so it does not block, advancing directly to Check."
         }
       },
@@ -449,12 +449,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When both setTimeout(fn, 0) and setImmediate(fn) are scheduled inside an fs.readFile callback, which executes first?",
           "options": [
-            "setImmediate is guaranteed to execute first because the event loop advances from Poll directly to Check",
-            "setTimeout is guaranteed to execute first because Timers always have absolute priority in libuv",
             "The execution order is completely random and depends on operating system thread scheduling",
+            "setTimeout is guaranteed to execute first because Timers always have absolute priority in libuv",
+            "setImmediate is guaranteed to execute first because the event loop advances from Poll directly to Check",
             "Both callbacks execute simultaneously on parallel worker threads"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Within an I/O callback in the Poll phase, the event loop advances directly to Check, guaranteeing setImmediate executes first."
         }
       }
@@ -514,12 +514,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does the V8 engine execute pending microtasks during Node.js runtime operation?",
           "options": [
-            "Immediately when the synchronous call stack empties, before advancing to the next event loop operation",
+            "Once every sixty seconds during the major Mark-Sweep-Compact garbage collection pause",
             "Only during the Close Callbacks phase at the end of the complete event loop tick",
             "Concurrently on a background operating system thread managed by libuv",
-            "Once every sixty seconds during the major Mark-Sweep-Compact garbage collection pause"
+            "Immediately when the synchronous call stack empties, before advancing to the next event loop operation"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Microtasks drain exhaustively whenever the V8 synchronous call stack reaches zero frames, before advancing libuv phases."
         }
       },
@@ -598,12 +598,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the default behavior of modern Node.js (Node 15+) when an unhandled Promise rejection occurs?",
           "options": [
-            "The process terminates immediately with a non-zero exit code (fail-fast behavior)",
             "The event loop logs an informational warning and continues running indefinitely",
+            "The process terminates immediately with a non-zero exit code (fail-fast behavior)",
             "The rejected Promise is automatically converted into a setImmediate callback",
             "The V8 virtual machine rolls back memory allocations to the previous Scavenge cycle"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Modern Node.js terminates the process on unhandled promise rejections by default to prevent corrupted state."
         }
       },
@@ -640,12 +640,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does recursive scheduling with process.nextTick cause event loop starvation while setImmediate does not?",
           "options": [
-            "process.nextTick drains exhaustively before advancing libuv phases, whereas setImmediate yields after the Check phase",
-            "process.nextTick runs in kernel space while setImmediate runs in user space",
             "setImmediate allocates memory in Old Space while process.nextTick allocates in New Space",
+            "process.nextTick runs in kernel space while setImmediate runs in user space",
+            "process.nextTick drains exhaustively before advancing libuv phases, whereas setImmediate yields after the Check phase",
             "setImmediate automatically spawns operating system background worker threads"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "nextTickQueue drains recursively and exhaustively, blocking libuv from advancing to I/O polling and timers."
         }
       },
@@ -682,12 +682,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of queueMicrotask over Promise.resolve().then(fn) for scheduling microtasks?",
           "options": [
-            "It avoids allocating an unnecessary Promise instance in memory while adhering to web standards",
+            "It automatically retries failed asynchronous network socket connections",
             "It executes concurrently on a background operating system thread pool",
             "It runs with higher priority than process.nextTick in the Node runtime",
-            "It automatically retries failed asynchronous network socket connections"
+            "It avoids allocating an unnecessary Promise instance in memory while adhering to web standards"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "queueMicrotask enqueues directly onto the V8 microtask queue without creating Promise objects or reaction records."
         }
       }
@@ -789,12 +789,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is process.hrtime.bigint() vastly superior to Date.now() for performance latency profiling?",
           "options": [
-            "It is a monotonic clock that cannot jump backwards due to NTP synchronization and provides nanosecond precision",
             "It automatically stores latency metrics in the operating system kernel network buffer",
+            "It is a monotonic clock that cannot jump backwards due to NTP synchronization and provides nanosecond precision",
             "It converts asynchronous JavaScript functions into multithreaded native worker operations",
             "It eliminates the need for V8 garbage collection cycles in production containers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Monotonic clocks advance forward without jumping backwards from NTP sync and provide nanosecond precision."
         }
       },
@@ -831,12 +831,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What memory metric is monitored by the Linux kernel when deciding to trigger an OOMKilled termination on a container?",
           "options": [
-            "Resident Set Size (RSS), representing total physical host RAM occupied by the process",
-            "heapUsed, representing the active JavaScript objects on the V8 heap",
             "arrayBuffers, representing memory allocated for typed array views",
+            "heapUsed, representing the active JavaScript objects on the V8 heap",
+            "Resident Set Size (RSS), representing total physical host RAM occupied by the process",
             "The V8 code space allocated for TurboFan native machine instructions"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The OS kernel measures total Resident Set Size (RSS); exceeding container limits triggers kernel OOM termination."
         }
       },
@@ -873,12 +873,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational purpose of intercepting SIGTERM in a Node.js Kubernetes microservice?",
           "options": [
-            "To stop accepting new traffic, complete active in-flight requests, and exit cleanly before SIGKILL",
+            "To trigger an immediate hard reset of the host operating system kernel",
             "To automatically restart the process with double the allocated heap memory",
             "To convert all active TCP sockets into WebSocket connections",
-            "To trigger an immediate hard reset of the host operating system kernel"
+            "To stop accepting new traffic, complete active in-flight requests, and exit cleanly before SIGKILL"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Intercepting SIGTERM allows services to drain active connections and flush state before the pod is forcibly killed."
         }
       },
@@ -980,12 +980,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did the Error-First Callback convention break standard JavaScript try/catch error handling?",
           "options": [
-            "Callbacks execute on a future event loop tick after the original calling stack frame has already unwound",
             "The V8 virtual machine disables error catching for all functions accepting more than one argument",
+            "Callbacks execute on a future event loop tick after the original calling stack frame has already unwound",
             "Operating system file systems reject error objects that are not formatted as JSON strings",
             "Callbacks automatically run on background worker threads that have no access to main memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because callbacks execute asynchronously on future ticks, the original synchronous try/catch block is no longer on the call stack."
         }
       },
@@ -1022,12 +1022,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if both resolve() and reject() are called inside a Promise executor function?",
           "options": [
-            "Only the first call takes effect; subsequent calls are ignored because Promise state is permanently immutable upon settlement",
-            "The Promise enters a corrupted hybrid state that crashes the V8 engine",
             "The reject() call always overrides the resolve() call regardless of invocation order",
+            "The Promise enters a corrupted hybrid state that crashes the V8 engine",
+            "Only the first call takes effect; subsequent calls are ignored because Promise state is permanently immutable upon settlement",
             "The second call triggers an immediate deoptimization bailout in TurboFan"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Once a Promise settles into Fulfilled or Rejected, its state and value are permanently immutable; subsequent calls are ignored."
         }
       },
@@ -1064,12 +1064,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Google V8 internally compile and execute an async function with await expressions?",
           "options": [
-            "It compiles the function into an ES6 generator state machine that yields on await and resumes via microtasks",
+            "It translates the JavaScript syntax into multi-threaded WebAssembly byte streams",
             "It spawns a new operating system kernel thread for every await expression in the code",
             "It executes the entire function synchronously by blocking the CPU until all network packets return",
-            "It translates the JavaScript syntax into multi-threaded WebAssembly byte streams"
+            "It compiles the function into an ES6 generator state machine that yields on await and resumes via microtasks"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "V8 compiles async/await into generator state machines that suspend on await and resume via Promise microtask reaction jobs."
         }
       },
@@ -1148,12 +1148,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural challenge does Node.js's native AsyncLocalStorage API resolve for backend services?",
           "options": [
-            "Propagating request-scoped state (like trace IDs) across asynchronous operations without manual parameter drilling",
             "Automatically allocating physical hard drive storage for temporary database queries",
+            "Propagating request-scoped state (like trace IDs) across asynchronous operations without manual parameter drilling",
             "Converting synchronous file system operations into parallel multi-threaded workers",
             "Compressing HTTP payload bodies before transmission across network sockets"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "AsyncLocalStorage propagates request context across asynchronous execution chains without manual parameter passing."
         }
       }
@@ -1211,12 +1211,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under RFC 9110 and RFC 9112, what exact byte sequence signals the definitive end of an HTTP/1.1 header block?",
           "options": [
-            "A double carriage return and line feed sequence (0x0D 0x0A 0x0D 0x0A or \\r\\n\\r\\n)",
-            "A single newline character (0x0A or \\n) following a Content-Length header",
             "A null termination byte (0x00) emitted across the TCP socket stream",
+            "A single newline character (0x0A or \\n) following a Content-Length header",
+            "A double carriage return and line feed sequence (0x0D 0x0A 0x0D 0x0A or \\r\\n\\r\\n)",
             "An EOF packet transmitted by the kernel closing the write half of the socket"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "RFC 9112 Section 2.1 strictly mandates that the header block is terminated by an empty line containing a solitary CRLF sequence."
         },
         "output": "Method: POST\nTarget: /v1/telemetry/events?batch=true\nVersion: HTTP/1.1\nHost: api.enterprise.internal\nContent-Type: application/json; charset=utf-8\nPayload Bytes: 48"
@@ -1254,12 +1254,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should high-throughput backend HTTP microservices in Node.js configure `socket.setNoDelay(true)`?",
           "options": [
-            "To disable Nagle's algorithm, eliminating 40ms-200ms latency delays caused by packet coalescing",
+            "To allow Node.js to bind multiple server sockets to the exact same TCP port without cluster mode",
             "To increase the maximum TCP payload capacity beyond standard 1500-byte Ethernet MTU limits",
             "To compress outgoing HTTP JSON headers using kernel-level GZIP algorithms automatically",
-            "To allow Node.js to bind multiple server sockets to the exact same TCP port without cluster mode"
+            "To disable Nagle's algorithm, eliminating 40ms-200ms latency delays caused by packet coalescing"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Disabling Nagle's algorithm prevents the operating system from holding small outgoing packets until an acknowledgment is received."
         },
         "output": "Final State: CLOSED\nTCP_NODELAY: true\nBytes Transmitted: 256\nLifecycle History:\nESTABLISHED: Handshake completed\nTCP_NODELAY: Nagle algorithm disabled\nCLOSE_WAIT: Peer sent FIN; half-close active\nFLUSH: Sent 256 trailing bytes\nCLOSED: Local FIN sent; socket destroyed"
@@ -1340,12 +1340,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural cause of Head-of-Line (HoL) blocking in persistent HTTP/1.1 connections?",
           "options": [
-            "HTTP/1.1 strictly mandates that responses must be sent in the exact sequential order that requests were received",
             "Operating system TCP drivers can only handle one single outstanding packet at any given time",
+            "HTTP/1.1 strictly mandates that responses must be sent in the exact sequential order that requests were received",
             "Node.js single-threaded event loop forbids asynchronous I/O over persistent socket connections",
             "HTTP/1.1 requires client and server to recalculate TLS session keys after every single transaction"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In HTTP/1.1 pipelining, responses must be dispatched strictly in FIFO order, meaning a slow early request blocks all subsequent responses."
         },
         "output": "Transaction 1: REQ-001 -> Connection: keep-alive\nTransaction 2: REQ-002 -> Connection: keep-alive\nTransaction 3: REQ-003 -> Connection: close\nSocket Open: false"
@@ -1383,12 +1383,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a bare-metal HTTP/1.1 server compute Content-Length using Buffer.byteLength rather than string.length?",
           "options": [
-            "string.length counts UTF-16 code units, whereas Content-Length strictly requires total octets (bytes) on the wire",
-            "Buffer.byteLength automatically compresses the response payload before transmission",
             "Node.js throws a runtime exception if string.length is passed into a header",
+            "Buffer.byteLength automatically compresses the response payload before transmission",
+            "string.length counts UTF-16 code units, whereas Content-Length strictly requires total octets (bytes) on the wire",
             "The HTTP RFC mandates that Content-Length must be encoded in base-64 representation"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Multibyte characters (like emojis or non-ASCII characters) occupy multiple bytes in UTF-8, making string.length dangerously inaccurate."
         },
         "output": "Status Line: HTTP/1.1 200 OK\nTotal Response Bytes: 200\nContains Double CRLF: true\nBody Fragment: {\"status\":\"healthy\",\"uptimeSeconds\":1420}"
@@ -1449,12 +1449,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What internal parser engine is utilized by modern Node.js runtimes to process incoming HTTP request streams?",
           "options": [
-            "llhttp, an optimized TypeScript-generated C parser ported from http-parser",
+            "Babel stream parser, transpiling HTTP wire bytes into modern ES modules",
             "Acorn, the ECMAScript JavaScript AST tokenizer running in user space",
             "V8 JSON parser, which parses HTTP headers as native JavaScript objects",
-            "Babel stream parser, transpiling HTTP wire bytes into modern ES modules"
+            "llhttp, an optimized TypeScript-generated C parser ported from http-parser"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Node.js utilizes llhttp (a port of http-parser written in TypeScript and compiled to C) for high-performance HTTP parsing."
         },
         "output": "Socket: sock-8812\nParser Latency: 216us\nPhase: DISPATCHED"
@@ -1536,12 +1536,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What condition triggers Node.js to throw the runtime error `ERR_HTTP_HEADERS_SENT`?",
           "options": [
-            "Attempting to set headers or status codes after res.write() or res.end() has already flushed headers",
             "Attempting to send an HTTP status code greater than 599 across the TCP socket stream",
+            "Attempting to set headers or status codes after res.write() or res.end() has already flushed headers",
             "Omitting the Content-Length header when sending a static JSON response payload",
             "Sending an HTTP response containing more than 2,000 distinct header fields"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Once the response header block is flushed across the TCP socket, headers cannot be modified or retransmitted."
         },
         "output": "Status Code: 200\nHeaders Sent: true\nChunks Flushed: 3\nTrailers Appended: true"
@@ -1580,12 +1580,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does validating the HTTP Host header against an immutable allowlist protect backend systems?",
           "options": [
-            "It prevents HTTP Host Header Injection attacks that hijack password reset links and OAuth redirection flows",
-            "It speeds up DNS resolution by caching IP addresses in the Node.js V8 execution context",
             "It allows the Node.js event loop to bypass libuv network socket polling for internal requests",
+            "It speeds up DNS resolution by caching IP addresses in the Node.js V8 execution context",
+            "It prevents HTTP Host Header Injection attacks that hijack password reset links and OAuth redirection flows",
             "It automatically encrypts incoming HTTP plain-text headers using AES-256-GCM algorithms"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Host header injection allows attackers to poison password reset URLs and OAuth callbacks if the Host header is trusted blindly."
         },
         "output": "Pathname: /api/v2/reports\nFormat: csv\nLimit: 50\nHost Valid: true"
@@ -1625,12 +1625,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational objective of implementing graceful shutdown in a Node.js web service?",
           "options": [
-            "To permit in-flight requests and database transactions to finish cleanly before terminating the process",
+            "To migrate active TCP sockets to worker threads without closing listening port descriptors",
             "To compress the V8 heap snapshot into an archive file on disk before shutting down",
             "To automatically restart the Node.js server with higher V8 memory allocation flags",
-            "To migrate active TCP sockets to worker threads without closing listening port descriptors"
+            "To permit in-flight requests and database transactions to finish cleanly before terminating the process"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Graceful shutdown prevents in-flight requests from being abruptly severed with 502 errors when containers are rotated."
         },
         "output": "In-Flight: 0\nDrained Cleanly: true\nExit Code: 0"
@@ -1735,12 +1735,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Trie router handle shared path prefixes like `/api/v1/users` and `/api/v1/orders`?",
           "options": [
-            "It shares the common `/api/v1` ancestor nodes in memory, branching only at the terminal segment",
             "It creates two completely independent linear arrays and evaluates both sequentially",
+            "It shares the common `/api/v1` ancestor nodes in memory, branching only at the terminal segment",
             "It concatenates both routes into a single regular expression with an OR (|) pipe operator",
             "It serializes the path names into an SQLite in-memory database and executes an SQL LIKE query"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Tries merge shared prefix sequences into common ancestor nodes, eliminating duplicate memory and traversal overhead."
         },
         "output": "Lookup /api/v1/users: UsersHandler\nLookup /api/v1/orders: OrdersHandler\nLookup /unknown: null"
@@ -1779,12 +1779,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should static route segments take precedence over parametric route segments in a Radix tree router?",
           "options": [
-            "To ensure that exact paths like `/users/me` are not incorrectly captured by dynamic routes like `/users/:id`",
-            "Because static routes are encrypted while parametric routes are stored as plain text",
             "To prevent the V8 compiler from optimizing parametric routes into native machine code",
+            "Because static routes are encrypted while parametric routes are stored as plain text",
+            "To ensure that exact paths like `/users/me` are not incorrectly captured by dynamic routes like `/users/:id`",
             "Because the HTTP RFC strictly forbids mixing static and dynamic segments on the same server"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Static precedence prevents specific named endpoints from being masked by generic dynamic parameter patterns."
         },
         "output": "Matched Handler: GetBookHandler\nUserId: u-409\nBookId: b-881"
@@ -1823,12 +1823,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under RFC 9110, what header must accompany an HTTP 405 Method Not Allowed response?",
           "options": [
-            "Allow, containing a comma-separated list of valid HTTP methods supported by the target resource",
+            "Location, redirecting the client to an alternative URI where the method is supported",
             "Accept, specifying the MIME media types that the server is capable of serializing",
             "Retry-After, indicating how many seconds the client must wait before retrying the request",
-            "Location, redirecting the client to an alternative URI where the method is supported"
+            "Allow, containing a comma-separated list of valid HTTP methods supported by the target resource"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "RFC 9110 Section 15.5.6 mandates the Allow header in 405 responses to inform clients which methods are valid."
         },
         "output": "GET Status: 200\nGET Handler: GetUsers\nPUT Status: 405\nAllow Header: GET, POST"
@@ -1936,12 +1936,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Async Onion Middleware pattern differ from linear Express-style middleware chains?",
           "options": [
-            "Onion middleware allows post-processing code written after `await next()` to execute as the stack unwinds",
             "Onion middleware compiles TypeScript directly to WebAssembly binary modules at runtime",
+            "Onion middleware allows post-processing code written after `await next()` to execute as the stack unwinds",
             "Linear middleware executes all route handlers in parallel across separate CPU threads",
             "Onion middleware requires incoming HTTP requests to be encoded in GZIP compression format"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In the onion model, awaiting next() suspends the middleware, allowing post-processing logic to run as downstream promises resolve."
         },
         "output": "Execution Order: M1 In -> M2 In -> M2 Out -> M1 Out"
@@ -1980,12 +1980,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What catastrophic operational failure occurs if a middleware function invokes `next()` twice without protection?",
           "options": [
-            "Downstream handlers and database mutations execute twice for a single request, triggering duplicate transactions",
-            "The Node.js garbage collector instantly purges all active session tokens from V8 memory",
             "The operating system network stack revokes the server's listening port binding descriptor",
+            "The Node.js garbage collector instantly purges all active session tokens from V8 memory",
+            "Downstream handlers and database mutations execute twice for a single request, triggering duplicate transactions",
             "The client's web browser automatically redirects to an HTTP 301 Permanent Redirect loop"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Invoking next() twice re-executes downstream controllers and database queries, risking duplicate financial charges or records."
         },
         "output": "Error Caught: next() called multiple times"
@@ -2025,12 +2025,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is storing request correlation IDs on global singleton variables dangerous in Node.js backend services?",
           "options": [
-            "Because concurrent asynchronous requests interleaving across the event loop will overwrite the global variable",
+            "Because operating system firewalls block outgoing network sockets when global state is detected",
             "Because Node.js will automatically encrypt the global variable using AES-128 algorithms",
             "Because V8 disables Just-In-Time (JIT) compilation whenever a global variable is modified",
-            "Because operating system firewalls block outgoing network sockets when global state is detected"
+            "Because concurrent asynchronous requests interleaving across the event loop will overwrite the global variable"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "In Node's single-threaded concurrent event loop, global variables are shared, causing concurrent requests to overwrite each other's data."
         },
         "output": "Current Context: [req-991][User:usr-42]\nOutside Context: [NO_CTX]"
@@ -2114,12 +2114,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational role of the OPEN state in a Circuit Breaker pattern?",
           "options": [
-            "To fail fast immediately, preventing requests from hammering an ailing downstream service and exhausting local resources",
             "To redirect all incoming HTTP traffic to an external DNS nameserver for load balancing",
+            "To fail fast immediately, preventing requests from hammering an ailing downstream service and exhausting local resources",
             "To allow unlimited concurrent TCP socket connections without rate limiting",
             "To clear the V8 engine module cache and force a live hot reload of application code"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In the OPEN state, the circuit breaker short-circuits calls instantly, protecting system stability and allowing recovery."
         },
         "output": "Failures: 3\nCircuit Tripped: true"
@@ -2181,12 +2181,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of a Prototype Pollution vulnerability (CWE-1321) in a Node.js web application?",
           "options": [
-            "An attacker can inject properties onto Object.prototype, altering property checks globally across all objects",
-            "It allows clients to bypass operating system TLS encryption handshakes",
             "It forces the Node.js process to downgrade from HTTP/2 to HTTP/1.0",
+            "It allows clients to bypass operating system TLS encryption handshakes",
+            "An attacker can inject properties onto Object.prototype, altering property checks globally across all objects",
             "It deletes compiled JavaScript files from the server's local disk"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Prototype pollution mutates Object.prototype, causing injected properties to be inherited by all objects in the runtime."
         },
         "output": "Polluted on Object: false\nUser Name: Alice"
@@ -2226,12 +2226,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are TypeScript static type interfaces insufficient on their own for validating incoming HTTP request bodies?",
           "options": [
-            "TypeScript types are completely erased during compilation, providing zero runtime protection against untrusted input",
+            "JSON.parse() automatically converts all incoming numbers into strings at runtime",
             "TypeScript types only apply to frontend React components running inside client browsers",
             "V8 disables TypeScript type checking whenever an HTTP connection is established",
-            "JSON.parse() automatically converts all incoming numbers into strings at runtime"
+            "TypeScript types are completely erased during compilation, providing zero runtime protection against untrusted input"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because TypeScript compile-time types are erased in JS, runtime schema validation is mandatory for untrusted input."
         },
         "output": "Valid Success: true\nValid Email: staff@enterprise.io\nInvalid Errors: 2\nFirst Error: email must be a valid email string containing @"
@@ -2317,12 +2317,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should e-commerce and financial backends coerce currency amounts into integer cents rather than floats?",
           "options": [
-            "To prevent JavaScript IEEE 754 floating-point precision errors from accumulating across financial ledger calculations",
             "Because SQL databases cannot store numbers with decimal points",
+            "To prevent JavaScript IEEE 754 floating-point precision errors from accumulating across financial ledger calculations",
             "To allow credit card processors to charge transactions without network latency",
             "Because V8 throws a runtime TypeError if a float is multiplied by a tax rate"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Binary floating point numbers cannot accurately represent decimal fractions like 0.1, causing rounding errors in ledgers."
         },
         "output": "ID: prod-441\nPrice in Cents: 1999\nTags: saas, 101"
@@ -2363,12 +2363,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of formatting API validation errors according to the IETF RFC 7807 specification?",
           "options": [
-            "It provides a standardized, machine-readable JSON structure allowing client SDKs to automate field-level error handling",
-            "It automatically retries failed HTTP requests across secondary cloud backup regions",
             "It encrypts validation error details so only authorized network administrators can view them",
+            "It automatically retries failed HTTP requests across secondary cloud backup regions",
+            "It provides a standardized, machine-readable JSON structure allowing client SDKs to automate field-level error handling",
             "It forces the browser to clear all stored cookies whenever a validation error occurs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "RFC 7807 standardizes error envelopes, enabling client SDKs to parse validation errors deterministically."
         },
         "output": "Status: 400\nTitle: Your request parameters failed validation.\nInvalid Fields: email, age"
@@ -2411,12 +2411,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is persistent connection pooling strictly necessary when interacting with PostgreSQL databases in Node.js?",
           "options": [
-            "Establishing connections incurs heavy TCP, TLS, and auth round-trips, and sockets are non-multiplexed single-query streams.",
+            "Database wire protocols automatically interleave concurrent queries over a single socket without conflict.",
             "PostgreSQL requires opening a new operating system thread for each incoming SQL query string dynamically.",
             "Node.js libuv cannot maintain more than one active TCP socket unless a pooling library is installed.",
-            "Database wire protocols automatically interleave concurrent queries over a single socket without conflict."
+            "Establishing connections incurs heavy TCP, TLS, and auth round-trips, and sockets are non-multiplexed single-query streams."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Establishing new connections requires multiple network RTTs and heavy server process allocation, and database protocols cannot multiplex multiple queries over a single socket."
         },
         "example": "Think of Relational Drivers, Wire Protocols & Socket Multiplexing like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2491,12 +2491,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to Little's Law (L = lambda * W) and database concurrency physics, why is increasing pool sizes to hundreds of connections counterproductive?",
           "options": [
-            "It causes severe CPU context switching, disk I/O thrashing, and lock contention on the database server.",
             "It causes Node.js V8 heap memory to immediately double in size for every open TCP socket.",
+            "It causes severe CPU context switching, disk I/O thrashing, and lock contention on the database server.",
             "It forces PostgreSQL to downgrade its storage engine to single-threaded synchronous write mode.",
             "It disables all database index lookups and converts all queries into sequential table scans."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Excessive connection counts overwhelm database CPU cores with context switching and disk thrashing rather than doing useful query execution."
         },
         "example": "Think of Pool Sizing Equations: Little's Law & Amdahl's Law like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2531,12 +2531,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does tracking checkout call sites with stack traces protect against production connection pool deadlocks?",
           "options": [
-            "It pinpoints the exact file and line number failing to release connections, enabling rapid debugging and automated reaping.",
-            "It automatically injects commit statements into PostgreSQL to force active transactions to finish.",
             "It instructs V8 to disable garbage collection for all database connection socket buffers.",
+            "It automatically injects commit statements into PostgreSQL to force active transactions to finish.",
+            "It pinpoints the exact file and line number failing to release connections, enabling rapid debugging and automated reaping.",
             "It allows the database driver to duplicate physical TCP sockets on demand without server permission."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Capturing the checkout call site records which function acquired the socket, exposing the code path responsible for leaking connections."
         },
         "example": "Think of Resilient Pool Healthchecks, Liveness Probing & Circuit Breaking like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2572,12 +2572,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a sustained rise in connection checkout latency indicate in a production database monitoring dashboard?",
           "options": [
-            "Incoming query demand has exceeded connection pool capacity or database queries have slowed down, causing queue starvation.",
+            "The operating system has disabled network socket keepalive probes across all containers.",
             "The Node.js garbage collector has freed all allocated database sockets simultaneously.",
             "The PostgreSQL server has automatically increased its shared memory buffer allocation.",
-            "The operating system has disabled network socket keepalive probes across all containers."
+            "Incoming query demand has exceeded connection pool capacity or database queries have slowed down, causing queue starvation."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Elevated checkout latency indicates callers are queueing because all connections are busy, signaling pool exhaustion or slow queries."
         },
         "example": "Think of Production Connection Pool Engine & Metrics Collector like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2677,12 +2677,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the PostgreSQL Extended Query Protocol (Parse, Bind, Execute) provide immunity against SQL injection?",
           "options": [
-            "The query structure is compiled into an immutable AST during Parse; parameters are bound directly without re-lexing.",
             "The Bind phase automatically runs regex replace rules on all parameters to strip SQL keywords.",
+            "The query structure is compiled into an immutable AST during Parse; parameters are bound directly without re-lexing.",
             "The Execute phase forces all queries to run inside an isolated Docker sandbox container on the database host.",
             "The database engine converts all user parameter values into encrypted SHA-256 hashes before comparison."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Parameters transmitted during the Bind phase are bound directly as literal data values to pre-compiled AST slots without re-running lexical analysis."
         },
         "example": "Think of Wire Protocol Prepared Statements & Binary Parameter Binding like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2719,12 +2719,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical issue does an automated query builder solve when assembling dynamic multi-filter SQL queries?",
           "options": [
-            "It maintains deterministic sequential parameter indexing ($1, $2, ...) and guarantees separation of SQL syntax from bound parameter values.",
-            "It converts all PostgreSQL tables into single-column JSON documents dynamically.",
             "It automatically compresses SQL strings using gzip before transmitting across the network socket.",
+            "It converts all PostgreSQL tables into single-column JSON documents dynamically.",
+            "It maintains deterministic sequential parameter indexing ($1, $2, ...) and guarantees separation of SQL syntax from bound parameter values.",
             "It bypasses database authentication by embedding client IP addresses directly into query headers."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Query builders maintain deterministic sequential parameter indexing and cleanly separate SQL structure from values, preventing parameter drift."
         },
         "example": "Think of Type-Safe Query Construction & Composable AST Builders like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2760,12 +2760,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can SQL identifiers (such as column and table names) not be safely parameterized using wire protocol placeholders ($1, ?)?",
           "options": [
-            "Wire protocols treat placeholders strictly as literal data values; placing a placeholder where an identifier is expected violates SQL grammar.",
+            "PostgreSQL only allows column names to be defined at database initialization time.",
             "The database parser requires identifiers to be encrypted with AES-256 before transmission.",
             "Node.js TCP sockets automatically strip all double-quote characters from outgoing network packets.",
-            "PostgreSQL only allows column names to be defined at database initialization time."
+            "Wire protocols treat placeholders strictly as literal data values; placing a placeholder where an identifier is expected violates SQL grammar."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "SQL grammar requires identifiers to be known during query compilation; placeholders can only bind literal values, not syntax elements."
         },
         "example": "Think of Dynamic Identifiers, Column Whitelisting & Lexical Escaping like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2865,12 +2865,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must all SQL queries within a database transaction execute across the exact same leased connection socket?",
           "options": [
-            "Database transaction state (BEGIN, locks, MVCC snapshot) is bound to the specific server process and physical TCP socket.",
             "PostgreSQL requires opening a separate TCP socket for every table referenced in an SQL query.",
+            "Database transaction state (BEGIN, locks, MVCC snapshot) is bound to the specific server process and physical TCP socket.",
             "The Node.js event loop terminates automatically if queries use more than one connection simultaneously.",
             "Operating systems only permit a single network socket write per second across all database drivers."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Transaction state and locks reside in the database server process attached to that specific physical connection."
         },
         "example": "Think of ACID Guarantees & Transaction Boundaries in Node.js like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2906,12 +2906,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Write Skew, and why does Repeatable Read isolation fail to prevent it?",
           "options": [
-            "Write skew occurs when concurrent transactions read overlapping data and update disjoint rows violating an invariant; Repeatable Read only locks rows that are updated.",
-            "Write skew is a physical hardware defect in SSD storage controllers caused by excessive write amplification.",
             "Repeatable Read automatically deletes duplicate rows from database indexes during high write concurrency.",
+            "Write skew is a physical hardware defect in SSD storage controllers caused by excessive write amplification.",
+            "Write skew occurs when concurrent transactions read overlapping data and update disjoint rows violating an invariant; Repeatable Read only locks rows that are updated.",
             "Write skew only happens when Node.js runs with multi-threading enabled via the cluster module."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Write skew occurs when transactions make disjoint writes based on overlapping read sets; Repeatable Read does not detect cross-row predicate dependencies."
         },
         "example": "Think of SQL Isolation Levels & Concurrency Anomalies like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -2947,12 +2947,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Optimistic Concurrency Control (OCC) verify that a record was not modified concurrently by another transaction?",
           "options": [
-            "It uses a conditional UPDATE with a WHERE clause checking that the version column still matches the value read initially.",
+            "It compares the SHA-256 hash of the entire database disk partition before and after each write.",
             "It holds an exclusive row-level lock from the moment the row is read until the application process exits.",
             "It pauses the Node.js event loop across all worker threads until the database confirms zero concurrent connections.",
-            "It compares the SHA-256 hash of the entire database disk partition before and after each write."
+            "It uses a conditional UPDATE with a WHERE clause checking that the version column still matches the value read initially."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "OCC validates version tokens during the UPDATE statement; if another transaction mutated the record, the version check fails and affected rows is 0."
         },
         "example": "Think of Pessimistic vs Optimistic Locking like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3030,12 +3030,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must transaction retry engines apply randomized jitter to backoff intervals when recovering from deadlocks?",
           "options": [
-            "To prevent competing transactions from retrying at identical intervals and repeatedly colliding in livelocks.",
             "To force PostgreSQL to convert exclusive table locks into shared row locks dynamically.",
+            "To prevent competing transactions from retrying at identical intervals and repeatedly colliding in livelocks.",
             "To reduce Node.js V8 bytecode compilation overhead during high memory pressure.",
             "To encrypt network socket communication packets using dynamic cryptographic salts."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Randomized jitter desynchronizes competing workers so they do not collide repeatedly at the exact same millisecond."
         },
         "example": "Think of Enterprise Transaction Engine with Automatic Deadlock Retries like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3093,12 +3093,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an LRU cache combine a Doubly-Linked List with an internal Hash Map?",
           "options": [
-            "To achieve strict O(1) constant time complexity for both key retrieval and temporal node re-ordering/eviction.",
-            "Because Node.js V8 prevents storing objects in Maps unless they implement linked list interfaces.",
             "To allow Redis network sockets to read JavaScript memory pointers directly without serialization.",
+            "Because Node.js V8 prevents storing objects in Maps unless they implement linked list interfaces.",
+            "To achieve strict O(1) constant time complexity for both key retrieval and temporal node re-ordering/eviction.",
             "Because linked lists automatically compress in-memory JSON strings using Huffman coding."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The hash map provides O(1) key lookups, while the doubly-linked list allows O(1) node removal and re-insertion at the head."
         },
         "example": "Think of Memory Hierarchy, L1/L2 Cache Topology & Access Latencies like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3134,12 +3134,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is evicting a cache key (cache.del) generally preferred over updating it (cache.set) during data mutations?",
           "options": [
-            "It prevents dual-write race conditions where out-of-order asynchronous cache writes overwrite fresher database state.",
+            "The Node.js event loop blocks indefinitely if a cache update takes longer than 100 microseconds.",
             "Deleting keys reduces Redis network bandwidth by converting all future requests into UDP broadcasts.",
             "Updating cache keys causes PostgreSQL to drop all foreign key constraints on the mutated table.",
-            "The Node.js event loop blocks indefinitely if a cache update takes longer than 100 microseconds."
+            "It prevents dual-write race conditions where out-of-order asynchronous cache writes overwrite fresher database state."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Eviction forces subsequent reads to fetch committed database state, preventing race conditions where delayed writes leave stale values in cache."
         },
         "example": "Think of Cache Invalidation Patterns: Cache-Aside, Write-Through & Write-Behind like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3216,12 +3216,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of the XFetch probabilistic early expiration algorithm over static TTL expiration?",
           "options": [
-            "It refreshes hot cache keys in the background before they expire, ensuring users never experience cache miss latencies.",
             "It eliminates the need for relational databases by storing all application records in CPU registers.",
+            "It refreshes hot cache keys in the background before they expire, ensuring users never experience cache miss latencies.",
             "It bypasses TLS encryption on Redis sockets to increase raw network throughput.",
             "It converts all asynchronous Node.js operations into synchronous C++ execution frames."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "XFetch probabilistically refreshes hot keys before expiration, completely eliminating cache misses without thundering herd spikes."
         },
         "example": "Think of Probabilistic Early Expiration (The XFetch Algorithm) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3259,12 +3259,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must multi-tier cache managers apply randomized TTL jitter to cached keys?",
           "options": [
-            "To prevent large batches of cached keys from expiring at the exact same second, causing synchronized database spikes.",
-            "To scramble cached strings so that unauthorized database users cannot read customer records.",
             "To force Redis to store all cached data in compressed snappy format automatically.",
+            "To scramble cached strings so that unauthorized database users cannot read customer records.",
+            "To prevent large batches of cached keys from expiring at the exact same second, causing synchronized database spikes.",
             "To synchronize server physical clocks across disparate availability zones without NTP."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Randomized TTL jitter spreads key expiration times smoothly across time, preventing synchronized thundering herd spikes."
         },
         "example": "Think of Production Tiered Cache with Singleflight Stampede Defense like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3323,12 +3323,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an un-timed ALTER TABLE statement cause full-system outages on high-traffic databases?",
           "options": [
-            "It waits in the FIFO lock queue for an AccessExclusiveLock, blocking all subsequent SELECT queries behind it and exhausting connection pools.",
+            "It forces the Linux kernel to drop all TCP packets arriving on port 5432.",
             "It deletes all active database user credentials from the system catalog tables.",
             "It converts all relational tables into flat CSV files on the host file system.",
-            "It forces the Linux kernel to drop all TCP packets arriving on port 5432."
+            "It waits in the FIFO lock queue for an AccessExclusiveLock, blocking all subsequent SELECT queries behind it and exhausting connection pools."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because PostgreSQL lock queues are FIFO, a waiting AccessExclusiveLock blocks all subsequent read queries, exhausting application connection pools."
         },
         "example": "Think of The Zero-Downtime Challenge: Schema Evolution in Production like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3408,12 +3408,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must CREATE INDEX CONCURRENTLY be used when building indexes on high-traffic PostgreSQL tables?",
           "options": [
-            "It builds the index across two passes without acquiring a ShareLock, allowing concurrent INSERT, UPDATE, and DELETE queries to proceed.",
             "It converts all B-Tree indexes into in-memory hash tables automatically.",
+            "It builds the index across two passes without acquiring a ShareLock, allowing concurrent INSERT, UPDATE, and DELETE queries to proceed.",
             "It reduces the physical disk space consumed by the index file by ninety percent.",
             "It instructs the database to delete all duplicate keys automatically during index construction."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "CONCURRENTLY builds indexes without acquiring a ShareLock, preventing write-blocking outages on live tables."
         },
         "example": "Think of Non-Blocking DDL Operations in PostgreSQL & MySQL like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3450,12 +3450,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does calculating and storing SHA-256 checksums in schema_migrations protect production database integrity?",
           "options": [
-            "It detects if previously applied migration scripts were retroactively altered in source code, preventing schema drift.",
-            "It allows PostgreSQL to compile SQL scripts into C++ shared libraries before execution.",
             "It encrypts database tables using client-side public-key cryptography.",
+            "It allows PostgreSQL to compile SQL scripts into C++ shared libraries before execution.",
+            "It detects if previously applied migration scripts were retroactively altered in source code, preventing schema drift.",
             "It automatically rolls back database transactions if CPU temperature exceeds safe thresholds."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Checksum verification ensures that historical migration files cannot be modified after execution, guaranteeing consistent schemas across environments."
         },
         "example": "Think of Migration Runners, Checksum Verification & Distributed Leader Election like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3492,12 +3492,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise migration runners assign migrations to execution Batches?",
           "options": [
-            "To allow rolling deployments to roll back only the specific set of migrations applied in the latest deployment release.",
+            "To enable automatic machine-learning translation of SQL queries into JavaScript code.",
             "To compress all database tables into single zip files on disk.",
             "To force PostgreSQL to execute all queries using single-threaded CPU affinity.",
-            "To enable automatic machine-learning translation of SQL queries into JavaScript code."
+            "To allow rolling deployments to roll back only the specific set of migrations applied in the latest deployment release."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Batch numbers track which migrations were applied together in a release, allowing exact reversal of that specific deployment."
         },
         "example": "Think of Industrial Schema Migration Engine & Version Runner like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3600,12 +3600,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of a cryptographic salt in password storage?",
           "options": [
-            "To ensure every password hash is globally unique, completely neutralizing precomputed rainbow table attacks.",
             "To encrypt password text using asymmetric RSA public keys.",
+            "To ensure every password hash is globally unique, completely neutralizing precomputed rainbow table attacks.",
             "To compress password strings so they take less space in relational database tables.",
             "To convert Unicode strings into standard ASCII characters before comparison."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Salts guarantee that identical passwords produce distinct hashes and render precomputed rainbow tables completely ineffective."
         },
         "example": "Think of Cryptographic Salts & Key Stretching Functions like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3642,12 +3642,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Argon2id superior to PBKDF2 and bcrypt for password hashing in enterprise applications?",
           "options": [
-            "It is memory-hard, requiring significant RAM per hash to neutralize GPU and ASIC hardware-accelerated cracking.",
-            "It converts password strings into reversible symmetric AES-256 tokens.",
             "It bypasses operating system CPU execution by executing directly inside network card buffers.",
+            "It converts password strings into reversible symmetric AES-256 tokens.",
+            "It is memory-hard, requiring significant RAM per hash to neutralize GPU and ASIC hardware-accelerated cracking.",
             "It stores all user passwords in public DNS records to eliminate database lookups."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Argon2id enforces memory hardness, requiring tens of megabytes of RAM per hash and rendering massively parallel GPU/ASIC attacks infeasible."
         },
         "example": "Think of The Argon2id Standard: Memory-Hard Cryptography like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3685,12 +3685,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does standard string comparison (===) leak secret credentials to attackers via timing attacks?",
           "options": [
-            "It terminates early on the first mismatched character, allowing attackers to measure microsecond differences to deduce secrets.",
+            "It disables CPU hardware caching during string parsing in the V8 engine.",
             "It converts strings into unencrypted UDP packets broadcast across the local subnet.",
             "It exposes memory pointer addresses directly to client-side JavaScript cookies.",
-            "It disables CPU hardware caching during string parsing in the V8 engine."
+            "It terminates early on the first mismatched character, allowing attackers to measure microsecond differences to deduce secrets."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Early exit in equality operators takes less time when early characters mismatch, exposing secrets through statistical timing analysis."
         },
         "example": "Think of Side-Channel Timing Attacks & Constant-Time String Comparison like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3791,12 +3791,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical security difference between standard JSON Web Signatures (JWS) and JSON Web Encryption (JWE)?",
           "options": [
-            "JWS only guarantees integrity and authenticity; claims are unencrypted and readable by anyone who decodes the Base64URL string.",
             "JWS encrypts all payload claims using quantum-resistant zero-knowledge proofs.",
+            "JWS only guarantees integrity and authenticity; claims are unencrypted and readable by anyone who decodes the Base64URL string.",
             "JWE is only compatible with Python and Java backends, whereas JWS only runs in Node.js.",
             "JWS tokens can only be transmitted over UDP sockets, whereas JWE requires TCP."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "JWS tokens are signed, not encrypted; their base64url payload is public and readable by anyone."
         },
         "example": "Think of Anatomy of RFC 7519 JSON Web Tokens like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3833,12 +3833,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is asymmetric signing (RS256/ES256) preferred over symmetric signing (HS256) in microservice architectures?",
           "options": [
-            "It separates private signing from public verification, ensuring compromised reader services cannot forge tokens.",
-            "It allows JWT tokens to execute inside browser web workers without JavaScript.",
             "It compresses JSON payloads into binary Protocol Buffers automatically.",
+            "It allows JWT tokens to execute inside browser web workers without JavaScript.",
+            "It separates private signing from public verification, ensuring compromised reader services cannot forge tokens.",
             "It bypasses TLS certificate checks on outgoing HTTP network calls."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Asymmetric keys allow downstream services to verify tokens with a public key while keeping the private signing key safely isolated."
         },
         "example": "Think of Symmetric HMAC vs Asymmetric RSA/ECDSA Signatures like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3875,12 +3875,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Algorithm Confusion Attack trick asymmetric verification servers into accepting forged JWTs?",
           "options": [
-            "It signs an HMAC-SHA256 token using the server's public RSA key string as the shared secret, exploiting lax algorithm whitelists.",
+            "It generates cryptographic keys with zero-length primes in OpenSSL.",
             "It replaces the database connection string with a base64-encoded cookie.",
             "It overflows the Node.js V8 call stack by sending deeply nested JSON arrays in the payload.",
-            "It generates cryptographic keys with zero-length primes in OpenSSL."
+            "It signs an HMAC-SHA256 token using the server's public RSA key string as the shared secret, exploiting lax algorithm whitelists."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Algorithm confusion treats public keys as HMAC secrets, forging valid signatures when verifiers allow multiple conflicting algorithms."
         },
         "example": "Think of The 'None' Algorithm & Algorithm Confusion Attacks like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -3960,12 +3960,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must production JWT verifiers incorporate a small clock skew tolerance (e.g. 30-60s)?",
           "options": [
-            "To prevent valid tokens from being rejected due to minor sub-minute clock drift between distributed servers.",
             "To allow users to continue using expired tokens indefinitely.",
+            "To prevent valid tokens from being rejected due to minor sub-minute clock drift between distributed servers.",
             "To reduce server CPU usage during cryptographic hash operations.",
             "To convert all token timestamps from UTC to the user's local timezone automatically."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Distributed servers experience minor clock drift; clock skew tolerance prevents false rejections of valid tokens."
         },
         "example": "Think of Production JWT Signer & Verifier Engine like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4024,12 +4024,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are in-memory server sessions considered an anti-pattern in horizontal microservice clusters?",
           "options": [
-            "They force sticky sessions at the load balancer, cause traffic hotspots, and lose state during container restarts.",
-            "They require Node.js to run with root operating system privileges.",
             "They only support HTTP GET requests and reject POST payloads.",
+            "They require Node.js to run with root operating system privileges.",
+            "They force sticky sessions at the load balancer, cause traffic hotspots, and lose state during container restarts.",
             "They encrypt data using symmetric ciphers that browser engines cannot decrypt."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In-memory sessions bind users to specific containers, breaking horizontal load balancing and causing session loss during deployments."
         },
         "example": "Think of Stateless vs Stateful Session Models & Memory Limits like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4066,12 +4066,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Redis 'SET key value NX EX seconds' command superior to sequential GET, SET, and EXPIRE commands?",
           "options": [
-            "It executes creation and TTL binding atomically in a single round-trip, preventing race conditions and immortal keys.",
+            "It bypasses TCP packet checksums to increase network throughput.",
             "It compresses values using gzip compression automatically on the client side.",
             "It converts all string values into binary JSON BSON formats.",
-            "It bypasses TCP packet checksums to increase network throughput."
+            "It executes creation and TTL binding atomically in a single round-trip, preventing race conditions and immortal keys."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "SET NX EX guarantees atomic lease creation with TTL in one network hop, eliminating race conditions and dangling unexpired keys."
         },
         "example": "Think of Redis Wire Protocol & Atomic Lease Operations (SET NX EX) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4150,12 +4150,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action must the authentication server take immediately upon detecting the reuse of an already-consumed refresh token?",
           "options": [
-            "Revoke the entire token family, invalidate all associated active sessions, and force re-authentication.",
             "Silently ignore the request and grant the attacker temporary guest privileges.",
+            "Revoke the entire token family, invalidate all associated active sessions, and force re-authentication.",
             "Send an unencrypted email containing the attacker's IP address to the user.",
             "Increase the expiration time of all tokens in the database to 90 days."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Token reuse indicates compromise; revoking the entire token family cuts off the attacker and protects user assets."
         },
         "example": "Think of Automatic Token Theft & Reuse Detection (Breach Invalidation) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4192,12 +4192,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does maintaining a user-to-sessions index set enable instant global account logout across all devices?",
           "options": [
-            "It allows the server to look up all active session keys for a user and delete them in a single batch operation.",
-            "It sends a push notification requesting all clients to manually delete their cookies.",
             "It changes the user's password to an empty string on the database server.",
+            "It sends a push notification requesting all clients to manually delete their cookies.",
+            "It allows the server to look up all active session keys for a user and delete them in a single batch operation.",
             "It resets the TCP connection of every server in the data center."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A user session index lets the backend identify and delete all active session keys in Redis in a single atomic batch."
         },
         "example": "Think of Production Redis Session & Token Rotation Manager like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4258,12 +4258,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is checking granular permissions (hasPermission('doc:delete')) superior to checking role names (if user.role === 'admin')?",
           "options": [
-            "It decouples business logic from job titles, eliminating role explosion and allowing dynamic permission assignment.",
+            "It prevents the operating system kernel from terminating the Node.js process.",
             "It compiles the JavaScript code directly into WebAssembly at runtime.",
             "It encrypts the incoming HTTP request body with RSA public keys.",
-            "It prevents the operating system kernel from terminating the Node.js process."
+            "It decouples business logic from job titles, eliminating role explosion and allowing dynamic permission assignment."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Checking granular permissions decouples domain logic from organizational roles, allowing new roles to be created without changing code."
         },
         "example": "Think of Authentication vs Authorization & RBAC Pitfalls (Role Explosion) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4344,12 +4344,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Attribute-Based Access Control (ABAC) over RBAC?",
           "options": [
-            "It evaluates dynamic contextual attributes (ownership, resource state, environment) without exploding the role matrix.",
             "It converts all backend API endpoints into GraphQL schemas automatically.",
+            "It evaluates dynamic contextual attributes (ownership, resource state, environment) without exploding the role matrix.",
             "It allows database records to be modified without acquiring table locks.",
             "It encrypts HTTP responses using hardware security modules."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "ABAC evaluates dynamic Subject, Resource, Action, and Environment attributes, supporting complex rules without role explosion."
         },
         "example": "Think of Attribute-Based Access Control (ABAC) & Dynamic Policies like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4388,12 +4388,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In enterprise authorization systems evaluating both Permit and Deny rules, what is the standard precedence convention?",
           "options": [
-            "Explicit Deny takes precedence over all Permit grants, guaranteeing that security overrides cannot be bypassed.",
-            "Permit always overrides Deny to prevent service disruptions.",
             "The rule created most recently in the database always wins regardless of type.",
+            "Permit always overrides Deny to prevent service disruptions.",
+            "Explicit Deny takes precedence over all Permit grants, guaranteeing that security overrides cannot be bypassed.",
             "The rule with the shortest character length takes precedence."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Standard security architectures enforce 'Deny Takes Precedence', ensuring that explicit restrictions override general grants."
         },
         "example": "Think of Hierarchical Resource Boundaries & Wildcard Globbing like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4431,12 +4431,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does combining fast-path bitflag checks with slow-path ABAC evaluation optimize authorization middleware performance?",
           "options": [
-            "It rejects unauthorized requests in a single CPU instruction, only executing database or context lookups when bitflags pass.",
+            "It disables CORS preflight requests on the edge load balancer.",
             "It converts all 403 Forbidden responses into 200 OK responses to improve customer satisfaction.",
             "It stores the database root password in the user's session cookie.",
-            "It disables CORS preflight requests on the edge load balancer."
+            "It rejects unauthorized requests in a single CPU instruction, only executing database or context lookups when bitflags pass."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Fast-path bitflag checks immediately reject unauthorized users in single-cycle CPU time, saving expensive database lookups."
         },
         "example": "Think of Production Authorization Middleware & Policy Decision Point like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4539,12 +4539,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the 'X-Content-Type-Options: nosniff' header prevent Cross-Site Scripting (XSS) attacks via user file uploads?",
           "options": [
-            "It stops browsers from guessing the file type and executing malicious JavaScript disguised as images or plain text.",
             "It deletes all executable files from the server's hard drive automatically.",
+            "It stops browsers from guessing the file type and executing malicious JavaScript disguised as images or plain text.",
             "It re-compiles image files into WebP format on the client machine.",
             "It requires users to enter a one-time password before viewing PDF attachments."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "'nosniff' prevents browsers from treating user-uploaded images or text files as executable JavaScript, thwarting MIME-sniffing XSS."
         },
         "example": "Think of Defense-in-Depth HTTP Headers & Helmet Architecture like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4582,12 +4582,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must cryptographic CSP nonces be uniquely generated on every single HTTP request rather than statically configured?",
           "options": [
-            "Static nonces can be inspected by attackers and embedded into malicious XSS scripts to bypass the policy.",
-            "Browsers reject any CSP header that contains the same string twice in a 24-hour period.",
             "Dynamic nonces compress the HTML payload using gzip compression.",
+            "Browsers reject any CSP header that contains the same string twice in a 24-hour period.",
+            "Static nonces can be inspected by attackers and embedded into malicious XSS scripts to bypass the policy.",
             "Static nonces prevent DNS records from resolving on mobile networks."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A static nonce is completely predictable; attackers can embed the known nonce in their payload to defeat CSP protections."
         },
         "example": "Think of Content Security Policy (CSP) & Cryptographic Nonces like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4624,12 +4624,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can an attacker website (evil.com) not exploit CSRF against an application protected by the Double-Submit Cookie pattern?",
           "options": [
-            "The Same-Origin Policy prevents evil.com from reading the CSRF cookie, so it cannot inject the matching header.",
+            "The Double-Submit pattern converts all HTTP POST requests into WebSockets.",
             "Browser firewalls automatically terminate connections to domains containing the word 'evil'.",
             "CSRF tokens encrypt the entire database table using AES-GCM.",
-            "The Double-Submit pattern converts all HTTP POST requests into WebSockets."
+            "The Same-Origin Policy prevents evil.com from reading the CSRF cookie, so it cannot inject the matching header."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because SOP blocks evil.com from reading the victim's cookies, the attacker cannot copy the token into the required custom request header."
         },
         "example": "Think of Cross-Site Request Forgery (CSRF) & Double-Submit Cookies like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4732,12 +4732,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical architectural difference between the libuv threadpool and V8 isolate worker threads?",
           "options": [
-            "Libuv threads execute C/C++ operations (fs, crypto, zlib); V8 worker threads run separate V8 isolates executing parallel JavaScript.",
             "Libuv threads only run inside web browsers, whereas V8 worker threads run on GPU cores.",
+            "Libuv threads execute C/C++ operations (fs, crypto, zlib); V8 worker threads run separate V8 isolates executing parallel JavaScript.",
             "Libuv threads require Python 2.7 to be installed on the host operating system.",
             "V8 worker threads share the exact same JavaScript heap pointer without memory isolation."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Libuv threads handle internal C++ tasks like file I/O; V8 worker threads spin up isolated V8 engines executing parallel JavaScript."
         },
         "example": "Think of The Libuv Worker Pool vs V8 Isolate Worker Threads like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4775,12 +4775,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if an unhandled exception is thrown inside a worker thread and the parent thread has no 'error' listener registered?",
           "options": [
-            "The unhandled worker error crashes the entire parent Node.js application process.",
-            "The worker thread automatically restarts and retries the calculation indefinitely.",
             "The error is silently discarded and the main thread continues running unaffected.",
+            "The worker thread automatically restarts and retries the calculation indefinitely.",
+            "The unhandled worker error crashes the entire parent Node.js application process.",
             "The operating system restarts the physical server machine."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An unhandled exception in a worker thread emits an 'error' event on the Worker instance; if unhandled, it crashes the Node.js process."
         },
         "example": "Think of Worker Threads Lifecycle & The Worker API like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4818,12 +4818,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to an ArrayBuffer on the sender thread after it is passed in the postMessage Transfer List?",
           "options": [
-            "It is detached (neutered); its byteLength becomes 0 and the sender can no longer read or write to it.",
+            "It is converted into a base64 string on the operating system clipboard.",
             "It is automatically encrypted using AES-GCM and saved to disk.",
             "It remains fully readable and writable by both threads simultaneously without locks.",
-            "It is converted into a base64 string on the operating system clipboard."
+            "It is detached (neutered); its byteLength becomes 0 and the sender can no longer read or write to it."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Transferring an ArrayBuffer detaches it from the sender isolate, dropping its byteLength to 0 and preventing race conditions."
         },
         "example": "Think of Zero-Copy Memory Transfers (ArrayBuffer & Transfer Lists) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4906,12 +4906,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should worker thread pool size typically be bounded to (os.cpus().length - 1) in production web backends?",
           "options": [
-            "To prevent CPU core over-subscription and preserve at least one core for the main event loop to handle network I/O.",
             "Because Node.js crashes if more than 3 threads are created on Linux.",
+            "To prevent CPU core over-subscription and preserve at least one core for the main event loop to handle network I/O.",
             "To ensure all threads share the exact same V8 memory heap.",
             "To automatically compress worker log messages with gzip."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Reserving one CPU core ensures the main event loop thread is never starved of CPU cycles for network I/O and routing."
         },
         "example": "Think of Production Worker Thread Pool Architecture like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -4972,12 +4972,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between a standard ArrayBuffer and a SharedArrayBuffer?",
           "options": [
-            "A SharedArrayBuffer can be mapped and accessed by multiple V8 isolates simultaneously without transferring ownership.",
-            "A SharedArrayBuffer can only store string values and rejects numbers.",
             "A standard ArrayBuffer is stored on disk, whereas a SharedArrayBuffer is stored in CPU registers.",
+            "A SharedArrayBuffer can only store string values and rejects numbers.",
+            "A SharedArrayBuffer can be mapped and accessed by multiple V8 isolates simultaneously without transferring ownership.",
             "A SharedArrayBuffer automatically encrypts data using TLS 1.3."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "SharedArrayBuffer allows multiple worker threads to read and write to the exact same physical memory concurrently."
         },
         "example": "Think of Shared Memory Architecture vs Message Passing like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5016,12 +5016,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does sharedArray[0]++ produce corrupted values when executed concurrently across multiple threads without synchronization?",
           "options": [
-            "It is a multi-step Read-Modify-Write sequence; concurrent threads interleave reads and overwrite each other's increments.",
+            "Node.js disallows arithmetic operations inside worker threads.",
             "JavaScript numbers are stored as 16-bit floating point strings in RAM.",
             "The V8 compiler randomly deletes variables when multiple threads access them.",
-            "Node.js disallows arithmetic operations inside worker threads."
+            "It is a multi-step Read-Modify-Write sequence; concurrent threads interleave reads and overwrite each other's increments."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Increment is not atomic at the CPU level; it involves reading, modifying, and writing, allowing concurrent writes to collide."
         },
         "example": "Think of Concurrency Anomalies & Data Races in Shared Memory like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5103,12 +5103,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is invoking Atomics.wait() strictly forbidden on the main Node.js event loop thread?",
           "options": [
-            "It synchronously blocks the OS thread, freezing the event loop and halting all I/O, timers, and HTTP processing.",
             "The main thread lacks permissions to read 32-bit integers.",
+            "It synchronously blocks the OS thread, freezing the event loop and halting all I/O, timers, and HTTP processing.",
             "Atomics.wait() deletes the V8 heap context on the main thread.",
             "It requires root administrator privileges to invoke."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Atomics.wait blocks the calling thread synchronously; running it on the main thread freezes the entire Node.js event loop."
         },
         "example": "Think of Thread Coordination with Atomics.wait() & Atomics.notify() like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5146,12 +5146,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a lock-free circular ring buffer require its capacity to be a power of two?",
           "options": [
-            "It allows index wrap-around to be computed using a single fast bitwise AND (index & mask) instead of an expensive modulo division.",
-            "Because operating systems cannot allocate memory that is not a multiple of 1024.",
             "Because JavaScript arrays cannot hold odd numbers of elements.",
+            "Because operating systems cannot allocate memory that is not a multiple of 1024.",
+            "It allows index wrap-around to be computed using a single fast bitwise AND (index & mask) instead of an expensive modulo division.",
             "It encrypts the buffer contents automatically using two-factor authentication."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Power-of-two capacity replaces expensive CPU modulo (%) with a single-cycle bitwise AND (index & mask) operation."
         },
         "example": "Think of Production Lock-Free Circular Ring Buffer (SPSC Queue) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5213,12 +5213,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Process Clustering (node:cluster) over Worker Threads?",
           "options": [
-            "Full OS process fault isolation; a crash or segfault in one worker cannot bring down other workers or the primary process.",
+            "Clustered workers consume zero operating system RAM.",
             "Process clustering allows all workers to share JavaScript object pointers without locks.",
             "Process clustering eliminates the need for HTTP routers.",
-            "Clustered workers consume zero operating system RAM."
+            "Full OS process fault isolation; a crash or segfault in one worker cannot bring down other workers or the primary process."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Clustered workers run in separate OS processes; if one crashes, the others continue serving traffic uninterrupted."
         },
         "example": "Think of Process Clustering vs Multithreading (Fault Isolation & Memory Limits) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5303,12 +5303,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the underlying operating system IPC mechanism used by node:cluster for primary-worker communication?",
           "options": [
-            "Anonymous Unix domain sockets on POSIX systems and Named Pipes on Windows.",
             "Public DNS records queried over UDP port 53.",
+            "Anonymous Unix domain sockets on POSIX systems and Named Pipes on Windows.",
             "Writing JSON files to the /tmp directory and polling them.",
             "Hardware interrupts sent over the PCI express bus."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Node.js cluster IPC relies on Unix domain sockets (POSIX) and Named Pipes (Windows) connected via dedicated file descriptors."
         },
         "example": "Think of Primary-Worker IPC & Cluster Coordination Events like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5347,12 +5347,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "During a zero-downtime rolling restart, why does the primary wait for the successor worker to emit 'listening' before terminating the legacy worker?",
           "options": [
-            "To guarantee that replacement capacity is fully operational, preventing service degradation or dropped incoming connections.",
-            "To allow the successor worker to copy the legacy worker's V8 heap memory directly.",
             "Because Node.js disallows terminating processes that have not completed garbage collection.",
+            "To allow the successor worker to copy the legacy worker's V8 heap memory directly.",
+            "To guarantee that replacement capacity is fully operational, preventing service degradation or dropped incoming connections.",
             "To update the domain name system (DNS) records on the local network router."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Waiting for 'listening' ensures replacement capacity is ready to accept traffic before retiring the legacy process."
         },
         "example": "Think of Zero-Downtime Rolling Restarts (Phased Reloading) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5390,12 +5390,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must production cluster managers implement crash-loop (flapping) detection rather than unconditionally re-forking dead workers?",
           "options": [
-            "To prevent infinite crash loops that exhaust CPU, PIDs, and disk logs when systemic errors occur on startup.",
+            "Because unconstrained re-forking causes memory encryption keys to leak.",
             "Because Node.js processes cannot be spawned more than twice per hour.",
             "To force the operating system to install missing npm packages automatically.",
-            "Because unconstrained re-forking causes memory encryption keys to leak."
+            "To prevent infinite crash loops that exhaust CPU, PIDs, and disk logs when systemic errors occur on startup."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Unconditional re-forking during startup failures creates infinite loops that saturate CPU and exhaust process tables."
         },
         "example": "Think of Production Resilient Cluster Manager like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5495,12 +5495,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does passing an argument array with a double-dash delimiter ('--') prevent both command injection and option injection?",
           "options": [
-            "The kernel executes without a shell, and the double-dash instructs the CLI parser to treat subsequent tokens strictly as positional operands.",
             "The spawn function automatically encrypts the input using SHA-256.",
+            "The kernel executes without a shell, and the double-dash instructs the CLI parser to treat subsequent tokens strictly as positional operands.",
             "Node.js runs git commands inside an isolated Docker container automatically.",
             "Operating systems forbid any input containing semicolons from being saved."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Spawning without a shell passes arguments directly to execve(); '--' tells CLI parsers that succeeding tokens cannot be option flags."
         },
         "example": "Think of Mitigating Command Injection (CWE-78) & Argument Escaping like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5538,12 +5538,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Node.js stream backpressure prevent Out-Of-Memory crashes when a child process produces data faster than a network client can consume it?",
           "options": [
-            "It pauses reading from the OS pipe, filling the kernel buffer and causing the OS to suspend the child's write() call.",
-            "It compresses the data into zip files on disk.",
             "It increases the V8 maximum old space size to 64 gigabytes automatically.",
+            "It compresses the data into zip files on disk.",
+            "It pauses reading from the OS pipe, filling the kernel buffer and causing the OS to suspend the child's write() call.",
             "It drops random data chunks until memory usage decreases."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Pausing reads fills the OS pipe buffer, causing the kernel to suspend the child process until the consumer drains."
         },
         "example": "Think of Asynchronous Stream Piping & Backpressure across Subprocesses like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5579,12 +5579,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you terminate an entire child process tree (including all subprocesses spawned by the child) on POSIX systems?",
           "options": [
-            "Send the termination signal to the negative Process Group ID: process.kill(-child.pid, 'SIGTERM').",
+            "Call child.disconnect() fifty times in a loop.",
             "Reboot the operating system.",
             "Delete the /proc directory from the filesystem.",
-            "Call child.disconnect() fifty times in a loop."
+            "Send the termination signal to the negative Process Group ID: process.kill(-child.pid, 'SIGTERM')."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Passing a negative PID to process.kill sends the signal to the entire process group, terminating all descendant processes."
         },
         "example": "Think of Detached Processes, Daemons & Signal Dispatching like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5690,12 +5690,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is offloading background work to unawaited Promises or in-memory arrays dangerous in production backend services?",
           "options": [
-            "Process restarts, crashes, or rolling deployments permanently destroy all in-memory tasks without recovery.",
             "Node.js automatically halts all asynchronous functions after ten seconds.",
+            "Process restarts, crashes, or rolling deployments permanently destroy all in-memory tasks without recovery.",
             "In-memory arrays cannot store JSON objects with string properties.",
             "JavaScript forbids calling setTimeout inside web servers."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In-memory tasks are destroyed on process termination or restart; persistent queues like Redis guarantee durability."
         },
         "example": "Think of Ephemeral vs Persistent Tasks & Anatomy of a Job Queue like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5732,12 +5732,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BullMQ execute job state transitions using Redis Lua scripts instead of standard individual Redis commands?",
           "options": [
-            "Redis Lua scripts execute with strict atomicity, preventing multiple distributed workers from popping or modifying the same job simultaneously.",
-            "Lua scripts automatically compile JavaScript code to C++ native binaries.",
             "Redis commands cannot store JSON strings larger than 100 bytes.",
+            "Lua scripts automatically compile JavaScript code to C++ native binaries.",
+            "Redis Lua scripts execute with strict atomicity, preventing multiple distributed workers from popping or modifying the same job simultaneously.",
             "Lua scripts prevent Redis from consuming CPU power."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Redis Lua scripts execute atomically in the Redis thread, preventing race conditions where multiple workers pop the same job."
         },
         "example": "Think of BullMQ State Machine & Redis Atomic Primitives like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5774,12 +5774,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Full Jitter combined with Exponential Backoff when retrying failed distributed tasks?",
           "options": [
-            "It randomizes retry timings across workers, breaking synchronization and preventing thundering herd spikes against recovering systems.",
+            "It increases the speed of mathematical exponentiation in V8.",
             "It converts all failed jobs into HTTP GET requests.",
             "It forces Redis to delete old keys immediately.",
-            "It increases the speed of mathematical exponentiation in V8."
+            "It randomizes retry timings across workers, breaking synchronization and preventing thundering herd spikes against recovering systems."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Jitter spreads retry attempts uniformly over the backoff interval, preventing synchronized thundering herd spikes."
         },
         "example": "Think of Exponential Backoff, Full Jitter & Dead-Letter Queues (DLQ) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5861,12 +5861,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the required steps for a production background worker to execute a graceful shutdown upon receiving SIGTERM?",
           "options": [
-            "Refuse new jobs, allow active in-flight jobs to complete within a timeout window, and cleanly disconnect from Redis.",
             "Immediately terminate the process without waiting for active jobs.",
+            "Refuse new jobs, allow active in-flight jobs to complete within a timeout window, and cleanly disconnect from Redis.",
             "Delete all databases and flush Redis memory unconditionally.",
             "Broadcast an HTTP 500 error to all connected frontend clients."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Workers must stop accepting new tasks, finish in-flight jobs within a grace period, and cleanly close broker connections."
         },
         "example": "Think of Production BullMQ Worker & Graceful Shutdown Orchestration like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5927,12 +5927,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Protocol Buffers achieve significantly higher throughput and lower CPU usage than JSON in microservice communication?",
           "options": [
-            "It encodes data into a compact binary format using numeric field tags instead of repeating dictionary field names as text strings.",
-            "It executes all network calls inside browser service workers.",
             "It eliminates the need for computer networks by using quantum entanglement.",
+            "It executes all network calls inside browser service workers.",
+            "It encodes data into a compact binary format using numeric field tags instead of repeating dictionary field names as text strings.",
             "It compresses all text payloads with 7-Zip compression algorithms."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Protobuf encodes numeric tags into compact binary bytes, eliminating text parsing and repeated field name strings."
         },
         "example": "Think of The RPC Paradigm vs REST: Microservice Inter-Process Communication like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -5968,12 +5968,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Protobuf Varint encoding represent numbers with minimal byte overhead?",
           "options": [
-            "It uses 7 bits per byte for payload data, using the Most Significant Bit (MSB) as a continuation flag.",
+            "It strips all zero digits from numbers before sending.",
             "It converts all numbers into floating point decimals.",
             "It encrypts integers with AES-128 keys.",
-            "It strips all zero digits from numbers before sending."
+            "It uses 7 bits per byte for payload data, using the Most Significant Bit (MSB) as a continuation flag."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Varints use 7 bits for integer data and bit 7 as an MSB continuation bit, encoding small integers in 1 byte."
         },
         "example": "Think of Protocol Buffers (Protobuf) Wire Format & Varint Binary Encoding like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6054,12 +6054,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In which gRPC communication mode do both client and server write and read independent message streams concurrently?",
           "options": [
-            "Bidirectional Streaming RPC.",
             "Unary RPC.",
+            "Bidirectional Streaming RPC.",
             "Server-Sent Events (SSE).",
             "Client Polling RPC."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Bidirectional streaming establishes concurrent full-duplex streams over a single HTTP/2 stream ID."
         },
         "example": "Think of Four RPC Communication Modes: Unary, Client, Server & Bidirectional Streaming like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6098,12 +6098,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do gRPC distributed deadlines prevent resource waste across microservice call graphs?",
           "options": [
-            "They propagate remaining execution timeouts across downstream services, immediately terminating requests that breach their budget.",
-            "They restart the operating system when a query takes more than one minute.",
             "They convert all RPC errors into HTTP 200 responses.",
+            "They restart the operating system when a query takes more than one minute.",
+            "They propagate remaining execution timeouts across downstream services, immediately terminating requests that breach their budget.",
             "They increase network bandwidth by compressing TCP headers."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Deadlines propagate timeout limits downstream via grpc-timeout headers, aborting work when budgets expire."
         },
         "example": "Think of Production gRPC Service Definition, Metadata Interceptors & Deadlines like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6165,12 +6165,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a distributed trace establish parent-child relationships between operations across independent microservices?",
           "options": [
-            "Each child span records the unique Span ID of its caller as its parentSpanId under a shared global Trace ID.",
+            "By encrypting the client IP address with MD5.",
             "By writing all server log strings into a single shared text file on a shared USB drive.",
             "By restarting all microservices whenever a slow database query executes.",
-            "By encrypting the client IP address with MD5."
+            "Each child span records the unique Span ID of its caller as its parentSpanId under a shared global Trace ID."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Spans record parentSpanId linking back to the caller's spanId, reconstructing the execution DAG under a shared traceId."
         },
         "example": "Think of The Three Pillars of Observability & Distributed Tracing Fundamentals like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6255,12 +6255,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should an OpenTelemetry span record when an unhandled exception or database failure occurs?",
           "options": [
-            "Record an 'exception' event with type and message, and set the span status code to ERROR.",
             "Restart the server process immediately without logging.",
+            "Record an 'exception' event with type and message, and set the span status code to ERROR.",
             "Delete all prior spans from the trace to keep memory low.",
             "Send an email to the client containing the database password."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Spans record exception events and transition status to ERROR with description for root cause diagnosis."
         },
         "example": "Think of OpenTelemetry Spans, Attributes, Events & Status Codes like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6299,12 +6299,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is AsyncLocalStorage required for distributed tracing in Node.js instead of simple global variables?",
           "options": [
-            "Because Node.js executes concurrent requests on a single event loop; global variables would cause context bleeding between interleaved requests.",
-            "Because Node.js forbids functions from having more than two arguments.",
             "Because global variables cannot store strings longer than 16 characters.",
+            "Because Node.js forbids functions from having more than two arguments.",
+            "Because Node.js executes concurrent requests on a single event loop; global variables would cause context bleeding between interleaved requests.",
             "Because AsyncLocalStorage stores data in the computer's BIOS chip."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "AsyncLocalStorage isolates context per asynchronous execution chain, preventing concurrent requests from overwriting shared state."
         },
         "example": "Think of Context Propagation in Node.js via AsyncLocalStorage like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6344,12 +6344,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Tail-Based Sampling over Head-Based Sampling in distributed tracing?",
           "options": [
-            "Tail sampling evaluates the completed trace, guaranteeing that 100% of errors and high-latency outliers are captured while discarding routine traces.",
+            "Tail sampling reduces database query execution times by 50%.",
             "Tail sampling converts all JSON logs into XML documents automatically.",
             "Tail sampling eliminates the need for computer monitors.",
-            "Tail sampling reduces database query execution times by 50%."
+            "Tail sampling evaluates the completed trace, guaranteeing that 100% of errors and high-latency outliers are captured while discarding routine traces."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Tail sampling inspects traces after completion, ensuring all errors and slow queries are retained for analysis."
         },
         "example": "Think of Telemetry Sampling Strategies, Exporters & Production Pipelines like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6453,12 +6453,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational difference between the Token Bucket and Leaky Bucket algorithms?",
           "options": [
-            "Token Bucket permits instantaneous bursts up to capacity while enforcing steady rates; Leaky Bucket forces a strictly constant output rate.",
             "Token Bucket works only in Python, whereas Leaky Bucket works only in C++.",
+            "Token Bucket permits instantaneous bursts up to capacity while enforcing steady rates; Leaky Bucket forces a strictly constant output rate.",
             "Leaky Bucket stores data in relational SQL databases, while Token Bucket stores data in DNS records.",
             "Token Bucket requires rebooting the operating system once a week."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Token Bucket allows bursts up to bucket capacity; Leaky Bucket smooths traffic to a constant uniform output rate."
         },
         "example": "Think of Token Bucket vs Leaky Bucket Algorithms like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6496,12 +6496,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Sliding Window Log algorithm achieve 100% exact boundary precision?",
           "options": [
-            "It stores exact request timestamps in a Sorted Set and purges timestamps older than (now - windowSize) on every check.",
-            "It rounds all timestamps to the nearest hour.",
             "It forces users to enter a CAPTCHA before making API calls.",
+            "It rounds all timestamps to the nearest hour.",
+            "It stores exact request timestamps in a Sorted Set and purges timestamps older than (now - windowSize) on every check.",
             "It deletes the entire Redis database when memory usage exceeds 10%."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Sliding Window Log stores exact timestamps in a Sorted Set, dynamically purging elements outside the rolling window."
         },
         "example": "Think of Sliding Window Log & Sliding Window Counter via Redis Sorted Sets like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6539,12 +6539,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must distributed sliding window rate limiting be executed inside a Redis Lua script?",
           "options": [
-            "To ensure all purging, counting, and recording steps execute atomically in a single Redis tick, preventing multi-pod race conditions.",
+            "To encrypt Redis passwords using bcrypt.",
             "Because Redis does not support numbers without Lua scripts.",
             "To convert all HTTP responses into WebSocket streams.",
-            "To encrypt Redis passwords using bcrypt."
+            "To ensure all purging, counting, and recording steps execute atomically in a single Redis tick, preventing multi-pod race conditions."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Redis Lua scripts execute atomically in the Redis thread, eliminating Check-Then-Act concurrency race conditions."
         },
         "example": "Think of Atomic Rate Limiting with Redis Lua Scripts (EVALSHA) like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6657,12 +6657,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an OPEN circuit breaker prevent cascading failures in a microservice mesh?",
           "options": [
-            "It fast-fails calls immediately without executing network I/O, preventing socket and thread pool exhaustion.",
             "It converts all HTTP requests into email notifications automatically.",
+            "It fast-fails calls immediately without executing network I/O, preventing socket and thread pool exhaustion.",
             "It reboots the server computer every ten seconds.",
             "It compresses all response payloads using zip algorithms."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "OPEN circuit breakers fail fast in sub-millisecond time, preventing socket connection pool saturation."
         },
         "example": "Think of Cascading Failures & The Anatomy of a Circuit Breaker like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6703,12 +6703,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What occurs when a Circuit Breaker is in the HALF-OPEN state?",
           "options": [
-            "It permits a trial probe request to test downstream recovery, resetting to CLOSED on success or tripping to OPEN on failure.",
-            "It restarts all microservices across the entire Kubernetes cluster.",
             "It permanently disables all network interfaces.",
+            "It restarts all microservices across the entire Kubernetes cluster.",
+            "It permits a trial probe request to test downstream recovery, resetting to CLOSED on success or tripping to OPEN on failure.",
             "It doubles the memory allocation of the Node.js V8 heap."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "HALF-OPEN sends a trial canary probe to test recovery, resetting to CLOSED on success or reopening on failure."
         },
         "example": "Think of The 3-State Finite State Machine: Closed, Open & Half-Open like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6752,12 +6752,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Bulkhead Pattern prevent a slow non-critical dependency from taking down critical application workflows?",
           "options": [
-            "It enforces strict isolated concurrency limits per dependency, ensuring one slow service cannot exhaust connection pools shared by critical services.",
+            "It increases the CPU clock frequency of the host machine.",
             "It renames all database tables to uppercase.",
             "It disables all HTTP caching across the network.",
-            "It increases the CPU clock frequency of the host machine."
+            "It enforces strict isolated concurrency limits per dependency, ensuring one slow service cannot exhaust connection pools shared by critical services."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Bulkheads partition concurrency limits per service, preventing slow dependencies from exhausting shared connection pools."
         },
         "example": "Think of Bulkhead Isolation & Resource Partitioning like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6848,12 +6848,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the first action a production Node.js service must take upon receiving a SIGTERM signal?",
           "options": [
-            "Mark readiness probes as unhealthy (503) so load balancers stop routing new traffic, and stop accepting new connections.",
             "Immediately terminate the process using process.abort().",
+            "Mark readiness probes as unhealthy (503) so load balancers stop routing new traffic, and stop accepting new connections.",
             "Delete all databases and drop all tables.",
             "Send an email to all users notifying them of server termination."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Services must fail readiness checks immediately to stop ingress traffic, then drain active requests."
         },
         "example": "Think of Production Multi-Signal Graceful Shutdown Orchestrator like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6918,12 +6918,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise API Edge Gateways use Radix Trees or Tries for URL path routing instead of regular expressions?",
           "options": [
-            "Radix Trees provide deterministic O(K) lookup time proportional to URL depth, avoiding regex catastrophic backtracking under high concurrency.",
-            "Radix Trees automatically compress all JSON payloads into gzip files.",
             "Radix Trees eliminate the need for computer RAM.",
+            "Radix Trees automatically compress all JSON payloads into gzip files.",
+            "Radix Trees provide deterministic O(K) lookup time proportional to URL depth, avoiding regex catastrophic backtracking under high concurrency.",
             "Radix Trees convert all HTTP traffic into UDP packets."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Trie-based routing achieves deterministic O(K) path matching without regex engine backtracking overhead."
         },
         "example": "Think of Architecture of an Enterprise API Edge Gateway like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -6968,12 +6968,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an API Gateway strip Hop-by-Hop headers (such as Connection and Transfer-Encoding) before proxying requests upstream?",
           "options": [
-            "Hop-by-hop headers apply only to a single point-to-point TCP connection; forwarding them causes socket desynchronization and HTTP smuggling.",
+            "Hop-by-hop headers encrypt the payload using obsolete DES algorithms.",
             "Hop-by-hop headers consume too much hard disk space on the gateway server.",
             "Hop-by-hop headers force the CPU to switch from 64-bit to 32-bit execution mode.",
-            "Hop-by-hop headers encrypt the payload using obsolete DES algorithms."
+            "Hop-by-hop headers apply only to a single point-to-point TCP connection; forwarding them causes socket desynchronization and HTTP smuggling."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Hop-by-hop headers are valid only for a single TCP link; forwarding them breaches RFC 7230 and causes framing desynchronization."
         },
         "example": "Think of High-Performance Reverse Proxying & HTTP/2 Microservice Multiplexing like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -7063,12 +7063,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Active Health Probing differ from Passive Health Checking (Outlier Detection) in an API Gateway?",
           "options": [
-            "Active probing sends periodic background synthetic requests, while passive checking monitors error rates and latency on live client traffic.",
             "Active probing requires shutting down the physical gateway server every hour.",
+            "Active probing sends periodic background synthetic requests, while passive checking monitors error rates and latency on live client traffic.",
             "Passive checking disables all firewall rules.",
             "Active probing deletes the operating system kernel."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Active probing polls synthetic health endpoints periodically; passive detection tracks errors in real customer requests."
         },
         "example": "Think of Dynamic Service Discovery, Health Probing & Active Load Balancing like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -7113,12 +7113,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural value of an Enterprise API Edge Gateway in a microservice topology?",
           "options": [
-            "It acts as a centralized, hardened ingress layer that encapsulates internal topologies, terminates TLS, enforces security and rate limits, and dynamically routes traffic.",
-            "It converts all backend microservices into desktop GUI applications.",
             "It eliminates the need for software testing and QA.",
+            "It converts all backend microservices into desktop GUI applications.",
+            "It acts as a centralized, hardened ingress layer that encapsulates internal topologies, terminates TLS, enforces security and rate limits, and dynamically routes traffic.",
             "It doubles the physical hard drive storage capacity of every database server."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "API Edge Gateways consolidate ingress routing, security, rate limiting, and observability at the network perimeter."
         },
         "example": "Think of Production Capstone Gateway Synthesis & Resilient Teardown like an automated airport logistics control tower: every incoming request must be inspected, routed to the right terminal lane, and verified against strict safety invariants before clearance is granted.",
@@ -7172,12 +7172,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In which phase of the libuv event loop do callbacks scheduled by setImmediate() execute?",
           "options": [
-            "The Check phase, which executes immediately after the Poll phase completes or drains",
+            "The Close Callbacks phase right before process exit",
             "The Timers phase alongside setTimeout",
             "The Pending Callbacks phase before network I/O begins",
-            "The Close Callbacks phase right before process exit"
+            "The Check phase, which executes immediately after the Poll phase completes or drains"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "setImmediate() callbacks are specifically scheduled to run in the Check phase, which immediately follows the Poll phase of the libuv event loop."
         },
         "codeNotes": [
@@ -7273,12 +7273,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deploying a warm Worker Thread Pool preferred over spawning new worker threads per request?",
           "options": [
-            "Spawning new V8 isolates per request incurs heavy CPU and memory overhead; thread pools reuse pre-initialized workers",
             "Worker threads cannot execute JavaScript code unless spawned from bash scripts",
+            "Spawning new V8 isolates per request incurs heavy CPU and memory overhead; thread pools reuse pre-initialized workers",
             "Node.js enforces a hard OS limit of exactly 1 worker thread per application",
             "Thread pools automatically convert all JavaScript code into C++ binaries"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Creating a new V8 isolate has substantial initialization cost; a warm Worker Thread Pool reuses existing isolates to deliver instant execution without memory churn."
         },
         "codeNotes": [
@@ -7324,12 +7324,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Node's EventEmitter emit a MaxListenersExceededWarning when more than 10 listeners are attached?",
           "options": [
-            "To alert developers to potential memory leaks caused by unbounded listener accumulation and dangling closure references",
-            "Because Node.js crashes permanently when an eleventh listener is added",
             "To force developers to convert all events to synchronous HTTP GET requests",
+            "Because Node.js crashes permanently when an eleventh listener is added",
+            "To alert developers to potential memory leaks caused by unbounded listener accumulation and dangling closure references",
             "Because operating system sockets only support 10 network connections"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The default 10-listener threshold is a defensive heuristic designed to detect memory leaks early when listeners are added repeatedly without removal."
         },
         "codeNotes": [
@@ -7376,12 +7376,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural benefit of an event-driven order ingestion pipeline over sequential synchronous processing?",
           "options": [
-            "The HTTP gateway acknowledges the order in sub-5ms without waiting sequentially for inventory, fraud, and telemetry workers",
+            "It prevents users from placing orders when inventory is high",
             "It eliminates the need for database storage by keeping all orders in browser memory",
             "It guarantees that network cables never experience electrical interference",
-            "It prevents users from placing orders when inventory is high"
+            "The HTTP gateway acknowledges the order in sub-5ms without waiting sequentially for inventory, fraud, and telemetry workers"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Decoupling ingestion from processing allows the HTTP gateway to acknowledge orders near-instantaneously while worker tasks execute concurrently in the background."
         },
         "codeNotes": [
@@ -7499,12 +7499,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What guarantee does Apache Kafka provide regarding message ordering across a topic?",
           "options": [
-            "Ordering is strictly guaranteed only within a single partition, not globally across different partitions",
             "Ordering is guaranteed globally across all partitions regardless of partition keys",
+            "Ordering is strictly guaranteed only within a single partition, not globally across different partitions",
             "Kafka randomly scrambles messages to optimize disk write speed",
             "Messages are ordered only when consumers run on the same physical host as producers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Kafka guarantees strict chronological record ordering exclusively within each individual partition; global ordering across multiple partitions is not supported."
         },
         "codeNotes": [
@@ -7549,12 +7549,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a consumer group has 8 active worker instances subscribed to a topic with only 6 partitions?",
           "options": [
-            "6 workers are assigned exactly 1 partition each, while the remaining 2 workers sit idle",
-            "Each partition is assigned to multiple workers simultaneously, causing duplicate processing",
             "The Kafka broker crashes immediately due to thread exhaustion",
+            "Each partition is assigned to multiple workers simultaneously, causing duplicate processing",
+            "6 workers are assigned exactly 1 partition each, while the remaining 2 workers sit idle",
             "Kafka automatically creates 2 additional partitions on disk"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Kafka enforces that each partition is assigned to at most one consumer in a consumer group; excess consumers remain idle as standby capacity."
         },
         "codeNotes": [
@@ -7600,12 +7600,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is At-Least-Once processing the enterprise standard, and what requirement does it impose on consumers?",
           "options": [
-            "It guarantees zero data loss by committing offsets after processing, but requires downstream consumers to be idempotent to handle occasional retries",
+            "It prevents producers from sending messages during weekend hours",
             "It deletes uncommitted messages immediately to save disk storage",
             "It forces all microservices to use relational SQL databases exclusively",
-            "It prevents producers from sending messages during weekend hours"
+            "It guarantees zero data loss by committing offsets after processing, but requires downstream consumers to be idempotent to handle occasional retries"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Committing offsets after successful processing guarantees no message is lost on crash, but re-reading uncommitted records requires idempotent handlers to prevent duplicate side effects."
         },
         "codeNotes": [
@@ -7727,12 +7727,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the AMQP 0-9-1 architecture, do producers publish messages directly to queues?",
           "options": [
-            "No, producers publish exclusively to Exchanges, which evaluate bindings to route messages to queues",
             "Yes, producers always write directly to queue memory buffers",
+            "No, producers publish exclusively to Exchanges, which evaluate bindings to route messages to queues",
             "Producers only write to operating system log files",
             "Messages are stored in web browser cookies before reaching queues"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "AMQP strictly decouples producers from queues; producers publish messages to an Exchange, which routes messages to bound queues based on bindings and routing keys."
         },
         "codeNotes": [
@@ -7778,12 +7778,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between '*' and '#' wildcard tokens in RabbitMQ Topic Exchanges?",
           "options": [
-            "'*' matches exactly one dot-delimited word, while '#' matches zero or more words",
-            "'*' matches all words in the message, while '#' matches numbers only",
             "'*' is used for fanout exchanges, while '#' is used for direct exchanges",
+            "'*' matches all words in the message, while '#' matches numbers only",
+            "'*' matches exactly one dot-delimited word, while '#' matches zero or more words",
             "Both tokens are identical and interchangeable"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In AMQP topic routing keys, '*' matches exactly one word between dots, whereas '#' matches zero, one, or multiple consecutive words."
         },
         "codeNotes": [
@@ -7828,12 +7828,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is setting an appropriate prefetch count (Channel QoS) critical for Node.js consumer stability?",
           "options": [
-            "It caps the number of unacknowledged in-flight messages pushed to the consumer, preventing V8 heap memory exhaustion under heavy load",
+            "It automatically converts asynchronous callbacks into synchronous loops",
             "It increases the CPU clock speed of the underlying server",
             "It forces all messages to be encrypted with 4096-bit RSA keys",
-            "It automatically converts asynchronous callbacks into synchronous loops"
+            "It caps the number of unacknowledged in-flight messages pushed to the consumer, preventing V8 heap memory exhaustion under heavy load"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Prefetch limits prevent RabbitMQ from pushing unbounded messages to the consumer, maintaining hardware-aligned backpressure and preventing out-of-memory crashes."
         },
         "codeNotes": [
@@ -7933,12 +7933,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are third-party notification APIs (such as email and SMS) decoupled using message queues rather than called synchronously in HTTP requests?",
           "options": [
-            "To eliminate user-perceived latency and ensure reliability, allowing the HTTP request to finish in under 5ms while background workers handle network retries",
             "Because third-party APIs cannot be invoked from JavaScript code",
+            "To eliminate user-perceived latency and ensure reliability, allowing the HTTP request to finish in under 5ms while background workers handle network retries",
             "To prevent web browsers from caching static HTML files",
             "Because message queues are required by credit card payment processors"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Queue decoupling isolates customer checkout requests from external network latency and temporary provider outages, ensuring sub-5ms response times."
         },
         "codeNotes": [
@@ -8009,12 +8009,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the format of a Redis Stream Entry ID generated by XADD?",
           "options": [
-            "<millisecondsTime>-<sequenceNumber>, guaranteeing strict chronological ordering across the stream",
-            "A random 32-character hexadecimal string",
             "A simple integer counter from 1 to 100",
+            "A random 32-character hexadecimal string",
+            "<millisecondsTime>-<sequenceNumber>, guaranteeing strict chronological ordering across the stream",
             "The IP address of the connected client"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Redis Stream IDs combine a 64-bit millisecond timestamp with a sequence counter, ensuring unique and monotonically increasing chronological ordering."
         },
         "codeNotes": [
@@ -8061,12 +8061,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the XREADGROUP command, what does passing the special ID '>' signify?",
           "options": [
-            "It requests messages that have never been delivered to any other consumer in this consumer group",
+            "It resets the consumer group offset back to the beginning of the stream",
             "It deletes all messages from the stream permanently",
             "It redirects all stream traffic to an external relational database",
-            "It resets the consumer group offset back to the beginning of the stream"
+            "It requests messages that have never been delivered to any other consumer in this consumer group"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The special ID '>' instructs Redis to fetch and deliver only new messages that have not yet been assigned to any member of the consumer group."
         },
         "codeNotes": [
@@ -8165,12 +8165,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do surviving workers recover unacknowledged messages abandoned by a crashed consumer?",
           "options": [
-            "They inspect the PEL for messages exceeding an idle threshold and execute XCLAIM or XAUTOCLAIM to take ownership",
             "They restart the Redis server to flush unacknowledged messages",
+            "They inspect the PEL for messages exceeding an idle threshold and execute XCLAIM or XAUTOCLAIM to take ownership",
             "They manually re-publish the messages from client web browsers",
             "Redis automatically deletes unacknowledged messages after 10 seconds"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "XCLAIM and XAUTOCLAIM allow healthy workers to reassign ownership of stale unacknowledged messages from dead workers, ensuring fault-tolerant task recovery."
         },
         "codeNotes": [
@@ -8216,12 +8216,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the MAXLEN parameter essential when appending high-frequency entries to a Redis Stream?",
           "options": [
-            "To cap the stream length and evict obsolete entries, preventing unbounded RAM consumption and out-of-memory crashes",
-            "To speed up the network connection between client and server",
             "To encrypt message payloads using AES-256",
+            "To speed up the network connection between client and server",
+            "To cap the stream length and evict obsolete entries, preventing unbounded RAM consumption and out-of-memory crashes",
             "To prevent consumers from reading messages out of order"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Because Redis is an in-memory database, capping stream length with MAXLEN or XTRIM is essential to prevent streams from consuming all available server RAM."
         },
         "codeNotes": [
@@ -8291,12 +8291,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical failure mode does the Transactional Outbox Pattern eliminate in microservices?",
           "options": [
-            "The Dual-Write Problem, where a database write succeeds but message broker publishing fails, leading to lost events and state inconsistency",
+            "CSS rendering bugs in client web browsers",
             "The need for network firewalls in cloud environments",
             "Operating system file descriptor limits on developer laptops",
-            "CSS rendering bugs in client web browsers"
+            "The Dual-Write Problem, where a database write succeeds but message broker publishing fails, leading to lost events and state inconsistency"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The Outbox Pattern ensures atomicity by committing both the business record and the domain event within the same local database ACID transaction, eliminating the dual-write vulnerability."
         },
         "codeNotes": [
@@ -8390,12 +8390,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an Idempotent Consumer handle a duplicate message arriving due to an At-Least-Once network retry?",
           "options": [
-            "It detects that the message's unique idempotency key has already been processed, skips business execution, and commits the offset cleanly",
             "It throws a fatal exception and crashes the consumer pod immediately",
+            "It detects that the message's unique idempotency key has already been processed, skips business execution, and commits the offset cleanly",
             "It executes the business mutation a second time to ensure consistency",
             "It sends an alert to all active database administrators"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Idempotent consumers use idempotency keys to recognize previously processed messages, safely skipping duplicate execution while confirming completion."
         },
         "codeNotes": [
@@ -8439,12 +8439,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an automated Dead-Letter Queue (DLQ) necessary to handle Poison Pill messages in streaming pipelines?",
           "options": [
-            "To quarantine permanently corrupted messages after retry exhaustion, preventing infinite crash loops that freeze partition processing",
-            "To reduce the size of Kafka partition log files on disk",
             "To delete user account records when errors occur",
+            "To reduce the size of Kafka partition log files on disk",
+            "To quarantine permanently corrupted messages after retry exhaustion, preventing infinite crash loops that freeze partition processing",
             "To prevent consumers from reading messages during peak hours"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Without a DLQ, a poison pill message causes consumers to crash repeatedly upon restart, blocking all subsequent healthy messages in the partition."
         },
         "codeNotes": [
@@ -8492,12 +8492,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does achieving Grade A+ Production Certification in the Milestone 6 SLA verification suite demonstrate?",
           "options": [
-            "The engine satisfies all 6 critical production SLAs (sub-10ms outbox relay, sub-5ms publish, >=10k msg/s throughput, 100% deduplication, <=50 lag, 100% DLQ isolation)",
+            "The application has been approved by local government regulatory authorities",
             "The server has been running for at least 30 consecutive days without restart",
             "All source code has been converted to assembly language",
-            "The application has been approved by local government regulatory authorities"
+            "The engine satisfies all 6 critical production SLAs (sub-10ms outbox relay, sub-5ms publish, >=10k msg/s throughput, 100% deduplication, <=50 lag, 100% DLQ isolation)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Grade A+ certification mathematically validates that the distributed order engine satisfies all six non-negotiable performance, reliability, and data consistency SLAs."
         },
         "codeNotes": [
@@ -8610,12 +8610,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of the Least Frequently Used (LFU) eviction policy over Least Recently Used (LRU)?",
           "options": [
-            "LFU tracks access frequency rather than elapsed idle time, preventing infrequently accessed batch keys from evicting consistently hot cache items",
             "LFU compresses all keys into zero-byte text files",
+            "LFU tracks access frequency rather than elapsed idle time, preventing infrequently accessed batch keys from evicting consistently hot cache items",
             "LFU increases server memory by downloading additional RAM from cloud providers",
             "LFU disables all network firewalls to improve access speed"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "LFU weights access frequency over simple recency, preventing cache pollution where a single sporadic read would promote an obscure key over hot frequently accessed items."
         },
         "codeNotes": [
@@ -8660,12 +8660,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Redis Pipelining achieve dramatic performance speedups when executing large batches of commands?",
           "options": [
-            "It transmits multiple commands sequentially into the TCP socket buffer without waiting for intermediate replies, reducing round-trip network time to a single RTT",
-            "It executes commands by compiling JavaScript directly into operating system kernel drivers",
             "It deletes all expired database records before reading new queries",
+            "It executes commands by compiling JavaScript directly into operating system kernel drivers",
+            "It transmits multiple commands sequentially into the TCP socket buffer without waiting for intermediate replies, reducing round-trip network time to a single RTT",
             "It divides the Redis server memory into two separate operating systems"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Pipelining eliminates network round-trip delays and reduces OS syscall context switches by batching requests and responses into consolidated TCP frames."
         },
         "codeNotes": [
@@ -8710,12 +8710,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a distributed Mutex Lock prevent a Cache Stampede (Thundering Herd) when a hot cache key expires?",
           "options": [
-            "It permits only the single lock winner to query the database and repopulate the cache, while other concurrent requests wait or read cached data",
+            "It converts all relational database tables into read-only CSV files",
             "It blocks all incoming network traffic to the entire cloud region",
             "It forces the database to permanently delete the requested row",
-            "It converts all relational database tables into read-only CSV files"
+            "It permits only the single lock winner to query the database and repopulate the cache, while other concurrent requests wait or read cached data"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Mutex locks serialize cache repopulation so that only one worker queries the primary database upon a cache miss, protecting database pools from sudden concurrency spikes."
         },
         "codeNotes": [
@@ -8834,12 +8834,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a distributed lock release operation verify ownership via an atomic Lua script rather than issuing a raw DEL command?",
           "options": [
-            "To prevent a slow worker from deleting a lock that has already expired and been acquired by another worker process",
             "To compress the lock key into a smaller memory format",
+            "To prevent a slow worker from deleting a lock that has already expired and been acquired by another worker process",
             "To prevent the operating system from terminating the Redis service",
             "To encrypt database passwords stored in Redis"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Atomic Lua verification guarantees that a client deletes only the lock it currently owns, preventing accidental deletion of newer locks acquired after TTL expiration."
         },
         "codeNotes": [
@@ -8883,12 +8883,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two conditions must be satisfied for the Redlock algorithm to consider a distributed lock successfully acquired?",
           "options": [
-            "Acquiring the lock on a strict majority of independent nodes (e.g. >=3 of 5) and having positive remaining validity time after subtracting network elapsed time and clock drift",
-            "Connecting to all 5 nodes simultaneously over a single WebSocket connection",
             "Restarting all 5 Redis nodes every 60 seconds",
+            "Connecting to all 5 nodes simultaneously over a single WebSocket connection",
+            "Acquiring the lock on a strict majority of independent nodes (e.g. >=3 of 5) and having positive remaining validity time after subtracting network elapsed time and clock drift",
             "Storing all lock data in relational database tables"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Redlock requires consensus across a majority of independent masters and validates that the time taken to acquire does not exceed the lease window."
         },
         "codeNotes": [
@@ -8932,12 +8932,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an Asynchronous Watchdog Timer resolve the dilemma between short failover TTLs and long-running business operations?",
           "options": [
-            "It periodically renews the lock TTL while the worker is actively executing, allowing short initial leases that automatically expire if the worker crashes",
+            "It disables all garbage collection in the Node.js runtime",
             "It terminates the operating system if a task takes longer than 1 second",
             "It forces all network connections to use HTTP/1.1 instead of HTTP/2",
-            "It disables all garbage collection in the Node.js runtime"
+            "It periodically renews the lock TTL while the worker is actively executing, allowing short initial leases that automatically expire if the worker crashes"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Watchdog timers maintain short leases for fast crash recovery while renewing the TTL in the background as long as the worker remains alive and executing."
         },
         "codeNotes": [
@@ -9031,12 +9031,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Monotonic Fencing Tokens prevent data corruption from delayed or paused workers at the storage tier?",
           "options": [
-            "The storage engine tracks the highest token observed and rejects any incoming write carrying an older, lower token number",
             "They generate random strings that bypass database unique constraints",
+            "The storage engine tracks the highest token observed and rejects any incoming write carrying an older, lower token number",
             "They prevent user logins during evening hours",
             "They compress database tables to zero bytes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Fencing tokens enforce monotonic sequence checks at the storage gateway, guaranteeing that delayed writes from expired workers are rejected."
         },
         "codeNotes": [
@@ -9108,12 +9108,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does enabling Keep-Alive socket reuse dramatically reduce latency compared to opening ephemeral TCP connections?",
           "options": [
-            "It bypasses the 1.5 RTT TCP three-way handshake and TLS cryptographic key negotiation for subsequent requests over the open socket",
-            "It compresses all network packets into zero-byte frames",
             "It disables database password encryption",
+            "It compresses all network packets into zero-byte frames",
+            "It bypasses the 1.5 RTT TCP three-way handshake and TLS cryptographic key negotiation for subsequent requests over the open socket",
             "It compiles Node.js source code into operating system kernel modules"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Socket reuse avoids the multi-round-trip TCP SYN/ACK handshake and TLS key exchange, eliminating connection establishment latency entirely."
         },
         "codeNotes": [
@@ -9160,12 +9160,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in a connection pool when all connections are marked ACQUIRED and a new request calls acquire()?",
           "options": [
-            "The request is placed into an in-memory PENDING queue, waiting for an in-flight query to release a connection back to the pool",
+            "The pool automatically buys more RAM from cloud hosting providers",
             "The database crashes and restarts immediately",
             "The server deletes the oldest user account in the database",
-            "The pool automatically buys more RAM from cloud hosting providers"
+            "The request is placed into an in-memory PENDING queue, waiting for an in-flight query to release a connection back to the pool"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Connection pools queue requests in memory up to the configured acquisition timeout, assigning newly released connections in FIFO order."
         },
         "codeNotes": [
@@ -9260,12 +9260,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does pgBouncer Transaction Pooling allow thousands of client pods to share only 30-50 PostgreSQL server connections?",
           "options": [
-            "It assigns a server connection only for the millisecond duration of an active SQL transaction, reclaiming it immediately upon commit/rollback for other clients",
             "It stores all database tables in browser local storage",
+            "It assigns a server connection only for the millisecond duration of an active SQL transaction, reclaiming it immediately upon commit/rollback for other clients",
             "It bypasses relational constraints and writes directly to disk without transactions",
             "It forces all microservices to use the same database username"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Transaction pooling leverages the fact that web requests spend most time outside the database, multiplexing real server connections strictly during active transactions."
         },
         "codeNotes": [
@@ -9311,12 +9311,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical pool configuration setting prevents an application from hanging indefinitely during database connection pool saturation?",
           "options": [
-            "Setting an explicit connection acquisition timeout (e.g. connectionTimeoutMillis = 3000) that rejects queued requests if no connection is freed in time",
-            "Setting maxConnections to infinity",
             "Disabling all error logging in production",
+            "Setting maxConnections to infinity",
+            "Setting an explicit connection acquisition timeout (e.g. connectionTimeoutMillis = 3000) that rejects queued requests if no connection is freed in time",
             "Restarting the Node.js server every 5 seconds"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Acquisition timeouts bound wait times in the pending queue, failing fast and returning 503 errors rather than freezing the request pipeline indefinitely."
         },
         "codeNotes": [
@@ -9385,12 +9385,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical traffic vulnerability exists in the Fixed Window Counter rate limiting algorithm?",
           "options": [
-            "The Edge Boundary Burst, where a client sends the maximum limit at the end of window 1 and another maximum at the start of window 2, doubling permitted traffic across the boundary",
+            "It requires all client passwords to be stored in plain text",
             "It causes database tables to be deleted after 60 seconds",
             "It forces all network traffic to use UDP instead of TCP",
-            "It requires all client passwords to be stored in plain text"
+            "The Edge Boundary Burst, where a client sends the maximum limit at the end of window 1 and another maximum at the start of window 2, doubling permitted traffic across the boundary"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Fixed windows reset counts at static time boundaries, allowing a client to concentrate double the permitted requests around the window boundary."
         },
         "codeNotes": [
@@ -9490,12 +9490,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Token Bucket algorithm preferred for user-facing web APIs over strict constant-rate limiters?",
           "options": [
-            "It accommodates legitimate initial request bursts (up to bucket capacity) while strictly bounding long-term sustained request velocity",
             "It allows unlimited requests during evening hours",
+            "It accommodates legitimate initial request bursts (up to bucket capacity) while strictly bounding long-term sustained request velocity",
             "It does not require any CPU or memory to execute",
             "It converts all JSON responses into XML"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Token buckets allow clients to burst up to bucket capacity to load complex pages, while refilling tokens at a fixed rate to control long-term throughput."
         },
         "codeNotes": [
@@ -9542,12 +9542,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must distributed rate limiting logic execute atomically inside a single Redis Lua script?",
           "options": [
-            "To eliminate check-then-act race conditions where concurrent requests from multiple pods both read available quota before either can decrement it",
-            "To prevent Redis from saving data to disk",
             "To convert JavaScript promises into synchronous callbacks",
+            "To prevent Redis from saving data to disk",
+            "To eliminate check-then-act race conditions where concurrent requests from multiple pods both read available quota before either can decrement it",
             "To bypass operating system network socket limits"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Atomic Lua scripting prevents race conditions by executing the quota read, refill calculation, and decrement in a single non-interruptible transaction."
         },
         "codeNotes": [
@@ -9597,12 +9597,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What standard HTTP response code and header must an API gateway return when a client exceeds their rate limit according to RFC 6585?",
           "options": [
-            "HTTP 429 Too Many Requests with a Retry-After header indicating how many seconds to wait before retrying",
+            "HTTP 200 OK with an error message inside the JSON payload",
             "HTTP 500 Internal Server Error with no headers",
             "HTTP 404 Not Found with an empty body",
-            "HTTP 200 OK with an error message inside the JSON payload"
+            "HTTP 429 Too Many Requests with a Retry-After header indicating how many seconds to wait before retrying"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "RFC 6585 specifies HTTP 429 Too Many Requests paired with the Retry-After header to communicate rate limit exhaustion and backoff timing to clients."
         },
         "codeNotes": [
@@ -9729,12 +9729,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an atomic Redis Lua script guarantee zero overselling when hundreds of concurrent requests arrive simultaneously?",
           "options": [
-            "Redis executes the script as a single non-interruptible atomic unit on its primary thread, evaluating available stock and debiting it without inter-thread race conditions",
             "By writing all transactions to a local text file on the client's laptop",
+            "Redis executes the script as a single non-interruptible atomic unit on its primary thread, evaluating available stock and debiting it without inter-thread race conditions",
             "By encrypting the network card's MAC address",
             "By shutting down the Redis server whenever stock reaches zero"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Redis's single-threaded script execution model ensures that stock checks and decrements occur atomically in one non-preemptible operation."
         },
         "codeNotes": [
@@ -9783,12 +9783,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are monotonically increasing Fencing Tokens necessary when using distributed locks like Redlock?",
           "options": [
-            "To prevent stale clients that paused (e.g. due to GC or network partition) from overwriting newer writes after their lock lease expired",
-            "To speed up the internet connection between servers",
             "To avoid paying for Redis software licenses",
+            "To speed up the internet connection between servers",
+            "To prevent stale clients that paused (e.g. due to GC or network partition) from overwriting newer writes after their lock lease expired",
             "To randomize database table names every hour"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Fencing tokens allow downstream storage layers to reject stale writes from paused clients whose lock lease expired while another client acquired a newer lock."
         },
         "codeNotes": [
@@ -9836,12 +9836,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical role does the automated Expiration Reaper perform in an inventory reservation gateway?",
           "options": [
-            "It sweeps expired uncommitted holds and atomically restores the held inventory back to the available stock pool to prevent ghost stock starvation",
+            "It compresses all HTTP response bodies using gzip",
             "It deletes all customer credit card records from the database",
             "It restarts the operating system every 15 minutes",
-            "It compresses all HTTP response bodies using gzip"
+            "It sweeps expired uncommitted holds and atomically restores the held inventory back to the available stock pool to prevent ghost stock starvation"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The reaper sweeps expired abandoned holds and returns the inventory to available stock so other customers can purchase it."
         },
         "codeNotes": [
@@ -9974,12 +9974,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Thread-Local Storage fail to provide request context isolation in standard Node.js applications?",
           "options": [
-            "Because Node.js handles thousands of concurrent requests interleaved across a single event-loop thread rather than one thread per request",
             "Because Node.js does not allow memory allocation inside functions",
+            "Because Node.js handles thousands of concurrent requests interleaved across a single event-loop thread rather than one thread per request",
             "Because operating system threads are illegal in JavaScript",
             "Because all Node.js applications must run inside a web browser"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In Node.js, multiple concurrent requests interleave asynchronously on the single event loop thread, causing traditional thread-local storage to conflate distinct request contexts."
         },
         "codeNotes": [
@@ -10030,12 +10030,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary guarantee does AsyncLocalStorage.run() provide across concurrent asynchronous operations?",
           "options": [
-            "Strict execution isolation, ensuring that stores associated with different concurrent requests remain distinct across Promise continuations",
-            "Automatic database query optimization",
             "Converting all asynchronous callbacks into synchronous blocking calls",
+            "Automatic database query optimization",
+            "Strict execution isolation, ensuring that stores associated with different concurrent requests remain distinct across Promise continuations",
             "Encrypting all function arguments using AES-256"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "AsyncLocalStorage guarantees execution isolation so that asynchronous continuations maintain their specific store without cross-request data corruption."
         },
         "codeNotes": [
@@ -10088,12 +10088,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two 64-bit integer identifiers define the parent-child relationship in Node.js async_hooks?",
           "options": [
-            "asyncId (the identifier of the newly allocated resource) and triggerAsyncId (the identifier of the causal parent resource)",
+            "heapUsed and heapTotal",
             "processId and threadId",
             "ipAddress and portNumber",
-            "heapUsed and heapTotal"
+            "asyncId (the identifier of the newly allocated resource) and triggerAsyncId (the identifier of the causal parent resource)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "async_hooks links parent and child asynchronous tasks using asyncId and triggerAsyncId to maintain continuation ancestry graphs."
         },
         "codeNotes": [
@@ -10205,12 +10205,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the structural format of the W3C TraceContext traceparent HTTP header?",
           "options": [
-            "version-trace_id-parent_id-trace_flags (e.g. 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01)",
             "user:password@hostname:port",
+            "version-trace_id-parent_id-trace_flags (e.g. 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01)",
             "Bearer <jwt_token>",
             "Content-Type: application/json; charset=utf-8"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The W3C TraceContext standard defines traceparent as 4 hyphen-delimited hex fields: version, 32-char trace_id, 16-char parent_id, and 2-char trace_flags."
         },
         "codeNotes": [
@@ -10284,12 +10284,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does V8's Minor GC (Scavenger) clean the Young Generation with sub-2ms latency?",
           "options": [
-            "Using Cheney's copying algorithm, copying surviving live objects from From-Space to To-Space and discarding all dead objects in bulk",
-            "By writing all dead objects to a MySQL database table",
             "By shutting down the operating system network adapter",
+            "By writing all dead objects to a MySQL database table",
+            "Using Cheney's copying algorithm, copying surviving live objects from From-Space to To-Space and discarding all dead objects in bulk",
             "By converting all JavaScript variables into C++ pointers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cheney's copying algorithm copies live objects between semi-spaces in the Young Generation, freeing all dead memory with zero per-object deletion overhead."
         },
         "codeNotes": [
@@ -10339,12 +10339,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do un-removed event listeners on global singleton objects cause catastrophic memory leaks in Node.js?",
           "options": [
-            "Because the global object retains references to listener closures, preventing them and their entire parent lexical scopes from ever being garbage collected",
+            "Because Node.js requires all events to be declared in XML files",
             "Because EventEmitters automatically delete operating system files when overloaded",
             "Because JavaScript functions are limited to a total of 10 executions",
-            "Because Node.js requires all events to be declared in XML files"
+            "Because the global object retains references to listener closures, preventing them and their entire parent lexical scopes from ever being garbage collected"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Listeners attached to long-lived global objects remain referenced indefinitely, pinning their entire closure scope and all captured variables in the heap."
         },
         "codeNotes": [
@@ -10451,12 +10451,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Retained Size more important than Shallow Size when diagnosing memory leaks in Chrome DevTools?",
           "options": [
-            "Retained Size represents the total memory that would be freed if the object were garbage collected, including all exclusively owned child objects",
             "Shallow Size is always an imaginary number",
+            "Retained Size represents the total memory that would be freed if the object were garbage collected, including all exclusively owned child objects",
             "Retained Size measures the physical weight of the server hardware",
             "Shallow Size only applies to C++ code"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Retained size accounts for the entire subgraph of memory dominated and kept alive by that object, revealing the true root of memory bloat."
         },
         "codeNotes": [
@@ -10509,12 +10509,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of an automated Memory Watchdog initiating a Graceful Drain before OOM termination?",
           "options": [
-            "It finishes in-flight requests cleanly and stops accepting new traffic before controlled termination, preventing abrupt connection drops and data corruption",
-            "It doubles the server's physical RAM using cloud virtualization",
             "It completely disables garbage collection forever",
+            "It doubles the server's physical RAM using cloud virtualization",
+            "It finishes in-flight requests cleanly and stops accepting new traffic before controlled termination, preventing abrupt connection drops and data corruption",
             "It bypasses all network security firewalls"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Graceful draining allows active transactions to conclude and shifts ingress traffic to healthy sibling pods before controlled recycling, avoiding abrupt OOM crashes."
         },
         "codeNotes": [
@@ -10593,12 +10593,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary cause of high CPU consumption during JSON.stringify and JSON.parse in high-throughput services?",
           "options": [
-            "V8 must recursively traverse object graphs, convert binary numbers to ASCII strings, handle character escaping, and allocate thousands of heap objects",
+            "JSON only runs on single-core 32-bit processors",
             "JSON requires active internet access to a central schema server",
             "JSON automatically hashes every payload using SHA-512",
-            "JSON only runs on single-core 32-bit processors"
+            "V8 must recursively traverse object graphs, convert binary numbers to ASCII strings, handle character escaping, and allocate thousands of heap objects"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Textual serialization requires extensive string parsing, character escaping, number-to-ASCII formatting, and heavy heap allocation on every request."
         },
         "codeNotes": [
@@ -10706,12 +10706,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of MessagePack over Protocol Buffers?",
           "options": [
-            "MessagePack is schema-free like JSON, serializing arbitrary JavaScript objects without requiring ahead-of-time .proto compilation",
             "MessagePack requires zero bytes of memory",
+            "MessagePack is schema-free like JSON, serializing arbitrary JavaScript objects without requiring ahead-of-time .proto compilation",
             "MessagePack can only be used with Python",
             "MessagePack does not support arrays or strings"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "MessagePack encodes dynamic types using compact byte prefixes without requiring a pre-compiled schema definition."
         },
         "codeNotes": [
@@ -10763,12 +10763,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is typedArray.subarray() considered a zero-copy operation compared to string.slice()?",
           "options": [
-            "subarray() creates a lightweight view window pointing to the existing ArrayBuffer without allocating or copying underlying memory",
-            "subarray() deletes the original memory buffer immediately",
             "subarray() converts binary data into plain text",
+            "subarray() deletes the original memory buffer immediately",
+            "subarray() creates a lightweight view window pointing to the existing ArrayBuffer without allocating or copying underlying memory",
             "subarray() runs on the GPU rather than the CPU"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "subarray() creates a view over the existing ArrayBuffer with adjusted offset and length, avoiding memory allocation and copying overhead."
         },
         "codeNotes": [
@@ -10824,12 +10824,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does binary WebSocket batch multiplexing achieve vastly higher throughput than individual JSON HTTP requests?",
           "options": [
-            "It amortizes TCP/IP header overhead across multiple records and processes contiguous bytes in memory without string parsing overhead",
+            "It eliminates the need for network cables",
             "It bypasses all network router switches",
             "It converts TCP packets into radio waves",
-            "It eliminates the need for network cables"
+            "It amortizes TCP/IP header overhead across multiple records and processes contiguous bytes in memory without string parsing overhead"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Batch multiplexing packs multiple fixed-stride records into a single consolidated binary frame, minimizing TCP framing overhead and V8 parsing latency."
         },
         "codeNotes": [
@@ -10959,12 +10959,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of HTTP/2 credit-based flow control (WINDOW_UPDATE)?",
           "options": [
-            "To prevent a fast sender from overwhelming a receiver's local memory buffer by requiring explicit byte credits before sending DATA frames",
             "To charge clients money for sending large files",
+            "To prevent a fast sender from overwhelming a receiver's local memory buffer by requiring explicit byte credits before sending DATA frames",
             "To automatically restart the operating system when buffers fill up",
             "To convert HTTP/2 streams into WebSocket connections"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Flow control windows track available buffer space; senders must pause when credits reach zero until the receiver sends a WINDOW_UPDATE."
         },
         "codeNotes": [
@@ -11012,12 +11012,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How are gRPC method calls mapped onto HTTP/2 network requests?",
           "options": [
-            "As an HTTP/2 POST request to path /package.Service/Method with Content-Type: application/grpc and binary Protocol Buffer body",
-            "As an HTTP GET request with query parameters",
             "As an unencrypted FTP file transfer",
+            "As an HTTP GET request with query parameters",
+            "As an HTTP/2 POST request to path /package.Service/Method with Content-Type: application/grpc and binary Protocol Buffer body",
             "As a DNS MX record lookup"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "gRPC uses HTTP/2 POST with path /package.Service/Method, application/grpc content type, length-prefixed Protobuf messages, and grpc-status trailers."
         },
         "codeNotes": [
@@ -11064,12 +11064,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What defines a Bidirectional Streaming RPC (Duplex) in gRPC?",
           "options": [
-            "Both client and server send a continuous stream of messages over an independent HTTP/2 stream concurrently",
+            "A request that can only send numbers, not strings",
             "The server sends a file, and the client prints it to physical paper",
             "A call that only executes on leap years",
-            "A request that can only send numbers, not strings"
+            "Both client and server send a continuous stream of messages over an independent HTTP/2 stream concurrently"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Bidirectional streaming allows both client and server to write independent streams of messages concurrently over a single HTTP/2 stream."
         },
         "codeNotes": [
@@ -11194,12 +11194,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a high-throughput telemetry aggregator use HTTP/2 gRPC instead of HTTP/1.1 REST?",
           "options": [
-            "HTTP/2 multiplexes multiple bidirectional streams over a single persistent TCP connection, eliminating Head-of-Line blocking and socket connection churn",
             "HTTP/1.1 does not support sending numbers or arrays",
+            "HTTP/2 multiplexes multiple bidirectional streams over a single persistent TCP connection, eliminating Head-of-Line blocking and socket connection churn",
             "gRPC is only capable of running on mobile devices",
             "HTTP/2 automatically shuts down the server when memory exceeds 50MB"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "HTTP/2 multiplexes streams over one connection with binary framing, completely overcoming HTTP/1.1 connection limits and socket churn."
         },
         "codeNotes": [
@@ -11245,12 +11245,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of utilizing a Zero-Copy Buffer Pool in high-throughput Node.js microservices?",
           "options": [
-            "It pre-allocates reusable byte buffers, preventing memory thrashing and eliminating garbage collection latency spikes caused by allocating thousands of short-lived objects per second",
-            "It allows JavaScript code to modify the client's physical hardware RAM chips",
             "It automatically doubles the network bandwidth of the server's optical ethernet port",
+            "It allows JavaScript code to modify the client's physical hardware RAM chips",
+            "It pre-allocates reusable byte buffers, preventing memory thrashing and eliminating garbage collection latency spikes caused by allocating thousands of short-lived objects per second",
             "It converts all incoming text strings into 4K video files"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Reusing pre-allocated buffers prevents allocation churn and keeps V8 Scavenger garbage collection pauses to near zero."
         },
         "codeNotes": [
@@ -11299,12 +11299,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the RealTimeAggregationEngine maintain in-place statistical accumulators instead of storing raw sample arrays?",
           "options": [
-            "Accumulators update count, sum, min, and max in constant O(1) space, avoiding massive RAM consumption and memory leaks during high-volume ingestion",
+            "Sliding windows only function if data is converted to plain text files on disk",
             "JavaScript arrays are legally limited to a maximum of 10 elements in Node.js",
             "In-place arithmetic disables CPU floating-point execution units",
-            "Sliding windows only function if data is converted to plain text files on disk"
+            "Accumulators update count, sum, min, and max in constant O(1) space, avoiding massive RAM consumption and memory leaks during high-volume ingestion"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "O(1) accumulators track count, sum, min, and max without allocating unbounded memory arrays for every incoming sample."
         },
         "codeNotes": [
@@ -11404,12 +11404,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which four Service Level Agreement (SLA) dimensions were verified by the Milestone 8 certification suite?",
           "options": [
-            "Ingestion throughput, sub-millisecond decoding latency, zero-copy buffer pool memory stability, and 100% trace context isolation without leakage",
             "Server casing color, fan speed, power cable length, and monitor refresh rate",
+            "Ingestion throughput, sub-millisecond decoding latency, zero-copy buffer pool memory stability, and 100% trace context isolation without leakage",
             "Number of CSS classes, HTML form tags, button hover animations, and font sizes",
             "Git commit count, pull request comments, issue tracker stars, and README line length"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Milestone 8 suite certifies throughput, decoding latency, memory stability via buffer pooling, and strict trace context isolation."
         },
         "codeNotes": [
@@ -11480,12 +11480,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between Node.js worker_threads and the cluster module?",
           "options": [
-            "worker_threads share process memory space within a single process, whereas the cluster module spawns isolated operating system processes with separate V8 heaps and event loops",
-            "worker_threads are written in Python while cluster is written in PHP",
             "cluster module can only run on 32-bit hardware architectures",
+            "worker_threads are written in Python while cluster is written in PHP",
+            "worker_threads share process memory space within a single process, whereas the cluster module spawns isolated operating system processes with separate V8 heaps and event loops",
             "worker_threads automatically disable garbage collection"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cluster workers are independent OS processes with dedicated V8 heaps and memory isolation, while worker threads run in the same process."
         },
         "codeNotes": [
@@ -11533,12 +11533,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Node.js cluster prevent EADDRINUSE errors when multiple workers serve the same port?",
           "options": [
-            "The primary master process binds to the listening port and dispatches accepted client socket file descriptors to workers using internal IPC sendHandle",
+            "Network routers duplicate every single IP packet to all workers",
             "Each worker changes the port number by adding 1 automatically",
             "The operating system randomly terminates all other processes on the machine",
-            "Network routers duplicate every single IP packet to all workers"
+            "The primary master process binds to the listening port and dispatches accepted client socket file descriptors to workers using internal IPC sendHandle"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The master binds to the listening port and hands off accepted client sockets to workers via IPC file descriptor passing."
         },
         "codeNotes": [
@@ -11637,12 +11637,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Sticky Session routing required for stateful WebSocket handshake upgrades across a cluster?",
           "options": [
-            "To ensure that subsequent upgrade requests from the same client IP or cookie always route to the exact same worker process that handled the initial HTTP handshake",
             "To permanently prevent clients from disconnecting from the internet",
+            "To ensure that subsequent upgrade requests from the same client IP or cookie always route to the exact same worker process that handled the initial HTTP handshake",
             "To encrypt all network packets with 1024-bit RSA keys",
             "To save battery power on mobile devices"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "WebSocket upgrades rely on in-memory session handshake state; if the upgrade hits a different worker, the session state is missing."
         },
         "codeNotes": [
@@ -11693,12 +11693,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of a Crash-Loop Circuit Breaker in a cluster supervisor?",
           "options": [
-            "To detect rapid consecutive worker crashes within a moving time window and throttle resurrection to prevent continuous CPU exhaustion and storm failures",
-            "To trip the server's electrical circuit breaker switch",
             "To convert the cluster into a peer-to-peer torrent network",
+            "To trip the server's electrical circuit breaker switch",
+            "To detect rapid consecutive worker crashes within a moving time window and throttle resurrection to prevent continuous CPU exhaustion and storm failures",
             "To delete the application codebase from disk"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A crash-loop circuit breaker prevents repeated crash-and-respawn storms from consuming 100% CPU when an unrecoverable bug exists."
         },
         "codeNotes": [
@@ -11769,12 +11769,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary trade-off dictated by the CAP Theorem for CP systems like Raft?",
           "options": [
-            "Under a network partition, the system guarantees Consistency by rejecting writes in minority partitions that cannot form a majority quorum",
+            "All distributed systems must convert to single-threaded Python scripts",
             "The system sacrifices all data durability in order to maximize CPU clock speed",
             "Consensus algorithms automatically fix broken undersea cables physically",
-            "All distributed systems must convert to single-threaded Python scripts"
+            "Under a network partition, the system guarantees Consistency by rejecting writes in minority partitions that cannot form a majority quorum"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "In CP systems, partition tolerance requires rejecting writes when a majority quorum cannot be reached, preserving consistency."
         },
         "codeNotes": [
@@ -11875,12 +11875,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is an uncommitted log entry considered safely Committed in a Raft cluster?",
           "options": [
-            "When it has been stored on a majority quorum of cluster nodes (including the leader) and the leader advances its commitIndex",
             "Immediately when the client calls the HTTP API endpoint before writing to disk",
+            "When it has been stored on a majority quorum of cluster nodes (including the leader) and the leader advances its commitIndex",
             "Only after the cluster is powered off and restarted",
             "When every node in the entire world verifies the cryptographic signature"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "An entry is committed once a majority quorum of nodes acknowledge appending it to their local logs."
         },
         "codeNotes": [
@@ -11925,12 +11925,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Raft prevent split-brain writes when a network partition separates a 5-node cluster into 2 nodes vs 3 nodes?",
           "options": [
-            "The 2-node minority partition cannot reach the required majority quorum of 3, so its leader blocks all writes, while the 3-node partition continues safely",
-            "Both partitions accept all writes and delete all records upon healing",
             "The 2-node partition steals CPU cycles from the 3-node partition",
+            "Both partitions accept all writes and delete all records upon healing",
+            "The 2-node minority partition cannot reach the required majority quorum of 3, so its leader blocks all writes, while the 3-node partition continues safely",
             "The client browser decides which partition is the real leader"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A quorum requires floor(N/2)+1 nodes; a minority partition has fewer nodes than quorum and cannot commit writes."
         },
         "codeNotes": [
@@ -11981,12 +11981,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when a crashed Raft leader reboots and discovers a higher term number from a new leader?",
           "options": [
-            "It immediately steps down from leader to follower, adopts the new term, and synchronizes its local log to match the new leader",
+            "It rejects all connections until human administrators intervene",
             "It deletes all operating system files and shuts down permanently",
             "It forces the new leader to restart its election timer",
-            "It rejects all connections until human administrators intervene"
+            "It immediately steps down from leader to follower, adopts the new term, and synchronizes its local log to match the new leader"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "In Raft, discovering a higher term forces any node to step down to follower and accept the new leader's authoritative log."
         },
         "codeNotes": [
@@ -12108,12 +12108,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of the Circuit Breaker OPEN state?",
           "options": [
-            "It immediately fails calls fast with fallback data, protecting caller latency and allowing degraded downstream services time to recover",
             "It automatically replaces the server's hard drive",
+            "It immediately fails calls fast with fallback data, protecting caller latency and allowing degraded downstream services time to recover",
             "It encrypts all network packets using quantum cryptography",
             "It converts all backend services into static HTML files"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In the OPEN state, calls fast-fail instantaneously without touching the network, freeing the caller and easing pressure on the dependency."
         },
         "codeNotes": [
@@ -12160,12 +12160,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Bulkhead pattern protect critical revenue-generating workflows during traffic spikes?",
           "options": [
-            "It partitions system resources (like database connection pools and concurrency slots) into isolated compartments so non-critical feature overload cannot starve critical operations",
-            "It forces all clients to pay a subscription fee before visiting the website",
             "It automatically deletes all image files from the server",
+            "It forces all clients to pay a subscription fee before visiting the website",
+            "It partitions system resources (like database connection pools and concurrency slots) into isolated compartments so non-critical feature overload cannot starve critical operations",
             "It converts relational databases into CSV files on desktop"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Bulkhead isolation compartments ensure that exhaustion in one domain cannot consume the resource quotas of another."
         },
         "codeNotes": [
@@ -12213,12 +12213,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Full Jitter (randomized delay) essential when implementing exponential backoff retries?",
           "options": [
-            "It disperses retry arrivals smoothly across a wide time horizon, preventing retries from clustering together and crashing the recovering service (thundering herd)",
+            "It ensures that retries run in reverse chronological order",
             "It makes network packets invisible to hackers",
             "It decreases the physical temperature of the CPU chip",
-            "It ensures that retries run in reverse chronological order"
+            "It disperses retry arrivals smoothly across a wide time horizon, preventing retries from clustering together and crashing the recovering service (thundering herd)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Full Jitter scatters retry attempts randomly across the backoff window, breaking synchronous thundering herd spikes."
         },
         "codeNotes": [
@@ -12346,12 +12346,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of Client-Side Discovery over Server-Side Proxy Discovery?",
           "options": [
-            "It eliminates the intermediate proxy network hop, enabling direct client-to-backend communication and cutting latency in half",
             "It makes all servers run at 100% CPU clock speed",
+            "It eliminates the intermediate proxy network hop, enabling direct client-to-backend communication and cutting latency in half",
             "It converts all backend services into desktop applications",
             "It allows servers to communicate without using IP addresses"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Client-side discovery queries local in-memory registry caches and connects directly to backends without proxy overhead."
         },
         "codeNotes": [
@@ -12398,12 +12398,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Time-To-Live (TTL) leases prevent stale, crashed instances from lingering in a service registry?",
           "options": [
-            "The instance must periodically renew its lease; if the instance crashes and renewals stop, the registry's lease reaper automatically purges it",
-            "The registry calls the server's phone number every 5 minutes",
             "The operating system restarts the entire datacenter every hour",
+            "The registry calls the server's phone number every 5 minutes",
+            "The instance must periodically renew its lease; if the instance crashes and renewals stop, the registry's lease reaper automatically purges it",
             "Crashed servers send an email to the registry administrator"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "TTL leases expire automatically if heartbeats cease, purging dead instances without manual intervention."
         },
         "codeNotes": [
@@ -12450,12 +12450,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between a Liveness Probe and a Readiness Probe?",
           "options": [
-            "A liveness probe checks if the process is alive; a readiness probe verifies that the service can actually process requests (e.g. database connected)",
+            "Liveness probes delete corrupted files while readiness probes create them",
             "Liveness is written in Java while readiness is written in C++",
             "Readiness probes are only executed on weekend days",
-            "Liveness probes delete corrupted files while readiness probes create them"
+            "A liveness probe checks if the process is alive; a readiness probe verifies that the service can actually process requests (e.g. database connected)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Liveness determines if a process must be restarted; readiness determines if it should receive live traffic."
         },
         "codeNotes": [
@@ -12558,12 +12558,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must a client load balancer do when an active instance crashes mid-operation?",
           "options": [
-            "Detect the eviction via passive outlier detection or registry TTL purge and rebalance subsequent traffic strictly to remaining healthy instances",
             "Terminate all other server processes immediately",
+            "Detect the eviction via passive outlier detection or registry TTL purge and rebalance subsequent traffic strictly to remaining healthy instances",
             "Retry the same dead instance 10,000 times in a blocking while loop",
             "Display a 404 error page to every user globally"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Client load balancers eject dead nodes promptly and reroute traffic to the surviving healthy pool."
         },
         "codeNotes": [
@@ -12637,12 +12637,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a Distributed Lock Manager (DLM) require an underlying consensus protocol like Raft?",
           "options": [
-            "Consensus guarantees that lock ownership state is replicated across a majority quorum, preventing split-brain dual-lock grants during network partitions",
-            "Consensus algorithms automatically optimize CSS font rendering",
             "Consensus reduces the price of cloud hosting by 90%",
+            "Consensus algorithms automatically optimize CSS font rendering",
+            "Consensus guarantees that lock ownership state is replicated across a majority quorum, preventing split-brain dual-lock grants during network partitions",
             "Raft converts all database tables into flat text files"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Raft majority quorums guarantee that only one leader can grant leases, mathematically preventing split-brain lock assignments."
         },
         "codeNotes": [
@@ -12690,12 +12690,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when a follower's election timer expires in a Raft consensus cluster?",
           "options": [
-            "It transitions to candidate, increments its term, votes for itself, and broadcasts RequestVote RPCs to peers to collect a majority quorum",
+            "It powers down the physical computer hardware",
             "It sends an alert to the system administrator's phone",
             "It immediately deletes all cluster logs and restarts the server",
-            "It powers down the physical computer hardware"
+            "It transitions to candidate, increments its term, votes for itself, and broadcasts RequestVote RPCs to peers to collect a majority quorum"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Followers transition to candidate upon election timeout and solicit votes to become the authoritative leader for the new term."
         },
         "codeNotes": [
@@ -12792,12 +12792,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a newly elected successor Raft leader restore active distributed lock leases without dropping state?",
           "options": [
-            "It replays its replicated consensus log (which was committed across a majority quorum before lease grants) to reconstruct all active leases",
             "It queries every web browser currently browsing the site",
+            "It replays its replicated consensus log (which was committed across a majority quorum before lease grants) to reconstruct all active leases",
             "It prompts human operators to type in the lock passwords",
             "It wipes all active locks and forces all clients to start over"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because lease grants are committed to the Raft log before being issued, the new leader reconstructs state directly from its log."
         },
         "codeNotes": [
@@ -12843,12 +12843,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which critical distributed systems invariants were certified by the Milestone 9 verification suite?",
           "options": [
-            "Sub-250ms leader election failover, zero split-brain dual leadership, monotonic fencing token rejection of stale writes, and quorum durability",
-            "Relying solely on static hardcoded defaults for Production without reconciling Chaos against live boundary conditions.",
             "Number of HTML tags, CSS border-radius curves, button drop shadows, and font weights",
+            "Relying solely on static hardcoded defaults for Production without reconciling Chaos against live boundary conditions.",
+            "Sub-250ms leader election failover, zero split-brain dual leadership, monotonic fencing token rejection of stale writes, and quorum durability",
             "GitHub repository star count, follower count, and README file character length"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The Milestone 9 suite certifies fast leader election, zero split-brain, strict fencing token gate rejection, and quorum durability."
         },
         "codeNotes": [
@@ -12919,12 +12919,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is streaming fundamentally superior to buffering when processing large data files in Node.js?",
           "options": [
-            "Streams process data incrementally in small chunks, maintaining a bounded constant memory footprint and preventing V8 heap OOM crashes",
+            "Streams convert all files into MP3 audio tracks",
             "Streams automatically encrypt data with quantum algorithms",
             "Streams make Node.js run on multi-threaded GPUs without JavaScript",
-            "Streams convert all files into MP3 audio tracks"
+            "Streams process data incrementally in small chunks, maintaining a bounded constant memory footprint and preventing V8 heap OOM crashes"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Streaming breaks unbounded data into discrete chunks, maintaining constant O(1) memory overhead and avoiding V8 heap exhaustion."
         },
         "codeNotes": [
@@ -13022,12 +13022,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does highWaterMark behave differently when a Node.js stream is in Object Mode?",
           "options": [
-            "It limits the count of discrete JavaScript objects held in the buffer rather than total byte size",
             "It disables all memory limits permanently",
+            "It limits the count of discrete JavaScript objects held in the buffer rather than total byte size",
             "It measures buffer capacity in CPU clock cycles",
             "It forces all objects to be written as plain text files"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In Object Mode, highWaterMark measures the number of discrete objects rather than bytes."
         },
         "codeNotes": [
@@ -13075,12 +13075,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Windowed Batching Aggregator optimize high-volume database ingestion?",
           "options": [
-            "It consolidates individual streaming records into bulk batches flushed on a count threshold or time deadline, multiplying throughput",
-            "It converts SQL databases into NoSQL document stores",
             "It deletes 50% of incoming records to keep databases fast",
+            "It converts SQL databases into NoSQL document stores",
+            "It consolidates individual streaming records into bulk batches flushed on a count threshold or time deadline, multiplying throughput",
             "It disables database indexes during daytime hours"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Windowed batching groups individual records into bulk operations flushed on size or time limits, vastly reducing I/O round trips."
         },
         "codeNotes": [
@@ -13125,12 +13125,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which critical operational SLA is certified by the Day 51 stream verification suite?",
           "options": [
-            "Strictly bounded memory under burst ingress, automated backpressure pausing and drain resumption, and zero unhandled stream errors",
+            "Treating Production and Stream as interchangeable constants rather than verifying Processing at each step.",
             "Screen brightness calibration, mouse click speed, and keyboard typing sounds",
             "CSS stylesheet compression, HTML tag count, and font ligatures",
-            "Treating Production and Stream as interchangeable constants rather than verifying Processing at each step."
+            "Strictly bounded memory under burst ingress, automated backpressure pausing and drain resumption, and zero unhandled stream errors"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The streaming SLA certifies bounded memory stability, prompt backpressure pausing, clean drain resumption, and zero dropped chunks."
         },
         "codeNotes": [
@@ -13253,12 +13253,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Mutual TLS (mTLS) superior to shared API keys for microservice service-to-service authentication?",
           "options": [
-            "mTLS cryptographically authenticates both client and server at the transport layer using X.509 certificates, eliminating shared secrets that can leak",
             "mTLS requires no CPU cycles or memory",
+            "mTLS cryptographically authenticates both client and server at the transport layer using X.509 certificates, eliminating shared secrets that can leak",
             "mTLS converts JavaScript into C++ assembly code",
             "mTLS allows any computer on the internet to read internal databases"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "mTLS provides reciprocal cryptographic authentication using public key infrastructure, preventing spoofing and credential theft."
         },
         "codeNotes": [
@@ -13305,12 +13305,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Key ID ('kid') header parameter enable zero-downtime key rotation in the JWKS protocol?",
           "options": [
-            "Gateways extract 'kid' to dynamically fetch and match the corresponding public key from the JWKS endpoint without restarting services",
-            "It reboots the server hardware whenever a user logs in",
             "It automatically changes the user's password every 5 minutes",
+            "It reboots the server hardware whenever a user logs in",
+            "Gateways extract 'kid' to dynamically fetch and match the corresponding public key from the JWKS endpoint without restarting services",
             "It writes tokens directly to local browser cookies"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The 'kid' identifies the exact public key needed for signature verification, allowing identity providers to rotate signing keys seamlessly."
         },
         "codeNotes": [
@@ -13358,12 +13358,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should enterprise backend systems decouple abstract roles from granular permissions using a Role-Permission matrix?",
           "options": [
-            "It prevents brittle hardcoded role checks, enabling dynamic permission updates and hierarchical role inheritance under least privilege",
+            "It reduces database memory usage to zero bytes",
             "It allows guests to delete all customer records",
             "It disables all security checks on weekend days",
-            "It reduces database memory usage to zero bytes"
+            "It prevents brittle hardcoded role checks, enabling dynamic permission updates and hierarchical role inheritance under least privilege"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Decoupling roles from permissions allows fine-grained authorization policies and hierarchical inheritance without code modifications."
         },
         "codeNotes": [
@@ -13487,12 +13487,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did the Cloud Native Computing Foundation (CNCF) standardize OpenTelemetry across the software industry?",
           "options": [
-            "To provide a single vendor-neutral telemetry framework and semantic convention standard, eliminating vendor lock-in across traces, metrics, and logs",
             "To force all programming languages to compile into JavaScript",
+            "To provide a single vendor-neutral telemetry framework and semantic convention standard, eliminating vendor lock-in across traces, metrics, and logs",
             "To replace all relational databases with flat text files",
             "To eliminate the need for computer monitors"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "OpenTelemetry unifies telemetry collection under a standardized, open-source, vendor-neutral specification."
         },
         "codeNotes": [
@@ -13543,12 +13543,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of the W3C traceparent header in distributed microservices?",
           "options": [
-            "It carries the standardized 16-byte traceId and parent spanId across HTTP/gRPC boundaries to reconstruct the distributed causal tree",
-            "It encrypts database passwords before saving them to disk",
             "It compresses HTML files for mobile browsers",
+            "It encrypts database passwords before saving them to disk",
+            "It carries the standardized 16-byte traceId and parent spanId across HTTP/gRPC boundaries to reconstruct the distributed causal tree",
             "It reboots web servers whenever latency exceeds 1 second"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The W3C traceparent header propagates traceId and parent spanId across network boundaries, maintaining distributed trace continuity."
         },
         "codeNotes": [
@@ -13597,12 +13597,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are Histograms with configurable buckets superior to average (mean) latency calculations for SRE monitoring?",
           "options": [
-            "Histograms preserve latency distributions, enabling precise calculation of P95 and P99 tail latencies that averages completely conceal",
+            "Histograms allow servers to run without operating systems",
             "Histograms eliminate all network latency permanently",
             "Histograms double the physical RAM on server motherboards",
-            "Histograms allow servers to run without operating systems"
+            "Histograms preserve latency distributions, enabling precise calculation of P95 and P99 tail latencies that averages completely conceal"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Averages hide extreme tail latency outliers; Histograms track distribution across buckets, enabling accurate percentile analysis."
         },
         "codeNotes": [
@@ -13701,12 +13701,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which critical distributed observability invariants were certified by the Day 53 SLA verification suite?",
           "options": [
-            "Standardized W3C TraceContext propagation, exact histogram bucket placement, 100% trace-log correlation, and Prometheus compliance",
             "Relying solely on static hardcoded defaults for Production without reconciling Distributed against live boundary conditions.",
+            "Standardized W3C TraceContext propagation, exact histogram bucket placement, 100% trace-log correlation, and Prometheus compliance",
             "Operating system desktop themes, icon spacing, and mouse pointer acceleration",
             "Git branch naming conventions and GitHub profile pictures"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Day 53 suite certifies W3C context propagation, histogram bucket accuracy, trace-log correlation, and Prometheus exposition compliance."
         },
         "codeNotes": [
@@ -13779,12 +13779,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an edge reverse proxy strip untrusted client headers before dispatching to internal microservices?",
           "options": [
-            "To prevent malicious clients from spoofing internal identity, roles, or security credentials",
-            "To reduce the HTTP payload size by at least 50% for binary serialization",
             "Because HTTP/1.1 does not support headers with more than 16 characters",
+            "To reduce the HTTP payload size by at least 50% for binary serialization",
+            "To prevent malicious clients from spoofing internal identity, roles, or security credentials",
             "To force backend microservices to always query the database for user roles"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Edge reverse proxies are security boundaries; untrusted client-provided headers (such as x-user-id or x-auth-roles) must be stripped to prevent identity spoofing and privilege escalation in internal zero-trust networks."
         },
         "codeNotes": [
@@ -13831,12 +13831,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the standard gRPC message framing structure prepended to Protobuf payloads over HTTP/2?",
           "options": [
-            "A 5-byte header consisting of 1 byte compression flag and 4 bytes big-endian message length",
+            "A standard HTTP/1.1 chunked transfer hex length header terminated with CRLF",
             "A 2-byte header with a 16-bit CRC checksum and no length field",
             "A 12-byte initialization vector containing a timestamp and UUID",
-            "A standard HTTP/1.1 chunked transfer hex length header terminated with CRLF"
+            "A 5-byte header consisting of 1 byte compression flag and 4 bytes big-endian message length"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "gRPC frames on HTTP/2 begin with a 5-byte prefix: 1 byte indicating whether the payload is compressed (0x00 or 0x01) and 4 bytes encoding the exact length of the Protobuf payload in big-endian format."
         },
         "codeNotes": [
@@ -13936,12 +13936,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of the HALF-OPEN state in a circuit breaker pattern?",
           "options": [
-            "It permits a small percentage of trial canary requests to verify if an upstream instance has recovered before restoring full traffic",
             "It splits traffic 50/50 between the primary database and the read replica",
+            "It permits a small percentage of trial canary requests to verify if an upstream instance has recovered before restoring full traffic",
             "It allows read-only GET requests while blocking all mutating POST/PUT requests",
             "It keeps the connection open indefinitely without timing out"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The HALF-OPEN state tests whether a previously failed backend service has recovered by routing a limited number of canary trial requests before safely restoring full traffic."
         },
         "codeNotes": [
@@ -13989,12 +13989,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which set of metrics confirms production readiness for an edge reverse proxy and WebSocket hub?",
           "options": [
-            "100% route matching accuracy, valid gRPC status mapping, RFC 6455 WebSocket upgrades, and sub-millisecond proxy latency",
-            "Disabling all TLS encryption and bypassing authentication headers",
             "Allowing unauthenticated clients to directly open raw TCP sockets to database nodes",
+            "Disabling all TLS encryption and bypassing authentication headers",
+            "100% route matching accuracy, valid gRPC status mapping, RFC 6455 WebSocket upgrades, and sub-millisecond proxy latency",
             "Dropping all WebSocket ping frames to reduce network bandwidth usage"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An enterprise edge gateway requires rigorous route matching, protocol transcoding, compliant WebSocket negotiation, active circuit breaking, and sub-millisecond execution efficiency."
         },
         "codeNotes": [
@@ -14066,12 +14066,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of enforcing pipeline invariants in the Milestone 10 edge gateway?",
           "options": [
-            "To guarantee deterministic execution, fail-fast security, bounded memory streams, and zero-allocation routing under high throughput",
+            "To eliminate the need for load balancing and allow all traffic to target a single database server",
             "To force all requests to be written to synchronous log files on disk before processing",
             "To convert all incoming HTTP/1.1 requests into plain text emails for asynchronous debugging",
-            "To eliminate the need for load balancing and allow all traffic to target a single database server"
+            "To guarantee deterministic execution, fail-fast security, bounded memory streams, and zero-allocation routing under high throughput"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Pipeline invariants guarantee deterministic execution, fail-fast zero-trust security barriers, bounded streaming memory limits, and zero-allocation Radix routing, ensuring maximum edge throughput."
         },
         "codeNotes": [
@@ -14174,12 +14174,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does adaptive rate limiting protect downstream microservices during sudden upstream latency spikes?",
           "options": [
-            "It dynamically penalizes token consumption or throttles the refill rate, shedding load before backend queues overflow",
             "It permanently deletes the tenant account from the PostgreSQL database",
+            "It dynamically penalizes token consumption or throttles the refill rate, shedding load before backend queues overflow",
             "It increases the socket timeout to 10 minutes to allow queries to finish eventually",
             "It automatically restarts the operating system of the edge gateway"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Adaptive rate limiting responds to downstream load signals (like elevated latency or queue lag) by throttling token consumption, protecting backend services from catastrophic cascade collapse."
         },
         "codeNotes": [
@@ -14230,12 +14230,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when an upstream cluster node experiences 3 consecutive failures under the circuit breaker policy?",
           "options": [
-            "The node is tripped to the OPEN state and immediately ejected from the routing pool to prevent cascading failures",
-            "The node is assigned double the normal traffic to force it to recover",
             "The gateway immediately shuts down and returns HTTP 500 to all global users",
+            "The node is assigned double the normal traffic to force it to recover",
+            "The node is tripped to the OPEN state and immediately ejected from the routing pool to prevent cascading failures",
             "All historical logs are deleted to free up disk space on the server"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Tripping the circuit breaker to OPEN ejects the failing node from active traffic rotation, protecting it from further load and directing requests to healthy peer nodes."
         },
         "codeNotes": [
@@ -14284,12 +14284,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which combination of capabilities certifies Milestone 10 for enterprise production deployment?",
           "options": [
-            "Multi-tenant routing, zero-trust security, adaptive rate limiting, REST-to-gRPC transcoding, circuit breaking, and W3C tracing",
+            "Using synchronous file writes for every incoming HTTP request payload",
             "Running without any authentication and storing API keys in client-side cookies",
             "Disabling all distributed tracing and dropping all health check probes",
-            "Using synchronous file writes for every incoming HTTP request payload"
+            "Multi-tenant routing, zero-trust security, adaptive rate limiting, REST-to-gRPC transcoding, circuit breaking, and W3C tracing"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Milestone 10 represents the complete unification of edge routing, zero-trust security, adaptive traffic shaping, protocol transcoding, high-availability resilience, and end-to-end distributed observability."
         },
         "codeNotes": [
@@ -14414,12 +14414,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Kafka's idempotent producer setting (enable.idempotence=true) eliminate duplicate writes during network retries?",
           "options": [
-            "The broker tracks Producer IDs and sequential message numbers, silently deduplicating retried batches that were already committed",
             "The producer locks the entire Kafka cluster until all retries are completed",
+            "The broker tracks Producer IDs and sequential message numbers, silently deduplicating retried batches that were already committed",
             "The broker deletes all previous partition logs before accepting a retry",
             "The producer restarts the Node.js application process whenever a network retry occurs"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "With idempotence enabled, producers tag batches with a unique Producer ID and monotonic sequence numbers; the broker identifies already-committed sequence numbers and prevents duplicate entries during network retries."
         },
         "codeNotes": [
@@ -14469,12 +14469,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Cooperative Sticky Rebalancing superior to legacy Eager Rebalancing in consumer groups?",
           "options": [
-            "It avoids 'stop-the-world' cluster pauses by only revoking partitions that need reallocation, allowing unaffected consumers to continue processing",
-            "It compresses all topic messages into ZIP archives before assigning partitions",
             "It allows multiple consumers within the same group to read the same partition simultaneously",
+            "It compresses all topic messages into ZIP archives before assigning partitions",
+            "It avoids 'stop-the-world' cluster pauses by only revoking partitions that need reallocation, allowing unaffected consumers to continue processing",
             "It eliminates the need for partitions by assigning raw memory addresses to consumers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cooperative Sticky Rebalancing revokes only the specific partitions migrating between consumers, allowing unaffected consumers to continue reading without full-group stop-the-world disruption."
         },
         "codeNotes": [
@@ -14524,12 +14524,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical actions must a consumer execute inside the onPartitionsRevoked lifecycle hook?",
           "options": [
-            "Pause new fetches, drain in-flight operations, commit offsets synchronously, and flush state stores before surrendering partitions",
+            "Re-request all messages from offset 0 to re-process from the beginning",
             "Immediately disconnect the network cable and kill the process with SIGKILL",
             "Delete all local logs and clear the database tables",
-            "Re-request all messages from offset 0 to re-process from the beginning"
+            "Pause new fetches, drain in-flight operations, commit offsets synchronously, and flush state stores before surrendering partitions"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The onPartitionsRevoked hook must pause consumption, complete in-flight messages, commit processed offsets, and flush state stores to prevent duplicate processing and data loss when partitions migrate."
         },
         "codeNotes": [
@@ -14654,12 +14654,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Transactional Outbox pattern solve the dual-write problem between databases and message brokers?",
           "options": [
-            "It inserts outbox event records into the same local ACID database transaction as the business entity mutation",
             "It uses distributed two-phase commit (2PC) locks across Kafka and the database",
+            "It inserts outbox event records into the same local ACID database transaction as the business entity mutation",
             "It sends the Kafka event first and cancels it with an undo message if the database rolls back",
             "It ignores database errors and logs warnings to text files on the server"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "By staging event records in an outbox table within the exact same local ACID transaction as the business entity change, the database's write-ahead log guarantees atomic commitment without distributed locks."
         },
         "codeNotes": [
@@ -14707,12 +14707,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Change Data Capture (CDC) from the database WAL superior to polling the outbox table with SQL SELECT?",
           "options": [
-            "It eliminates polling query load on the database and captures events with sub-millisecond latency directly from transaction logs",
-            "It converts all relational database rows into binary MP3 audio streams",
             "It allows unauthenticated users to execute arbitrary SQL commands on the replica",
+            "It converts all relational database rows into binary MP3 audio streams",
+            "It eliminates polling query load on the database and captures events with sub-millisecond latency directly from transaction logs",
             "It forces all microservices to run on the exact same physical server"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "CDC streams changes directly from the database's internal transaction log (WAL/binlog), achieving sub-millisecond event streaming with zero polling CPU or I/O overhead on primary database tables."
         },
         "codeNotes": [
@@ -14762,12 +14762,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the current state of an Event-Sourced aggregate root determined?",
           "options": [
-            "By querying historical domain events from the event store and sequentially replaying them through domain reducers",
+            "By randomly guessing values based on current CPU temperature",
             "By asking client browsers to cache the state in localStorage",
             "By continuously overwriting the database row with the latest snapshot",
-            "By randomly guessing values based on current CPU temperature"
+            "By querying historical domain events from the event store and sequentially replaying them through domain reducers"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Event-sourced aggregates reconstruct state by fetching their immutable event log and folding the events sequentially through domain reducer functions."
         },
         "codeNotes": [
@@ -14872,12 +14872,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Optimistic Concurrency Control (OCC) prevent race conditions in event-sourced aggregate stores?",
           "options": [
-            "Appends require the client to specify the expected version, rejecting mutations if the stored version has advanced in the interim",
             "By acquiring exclusive table-level locks on the entire database for 10 seconds",
+            "Appends require the client to specify the expected version, rejecting mutations if the stored version has advanced in the interim",
             "By restarting all worker pods whenever two writes occur at the same millisecond",
             "By silently dropping whichever write arrived second without notifying the caller"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "OCC compares the expected aggregate version against the current event store version, rejecting conflicting concurrent writes with a concurrency exception to preserve data integrity."
         },
         "codeNotes": [
@@ -14949,12 +14949,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Saga pattern preferred over two-phase commit (2PC) in distributed microservices?",
           "options": [
-            "Local transactions commit immediately without holding distributed locks across network boundaries, preserving high availability and throughput",
-            "It converts all relational database tables into read-only CSV files",
             "It eliminates the need for any error handling or retry logic",
+            "It converts all relational database tables into read-only CSV files",
+            "Local transactions commit immediately without holding distributed locks across network boundaries, preserving high availability and throughput",
             "Because 2PC requires physical fiber optic cables connecting all servers directly"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Sagas allow each microservice to commit its local transaction immediately without holding long-lived distributed locks, trading ACID isolation for BASE availability and scalability."
         },
         "codeNotes": [
@@ -14999,12 +14999,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary drawback of choreography-based sagas as system complexity grows?",
           "options": [
-            "Control flow becomes decentralized across disparate event handlers, creating distributed spaghetti and cyclic event loops",
+            "It drops all messages whenever network latency exceeds 5 milliseconds",
             "It requires all services to share the exact same database server",
             "It forces all microservices to be written in assembly language",
-            "It drops all messages whenever network latency exceeds 5 milliseconds"
+            "Control flow becomes decentralized across disparate event handlers, creating distributed spaghetti and cyclic event loops"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Without a central orchestrator, choreographed sagas distribute business logic across many autonomous event listeners, making end-to-end flows difficult to trace, test, and protect from cyclic deadlocks."
         },
         "codeNotes": [
@@ -15097,12 +15097,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must every saga command and compensating transaction carry a unique Idempotency Key?",
           "options": [
-            "To ensure that network retries or duplicate messages yield cached results without executing duplicate state mutations",
             "To compress the HTTP payload using gzip before sending",
+            "To ensure that network retries or duplicate messages yield cached results without executing duplicate state mutations",
             "To assign a random password to the database administrator",
             "To force all requests to be routed to a single CPU core"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Idempotency keys allow services to recognize duplicate requests during network retries and return cached results without double-charging cards or double-decrementing inventory."
         },
         "codeNotes": [
@@ -15148,12 +15148,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which combination of attributes certifies a production-grade distributed saga engine?",
           "options": [
-            "Persisted state transitions, LIFO compensation rollback, idempotent command deduplication, and semantic fencing",
-            "Disabling all compensations and ignoring network timeouts",
             "Using synchronous blocking RPCs with no retry limits",
+            "Disabling all compensations and ignoring network timeouts",
+            "Persisted state transitions, LIFO compensation rollback, idempotent command deduplication, and semantic fencing",
             "Storing all state in volatile memory without database persistence"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Production-grade sagas require durable state machines, ordered LIFO compensations, idempotent deduplication, and semantic fencing to guarantee consistency across failures."
         },
         "codeNotes": [
@@ -15223,12 +15223,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Redis Cluster guarantee that related multi-key operations map to the same hash slot without CROSSSLOT errors?",
           "options": [
-            "By enclosing common identifier substrings within curly braces {hash_tag}, forcing CRC16 hashing solely on the tagged content",
+            "By using random number generators to assign keys to available servers",
             "By forcing all database keys to be stored on Node 1 only",
             "By disabling all cluster master nodes during transactions",
-            "By using random number generators to assign keys to available servers"
+            "By enclosing common identifier substrings within curly braces {hash_tag}, forcing CRC16 hashing solely on the tagged content"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Using hash tags e.g. '{user:101}.profile' causes Redis Cluster to compute the CRC16 hash slot exclusively on the substring inside '{...}', collocating related keys onto the identical master node."
         },
         "codeNotes": [
@@ -15319,12 +15319,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens during a Cache Stampede (Thundering Herd) event?",
           "options": [
-            "A hot key expires under heavy traffic, causing thousands of concurrent requests to experience cache misses and simultaneously overwhelm the database",
             "The Redis server overheats and shuts down physically",
+            "A hot key expires under heavy traffic, causing thousands of concurrent requests to experience cache misses and simultaneously overwhelm the database",
             "All cache keys are permanently deleted by a malicious script",
             "The network router converts all TCP packets into UDP broadcasts"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When a high-traffic key expires, an avalanche of concurrent requests miss the cache at the same instant, executing identical heavy queries that crash database connection pools."
         },
         "codeNotes": [
@@ -15369,12 +15369,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of Batch Coalescing in a Write-Behind pipeline?",
           "options": [
-            "It collapses multiple rapid mutations to the same entity into a single aggregated database update, drastically reducing database load",
-            "It converts all relational database tables into read-only spreadsheets",
             "It eliminates the need for any persistent database storage entirely",
+            "It converts all relational database tables into read-only spreadsheets",
+            "It collapses multiple rapid mutations to the same entity into a single aggregated database update, drastically reducing database load",
             "It forces all network requests to be processed sequentially on a single thread"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Batch coalescing aggregates dozens or hundreds of delta updates in memory, executing a single consolidated SQL query against the database and slashing write amplification by up to 99%."
         },
         "codeNotes": [
@@ -15420,12 +15420,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which set of capabilities certifies a production-grade enterprise caching architecture?",
           "options": [
-            "Hash-tagged slot colocation, cache-aside key invalidation, stampede mutex suppression, and write-behind mutation coalescing",
+            "Storing all cache keys in plain text JSON files on the local filesystem",
             "Disabling all TTL expirations and never evicting any cache entries",
             "Writing directly to the database without any in-memory caching tier",
-            "Storing all cache keys in plain text JSON files on the local filesystem"
+            "Hash-tagged slot colocation, cache-aside key invalidation, stampede mutex suppression, and write-behind mutation coalescing"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Enterprise-grade caching combines deterministic hash slot routing, race-free cache-aside invalidation, thundering herd suppression, and coalesced write-behind pipelines."
         },
         "codeNotes": [
@@ -15547,12 +15547,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Transactional Outbox pattern guarantee atomic event publishing without two-phase commit?",
           "options": [
-            "Both business entity mutations and outbox event records are committed within the exact same local ACID database transaction",
             "By encrypting the entire hard drive before sending network packets",
+            "Both business entity mutations and outbox event records are committed within the exact same local ACID database transaction",
             "By requiring a human operator to click a button for every order",
             "By writing all events to an insecure public FTP server"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Writing the order record and outbox event inside a single local ACID transaction guarantees that either both are committed or neither is committed, eliminating dual-write anomalies."
         },
         "codeNotes": [
@@ -15597,12 +15597,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In what order must compensating transactions be executed when an intermediate saga step fails?",
           "options": [
-            "In reverse chronological order (Last-In, First-Out) using a compensation stack to symmetrically undo previously committed steps",
-            "In random alphabetical order based on service name",
             "All compensations must be skipped to maximize execution speed",
+            "In random alphabetical order based on service name",
+            "In reverse chronological order (Last-In, First-Out) using a compensation stack to symmetrically undo previously committed steps",
             "In chronological order from first to last"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Compensating transactions must unwind committed steps in reverse order (LIFO) to properly restore system balance and release reserved resources symmetrically."
         },
         "codeNotes": [
@@ -15646,12 +15646,12 @@ export const NODE_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do hash tags '{...}' in Redis Cluster prevent CROSSSLOT errors during multi-key operations?",
           "options": [
-            "They force Redis to compute the CRC16 hash slot exclusively on the substring inside the curly braces, collocating related keys onto the same cluster node",
+            "They reboot the Redis master node on every cache lookup",
             "They compress all data keys into 16-bit binary integers",
             "They convert Redis strings into relational SQL tables",
-            "They reboot the Redis master node on every cache lookup"
+            "They force Redis to compute the CRC16 hash slot exclusively on the substring inside the curly braces, collocating related keys onto the same cluster node"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Hash tags ensure that all keys sharing the same tag substring (e.g. '{user:88}.profile' and '{user:88}.orders') map to the exact same hash slot and master node in Redis Cluster."
         },
         "codeNotes": [
