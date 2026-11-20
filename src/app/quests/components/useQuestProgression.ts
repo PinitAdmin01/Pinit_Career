@@ -874,7 +874,7 @@ export function useQuestProgression() {
     return new Date(ts).toDateString() === today && cid === activeCourseId;
   });
   const dailyCount = todayCompletions.length;
-  const isDailyLimitReached = dailyCount >= 30;
+  const isDailyLimitReached = false;
 
   const activeCourse = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
   const allQuestsInModule = modules.flatMap(m => (m.quests || []));
@@ -926,7 +926,9 @@ export function useQuestProgression() {
     const isInitiated = initiated.includes(quest.id);
 
     // Sequential progression gating: Quest N+1 requires Quest N completed, unless quest is already completed/reviewable
-    const targetCourse = courseIdTarget ? COURSES_REGISTRY.find(c => c.id === courseIdTarget) : null;
+    const targetCourse = courseIdTarget
+      ? COURSES_REGISTRY.find(c => c.id === courseIdTarget)
+      : COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === quest.id));
     const allQuestsInCourse = targetCourse?.quests && targetCourse.quests.length > 0
       ? (targetCourse.quests as Quest[])
       : modules.flatMap(m => m.quests || []);
@@ -940,14 +942,6 @@ export function useQuestProgression() {
     }
 
     if (!isCompleted && !isInitiated) {
-      const isTest = quest.category === 'exam';
-      if (isTest ? dailyCount >= 50 : isDailyLimitReached) {
-        toast.warning('Daily limit reached ⏳', isTest
-          ? 'You have finished 50 test challenges today. Take a rest and resume tomorrow!'
-          : 'You have finished 30 tasks for this course today. Great dedication! Take a break and continue tomorrow.');
-        return;
-      }
-
       // Try unlocking via pins non-blockingly so new students can freely begin their enrolled roadmap
       try {
         await unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`).catch(() => true);

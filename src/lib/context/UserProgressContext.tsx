@@ -513,19 +513,6 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => {
     const timestamps = answersRef.current.completedQuestsTimestamps || [];
-    const today = new Date().toDateString();
-    const todayCompletions = timestamps.filter(raw => {
-      const parts = raw.split('|');
-      const ts = parts[0];
-      return new Date(ts).toDateString() === today;
-    });
-
-    // Allow generous daily completions (up to 30 tasks/day = 10 full curriculum days) so active students & testers can progress without artificial blocks
-    if (todayCompletions.length >= 30 && !isExam) {
-      toast.error('Daily Limit Reached ⏳', 'You have completed 30 tasks today. Great dedication! Take a break and continue tomorrow.');
-      return;
-    }
-
     if (completedQuests.includes(questId)) return;
 
     const next = [...completedQuests, questId];

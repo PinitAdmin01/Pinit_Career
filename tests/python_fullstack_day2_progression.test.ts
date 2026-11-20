@@ -118,4 +118,29 @@ describe('BRUTAL AUDIT: Python Full Stack Course Progression (Day 2 & Multi-Day 
       assert.ok(q.xp > 0, `Quest ${qId} must award > 0 XP`);
     }
   });
+
+  test('Unconstrained Multi-Day Progression: User can complete 60+ tasks in 1 day without limits', () => {
+    // Simulate user completing first 20 days (60 tasks) in a single day
+    const completedQuests = curriculum.slice(0, 60).map(c => c.questId);
+    assert.equal(completedQuests.length, 60, '60 quests completed');
+
+    const fakeEnrollment = {
+      id: 'enr-test-1',
+      planId: 'plan-1m-sprint',
+      track: 'python_ai' as const,
+      status: 'active' as const,
+      enrolledAt: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 30 * 86400000).toISOString(),
+      userId: 'test-user',
+    };
+
+    const progress = getCrashCourseProgress(plan, 'python_ai', COURSES_REGISTRY, completedQuests, fakeEnrollment);
+    assert.equal(progress.completed, 60, 'Exactly 60 tasks recorded completed');
+    assert.ok(progress.next, 'Advances to 61st task');
+    assert.equal(progress.next.questId, curriculum[60].questId, 'Matches 61st curriculum item');
+
+    const summary = getTodaySummary(progress, COURSES_REGISTRY, completedQuests, curriculum);
+    assert.equal(summary.tasksDone, 60, 'Summary shows 60 done');
+    assert.equal(summary.day, 20, 'Summary points to Day 20 (accounting for block tests)');
+  });
 });
