@@ -400,7 +400,7 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
     avatarName: cast.name,
     avatarRole: cast.role,
     message: lines[avatar],
-    choices: shuffleChoices([
+    choices: shuffleChoices(incident.initialChoices || [
       {
         text: `Stay calm and isolate the failing component: check live error logs, enable read-only cache fallback, and post an honest update in 15 minutes.`,
         delta: 4,
