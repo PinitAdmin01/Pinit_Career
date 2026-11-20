@@ -580,7 +580,14 @@ _stderr_log = sys.stderr.getvalue()
     if (isTimeout) anyTimeout = true;
 
     if (!res.success) {
-      terminalLogs.push(`[RUNTIME ERROR] Test ${i + 1}: ${res.error}`);
+      const cleanError = (res.error || '')
+        .replace(/^PythonError:\s*/i, '')
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean)
+        .slice(-2)
+        .join(' ') || 'Runtime Exception';
+      terminalLogs.push(`❌ Test ${i + 1} Failed: ${cleanError}`);
       testOutcomes.push({
         index: i + 1,
         testCaseName: tc.name || `Test Case ${i + 1}`,
@@ -600,9 +607,9 @@ _stderr_log = sys.stderr.getvalue()
 
     if (isPassed) {
       passedCount++;
-      terminalLogs.push(`[TEST SUITE] Test ${i + 1} (${tc.name || tc.input}): PASSED -> Output: ${pyOut} (${duration}ms)`);
+      terminalLogs.push(`✅ Test ${i + 1} Passed (${tc.name || tc.input}): Output ${pyOut}`);
     } else {
-      terminalLogs.push(`[FAIL] Test ${i + 1} (${tc.name || tc.input}): FAILED. Expected: ${tc.output}, Received: ${pyOut}`);
+      terminalLogs.push(`❌ Test ${i + 1} Failed (${tc.name || tc.input}): Expected ${tc.output}, but received ${pyOut}`);
     }
 
     if (stdoutLog) terminalLogs.push(`  stdout: ${stdoutLog}`);

@@ -33,6 +33,7 @@ import {
 import {
   Round1Behavioral,
   Round2Coding,
+  Round2CaseStudy,
   Round3SystemDesign,
   Round4StarDrill,
   InterviewResultsView,
@@ -1813,56 +1814,90 @@ export default function InterviewPage() {
             />
           )}
 
-          {/* Round 2: Technical & Coding */}
+          {/* Round 2: Technical & Coding (Tech) or Financial Case Study (Non-Tech) */}
           {activeStage === 'round2_coding' && (
-            <Round2Coding
-              domainStream={domainStream}
-              currentCodingProb={currentCodingProb}
-              testOutcomes={latestTestOutcomes}
-              onProceed={() => proceedToNextStage('round3_systems')}
-              onReviewSolution={reviewCodingSolution}
-              onRetryChallenge={retryWithNewCodingChallenge}
-              canProceed={codeSubmitted && codeReviewAnswered}
-              codeSubmitted={codeSubmitted}
-              codeRunFailed={codeRunFailed}
-              codeReviewStarted={codeReviewStarted}
-              codeReviewQuestionReady={codeReviewQuestionReady}
-              isSendingInterviewMessage={isSendingInterviewMessage}
-              lastInterviewerSpeech={lastInterviewerSpeech}
-              manualTextInput={manualTextInput}
-              setManualTextInput={setManualTextInput}
-              onSendMessage={handleSendMessageWithText}
-              selectedLang={selectedLang}
-              setSelectedLang={(lang) => {
-                setSelectedLang(lang);
-                setCodeSubmitted(false);
-                setCodeRunFailed(false);
-                setCodeReviewStarted(false);
-                setCodeReviewQuestionReady(false);
-                setCodeReviewAnswered(false);
-                setLatestTestOutcomes([]);
-                codeReviewQuestionPendingRef.current = false;
-              }}
-              runCodeAndTests={runCodeAndTests}
-              isRunning={isRunning}
-              codeContent={codeContent}
-              setCodeContent={(value) => {
-                setCodeContent(value);
-                setCodeSubmitted(false);
-                setCodeRunFailed(false);
-                setCodeReviewStarted(false);
-                setCodeReviewQuestionReady(false);
-                setCodeReviewAnswered(false);
-                codeReviewQuestionPendingRef.current = false;
-              }}
-              codeModifiedRef={codeModifiedRef}
-              activeTeacher={activeTeacher}
-              animState={animState}
-              terminalLogs={terminalLogs}
-              setTerminalLogs={setTerminalLogs}
-              onRequestHint={handleRequestCodingHint}
-              onSkipChallenge={handleSkipQuestion}
-            />
+            domainStream === 'non_tech' ? (
+              <Round2CaseStudy
+                domainStream={domainStream}
+                currentCodingProb={currentCodingProb}
+                testOutcomes={latestTestOutcomes}
+                onProceed={() => proceedToNextStage('round3_systems')}
+                onReviewSolution={reviewCodingSolution}
+                onRetryChallenge={retryWithNewCodingChallenge}
+                canProceed={codeSubmitted && codeReviewAnswered}
+                codeSubmitted={codeSubmitted}
+                codeRunFailed={codeRunFailed}
+                codeReviewStarted={codeReviewStarted}
+                codeReviewQuestionReady={codeReviewQuestionReady}
+                isSendingInterviewMessage={isSendingInterviewMessage}
+                lastInterviewerSpeech={lastInterviewerSpeech}
+                manualTextInput={manualTextInput}
+                setManualTextInput={setManualTextInput}
+                onSendMessage={handleSendMessageWithText}
+                selectedLang={selectedLang}
+                setSelectedLang={setSelectedLang}
+                runCodeAndTests={runCodeAndTests}
+                isRunning={isRunning}
+                codeContent={codeContent}
+                setCodeContent={setCodeContent}
+                codeModifiedRef={codeModifiedRef}
+                activeTeacher={activeTeacher}
+                animState={animState}
+                terminalLogs={terminalLogs}
+                setTerminalLogs={setTerminalLogs}
+                onRequestHint={handleRequestCodingHint}
+                onSkipChallenge={handleSkipQuestion}
+              />
+            ) : (
+              <Round2Coding
+                domainStream={domainStream}
+                currentCodingProb={currentCodingProb}
+                testOutcomes={latestTestOutcomes}
+                onProceed={() => proceedToNextStage('round3_systems')}
+                onReviewSolution={reviewCodingSolution}
+                onRetryChallenge={retryWithNewCodingChallenge}
+                canProceed={codeSubmitted && codeReviewAnswered}
+                codeSubmitted={codeSubmitted}
+                codeRunFailed={codeRunFailed}
+                codeReviewStarted={codeReviewStarted}
+                codeReviewQuestionReady={codeReviewQuestionReady}
+                isSendingInterviewMessage={isSendingInterviewMessage}
+                lastInterviewerSpeech={lastInterviewerSpeech}
+                manualTextInput={manualTextInput}
+                setManualTextInput={setManualTextInput}
+                onSendMessage={handleSendMessageWithText}
+                selectedLang={selectedLang}
+                setSelectedLang={(lang) => {
+                  setSelectedLang(lang);
+                  setCodeSubmitted(false);
+                  setCodeRunFailed(false);
+                  setCodeReviewStarted(false);
+                  setCodeReviewQuestionReady(false);
+                  setCodeReviewAnswered(false);
+                  setLatestTestOutcomes([]);
+                  codeReviewQuestionPendingRef.current = false;
+                }}
+                runCodeAndTests={runCodeAndTests}
+                isRunning={isRunning}
+                codeContent={codeContent}
+                setCodeContent={(value) => {
+                  setCodeContent(value);
+                  setCodeSubmitted(false);
+                  setCodeRunFailed(false);
+                  setCodeReviewStarted(false);
+                  setCodeReviewQuestionReady(false);
+                  setCodeReviewAnswered(false);
+                  codeReviewQuestionPendingRef.current = false;
+                }}
+                codeModifiedRef={codeModifiedRef}
+                activeTeacher={activeTeacher}
+                animState={animState}
+                terminalLogs={terminalLogs}
+                setTerminalLogs={setTerminalLogs}
+                onRequestHint={handleRequestCodingHint}
+                onSkipChallenge={handleSkipQuestion}
+              />
+            )
           )}
 
           {/* Round 3: Systems Architecture */}
