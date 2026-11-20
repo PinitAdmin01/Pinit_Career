@@ -140,6 +140,10 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
   const xpReward = (authQuest?.xp && authQuest.xp > 0) ? authQuest.xp : (quest?.xp ?? (category === 'exam' ? 120 : 150));
   const pinsReward = (authQuest?.pins && authQuest.pins > 0) ? authQuest.pins : (quest?.pins ?? (category === 'exam' ? 6 : 5));
 
+  const returnHref = typeof window !== 'undefined' && (new URLSearchParams(window.location.search).get('fromTab') === 'custom_roadmap' || localStorage.getItem('pinit_guest_quests_subtab') === 'custom_roadmap')
+    ? '/quests?tab=custom_roadmap'
+    : '/quests?tab=certification';
+
   return (
     <div data-testid="workspace-completion-screen" style={{ maxWidth: 600, margin: '60px auto', padding: '40px 24px', textAlign: 'center' }} className="animate-fade-in">
       <div style={{
@@ -174,7 +178,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-          <Link href="/quests?tab=custom_roadmap" className="btn-primary" style={{ padding: '10px 24px' }}>
+          <Link href={returnHref} className="btn-primary" style={{ padding: '10px 24px' }}>
             Return to Quests Tab
           </Link>
           <Link href="/mirror?tab=roadmap" className="btn-ghost" style={{ padding: '10px 24px' }}>

@@ -90,7 +90,7 @@ export async function POST(req: Request) {
       return new Date(ts).toDateString() === today;
     });
 
-    const maxDailyAllowed = isExam ? 5 : 3;
+    const maxDailyAllowed = isExam ? 50 : 30;
     if (todayCompletions.length >= maxDailyAllowed) {
       return NextResponse.json(
         {

@@ -520,8 +520,9 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       return new Date(ts).toDateString() === today;
     });
 
-    if (todayCompletions.length >= 3 && !isExam) {
-      toast.error('Daily Limit Reached ⏳', 'You have reached your global daily limit of 3 completed quests across all courses today.');
+    // Allow generous daily completions (up to 30 tasks/day = 10 full curriculum days) so active students & testers can progress without artificial blocks
+    if (todayCompletions.length >= 30 && !isExam) {
+      toast.error('Daily Limit Reached ⏳', 'You have completed 30 tasks today. Great dedication! Take a break and continue tomorrow.');
       return;
     }
 

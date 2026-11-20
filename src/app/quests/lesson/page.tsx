@@ -479,6 +479,15 @@ function LessonPageRouter() {
     };
   }
 
+  const getReturnUrl = () => {
+    const fromTabParam = searchParams.get('fromTab');
+    const savedSubTab = typeof window !== 'undefined' ? (localStorage.getItem(`pinit_${userId}_quests_subtab`) || localStorage.getItem('pinit_guest_quests_subtab')) : null;
+    const targetTab = fromTabParam === 'certification' || fromTabParam === 'certification_passport' || savedSubTab === 'certification_passport'
+      ? 'certification'
+      : (fromTabParam || 'custom_roadmap');
+    return `/quests?tab=${targetTab}`;
+  };
+
   // Guard only on completely missing questId
   if (!questData) {
     return (
@@ -504,7 +513,7 @@ function LessonPageRouter() {
           data-testid="btn-unregistered-return"
           onClick={() => {
             if (typeof window !== 'undefined') {
-              window.location.assign('/quests?tab=custom_roadmap');
+              window.location.assign(getReturnUrl());
             }
           }}
           className="btn-primary"
@@ -565,7 +574,7 @@ function LessonPageRouter() {
           data-testid="btn-completed-return"
           onClick={() => {
             if (typeof window !== 'undefined') {
-              window.location.assign('/quests?tab=custom_roadmap');
+              window.location.assign(getReturnUrl());
             }
           }}
           className="btn-primary"
@@ -607,6 +616,15 @@ function LessonPageContent({ questId, questData, overrideUser, isTestMode = fals
     return new URLSearchParams(window.location.search).get('questId') || '';
   }, [questId]);
 
+  const getReturnUrl = useCallback(() => {
+    const fromTabParam = searchParams.get('fromTab');
+    const savedSubTab = typeof window !== 'undefined' ? (localStorage.getItem(`pinit_${user?.id || 'guest'}_quests_subtab`) || localStorage.getItem('pinit_guest_quests_subtab')) : null;
+    const targetTab = fromTabParam === 'certification' || fromTabParam === 'certification_passport' || savedSubTab === 'certification_passport'
+      ? 'certification'
+      : (fromTabParam || 'custom_roadmap');
+    return `/quests?tab=${targetTab}`;
+  }, [searchParams, user?.id]);
+
   const finishLessonAndReturn = useCallback(() => {
     if (state.returningRef.current) return;
     state.returningRef.current = true;
@@ -621,13 +639,13 @@ function LessonPageContent({ questId, questData, overrideUser, isTestMode = fals
     }
     toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
     stopSpeaking();
-    const targetUrl = '/quests?tab=custom_roadmap';
+    const targetUrl = getReturnUrl();
     if (router && typeof router.push === 'function') {
       router.push(targetUrl);
     } else {
       window.location.assign(targetUrl);
     }
-  }, [resolveQuestId, addCompletedQuest, state.returningRef, router, isTestMode]);
+  }, [resolveQuestId, addCompletedQuest, state.returningRef, router, isTestMode, getReturnUrl]);
 
   const engine = useLessonEngine({
     questId,
@@ -819,10 +837,11 @@ function LessonPageContent({ questId, questData, overrideUser, isTestMode = fals
         className="classroom-return-btn"
         onClick={() => {
           stopSpeaking();
+          const targetUrl = getReturnUrl();
           if (router && typeof router.push === 'function') {
-            router.push('/quests?tab=custom_roadmap');
+            router.push(targetUrl);
           } else {
-            window.location.assign('/quests?tab=custom_roadmap');
+            window.location.assign(targetUrl);
           }
         }}
         style={{
