@@ -1748,32 +1748,6 @@ export default function InterviewPage() {
             />
           )}
 
-          {/* Assist Mode Floating Teleprompter Drawer (Scoped to Round 2 Coding where there is no vertical chat column) */}
-          {activeStage === 'round2_coding' && isAssistModeActive && (
-            <AssistModeDrawer
-              isScoredStage={false}
-              isCodingRound
-              activeStage="round2_coding"
-              activeTopicName={activeTopicName}
-              questionText={`${currentCodingProb.title}: ${currentCodingProb.description}`}
-              isAssistModeActive={isAssistModeActive}
-              setIsAssistModeActive={setIsAssistModeActive}
-              assistScriptLevel={assistScriptLevel}
-              setAssistScriptLevel={setAssistScriptLevel}
-              assistTab={assistTab}
-              setAssistTab={setAssistTab}
-              isFetchingAssist={isFetchingAssist}
-              assistData={assistData}
-              liveSpeechTranscript={liveSpeechTranscript}
-              messages={messages}
-              activeTeacher={activeTeacher}
-              difficulty={difficulty}
-              fetchAssistScript={fetchAssistScript}
-              speakWithAvatarRaw={previewAssistSpeech}
-              setAnimState={setAnimState}
-            />
-          )}
-
           {/* Round 1: Behavioral */}
           {activeStage === 'round1_behavioral' && (
             <Round1Behavioral
@@ -1848,6 +1822,20 @@ export default function InterviewPage() {
                 setTerminalLogs={setTerminalLogs}
                 onRequestHint={handleRequestCodingHint}
                 onSkipChallenge={handleSkipQuestion}
+                isAssistModeActive={isAssistModeActive}
+                setIsAssistModeActive={setIsAssistModeActive}
+                assistData={assistData}
+                isFetchingAssist={isFetchingAssist}
+                assistTab={assistTab}
+                setAssistTab={setAssistTab}
+                assistScriptLevel={assistScriptLevel}
+                setAssistScriptLevel={setAssistScriptLevel}
+                fetchAssistScript={fetchAssistScript}
+                liveSpeechTranscript={liveSpeechTranscript}
+                messages={messages}
+                difficulty={difficulty}
+                speakWithAvatarRaw={previewAssistSpeech}
+                setAnimState={setAnimState}
               />
             ) : (
               <Round2Coding
@@ -1897,6 +1885,20 @@ export default function InterviewPage() {
                 setTerminalLogs={setTerminalLogs}
                 onRequestHint={handleRequestCodingHint}
                 onSkipChallenge={handleSkipQuestion}
+                isAssistModeActive={isAssistModeActive}
+                setIsAssistModeActive={setIsAssistModeActive}
+                assistData={assistData}
+                isFetchingAssist={isFetchingAssist}
+                assistTab={assistTab}
+                setAssistTab={setAssistTab}
+                assistScriptLevel={assistScriptLevel}
+                setAssistScriptLevel={setAssistScriptLevel}
+                fetchAssistScript={fetchAssistScript}
+                liveSpeechTranscript={liveSpeechTranscript}
+                messages={messages}
+                difficulty={difficulty}
+                speakWithAvatarRaw={previewAssistSpeech}
+                setAnimState={setAnimState}
               />
             )
           )}

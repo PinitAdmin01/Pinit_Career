@@ -90,6 +90,7 @@ export default function SystemDesignWhiteboard({
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
   const [activeProtocol, setActiveProtocol] = useState<string>('HTTPS/REST');
   const [pendingPreset, setPendingPreset] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
     if (!pendingPreset) return;
@@ -280,9 +281,9 @@ export default function SystemDesignWhiteboard({
     | 'ecommerce_ops'
     | 'erp_ledger';
 
-  const loadPreset = (presetName: PresetKey) => {
+  const loadPreset = (presetName: PresetKey, force: boolean = false) => {
     // Inline 2-click confirmation preserves browser Fullscreen Gaming Mode (never calls window.confirm)
-    if (nodes.length > 2 && pendingPreset !== presetName) {
+    if (!force && nodes.length > 2 && pendingPreset !== presetName) {
       setPendingPreset(presetName);
       return;
     }
@@ -462,25 +463,53 @@ export default function SystemDesignWhiteboard({
         { key: 'webrtc_conferencing', label: '🎥 WebRTC Video' },
       ];
 
+  const categories = domainStream === 'non_tech'
+    ? [
+        { id: 'all', label: 'All (8)' },
+        { id: 'marketing', label: '📣 Marketing' },
+        { id: 'operations', label: '🚚 Operations' },
+        { id: 'finance', label: '📊 Finance' },
+      ]
+    : [
+        { id: 'all', label: 'All (16)' },
+        { id: 'client_gateway', label: '🌐 Ingress & Gateways' },
+        { id: 'compute', label: '⚙️ Compute' },
+        { id: 'storage', label: '💾 Storage' },
+        { id: 'queue', label: '📨 Queues' },
+      ];
+
+  const filteredPalette = selectedCategory === 'all'
+    ? palette
+    : palette.filter(item => {
+        if (domainStream === 'non_tech') {
+          if (selectedCategory === 'marketing') return ['Target Audience', 'Ad Campaign', 'Landing Page'].includes(item.type);
+          if (selectedCategory === 'operations') return ['Checkout Engine', 'Logistics Hub', 'Supplier Network'].includes(item.type);
+          if (selectedCategory === 'finance') return ['CRM / Support', 'Retention Loop'].includes(item.type);
+          return true;
+        }
+        if (selectedCategory === 'client_gateway') return item.category === 'gateway' || item.category === 'client';
+        return item.category === selectedCategory;
+      });
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--bg2)', padding: 16, borderRadius: 16, border: '1px solid var(--border)' }}>
-      {/* Header Toolbar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, background: 'var(--bg2)', padding: 12, borderRadius: 14, border: '1px solid var(--border)' }}>
+      {/* Header Toolbar - Single Row Consolidated Controls */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6, borderBottom: '1px solid var(--border)', paddingBottom: 8 }}>
         <div>
-          <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>
+          <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>
             {domainStream === 'non_tech' ? 'Interactive Business Workflow Canvas' : 'Interactive System Whiteboard'}
           </span>
-          <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>
+          <h3 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
             Architecture Topology: {activeTopic}
           </h3>
         </div>
 
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
           <select
             value={activeProtocol}
             onChange={(e) => setActiveProtocol(e.target.value)}
             className="iv-select"
-            style={{ padding: '5px 8px', fontSize: 12, fontWeight: 800 }}
+            style={{ padding: '5px 8px', fontSize: 11.5, fontWeight: 800 }}
           >
             {domainStream === 'non_tech' ? (
               <>
@@ -513,8 +542,8 @@ export default function SystemDesignWhiteboard({
               border: isConnectMode ? '2px solid var(--accent)' : '1px solid var(--border)',
               color: isConnectMode ? '#ffffff' : 'var(--t1)',
               borderRadius: 8,
-              padding: '6px 12px',
-              fontSize: 12,
+              padding: '5px 10px',
+              fontSize: 11.5,
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
@@ -522,31 +551,55 @@ export default function SystemDesignWhiteboard({
               gap: 4
             }}
           >
-            <span>{isConnectMode ? '🔗 Connection Mode ON' : '🔗 Connect Nodes'}</span>
+            <span>{isConnectMode ? '🔗 Connect ON' : '🔗 Connect'}</span>
           </button>
 
-          {presetButtons.map((preset) => {
-            const isConfirming = pendingPreset === preset.key;
-            return (
-              <button
-                key={preset.key}
-                type="button"
-                onClick={() => loadPreset(preset.key)}
-                style={{
-                  background: isConfirming ? 'rgba(245, 158, 11, 0.16)' : 'var(--bg3)',
-                  border: isConfirming ? '1px solid var(--warning, #f59e0b)' : '1px solid var(--border)',
-                  color: isConfirming ? 'var(--amber-mid)' : 'var(--t2)',
-                  borderRadius: 8,
-                  padding: '6px 10px',
-                  fontSize: 11.5,
-                  fontWeight: 800,
-                  cursor: 'pointer'
-                }}
-              >
-                {isConfirming ? `✓ Replace with ${preset.label}?` : preset.label}
-              </button>
-            );
-          })}
+          {/* Preset Selector Dropdown - Replaces 6 standalone wide buttons */}
+          <select
+            aria-label="Load architecture preset"
+            value=""
+            onChange={(e) => {
+              const val = e.target.value as PresetKey;
+              if (val) loadPreset(val);
+            }}
+            className="iv-select"
+            style={{
+              padding: '5px 8px',
+              fontSize: 11.5,
+              fontWeight: 800,
+              background: 'var(--bg3)',
+              color: 'var(--t1)',
+              borderRadius: 8,
+              border: '1px solid var(--border)',
+              cursor: 'pointer'
+            }}
+          >
+            <option value="" disabled>📐 Load Preset Template…</option>
+            {presetButtons.map(preset => (
+              <option key={preset.key} value={preset.key}>
+                {preset.label}
+              </option>
+            ))}
+          </select>
+
+          {pendingPreset && (
+            <button
+              type="button"
+              onClick={() => loadPreset(pendingPreset as PresetKey, true)}
+              style={{
+                background: 'rgba(245, 158, 11, 0.2)',
+                border: '1px solid var(--warning, #f59e0b)',
+                color: 'var(--amber-mid)',
+                borderRadius: 8,
+                padding: '5px 10px',
+                fontSize: 11,
+                fontWeight: 800,
+                cursor: 'pointer'
+              }}
+            >
+              ✓ Confirm Replace with {presetButtons.find(p => p.key === pendingPreset)?.label}?
+            </button>
+          )}
 
           <button
             type="button"
@@ -556,10 +609,10 @@ export default function SystemDesignWhiteboard({
               setSelectedSourceId(null);
               setPendingPreset(null);
             }}
-            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--coral-mid)', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}
+            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--coral-mid)', borderRadius: 8, padding: '5px 9px', fontSize: 11.5, fontWeight: 800, cursor: 'pointer' }}
             title="Reset canvas to blank"
           >
-            🗑️ Clear Canvas
+            🗑️ Clear
           </button>
 
           {onAnalyze && (
@@ -569,8 +622,9 @@ export default function SystemDesignWhiteboard({
               disabled={isAnalyzing}
               className="iv-btn-primary"
               style={{
-                padding: '6px 14px',
-                fontSize: 12,
+                padding: '5px 12px',
+                fontSize: 11.5,
+                borderRadius: 8,
                 cursor: isAnalyzing ? 'not-allowed' : 'pointer',
               }}
             >
@@ -580,36 +634,111 @@ export default function SystemDesignWhiteboard({
         </div>
       </div>
 
-      {/* Palette Toolbar */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', background: 'var(--bg3)', padding: 8, borderRadius: 10, border: '1px solid var(--border)' }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', marginRight: 4 }}>+ ADD:</span>
-        {palette.map(item => (
-          <button
-            key={item.type}
-            type="button"
-            onClick={() => addNode(item)}
-            className="iv-seg-btn"
-            style={{
-              background: 'var(--bg2)',
-              border: `1px solid color-mix(in srgb, ${item.color} 38%, var(--border))`,
-              color: 'var(--t1)',
-              borderRadius: 6,
-              padding: '4px 8px',
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4
-            }}
-          >
-            <span>{item.icon}</span>
-            <span>{item.type}</span>
-          </button>
-        ))}
+      {/* Palette Toolbar - Streamlined 1-Row Ergonomics with Categories */}
+      <div style={{
+        display: 'flex',
+        gap: 6,
+        alignItems: 'center',
+        background: 'var(--bg3)',
+        padding: '5px 8px',
+        borderRadius: 8,
+        border: '1px solid var(--border)',
+        overflow: 'hidden'
+      }}>
+        {/* Category Filter Tabs */}
+        <div style={{ display: 'flex', gap: 3, flexShrink: 0 }}>
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setSelectedCategory(cat.id)}
+              style={{
+                padding: '3px 7px',
+                fontSize: 10.5,
+                fontWeight: 800,
+                borderRadius: 5,
+                border: selectedCategory === cat.id ? '1px solid var(--accent)' : '1px solid transparent',
+                background: selectedCategory === cat.id ? 'var(--accent)' : 'transparent',
+                color: selectedCategory === cat.id ? '#ffffff' : 'var(--t2)',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ width: 1, height: 18, background: 'var(--border)', flexShrink: 0 }} />
+
+        {/* Horizontally scrollable chip row */}
+        <div style={{
+          flex: 1,
+          minWidth: 0,
+          display: 'flex',
+          gap: 5,
+          overflowX: 'auto',
+          flexWrap: 'nowrap',
+          scrollbarWidth: 'none',
+          alignItems: 'center',
+          padding: '1px 0'
+        }}>
+          {filteredPalette.map(item => (
+            <button
+              key={item.type}
+              type="button"
+              onClick={() => addNode(item)}
+              className="iv-seg-btn"
+              title={`Add ${item.type} to canvas`}
+              style={{
+                background: 'var(--bg2)',
+                border: `1px solid color-mix(in srgb, ${item.color} 38%, var(--border))`,
+                color: 'var(--t1)',
+                borderRadius: 6,
+                padding: '3px 8px',
+                fontSize: 11,
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+            >
+              <span style={{ fontSize: 11 }}>{item.icon}</span>
+              <span>{item.type}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Instant Add Dropdown */}
+        <select
+          aria-label="Add component to canvas"
+          value=""
+          onChange={(e) => {
+            const item = palette.find(p => p.type === e.target.value);
+            if (item) addNode(item);
+          }}
+          className="iv-select"
+          style={{
+            padding: '3px 6px',
+            fontSize: 10.5,
+            fontWeight: 700,
+            flexShrink: 0,
+            cursor: 'pointer'
+          }}
+        >
+          <option value="" disabled>+ Add node…</option>
+          {palette.map(p => (
+            <option key={p.type} value={p.type}>
+              {p.icon} {p.type}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Canvas Area */}
+      {/* Canvas Area - Generous Designer Height */}
       <div
         ref={canvasRef}
         className="iv-canvas-bg"
@@ -619,7 +748,7 @@ export default function SystemDesignWhiteboard({
         onTouchEnd={handleCanvasTouchEnd}
         style={{
           position: 'relative',
-          height: 'clamp(280px, 42vh, 400px)',
+          height: 'clamp(340px, 48vh, 460px)',
           backgroundImage: 'radial-gradient(var(--border2) 1px, transparent 1px)',
           backgroundSize: '18px 18px',
           borderRadius: 14,

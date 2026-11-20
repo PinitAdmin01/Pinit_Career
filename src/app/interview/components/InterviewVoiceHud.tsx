@@ -49,10 +49,10 @@ export function InterviewVoiceHud({
         border: '1px solid ' + (isTabInactive ? 'var(--warning, #eab308)' : !isSpeechSupported ? 'var(--danger)' : isVoiceListening ? 'var(--success)' : 'var(--border)'),
         boxShadow: isVoiceListening && !isTabInactive ? '0 0 0 1px rgba(16, 185, 129, 0.15), var(--shadow-sm)' : 'none'
       }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 260 }}>
-        <span style={{ fontSize: 17.5 }}>{isTabInactive ? '⏸️' : !isSpeechSupported ? '⚠️' : isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
-        <div>
-          <div data-testid="interview-voice-hud-title" style={{ fontSize: 13, fontWeight: 900, color: isTabInactive ? 'var(--warning-bright, #eab308)' : 'var(--t1)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0, overflow: 'hidden' }}>
+        <span style={{ fontSize: 16, flexShrink: 0 }}>{isTabInactive ? '⏸️' : !isSpeechSupported ? '⚠️' : isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
+        <div style={{ minWidth: 0, overflow: 'hidden', flex: 1 }}>
+          <div data-testid="interview-voice-hud-title" style={{ fontSize: 12, fontWeight: 900, color: isTabInactive ? 'var(--warning-bright, #eab308)' : 'var(--t1)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: 1.2 }}>
             {isTabInactive
               ? 'Interview Paused (Tab Inactive)'
               : !isSpeechSupported
@@ -65,7 +65,7 @@ export function InterviewVoiceHud({
               ? 'SPOKEN VOICE RECOGNITION ACTIVE'
               : 'Voice Mode Standby'}
           </div>
-          <div data-testid="interview-voice-hud-subtitle" style={{ fontSize: 12, color: isTabInactive ? 'var(--warning-bright, #eab308)' : !isSpeechSupported ? 'var(--danger-bright, #ef4444)' : isVoiceListening ? 'var(--success)' : 'var(--t2)', fontWeight: liveSpeechTranscript || isTabInactive ? 800 : 600 }}>
+          <div data-testid="interview-voice-hud-subtitle" style={{ fontSize: 10.5, color: isTabInactive ? 'var(--warning-bright, #eab308)' : !isSpeechSupported ? 'var(--danger-bright, #ef4444)' : isVoiceListening ? 'var(--success)' : 'var(--t2)', fontWeight: liveSpeechTranscript || isTabInactive ? 800 : 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: 1.2 }}>
             {isTabInactive
               ? 'Session timer and microphone are paused while this tab is backgrounded. Switching back will automatically resume.'
               : !isSpeechSupported
@@ -83,7 +83,7 @@ export function InterviewVoiceHud({
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
         {isVoiceListening && !isTabInactive && (
           <div
             data-testid="voice-level-meter"

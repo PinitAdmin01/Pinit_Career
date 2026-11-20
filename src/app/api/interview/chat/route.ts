@@ -99,7 +99,7 @@ interface FallbackContext {
 }
 
 export interface CandidateTurnAnalysis {
-  intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive';
+  intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive' | 'readiness' | 'clarification' | 'coaching_request';
   subject: string;
   keyTerm: string;
 }
@@ -138,21 +138,43 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'stuck', subject: subTopic, keyTerm: subTopic };
   }
 
-  // 3. Check for bare greetings without substance (e.g. "hi", "hello", "hey", "namaste", "hi there", "hi priya", "hello sir")
+  // 3. Check for candidate readiness / start intent (e.g. "ok im ready", "i am ready", "let's start", "ready")
   if (
-    /^(?:hi|hello|hey|greetings|good\s+(?:morning|afternoon|evening)|namaste|hola|yo|sup)(?:\s+(?:there|sir|ma'?am|team|everyone|all|[a-z]+))?[.!]?$/i.test(lower) ||
-    (/^(?:hi|hello|hey)\b/i.test(lower) && clean.split(/\s+/).length <= 2)
+    /\b(?:i'?m\s+ready|im\s+ready|we\s+are\s+ready|ready\s+to\s+start|ready\s+now|let'?s\s+start|let'?s\s+begin|let'?s\s+go|all\s+set|start\s+interview|yes\s+ready)\b/i.test(lower) ||
+    /^(?:ready|ok\s+ready|yes|start|begin)[.!]?$/i.test(lower)
+  ) {
+    return { intent: 'readiness', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 4. Check for clarification requests (e.g. "can u explain in depth", "could you clarify", "what do you mean?")
+  if (
+    /\b(?:can\s+(?:you|u)\s+(?:explain|exaplin|elaborate|clarify|rephrase|repeat)|(?:explain|exaplin)\s+(?:in\s+depth|more|further)|what\s+do\s+you\s+mean|what\s+does\s+that\s+mean|could\s+you\s+(?:clarify|explain|exaplin|elaborate)|did\s+not\s+understand|didn'?t\s+understand|please\s+(?:explain|exaplin)|elaborate\s+please)\b/i.test(lower)
+  ) {
+    return { intent: 'clarification', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 5. Check for coaching / answer guidance requests (e.g. "how to answer", "how should i answer", "what should i say")
+  if (
+    /\b(?:how\s+to\s+answer|how\s+should\s+i\s+answer|how\s+do\s+i\s+answer|what\s+should\s+i\s+say|how\s+to\s+respond|give\s+me\s+an\s+example|what\s+format|how\s+to\s+structure)\b/i.test(lower)
+  ) {
+    return { intent: 'coaching_request', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 6. Check for bare greetings without substance (e.g. "hi", "hello", "ok hi", "hey", "namaste", "hi there", "hi priya", "hello sir")
+  if (
+    /^(?:ok\s+)?(?:hi|hello|hey|greetings|good\s+(?:morning|afternoon|evening)|namaste|hola|yo|sup)(?:\s+(?:there|sir|ma'?am|team|everyone|all|[a-z]+))?[.!]?$/i.test(lower) ||
+    (/^(?:ok\s+)?(?:hi|hello|hey)\b/i.test(lower) && clean.split(/\s+/).length <= 2)
   ) {
     return { intent: 'greeting', subject: subTopic, keyTerm: subTopic };
   }
 
-  // 3. Metric match: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
+  // 7. Metric match: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
   const metricMatch = clean.match(/(\d+%\s*(?:latency\s*(?:drop|reduction|increase)?|improvement|reduction|increase|drop)?|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
   if (metricMatch) {
     return { intent: 'substantive', subject: metricMatch[1].trim(), keyTerm: metricMatch[1].trim() };
   }
 
-  // 4. Common high-value technical & business keywords (matched with strict word boundaries)
+  // 8. Common high-value technical & business keywords (matched with strict word boundaries)
   const techKeywords = [
     'redis', 'kafka', 'postgresql', 'postgres', 'mongodb', 'mysql', 'docker', 'kubernetes',
     'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'api', 'websocket', 'websockets',
@@ -176,8 +198,8 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     }
   }
 
-  // 5. Broad self-introduction check (greeting or background introduction)
-  const isIntroGreeting = /\b(?:hi\b|hello\b|hey\b|greetings\b|my name is\b|i am a\b|i'm a\b|i am full stack\b|i'm full stack\b|as a software\b|fresher\b|recent graduate\b|student\b)/i.test(lower);
+  // 9. Broad self-introduction check (greeting or background introduction)
+  const isIntroGreeting = /\b(?:my name is\b|i am a\b|i'm a\b|i am full stack\b|i'm full stack\b|as a software\b|fresher\b|recent graduate\b|student\b)/i.test(lower);
   if (isIntroGreeting) {
     return {
       intent: 'intro',
@@ -190,7 +212,7 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: matchedTech, keyTerm: matchedTech };
   }
 
-  // 6. Extract substantive action/problem clauses
+  // 10. Extract substantive action/problem clauses
   const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{3,24}/i);
   if (actionMatch) {
     const rawPhrase = actionMatch[0].trim().replace(/\s+/g, ' ');
@@ -198,14 +220,10 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: rawPhrase, keyTerm: parts.slice(-2).join(' ') };
   }
 
-  // 7. Meaningful non-filler words for general substantive input
+  // 11. Meaningful substantive response check (only if 8+ words and contains verbs/substance)
   const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|doing|done|does|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our|don'?t|dont|not|what|who|when|where|why|how|scenario|approach|hi|hello|hey|yes|no|ok|okay)$/i.test(w));
-  if (words.length >= 2) {
-    let snippet = words.slice(0, 3).join(' ');
-    snippet = snippet.replace(/^(?:focusing on|working with|regarding|around|tackling)\s+/i, '').trim();
-    if (snippet.length >= 3) {
-      return { intent: 'substantive', subject: snippet, keyTerm: snippet };
-    }
+  if (words.length >= 6) {
+    return { intent: 'substantive', subject: subTopic, keyTerm: subTopic };
   }
 
   return { intent: 'vague', subject: subTopic, keyTerm: subTopic };
@@ -217,13 +235,27 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
   const userTurns = (history || []).filter(m => m.role === 'user');
   const lastUserTurn = userTurns[userTurns.length - 1]?.content || '';
   const turnCount = userTurns.length;
+  const analysis = analyzeCandidateTurn(lastUserTurn, subTopic);
 
-  // First turn: warm welcome & initial background question (only turn that includes self-intro)
-  if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15)) {
-    return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
+  // 1. Candidate signaled readiness to start (e.g. "ok im ready", "ready", "let's start")
+  if (analysis.intent === 'readiness') {
+    return `Great, let's dive right in! To get started, please walk me through your background and tell me about one recent project you worked on in ${subTopic}.`;
   }
 
-  const analysis = analyzeCandidateTurn(lastUserTurn, subTopic);
+  // 2. Candidate asked for clarification or depth (e.g. "can u explain in depth", "what do you mean?")
+  if (analysis.intent === 'clarification') {
+    return `Of course! To put it simply: think of a real project or hands-on task you worked on in ${subTopic}. What was the primary challenge you navigated, and what specific steps did you take to deliver the outcome?`;
+  }
+
+  // 3. Candidate asked for guidance on how to answer (e.g. "how to answer", "what should i say")
+  if (analysis.intent === 'coaching_request') {
+    return `A solid framework is the STAR method: describe the Situation, the Task you owned, the Action you took, and the Result. Feel free to choose any project, internship, or practical coursework in ${subTopic}.`;
+  }
+
+  // First turn: warm welcome & initial background question (only turn that includes self-intro)
+  if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15) && analysis.intent !== 'substantive') {
+    return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
+  }
 
   // 1. Candidate is stuck or explicitly says "I don't know" — never praise or fake success!
   if (analysis.intent === 'stuck') {
@@ -263,7 +295,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return stuckStarPivots[turnCount % stuckStarPivots.length];
   }
 
-  // 2. Candidate gave a bare greeting without substance (e.g. "hi", "hello")
+  // 2. Candidate gave a bare greeting without substance (e.g. "hi", "hello", "ok hi")
   if (analysis.intent === 'greeting') {
     if (turnCount <= 1) {
       return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
@@ -274,7 +306,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return `Whenever you're ready, feel free to introduce yourself or describe any practical experience or coursework you've done in ${subTopic} so we can begin.`;
   }
 
-  // 3. Candidate gave a broad introductory greeting or project summary
+  // 6. Candidate gave a broad introductory greeting or project summary
   if (analysis.intent === 'intro') {
     if (analysis.keyTerm && analysis.keyTerm !== subTopic) {
       return `Thanks for walking me through your background! You mentioned working with ${analysis.keyTerm} in your recent work. Could you dive into one specific project where you leveraged ${analysis.keyTerm}, explaining the core problem and your contribution?`;
@@ -282,26 +314,26 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return `Great to have you here! Diving into your hands-on experience with ${subTopic}, could you highlight one specific project you worked on, the core problem it addressed, and your direct contribution?`;
   }
 
-  // 3. Candidate gave an extremely brief or vague answer
+  // 7. Candidate gave an extremely brief or vague answer
   if (analysis.intent === 'vague') {
     return `Understood. Could you expand a bit more on that? Specifically, what was your personal responsibility and the primary technical challenge you navigated for ${subTopic}?`;
   }
 
-  // 4. Candidate explicitly skipped
+  // 8. Candidate explicitly skipped
   if (analysis.intent === 'skip') {
     return `Understood—we'll note the skip and move forward. Let's pivot to another dimension of ${subTopic}: what is an area in this domain where you've spent significant hands-on time?`;
   }
 
-  // 5. Candidate provided substantive response with technical / metric / action details
-  const { subject, keyTerm } = analysis;
-  const reflectionOpeners = [
-    `I see your point regarding ${subject}.`,
-    `You made an insightful observation around ${subject}.`,
-    `Working with ${subject} is a solid direction for ${subTopic}.`,
-    `Regarding your approach with ${subject}:`,
-    `That is a very practical consideration around ${subject}.`
-  ];
-  const opener = reflectionOpeners[turnCount % reflectionOpeners.length];
+  // 9. Candidate provided substantive response with technical / metric / action details
+  const { keyTerm } = analysis;
+  const opener = (keyTerm && keyTerm !== subTopic)
+    ? `Regarding your experience with ${keyTerm}:`
+    : [
+        `Understood—thanks for walking through that scenario.`,
+        `That provides helpful context on your approach.`,
+        `I see your point—that's a practical perspective.`,
+        `Appreciate you highlighting that experience.`
+      ][turnCount % 4];
 
   // Stage-specific contextual follow-up questions (Natural spoken dialogue — no robotic sign-offs)
   if (stage === 'round1_behavioral') {
@@ -526,7 +558,11 @@ RULES:
 5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
 6. Never give the complete code or answer away.
 7. Keep response under 3 sentences max for natural spoken voice pacing.
-8. If the candidate repeats a bare greeting (like "hi" or "hello") or says they do not know what to do, NEVER hallucinate that they made a technical decision or praise "your initial approach". Politely invite them to introduce their background or project experience in ${subTopic}.`;
+8. If the candidate repeats a bare greeting (like "hi" or "hello") or says they do not know what to do, NEVER hallucinate that they made a technical decision or praise "your initial approach". Politely invite them to introduce their background or project experience in ${subTopic}.
+9. If the candidate indicates readiness (e.g. "ok im ready", "ready to start"), welcome them enthusiastically and invite them directly to walk through their background and a key project in ${subTopic}.
+10. If the candidate asks for clarification or asks to explain in depth (e.g. "can you explain in depth", "what do you mean?"), explain the question in simpler, practical terms. NEVER treat their question as a project name or technical approach.
+11. If the candidate asks how to answer (e.g. "how to answer", "what should I say?"), briefly guide them to use the STAR method (Situation, Task, Action, Result).
+12. NEVER parrot back raw candidate phrasing into templates like "You made an insightful observation around [candidate's words]". Always sound like a natural, empathetic, professional corporate hiring manager.`;
 
     // 6. Multi-Key Rotation Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
