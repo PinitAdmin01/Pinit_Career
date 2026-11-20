@@ -164,6 +164,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [isExitingHyperActive, setIsExitingHyperActive] = useState(false);
   const isExitingHyperActiveRef = useRef(false);
   const [hyperTransformOrigin, setHyperTransformOrigin] = useState<string>('50% 95%');
+  const minimizedLauncherRef = useRef<HTMLDivElement>(null);
   const leftSidebarBeforeHyperRef = useRef<boolean>(false);
   const lastHyperTriggerRef = useRef<number>(0);
   const onCollapseLeftNavRef = useRef(onCollapseLeftNav);
@@ -313,14 +314,19 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
     // Calculate Apple Dynamic Island fluid morph origin from current mentor position
     if (typeof window !== 'undefined') {
-      const activeRect = activePanelRef.current?.getBoundingClientRect();
+      const activeRect = activePanelRef.current?.getBoundingClientRect() || minimizedLauncherRef.current?.getBoundingClientRect();
       if (activeRect && activeRect.width > 0 && activeRect.height > 0) {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+        const W = window.innerWidth;
+        const H = window.innerHeight;
+        // Match modal CSS dimensions: width: min(94vw, clamp(720px, 68vw, 1120px)), height: min(84vh, clamp(480px, 68vh, 740px))
+        const modalW = Math.min(0.94 * W, Math.max(720, Math.min(0.68 * W, 1120)));
+        const modalH = Math.min(0.84 * H, Math.max(480, Math.min(0.68 * H, 740)));
+        const modalLeft = (W - modalW) / 2;
+        const modalTop = (H - modalH) / 2;
         const panelCenterX = activeRect.left + activeRect.width / 2;
         const panelCenterY = activeRect.top + activeRect.height / 2;
-        const originX = 50 + ((panelCenterX - centerX) / window.innerWidth) * 100;
-        const originY = 50 + ((panelCenterY - centerY) / window.innerHeight) * 100;
+        const originX = ((panelCenterX - modalLeft) / modalW) * 100;
+        const originY = ((panelCenterY - modalTop) / modalH) * 100;
         setHyperTransformOrigin(`${originX.toFixed(1)}% ${originY.toFixed(1)}%`);
       } else {
         setHyperTransformOrigin('50% 95%');
@@ -986,6 +992,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {/* ── Floating avatar launcher button (when minimized) ── */}
       {!hyperActive && minimized && !shouldHideVisually && (
         <div
+          ref={minimizedLauncherRef}
           className="avatar-mentor-widget"
           data-testid="global-avatar-launcher"
           onClick={() => {
@@ -1353,9 +1360,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           data-dragging={isDragging ? 'true' : undefined}
           style={{
             position: 'fixed',
-            bottom: isCentered ? 'auto' : tourActive ? 10 : (isSettled && settledPos ? 'auto' : 0),
-            top: isCentered ? '50%' : tourActive ? 'auto' : (isSettled && settledPos ? settledPos.y : 'auto'),
-            left: isCentered || tourActive ? '50%' : (isSettled && settledPos ? settledPos.x : activeDockLeft),
+            bottom: isCentered ? 'auto' : tourActive ? 10 : ((isSettled || isDragging) && settledPos ? 'auto' : 0),
+            top: isCentered ? '50%' : tourActive ? 'auto' : ((isSettled || isDragging) && settledPos ? settledPos.y : 'auto'),
+            left: isCentered || tourActive ? '50%' : ((isSettled || isDragging) && settledPos ? settledPos.x : activeDockLeft),
             right: 'auto',
             transform: isCentered ? 'translate(-50%, -50%)' : tourActive ? 'translateX(-50%)' : 'none',
             zIndex: isDragging ? 10001 : 9999,
@@ -1364,8 +1371,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             height: tourActive ? 248 : (isEnlarged ? 372 : 296),
             background: 'var(--bg2)',
             border: isDragging ? '1.5px solid rgba(56, 189, 248, 0.7)' : '1px solid var(--border)',
-            borderBottom: isCentered || tourActive || (isSettled && settledPos) ? '1px solid var(--border)' : 'none',
-            borderRadius: isCentered || tourActive || (isSettled && settledPos) ? 16 : '16px 16px 0 0',
+            borderBottom: isCentered || tourActive || ((isSettled || isDragging) && settledPos) ? '1px solid var(--border)' : 'none',
+            borderRadius: isCentered || tourActive || ((isSettled || isDragging) && settledPos) ? 16 : '16px 16px 0 0',
             boxShadow: isDragging
               ? '0 24px 60px rgba(0,0,0,0.65), 0 0 20px rgba(56, 189, 248, 0.35)'
               : '0 20px 50px rgba(0,0,0,0.5)',

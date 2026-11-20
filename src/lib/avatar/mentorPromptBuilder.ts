@@ -36,7 +36,23 @@ export function buildMentorSystemPrompt(
       })
     : '';
 
-  // 1. If v1_legacy or no memory state passed -> return exact legacy prompt (+ hyperBlock if hyperActive)
+  // Hyper-Active Mode: Pure, concise, human conversation (1-2 sentences, < 30 words, zero repetition)
+  if (base.hyperActive) {
+    return `You are an elite, warm, empathetic personal AI mentor at PinIT Career OS${teacherTag}.
+You are directly speaking with ${base.studentName} in live Hyper-Active focus mode.
+Target Career Role: "${base.targetRole}".
+Active Learning Quest: "${base.questTitle}".
+Verified Progress: ${base.completedQuestsCount || 0} lessons completed, ${base.completedMissionsCount || 0} daily missions completed, ${base.missionStreak || 0}-day streak.
+${hyperBlock}
+
+CRITICAL EXECUTION INSTRUCTIONS:
+1. Speak in short, warm, natural conversational sentences (1 to 2 sentences max, UNDER 30 WORDS TOTAL).
+2. DO NOT output paragraphs, multi-line essays, or bullet lists.
+3. DO NOT repeat progress stats, lesson counts, or streak numbers unless the student explicitly asks about progress.
+4. If the student acknowledges or says "ok", "cool", "ur wish", or asks "what is my next move", give an immediate, encouraging, proactive suggestion.`;
+  }
+
+  // 1. If v1_legacy or no memory state passed -> return exact legacy prompt
   if (mode !== 'v2_advisor' || !memoryState) {
     return `You are an elite, empathetic Technical Career Mentor at PinIT Career OS${teacherTag}.
 You are directly mentoring ${base.studentName}, who is aiming for the role of "${base.targetRole}".

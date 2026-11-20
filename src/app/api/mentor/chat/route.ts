@@ -269,6 +269,8 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
                 ],
                 max_tokens: selectedMaxTokens,
                 temperature: 0.7,
+                frequency_penalty: isHyperActive ? 0.6 : 0,
+                presence_penalty: isHyperActive ? 0.6 : 0,
                 stream: true
               }),
               signal: AbortSignal.timeout(3500)
@@ -387,7 +389,9 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
                 { role: 'user', content: userMessage }
               ],
               max_tokens: selectedMaxTokens,
-              temperature: 0.7
+              temperature: 0.7,
+              frequency_penalty: isHyperActive ? 0.6 : 0,
+              presence_penalty: isHyperActive ? 0.6 : 0,
             }),
             signal: AbortSignal.timeout(6000)
           });
@@ -474,6 +478,33 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
         } else {
           llmResponse = `Hello ${studentName}! As your mentor for ${targetRole}, I am tracking your progress on "${questTitle}". ${gapsNotice} What specific challenge can we solve today?`;
         }
+      }
+    }
+
+    // In Hyper-Active mode: Anti-Repetition & Anti-Looping Guardian
+    if (isHyperActive && llmResponse) {
+      const lastAssistantMsg = (history || [])
+        .slice()
+        .reverse()
+        .find((m) => m.role === 'assistant')?.content || '';
+
+      const mentionsProgress = /\b(?:knocked out|completed \d+ lessons?|\d+ daily missions?)\b/i.test(llmResponse);
+      const prevMentionedProgress = /\b(?:knocked out|completed \d+ lessons?|\d+ daily missions?)\b/i.test(lastAssistantMsg);
+      const isIdentical = llmResponse.trim().toLowerCase() === lastAssistantMsg.trim().toLowerCase();
+
+      // If the LLM repeats progress stats or repeats the previous assistant message identically:
+      if (isIdentical || (mentionsProgress && prevMentionedProgress)) {
+        llmResponse = buildHyperActiveFallbackReply(
+          userMessage,
+          {
+            studentName,
+            targetRole,
+            completedQuestsCount,
+            completedMissionsCount,
+            missionStreak,
+          },
+          history
+        );
       }
     }
 

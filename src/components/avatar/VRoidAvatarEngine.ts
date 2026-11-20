@@ -424,7 +424,7 @@ export class VRoidAvatarEngine {
           settled = true;
           console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
           loadAttempt(idx + 1).then(resolve).catch(reject);
-        }, 3500);
+        }, 7500);
 
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
         try {
@@ -530,8 +530,34 @@ export class VRoidAvatarEngine {
             });
           }
 
+          const isLeftBone = (name: string): boolean => {
+            const nl = (name || '').toLowerCase();
+            return (
+              nl.includes('left') ||
+              nl.includes('_l_') ||
+              nl.includes('.l.') ||
+              nl.includes('bip_l_') ||
+              nl.endsWith('_l') ||
+              nl.endsWith('.l') ||
+              /^l[_\.]/i.test(nl)
+            );
+          };
+
+          const isRightBone = (name: string): boolean => {
+            const nl = (name || '').toLowerCase();
+            return (
+              nl.includes('right') ||
+              nl.includes('_r_') ||
+              nl.includes('.r.') ||
+              nl.includes('bip_r_') ||
+              nl.endsWith('_r') ||
+              nl.endsWith('.r') ||
+              /^r[_\.]/i.test(nl)
+            );
+          };
+
           candidateBones.forEach((obj: any) => {
-            const nameLower = obj.name.toLowerCase().trim();
+            const nameLower = (obj.name || '').toLowerCase().trim();
 
             if (nameLower.includes('hips') || nameLower.includes('pelvis')) this.hips = obj;
             if (nameLower.includes('spine') && !nameLower.includes('chest')) this.spine = obj;
@@ -540,9 +566,9 @@ export class VRoidAvatarEngine {
             if (nameLower.includes('head') && !nameLower.includes('hair') && !nameLower.includes('forehead')) this.head = obj;
 
             if (nameLower.includes('shoulder') || nameLower.includes('clavicle')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l') || nameLower.endsWith('l')) {
+              if (isLeftBone(obj.name)) {
                 this.leftShoulder = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r') || nameLower.endsWith('r')) {
+              } else if (isRightBone(obj.name)) {
                 this.rightShoulder = obj;
               }
             }
@@ -553,25 +579,25 @@ export class VRoidAvatarEngine {
                                !nameLower.includes('shoulder') && !nameLower.includes('clavicle');
 
             if (isUpperArm) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l') || nameLower.endsWith('l')) {
+              if (isLeftBone(obj.name)) {
                 this.leftArm = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r') || nameLower.endsWith('r')) {
+              } else if (isRightBone(obj.name)) {
                 this.rightArm = obj;
               }
             }
 
             if (nameLower.includes('forearm') || nameLower.includes('lowerarm')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l')) {
+              if (isLeftBone(obj.name)) {
                 this.leftForearm = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r')) {
+              } else if (isRightBone(obj.name)) {
                 this.rightForearm = obj;
               }
             }
 
             if (nameLower.includes('hand') && !nameLower.includes('handle') && !nameLower.includes('finger')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l')) {
+              if (isLeftBone(obj.name)) {
                 this.leftHand = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r')) {
+              } else if (isRightBone(obj.name)) {
                 this.rightHand = obj;
               }
             }
