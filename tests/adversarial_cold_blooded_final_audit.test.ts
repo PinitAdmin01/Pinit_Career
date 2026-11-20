@@ -149,27 +149,36 @@ describe('BRUTAL COLD-BLOODED ADVERSARIAL FINAL AUDIT', () => {
       assert.match(greeting, /how was your day|are you doing okay/i);
     });
 
-    it('3.2: Casual acknowledgments ("ok", "cool") are short, punchy, and NEVER repeat progress stats', () => {
-      const okReply = buildHyperActiveFallbackReply('ok', mockContext);
-      const wordCount = okReply.split(/\s+/).length;
-      assert.ok(wordCount <= 25, `ok reply must be <= 25 words (was ${wordCount}): "${okReply}"`);
-      assert.ok(!okReply.includes('3 lessons'), 'Casual reply must NOT repeat progress numbers');
-      assert.ok(!okReply.includes('knocked out'), 'Casual reply must NOT repeat progress clause');
+    it('3.2: Casual acknowledgments ("ok", "cool", "hmm", "yes") are short, punchy, and NEVER repeat progress stats', () => {
+      const casuals = ['ok', 'cool', 'hmm', 'hmmm', 'yes', 'yup', 'got it', 'sure'];
+      for (const phrase of casuals) {
+        const reply = buildHyperActiveFallbackReply(phrase, mockContext);
+        const wordCount = reply.split(/\s+/).length;
+        assert.ok(wordCount <= 25, `"${phrase}" reply must be <= 25 words (was ${wordCount}): "${reply}"`);
+        assert.ok(!reply.includes('3 lessons'), 'Casual reply must NOT repeat progress numbers');
+        assert.ok(!reply.includes('knocked out'), 'Casual reply must NOT repeat progress clause');
+      }
     });
 
-    it('3.3: User deferral ("ur wish", "you decide") makes mentor playfully take initiative', () => {
-      const urWishReply = buildHyperActiveFallbackReply('ur wish', mockContext);
-      const wordCount = urWishReply.split(/\s+/).length;
-      assert.ok(wordCount <= 25, `"ur wish" reply must be <= 25 words (was ${wordCount}): "${urWishReply}"`);
-      assert.match(urWishReply, /my wish|up to me|i pick/i);
-      assert.ok(!urWishReply.includes('I hear you, Ravana — and honestly I love that you came straight to me'), 'Must NOT give stale canned paragraph');
+    it('3.3: User deferral ("ur wish", "u choose", "you say") makes mentor playfully take initiative', () => {
+      const deferrals = ['ur wish', 'u wish', 'you choose', 'u choose', 'you decide', 'up to you'];
+      for (const phrase of deferrals) {
+        const reply = buildHyperActiveFallbackReply(phrase, mockContext);
+        const wordCount = reply.split(/\s+/).length;
+        assert.ok(wordCount <= 25, `"${phrase}" reply must be <= 25 words (was ${wordCount}): "${reply}"`);
+        assert.match(reply, /my wish|up to me|i pick/i);
+        assert.ok(!reply.includes('I hear you, Ravana — and honestly I love that you came straight to me'), 'Must NOT give stale canned paragraph');
+      }
     });
 
-    it('3.4: Direction query ("what is my next move") gives immediate actionable guidance', () => {
-      const nextMoveReply = buildHyperActiveFallbackReply('what is my next move', mockContext);
-      const wordCount = nextMoveReply.split(/\s+/).length;
-      assert.ok(wordCount <= 25, `next move reply must be <= 25 words (was ${wordCount}): "${nextMoveReply}"`);
-      assert.match(nextMoveReply, /next move.*courses/i);
+    it('3.4: Direction queries ("what is my next move", "what to do", "what should i study") give immediate actionable guidance', () => {
+      const directionQueries = ['what is my next move', 'what next', 'what to do', 'what should i study', 'what do you suggest'];
+      for (const query of directionQueries) {
+        const reply = buildHyperActiveFallbackReply(query, mockContext);
+        const wordCount = reply.split(/\s+/).length;
+        assert.ok(wordCount <= 25, `"${query}" reply must be <= 25 words (was ${wordCount}): "${reply}"`);
+        assert.match(reply, /courses/i);
+      }
     });
 
     it('3.5: Anti-Repetition Guard dynamically alternates replies when the same input is repeated', () => {

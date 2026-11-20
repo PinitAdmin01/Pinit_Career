@@ -108,7 +108,7 @@ export function buildHyperActiveFallbackReply(
   };
 
   // 1. User deferral / leaving it to mentor: "ur wish", "your wish", "you decide", "up to you"
-  if (/^(?:ur|your)\s+wish\b|^(?:u|you)\s+(?:decide|choose|pick)\b|\b(?:up\s+to\s+you|whatever\s+you\s+want|surprise\s+me|you\s+tell\s+me)\b/i.test(lower)) {
+  if (/^(?:ur|your|u)\s+(?:wish|choice)\b|^(?:u|you)\s+(?:decide|choose|pick|say)\b|\b(?:up\s+to\s+you|whatever\s+you\s+want|surprise\s+me|you\s+tell\s+me|u\s+tell\s+me)\b/i.test(lower)) {
     const choices = [
       `My wish? Then let's knock out your next Course lesson right now — no excuses! Ready?`,
       `If it's up to me, let's smash a quick 5-minute Daily Mission to boost your streak. Deal?`,
@@ -117,8 +117,8 @@ export function buildHyperActiveFallbackReply(
     return pickFresh(choices);
   }
 
-  // 2. Short acknowledgments: "ok", "okay", "k", "cool", "sure", "fine", "alright", "yep", "yeah", "got it"
-  if (/^(?:ok(?:ay)?|k|cool|sure|fine|alright|yep|yeah|got\s+it|nice|done|bet)\b[.!?]*$/i.test(lower)) {
+  // 2. Short acknowledgments: "ok", "okay", "k", "cool", "sure", "fine", "alright", "yep", "yeah", "got it", "hmm"
+  if (/^(?:ok(?:ay)?|k|cool|sure|fine|alright|yep|yeah|got\s+it|nice|done|bet|yes|yup|ya|hm+)\b[.!?]*$/i.test(lower)) {
     const choices = [
       `Awesome! Ready to dive into your next lesson, or want to look over your projects?`,
       `Sweet! What sounds good right now — continuing Courses or tackling a quick Daily Mission?`,
@@ -128,11 +128,16 @@ export function buildHyperActiveFallbackReply(
   }
 
   // 3. User asking for next move / direction: "what is my next move", "what next", "what should i do"
-  if (/\b(?:what(?:'s|\s+is)\s+my\s+next\s+move|what\s+next|what\s+should\s+i\s+do|next\s+step|where\s+to\s+go|guide\s+me|suggest\s+something)\b/i.test(lower)) {
+  if (/\b(?:what(?:'s|\s+is)\s+my\s+next\s+move|what\s+next|what\s+should\s+i\s+(?:do|study|learn|code|start)|what\s+to\s+do|what\s+do\s+(?:you|u)\s+suggest|next\s+step|where\s+to\s+go|guide\s+me|suggest\s+something)\b/i.test(lower)) {
     if (quests > 0) {
       return `Your next move is continuing Courses to keep your learning momentum hot. Want me to open Courses for you?`;
     }
     return `Your best move right now is starting Lesson 1 in Courses to build verified proof-of-work. Let's start!`;
+  }
+
+  // 3b. Identity questions: "who are you", "what is your name"
+  if (/\b(?:who\s+are\s+you|who\s+r\s+u|what(?:'s|\s+is)\s+your\s+name)\b/i.test(lower)) {
+    return `I'm ${ctx.teacherName || 'Ms. Priya'}, your personal AI mentor! Ready to build verified proof-of-work together?`;
   }
 
   // 4. Checking in on mentor: "how are you", "are you ok", "how was your day"

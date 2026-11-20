@@ -116,7 +116,8 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
     );
 
     // In V2 Advisor mode: Intercept anchored next-task intent with deterministic curriculum resolver (0ms LLM hallucination)
-    if (flagState.mode === 'v2_advisor' && isNextTaskIntent(userMessage) && gated.user?.id) {
+    // In Hyper-Active mode, bypass to let Priya's warm conversational persona handle direction queries naturally
+    if (!isHyperActive && flagState.mode === 'v2_advisor' && isNextTaskIntent(userMessage) && gated.user?.id) {
       const token = getBearerToken(req);
       const supabase = getAuthoritativeSupabaseClient(token);
       const { data: userProfile } = await supabase
@@ -336,7 +337,19 @@ IMPORTANT: The student's question is about this specific slide! Explain the conc
       const gapsNotice = missingSkills.length > 0
         ? `Given your goal of becoming a ${targetRole}, I recommend tackling your gaps in ${missingSkills.slice(0, 2).join(' and ')}.`
         : `Let's keep reinforcing your core competencies for ${targetRole}.`;
-      const fallbackReply = `Hello ${studentName}! As your mentor for ${targetRole}, I am tracking your progress on "${questTitle}". ${gapsNotice} What specific challenge can we solve today?`;
+      const fallbackReply = isHyperActive
+        ? buildHyperActiveFallbackReply(
+            userMessage,
+            {
+              studentName,
+              targetRole,
+              completedQuestsCount,
+              completedMissionsCount,
+              missionStreak,
+            },
+            history
+          )
+        : `Hello ${studentName}! As your mentor for ${targetRole}, I am tracking your progress on "${questTitle}". ${gapsNotice} What specific challenge can we solve today?`;
 
       const encoder = new TextEncoder();
       const fallbackStream = new ReadableStream({
