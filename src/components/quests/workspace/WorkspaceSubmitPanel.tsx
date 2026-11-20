@@ -2,7 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { Teacher, TEACHERS } from './useWorkspaceState';
 import { PIN_COSTS } from '@/hooks/usePinBalance';
-import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
+import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
+import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { getCrashPlanById } from '@/lib/data/crashPlansData';
+import { getCrashCourseCurriculum } from '@/lib/courses/crashCourseProgress';
 
 interface TeacherSelectScreenProps {
   quest: any;
@@ -144,6 +147,69 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
     ? '/quests?tab=custom_roadmap'
     : '/quests?tab=certification';
 
+  const nextQuest = React.useMemo<{ id: string; title: string; isExam?: boolean } | null>(() => {
+    const currentId = quest?.id;
+    if (!currentId) return null;
+
+    if (typeof window !== 'undefined') {
+      try {
+        const rawEnrollment = localStorage.getItem('pinit_active_crash_enrollment');
+        if (rawEnrollment) {
+          const enr = JSON.parse(rawEnrollment);
+          if (enr && enr.planId && enr.track) {
+            const plan = getCrashPlanById(enr.planId);
+            if (plan) {
+              const curriculum = getCrashCourseCurriculum(plan, enr.track, COURSES_REGISTRY);
+              const idx = curriculum.findIndex(item => item.questId === currentId);
+              if (idx >= 0 && idx < curriculum.length - 1) {
+                const nextItem = curriculum[idx + 1];
+                const authQ = getAuthoritativeQuest(nextItem.questId);
+                const regQ = COURSES_REGISTRY.flatMap(c => c.quests || []).find(q => q.id === nextItem.questId);
+                const title = authQ?.title || regQ?.title || nextItem.questId;
+                const isExam = Boolean(
+                  nextItem.questId.includes('-test-') ||
+                  nextItem.questId.includes('-exam-') ||
+                  isAuthoritativeExam(nextItem.questId)
+                );
+                return { id: nextItem.questId, title, isExam };
+              }
+            }
+          }
+        }
+      } catch {}
+    }
+
+    for (let cIdx = 0; cIdx < COURSES_REGISTRY.length; cIdx++) {
+      const c = COURSES_REGISTRY[cIdx];
+      const qIdx = (c.quests || []).findIndex(q => q.id === currentId);
+      if (qIdx >= 0) {
+        if (qIdx < (c.quests || []).length - 1) {
+          const nextQ = c.quests[qIdx + 1];
+          const isExam = Boolean(
+            nextQ.id.includes('-test-') ||
+            nextQ.id.includes('-exam-') ||
+            isAuthoritativeExam(nextQ.id)
+          );
+          return { id: nextQ.id, title: nextQ.title, isExam };
+        } else if (cIdx < COURSES_REGISTRY.length - 1) {
+          const nextCourse = COURSES_REGISTRY[cIdx + 1];
+          if (nextCourse.quests && nextCourse.quests.length > 0) {
+            const nextQ = nextCourse.quests[0];
+            const isExam = Boolean(
+              nextQ.id.includes('-test-') ||
+              nextQ.id.includes('-exam-') ||
+              isAuthoritativeExam(nextQ.id)
+            );
+            return { id: nextQ.id, title: nextQ.title, isExam };
+          }
+        }
+      }
+    }
+    return null;
+  }, [quest?.id]);
+
+  const fromTabParam = returnHref.includes('custom_roadmap') ? 'custom_roadmap' : 'certification';
+
   return (
     <div data-testid="workspace-completion-screen" style={{ maxWidth: 600, margin: '60px auto', padding: '40px 24px', textAlign: 'center' }} className="animate-fade-in">
       <div style={{
@@ -177,11 +243,49 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           {pinsReward > 0 && <span data-testid="workspace-pins-reward" style={{ color: 'var(--green)' }}>📌 +{pinsReward} Pins</span>}
         </div>
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-          <Link href={returnHref} className="btn-primary" style={{ padding: '10px 24px' }}>
-            Return to Quests Tab
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {nextQuest && (
+            <Link
+              data-testid="btn-workspace-go-next"
+              href={`/quests/lesson?questId=${nextQuest.id}&teacherId=${currentTeacher?.name ? 'maya' : 'kashyap'}&fromTab=${fromTabParam}`}
+              className="btn-primary animate-pulse"
+              style={{
+                padding: '12px 24px',
+                background: 'var(--accent)',
+                color: '#ffffff',
+                borderRadius: 12,
+                fontWeight: 900,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              {nextQuest.isExam ? 'Go to Next Exam ➔' : 'Go to Next Class ➔'}
+            </Link>
+          )}
+          <Link
+            href={returnHref}
+            className={nextQuest ? "btn-ghost" : "btn-primary"}
+            style={{
+              padding: '12px 24px',
+              borderRadius: 12,
+              fontWeight: 800,
+              textDecoration: 'none',
+            }}
+          >
+            Return to Dashboard 🏁
           </Link>
-          <Link href="/mirror?tab=roadmap" className="btn-ghost" style={{ padding: '10px 24px' }}>
+          <Link
+            href="/mirror?tab=roadmap"
+            className="btn-ghost"
+            style={{
+              padding: '12px 24px',
+              borderRadius: 12,
+              fontWeight: 800,
+              textDecoration: 'none',
+            }}
+          >
             View Digital Studio
           </Link>
         </div>

@@ -12,6 +12,9 @@ interface LessonCompletionModalProps {
   /** Course tests only: the server's verdict. The pass is not celebrated until it is recorded. */
   testRecord?: { state: 'checking' | 'recorded' | 'failed'; message?: string } | null;
   onRetryTest?: () => void;
+  nextQuest?: { id: string; title: string; isExam?: boolean } | null;
+  onGoToNextQuest?: () => void;
+  isStartingNext?: boolean;
 }
 
 export function LessonCompletionModal({
@@ -23,6 +26,9 @@ export function LessonCompletionModal({
   pins,
   testRecord,
   onRetryTest,
+  nextQuest,
+  onGoToNextQuest,
+  isStartingNext,
 }: LessonCompletionModalProps) {
   const checking = testRecord?.state === 'checking';
   const failed = testRecord?.state === 'failed';
@@ -162,22 +168,69 @@ export function LessonCompletionModal({
               </button>
             )}
 
-            {!checking && !failed && <button
-              data-testid="btn-return-roadmap"
-              onClick={finishLessonAndReturn}
-              className="btn-primary animate-pulse"
-              style={{
-                marginTop: 10,
-                width: '100%',
-                padding: '12px 20px',
-                fontSize: 14.5,
-                fontWeight: 900,
-                borderRadius: 12,
-                background: 'var(--green)'
-              }}
-            >
-              Return to Roadmap 🏁
-            </button>}
+            {!checking && !failed && (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10,
+                  width: '100%',
+                  marginTop: 10,
+                }}
+              >
+                {nextQuest && onGoToNextQuest && (
+                  <button
+                    data-testid="btn-go-to-next-quest"
+                    type="button"
+                    onClick={onGoToNextQuest}
+                    disabled={isStartingNext}
+                    className="btn-primary animate-pulse"
+                    style={{
+                      width: '100%',
+                      padding: '13px 20px',
+                      fontSize: 15,
+                      fontWeight: 900,
+                      borderRadius: 12,
+                      background: 'var(--accent)',
+                      color: '#ffffff',
+                      border: 'none',
+                      cursor: isStartingNext ? 'wait' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 8,
+                      boxShadow: '0 4px 14px rgba(var(--primary-rgb), 0.35)',
+                      opacity: isStartingNext ? 0.75 : 1,
+                    }}
+                  >
+                    {isStartingNext
+                      ? '⏳ Loading Next...'
+                      : nextQuest.isExam
+                      ? 'Go to Next Exam ➔'
+                      : 'Go to Next Class ➔'}
+                  </button>
+                )}
+                <button
+                  data-testid="btn-return-roadmap"
+                  type="button"
+                  onClick={finishLessonAndReturn}
+                  className="btn-primary"
+                  style={{
+                    width: '100%',
+                    padding: nextQuest ? '11px 18px' : '13px 20px',
+                    fontSize: 14,
+                    fontWeight: 800,
+                    borderRadius: 12,
+                    background: nextQuest ? 'var(--bg3)' : 'var(--green)',
+                    color: nextQuest ? 'var(--t1)' : '#ffffff',
+                    border: nextQuest ? '1px solid var(--border)' : 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Return to Dashboard 🏁
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

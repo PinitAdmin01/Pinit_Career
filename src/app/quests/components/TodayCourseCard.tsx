@@ -8,12 +8,13 @@ interface TodayCourseCardProps {
   summary: TodaySummary;
   onStart: () => void;
   onOpenProject: () => void;
+  isStarting?: boolean;
 }
 
 const KIND_ICON: Record<string, string> = { Lesson: '', Practice: '', Test: '' };
 
 /** The first thing an enrolled student sees: the next task, progress, next test and final project. */
-export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: TodayCourseCardProps) {
+export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject, isStarting }: TodayCourseCardProps) {
   const { next, day, totalDays, tasksDone, tasksTotal, percent, nextTest, project, tasksLeftBeforeProject } = summary;
 
   return (
@@ -50,19 +51,22 @@ export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: 
           <button
             type="button"
             onClick={onStart}
+            disabled={isStarting}
             data-testid="btn-today-start"
             style={{
               padding: '12px 26px',
               borderRadius: 12,
               border: 'none',
-              background: 'var(--accent)',
-              color: '#fff',
+              background: isStarting ? 'var(--bg3)' : 'var(--accent)',
+              color: isStarting ? 'var(--t3)' : '#fff',
               fontSize: 15.5,
               fontWeight: 900,
-              cursor: 'pointer',
+              cursor: isStarting ? 'wait' : 'pointer',
+              opacity: isStarting ? 0.75 : 1,
+              transition: 'all 0.15s ease',
             }}
           >
-            Start ▶
+            {isStarting ? '⏳ Starting...' : 'Start ▶'}
           </button>
         </div>
       ) : (

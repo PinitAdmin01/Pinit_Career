@@ -152,11 +152,23 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     return getTodaySummary(enrolledProgress, COURSES_REGISTRY, completedQuests, curriculum);
   }, [activeEnrollment, enrolledPlan, enrolledProgress, COURSES_REGISTRY, completedQuests]);
 
+  const [isStartingTodayQuest, setIsStartingTodayQuest] = React.useState(false);
+
   const continueCourse = () => {
+    if (isStartingTodayQuest) return;
+    setIsStartingTodayQuest(true);
+    setTimeout(() => {
+      setIsStartingTodayQuest(false);
+    }, 2500);
+
     const progressToUse = enrolledProgress || courseProgress;
     const next = progressToUse?.next;
     const quest = next
-      ? COURSES_REGISTRY.find((c) => c.id === next.courseId)?.quests.find((q) => q.id === next.questId)
+      ? (COURSES_REGISTRY.flatMap((c) => c.quests || []).find((q) => q.id === next.questId) || {
+          id: next.questId,
+          title: next.questId,
+          type: 'lecture',
+        })
       : undefined;
     if (next && quest && handleLaunchQuest) {
       handleLaunchQuest(quest as unknown as Quest, next.courseId);
@@ -457,6 +469,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   summary={todaySummary}
                   onStart={continueCourse}
                   onOpenProject={() => setShowCapstonePortal(true)}
+                  isStarting={isStartingTodayQuest}
                 />
               )}
 
