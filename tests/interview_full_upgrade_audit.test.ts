@@ -561,10 +561,12 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
   assert.equal(ROUND_INTERVIEWERS.round1_behavioral.name, 'Ms. Sneha');
   assert.ok(!Object.values(ROUND_INTERVIEWERS).some(iv => iv.id === 'priya'), 'Priya must never be in ROUND_INTERVIEWERS');
 
-  // Strip interviewer sign-offs
+  // Strip interviewer sign-offs and prefixes
   assert.equal(stripInterviewerSignoff('Good point. What was the latency? — Ms. Priya'), 'Good point. What was the latency?');
   assert.equal(stripInterviewerSignoff('Great work! — Mr. Rohan'), 'Great work!');
   assert.equal(stripInterviewerSignoff('How did you scale Kafka? — Ms. Sneha (HR Director)'), 'How did you scale Kafka?');
+  assert.equal(stripInterviewerSignoff('Ms. Sneha: Welcome to your interview.'), 'Welcome to your interview.');
+  assert.equal(stripInterviewerSignoff('Mr. Rohan: Let us examine the test cases.'), 'Let us examine the test cases.');
 
   // Substring collision safety: capacity must NOT match cac, rapid must NOT match api
   const analysisCapacity = analyzeCandidateTurn('We evaluated database capacity and memory.', 'Software Engineering');
@@ -632,4 +634,46 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
   assert.ok(!reply3.includes('focusing on hi am full stack'), 'Must not produce nonsense word slices');
   assert.ok(reply3.toLowerCase().includes('api') && (reply3.toLowerCase().includes('project') || reply3.toLowerCase().includes('contribution')), 'Must prompt for concrete project details on the API mentioned');
   assert.ok(!reply3.endsWith('— Ms. Sneha'), 'Must not end with robotic sign-off');
+
+  // Test 4: Repeated "hi" (Task 6) must NEVER praise "your initial approach" or "pragmatic decision"
+  const hiTurn1 = analyzeCandidateTurn('hi', 'Finance & Accounting (B.Com)');
+  assert.equal(hiTurn1.intent, 'greeting');
+  const hiTurn2 = analyzeCandidateTurn('hi', 'Finance & Accounting (B.Com)');
+  assert.equal(hiTurn2.intent, 'greeting');
+  const hiTurn3 = analyzeCandidateTurn('hi', 'Finance & Accounting (B.Com)');
+  assert.equal(hiTurn3.intent, 'greeting');
+
+  const replyHi2 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Finance & Accounting (B.Com)',
+    history: [
+      { role: 'assistant', content: 'Welcome to your interview.' },
+      { role: 'user', content: 'hi' },
+      { role: 'assistant', content: 'To get started, please walk me through your background.' },
+      { role: 'user', content: 'hi' }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyHi2.includes('pragmatic decision'), 'Repeated hi must never be praised as a pragmatic decision');
+  assert.ok(!replyHi2.includes('initial approach'), 'Repeated hi must never be called an initial approach');
+  assert.ok(!replyHi2.includes('— Ms. Sneha'), 'Must not include trailing signature');
+
+  const replyHi3 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Finance & Accounting (B.Com)',
+    history: [
+      { role: 'assistant', content: 'Welcome to your interview.' },
+      { role: 'user', content: 'hi' },
+      { role: 'assistant', content: 'To get started, please walk me through your background.' },
+      { role: 'user', content: 'hi' },
+      { role: 'assistant', content: 'Please share your background.' },
+      { role: 'user', content: 'hi' }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyHi3.includes('tackled'), 'Must never say tackled for repeated hi');
+  assert.ok(!replyHi3.includes('initial approach'), 'Must never say initial approach for repeated hi');
+  assert.ok(!replyHi3.includes('pragmatic decision'), 'Must never say pragmatic decision for repeated hi');
 });

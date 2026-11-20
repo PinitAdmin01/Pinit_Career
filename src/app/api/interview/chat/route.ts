@@ -106,6 +106,7 @@ export interface CandidateTurnAnalysis {
 
 export function stripInterviewerSignoff(text: string): string {
   return text
+    .replace(/^(?:(?:Ms\.|Mr\.|Dr\.)\s*[A-Za-z]+|Interviewer)\s*:\s*/i, '')
     .replace(/\s*[—~–-]\s*(?:(?:Ms\.|Mr\.|Dr\.)\s*)?[A-Za-z]+(?:\s*\(.*?\))?\s*$/i, '')
     .replace(/\s*—\s*[^.!?]+$/i, '')
     .trim();
@@ -132,13 +133,16 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
   // 2. Check for candidate uncertainty, confusion, or "I don't know"
   if (
     /\b(don'?t know|do not know|no idea|not sure|not certain|never worked with|haven'?t worked|haven'?t done|unclear|stuck|lost|what to do|cannot say|can'?t answer|not familiar|blanking)\b/i.test(lower) ||
-    /^(i don'?t know|no idea|not sure|dunno|idk)[.!]?$/i.test(lower)
+    /^(?:i don'?t know|no idea|not sure|dunno|idk|nothing)[.!]?$/i.test(lower)
   ) {
     return { intent: 'stuck', subject: subTopic, keyTerm: subTopic };
   }
 
-  // 3. Check for bare greetings without substance (e.g. "hi", "hello", "hey", "namaste", "hi there")
-  if (/^(?:hi|hello|hey|greetings|good\s+(?:morning|afternoon|evening)|namaste|hola|yo|sup)[.!]?$/i.test(lower)) {
+  // 3. Check for bare greetings without substance (e.g. "hi", "hello", "hey", "namaste", "hi there", "hi priya", "hello sir")
+  if (
+    /^(?:hi|hello|hey|greetings|good\s+(?:morning|afternoon|evening)|namaste|hola|yo|sup)(?:\s+(?:there|sir|ma'?am|team|everyone|all|[a-z]+))?[.!]?$/i.test(lower) ||
+    (/^(?:hi|hello|hey)\b/i.test(lower) && clean.split(/\s+/).length <= 2)
+  ) {
     return { intent: 'greeting', subject: subTopic, keyTerm: subTopic };
   }
 
@@ -195,10 +199,13 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
   }
 
   // 7. Meaningful non-filler words for general substantive input
-  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our)$/i.test(w));
+  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|doing|done|does|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our|don'?t|dont|not|what|who|when|where|why|how|scenario|approach|hi|hello|hey|yes|no|ok|okay)$/i.test(w));
   if (words.length >= 2) {
-    const snippet = words.slice(0, 3).join(' ');
-    return { intent: 'substantive', subject: snippet, keyTerm: snippet };
+    let snippet = words.slice(0, 3).join(' ');
+    snippet = snippet.replace(/^(?:focusing on|working with|regarding|around|tackling)\s+/i, '').trim();
+    if (snippet.length >= 3) {
+      return { intent: 'substantive', subject: snippet, keyTerm: snippet };
+    }
   }
 
   return { intent: 'vague', subject: subTopic, keyTerm: subTopic };
@@ -518,7 +525,8 @@ RULES:
 4. If the candidate gives a broad introductory greeting without project specifics, warmly acknowledge them and ask for one specific project, the technical problem it solved, and their direct contribution.
 5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
 6. Never give the complete code or answer away.
-7. Keep response under 3 sentences max for natural spoken voice pacing.`;
+7. Keep response under 3 sentences max for natural spoken voice pacing.
+8. If the candidate repeats a bare greeting (like "hi" or "hello") or says they do not know what to do, NEVER hallucinate that they made a technical decision or praise "your initial approach". Politely invite them to introduce their background or project experience in ${subTopic}.`;
 
     // 6. Multi-Key Rotation Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';

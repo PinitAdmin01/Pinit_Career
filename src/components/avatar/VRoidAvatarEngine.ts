@@ -125,6 +125,7 @@ export class VRoidAvatarEngine {
   private ready = false;
   private restPoseApplied = false;
   onReady?: () => void;
+  onError?: (err: unknown) => void;
   get isReady(): boolean { return this.ready; }
 
   // ── C-02 & T6: adaptive performance state ────────────────────────────────
@@ -347,7 +348,16 @@ export class VRoidAvatarEngine {
     fill.position.set(-1.5, 1.5, 2);
     this.scene.add(fill);
 
-    this.tryLoadVRM(teacherId).catch(() => this.buildProceduralAvatar());
+    this.tryLoadVRM(teacherId).catch((err) => {
+      try {
+        this.buildProceduralAvatar();
+      } catch (procErr) {
+        console.error('[VRoidAvatarEngine] Both GLB load and procedural avatar failed:', procErr);
+        if (this.onError) {
+          this.onError(procErr);
+        }
+      }
+    });
     this.loop();
   }
 

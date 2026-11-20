@@ -1,5 +1,6 @@
 export { Round1Behavioral } from './Round1Behavioral';
 export { Round2Coding } from './Round2Coding';
+export { Round2CaseStudy } from './Round2CaseStudy';
 export { Round3SystemDesign } from './Round3SystemDesign';
 export { Round4StarDrill } from './Round4StarDrill';
 export { RadarChart } from './RadarChart';
