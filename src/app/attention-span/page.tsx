@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 
 import '@/styles/attention-games.css';
@@ -15,9 +15,11 @@ import { AttentionScorePanel } from './components/AttentionScorePanel';
 import { AttentionProgressChart } from './components/AttentionProgressChart';
 import { AttentionHistoryView } from './components/AttentionHistoryView';
 
-export default function AttentionSpanPage() {
+function AttentionSpanPageInner() {
   const { user } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const autoStartFocusHandledRef = useRef(false);
 
   // Auth guard
   useEffect(() => {
@@ -53,6 +55,30 @@ export default function AttentionSpanPage() {
     questCompleted,
     questClaimed,
   } = useAttentionSpanData(user);
+
+  const handleLaunchGameRef = useRef(handleLaunchGame);
+  handleLaunchGameRef.current = handleLaunchGame;
+
+  // Voice action deep-link: `/attention-span?autostart=focus`
+  // Safely auto-starts the free Focus Fire sprint overlay once hydrated (0 Pins spent).
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'focus') {
+      autoStartFocusHandledRef.current = false;
+      return;
+    }
+    if (!user || !loaded || activeGame || autoStartFocusHandledRef.current) return;
+    autoStartFocusHandledRef.current = true;
+    handleLaunchGameRef.current('focus-fire');
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams, user, loaded, activeGame]);
 
   if (!user || !loaded) {
     return (
@@ -117,5 +143,19 @@ export default function AttentionSpanPage() {
         />
       </div>
     </>
+  );
+}
+
+export default function AttentionSpanPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: 36, height: 36, border: '2px solid var(--border)', borderTop: '2px solid var(--amber)', borderRadius: '50%', animation: 'attSpin 0.8s linear infinite' }} />
+        </div>
+      }
+    >
+      <AttentionSpanPageInner />
+    </Suspense>
   );
 }

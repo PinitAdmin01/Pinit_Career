@@ -20,26 +20,27 @@ export interface TourSlide {
 }
 
 // ── Tour pacing ──────────────────────────────────────────────────────────────
-// 8s intro + 14 left-sidebar tabs × 5s + 12s academics sidebar + 5s wrap-up = 95s.
+// 8s intro + 12 left-sidebar tabs × 6s + 10s academics overview + 5s wrap-up = 95s.
 // Every line must be speakable
 // inside its slot at ~14 chars/s (neural voice) after the start deadline —
 // enforced by scripts/tests/test_story_mode_timeline.cjs.
-export const TOUR_TAB_MS = 5_000;
+export const TOUR_TAB_MS = 6_000;
 export const TOUR_INTRO_MS = 8_000;
-/** The right (academics) sidebar gets one overview slide, not one per tab. */
-export const TOUR_ACADEMICS_MS = 12_000;
+/** The Campus Academics (A) hub gets one overview slide, not one per tab. */
+export const TOUR_ACADEMICS_MS = 10_000;
 export const TOUR_OUTRO_MS = 5_000;
 /** Neural narration speed; preloading must use the same value to hit the cache. */
 export const TOUR_SPEECH_SPEED = 1.0;
 /** If neural audio hasn't started by then, the slide is narrated with WebSpeech. */
 export const TOUR_SPEECH_START_DEADLINE_MS = 700;
 
-// ── Story tour: intro → 10 main hubs → 4 utilities → academics sidebar overview → wrap-up ──
+// ── Story tour: intro → 8 primary hubs → 4 bottom utilities → campus academics (A) → wrap-up ──
+// Strictly synchronized 1-to-1 with STUDENT_NAV (8) + BOTTOM_NAV (4) in AppSidebar.tsx.
 export const TOUR_SLIDES: TourSlide[] = [
   {
     emoji: '👋',
     title: 'Welcome to PinIT Career OS',
-    tabKey: 'dashboard',
+    tabKey: 'intro',
     route: '/dashboard',
     segment: 1,
     segmentLabel: 'INTRO',
@@ -48,26 +49,26 @@ export const TOUR_SLIDES: TourSlide[] = [
     autoScroll: false,
   },
 
-  // ── Segment 1: Main Platform Navigation ──
+  // ── Segment 1: Primary Left Sidebar (STUDENT_NAV — 8 canonical hubs) ──
   {
     emoji: '🏠',
-    title: 'Command Center Dashboard',
+    title: 'Dashboard',
     tabKey: 'dashboard',
     route: '/dashboard',
     segment: 1,
-    segmentLabel: 'TAB 1/13 · DASHBOARD',
-    text: 'Dashboard: your Career Score, streak and next steps.',
+    segmentLabel: 'TAB 1/12 · DASHBOARD',
+    text: "Dashboard: your Trust, Career Score, ELO and today's priorities.",
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
   {
     emoji: '🗺',
-    title: 'Quests & Courses',
+    title: 'Courses',
     tabKey: 'quests',
     route: '/quests',
     segment: 1,
-    segmentLabel: 'TAB 2/13 · QUESTS',
-    text: 'Quests and Courses: guided lessons that build verified proof-of-work.',
+    segmentLabel: 'TAB 2/12 · COURSES',
+    text: 'Courses: guided 60-day tracks with verified coding lessons.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
@@ -77,41 +78,30 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'missions',
     route: '/missions',
     segment: 1,
-    segmentLabel: 'TAB 3/13 · DAILY MISSIONS',
-    text: 'Daily Missions: five quick challenges on your gaps.',
+    segmentLabel: 'TAB 3/12 · DAILY MISSIONS',
+    text: 'Daily Missions: crisis roleplays and quick daily streak drills.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
   {
-    emoji: '⚔️',
-    title: 'Challenging Arena',
-    tabKey: 'arena',
-    route: '/arena',
-    segment: 1,
-    segmentLabel: 'TAB 4/13 · 1V1 ARENA',
-    text: 'Arena: live one-on-one coding duels against peers.',
-    durationMs: TOUR_TAB_MS,
-    autoScroll: true,
-  },
-  {
-    emoji: '🚀',
-    title: 'Projects & Squads',
+    emoji: '📁',
+    title: 'Projects',
     tabKey: 'projects',
     route: '/projects',
     segment: 1,
-    segmentLabel: 'TAB 5/13 · PROJECTS',
-    text: 'Projects: team up in squads to build verified work.',
+    segmentLabel: 'TAB 4/12 · PROJECTS',
+    text: 'Projects: GitHub-verified capstones and your visual lesson trail.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
   {
-    emoji: '🏆',
-    title: 'Leaderboard & Leagues',
-    tabKey: 'leaderboard',
-    route: '/leaderboard',
+    emoji: '💡',
+    title: 'Innovation Hub',
+    tabKey: 'innovation-hub',
+    route: '/innovation-hub',
     segment: 1,
-    segmentLabel: 'TAB 6/13 · LEADERBOARDS',
-    text: 'Leaderboards: climb weekly campus and global leagues.',
+    segmentLabel: 'TAB 5/12 · INNOVATION HUB',
+    text: 'Innovation Hub: join hackathon squads and pitch live prototypes.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
@@ -121,8 +111,8 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'interview',
     route: '/interview',
     segment: 1,
-    segmentLabel: 'TAB 7/13 · AI INTERVIEW & GD',
-    text: 'AI Interview Studio: practice 1-on-1 technical and behavioral mocks, or switch to real-time AI Group Discussions.',
+    segmentLabel: 'TAB 6/12 · AI INTERVIEW',
+    text: 'AI Interview: mock technical rounds and live AI group discussions.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
@@ -132,8 +122,8 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'mirror',
     route: '/mirror',
     segment: 1,
-    segmentLabel: 'TAB 8/13 · DIGITAL STUDIO',
-    text: 'Digital Studio: ATS Resume Studio, Harvard resume builder, and Digital Twin competency radar simulator.',
+    segmentLabel: 'TAB 7/12 · DIGITAL STUDIO',
+    text: 'Digital Studio: Career Twin skill gaps and ATS Resume Studio.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
@@ -143,32 +133,32 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'attention-span',
     route: '/attention-span',
     segment: 1,
-    segmentLabel: 'TAB 9/13 · ATTENTION SPAN',
-    text: 'Attention Span: games that train deep focus.',
+    segmentLabel: 'TAB 8/12 · ATTENTION SPAN',
+    text: 'Attention Span: focus sprints that train deep engineering stamina.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
 
-  // ── Segment 2: Left Nav Bottom Utilities ──
+  // ── Segment 2: Left Sidebar Bottom Utilities (BOTTOM_NAV — 4 canonical tabs) ──
   {
     emoji: '👥',
-    title: 'Friends & Network',
+    title: 'My Network',
     tabKey: 'friends',
     route: '/friends',
     segment: 2,
-    segmentLabel: 'TAB 10/13 · FRIENDS',
-    text: 'Friends: connect with peers and team up for duels.',
+    segmentLabel: 'TAB 9/12 · MY NETWORK',
+    text: 'My Network: connect with peers for duels and study squads.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
   {
-    emoji: '⚡',
-    title: 'Pins & Wallet',
-    tabKey: 'pins',
-    route: '/pins',
+    emoji: '⚔️',
+    title: 'Arena',
+    tabKey: 'arena',
+    route: '/arena',
     segment: 2,
-    segmentLabel: 'TAB 11/13 · PINS & WALLET',
-    text: 'Pins and Wallet: your balance and premium unlocks.',
+    segmentLabel: 'TAB 10/12 · ARENA',
+    text: 'Arena: live 1v1 coding duels and weekly league standings.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
@@ -178,32 +168,32 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'notifications',
     route: '/notifications',
     segment: 2,
-    segmentLabel: 'TAB 12/13 · NOTIFICATIONS',
-    text: 'Notifications: rewards, streaks and challenges.',
+    segmentLabel: 'TAB 11/12 · NOTIFICATIONS',
+    text: 'Notifications: quest rewards, streak alerts and peer invites.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
   {
     emoji: '👤',
-    title: 'Profile & Career DNA',
+    title: 'Profile',
     tabKey: 'profile',
     route: '/profile',
     segment: 2,
-    segmentLabel: 'TAB 13/13 · PROFILE',
-    text: 'Profile: your credentials, goals and AI mentor.',
+    segmentLabel: 'TAB 12/12 · PROFILE',
+    text: 'Profile: your credentials, Career DNA and mentor voice settings.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },
 
-  // ── Segment 3: Right Academics Sidebar (one overview, not per tab) ──
+  // ── Segment 3: Campus Academics Circle "A" Overview ──
   {
     emoji: '📚',
-    title: 'Academics Sidebar',
+    title: 'Campus Academics (A)',
     tabKey: 'academic-sidebar',
     route: '/dashboard',
     segment: 3,
-    segmentLabel: 'ACADEMICS SIDEBAR',
-    text: 'This is your Academics sidebar, your campus hub. Take exams, see results and study notes, and reach library, hostel, transport, events and fees.',
+    segmentLabel: 'CAMPUS ACADEMICS',
+    text: 'Tap the top-right A circle for Campus Academics: connect your college for exams, results, notes, library and fees.',
     durationMs: TOUR_ACADEMICS_MS,
     autoScroll: false,
   },
@@ -211,7 +201,7 @@ export const TOUR_SLIDES: TourSlide[] = [
   {
     emoji: '🎉',
     title: "You're All Set",
-    tabKey: 'dashboard',
+    tabKey: 'outro',
     route: '/dashboard',
     segment: 1,
     segmentLabel: 'WRAP-UP',
@@ -238,19 +228,23 @@ export function getTourSlideText(slide: TourSlide, ctx: { name?: string; mentor?
     .replace(/\{mentor\}/g, ctx.mentor || 'Priya');
 }
 
-// ── Build congratulations message from event payload ─────────────────────────
+// ── Build congratulations message from event payload (strictly honest telemetry) ─
 export function buildCongratMessage(detail: any, profile: any): { headline: string; body: string; tip: string } {
-  const score = typeof detail?.score === 'number' ? detail.score : null;
+  const score = typeof detail?.score === 'number' && Number.isFinite(detail.score) ? detail.score : null;
   const passed = detail?.passed !== false;
 
   const weakAreas = Array.isArray(profile?.weak_areas) && profile.weak_areas.length > 0
     ? profile.weak_areas
-    : ['System Design Concepts', 'API Gateways', 'Concurrency Controls'];
+    : [];
   const focusImprove = weakAreas[0];
 
-  let headline = passed ? '🎉 Activity Completed!' : '💪 Keep Practicing!';
-  let body = passed ? `Great effort! You achieved a score of ${score || 80}%.` : `You scored ${score || 50}%. Review your weak areas to improve.`;
-  let tip = `Focus on improving: ${focusImprove}.`;
+  const headline = passed ? '🎉 Activity Completed!' : '💪 Keep Practicing!';
+  const body = score !== null
+    ? (passed ? `Great effort! You achieved a score of ${score}%.` : `You scored ${score}%. Review your weak areas to improve.`)
+    : (passed ? 'Great effort! Your verified progress has been logged.' : 'Keep practicing — review the concepts and try again.');
+  const tip = focusImprove
+    ? `Focus next on improving: ${focusImprove}.`
+    : 'Continue your active course or daily mission to strengthen your readiness.';
 
   return { headline, body, tip };
 }
@@ -334,15 +328,28 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
           }} />
         </div>
 
-        {/* Slide Title */}
+        {/* Segment Tag + Slide Title */}
+        {currentSlide?.segmentLabel && (
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 8.5,
+            fontWeight: 800,
+            color: '#38bdf8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: 2,
+          }}>
+            {currentSlide.segmentLabel}
+          </div>
+        )}
         <div style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 11.5,
+          fontSize: 12,
           fontWeight: 900,
           color: '#f8fafc',
           letterSpacing: '-0.2px',
           lineHeight: 1.2,
-          marginBottom: 3,
+          marginBottom: 4,
         }}>
           {currentSlide?.title}
         </div>

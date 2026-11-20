@@ -2,8 +2,13 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePersonalAvatarMemory }    from './hooks/usePersonalAvatarMemory';
 import { useFacialEmotionDetection }  from './hooks/useFacialEmotionDetection';
 import { matchBestAlternative, matchNavigationIntent, getGrammarVocabulary } from './hooks/useVoiceNavigation';
-import { parseWakeWord } from '@/lib/avatar/wakeWordParser';
+import { parseWakeWord, isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
+import { buildHyperActiveGreeting } from '@/lib/avatar/hyperActivePersona';
 import { isNextTaskIntent, isValidSnapshotTimestamp, getAuthoritativeNextTask } from '@/lib/avatar/deterministicAdvisor';
+import { isPriorityDiagnosticQuery, type PriorityDiagnosticReport } from '@/lib/avatar/priorityBriefing';
+import { matchVoiceActionIntent, matchBestActionAlternative } from '@/lib/avatar/voiceActionRouter';
+import { resolveBestSpeechLocale } from '@/lib/avatar/speechRecognitionEngine';
+import { PriorityDiagnosticPanel } from '@/components/avatar/PriorityDiagnosticPanel';
 // Lazy-loaded on demand: import('@/lib/data/coursesData')
 import { analyzeVoiceFrames, analyzeVoiceSamples, verifyVoiceSignature, calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
 import { saveVoicePrintToSupabase, getVoicePrintFromSupabase } from '@/lib/supabaseService';
@@ -36,6 +41,11 @@ interface Props {
   onTabShift?: (path: string) => void;
   onEnlarge?: (enlarged: boolean) => void;
   isEnlarged?: boolean;
+  hyperActive?: boolean;
+  hyperModeVariant?: 'conversational' | 'diagnostic';
+  diagnosticReport?: PriorityDiagnosticReport | null;
+  autoStartVoice?: boolean;
+  onExitHyperActive?: () => void;
   gazeTracking?: boolean;
 }
 
@@ -132,6 +142,11 @@ export default function AvatarMentorWidget({
   onTabShift,
   onEnlarge,
   isEnlarged = false,
+  hyperActive = false,
+  hyperModeVariant = 'conversational',
+  diagnosticReport = null,
+  autoStartVoice = false,
+  onExitHyperActive,
   gazeTracking = true,
 }: Props) {
   const [input,          setInput]          = useState('');
@@ -143,8 +158,17 @@ export default function AvatarMentorWidget({
   const [voiceFreq,      setVoiceFreq]      = useState<number | null>(null);
   const [voicePrint,     setVoicePrint]     = useState<VoicePrint | null>(null);
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-  const [isConversing,   setIsConversing]   = useState(false);
+  const [isConversing,   setIsConversing]   = useState(Boolean(autoStartVoice));
+  const [hyperRightTab,  setHyperRightTab]  = useState<'chat' | 'diagnostic'>(
+    hyperModeVariant === 'diagnostic' ? 'diagnostic' : 'chat'
+  );
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (hyperModeVariant === 'diagnostic') {
+      setHyperRightTab('diagnostic');
+    }
+  }, [hyperModeVariant]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef  = useRef<VRoidAvatarEngine | null>(null);
@@ -524,9 +548,41 @@ export default function AvatarMentorWidget({
     };
   }, []);
 
-  // Greeting on mount
+  const speakReply = useCallback(async (text: string) => {
+    setSubtitle(text);
+    setSubtitleRole('assistant');
+    speakWithAvatar(
+      text,
+      teacherId,
+      () => setSpeaking(true),
+      () => setSpeaking(false)
+    );
+  }, [teacherId]);
+
+  // Greeting on mount (Hyper-Active executive diagnostic briefing vs warm human check-in vs standard greeting)
   useEffect(() => {
     if (hasGreetedRef.current || messages.length > 0) return;
+    if (hyperActive && hyperModeVariant === 'diagnostic' && diagnosticReport) {
+      setMessages([{ role: 'assistant', content: diagnosticReport.chatSummary }]);
+      hasGreetedRef.current = true;
+      void speakReply(diagnosticReport.spokenBriefing);
+      return;
+    }
+    if (hyperActive) {
+      const greeting = buildHyperActiveGreeting({
+        studentName: String(careerProfile?.displayName || careerProfile?.full_name || ''),
+        teacherName: teacher.name,
+        targetRole: String(careerProfile?.targetRole || careerProfile?.target_role || ''),
+        completedQuestsCount: Number(careerProfile?.completedQuestsCount ?? 0),
+        completedMissionsCount: Number(careerProfile?.completedMissionsCount ?? 0),
+        missionStreak: Number(careerProfile?.missionStreak ?? careerProfile?.mission_streak ?? 0),
+        careerScore: Number(careerProfile?.careerScore ?? careerProfile?.ats_score ?? 0),
+      });
+      setMessages([{ role: 'assistant', content: greeting }]);
+      hasGreetedRef.current = true;
+      void speakReply(greeting);
+      return;
+    }
     if (activeQuest) {
       const g = `Hello! I am ${teacher.name}, your mentor for this quest: "${activeQuest.title}". We will cover: ${activeQuest.desc}. What questions do you have about this topic?`;
       setMessages([{ role: 'assistant', content: g }]);
@@ -540,31 +596,27 @@ export default function AvatarMentorWidget({
       setMessages([{ role: 'assistant', content: g }]);
       hasGreetedRef.current = true;
     }
-  }, [careerProfile, activeQuest, teacher.name, messages.length]);
+  }, [careerProfile, activeQuest, teacher.name, messages.length, hyperActive, hyperModeVariant, diagnosticReport, speakReply]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
 
-  // Build ML-powered quick prompts
-  const quickPrompts = [
-    '🎯 What should I study next?',
-    `📊 How do I improve my Career Score from ${careerProfile?.ats_score||0}?`,
-    '⚡ What missions should I do today?',
-    '💼 Am I ready for job interviews?',
-    ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
-  ].slice(0, 5);
+  // Build quick prompts (conversational human check-ins in Hyper-Active mode vs tactical in standard mode)
+  const quickPrompts = hyperActive
+    ? [
+        'My day was hectic today',
+        "I'm doing great — what's next?",
+        'Quiz me playfully on my track',
+        'Help me plan my next quick win',
+      ]
+    : [
+        '🎯 What should I study next?',
+        `📊 How do I improve my Career Score from ${careerProfile?.ats_score||0}?`,
+        '⚡ What missions should I do today?',
+        '💼 Am I ready for job interviews?',
+        ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
+      ].slice(0, 5);
 
-  const speakReply = useCallback(async (text: string) => {
-    setSubtitle(text);
-    setSubtitleRole('assistant');
-    speakWithAvatar(
-      text,
-      teacherId,
-      () => setSpeaking(true),
-      () => setSpeaking(false)
-    );
-  }, [teacherId]);
-
-  const sendMessage = useCallback(async (text?: string) => {
+  const sendMessage = useCallback(async (text?: string, voiceAlternatives?: string[]) => {
     const msg = (text || input).trim();
     if (!msg || loading) return;
 
@@ -597,6 +649,10 @@ export default function AvatarMentorWidget({
 
     const effectiveMsg = (wakeResult.hasWakeWord && wakeResult.command ? wakeResult.command : msg).trim();
     const lower = effectiveMsg.toLowerCase();
+    const allCandidates =
+      voiceAlternatives && voiceAlternatives.length > 0
+        ? Array.from(new Set([effectiveMsg, ...voiceAlternatives].map((s) => s.trim()).filter(Boolean)))
+        : [effectiveMsg];
 
     // 1. Exit conversational mode check
     if (isConversing && (lower.includes('bye') || lower.includes('goodbye') || lower.includes('stop talking') || lower.includes('minimize') || lower.includes('close'))) {
@@ -608,7 +664,15 @@ export default function AvatarMentorWidget({
       return;
     }
 
-    // 2. Priority check (only when not asking for deterministic next curriculum task)
+    // 2a. Executive Priority / Diagnostic / Mistakes query (switches Hyper-Active to Diagnostic dossier)
+    if (diagnosticReport && allCandidates.some((alt) => isPriorityDiagnosticQuery(alt))) {
+      setHyperRightTab('diagnostic');
+      setMessages(prev => [...prev, { role: 'assistant', content: diagnosticReport.chatSummary }]);
+      await speakReply(diagnosticReport.spokenBriefing);
+      return;
+    }
+
+    // 2b. Legacy priority check fallback when diagnosticReport is absent (guarded by !isNextTaskIntent)
     if (!isNextTaskIntent(effectiveMsg) && (lower.includes('priority') || lower.includes('what to do') || lower.includes('preyourrity') || lower.includes('preyourity'))) {
       const recommendation = (() => {
         const streak = careerProfile?.mission_streak || 0;
@@ -658,44 +722,51 @@ export default function AvatarMentorWidget({
       return;
     }
 
-    // 3. Start Quest / Start Mission check
-    if (lower.includes('start mission') || lower.includes('begin mission') || lower.includes('play mission')) {
-      const reply = "Sure, starting your daily boardroom crisis roleplay mission now! Loading Socratic simulation.";
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-      await speakReply(reply);
+    // 3. Actionable Start/Launch Commands across all 12 Left Sidebar tabs
+    const primaryAction = matchVoiceActionIntent(effectiveMsg, { addressedMentor: true });
+    const actionResult =
+      primaryAction.matched && primaryAction.confidence >= 0.6
+        ? primaryAction
+        : allCandidates.length > 1
+          ? matchBestActionAlternative(allCandidates, { addressedMentor: true })
+          : primaryAction;
+    if (actionResult.matched && actionResult.confidence >= 0.6) {
+      setMessages(prev => [...prev, { role: 'assistant', content: actionResult.spokenReply }]);
+      await speakReply(actionResult.spokenReply);
       if (onTabShift) {
         setTimeout(() => {
-          onTabShift('/missions?roleplay=true');
+          onTabShift(actionResult.path);
         }, 800);
       }
       return;
     }
 
-    if (lower.includes('start quest') || lower.includes('begin quest') || lower.includes('play quest')) {
-      const reply = "Sure! Opening your custom quest learning roadmap now. Select a quest module to begin.";
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-      await speakReply(reply);
-      if (onTabShift) {
-        setTimeout(() => {
-          onTabShift('/quests');
-        }, 800);
-      }
-      return;
-    }
-
-    // 4. Conversational talk mode check
-    if (lower.includes('talk with u') || lower.includes('want to talk') || lower.includes('chat with u') || lower.includes('talk to you')) {
+    // 4. Conversational / Hyper-Active talk mode check
+    if (
+      isHyperActiveTrigger(effectiveMsg, teacher.name.split(' ')[1] || teacher.name) ||
+      lower.includes('talk with u') ||
+      lower.includes('want to talk') ||
+      lower.includes('chat with u') ||
+      lower.includes('talk to you') ||
+      lower.includes('need to speak') ||
+      lower.includes('need to chat') ||
+      lower.includes('need to chart')
+    ) {
       setIsConversing(true);
       if (onEnlarge) onEnlarge(true);
-      const talkReply = `Yes, I am here! What do you want to talk about? Let me help you prepare for SDE roleplays, or brainstorm your next system design concepts. Just speak up, I am listening!`;
+      const talkReply = `I'm all yours! How has your day been so far? Tell me what's on your mind or what you'd like to tackle next.`;
       setMessages(prev => [...prev, { role: 'assistant', content: talkReply }]);
       await speakReply(talkReply);
       return;
     }
 
     // ── Voice Navigation Engine — exhaustive route matching with confidence scoring ──
-    const navResult = matchNavigationIntent(effectiveMsg);
-    if (navResult.matched && navResult.confidence >= 0.7) {
+    const navResult =
+      voiceAlternatives && voiceAlternatives.length > 0
+        ? matchBestAlternative(allCandidates, { addressedMentor: true })
+        : matchNavigationIntent(effectiveMsg, { addressedMentor: wakeResult.hasWakeWord });
+    const highNavThreshold = voiceAlternatives && voiceAlternatives.length > 0 ? 0.58 : 0.7;
+    if (navResult.matched && navResult.confidence >= highNavThreshold) {
       // High confidence → navigate immediately with voice confirmation
       console.log(`[VoiceNav] sendMessage HIGH confidence (${(navResult.confidence * 100).toFixed(0)}%) → ${navResult.path} (${navResult.displayName})`);
       const confirmation = `Sure! Shifting you to ${navResult.displayName} now.`;
@@ -720,9 +791,9 @@ export default function AvatarMentorWidget({
     }
 
 
-    // 0ms Client-Side Session Micro-Cache (5-min TTL)
-    const sessionCacheKey = `pinit_cache_${teacherId}_${effectiveMsg.toLowerCase()}`;
-    if (typeof window !== 'undefined') {
+    // 0ms Client-Side Session Micro-Cache (5-min TTL; bypassed in Hyper-Active so human dialogue stays fresh)
+    const sessionCacheKey = `pinit_cache_${hyperActive ? 'hyper' : 'std'}_${teacherId}_${effectiveMsg.toLowerCase()}`;
+    if (!hyperActive && typeof window !== 'undefined') {
       try {
         const cachedRaw = sessionStorage.getItem(sessionCacheKey);
         if (cachedRaw) {
@@ -754,6 +825,7 @@ export default function AvatarMentorWidget({
           message: effectiveMsg,
           history: historyForAPI,
           teacherId,
+          hyperActive,
           careerContext: { ...careerProfile, activeQuest }
         }),
       });
@@ -845,7 +917,7 @@ export default function AvatarMentorWidget({
     } finally {
       setLoading(false);
     }
-  }, [input, loading, isConversing, onEnlarge, careerProfile, onTabShift, teacherId, activeQuest, speakReply, userId]);
+  }, [input, loading, isConversing, onEnlarge, careerProfile, onTabShift, teacherId, teacher.name, hyperActive, activeQuest, speakReply, userId, diagnosticReport]);
 
   // Keep track of latest speaking/loading states in refs to avoid stale closures in SpeechRecognition handlers
   const speakingRef = useRef(speaking);
@@ -905,8 +977,8 @@ export default function AvatarMentorWidget({
         recognition.interimResults = false;
         recognition.maxAlternatives = 5;
         
-        // Auto-match browser locale for native accent accuracy
-        recognition.lang = navigator.language || 'en-US';
+        // Auto-match browser locale with Indian-English accuracy preference
+        recognition.lang = resolveBestSpeechLocale(navigator.language);
 
         const SpeechGrammarList = (window as any).SpeechGrammarList || (window as any).webkitSpeechGrammarList;
         if (SpeechGrammarList) {
@@ -945,9 +1017,7 @@ export default function AvatarMentorWidget({
             }
           }
 
-          const text = transcript.trim().toLowerCase();
-
-          // In active conversation mode, dispatch speech to AI mentor with 300ms debounce
+          // In active conversation mode, dispatch speech + alternatives to AI mentor with 300ms debounce
           if (conversingRef.current) {
             console.log("[Conversing] Direct speech parsed:", transcript);
             if (speechDebounceTimerRef.current) {
@@ -955,7 +1025,7 @@ export default function AvatarMentorWidget({
             }
             speechDebounceTimerRef.current = setTimeout(() => {
               if (!speakingRef.current && !loadingRef.current) {
-                sendMessageRef.current(transcript);
+                sendMessageRef.current(transcript, allAlternatives);
               }
             }, 300);
             return;
@@ -977,7 +1047,7 @@ export default function AvatarMentorWidget({
 
             const cleaned = parsed.command;
             if (cleaned.length > 0) {
-              const navResult = matchBestAlternative([cleaned]);
+              const navResult = matchBestAlternative([cleaned, ...allAlternatives], { addressedMentor: true });
 
               if (navResult.matched && navResult.confidence >= 0.7) {
                 const confirmation = `Sure! Taking you to ${navResult.displayName} now.`;
@@ -1041,7 +1111,7 @@ export default function AvatarMentorWidget({
         } catch {}
       }
     };
-  }, [teacherId, setIsMinimized, speaking, loading, isConversing, speechCooldown]);
+  }, [teacherId, setIsMinimized, speaking, loading, isConversing, speechCooldown, onlyAvatar]);
 
   // Auto-close (minimize) timer when not responding/speaking
   useEffect(() => {
@@ -1091,191 +1161,289 @@ export default function AvatarMentorWidget({
   }
 
   const renderChatPanel = (
-    <div style={{ flex: isEnlarged ? 1.4 : 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'var(--bg2)' }}>
-      {/* Messages List Container */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {messages.map((m, i) => {
-          const isUser = m.role === 'user';
-          return (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                justifyContent: isUser ? 'flex-end' : 'flex-start',
-                alignItems: 'flex-start',
-                gap: 8,
-                maxWidth: '85%',
-                alignSelf: isUser ? 'flex-end' : 'flex-start',
-              }}
-            >
-              {!isUser && (
-                <span style={{ fontSize: 22, marginTop: 4, flexShrink: 0 }}>
-                  {teacher.emoji}
-                </span>
-              )}
-              <div
-                style={{
-                  padding: '10px 14px',
-                  borderRadius: 14,
-                  fontSize: 14,
-                  lineHeight: 1.5,
-                  background: isUser ? teacher.color : 'var(--bg3)',
-                  color: isUser ? 'var(--text)' : 'var(--t1)',
-                  border: isUser ? 'none' : '1px solid var(--border)',
-                  boxShadow: 'var(--shadow-sm)',
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
-                {m.content}
-              </div>
-            </div>
-          );
-        })}
-        {loading && (
-          <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 13, paddingLeft: 28 }}>
-            <span>{teacher.emoji}</span>
-            <div style={{
-              background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: '10px 16px', display: 'flex', gap: 4, alignItems: 'center'
-            }}>
-              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out' }}></span>
-              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out 0.2s' }}></span>
-              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out 0.4s' }}></span>
-            </div>
-          </div>
-        )}
-        <div ref={bottomRef} />
-      </div>
-
-      {/* Quick Suggestion Prompts */}
-      <div style={{
-        display: 'flex',
-        gap: 6,
-        padding: '8px 12px',
-        overflowX: 'auto',
-        borderTop: '1px solid var(--border)',
-        background: 'var(--bg3)',
-        flexShrink: 0,
-        scrollbarWidth: 'none',
-      }}>
-        {quickPrompts.map((promptText, i) => (
+    <div style={{ flex: isEnlarged ? 1.35 : 1, minWidth: 0, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'var(--bg2)' }}>
+      {/* Hyper-Active 2-Tab Pill Bar (Live Chat | Performance & Mistakes) */}
+      {hyperActive && diagnosticReport && (
+        <div
+          data-testid="hyper-right-tab-bar"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '8px 12px',
+            borderBottom: '1px solid var(--border)',
+            background: 'var(--bg3)',
+            flexShrink: 0,
+          }}
+        >
           <button
-            key={i}
             type="button"
-            onClick={() => {
-              const cleanedText = promptText.replace(/^[^a-zA-Z0-9]+/, '').trim();
-              sendMessage(cleanedText);
-            }}
+            data-testid="hyper-tab-chat"
+            onClick={() => setHyperRightTab('chat')}
             style={{
-              whiteSpace: 'nowrap',
+              flex: 1,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
               padding: '6px 12px',
-              borderRadius: 20,
-              border: '1px solid var(--border)',
-              background: 'var(--bg2)',
-              color: 'var(--t2)',
+              borderRadius: 999,
+              border: `1px solid ${hyperRightTab === 'chat' ? 'rgba(var(--brand-rgb), 0.55)' : 'var(--border)'}`,
+              background: hyperRightTab === 'chat' ? 'rgba(var(--brand-rgb), 0.16)' : 'var(--bg2)',
+              color: hyperRightTab === 'chat' ? 'var(--t1)' : 'var(--t2)',
               fontSize: 12,
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               transition: 'all 0.15s',
             }}
-            className="quick-prompt-pill"
           >
-            {promptText}
+            <span>💬</span>
+            <span>Live Chat</span>
           </button>
-        ))}
-      </div>
+          <button
+            type="button"
+            data-testid="hyper-tab-diagnostic"
+            onClick={() => setHyperRightTab('diagnostic')}
+            style={{
+              flex: 1,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              padding: '6px 12px',
+              borderRadius: 999,
+              border: `1px solid ${hyperRightTab === 'diagnostic' ? 'rgba(245, 158, 11, 0.55)' : 'var(--border)'}`,
+              background: hyperRightTab === 'diagnostic' ? 'rgba(245, 158, 11, 0.16)' : 'var(--bg2)',
+              color: hyperRightTab === 'diagnostic' ? 'var(--t1)' : 'var(--t2)',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
+            <span>📊</span>
+            <span>Performance &amp; Mistakes</span>
+            {diagnosticReport.mistakes.length > 0 && (
+              <span
+                data-testid="hyper-tab-mistakes-badge"
+                style={{
+                  minWidth: 18,
+                  height: 18,
+                  padding: '0 5px',
+                  borderRadius: 999,
+                  background: '#ef4444',
+                  color: '#ffffff',
+                  fontSize: 10.5,
+                  fontWeight: 800,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  lineHeight: 1,
+                }}
+              >
+                {diagnosticReport.mistakes.length}
+              </span>
+            )}
+          </button>
+        </div>
+      )}
 
-      {/* Input Bar */}
-      <form
-        onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
-        style={{
-          display: 'flex',
-          gap: 8,
-          padding: 10,
-          borderTop: '1px solid var(--border)',
-          background: 'var(--bg2)',
-          alignItems: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={`Ask ${teacher.name} a question...`}
-          style={{
-            flex: 1,
-            padding: '9px 14px',
-            borderRadius: 20,
-            border: '1px solid var(--border)',
-            background: 'var(--bg3)',
-            color: 'var(--t1)',
-            fontSize: 14,
-            outline: 'none',
+      {hyperActive && diagnosticReport && hyperRightTab === 'diagnostic' ? (
+        <PriorityDiagnosticPanel
+          report={diagnosticReport}
+          onNavigate={(p) => {
+            onTabShift?.(p);
           }}
-          disabled={loading}
+          onSwitchToChat={() => setHyperRightTab('chat')}
         />
-        <button
-          type="button"
-          onClick={() => {
-            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-              toast.info("Voice Input Notice 🎙️", "Live speech recognition is optimized for Chrome & Edge. Switched to instant text mode.");
-              return;
+      ) : (
+        <>
+          {/* Messages List Container */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {messages.map((m, i) => {
+              const isUser = m.role === 'user';
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    justifyContent: isUser ? 'flex-end' : 'flex-start',
+                    alignItems: 'flex-start',
+                    gap: 8,
+                    maxWidth: '85%',
+                    alignSelf: isUser ? 'flex-end' : 'flex-start',
+                  }}
+                >
+                  {!isUser && (
+                    <span style={{ fontSize: 22, marginTop: 4, flexShrink: 0 }}>
+                      {teacher.emoji}
+                    </span>
+                  )}
+                  <div
+                    style={{
+                      padding: '10px 14px',
+                      borderRadius: 14,
+                      fontSize: 14,
+                      lineHeight: 1.5,
+                      background: isUser ? teacher.color : 'var(--bg3)',
+                      color: isUser ? 'var(--text)' : 'var(--t1)',
+                      border: isUser ? 'none' : '1px solid var(--border)',
+                      boxShadow: 'var(--shadow-sm)',
+                      whiteSpace: 'pre-wrap',
+                    }}
+                  >
+                    {m.content}
+                  </div>
+                </div>
+              );
+            })}
+            {loading && (
+              <div style={{ display: 'flex', gap: 8, alignSelf: 'flex-start', alignItems: 'center', color: 'var(--t3)', fontSize: 13, paddingLeft: 28 }}>
+                <span>{teacher.emoji}</span>
+                <div style={{
+                  background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: '10px 16px', display: 'flex', gap: 4, alignItems: 'center'
+                }}>
+                  <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out' }}></span>
+                  <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out 0.2s' }}></span>
+                  <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--t3)', animation: 'pulse 1.2s infinite ease-in-out 0.4s' }}></span>
+                </div>
+              </div>
+            )}
+            <div ref={bottomRef} />
+          </div>
+
+          {/* Quick Suggestion Prompts */}
+          <div style={{
+            display: 'flex',
+            gap: 6,
+            padding: '8px 12px',
+            overflowX: 'auto',
+            borderTop: '1px solid var(--border)',
+            background: 'var(--bg3)',
+            flexShrink: 0,
+            scrollbarWidth: 'none',
+          }}>
+            {quickPrompts.map((promptText, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  const cleanedText = promptText.replace(/^[^a-zA-Z0-9]+/, '').trim();
+                  sendMessage(cleanedText);
+                }}
+                style={{
+                  whiteSpace: 'nowrap',
+                  padding: '6px 12px',
+                  borderRadius: 20,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg2)',
+                  color: 'var(--t2)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                }}
+                className="quick-prompt-pill"
+              >
+                {promptText}
+              </button>
+            ))}
+          </div>
+
+          {/* Input Bar */}
+          <form
+            onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
+            style={{
+              display: 'flex',
+              gap: 8,
+              padding: 10,
+              borderTop: '1px solid var(--border)',
+              background: 'var(--bg2)',
+              alignItems: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={`Ask ${teacher.name} a question...`}
+              style={{
+                flex: 1,
+                padding: '9px 14px',
+                borderRadius: 20,
+                border: '1px solid var(--border)',
+                background: 'var(--bg3)',
+                color: 'var(--t1)',
+                fontSize: 14,
+                outline: 'none',
+              }}
+              disabled={loading}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                  toast.info("Voice Input Notice 🎙️", "Live speech recognition is optimized for Chrome & Edge. Switched to instant text mode.");
+                  return;
+                }
+                setIsConversing(prev => !prev);
+              }}
+              title={isConversing ? 'Mute voice conversation' : 'Start voice conversation'}
+              style={{
+                background: isConversing ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg3)',
+                color: isConversing ? '#ef4444' : 'var(--t2)',
+                border: `1px solid ${isConversing ? 'rgba(239, 68, 68, 0.5)' : 'var(--border)'}`,
+                borderRadius: '50%',
+                width: 34,
+                height: 34,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 15.5,
+                transition: 'all 0.15s',
+              }}
+            >
+              {isConversing ? '🎙️' : '🎤'}
+            </button>
+            <button
+              type="submit"
+              disabled={!input.trim() || loading}
+              style={{
+                background: input.trim() && !loading ? teacher.color : 'var(--bg3)',
+                color: input.trim() && !loading ? 'var(--text)' : 'var(--t3)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 34,
+                height: 34,
+                cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 15.5,
+                transition: 'all 0.15s',
+                boxShadow: input.trim() && !loading ? `0 2px 8px ${teacher.color}40` : 'none',
+              }}
+            >
+              ➔
+            </button>
+          </form>
+
+          <style>{`
+            @keyframes pulse {
+              0%, 100% { transform: scale(0.6); opacity: 0.4; }
+              50% { transform: scale(1.1); opacity: 1; }
             }
-            setIsConversing(prev => !prev);
-          }}
-          title={isConversing ? 'Mute voice conversation' : 'Start voice conversation'}
-          style={{
-            background: isConversing ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg3)',
-            color: isConversing ? '#ef4444' : 'var(--t2)',
-            border: `1px solid ${isConversing ? 'rgba(239, 68, 68, 0.5)' : 'var(--border)'}`,
-            borderRadius: '50%',
-            width: 34,
-            height: 34,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 15.5,
-            transition: 'all 0.15s',
-          }}
-        >
-          {isConversing ? '🎙️' : '🎤'}
-        </button>
-        <button
-          type="submit"
-          disabled={!input.trim() || loading}
-          style={{
-            background: input.trim() && !loading ? teacher.color : 'var(--bg3)',
-            color: input.trim() && !loading ? 'var(--text)' : 'var(--t3)',
-            border: 'none',
-            borderRadius: '50%',
-            width: 34,
-            height: 34,
-            cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 15.5,
-            transition: 'all 0.15s',
-            boxShadow: input.trim() && !loading ? `0 2px 8px ${teacher.color}40` : 'none',
-          }}
-        >
-          ➔
-        </button>
-      </form>
-      
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { transform: scale(0.6); opacity: 0.4; }
-          50% { transform: scale(1.1); opacity: 1; }
-        }
-        .quick-prompt-pill:hover {
-          border-color: var(--accent) !important;
-          color: var(--accent) !important;
-          background: var(--accent-light) !important;
-        }
-      `}</style>
+            .quick-prompt-pill:hover {
+              border-color: var(--accent) !important;
+              color: var(--accent) !important;
+              background: var(--accent-light) !important;
+            }
+          `}</style>
+        </>
+      )}
     </div>
   );
 
@@ -1298,14 +1466,36 @@ export default function AvatarMentorWidget({
   }
 
   return (
-    <div className="avatar-mentor-widget" style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--bg2)' }}>
+    <div
+      className="avatar-mentor-widget"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        minHeight: 0,
+        background: 'var(--bg2)',
+        border: hyperActive ? 'none' : undefined,
+        borderRadius: hyperActive ? 0 : undefined,
+      }}
+    >
       {/* Header */}
-      <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: '12px 16px' }}>
+      <div className="mentor-header" style={{ background: `linear-gradient(135deg, ${teacher.color}, ${teacher.color}cc)`, flexShrink: 0, padding: hyperActive ? '10px 14px' : '12px 16px' }}>
         <div className="mentor-info">
-          <span className="mentor-emoji" style={{ fontSize: '31px', marginRight: '4px' }}>{teacher.emoji}</span>
+          <span className="mentor-emoji" style={{ fontSize: hyperActive ? '26px' : '31px', marginRight: '4px' }}>{teacher.emoji}</span>
           <div>
-            <p className="mentor-name" style={{ fontSize: '15.5px' }}>{teacher.name}</p>
-            <p className="mentor-subtitle" style={{ fontSize: '11.5px' }}>Career Mentor {speaking ? '🔊' : ''} · {mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}</p>
+            <p className="mentor-name" style={{ fontSize: '15px', display: 'flex', alignItems: 'center', gap: 8 }}>
+              {teacher.name}
+              {hyperActive && (
+                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '2px 7px', borderRadius: 999, background: 'rgba(15,23,42,0.45)', border: '1px solid rgba(255,255,255,0.28)', color: '#e0f2fe', fontFamily: 'var(--font-mono)' }}>
+                  Hyper-Active
+                </span>
+              )}
+            </p>
+            <p className="mentor-subtitle" style={{ fontSize: '11px' }}>
+              {hyperActive
+                ? `${hyperRightTab === 'diagnostic' ? 'Executive Priority Briefing' : 'Live Conversation'} ${speaking ? '🔊' : ''}`
+                : `Career Mentor ${speaking ? '🔊' : ''} · ${mlRecs.length > 0 ? `${mlRecs.length} ML tips` : 'AI powered'}`}
+            </p>
           </div>
         </div>
         <div className="mentor-controls" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1337,15 +1527,18 @@ export default function AvatarMentorWidget({
               {isRecordingVoice ? '🎙️ Analyzing...' : '🎙️ Register Voice'}
             </span>
           )}
+          {hyperActive && onExitHyperActive && (
+            <button onClick={onExitHyperActive} className="minimize-btn" title="Exit Hyper-Active">✕</button>
+          )}
           <button onClick={() => setIsMinimized(true)} className="minimize-btn" title="Minimize">_</button>
         </div>
       </div>
 
       {isEnlarged ? (
-        /* Horizontal Split Pane for Enlarged View */
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
+        /* Horizontal Split Pane for Enlarged / Hyper-Active View (Left: Avatar | Right: Chat) */
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'row', overflow: 'hidden' }}>
           {/* Left Column: Avatar Canvas */}
-          <div style={{ position: 'relative', flex: 1.1, background: 'var(--bg3)', overflow: 'hidden', borderRight: '1px solid var(--border)' }}>
+          <div style={{ position: 'relative', flex: 1.05, minWidth: 0, background: 'var(--bg3)', overflow: 'hidden', borderRight: '1px solid var(--border)' }}>
             <canvas key={teacherId} ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
             {aiState !== 'idle' && (
               <div style={{

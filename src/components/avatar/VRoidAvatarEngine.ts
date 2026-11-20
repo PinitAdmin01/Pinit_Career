@@ -407,268 +407,319 @@ export class VRoidAvatarEngine {
       : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
       : ['/avatar/mentor.glb'];
 
-    const paths = [modelPath, ...genderMatchedFallbacks];
+    const paths = Array.from(new Set([modelPath, ...genderMatchedFallbacks]));
 
     console.log(
       `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,
       paths.join(' -> ')
     );
 
-    const loadAttempt = (idx: number): Promise<void> => {
-      if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
-      return new Promise<void>((resolve, reject) => {
-        let settled = false;
-        const resolvedPath = paths[idx];
-        const timer = setTimeout(() => {
-          if (settled) return;
-          settled = true;
-          console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
-          loadAttempt(idx + 1).then(resolve).catch(reject);
-        }, 3500);
-
-        console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
-        try {
-          loader.load(resolvedPath, gltf => {
-            if (settled) return;
-            settled = true;
-            clearTimeout(timer);
-            if (this.disposed) {
-              if (gltf?.scene) {
-                gltf.scene.traverse((obj: any) => {
-                  if (obj.geometry) obj.geometry.dispose();
-                  if (obj.material) {
-                    const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-                    mats.forEach((m: any) => {
-                      if (m) {
-                        Object.values(m).forEach((v: any) => {
-                          if (v && typeof v.dispose === 'function') {
-                            try { v.dispose(); } catch {}
-                          }
-                        });
-                        try { m.dispose(); } catch {}
-                      }
-                    });
-                  }
-                });
-              }
-              return;
-            }
-            console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
-          this.scene.add(gltf.scene);
-          this.isVRM = true;
-          this.faceMeshes = [];
-          this.morphMaps.clear();
-          this.blinkMorphMaps.clear();
-          this.eyeLookMorphMaps.clear();
-
-          // Auto-ground and center model
-          gltf.scene.updateMatrixWorld(true);
-          const bbox = new THREE.Box3().setFromObject(gltf.scene);
-          const center = new THREE.Vector3();
-          bbox.getCenter(center);
-          gltf.scene.position.x = -center.x;
-          gltf.scene.position.z = -center.z;
-          gltf.scene.position.y = -bbox.min.y;
-          gltf.scene.updateMatrixWorld(true);
-
-          // 1. Identify Face & Head Meshes with Morph Targets, disable frustum culling & fix materials
+    const setupLoadedScene = (gltf: any, resolvedPath: string) => {
+      if (this.disposed) {
+        if (gltf?.scene) {
           gltf.scene.traverse((obj: any) => {
-            obj.matrixAutoUpdate = true;
-            if (obj.isMesh) {
-              obj.frustumCulled = false;
-              obj.castShadow = true;
-              obj.receiveShadow = true;
-              if (obj.material) {
-                const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-                mats.forEach((m: any) => {
-                  if (m.map) {
-                    m.map.colorSpace = THREE.SRGBColorSpace;
-                    m.map.needsUpdate = true;
-                  }
-                  // Avoid internal back-face bleed-through on face & skin meshes
-                  const isSkinOrFace = obj.name.toLowerCase().includes('face') ||
-                                       obj.name.toLowerCase().includes('head') ||
-                                       obj.name.toLowerCase().includes('body') ||
-                                       (m.name && (m.name.includes('SKIN') || m.name.includes('FACE')));
-                  m.side = isSkinOrFace ? THREE.FrontSide : THREE.DoubleSide;
-                  m.depthWrite = true;
-                  m.needsUpdate = true;
-                });
-              }
-              if (obj.morphTargetDictionary) {
-                const keys = Object.keys(obj.morphTargetDictionary);
-                const mouthKeys = keys.filter(k => {
-                  const kl = k.toLowerCase();
-                  return kl === 'a' || kl === 'i' || kl === 'u' || kl === 'e' || kl === 'o' ||
-                         kl.includes('fcl_mth') || kl.includes('mouth') || kl.includes('mth_') ||
-                         kl === 'あ' || kl === 'い' || kl === 'う' || kl === 'え' || kl === 'お' ||
-                         kl === 'aa' || kl === 'ih' || kl === 'ou' || kl === 'ee' || kl === 'oh';
-                });
-                const hasMouth = mouthKeys.length >= 2;
-                const isFaceMeshName = obj.name.toLowerCase().includes('face') || obj.name.toLowerCase().includes('head');
-                if (hasMouth || isFaceMeshName) {
-                  this.faceMeshes.push(obj);
+            if (obj.geometry) obj.geometry.dispose();
+            if (obj.material) {
+              const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+              mats.forEach((m: any) => {
+                if (m) {
+                  Object.values(m).forEach((v: any) => {
+                    if (v && typeof v.dispose === 'function') {
+                      try { v.dispose(); } catch {}
+                    }
+                  });
+                  try { m.dispose(); } catch {}
                 }
-              }
-            }
-          });
-
-          // 2. Discover Bones Across Entire Skeleton
-          const candidateBones: any[] = [];
-          gltf.scene.traverse((obj: any) => {
-            if ((obj.isSkinnedMesh || obj.type === 'SkinnedMesh') && obj.skeleton && obj.skeleton.bones) {
-              obj.skeleton.bones.forEach((bone: any) => {
-                bone.matrixAutoUpdate = true;
-                if (!candidateBones.includes(bone)) candidateBones.push(bone);
               });
             }
           });
+        }
+        return;
+      }
+      console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
+      this.scene.add(gltf.scene);
+      this.isVRM = true;
+      this.faceMeshes = [];
+      this.morphMaps.clear();
+      this.blinkMorphMaps.clear();
+      this.eyeLookMorphMaps.clear();
 
-          if (candidateBones.length === 0) {
-            gltf.scene.traverse((obj: any) => {
-              if (obj.isBone || obj.type === 'Bone') candidateBones.push(obj);
+      // Auto-ground and center model
+      gltf.scene.updateMatrixWorld(true);
+      const bbox = new THREE.Box3().setFromObject(gltf.scene);
+      const center = new THREE.Vector3();
+      bbox.getCenter(center);
+      gltf.scene.position.x = -center.x;
+      gltf.scene.position.z = -center.z;
+      gltf.scene.position.y = -bbox.min.y;
+      gltf.scene.updateMatrixWorld(true);
+
+      // 1. Identify Face & Head Meshes with Morph Targets, disable frustum culling & fix materials
+      gltf.scene.traverse((obj: any) => {
+        obj.matrixAutoUpdate = true;
+        if (obj.isMesh) {
+          obj.frustumCulled = false;
+          obj.castShadow = true;
+          obj.receiveShadow = true;
+          if (obj.material) {
+            const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+            mats.forEach((m: any) => {
+              if (m.map) {
+                m.map.colorSpace = THREE.SRGBColorSpace;
+                m.map.needsUpdate = true;
+              }
+              // Avoid internal back-face bleed-through on face & skin meshes
+              const isSkinOrFace = obj.name.toLowerCase().includes('face') ||
+                                   obj.name.toLowerCase().includes('head') ||
+                                   obj.name.toLowerCase().includes('body') ||
+                                   (m.name && (m.name.includes('SKIN') || m.name.includes('FACE')));
+              m.side = isSkinOrFace ? THREE.FrontSide : THREE.DoubleSide;
+              m.depthWrite = true;
+              m.needsUpdate = true;
             });
           }
-
-          candidateBones.forEach((obj: any) => {
-            const nameLower = obj.name.toLowerCase().trim();
-
-            if (nameLower.includes('hips') || nameLower.includes('pelvis')) this.hips = obj;
-            if (nameLower.includes('spine') && !nameLower.includes('chest')) this.spine = obj;
-            if (nameLower.includes('chest') || nameLower.includes('upperchest')) this.chest = obj;
-            if (nameLower.includes('neck')) this.neck = obj;
-            if (nameLower.includes('head') && !nameLower.includes('hair') && !nameLower.includes('forehead')) this.head = obj;
-
-            if (nameLower.includes('shoulder') || nameLower.includes('clavicle')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l') || nameLower.endsWith('l')) {
-                this.leftShoulder = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r') || nameLower.endsWith('r')) {
-                this.rightShoulder = obj;
-              }
+          if (obj.morphTargetDictionary) {
+            const keys = Object.keys(obj.morphTargetDictionary);
+            const mouthKeys = keys.filter(k => {
+              const kl = k.toLowerCase();
+              return kl === 'a' || kl === 'i' || kl === 'u' || kl === 'e' || kl === 'o' ||
+                     kl.includes('fcl_mth') || kl.includes('mouth') || kl.includes('mth_') ||
+                     kl === 'あ' || kl === 'い' || kl === 'う' || kl === 'え' || kl === 'お' ||
+                     kl === 'aa' || kl === 'ih' || kl === 'ou' || kl === 'ee' || kl === 'oh';
+            });
+            const hasMouth = mouthKeys.length >= 2;
+            const isFaceMeshName = obj.name.toLowerCase().includes('face') || obj.name.toLowerCase().includes('head');
+            if (hasMouth || isFaceMeshName) {
+              this.faceMeshes.push(obj);
             }
-
-            const isUpperArm = (nameLower.includes('arm') || nameLower.includes('upperarm')) &&
-                               !nameLower.includes('forearm') && !nameLower.includes('lowerarm') &&
-                               !nameLower.includes('hand') && !nameLower.includes('finger') &&
-                               !nameLower.includes('shoulder') && !nameLower.includes('clavicle');
-
-            if (isUpperArm) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l') || nameLower.endsWith('l')) {
-                this.leftArm = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r') || nameLower.endsWith('r')) {
-                this.rightArm = obj;
-              }
-            }
-
-            if (nameLower.includes('forearm') || nameLower.includes('lowerarm')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l')) {
-                this.leftForearm = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r')) {
-                this.rightForearm = obj;
-              }
-            }
-
-            if (nameLower.includes('hand') && !nameLower.includes('handle') && !nameLower.includes('finger')) {
-              if (nameLower.includes('left') || nameLower.includes('.l') || nameLower.includes('_l') || nameLower.includes('bip_l')) {
-                this.leftHand = obj;
-              } else if (nameLower.includes('right') || nameLower.includes('.r') || nameLower.includes('_r') || nameLower.includes('bip_r')) {
-                this.rightHand = obj;
-              }
-            }
-          });
-
-          if (this.hips) {
-            this.hipsRestPosition.copy(this.hips.position);
           }
-
-          // 3. Resolve Morph Indices (Lip sync, Blink, Eye Look)
-          this.faceMeshes.forEach(mesh => {
-            if (mesh.morphTargetDictionary) {
-              const dict = mesh.morphTargetDictionary;
-              const vowels = ['A', 'I', 'U', 'E', 'O'];
-              const meshMorphMap: Record<string, number> = {};
-
-              vowels.forEach(v => {
-                const foundKey = Object.keys(dict).find(k => {
-                  const kl = k.toLowerCase();
-                  const vl = v.toLowerCase();
-                  if (kl === vl || kl === `fcl_mth_${vl}` || kl === `mouth_${vl}`) return true;
-                  if (kl.endsWith(`_${vl}`) || kl.endsWith(`.${vl}`)) return true;
-                  if (kl.includes(`blendshape.${vl}`) || kl.includes(`preset.${vl}`)) return true;
-                  if (v === 'A' && (kl === 'あ' || kl === 'aa' || kl === 'open' || kl === 'mouth_open' || kl === 'mouthopen')) return true;
-                  if (v === 'I' && (kl === 'い' || kl === 'ih' || kl === 'ii')) return true;
-                  if (v === 'U' && (kl === 'う' || kl === 'ou' || kl === 'uu')) return true;
-                  if (v === 'E' && (kl === 'え' || kl === 'ee')) return true;
-                  if (v === 'O' && (kl === 'お' || kl === 'oh' || kl === 'oo')) return true;
-                  return false;
-                });
-                if (foundKey) meshMorphMap[v] = dict[foundKey];
-              });
-
-              // Bilabial & Articulation Morphs
-              const extraMorphs = ['close', 'small', 'down', 'up'];
-              extraMorphs.forEach(m => {
-                const foundKey = Object.keys(dict).find(k => {
-                  const kl = k.toLowerCase();
-                  if (m === 'close' && (kl.includes('close') || kl === 'fcl_mth_close' || kl === 'mouth_close')) return true;
-                  if (m === 'small' && (kl.includes('small') || kl === 'fcl_mth_small' || kl === 'mouth_small')) return true;
-                  if (m === 'down' && (kl.includes('down') || kl === 'fcl_mth_down' || kl === 'mouth_down')) return true;
-                  if (m === 'up' && (kl.includes('up') || kl === 'fcl_mth_up' || kl === 'mouth_up')) return true;
-                  return false;
-                });
-                if (foundKey) meshMorphMap[m] = dict[foundKey];
-              });
-              this.morphMaps.set(mesh, meshMorphMap);
-
-              // Blink morphs
-              const blinkMorphs: { blink?: number; blinkL?: number; blinkR?: number } = {};
-              Object.keys(dict).forEach(k => {
-                const kl = k.toLowerCase();
-                if (kl.includes('blink') || kl.includes('eye_close') || kl.includes('fcl_eye_close')) {
-                  if (kl.includes('left') || kl.includes('_l')) blinkMorphs.blinkL = dict[k];
-                  else if (kl.includes('right') || kl.includes('_r')) blinkMorphs.blinkR = dict[k];
-                  else blinkMorphs.blink = dict[k];
-                }
-              });
-              this.blinkMorphMaps.set(mesh, blinkMorphs);
-
-              // Eye Look morphs
-              const lookMorphs: { lookUp?: number; lookDown?: number; lookLeft?: number; lookRight?: number } = {};
-              Object.keys(dict).forEach(k => {
-                const kl = k.toLowerCase();
-                if (kl.includes('look')) {
-                  if (kl.includes('up')) lookMorphs.lookUp = dict[k];
-                  if (kl.includes('down')) lookMorphs.lookDown = dict[k];
-                  if (kl.includes('left')) lookMorphs.lookLeft = dict[k];
-                  if (kl.includes('right')) lookMorphs.lookRight = dict[k];
-                }
-              });
-              this.eyeLookMorphMaps.set(mesh, lookMorphs);
-            }
-          });
-
-          this.centerCameraOnHead();
-          // D-04 FIX: all bones bound and isVRM resolved — safe to animate now.
-          this.markReady(resolvedPath);
-        }, undefined, (err) => {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timer);
-          // D-01 FIX: make substitution visible instead of silent.
-          console.warn(
-            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}):`, err,
-            (idx + 1 < paths.length ? ` Falling back to "${paths[idx + 1]}".` : ' No fallbacks remain.')
-          );
-          loadAttempt(idx + 1).then(resolve).catch(reject);
-        });
-        } catch (syncErr) {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timer);
-          console.warn('[VRoidAvatarEngine] Synchronous error during loader.load:', syncErr);
-          loadAttempt(idx + 1).then(resolve).catch(reject);
         }
       });
+
+      // 2. Discover Bones Across Entire Skeleton
+      const candidateBones: any[] = [];
+      gltf.scene.traverse((obj: any) => {
+        if ((obj.isSkinnedMesh || obj.type === 'SkinnedMesh') && obj.skeleton && obj.skeleton.bones) {
+          obj.skeleton.bones.forEach((bone: any) => {
+            if (bone && !candidateBones.includes(bone)) candidateBones.push(bone);
+          });
+        }
+        if (obj.isBone && !candidateBones.includes(obj)) {
+          candidateBones.push(obj);
+        }
+      });
+
+      const isLeftBone = (name: string): boolean => {
+        const lower = name.toLowerCase();
+        return lower.includes('left') || lower.includes('_l') || lower.endsWith('.l') || lower.includes('l_');
+      };
+      const isRightBone = (name: string): boolean => {
+        const lower = name.toLowerCase();
+        return lower.includes('right') || lower.includes('_r') || lower.endsWith('.r') || lower.includes('r_');
+      };
+
+      candidateBones.forEach(obj => {
+        const name = (obj.name || '').toLowerCase();
+        if (name.includes('head') && !name.includes('hair')) this.head = obj;
+        if (name.includes('neck')) this.neck = obj;
+        if (name.includes('spine') || name.includes('upperchest') || name.includes('chest')) this.spine = obj;
+        if (name.includes('hip') || name.includes('pelvis') || name.includes('root') || name === 'hips') this.hips = obj;
+
+        if (name.includes('arm') || name.includes('shoulder')) {
+          if (name.includes('forearm') || name.includes('elbow') || name.includes('lowerarm')) {
+            if (isLeftBone(obj.name)) {
+              this.leftForearm = obj;
+            } else if (isRightBone(obj.name)) {
+              this.rightForearm = obj;
+            }
+          } else if (name.includes('shoulder') || name.includes('clavicle')) {
+            if (isLeftBone(obj.name)) {
+              this.leftShoulder = obj;
+            } else if (isRightBone(obj.name)) {
+              this.rightShoulder = obj;
+            }
+          } else {
+            if (isLeftBone(obj.name)) {
+              this.leftArm = obj;
+            } else if (isRightBone(obj.name)) {
+              this.rightArm = obj;
+            }
+          }
+        }
+        if (name.includes('hand') || name.includes('wrist')) {
+          if (isLeftBone(obj.name)) {
+            this.leftHand = obj;
+          } else if (isRightBone(obj.name)) {
+            this.rightHand = obj;
+          }
+        }
+      });
+
+      if (this.hips) {
+        this.hipsRestPosition.copy(this.hips.position);
+      }
+
+      // 3. Resolve Morph Indices (Lip sync, Blink, Eye Look)
+      this.faceMeshes.forEach(mesh => {
+        if (mesh.morphTargetDictionary) {
+          const dict = mesh.morphTargetDictionary;
+          const vowels = ['A', 'I', 'U', 'E', 'O'];
+          const meshMorphMap: Record<string, number> = {};
+
+          vowels.forEach(v => {
+            const foundKey = Object.keys(dict).find(k => {
+              const kl = k.toLowerCase();
+              const vl = v.toLowerCase();
+              if (kl === vl || kl === `fcl_mth_${vl}` || kl === `mouth_${vl}`) return true;
+              if (kl.endsWith(`_${vl}`) || kl.endsWith(`.${vl}`)) return true;
+              if (kl.includes(`blendshape.${vl}`) || kl.includes(`preset.${vl}`)) return true;
+              if (v === 'A' && (kl === 'あ' || kl === 'aa' || kl === 'open' || kl === 'mouth_open' || kl === 'mouthopen')) return true;
+              if (v === 'I' && (kl === 'い' || kl === 'ih' || kl === 'ii')) return true;
+              if (v === 'U' && (kl === 'う' || kl === 'ou' || kl === 'uu')) return true;
+              if (v === 'E' && (kl === 'え' || kl === 'ee')) return true;
+              if (v === 'O' && (kl === 'お' || kl === 'oh' || kl === 'oo')) return true;
+              return false;
+            });
+            if (foundKey) meshMorphMap[v] = dict[foundKey];
+          });
+
+          // Bilabial & Articulation Morphs
+          const extraMorphs = ['close', 'small', 'down', 'up'];
+          extraMorphs.forEach(m => {
+            const foundKey = Object.keys(dict).find(k => {
+              const kl = k.toLowerCase();
+              if (m === 'close' && (kl.includes('close') || kl === 'fcl_mth_close' || kl === 'mouth_close')) return true;
+              if (m === 'small' && (kl.includes('small') || kl === 'fcl_mth_small' || kl === 'mouth_small')) return true;
+              if (m === 'down' && (kl.includes('down') || kl === 'fcl_mth_down' || kl === 'mouth_down')) return true;
+              if (m === 'up' && (kl.includes('up') || kl === 'fcl_mth_up' || kl === 'mouth_up')) return true;
+              return false;
+            });
+            if (foundKey) meshMorphMap[m] = dict[foundKey];
+          });
+          this.morphMaps.set(mesh, meshMorphMap);
+
+          // Blink morphs
+          const blinkMorphs: { blink?: number; blinkL?: number; blinkR?: number } = {};
+          Object.keys(dict).forEach(k => {
+            const kl = k.toLowerCase();
+            if (kl.includes('blink') || kl.includes('eye_close') || kl.includes('fcl_eye_close')) {
+              if (kl.includes('left') || kl.includes('_l')) blinkMorphs.blinkL = dict[k];
+              else if (kl.includes('right') || kl.includes('_r')) blinkMorphs.blinkR = dict[k];
+              else blinkMorphs.blink = dict[k];
+            }
+          });
+          this.blinkMorphMaps.set(mesh, blinkMorphs);
+
+          // Eye Look morphs
+          const lookMorphs: { lookUp?: number; lookDown?: number; lookLeft?: number; lookRight?: number } = {};
+          Object.keys(dict).forEach(k => {
+            const kl = k.toLowerCase();
+            if (kl.includes('look')) {
+              if (kl.includes('up')) lookMorphs.lookUp = dict[k];
+              if (kl.includes('down')) lookMorphs.lookDown = dict[k];
+              if (kl.includes('left')) lookMorphs.lookLeft = dict[k];
+              if (kl.includes('right')) lookMorphs.lookRight = dict[k];
+            }
+          });
+          this.eyeLookMorphMaps.set(mesh, lookMorphs);
+        }
+      });
+
+      this.centerCameraOnHead();
+      // D-04 FIX: all bones bound and isVRM resolved — safe to animate now.
+      this.markReady(resolvedPath);
+    };
+
+    const loadAttempt = async (idx: number): Promise<void> => {
+      if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
+      const resolvedPath = paths[idx];
+      const abortCtrl = new AbortController();
+      let timer: ReturnType<typeof setTimeout> | null = null;
+
+      // Generous adaptive timeout: 15s (20s on slow net) for primary (16.8MB), 8s for compact fallbacks (1.5MB)
+      const isPrimary = idx === 0;
+      const timeoutMs = isPrimary ? (isSlowNetwork ? 20000 : 15000) : 8000;
+
+      console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
+
+      try {
+        let arrayBuffer: ArrayBuffer | null = null;
+
+        // 1. Instant Cache Check (CacheStorage)
+        if (typeof window !== 'undefined' && 'caches' in window) {
+          try {
+            const cache = await window.caches.open('pinit_avatar_v1');
+            const cachedRes = await cache.match(resolvedPath);
+            if (cachedRes && cachedRes.ok) {
+              arrayBuffer = await cachedRes.arrayBuffer();
+              console.log(`[VRoidAvatarEngine] CacheStorage HIT for "${resolvedPath}" (${(arrayBuffer.byteLength / (1024 * 1024)).toFixed(2)} MB)`);
+            }
+          } catch (cacheErr) {
+            console.debug('[VRoidAvatarEngine] Cache lookup skipped:', cacheErr);
+          }
+        }
+
+        // 2. Fetch from network with AbortController if not cached
+        if (!arrayBuffer) {
+          timer = setTimeout(() => {
+            console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}" after ${timeoutMs}ms, aborting connection.`);
+            abortCtrl.abort();
+          }, timeoutMs);
+
+          const res = await fetch(resolvedPath, { signal: abortCtrl.signal });
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status} ${res.statusText}`);
+          }
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
+
+          // Cache downloaded response for instant subsequent loads
+          if (typeof window !== 'undefined' && 'caches' in window) {
+            try {
+              const cache = await window.caches.open('pinit_avatar_v1');
+              cache.put(resolvedPath, res.clone()).catch(() => {});
+            } catch {}
+          }
+          arrayBuffer = await res.arrayBuffer();
+        }
+
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+
+        // 3. Parse with GLTFLoader
+        await new Promise<void>((resolveParse, rejectParse) => {
+          loader.parse(
+            arrayBuffer!,
+            '',
+            (gltf) => {
+              try {
+                setupLoadedScene(gltf, resolvedPath);
+                resolveParse();
+              } catch (parseErr) {
+                rejectParse(parseErr);
+              }
+            },
+            (parseErr) => {
+              rejectParse(parseErr);
+            }
+          );
+        });
+      } catch (err) {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        abortCtrl.abort();
+        console.warn(
+          `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}):`, err,
+          (idx + 1 < paths.length ? ` Falling back to "${paths[idx + 1]}".` : ' No fallbacks remain.')
+        );
+        return loadAttempt(idx + 1);
+      }
     };
 
     return loadAttempt(0);
@@ -720,16 +771,27 @@ export class VRoidAvatarEngine {
   buildProceduralAvatar() {
     this.isVRM = false;
     const g = new THREE.Group();
-    const mat = (c: number, r = 0.4, m = 0) => new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: m });
-    const SKIN = 0xf5c8a8, SHIRT = 0x4f5fa8, HAIR = 0x1a1008, PANT = 0x2c2c3e;
+    const mat = (c: number, r = 0.5, m = 0.05) => new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: m });
+    const SKIN = 0xf3c49f, BLAZER = 0x1e293b, SHIRT = 0x0f172a, ACCENT = 0x06b6d4, HAIR = 0x18181b, PANT = 0x0f172a;
 
     const spine = new THREE.Group();
     spine.position.y = 1.22;
     this.spine = spine;
     g.add(spine);
 
-    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.14, 0.36, 8, 12), mat(SHIRT, 0.7));
+    // Sleek executive mentor blazer
+    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.14, 0.36, 12, 16), mat(BLAZER, 0.5, 0.1));
     spine.add(torso);
+
+    const innerShirt = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.07, 0.22, 12), mat(SHIRT, 0.4, 0.05));
+    innerShirt.position.set(0, 0.06, 0.09);
+    innerShirt.rotation.x = 0.2;
+    spine.add(innerShirt);
+
+    // Accent cyber-lapel pin
+    const pinBadge = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.03, 0.01), mat(ACCENT, 0.2, 0.8));
+    pinBadge.position.set(0.07, 0.08, 0.12);
+    spine.add(pinBadge);
 
     const neck = new THREE.Group();
     neck.position.set(0, 0.24, 0);
@@ -744,21 +806,37 @@ export class VRoidAvatarEngine {
     neck.add(head);
     this.head = head;
 
-    const skull = new THREE.Mesh(new THREE.SphereGeometry(0.13, 24, 20), mat(SKIN, 0.45));
+    const skull = new THREE.Mesh(new THREE.SphereGeometry(0.13, 24, 20), mat(SKIN, 0.55));
     skull.scale.set(1, 1.08, 0.97);
     head.add(skull);
 
-    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.135, 24, 20), mat(HAIR, 0.8));
+    // Structured hair volume + bangs
+    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.138, 24, 20), mat(HAIR, 0.65, 0.1));
     hair.position.y = 0.04;
     head.add(hair);
 
-    // Procedural Eye Spheres
-    const leftEye = new THREE.Mesh(new THREE.SphereGeometry(0.018, 16, 12), mat(0x3a5fc8, 0.3));
+    const leftStrand = new THREE.Mesh(new THREE.CapsuleGeometry(0.024, 0.14, 6, 8), mat(HAIR, 0.65, 0.1));
+    leftStrand.position.set(-0.10, -0.02, 0.05);
+    leftStrand.rotation.z = 0.14;
+    head.add(leftStrand);
+
+    const rightStrand = new THREE.Mesh(new THREE.CapsuleGeometry(0.024, 0.14, 6, 8), mat(HAIR, 0.65, 0.1));
+    rightStrand.position.set(0.10, -0.02, 0.05);
+    rightStrand.rotation.z = -0.14;
+    head.add(rightStrand);
+
+    // Digital mentor glasses frame
+    const glassesBar = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.012, 0.015), mat(ACCENT, 0.3, 0.7));
+    glassesBar.position.set(0, 0.02, 0.132);
+    head.add(glassesBar);
+
+    // Procedural Eye Spheres (maintained for blinking & gaze tracking)
+    const leftEye = new THREE.Mesh(new THREE.SphereGeometry(0.019, 16, 12), mat(0x0284c7, 0.2, 0.4));
     leftEye.position.set(-0.048, 0.02, 0.127);
     head.add(leftEye);
     this.leftEyeSphere = leftEye;
 
-    const rightEye = new THREE.Mesh(new THREE.SphereGeometry(0.018, 16, 12), mat(0x3a5fc8, 0.3));
+    const rightEye = new THREE.Mesh(new THREE.SphereGeometry(0.019, 16, 12), mat(0x0284c7, 0.2, 0.4));
     rightEye.position.set(0.048, 0.02, 0.127);
     head.add(rightEye);
     this.rightEyeSphere = rightEye;
@@ -775,7 +853,7 @@ export class VRoidAvatarEngine {
       spine.add(ag);
       if (side < 0) this.leftArm = ag; else this.rightArm = ag;
 
-      const ua = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.22, 6, 8), mat(SHIRT, 0.7));
+      const ua = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.22, 6, 8), mat(BLAZER, 0.5, 0.1));
       ua.position.set(side * 0.1, -0.14, 0);
       ua.rotation.z = side * -0.25;
       ag.add(ua);

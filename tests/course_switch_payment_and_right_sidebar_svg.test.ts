@@ -250,5 +250,7 @@ describe('TASK 2: RightSidebar Tab Representation Matches LeftSidebar (Vector SV
     );
     assert.ok(shellSrc.includes('className="nav-icon"'), 'RightSidebar tabs must wrap SVG icons in .nav-icon');
     assert.ok(!shellSrc.includes('👤'), 'RightSidebar avatar must not render raw 👤 emoji');
+    assert.ok(shellSrc.includes('flexShrink: 0') && shellSrc.includes('minHeight: 38'), 'RightSidebar nav buttons must not flex-shrink vertically');
+    assert.ok(shellSrc.includes("padding: '9px 12px'"), 'RightSidebar nav buttons must preserve comfortable 9px 12px padding');
   });
 });

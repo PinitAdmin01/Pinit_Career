@@ -513,18 +513,6 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => {
     const timestamps = answersRef.current.completedQuestsTimestamps || [];
-    const today = new Date().toDateString();
-    const todayCompletions = timestamps.filter(raw => {
-      const parts = raw.split('|');
-      const ts = parts[0];
-      return new Date(ts).toDateString() === today;
-    });
-
-    if (todayCompletions.length >= 3 && !isExam) {
-      toast.error('Daily Limit Reached ⏳', 'You have reached your global daily limit of 3 completed quests across all courses today.');
-      return;
-    }
-
     if (completedQuests.includes(questId)) return;
 
     const next = [...completedQuests, questId];

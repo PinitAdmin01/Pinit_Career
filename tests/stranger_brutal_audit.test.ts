@@ -21,7 +21,7 @@ describe('BRUTAL STRANGER AUDIT: AI Interview & Conversational Fluidity', () => 
 
     assert.ok(typeof res === 'string' && res.length > 20, 'Must produce a valid question string');
     assert.ok(!res.includes('undefined'), 'Must not contain undefined');
-    assert.ok(res.includes('Ms. Priya'), 'Must sign off with interviewer name');
+    assert.ok(!res.includes('— Ms. Priya'), 'Must not have robotic sign-off');
   });
 
   test('Stranger Test 2: High-density technical jargon and metric extraction', () => {
@@ -39,7 +39,7 @@ describe('BRUTAL STRANGER AUDIT: AI Interview & Conversational Fluidity', () => 
     const lower = res.toLowerCase();
     const containsContext = lower.includes('45% latency drop') || lower.includes('redis') || lower.includes('kafka');
     assert.ok(containsContext, `Expected question to reflect technical noun or metric. Got: "${res}"`);
-    assert.ok(res.includes('Mr. Rohan'), 'Must sign off with Mr. Rohan');
+    assert.ok(!res.includes('— Mr. Rohan'), 'Must not have robotic sign-off');
   });
 
   test('Stranger Test 3: Empty user turn produces contextual welcome', () => {
@@ -78,7 +78,7 @@ describe('BRUTAL STRANGER AUDIT: AI Interview & Conversational Fluidity', () => 
       });
 
       assert.ok(res.length > 30, `Round ${r.stage} must generate a complete question`);
-      assert.ok(res.includes('Ms. Divya'), `Round ${r.stage} must have interviewer signoff`);
+      assert.ok(!res.includes('— Ms. Divya'), `Round ${r.stage} must not have robotic signoff`);
     }
   });
 });

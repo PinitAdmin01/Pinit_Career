@@ -76,8 +76,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // Step 2: Enforce global daily limit (DEF-074)
-    // Non-exam quests capped at 3/day; exams capped at 5/day to prevent infinite bypass
+    // Step 2: Record progress timestamps without artificial daily limit (students can progress at their own pace)
     const answers = profile.onboarding_answers || {};
     const timestamps: string[] = Array.isArray(answers.completedQuestsTimestamps)
       ? answers.completedQuestsTimestamps
@@ -89,18 +88,6 @@ export async function POST(req: Request) {
       const ts = raw.split('|')[0];
       return new Date(ts).toDateString() === today;
     });
-
-    const maxDailyAllowed = isExam ? 5 : 3;
-    if (todayCompletions.length >= maxDailyAllowed) {
-      return NextResponse.json(
-        {
-          error: `Daily Limit Reached: Maximum of ${maxDailyAllowed} completions per calendar day allowed across all courses.`,
-          dailyCompletionsCount: todayCompletions.length,
-          maxAllowed: maxDailyAllowed,
-        },
-        { status: 429 }
-      );
-    }
 
     // Step 3: Atomic write with clamped XP and Pins
     const safePins = registeredQuest.pins || (isExam ? 6 : 5);

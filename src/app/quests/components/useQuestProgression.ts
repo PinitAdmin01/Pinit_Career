@@ -874,7 +874,7 @@ export function useQuestProgression() {
     return new Date(ts).toDateString() === today && cid === activeCourseId;
   });
   const dailyCount = todayCompletions.length;
-  const isDailyLimitReached = dailyCount >= 3;
+  const isDailyLimitReached = false;
 
   const activeCourse = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
   const allQuestsInModule = modules.flatMap(m => (m.quests || []));
@@ -926,7 +926,12 @@ export function useQuestProgression() {
     const isInitiated = initiated.includes(quest.id);
 
     // Sequential progression gating: Quest N+1 requires Quest N completed, unless quest is already completed/reviewable
-    const allQuestsInCourse = modules.flatMap(m => m.quests || []);
+    const targetCourse = courseIdTarget
+      ? COURSES_REGISTRY.find(c => c.id === courseIdTarget)
+      : COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === quest.id));
+    const allQuestsInCourse = targetCourse?.quests && targetCourse.quests.length > 0
+      ? (targetCourse.quests as Quest[])
+      : modules.flatMap(m => m.quests || []);
     const questIdx = allQuestsInCourse.findIndex(q => q.id === quest.id);
     if (questIdx > 0 && !isCompleted) {
       const prevQuest = allQuestsInCourse[questIdx - 1];
@@ -937,15 +942,6 @@ export function useQuestProgression() {
     }
 
     if (!isCompleted && !isInitiated) {
-      // Same rule as the server: 3 lessons or practice tasks a day, and up to 5 when the extra ones are tests.
-      const isTest = quest.category === 'exam';
-      if (isTest ? dailyCount >= 5 : isDailyLimitReached) {
-        toast.warning('Daily limit reached ⏳', isTest
-          ? 'You have finished 5 tasks today. Take this test tomorrow.'
-          : 'You have finished 3 tasks for this course today. Come back tomorrow, or take your test if one is open.');
-        return;
-      }
-
       // Try unlocking via pins non-blockingly so new students can freely begin their enrolled roadmap
       try {
         await unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`).catch(() => true);
@@ -960,15 +956,16 @@ export function useQuestProgression() {
     }
 
 
+    const targetTab = activeSubTab === 'certification_passport' ? 'certification' : activeSubTab;
     if (quest.requiresAvatar || quest.type === 'lecture' || quest.type === 'interactive') {
       const preferred = (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_teacher_id') || localStorage.getItem('pinit_preferred_teaching_avatar') : null) || (onboardingAnswers as any)?.selectedTeacherId;
       if (preferred && ['kashyap', 'karthic', 'maya', 'divya'].includes(preferred)) {
-        router.push(`/quests/lesson?questId=${quest.id}&teacherId=${preferred}`);
+        router.push(`/quests/lesson?questId=${quest.id}&teacherId=${preferred}&fromTab=${targetTab}`);
       } else {
-        router.push(`/quests/teacher-select?questId=${quest.id}`);
+        router.push(`/quests/teacher-select?questId=${quest.id}&fromTab=${targetTab}`);
       }
     } else {
-      router.push(`/quests/${quest.id}`);
+      router.push(`/quests/${quest.id}?fromTab=${targetTab}`);
     }
   };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '@/lib/api/client';
@@ -146,8 +146,28 @@ function ProfilePageInner() {
   const [tab, setTab] = useState<TabType>('portfolio');
   const [focusSection, setFocusSection] = useState<string | undefined>(undefined);
 
-  // Read URL `?tab=` (supports all 8 legacy values) to pick tab + section
+  // Read URL `?tab=` (supports all 8 legacy values) & `?autostart=voice` to pick tab + section
+  const autostartVoiceHandledRef = useRef(false);
   useEffect(() => {
+    const autostart = searchParams.get('autostart');
+    if (autostart === 'voice' && !autostartVoiceHandledRef.current) {
+      autostartVoiceHandledRef.current = true;
+      setTab('settings');
+      setFocusSection('voice');
+      if (typeof window !== 'undefined') {
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('autostart');
+          url.searchParams.set('tab', 'settings');
+          window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+        } catch {}
+      }
+      return;
+    }
+    if (autostart !== 'voice') {
+      autostartVoiceHandledRef.current = false;
+    }
+
     let tabParam = searchParams.get('tab');
     if (!tabParam) {
       for (const k of Array.from(searchParams.keys())) {

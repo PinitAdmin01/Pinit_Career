@@ -1,13 +1,22 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, Suspense, lazy } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { speakWithAvatar, stopSpeaking, preloadTTS, setStoryTourAudioLock } from '@/lib/tts';
 import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
 import { completeStoryTour, isStoryTourPending, resetStoryTour } from '@/lib/storyTour';
 import { StoryTourEngine, tourRoutePath } from '@/lib/storyTourEngine';
-import { matchNavigationIntent } from '@/components/avatar/hooks/useVoiceNavigation';
+import { matchBestAlternative, getGrammarVocabulary } from '@/components/avatar/hooks/useVoiceNavigation';
+import { useDraggablePanel } from '@/components/avatar/hooks/useDraggablePanel';
+import { isHyperActiveTrigger } from '@/lib/avatar/wakeWordParser';
+import { isPriorityDiagnosticQuery, buildPriorityDiagnosticReport } from '@/lib/avatar/priorityBriefing';
+import { matchBestActionAlternative } from '@/lib/avatar/voiceActionRouter';
+import {
+  createSpeechRecognitionController,
+  resolveBestSpeechLocale,
+  type SpeechEngineStatus,
+} from '@/lib/avatar/speechRecognitionEngine';
 import {
   StoryTourCard,
   StoryTourProgressBar,
@@ -32,6 +41,7 @@ export interface GlobalAvatarProps {
   refreshProfile?: () => void;
   onOpenRightSidebar?: () => void;
   onExpandLeftNav?: () => void;
+  onCollapseLeftNav?: () => void;
   isRightSidebarOpen?: boolean;
   isLeftSidebarOpen?: boolean;
   onTourSlideChange?: (route: string | null, tabKey: string | null) => void;
@@ -117,6 +127,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   refreshProfile,
   onOpenRightSidebar,
   onExpandLeftNav,
+  onCollapseLeftNav,
   isRightSidebarOpen = false,
   isLeftSidebarOpen = true,
   onTourSlideChange,
@@ -140,12 +151,52 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [isEnlarged, setIsEnlarged] = useState(false);
   const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const isSpeakingRef = useRef(false);
+  isSpeakingRef.current = isSpeaking;
   const [voiceListeningActive, setVoiceListeningActive] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState<SpeechEngineStatus>('idle');
+  const [heardPreview, setHeardPreview] = useState<string>('');
+  const heardPreviewTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const speechControllerRef = useRef<ReturnType<typeof createSpeechRecognitionController> | null>(null);
+  const speakingSafetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isCompactViewport, setIsCompactViewport] = useState(false);
+  const [hyperActive, setHyperActive] = useState(false);
+  const [hyperModeVariant, setHyperModeVariant] = useState<'conversational' | 'diagnostic'>('conversational');
+  const [isExitingHyperActive, setIsExitingHyperActive] = useState(false);
+  const isExitingHyperActiveRef = useRef(false);
+  const [hyperTransformOrigin, setHyperTransformOrigin] = useState<string>('50% 95%');
+  const minimizedLauncherRef = useRef<HTMLDivElement>(null);
+  const leftSidebarBeforeHyperRef = useRef<boolean>(false);
+  const lastHyperTriggerRef = useRef<number>(0);
+  const onCollapseLeftNavRef = useRef(onCollapseLeftNav);
+  onCollapseLeftNavRef.current = onCollapseLeftNav;
+  const isLeftSidebarOpenRef = useRef(isLeftSidebarOpen);
+  isLeftSidebarOpenRef.current = isLeftSidebarOpen;
+
+  const showHeardPreview = useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    setHeardPreview(trimmed.length > 36 ? `${trimmed.slice(0, 35)}…` : trimmed);
+    if (heardPreviewTimerRef.current) clearTimeout(heardPreviewTimerRef.current);
+    heardPreviewTimerRef.current = setTimeout(() => {
+      setHeardPreview('');
+    }, 3000);
+  }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setVoiceListeningActive(localStorage.getItem('pinit_voice_wake_active') === 'true');
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem('pinit_voice_wake_active');
+    // Default to active voice wake listening unless student explicitly muted ('false')
+    const active = stored !== 'false';
+    setVoiceListeningActive(active);
+    if (stored === null) {
+      localStorage.setItem('pinit_voice_wake_active', 'true');
     }
+    const mq = window.matchMedia('(max-width: 900px)');
+    const syncViewport = () => setIsCompactViewport(mq.matches);
+    syncViewport();
+    mq.addEventListener?.('change', syncViewport);
+    return () => mq.removeEventListener?.('change', syncViewport);
   }, []);
 
   const toggleVoiceListening = (e?: React.MouseEvent) => {
@@ -182,6 +233,20 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   onOpenRightSidebarRef.current = onOpenRightSidebar;
   const onTourSlideChangeRef = useRef(onTourSlideChange);
   onTourSlideChangeRef.current = onTourSlideChange;
+
+  // ── Drag & Settle Engine: allows student to relocate panel anywhere on screen ──
+  const {
+    position: settledPos,
+    isDragging,
+    isSettled,
+    panelRef: activePanelRef,
+    handleRef: dragHandleRef,
+    resetPosition: resetMentorPosition,
+  } = useDraggablePanel({
+    storageKey: 'pinit_mentor_settled_pos_v1',
+    viewportPadding: 10,
+    disabled: tourActive || hyperActive || minimized,
+  });
 
   // ── Congratulations state ──────────────────────────────────────────────────
   const [celebEvent, setCelebEvent] = useState<any>(null);
@@ -221,23 +286,130 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   useEffect(() => {
     setMounted(true);
     return () => {
+      if (heardPreviewTimerRef.current) clearTimeout(heardPreviewTimerRef.current);
+      if (speakingSafetyTimerRef.current) clearTimeout(speakingSafetyTimerRef.current);
+      speechControllerRef.current?.destroy();
+      speechControllerRef.current = null;
       tourEngineRef.current?.stop();
       setStoryTourAudioLock(false);
       stopSpeaking(true);
     };
   }, []);
 
-  // ── 2. Auto-close / auto-dock floating avatar after 15s of inactivity ────────
+  // Failsafe speech dispatcher: guarantees isSpeaking never gets stuck true on superseded speech
+  const speakWithAvatarSafely = useCallback((text: string, onDone?: () => void) => {
+    if (speakingSafetyTimerRef.current) {
+      clearTimeout(speakingSafetyTimerRef.current);
+    }
+    setIsSpeaking(true);
+    // 9-second safety watchdog in GlobalAvatar
+    speakingSafetyTimerRef.current = setTimeout(() => {
+      speakingSafetyTimerRef.current = null;
+      setIsSpeaking(false);
+      onDone?.();
+    }, 9000);
+
+    speakWithAvatar(
+      text,
+      teacherIdRef.current,
+      () => {
+        setIsSpeaking(true);
+      },
+      () => {
+        if (speakingSafetyTimerRef.current) {
+          clearTimeout(speakingSafetyTimerRef.current);
+          speakingSafetyTimerRef.current = null;
+        }
+        setIsSpeaking(false);
+        onDone?.();
+      }
+    );
+  }, []);
+
+  // Sync TTS speaking state into the speech recognition controller to prevent self-hearing feedback loops
+  useEffect(() => {
+    speechControllerRef.current?.setTtsSpeaking(isSpeaking);
+  }, [isSpeaking]);
+
+  // ── 2. Hyper-Active mode lifecycle + 15s auto-dock timer ────────────────────
+  const enterHyperActive = useCallback((variant: 'conversational' | 'diagnostic' = 'conversational') => {
+    const now = Date.now();
+    if (now - lastHyperTriggerRef.current < 800) return;
+    lastHyperTriggerRef.current = now;
+    leftSidebarBeforeHyperRef.current = isLeftSidebarOpenRef.current;
+    onCollapseLeftNavRef.current?.();
+    setHyperModeVariant(variant);
+    setTourActive(false);
+    setMinimized(false);
+    setIsExitingHyperActive(false);
+    isExitingHyperActiveRef.current = false;
+
+    // Calculate Apple Dynamic Island fluid morph origin from current mentor position
+    if (typeof window !== 'undefined') {
+      const activeRect = activePanelRef.current?.getBoundingClientRect() || minimizedLauncherRef.current?.getBoundingClientRect();
+      if (activeRect && activeRect.width > 0 && activeRect.height > 0) {
+        const W = window.innerWidth;
+        const H = window.innerHeight;
+        // Match modal CSS dimensions: width: min(94vw, clamp(720px, 68vw, 1120px)), height: min(84vh, clamp(480px, 68vh, 740px))
+        const modalW = Math.min(0.94 * W, Math.max(720, Math.min(0.68 * W, 1120)));
+        const modalH = Math.min(0.84 * H, Math.max(480, Math.min(0.68 * H, 740)));
+        const modalLeft = (W - modalW) / 2;
+        const modalTop = (H - modalH) / 2;
+        const panelCenterX = activeRect.left + activeRect.width / 2;
+        const panelCenterY = activeRect.top + activeRect.height / 2;
+        const originX = ((panelCenterX - modalLeft) / modalW) * 100;
+        const originY = ((panelCenterY - modalTop) / modalH) * 100;
+        setHyperTransformOrigin(`${originX.toFixed(1)}% ${originY.toFixed(1)}%`);
+      } else {
+        setHyperTransformOrigin('50% 95%');
+      }
+    }
+
+    setHyperActive(true);
+  }, []);
+
+  const exitHyperActive = useCallback((minimizeToPill = false) => {
+    stopSpeaking();
+    if (isExitingHyperActiveRef.current) return;
+    isExitingHyperActiveRef.current = true;
+    setIsExitingHyperActive(true);
+
+    if (leftSidebarBeforeHyperRef.current) {
+      leftSidebarBeforeHyperRef.current = false;
+      onExpandLeftNavRef.current?.();
+    }
+
+    // Smooth 240ms fluid collapse before state unmount
+    setTimeout(() => {
+      setHyperActive(false);
+      setIsExitingHyperActive(false);
+      isExitingHyperActiveRef.current = false;
+      setMinimized(minimizeToPill);
+    }, 240);
+  }, []);
+
+  useEffect(() => {
+    if (!hyperActive) return;
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        exitHyperActive(false);
+      }
+    };
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [hyperActive, exitHyperActive]);
+
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resetIdleTimer = useCallback(() => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    if (!minimized && !tourActive && !celebEvent) {
+    if (!minimized && !tourActive && !celebEvent && !hyperActive) {
       idleTimerRef.current = setTimeout(() => {
         setMinimized(true);
       }, 15000);
     }
-  }, [minimized, tourActive, celebEvent]);
+  }, [minimized, tourActive, celebEvent, hyperActive]);
 
   useEffect(() => {
     resetIdleTimer();
@@ -248,100 +420,118 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── 3. Wake word listener (Strictly Opt-In & Transparent) ─────────────────
   useEffect(() => {
-    // Pause wake-word speech recognition during active tasks (interview, GD, exam, lesson) or story tour
-    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive) return;
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
+    // Pause wake-word speech recognition during active tasks, story tour, or Hyper-Active chat (prevents dual-mic lock)
+    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive || isTaskOrProcessActive || hyperActive) return;
 
-    let recognition: any = null;
-    let isMounted = true;
-    try {
-      recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
+    const controller = createSpeechRecognitionController({
+      lang: resolveBestSpeechLocale(typeof navigator !== 'undefined' ? navigator.language : undefined),
+      silenceCommitMs: 750,
+      ttsCooldownMs: 450,
+      grammarWords: getGrammarVocabulary(),
+      onInterim: (text) => {
+        showHeardPreview(text);
+      },
+      onStatusChange: (status) => {
+        setSpeechStatus(status);
+      },
+      onPermissionDenied: () => {
+        console.warn('[PinIT Speech] Permission denied.');
+        setSpeechStatus('denied');
+        setVoiceListeningActive(false);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('pinit_voice_wake_active', 'false');
+        }
+      },
+      onUtterance: ({ primary, alternatives }) => {
+        const allAlternatives = Array.from(
+          new Set([primary, ...(alternatives || [])].map((s) => (s || '').trim()).filter(Boolean))
+        );
+        if (allAlternatives.length === 0) return;
 
-      recognition.onresult = (event: any) => {
-        if (!isMounted || !voiceListeningActive) return;
-        const transcript = Array.from(event.results)
-          .map((r: any) => r[0].transcript)
-          .join(' ')
-          .toLowerCase();
+        showHeardPreview(allAlternatives[0]);
 
         const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
-        // Clean wake words (removed false triggers: freya, riya)
-        const hasWakeWord = /\b(hey|hay|hi|hello)\b/i.test(transcript) ||
-                            /\b(priya|anish|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini)\b/i.test(transcript) ||
-                            transcript.includes(mentorName);
+        const escapedMentor = mentorName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const wakeRegex = new RegExp(
+          `\\b(?:hey|hwy|hay|hi|hello|priya|preya|pria|anish|aneesh|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini|${escapedMentor})\\b`,
+          'i'
+        );
+        const hasWakeWord = allAlternatives.some((alt) => wakeRegex.test(alt));
+        const hasExplicitHyperPhrase = allAlternatives.some((alt) => /\bhyper[\s-]?active\b/i.test(alt));
+        const hasExplicitNavAction = allAlternatives.some((alt) => {
+          const lower = alt.toLowerCase();
+          return (
+            /\b(?:go\s+to|open|navigate\s+to|switch\s+to|take\s+me\s+to|jump\s+to|show\s+me)\b/.test(lower) ||
+            /\b(?:start|launch|initiate|begin|resume)\s+(?:mission|lesson|quest|interview|duel|challenge|sprint|exam)\b/.test(lower)
+          );
+        });
 
-        if (!hasWakeWord) return;
+        if (!hasWakeWord && !hasExplicitHyperPhrase && !hasExplicitNavAction) return;
 
-        setMinimized(false);
-        resetIdleTimer();
         stopSpeaking();
 
-        const currentActivePath = cleanPathRef.current;
-
-        // 1. Socratic Guidance Queries
-        const isWhatToDoQuery = transcript.includes('what to do') ||
-                                transcript.includes('what should i do') ||
-                                transcript.includes('what next') ||
-                                transcript.includes('recommend') ||
-                                transcript.includes('where to go') ||
-                                transcript.includes('guide me') ||
-                                transcript.includes('what should i study');
-
-        if (isWhatToDoQuery) {
-          let advice = "I recommend checking your Daily Missions to solve gap-closure challenges and build your streak!";
-          if (currentActivePath === '/dashboard') {
-            advice = "Head to the Missions tab to solve today's gap-closure challenges, or Quests to continue your active learning track!";
-          } else if (currentActivePath === '/quests') {
-            advice = "Explore your active socratic courses to earn XP and increase your verified skill metrics!";
-          } else if (currentActivePath === '/missions') {
-            advice = "Complete today's daily challenges to close your skill gaps and protect your consistency streak!";
-          } else if (currentActivePath === '/arena') {
-            advice = "Enter a 1v1 speedrun battle or algorithm duel to test your skills against other students!";
-          } else if (currentActivePath === '/interview') {
-            advice = "Start a simulated AI technical interview to practice behavioral and algorithmic questions with live feedback!";
-          }
-          speakWithAvatar(advice, teacherId, () => {}, () => {});
+        // Priority 1 — Executive Priority / Diagnostic / Mistakes Query (Task 4)
+        if (hasWakeWord && allAlternatives.some((alt) => isPriorityDiagnosticQuery(alt))) {
+          enterHyperActive('diagnostic');
           return;
         }
 
-        // 2. Route Navigation Commands via Precision Vocabulary
-        const navResult = matchNavigationIntent(transcript);
-        if (navResult.matched && navResult.confidence >= 0.5) {
-          speakWithAvatar(`Navigating to ${navResult.displayName}!`, teacherId, () => {}, () => {});
-          router.push(navResult.path);
+        // Priority 2 — Hyper-Active Conversational Trigger (Task 2 & 3)
+        if (allAlternatives.some((alt) => isHyperActiveTrigger(alt, mentorName))) {
+          enterHyperActive('conversational');
           return;
         }
 
-        // 3. General Wake Word Greeting
-        speakWithAvatar(`Yes! I am here. Say "go to missions" or ask "what should I do now?"`, teacherId, () => {}, () => {});
-      };
+        if (!hasWakeWord && !hasExplicitNavAction) return;
 
-      recognition.onerror = (err: any) => {
-        if (err.error === 'not-allowed') {
-          console.warn('[PinIT Speech] Permission denied.');
-          setVoiceListeningActive(false);
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('pinit_voice_wake_active', 'false');
-          }
+        // Priority 3 — Actionable Start/Launch Commands (Task 5)
+        const actionResult = matchBestActionAlternative(allAlternatives, { addressedMentor: true });
+        if (actionResult.matched && actionResult.confidence >= 0.6) {
+          speakWithAvatarSafely(actionResult.spokenReply);
+          routerRef.current.push(actionResult.path);
+          return;
         }
-      };
 
-      recognition.start();
-    } catch {
-      // Gracefully ignore startup collision
-    }
+        // Priority 4 — Left Sidebar Tab Navigation (Tasks 2 & 3)
+        const navResult = matchBestAlternative(allAlternatives, { addressedMentor: true });
+        if (navResult.matched && navResult.confidence >= 0.58) {
+          speakWithAvatarSafely(`Opening ${navResult.displayName}.`);
+          routerRef.current.push(navResult.path);
+          return;
+        }
+
+        // Priority 5 — Fallback Wake Greeting
+        setMinimized(false);
+        resetIdleTimer();
+        speakWithAvatarSafely(
+          "I'm here. Say 'go to courses', 'start mission', 'what are my priorities', or 'we need to chat'."
+        );
+      },
+    });
+
+    speechControllerRef.current = controller;
+    controller.setTtsSpeaking(isSpeakingRef.current);
+    controller.start();
 
     return () => {
-      isMounted = false;
-      if (recognition) {
-        try { recognition.stop(); } catch {}
+      controller.destroy();
+      if (speechControllerRef.current === controller) {
+        speechControllerRef.current = null;
       }
+      setSpeechStatus('idle');
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive, isTaskOrProcessActive]);
+  }, [
+    teacher.name,
+    resetIdleTimer,
+    isOnboardingOrAuth,
+    voiceListeningActive,
+    tourActive,
+    isTaskOrProcessActive,
+    hyperActive,
+    enterHyperActive,
+    showHeardPreview,
+    speakWithAvatarSafely,
+  ]);
 
   // ── Story tour engine ──────────────────────────────────────────────────────
   // Engine callbacks read the latest render's handlers through this ref.
@@ -386,6 +576,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const startTour = useCallback(() => {
     setStoryTourAudioLock(true);
     stopSpeaking(true);
+    setHyperActive(false);
     setCelebEvent(null);
     setStoryLocked(true);
     setTourPaused(false);
@@ -606,6 +797,154 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [tourActive, nextTourSlide, prevTourSlide, dismissTour, replayCurrentSlide]);
 
+  const completedQuestsCount = (cOS.completedQuests || []).length;
+  const completedMissionsCount = (cOS.completedMissions || []).length;
+  const missionStreakVal = cOS.missionStreak || 0;
+  const careerScoreVal = cOS.careerScore || 0;
+  const xpVal = cOS.xp || 0;
+
+  const hyperCareerProfile = useMemo(
+    () => ({
+      ...(profile || {}),
+      displayName:
+        user?.displayName ||
+        (user as any)?.name ||
+        (user as any)?.full_name ||
+        profile?.displayName ||
+        profile?.name ||
+        profile?.full_name ||
+        '',
+      completedQuestsCount,
+      completedMissionsCount,
+      missionStreak: missionStreakVal,
+      careerScore: careerScoreVal,
+      xp: xpVal,
+    }),
+    [profile, user, completedQuestsCount, completedMissionsCount, missionStreakVal, careerScoreVal, xpVal]
+  );
+
+  const diagnosticReport = useMemo(() => {
+    const profileAny = (profile || {}) as Record<string, any>;
+    const userAny = (user || {}) as Record<string, any>;
+    const oa = (cOS.onboardingAnswers || profileAny.onboarding_answers || profileAny.onboardingAnswers || null) as Record<string, any> | null;
+
+    const studentName = String(
+      user?.displayName ||
+      userAny.name ||
+      userAny.full_name ||
+      profileAny.displayName ||
+      profileAny.name ||
+      profileAny.full_name ||
+      ''
+    );
+
+    const targetRole = String(
+      profileAny.targetRole ||
+      profileAny.target_role ||
+      (oa?.hasCompleted ? oa?.role : '') ||
+      ''
+    );
+
+    const activeCourseTitle = String(
+      profileAny.activeCourseTitle ||
+      profileAny.active_course_title ||
+      cOS.activeCourseId ||
+      oa?.courseId ||
+      ''
+    );
+
+    const weakAreas: string[] = [
+      ...(Array.isArray(profileAny.weak_areas) ? profileAny.weak_areas : []),
+      ...(Array.isArray(profileAny.weakAreas) ? profileAny.weakAreas : []),
+      ...(Array.isArray(userAny.weak_areas) ? userAny.weak_areas : []),
+      ...(Array.isArray(userAny.weakAreas) ? userAny.weakAreas : []),
+      ...(oa?.hasCompleted && Array.isArray(oa.weakAreas) ? oa.weakAreas : []),
+    ];
+
+    const strongAreas: string[] = [
+      ...(Array.isArray(profileAny.strong_areas) ? profileAny.strong_areas : []),
+      ...(Array.isArray(profileAny.strongAreas) ? profileAny.strongAreas : []),
+    ];
+
+    const onboardingSkills =
+      oa?.hasCompleted && Array.isArray(oa.skills)
+        ? oa.skills
+        : oa?.hasCompleted && typeof oa.skills === 'string'
+          ? oa.skills.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [];
+
+    const skillTags: string[] = [
+      ...(Array.isArray(profileAny.skill_tags) ? profileAny.skill_tags : []),
+      ...(Array.isArray(profileAny.skillTags) ? profileAny.skillTags : []),
+      ...(Array.isArray(userAny.skill_tags) ? userAny.skill_tags : []),
+      ...(Array.isArray(userAny.skillTags) ? userAny.skillTags : []),
+      ...onboardingSkills,
+    ];
+
+    const rawMistakeSources = [
+      profileAny.learning_mistakes,
+      profileAny.learningMistakes,
+      userAny.learning_mistakes,
+      oa?.learning_mistakes,
+    ];
+    const seenMistakes = new Set<string>();
+    const learningMistakes: unknown[] = [];
+    for (const src of rawMistakeSources) {
+      if (!Array.isArray(src)) continue;
+      for (const item of src) {
+        if (!item || typeof item !== 'object') continue;
+        const rec = item as Record<string, unknown>;
+        const key = String(rec.id || `${rec.module || rec.topic || ''}|${rec.description || rec.detail || ''}`).toLowerCase();
+        if (!seenMistakes.has(key)) {
+          seenMistakes.add(key);
+          learningMistakes.push(item);
+        }
+      }
+    }
+
+    const vaultCount = Math.max(
+      Array.isArray(cOS.vaultItems) ? cOS.vaultItems.length : 0,
+      Number(profileAny.vault_count ?? profileAny.vaultCount ?? 0) || 0
+    );
+
+    return buildPriorityDiagnosticReport({
+      studentName,
+      targetRole,
+      activeCourseTitle,
+      completedQuests: cOS.completedQuests || [],
+      completedMissions: cOS.completedMissions || [],
+      missionStreak: cOS.missionStreak || Number(profileAny.mission_streak ?? userAny.missionStreak ?? 0) || 0,
+      careerScore: cOS.careerScore || Number(profileAny.career_dna_score ?? userAny.careerDnaScore ?? 0) || 0,
+      trustScore:
+        cOS.trustScore > 0
+          ? cOS.trustScore
+          : Number(profileAny.trust_score ?? profileAny.trustScore ?? userAny.trust_score ?? userAny.trustScore ?? 100),
+      xp: cOS.xp || Number(profileAny.xp ?? userAny.xp ?? 0) || 0,
+      atsScore: Number(profileAny.ats_score ?? profileAny.atsScore ?? userAny.atsScore ?? 0) || 0,
+      vaultCount,
+      interviewsDone: Number(profileAny.interviews_done ?? profileAny.interviewsDone ?? 0) || 0,
+      weakAreas,
+      strongAreas,
+      skillTags,
+      jdMissingSkills: cOS.jdMissingSkills || [],
+      learningMistakes,
+      onboardingAnswers: oa,
+    });
+  }, [
+    cOS.onboardingAnswers,
+    cOS.activeCourseId,
+    cOS.completedQuests,
+    cOS.completedMissions,
+    cOS.missionStreak,
+    cOS.careerScore,
+    cOS.trustScore,
+    cOS.xp,
+    cOS.vaultItems,
+    cOS.jdMissingSkills,
+    profile,
+    user,
+  ]);
+
   if (!mounted || isOnboardingOrAuth) return null;
 
   const isCentered = onboardingStep === 0;
@@ -617,49 +956,53 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   if (!tourActive && !celebEvent) {
     if (onboardingStep === 0) {
-      dialogueText = "Welcome! I am your AI Career Mentor. Let's build your career profile, compile your credentials, and design a socratic learning roadmap to qualify for top engineering roles!";
+      dialogueText = "Welcome! Ready to map your skills and launch your career sprint?";
       showButton = true;
       buttonText = "Let's Begin!";
       onButtonClick = () => setOnboardingStep(1);
     } else if (onboardingStep === 1) {
-      dialogueText = "Welcome to the Command Center Dashboard! This panel tracks your XP progression, consistency streak, and Career DNA. To start, click on the 'Career Twin' tab to initialize your digital twin profile!";
+      dialogueText = "Dashboard live. Open Digital Studio to initialize your Career Twin.";
     } else if (onboardingStep === 2) {
-      dialogueText = "We are in the Career Twin studio. Map your current skills against your desired engineering track. When you are ready, return to the Dashboard and choose a Trajectory to build your custom quest roadmap!";
+      dialogueText = "Map your current skills, then pick a track on the Dashboard.";
     } else if (onboardingStep === 3 || onboardingStep === 4) {
-      if (!roadmapGenerated) {
-        dialogueText = "Select your target SDE trajectory on the Dashboard page below to compile your custom quest roadmap!";
-      } else {
-        dialogueText = "Your custom quest roadmap is compiled! Head to the 'Quests' tab to begin learning or the 'Missions' tab to solve daily gap-closure challenges!";
-      }
+      dialogueText = !roadmapGenerated
+        ? "Pick your target track below to compile your quest roadmap."
+        : "Roadmap ready. Jump into Courses or Daily Missions to build momentum.";
     } else if (onboardingStep === 5) {
-      dialogueText = "Excellent job! You are progressing nicely. Keep completing quests to build your Career DNA and Vault documents!";
+      dialogueText = "Strong momentum. Keep clearing quests to verify your Vault credentials.";
     } else {
       const TAB_GUIDES: Record<string, string> = {
-        '/dashboard': "🏠 **Home Dashboard** — Your command center! Here you can see your Career Score, active mission streak, XP tier progression, and AI-personalised recommendations. Keep your streak alive with daily missions!",
-        '/quests': "🗺 **Quests** — Your socratic learning curriculum! Complete guided coding challenges and theory lessons to verify your mastery and earn XP.",
-        '/career-twin': "🧬 **Career Twin** — Map your Current Self against your Future Self (target role). We'll calculate your alignment percentage and identify exact skill gaps!",
-        '/learning': "📖 **Learning & Roadmap** — Track your milestone roadmap, skill competencies, and deep-dive learning modules to qualify for top roles.",
-        '/missions': "⚡ **Daily Missions** — 5 personalised micro-challenges generated every day based on your skill gaps. Complete them to maintain your streak and earn bonus XP!",
-        '/arena': "⚔️ **Challenging Arena** — Compete in live 1v1 coding face-offs, algorithmic battles, and timed DSA challenges against peers.",
-        '/projects': "🚀 **Projects & Squads** — Collaborate on production-grade software and build verifiable portfolio projects for recruiters.",
-        '/leaderboard': "🏆 **Leaderboards & Leagues** — Track your global and campus rank, climb through weekly league tiers, and earn sprint promotions.",
-        '/interview': "🎙 **AI Interview** — Practice realistic mock interviews with instant AI scoring on coding logic, problem decomposition, and STAR responses.",
-        '/group-discussion': "💬 **GD Practice** — Engage in boardroom debates against AI avatars to build speaking confidence and argument structure.",
-        '/attention-span': "🧠 **Attention Span** — Gamified cognitive focus exercises to train your endurance and stamina for long engineering sprints.",
-        '/notifications': "🔔 **Notifications** — Real-time alerts for quest rewards, streak milestones, recruiter profile views, and mission assignments.",
-        '/friends': "👥 **Friends & Network** — Connect with peers, challenge friends to 1v1 Arena Duels, collaborate on Squad Projects, and build your university network.",
-        '/pins': "⚡ **Pins & Wallet** — Track your Pins balance, recharge via UPI, and unlock premium AI features.",
-        '/profile': "👤 **Profile** — Manage settings, configure vocal biometrics, inspect your Career DNA genome, and select your AI mentor personality.",
+        '/dashboard': "Dashboard: Track readiness, active sprint progress, and today's priority actions.",
+        '/quests': "Courses: Clear guided lessons and verified code labs to build mastery.",
+        '/career-twin': "Career Twin: Compare your current skills against your target role.",
+        '/mirror': "Digital Studio: Inspect skill gaps, resume ATS score, and Career Twin.",
+        '/learning': "Roadmap: Follow your milestone track and verify core engineering concepts.",
+        '/missions': "Daily Missions: Complete quick daily gap-closure challenges to keep your streak.",
+        '/arena': "Arena: Compete in live 1v1 coding duels and timed algorithmic sprints.",
+        '/projects': "Projects: Ship verifiable portfolio work and track milestone progress.",
+        '/leaderboard': "Leaderboard: Track your sprint standing and weekly league promotion.",
+        '/interview': "AI Interview: Practice mock rounds with instant scoring and feedback.",
+        '/group-discussion': "GD Practice: Sharpen structured arguments in AI boardroom debates.",
+        '/attention-span': "Attention Span: Train deep-work focus for timed technical sprints.",
+        '/notifications': "Notifications: Review quest rewards, streak alerts, and updates.",
+        '/friends': "My Network: Connect with peers for duels and squad projects.",
+        '/pins': "Pins & Wallet: Track Pins balance and unlock advanced mentor features.",
+        '/profile': "Profile: Manage mentor voice settings, Career DNA, and preferences.",
       };
 
       const matchedGuide = Object.entries(TAB_GUIDES).find(([path]) => pathname.startsWith(path));
-      if (matchedGuide) {
-        dialogueText = matchedGuide[1];
-      } else {
-        dialogueText = "🧬 Your Career OS is fully operational! Navigate to any tab and I'll explain how it works. Ask me anything!";
-      }
+      dialogueText = matchedGuide
+        ? matchedGuide[1]
+        : "Say 'Hey Priya, we need to chat' anytime to open full conversation mode.";
     }
   }
+
+  const INACTIVE_PILL_OPACITY = 0.4;
+  const activeDockLeft = isCompactViewport
+    ? 10
+    : isLeftSidebarOpen
+      ? 'calc(var(--sidebar-w, 232px) + 12px)'
+      : 'calc(var(--sidebar-collapsed-w, 64px) + 12px)';
 
   return (
     <>
@@ -667,8 +1010,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {tourActive && <StoryTourProgressBar tourStep={tourStep} runKey={tourSlideRun} />}
 
       {/* ── Floating avatar launcher button (when minimized) ── */}
-      {minimized && !shouldHideVisually && (
+      {!hyperActive && minimized && !shouldHideVisually && (
         <div
+          ref={minimizedLauncherRef}
           className="avatar-mentor-widget"
           data-testid="global-avatar-launcher"
           onClick={() => {
@@ -700,7 +1044,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             borderRadius: '18px 18px 0 0',
             padding: '6px 14px 6px 8px',
             boxShadow: '0 -4px 24px rgba(0,0,0,0.38), 0 0 18px rgba(var(--brand-rgb), 0.22)',
-            opacity: 0.55,
+            opacity: voiceListeningActive && (speechStatus === 'hearing' || Boolean(heardPreview)) ? 0.96 : INACTIVE_PILL_OPACITY,
             transition: 'opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s',
           }}
           onMouseEnter={e => {
@@ -708,10 +1052,39 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             e.currentTarget.style.transform = 'translateX(-50%) scale(1.04)';
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.opacity = '0.55';
+            e.currentTarget.style.opacity = String(
+              voiceListeningActive && (speechStatus === 'hearing' || Boolean(heardPreview)) ? 0.96 : INACTIVE_PILL_OPACITY
+            );
             e.currentTarget.style.transform = 'translateX(-50%)';
           }}
         >
+          {voiceListeningActive && heardPreview && (
+            <div
+              data-testid="global-avatar-heard-preview"
+              style={{
+                position: 'absolute',
+                bottom: 'calc(100% + 6px)',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                maxWidth: 260,
+                padding: '4px 10px',
+                borderRadius: 999,
+                background: 'rgba(15, 23, 42, 0.95)',
+                border: '1px solid rgba(56, 189, 248, 0.45)',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.45)',
+                color: '#e0f2fe',
+                fontSize: 10.5,
+                fontWeight: 600,
+                fontFamily: 'var(--font-mono)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                pointerEvents: 'none',
+              }}
+            >
+              “{heardPreview}”
+            </div>
+          )}
           <div style={{
             width: 30,
             height: 30,
@@ -740,10 +1113,37 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>
               {teacher.name}
             </div>
-            <div style={{ fontSize: 9.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div
+              data-testid="global-avatar-speech-status"
+              style={{
+                fontSize: 9.5,
+                color: !voiceListeningActive
+                  ? '#a5b4fc'
+                  : speechStatus === 'hearing'
+                    ? '#38bdf8'
+                    : speechStatus === 'paused-tts'
+                      ? '#c4b5fd'
+                      : speechStatus === 'denied'
+                        ? '#f87171'
+                        : '#34d399',
+                fontFamily: 'var(--font-mono)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
               {voiceListeningActive ? (
                 <>
-                  <span style={{ color: '#ef4444' }}>🎙️</span> Listening
+                  <span style={{ color: speechStatus === 'hearing' ? '#38bdf8' : '#ef4444' }}>🎙️</span>
+                  {speechStatus === 'hearing'
+                    ? 'Hearing...'
+                    : speechStatus === 'paused-tts'
+                      ? 'Speaking...'
+                      : speechStatus === 'denied'
+                        ? 'Mic Blocked'
+                        : speechStatus === 'unsupported'
+                          ? 'Voice N/A'
+                          : 'Listening'}
                 </>
               ) : (
                 <>AI Mentor · Muted</>
@@ -774,29 +1174,237 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         </div>
       )}
 
-      {/* ── Expanded floating avatar mentor window ── */}
-      {!minimized && !shouldHideVisually && (
-        <div className="mentor-widget" data-story-tour-card={tourActive ? '' : undefined} style={{
-          position: 'fixed',
-          bottom: isCentered ? 'auto' : 0,
-          top: isCentered ? '50%' : 'auto',
-          left: '50%',
-          right: 'auto',
-          transform: isCentered ? 'translate(-50%, -50%)' : 'translateX(-50%)',
-          zIndex: 9999,
-          width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 285 : 210),
-          maxWidth: 'calc(100vw - 24px)',
-          height: tourActive ? 240 : (isEnlarged ? 360 : 270),
-          background: 'var(--bg2)',
-          border: '1px solid var(--border)',
-          borderBottom: isCentered ? '1px solid var(--border)' : 'none',
-          borderRadius: isCentered ? 16 : '16px 16px 0 0',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-          display: 'flex',
-          flexDirection: tourActive ? 'row' : 'column',
-          overflow: 'hidden',
-          transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
-        }}>
+      {/* ── Hyper-Active Centered 65% Stage (Apple Duo Morph: 3D Avatar | Live Chat) ── */}
+      {hyperActive && !shouldHideVisually && (
+        <>
+          {/* Apple Dynamic Island / Fluid Duo Morph Keyframes */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              @keyframes appleDuoExpand {
+                0% {
+                  opacity: 0;
+                  transform: translate(-50%, -50%) scale(0.36);
+                  filter: blur(8px);
+                  border-radius: 36px;
+                  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 45px rgba(56, 189, 248, 0.35);
+                }
+                45% {
+                  opacity: 1;
+                  border-radius: 26px;
+                  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(56, 189, 248, 0.45);
+                }
+                80% {
+                  transform: translate(-50%, -50%) scale(1.015);
+                  border-radius: 21px;
+                  filter: blur(0px);
+                }
+                100% {
+                  opacity: 1;
+                  transform: translate(-50%, -50%) scale(1);
+                  border-radius: 20px;
+                  filter: blur(0px);
+                  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+                }
+              }
+
+              @keyframes appleDuoCollapse {
+                0% {
+                  opacity: 1;
+                  transform: translate(-50%, -50%) scale(1);
+                  border-radius: 20px;
+                  filter: blur(0px);
+                  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+                }
+                30% {
+                  transform: translate(-50%, -50%) scale(0.96);
+                  border-radius: 24px;
+                  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56, 189, 248, 0.3);
+                }
+                100% {
+                  opacity: 0;
+                  transform: translate(-50%, -50%) scale(0.32);
+                  border-radius: 36px;
+                  filter: blur(6px);
+                }
+              }
+
+              @keyframes appleBackdropFadeIn {
+                from {
+                  opacity: 0;
+                  backdrop-filter: blur(0px);
+                  -webkit-backdrop-filter: blur(0px);
+                }
+                to {
+                  opacity: 1;
+                  backdrop-filter: blur(6px);
+                  -webkit-backdrop-filter: blur(6px);
+                }
+              }
+
+              @keyframes appleBackdropFadeOut {
+                from {
+                  opacity: 1;
+                  backdrop-filter: blur(6px);
+                  -webkit-backdrop-filter: blur(6px);
+                }
+                to {
+                  opacity: 0;
+                  backdrop-filter: blur(0px);
+                  -webkit-backdrop-filter: blur(0px);
+                }
+              }
+
+              @keyframes appleContentReveal {
+                from {
+                  opacity: 0;
+                  transform: scale(0.97);
+                }
+                to {
+                  opacity: 1;
+                  transform: scale(1);
+                }
+              }
+
+              @media (prefers-reduced-motion: reduce) {
+                @keyframes appleDuoExpand {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+                @keyframes appleDuoCollapse {
+                  from { opacity: 1; }
+                  to { opacity: 0; }
+                }
+                @keyframes appleContentReveal {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+              }
+            `
+          }} />
+
+          <div
+            data-testid="global-avatar-hyper-backdrop"
+            onClick={() => exitHyperActive(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9998,
+              background: 'rgba(2, 6, 23, 0.58)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+              animation: isExitingHyperActive
+                ? 'appleBackdropFadeOut 0.24s ease forwards'
+                : 'appleBackdropFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            }}
+          />
+          <div
+            className="mentor-widget"
+            data-testid="global-avatar-hyper-active"
+            data-animating={isExitingHyperActive ? 'collapse' : 'expand'}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${teacher.name} Hyper-Active Conversation`}
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              transformOrigin: hyperTransformOrigin,
+              zIndex: 9999,
+              width: 'min(94vw, clamp(720px, 68vw, 1120px))',
+              height: 'min(84vh, clamp(480px, 68vh, 740px))',
+              background: 'var(--bg2)',
+              border: '1px solid rgba(var(--brand-rgb), 0.38)',
+              borderRadius: 20,
+              boxShadow: '0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              animation: isExitingHyperActive
+                ? 'appleDuoCollapse 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards'
+                : 'appleDuoExpand 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              willChange: 'transform, opacity, border-radius',
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                animation: isExitingHyperActive ? 'none' : 'appleContentReveal 0.26s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both',
+              }}
+            >
+              <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Launching Hyper-Active Mentor...</div>}>
+                <AvatarMentorWidget
+                  userId={user?.id}
+                  careerProfile={hyperCareerProfile}
+                  teacherId={teacherId}
+                  minimized={false}
+                  setMinimized={() => exitHyperActive(true)}
+                  showSpeechBubble={false}
+                  setShowSpeechBubble={setShowSpeechBubble}
+                  onboardingStep={onboardingStep}
+                  setOnboardingStep={setOnboardingStep}
+                  onTabShift={(path) => {
+                    exitHyperActive(false);
+                    router.push(path);
+                  }}
+                  onEnlarge={(val) => {
+                    if (!val) exitHyperActive(false);
+                  }}
+                  isEnlarged={true}
+                  onlyAvatar={false}
+                  hyperActive={true}
+                  hyperModeVariant={hyperModeVariant}
+                  diagnosticReport={diagnosticReport}
+                  autoStartVoice={voiceListeningActive}
+                  onExitHyperActive={() => exitHyperActive(false)}
+                  gazeTracking={!pathname.startsWith('/quests/')}
+                  speaking={isSpeaking}
+                />
+              </Suspense>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ── Expanded floating avatar mentor window (bottom-left when active, or user-dragged settled position) ── */}
+      {!minimized && !hyperActive && !shouldHideVisually && (
+        <div
+          ref={activePanelRef}
+          className="mentor-widget"
+          data-testid="global-avatar-active-window"
+          data-story-tour-card={tourActive ? '' : undefined}
+          data-settled={isSettled ? 'true' : undefined}
+          data-dragging={isDragging ? 'true' : undefined}
+          style={{
+            position: 'fixed',
+            bottom: isCentered ? 'auto' : tourActive ? 10 : ((isSettled || isDragging) && settledPos ? 'auto' : 0),
+            top: isCentered ? '50%' : tourActive ? 'auto' : ((isSettled || isDragging) && settledPos ? settledPos.y : 'auto'),
+            left: isCentered || tourActive ? '50%' : ((isSettled || isDragging) && settledPos ? settledPos.x : activeDockLeft),
+            right: 'auto',
+            transform: isCentered ? 'translate(-50%, -50%)' : tourActive ? 'translateX(-50%)' : 'none',
+            zIndex: isDragging ? 10001 : 9999,
+            width: tourActive ? 'min(440px, calc(100vw - 28px))' : (isEnlarged ? 290 : 256),
+            maxWidth: 'calc(100vw - 24px)',
+            height: tourActive ? 248 : (isEnlarged ? 372 : 296),
+            background: 'var(--bg2)',
+            border: isDragging ? '1.5px solid rgba(56, 189, 248, 0.7)' : '1px solid var(--border)',
+            borderBottom: isCentered || tourActive || ((isSettled || isDragging) && settledPos) ? '1px solid var(--border)' : 'none',
+            borderRadius: isCentered || tourActive || ((isSettled || isDragging) && settledPos) ? 16 : '16px 16px 0 0',
+            boxShadow: isDragging
+              ? '0 24px 60px rgba(0,0,0,0.65), 0 0 20px rgba(56, 189, 248, 0.35)'
+              : '0 20px 50px rgba(0,0,0,0.5)',
+            display: 'flex',
+            flexDirection: tourActive ? 'row' : 'column',
+            overflow: 'hidden',
+            userSelect: isDragging ? 'none' : 'auto',
+            transition: isDragging
+              ? 'none'
+              : 'left 0.2s cubic-bezier(0.2, 0.9, 0.4, 1), top 0.2s cubic-bezier(0.2, 0.9, 0.4, 1), width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        >
           {tourActive ? (
             <>
               <StoryTourCard
@@ -839,62 +1447,166 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               </div>
             </>
           ) : (
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <div style={{
-                position: 'absolute',
-                top: 8,
-                left: 10,
-                right: 10,
-                zIndex: 12,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                background: 'rgba(15,23,42,0.85)',
-                backdropFilter: 'blur(10px)',
-                padding: '5px 10px',
-                borderRadius: 12,
-                border: '1px solid rgba(255,255,255,0.12)',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 14.5 }}>{teacher.emoji}</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online & Listening" />
+            <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+              {/* Slim single-line header placed above the 3D avatar so it never covers the avatar face */}
+              <div
+                ref={dragHandleRef}
+                data-testid="global-avatar-slim-header"
+                title="Drag to relocate mentor anywhere · Double-click to reset position"
+                style={{
+                  flexShrink: 0,
+                  height: 30,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 4,
+                  padding: '0 6px',
+                  background: isDragging ? 'rgba(30, 41, 59, 0.98)' : 'rgba(15,23,42,0.92)',
+                  borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  cursor: isDragging ? 'grabbing' : 'grab',
+                  touchAction: 'none',
+                  userSelect: 'none',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0, overflow: 'hidden' }}>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      opacity: isDragging ? 1 : 0.45,
+                      color: isDragging ? '#38bdf8' : '#94a3b8',
+                      cursor: 'inherit',
+                      padding: '0 1px',
+                    }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor">
+                      <circle cx="5" cy="3" r="1.5" />
+                      <circle cx="11" cy="3" r="1.5" />
+                      <circle cx="5" cy="8" r="1.5" />
+                      <circle cx="11" cy="8" r="1.5" />
+                      <circle cx="5" cy="13" r="1.5" />
+                      <circle cx="11" cy="13" r="1.5" />
+                    </svg>
+                  </span>
+                  <span style={{ width: 6, height: 6, flexShrink: 0, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online" />
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 10.5, fontWeight: 800, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {teacher.name}
+                  </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 3, flexShrink: 0 }}>
+                  {isSettled && (
+                    <button
+                      type="button"
+                      data-no-drag
+                      data-testid="global-avatar-reset-dock-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        resetMentorPosition();
+                      }}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      title="Reset mentor back to bottom dock"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.18)',
+                        borderRadius: 4,
+                        color: '#94a3b8',
+                        fontSize: 8.5,
+                        fontWeight: 700,
+                        padding: '1px 4px',
+                        cursor: 'pointer',
+                        lineHeight: 1.2,
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      Dock
+                    </button>
+                  )}
                   <button
+                    type="button"
+                    data-no-drag
+                    data-testid="global-avatar-priority-btn"
+                    onClick={() => enterHyperActive('diagnostic')}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    title="Open Executive Priorities & Mistakes Dossier (or say 'Hey Priya, what are my priorities')"
+                    style={{
+                      background: 'rgba(245,158,11,0.16)',
+                      border: '1px solid rgba(245,158,11,0.45)',
+                      borderRadius: 5,
+                      color: '#fde68a',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      padding: '2px 5px',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-mono)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Priorities
+                  </button>
+                  <button
+                    type="button"
+                    data-no-drag
+                    data-testid="global-avatar-hyper-btn"
+                    onClick={() => enterHyperActive('conversational')}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    title="Open Hyper-Active Chat (or say 'Hey Priya, we need to chat')"
+                    style={{
+                      background: 'rgba(56,189,248,0.16)',
+                      border: '1px solid rgba(56,189,248,0.4)',
+                      borderRadius: 5,
+                      color: '#bae6fd',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      padding: '2px 5px',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-mono)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Chat
+                  </button>
+                  <button
+                    type="button"
+                    data-no-drag
                     onClick={startStoryMode}
+                    onPointerDown={(e) => e.stopPropagation()}
                     title="Launch Story Tour"
                     style={{
                       background: 'linear-gradient(135deg, var(--accent), var(--purple))',
                       border: 'none',
-                      borderRadius: 6,
-                      color: 'var(--text)',
-                      fontSize: 10.5,
-                      fontWeight: 800,
-                      padding: '2px 7px',
+                      borderRadius: 5,
+                      color: '#ffffff',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      padding: '2px 5px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
-                      lineHeight: 1.3,
-                      boxShadow: '0 2px 8px rgba(var(--brand-rgb), 0.4)',
+                      lineHeight: 1.2,
+                      whiteSpace: 'nowrap',
                     }}
                   >
-                    ✨ Tour
+                    Tour
                   </button>
                   <button
+                    type="button"
+                    data-no-drag
                     onClick={() => setMinimized(true)}
-                    title="Dock Floating Avatar"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    title="Minimize Mentor"
                     style={{
-                      background: 'rgba(255,255,255,0.12)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      borderRadius: 6,
-                      color: 'var(--text)',
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.16)',
+                      borderRadius: 5,
+                      color: '#e2e8f0',
                       fontSize: 11,
                       fontWeight: 700,
-                      padding: '2px 7px',
+                      padding: '1px 5px',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-mono)',
-                      lineHeight: 1.2
+                      lineHeight: 1.2,
                     }}
                   >
                     −
@@ -902,7 +1614,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 </div>
               </div>
 
-              <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : '20px 20px 0 0' }}>
+              {/* Unobstructed 3D avatar canvas region */}
+              <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative', overflow: 'hidden' }}>
                 <Suspense fallback={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>Loading mentor...</div>}>
                   <AvatarMentorWidget
                     userId={user?.id}
@@ -923,38 +1636,65 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 </Suspense>
               </div>
 
-              {/* Speech bubble overlay when not minimized */}
+              {/* Compact 2-line caption strip docked below the avatar (never covering the avatar body) */}
               {dialogueText && showSpeechBubble && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: 12,
-                  left: 12,
-                  right: 12,
-                  background: 'rgba(15,23,42,0.92)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  borderRadius: 14,
-                  padding: '10px 12px',
-                  zIndex: 10,
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-                }}>
-                  <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.45, maxHeight: 90, overflowY: 'auto' }}>
-                    {dialogueText}
+                <div
+                  data-testid="global-avatar-compact-caption"
+                  title={dialogueText}
+                  style={{
+                    flexShrink: 0,
+                    background: 'rgba(15,23,42,0.94)',
+                    borderTop: '1px solid rgba(255,255,255,0.08)',
+                    padding: '6px 8px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                    <div style={{
+                      flex: 1,
+                      fontSize: 10.5,
+                      color: '#e2e8f0',
+                      lineHeight: 1.35,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {dialogueText}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowSpeechBubble(false)}
+                      title="Hide caption"
+                      aria-label="Hide caption"
+                      style={{
+                        flexShrink: 0,
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'rgba(148,163,184,0.8)',
+                        fontSize: 11,
+                        lineHeight: 1,
+                        cursor: 'pointer',
+                        padding: '1px 2px',
+                      }}
+                    >
+                      ×
+                    </button>
                   </div>
                   {showButton && (
                     <button
+                      type="button"
                       onClick={onButtonClick}
                       style={{
-                        marginTop: 8,
+                        marginTop: 5,
                         width: '100%',
-                        padding: '6px 0',
-                        borderRadius: 8,
+                        padding: '4px 0',
+                        borderRadius: 6,
                         border: 'none',
                         background: 'var(--accent)',
-                        color: 'white',
-                        fontSize: 12,
-                        fontWeight: 800,
-                        cursor: 'pointer'
+                        color: '#ffffff',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        cursor: 'pointer',
                       }}
                     >
                       {buttonText}

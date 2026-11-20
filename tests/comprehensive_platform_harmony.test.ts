@@ -16,26 +16,28 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
   describe('Auditor 1 (Persona 4: Student UX & Story Tour Synchronicity)', () => {
     it('C1.1: TOUR_SLIDES matches current unified STUDENT_NAV architecture', () => {
       assert.ok(Array.isArray(TOUR_SLIDES), 'TOUR_SLIDES must be an array');
-      assert.strictEqual(TOUR_SLIDES.length, 16, 'Story tour must have 16 streamlined slides');
+      assert.strictEqual(TOUR_SLIDES.length, 15, 'Story tour must have 15 streamlined slides (intro + 12 left tabs + academics + wrap-up)');
 
-      // Slide 7 must be AI Interview Studio
-      const interviewSlide = TOUR_SLIDES[7];
+      // Slide 6 must be AI Interview Studio
+      const interviewSlide = TOUR_SLIDES[6];
       assert.strictEqual(interviewSlide.route, '/interview');
       assert.strictEqual(interviewSlide.title, 'AI Interview & GD Studio');
-      assert.strictEqual(interviewSlide.segmentLabel, 'TAB 7/13 · AI INTERVIEW & GD');
+      assert.strictEqual(interviewSlide.segmentLabel, 'TAB 6/12 · AI INTERVIEW');
 
-      // Slide 8 must be Digital Studio
-      const mirrorSlide = TOUR_SLIDES[8];
+      // Slide 7 must be Digital Studio
+      const mirrorSlide = TOUR_SLIDES[7];
       assert.strictEqual(mirrorSlide.route, '/mirror');
       assert.strictEqual(mirrorSlide.title, 'Digital Studio');
-      assert.strictEqual(mirrorSlide.segmentLabel, 'TAB 8/13 · DIGITAL STUDIO');
+      assert.strictEqual(mirrorSlide.segmentLabel, 'TAB 7/12 · DIGITAL STUDIO');
       assert.ok(mirrorSlide.text.includes('ATS Resume Studio'), 'Mirror slide must mention ATS Resume Studio');
 
-      // Verify no slide points to obsolete dead routes
+      // Innovation Hub must be included and obsolete/removed sidebar tabs must be absent
+      assert.ok(TOUR_SLIDES.some((s) => s.route === '/innovation-hub'), 'Story tour must include Innovation Hub');
       for (const slide of TOUR_SLIDES) {
         assert.notStrictEqual(slide.route, '/group-discussion', 'No slide should route to obsolete /group-discussion');
         assert.notStrictEqual(slide.route, '/learning', 'No slide should route to obsolete /learning');
         assert.notStrictEqual(slide.route, '/career-builder', 'No slide should route to obsolete /career-builder');
+        assert.notStrictEqual(slide.route, '/pins', 'No slide should route to removed sidebar tab /pins');
       }
     });
 
@@ -169,7 +171,7 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
   describe('Auditor 4 (Defensive Invariants & Role Gate Cleanliness)', () => {
     it('C4.1: STUDENT_NAV merges Arena and Leaderboard into one destination relocated under My Network (Vault removed)', () => {
       const items = STUDENT_NAV[0].items;
-      assert.strictEqual(items.length, 9, 'STUDENT_NAV includes the 9 current primary destinations');
+      assert.strictEqual(items.length, 8, 'STUDENT_NAV includes the 8 current primary destinations');
       const hrefs = items.map((i: any) => i.href);
       assert.deepStrictEqual(hrefs, [
         '/dashboard',
@@ -179,8 +181,7 @@ describe('COMPREHENSIVE PLATFORM HARMONIZATION & ADVERSARIAL INTEGRATION AUDIT',
         '/innovation-hub',
         '/interview',
         '/mirror',
-        '/attention-span',
-        '/shop'
+        '/attention-span'
       ]);
       assert.equal(isPathActive('/leaderboard', '/arena'), true, 'Leaderboard deep links should keep the combined sidebar item active');
     });

@@ -2,6 +2,7 @@
 import { AvatarMode } from './avatarFeatureFlags';
 import { TriStateMemoryResult } from './memoryStore';
 import { calculateEngagementIndex } from './deterministicAdvisor';
+import { buildHyperActivePromptDirective } from './hyperActivePersona';
 
 export interface BaseMentorContext {
   studentName: string;
@@ -11,6 +12,10 @@ export interface BaseMentorContext {
   atsScore: number;
   teacherId?: string;
   slideContextPrompt?: string;
+  hyperActive?: boolean;
+  completedQuestsCount?: number;
+  completedMissionsCount?: number;
+  missionStreak?: number;
 }
 
 export function buildMentorSystemPrompt(
@@ -21,6 +26,31 @@ export function buildMentorSystemPrompt(
   const teacherTag = base.teacherId ? ` (Persona: ${base.teacherId})` : '';
   const skillsText = base.missingSkills.length > 0 ? base.missingSkills.join(', ') : 'No critical gaps flagged yet';
   const slideText = base.slideContextPrompt || '';
+  const hyperBlock = base.hyperActive
+    ? buildHyperActivePromptDirective({
+        studentName: base.studentName,
+        targetRole: base.targetRole,
+        completedQuestsCount: base.completedQuestsCount,
+        completedMissionsCount: base.completedMissionsCount,
+        missionStreak: base.missionStreak,
+      })
+    : '';
+
+  // Hyper-Active Mode: Pure, concise, human conversation (1-2 sentences, < 30 words, zero repetition)
+  if (base.hyperActive) {
+    return `You are an elite, warm, empathetic personal AI mentor at PinIT Career OS${teacherTag}.
+You are directly speaking with ${base.studentName} in live Hyper-Active focus mode.
+Target Career Role: "${base.targetRole}".
+Active Learning Quest: "${base.questTitle}".
+Verified Progress: ${base.completedQuestsCount || 0} lessons completed, ${base.completedMissionsCount || 0} daily missions completed, ${base.missionStreak || 0}-day streak.
+${hyperBlock}
+
+CRITICAL EXECUTION INSTRUCTIONS:
+1. Speak in short, warm, natural conversational sentences (1 to 2 sentences max, UNDER 30 WORDS TOTAL).
+2. DO NOT output paragraphs, multi-line essays, or bullet lists.
+3. DO NOT repeat progress stats, lesson counts, or streak numbers unless the student explicitly asks about progress.
+4. If the student acknowledges or says "ok", "cool", "ur wish", or asks "what is my next move", give an immediate, encouraging, proactive suggestion.`;
+  }
 
   // 1. If v1_legacy or no memory state passed -> return exact legacy prompt
   if (mode !== 'v2_advisor' || !memoryState) {
@@ -29,7 +59,7 @@ You are directly mentoring ${base.studentName}, who is aiming for the role of "$
 CURRENT STUDENT CONTEXT:
 - Active Learning Quest: "${base.questTitle}"
 - Critical Skill Gaps to close: ${skillsText}
-- Current ATS Resume Score: ${base.atsScore}/100${slideText}
+- Current ATS Resume Score: ${base.atsScore}/100${slideText}${hyperBlock}
 
 YOUR INSTRUCTIONS:
 1. Provide actionable, concise, pragmatic advice tailored to their role and active quest.
@@ -78,7 +108,7 @@ You are directly mentoring ${base.studentName}, who is aiming for the role of "$
 CURRENT STUDENT CONTEXT:
 - Active Learning Quest: "${base.questTitle}"
 - Critical Skill Gaps to close: ${skillsText}
-- Current ATS Resume Score: ${base.atsScore}/100${slideText}${memoryBlock}
+- Current ATS Resume Score: ${base.atsScore}/100${slideText}${memoryBlock}${hyperBlock}
 
 YOUR INSTRUCTIONS:
 1. Provide actionable, concise, pragmatic advice tailored to their role, active quest, and personal memory context.

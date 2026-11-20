@@ -18,6 +18,7 @@ function InnovationHubPageContent() {
   const initialRepo = searchParams?.get('repo') || undefined;
   const initialTitle = searchParams?.get('title') || undefined;
   const initialProblem = searchParams?.get('problem') || undefined;
+  const autoOpenCreateModal = searchParams?.get('autostart') === 'squad';
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
@@ -29,6 +30,7 @@ function InnovationHubPageContent() {
         initialRepoUrl={initialRepo}
         initialTitle={initialTitle}
         initialProblem={initialProblem}
+        autoOpenCreateModal={autoOpenCreateModal}
       />
     </div>
   );

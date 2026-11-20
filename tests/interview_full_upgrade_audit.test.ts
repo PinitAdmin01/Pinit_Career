@@ -551,3 +551,65 @@ test('Deep Tab Audit Round 2: Verdict/Readiness tone, RadarChart 0% label, evalu
   assert.ok(!cssSrc.includes(":root.light [data-theme='light'] .iv-canvas-bg"), 'Broken light descendant selector must be fixed to comma selector');
   assert.ok(cssSrc.includes('.iv-setup-grid') && cssSrc.includes('.iv-assist-drawer') && cssSrc.includes('.iv-eval-report'));
 });
+
+test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants', async () => {
+  const { analyzeCandidateTurn, generateProgressiveFallbackQuestion } = await import('../src/app/api/interview/chat/route');
+
+  // Test 1: "in this scenario I don't know what to do" must classify as 'stuck', never praise or hallucinate success
+  const analysis1 = analyzeCandidateTurn("in this scenario I don't know what to do", 'Software Engineering (SDE)');
+  assert.equal(analysis1.intent, 'stuck', 'Must classify uncertainty as stuck');
+
+  const reply1 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Software Engineering (SDE)',
+    history: [
+      { role: 'assistant', content: 'Tell me about a trade-off.' },
+      { role: 'user', content: "in this scenario I don't know what to do" }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+
+  assert.ok(!reply1.includes('focusing on focusing on'), 'Must never output duplicate focusing on prefixes');
+  assert.ok(!reply1.includes('pragmatic decision'), 'Must never call being stuck a pragmatic decision');
+  assert.ok(!reply1.includes('— Ms. Sneha'), 'Must not have robotic trailing sign-off');
+  assert.ok(reply1.toLowerCase().includes('fine') || reply1.toLowerCase().includes('worries') || reply1.toLowerCase().includes('pivot') || reply1.toLowerCase().includes('step back'), 'Must provide empathetic pivot');
+
+  // Test 2: "I don't know" must never be praised as a tackled success
+  const analysis2 = analyzeCandidateTurn("I don't know", 'Software Engineering (SDE)');
+  assert.equal(analysis2.intent, 'stuck');
+
+  const reply2 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Software Engineering (SDE)',
+    history: [
+      { role: 'assistant', content: 'What was your metric?' },
+      { role: 'user', content: "I don't know" }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+
+  assert.ok(!reply2.includes('tackled I don\'t know'), 'Must never praise I don\'t know');
+  assert.ok(!reply2.includes('confirmed to you and your team that this decision was a success'), 'Must never hallucinate success for I don\'t know');
+  assert.ok(!reply2.endsWith('— Ms. Sneha'), 'Must not end with robotic sign-off');
+
+  // Test 3: Broad intro greetings without project depth ask for concrete project
+  const analysis3 = analyzeCandidateTurn('hi I am full stack software developer with a strong focus on software engineering', 'Software Engineering (SDE)');
+  assert.equal(analysis3.intent, 'intro');
+
+  const reply3 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Software Engineering (SDE)',
+    history: [
+      { role: 'assistant', content: 'Welcome!' },
+      { role: 'user', content: 'hi I am full stack software developer with a strong focus on software engineering' }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+
+  assert.ok(!reply3.includes('focusing on hi am full stack'), 'Must not produce nonsense word slices');
+  assert.ok(reply3.toLowerCase().includes('project') || reply3.toLowerCase().includes('challenge'), 'Must prompt for specific project details');
+  assert.ok(!reply3.endsWith('— Ms. Sneha'), 'Must not end with robotic sign-off');
+});

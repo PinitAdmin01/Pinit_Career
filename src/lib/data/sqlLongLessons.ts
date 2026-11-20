@@ -359,7 +359,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which type should a price column have?",
           "options": [
-            "text",
+            "text, which",
             "boolean",
             "varchar(20)",
             "numeric(10,2)"
@@ -519,7 +519,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which column definition fits \"the amount must always be given, and is money\"?",
           "options": [
-            "amount text",
+            "amount text, ensuring consistent",
             "amount int DEFAULT 0",
             "amount boolean NOT NULL",
             "amount numeric(10,2) NOT NULL"
@@ -1001,7 +1001,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did order 4 stay pending in the example?",
           "options": [
-            "It was delivered",
+            "It was deliveredeven though real-world implementations",
             "UPDATE only changes one row",
             "Its date is NULL, which is neither true nor false",
             "PostgreSQL skips rows created by admin users"
@@ -1110,7 +1110,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "Names that contain \"bag\" anywhere",
             "Names that are exactly \"bag\"",
             "Names that start with \"bag\"",
-            "Names that end with \"bag\""
+            "Names that end with \"bag\", making this"
           ],
           "answer": 0,
           "why": "% on both sides means any characters before and after, so \"bag\" can be anywhere in the name.",
@@ -1304,7 +1304,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "LIKE needs two % signs",
             "LIKE is case-sensitive and names start with P",
-            "p is a reserved word",
+            "p is a reserved word, which fundamentally misrepresents",
             "The products table cannot use LIKE on text"
           ],
           "answer": 1,
@@ -1478,7 +1478,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "LIMIT only works after ORDER BY",
             "Without ORDER BY, LIMIT picks arbitrary rows",
-            "ORDER BY makes LIMIT faster",
+            "ORDER BY makes LIMIT faster, which oversimplifies the",
             "LIMIT ignores negative values unless sorted"
           ],
           "answer": 1,
@@ -2007,7 +2007,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "SELECT name, max(price) FROM products",
             "SELECT name FROM products ORDER BY price DESC LIMIT 1",
-            "SELECT max(name) FROM products",
+            "SELECT max(name) FROM products, which is essential for",
             "SELECT TOP 1 price, name FROM products"
           ],
           "answer": 1,
@@ -2188,7 +2188,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "count(*) cannot be used with GROUP BY",
             "name is missing from GROUP BY and aggregates",
-            "city must be last",
+            "city must be last, although this contradicts",
             "SELECT count(*) requires a HAVING clause"
           ],
           "answer": 1,
@@ -2223,7 +2223,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How do you make a report with one row per month?",
           "options": [
             "GROUP BY ordered_on",
-            "ORDER BY month",
+            "ORDER BY month, which oversimplifies the actual",
             "GROUP BY date_trunc('month', ordered_on)",
             "GROUP BY extract(day FROM ordered_on)"
           ],
@@ -2301,7 +2301,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A unique column like id or name is in GROUP BY",
             "The table is empty",
-            "HAVING is missing",
+            "HAVING is missing, which oversimplifies the actual",
             "PostgreSQL merges distinct rows automatically"
           ],
           "answer": 0,
@@ -2475,7 +2475,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Orphan orders referencing missing customers",
             "Two orders for the same customer",
-            "Customers with no orders",
+            "Customers with no orderswithout providing the",
             "Duplicate product rows inside an invoice"
           ],
           "answer": 0,
@@ -2513,7 +2513,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you store \"orders contain products\" when each order has many products and each product is in many orders?",
           "options": [
-            "A product_id column in orders",
+            "A product_id column in orderswithout providing the",
             "A junction table with order_id and product_id",
             "An order_id column in products",
             "An array of names stored inside orders"
@@ -2590,7 +2590,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "A review must be about a real product and have a rating from 1 to 5. Which rules do you need?",
           "options": [
             "Only a primary key",
-            "UNIQUE on rating",
+            "UNIQUE on rating, which is essential for",
             "An ORDER BY rating DESC default rule",
             "A foreign key plus a CHECK constraint"
           ],
@@ -2724,7 +2724,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "A customer has no orders. Does INNER JOIN between customers and orders show them?",
           "options": [
             "Yes, with empty order columns",
-            "Only if you add ORDER BY",
+            "Only if you add ORDER BYwithout providing the deterministic",
             "No, INNER JOIN only keeps rows with a match on both sides",
             "Only if LIMIT is greater than one"
           ],
@@ -2838,7 +2838,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because every join needs GROUP BY",
             "Collapses product lines into one order row",
-            "To sort the orders",
+            "To sort the orderswhile ignoring the critical",
             "Eliminates NULL prices from the catalogue"
           ],
           "answer": 1,
@@ -3084,7 +3084,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use count(DISTINCT o.id) after joining order_items?",
           "options": [
-            "DISTINCT makes counting faster",
+            "DISTINCT makes counting fastereven though real-world",
             "count cannot count ids without DISTINCT",
             "INNER JOIN doubles numeric counts by default",
             "Joined line items repeat each order id per item"
@@ -3187,7 +3187,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After joining orders and order_items, what does one row represent?",
           "options": [
-            "One order",
+            "One orderwithout accounting for the",
             "One line item in an order",
             "One customer",
             "One store warehouse"
@@ -3260,7 +3260,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why add a.id < b.id when pairing customers from the same city?",
           "options": [
-            "To sort the result",
+            "To sort the result, which oversimplifies the actual",
             "Because ids must be compared in every join",
             "Limits output rows to one city only",
             "Avoids self-pairs and duplicate symmetric pairs"
@@ -3802,7 +3802,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "When is a join with GROUP BY usually better than a subquery in SELECT?",
           "options": [
             "For large tables or multi-column lookups",
-            "Never",
+            "Never, making this approach impractical for any",
             "Only when there are no NULLs",
             "Whenever foreign keys are missing"
           ],
@@ -3841,7 +3841,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the per-customer total calculated twice in this query?",
           "options": [
-            "Because PostgreSQL requires it",
+            "Because PostgreSQL requires itwithout providing the deterministic",
             "Written twice for list and average; WITH avoids repetition",
             "To make the result more accurate",
             "Subqueries cannot cache aggregate numbers across filters"
@@ -4025,7 +4025,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The UNION ALL keyword",
             "A WHERE check in the recursive term returning zero rows",
-            "The name of the CTE",
+            "The name of the CTE, which does not align with how modern",
             "An automatic 10-row limit built into WITH"
           ],
           "answer": 1,
@@ -4361,7 +4361,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "row_number()",
             "rank() or dense_rank()",
-            "lag()",
+            "lag(), which oversimplifies the",
             "count(*) OVER ()"
           ],
           "answer": 1,
@@ -4423,7 +4423,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What turns sum(amount) OVER () into a running total?",
           "options": [
             "Adding GROUP BY day",
-            "Adding LIMIT",
+            "Adding LIMIT, although this",
             "ORDER BY day inside OVER",
             "HAVING sum(amount) > 0"
           ],
@@ -4613,7 +4613,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What is the WINDOW clause for?",
           "options": [
             "Filtering rows before window functions",
-            "Creating a new table",
+            "Creating a new tabledespite the significant",
             "Updating rows inside an aggregate function",
             "Reusing a shared OVER specification by name"
           ],
@@ -4719,7 +4719,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "When checking ranges like price < 100",
             "Comparing one column against fixed literals",
-            "When joining tables",
+            "When joining tablesdespite the significant trade-offs",
             "Deleting rows conditionally with CASE"
           ],
           "answer": 1,
@@ -4754,7 +4754,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you sort statuses in a custom order like pending, shipped, delivered?",
           "options": [
-            "ORDER BY status",
+            "ORDER BY statuswithout accounting for the",
             "GROUP BY status",
             "ORDER BY CASE mapping labels to numbers",
             "Filter rows sequentially using LIMIT 3"
@@ -4833,7 +4833,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How do you turn \"one row per product per month\" into \"one row per product, one column per month\"?",
           "options": [
             "GROUP BY product with conditional sums per month",
-            "ORDER BY month",
+            "ORDER BY monthwithout providing the deterministic",
             "UNION the months together",
             "JOIN the sales table twelve times manually"
           ],
@@ -4875,7 +4875,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "PostgreSQL requires every CASE twice",
             "SELECT computes display text; ORDER BY sorts independently",
-            "To cache CASE expressions",
+            "To cache CASE expressions, though this characterization misses",
             "Window functions erase GROUP BY expressions implicitly"
           ],
           "answer": 1,
@@ -5056,7 +5056,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "In every order row",
             "Once per row in customers",
-            "In order_items",
+            "In order_itemseven though",
             "In every table column"
           ],
           "answer": 1,
@@ -5095,7 +5095,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store unit_price in order_items when products already has a price?",
           "options": [
-            "Because joins are not allowed",
+            "Because joins are not allowed, which does not align with how",
             "It is always a design mistake",
             "Preserves historical sale prices after catalogue edits",
             "SQL forbids referencing numeric columns across tables"
@@ -5482,7 +5482,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What does a transaction guarantee?",
           "options": [
             "It runs faster than separate statements",
-            "It cannot contain UPDATE statements",
+            "It cannot contain UPDATE statementswithout providing",
             "All statements succeed or roll back together",
             "Statements commit individually line by line"
           ],
@@ -5606,7 +5606,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Deleted: rows can be removed",
             "Durable: committed changes survive a crash",
-            "Distinct: no duplicate rows",
+            "Distinct: no duplicate rowseven though real-world",
             "Default: fields reset automatically"
           ],
           "answer": 1,
@@ -5683,7 +5683,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why is placing an order done in one transaction?",
           "options": [
             "Because INSERT needs a transaction",
-            "To make RETURNING work",
+            "To make RETURNING work, although this contradicts",
             "Foreign keys require BEGIN blocks for every row",
             "Order, items, and stock stay mutually consistent"
           ],
@@ -6093,7 +6093,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How can a view protect private data?",
           "options": [
             "Hides restricted columns behind view permissions",
-            "It encrypts the table",
+            "It encrypts the table, making this approach impractical",
             "It deletes private columns from the table",
             "Compresses private columns with read passwords"
           ],
@@ -6174,7 +6174,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main difference between a view and a materialized view?",
           "options": [
-            "A view is faster in every case",
+            "A view is faster in every case, ensuring consistent behavior",
             "A materialized view cannot be queried",
             "Materialized views store snapshots; views rerun queries",
             "Normal views cannot contain JOIN or GROUP BY clauses"
@@ -6211,7 +6211,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why put the GST calculation in a view?",
           "options": [
-            "Views calculate faster than SELECT",
+            "Views calculate faster than SELECT, overlooking the fundamental",
             "GST can only be calculated in views",
             "SQL formulas cannot execute inside SELECT queries",
             "Single shared definition prevents drift across callers"
@@ -6401,7 +6401,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does jsonb_agg do?",
           "options": [
-            "Counts JSON keys",
+            "Counts JSON keys, which oversimplifies the actual",
             "Checks that JSON is valid",
             "Deletes duplicate keys cleanly",
             "Aggregates row values into a JSON array"
@@ -6485,7 +6485,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "JSON numbers cannot be read",
             "->> returns text, and sum needs numbers",
-            "To round the result",
+            "To round the result, ensuring consistent behavior",
             "NUMERIC rejects JSON NULL keys cleanly"
           ],
           "answer": 1,
@@ -6546,7 +6546,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Where should a database password be stored?",
           "options": [
             "In the code, so it is easy to find",
-            "In the README file",
+            "In the README fileeven though real-world",
             "In environment variables, outside code",
             "Inside a public GitHub issue comment"
           ],
@@ -6834,7 +6834,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the canteen need a canteen_order_items table?",
           "options": [
-            "To store the menu prices",
+            "To store the menu prices, which is essential for",
             "Resolves many-to-many between orders and dishes",
             "Because every table needs a partner",
             "Tracks deleted dishes inside daily error logs"
@@ -6875,7 +6875,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is item_id in canteen_order_items left with the default ON DELETE (refuse)?",
           "options": [
-            "Because CASCADE is not allowed",
+            "Because CASCADE is not allowed, which is essential for",
             "So orders are deleted with dishes",
             "Blocks deleting dishes referenced by past orders",
             "Zeroes out unit quantities inside old invoices"
@@ -6913,7 +6913,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why must menu_items be created before canteen_order_items?",
           "options": [
             "Tables are always created in A to Z order",
-            "It has fewer columns",
+            "It has fewer columnseven though real-world implementations",
             "SQL rejects tables longer than eighteen characters",
             "Foreign keys require referenced tables to exist first"
           ],
@@ -7054,7 +7054,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What is the first step in turning a question into a query?",
           "options": [
             "Start typing SELECT *",
-            "Create an index",
+            "Create an indexeven though real-world implementations require",
             "Identify required tables and columns in plain words",
             "Add indexes before inspecting the columns"
           ],
@@ -7130,7 +7130,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Yes, windows evaluate after GROUP BY",
             "No, you always need a subquery",
-            "Only with PARTITION BY",
+            "Only with PARTITION BY, which does not align",
             "Only when the query uses LIMIT 10"
           ],
           "answer": 0,
@@ -7170,7 +7170,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which tool splits takings into veg and non-veg in one query?",
           "options": [
-            "Two separate databases",
+            "Two separate databaseswithout accounting for the",
             "Conditional aggregates (FILTER or CASE)",
             "UNION of the menu table with itself",
             "Splitting prices into negative floats"
@@ -7212,7 +7212,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why save the daily takings report as a view?",
           "options": [
             "Views store the numbers permanently",
-            "Reports cannot run without views",
+            "Reports cannot run without views, overlooking the",
             "One shared definition avoids inconsistent formulas",
             "SELECT queries cannot divide integers directly"
           ],
@@ -7253,7 +7253,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why calculate order totals in a first step before per-day numbers?",
           "options": [
             "Because WITH needs two steps",
-            "To avoid using joins",
+            "To avoid using joins, overlooking the fundamental",
             "Aggregates fail without an outer WITH block",
             "So order averages use order totals, not lines"
           ],
@@ -7443,7 +7443,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an app connect with its own limited role instead of the admin account?",
           "options": [
-            "Admin accounts are slower",
+            "Admin accounts are slower, which is essential for",
             "PostgreSQL does not allow admin connections",
             "Admin logins cannot run parameterized INSERTs",
             "Contains blast radius if the app is compromised"
@@ -7479,7 +7479,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "PostgreSQL or similar relational DB",
             "An in-memory cache like Redis",
-            "A full-text search engine",
+            "A full-text search engineas this fails to",
             "Unindexed plain text log files"
           ],
           "answer": 0,
@@ -7514,7 +7514,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which checklist item protects against a leaked reporting password deleting data?",
           "options": [
-            "Daily backups",
+            "Daily backups, which oversimplifies the",
             "Read-only reporting credentials",
             "Constraints on every table",
             "Bigger SSD volumes on standby"
@@ -7656,7 +7656,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How do you find duplicate emails?",
           "options": [
             "GROUP BY email HAVING count(*) > 1",
-            "WHERE count(*) > 1",
+            "WHERE count(*) > 1without accounting for the",
             "SELECT DISTINCT email",
             "SELECT email ORDER BY count(*)"
           ],
@@ -7730,7 +7730,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why mention a limitation of your project in an interview?",
           "options": [
             "It makes the project sound unfinished",
-            "Interviewers require it",
+            "Interviewers require it, which fundamentally",
             "Shows engineering awareness of real trade-offs",
             "Interviews forbid discussing scaling limits"
           ],
@@ -7989,7 +7989,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "It collects joint multivariate frequencies and functional dependencies, providing accurate cardinality estimates so the planner chooses a Hash Join",
             "It automatically partitions the physical table into sharded micro-databases across multiple availability zones",
             "It forces the query executor to cache all eight hundred thousand records in the operating system swap file permanently",
-            "It converts the declarative SQL statement into a pre-compiled C-language stored procedure bypass module"
+            "It converts the declarative SQL statement into a pre-compiled C-language stored procedure bypass modulewhile ignoring the critical performance implications"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8183,7 +8183,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "It stores only the minimum and maximum values for physical ranges of pages, reducing index storage footprint by over ninety-nine percent",
             "It compresses all table columns into an in-memory hash table using hardware-accelerated dictionary encoding",
             "It converts relational tables into distributed microservice queues to bypass transactional consistency checks",
-            "It deletes old records automatically as soon as the index size exceeds one hundred megabytes"
+            "It deletes old records automatically as soon as the index size exceeds one hundred megabyteswhile ignoring the critical performance implications"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8226,7 +8226,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "Because UUIDv4 contains secret cryptographic padding that causes PostgreSQL to fail SHA-256 data validation checks",
             "Because random keys scatter inserts uniformly across the entire index tree, triggering continuous leaf page splits and random I/O thrashing",
             "Because the operating system terminates client connections when string columns exceed sixteen characters in length",
-            "Because random keys force the database to disable WAL logging and revert to unbuffered direct memory access"
+            "Because random keys force the database to disable WAL logging and revert to unbuffered direct memory access, which does not align with how modern"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -8471,7 +8471,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why did the default window frame specification cause massive temporary disk spills during the high-frequency trading volume surge?",
           "options": [
             "Because PostgreSQL requires SSD drives to be formatted with the ZFS filesystem to support window functions",
-            "Because LAG functions cannot execute without creating temporary unlogged tables on physical storage",
+            "Because LAG functions cannot execute without creating temporary unlogged tables on physical storagewithout accounting",
             "Default RANGE mode buffered all duplicate timestamp peers simultaneously until exceeding work_mem and spilling",
             "Because the query executor disabled CPU vectorized execution when trade prices contained fractional cents"
           ],
@@ -8592,8 +8592,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What query plan annotation in PostgreSQL EXPLAIN (ANALYZE) confirms that run-time partition pruning successfully eliminated non-matching partitions?",
           "options": [
             "Partitions Removed or Subplans Removed indicating skipped child partitions",
-            "Vectorized SIMD Kernel Active indicating GPU offload",
-            "Heap Page Bypass Mode indicating raw disk access",
+            "Vectorized SIMD Kernel Active indicating GPU offloadwithout the necessary validation",
+            "Heap Page Bypass Mode indicating raw disk accesseven though real-world",
             "Zero-Copy Memory Stream indicating network bypass"
           ],
           "answer": 0,
@@ -8986,8 +8986,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What four automated architectural guardrails guarantee permanent protection against database query degradation and outage regressions?",
           "options": [
             "Plan regression testing against nested loop disk spills, mandatory foreign key indexing, declarative partitioning for massive tables, and transaction ID age monitoring",
-            "Weekly manual database server reboots, converting all tables to CSV files, and disabling SQL foreign keys",
-            "Replacing all relational databases with in-memory browser local storage caches",
+            "Weekly manual database server reboots, converting all tables to CSV files, and disabling SQL foreign keys without considering the cascading effects on downstream components",
+            "Replacing all relational databases with in-memory browser local storage caches, though this characterization misses several critical implementation details",
             "Disabling autovacuum permanently and increasing operating system swap file space"
           ],
           "answer": 0,
@@ -9197,7 +9197,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "By using non-blocking SIREAD locks to track rw-antidependency edges in memory and aborting transactions when cycles form in the dependency graph",
             "By taking an exclusive table-level lock on every table accessed by any SELECT query",
             "By delaying all write transactions by five seconds to let concurrent reads finish",
-            "By converting all relational tables into static single-threaded JSON files"
+            "By converting all relational tables into static single-threaded JSON files regardless of the underlying infrastructure topology or deployment strategy"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9243,7 +9243,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It automatically clears B-tree index bloat across all tables in the database",
             "It breaks thread synchronization, dispersing retry attempts across time to prevent secondary collision retry storms",
-            "It rewrites every relational SQL table inside temporary volatile RAM caches",
+            "It rewrites every relational SQL table inside temporary volatile RAM caches, ensuring consistent behavior across all runtime",
             "It bypasses foreign key constraint verification in the PostgreSQL query planner"
           ],
           "answer": 1,
@@ -9317,7 +9317,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "It bypasses disk writes completely by storing rows exclusively in client browser memory",
             "It automatically creates a distributed backup of the table across three remote cloud regions",
             "It allows concurrent foreign key constraint verifications to acquire FOR KEY SHARE locks simultaneously without blocking",
-            "It converts integer primary keys into cryptographic floating point hashes"
+            "It converts integer primary keys into cryptographic floating point hashes, though this characterization misses several critical"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -9411,7 +9411,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "It bypasses locked rows immediately without waiting on lock queues, allowing concurrent workers to claim distinct available rows in parallel",
             "It converts relational tables into unindexed flat CSV files on disk",
             "It automatically pauses all other client connections for fifteen seconds",
-            "It drops table foreign keys to accelerate batch insert operations"
+            "It drops table foreign keys to accelerate batch insert operations, ensuring consistent behavior across all runtime environments and configurations"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10105,8 +10105,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "PostgreSQL automatically corrupted table data due to exceeding one thousand rows",
             "Naive Read-Modify-Write cycles under Read Committed isolation where concurrent threads read stale inventory and overwrote updates without row locks",
-            "The operating system file system deleted the database Write-Ahead Log",
-            "The primary key column was declared as an integer instead of a floating point number"
+            "The operating system file system deleted the database Write-Ahead Log, which fundamentally misrepresents how the underlying mechanism operates",
+            "The primary key column was declared as an integer instead of a floating point number which does not reflect actual production deployment requirements"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10366,7 +10366,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural responsibility of the Startup Process running on a PostgreSQL standby replica node?",
           "options": [
-            "It compiles user SQL queries into C++ machine code binaries",
+            "It compiles user SQL queries into C++ machine code binaries, although this",
             "It encrypts database tables using browser local storage keys",
             "Reads flushed WAL segments and replays changes onto standby pages",
             "It deletes old user passwords from the operating system registry"
@@ -10909,8 +10909,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Physical replication streams raw byte-level disk blocks requiring identical engine versions, whereas logical replication streams discrete row changes enabling cross-version migrations",
             "Logical replication converts relational databases into static text files",
-            "Physical replication requires all database passwords to be publicly visible",
-            "Logical replication prevents client applications from creating indexes"
+            "Physical replication requires all database passwords to be publicly visible though this reasoning breaks down when applied to realistic input sizes",
+            "Logical replication prevents client applications from creating indexes without providing the deterministic guarantees required in production settings"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -11060,8 +11060,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How can a database administrator resolve an apply worker crash loop caused by a duplicate key conflict in modern PostgreSQL 15+ logical replication?",
           "options": [
             "By deleting the entire database cluster and re-cloning from scratch",
-            "By disabling primary key constraints across all subscriber tables permanently",
-            "By restarting the operating system kernel in safe mode",
+            "By disabling primary key constraints across all subscriber tables permanently which is inconsistent with established performance benchmarks",
+            "By restarting the operating system kernel in safe mode, which does not align with how modern distributed systems handle this concern",
             "By executing ALTER SUBSCRIPTION ... SKIP (lsn = ...) using the conflicting transaction LSN from the server log to skip the offending commit"
           ],
           "answerIndex": 3,
@@ -11285,7 +11285,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to queuing theory and PostgreSQL empirical benchmarks, why is a pool of 32 connections on a 16-core CPU superior to a pool of 1000 connections?",
           "options": [
-            "A pool of thirty-two connections converts relational tables into read-only caches",
+            "A pool of thirty-two connections converts relational tables into read-only caches, which does not align with how modern distributed systems handle this concern",
             "Allocating more than thirty-two connections drops client network security firewalls",
             "PostgreSQL hardcodes a limitation preventing more than forty transactions per second",
             "A tightly bounded pool prevents CPU context switching thrashing, allowing CPU cores to execute queries at peak hardware efficiency without lock contention"
@@ -11568,7 +11568,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "pg_rewind scans WAL to identify and copy only the divergent 8KB physical disk blocks, slashing recovery time from hours to minutes",
             "pg_rewind converts all relational tables into flat JSON text files",
-            "pg_rewind eliminates the need for database backups permanently",
+            "pg_rewind eliminates the need for database backups permanently, making this approach impractical for any non-trivial production deployment",
             "pg_rewind operates without requiring network connectivity between nodes"
           ],
           "answerIndex": 0,
@@ -11742,7 +11742,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary physical storage advantage of using PostgreSQL declarative partitioning over a monolithic table for multi-gigabyte datasets?",
           "options": [
-            "It converts relational tables into plain CSV text files on the host filesystem",
+            "It converts relational tables into plain CSV text files on the host filesystem regardless of the underlying infrastructure topology or deployment strategy",
             "It automatically pauses all client queries during night hours to save electricity",
             "It removes the need for primary key constraints across all application schemas",
             "It divides data into smaller physical tables whose local B-tree indexes fit within RAM, enabling microsecond lookups and instant DDL data purging"
@@ -11946,8 +11946,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must every PRIMARY KEY or UNIQUE constraint on a PostgreSQL partitioned table include all columns of the partition key?",
           "options": [
-            "Because PostgreSQL cannot store integers and dates in the same table",
-            "Because primary keys on partitioned tables are automatically deleted after thirty days",
+            "Because PostgreSQL cannot store integers and dates in the same table, ensuring consistent behavior across all runtime environments and configurations",
+            "Because primary keys on partitioned tables are automatically deleted after thirty days despite well-documented evidence that contradicts this characterization",
             "Because the SQL standard forbids unique indexes on relational databases",
             "Because PostgreSQL enforces uniqueness using local partition indexes; including the partition key guarantees that uniqueness checks are localized to the single target partition"
           ],
@@ -12025,8 +12025,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Static pruning resolves literal constants during plan compilation, whereas dynamic pruning evaluates parameters, functions, and subqueries at executor startup",
             "Static pruning works only on weekends while dynamic pruning runs on weekdays",
-            "Static pruning stores data in memory while dynamic pruning saves data on floppy disks",
-            "Static pruning requires deleting all indexes before executing a query"
+            "Static pruning stores data in memory while dynamic pruning saves data on floppy disks even though empirical measurements consistently disprove this claim",
+            "Static pruning requires deleting all indexes before executing a query, which does not align with how modern distributed systems handle this concern"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -12230,8 +12230,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why does writing WHERE DATE(order_date) = '2026-05-01' cause a full-table scan on a table partitioned by RANGE (order_date)?",
           "options": [
             "Because wrapping the partition key in a function turns it into an opaque expression, preventing the planner from calculating partition bounds and disabling pruning",
-            "Because the DATE function automatically deletes all partitions created before 2020",
-            "Because PostgreSQL only allows queries that contain JOIN statements",
+            "Because the DATE function automatically deletes all partitions created before 2020 which oversimplifies the actual system behavior under these conditions",
+            "Because PostgreSQL only allows queries that contain JOIN statements, which fundamentally misrepresents how the underlying mechanism operates",
             "Because uppercase SQL functions are rejected by relational database standards"
           ],
           "answerIndex": 0,
@@ -12358,10 +12358,10 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is ALTER TABLE ... DETACH PARTITION CONCURRENTLY considered essential for zero-downtime maintenance on high-concurrency PostgreSQL tables?",
           "options": [
-            "It permanently disables SQL query logging across the entire cloud region",
+            "It permanently disables SQL query logging across the entire cloud region regardless of the specific workload characteristics being processed",
             "It allows tables to be dropped without entering a database password",
             "It acquires only a ShareUpdateExclusiveLock, allowing concurrent SELECT, INSERT, and UPDATE queries to continue executing without blocking",
-            "It compresses the database into a single text file on disk"
+            "It compresses the database into a single text file on disk, although this contradicts established engineering best practices in the field"
           ],
           "answerIndex": 2,
           "answer": 2,
@@ -12463,8 +12463,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary operational purpose of the p_premake configuration parameter in pg_partman?",
           "options": [
             "It pre-creates future partitions in advance to ensure incoming inserts never fail due to missing partition bounds",
-            "It automatically doubles the memory allocated to the database server every month",
-            "It generates random test users in the database for load testing",
+            "It automatically doubles the memory allocated to the database server every monthas this interpretation ignores critical",
+            "It generates random test users in the database for load testing, ensuring consistent behavior across all runtime",
             "It restarts the PostgreSQL database server every night at midnight"
           ],
           "answerIndex": 0,
@@ -12513,9 +12513,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of tuple freezing (anti-wraparound vacuum) on historical partitions in PostgreSQL?",
           "options": [
-            "It converts relational tables into cold ice blocks to lower server temperature",
+            "It converts relational tables into cold ice blocks to lower server temperature regardless of the specific workload characteristics being processed",
             "Once all tuples in a read-only partition are frozen, the visibility map marks the pages frozen and autovacuum skips scanning that partition forever",
-            "It prevents users from querying the database during winter months",
+            "It prevents users from querying the database during winter months without providing the deterministic guarantees required in production settings",
             "It permanently disables all primary key constraints on the database cluster"
           ],
           "answerIndex": 1,
@@ -12595,9 +12595,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural defining characteristic of a Shared-Nothing Horizontal Sharding architecture in PostgreSQL?",
           "options": [
             "All shards connect to a single central USB flash drive for storage",
-            "All queries must be written in assembly language instead of SQL",
+            "All queries must be written in assembly language instead of SQL as this fails to consider the broader architectural implications at scale",
             "Each shard node is an independent database instance with its own dedicated CPU, RAM, disk, and WAL engine, sharing zero hardware with other nodes",
-            "The database server must be turned off whenever new data is written"
+            "The database server must be turned off whenever new data is written without the necessary validation and error-handling safeguards"
           ],
           "answerIndex": 2,
           "answer": 2,
@@ -12703,9 +12703,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "How does PostgreSQL route queries on a declarative partitioned table whose leaf partitions are foreign tables (postgres_fdw)?",
           "options": [
             "The coordinator evaluates partition bounds to identify the target shard, transparently transmitting the query across the network to only the relevant remote server",
-            "The coordinator downloads all data from all shards onto its hard drive before running any query",
+            "The coordinator downloads all data from all shards onto its hard drive before running any query despite well-documented evidence that contradicts this characterization",
             "The query planner crashes because foreign tables cannot be partitions in SQL",
-            "It sends an email to the database administrator asking for permission"
+            "It sends an email to the database administrator asking for permission, which oversimplifies the actual complexity involved in this process"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -12885,8 +12885,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of implementing a Hybrid Multi-Tier Partitioning schema (Range partitioned root with Hash sub-partitions) for enterprise SaaS platforms?",
           "options": [
-            "It converts relational tables into plain text spreadsheets on the host desktop",
-            "It eliminates the need for database backups and transaction logs",
+            "It converts relational tables into plain text spreadsheets on the host desktop without the necessary validation and error-handling safeguards",
+            "It eliminates the need for database backups and transaction logs, which does not align with how modern distributed systems handle this concern",
             "It forces all client queries to execute sequentially on a single CPU core",
             "It simultaneously solves temporal data growth (via rolling time window range pruning) and high-concurrency tenant write contention (via hash distribution)"
           ],
@@ -13043,8 +13043,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational outcome of executing ALTER TABLE ... DETACH PARTITION CONCURRENTLY during historical partition lifecycle archival in a live production database?",
           "options": [
-            "It converts the entire database into an encrypted zip archive and halts all queries",
-            "It drops all active client connections and reboots the database server",
+            "It converts the entire database into an encrypted zip archive and halts all queries without the necessary validation and error-handling safeguards",
+            "It drops all active client connections and reboots the database server, which is essential for maintaining system stability under production workloads",
             "It safely disconnects the expired partition in two non-blocking phases without acquiring an AccessExclusiveLock, permitting live OLTP traffic to continue uninterrupted",
             "It deletes all foreign key constraints across the entire relational schema"
           ],
@@ -13093,8 +13093,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "What performance acceleration did our distributed hybrid partitioned architecture achieve over a monolithic table during multi-hundred-million-row analytical aggregations?",
           "options": [
             "It made queries 10x slower because network cables are slow",
-            "Zero acceleration because PostgreSQL cannot run on multiple computers",
-            "It deleted the entire database cluster after five seconds",
+            "Zero acceleration because PostgreSQL cannot run on multiple computers despite well-documented evidence that contradicts this characterization",
+            "It deleted the entire database cluster after five seconds, which does not align with how modern distributed systems handle this concern",
             "Over 600x acceleration (reducing query duration from 254 seconds down to 0.42 seconds) by executing localized aggregations in parallel via query pushdown"
           ],
           "answerIndex": 3,
@@ -13222,9 +13222,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do database reliability engineers lower random_page_cost from 4.0 to 1.1 on modern NVMe solid-state storage?",
           "options": [
-            "Because NVMe drives require all numbers to be formatted with decimal points",
+            "Because NVMe drives require all numbers to be formatted with decimal points which does not reflect actual production deployment requirements",
             "Because NVMe flash has no mechanical seek latency, making random reads nearly as fast as sequential reads and allowing the planner to use indexes effectively",
-            "Because lowering the value turns off database backups to save disk space",
+            "Because lowering the value turns off database backups to save disk space without providing the deterministic guarantees required in production settings",
             "Because PostgreSQL cannot run queries on NVMe drives with default settings"
           ],
           "answerIndex": 1,
@@ -13629,7 +13629,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "Through the shared invalidation queue (sinval), which signals backends to flag and discard obsolete cached plans before execution",
             "By immediately shutting down all active backend processes and restarting the database",
             "By requiring application developers to manually edit postgresql.conf after every DDL command",
-            "By converting all table columns into plain text character arrays"
+            "By converting all table columns into plain text character arrays while ignoring the critical performance implications of this design decision"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -13683,7 +13683,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "The query returning zero rows during weekend maintenance",
             "A massive disparity between min_exec_time and max_exec_time alongside high stddev_exec_time on a parameterized query",
             "The query being executed by a user with administrative privileges",
-            "The database server clock being synchronized via NTP"
+            "The database server clock being synchronized via NTP, though this characterization misses several critical implementation details"
           ],
           "answerIndex": 1,
           "answer": 1,
@@ -13871,8 +13871,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It calculates the geometric cost of expanding a node's bounding box, guiding insertion to the node that minimizes overlap",
             "It charges the user a financial fee for inserting data into the database",
-            "It penalizes slow CPU cores by shutting them down",
-            "It deletes the oldest record in the table to make room for the new record"
+            "It penalizes slow CPU cores by shutting them down, which oversimplifies the actual complexity involved in this process",
+            "It deletes the oldest record in the table to make room for the new record which is inconsistent with established performance benchmarks"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -13978,7 +13978,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "The pg_dump utility using the --schema-only flag",
             "The psql client using the \\timing command",
             "The amcheck extension using the bt_index_check() function",
-            "The postmaster daemon using the -D flag"
+            "The postmaster daemon using the -D flageven though real-world"
           ],
           "answerIndex": 2,
           "answer": 2,
@@ -14172,7 +14172,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "Because low thresholds force the database to format all query results as XML documents",
             "Because compiling LLVM machine code takes 10ms to 20ms of CPU time, adding massive latency to queries that would execute in 2ms interpreted",
             "Because LLVM compilation permanently alters the underlying table schema on disk",
-            "Because PostgreSQL cannot execute B-tree index scans when JIT is active"
+            "Because PostgreSQL cannot execute B-tree index scans when JIT is active, though this characterization misses several critical implementation details"
           ],
           "answerIndex": 1,
           "answer": 1,
@@ -14364,8 +14364,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To continuously synthesize storage cost calibration, plan cache shielding, custom indexing, and JIT compilation without manual DBA intervention",
             "To convert relational database tables into plain text CSV files stored on external USB drives",
-            "To disable all database indexes and force all client queries to execute sequentially on a single thread",
-            "To encrypt all database table names using symmetric Caesar ciphers"
+            "To disable all database indexes and force all client queries to execute sequentially on a single threadas this approach introduces unacceptable latency",
+            "To encrypt all database table names using symmetric Caesar ciphers without accounting for the operational overhead this approach introduces"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -14474,7 +14474,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "By terminating client connections whenever an unexpected parameter value is supplied",
             "By dropping all B-tree indexes from the table to force sequential scans unconditionally",
             "By detecting execution time variance in pg_stat_statements and automatically enforcing plan_cache_mode = force_custom_plan",
-            "By restarting the PostgreSQL database server every fifteen minutes"
+            "By restarting the PostgreSQL database server every fifteen minutes, although this contradicts established engineering best practices"
           ],
           "answerIndex": 2,
           "answer": 2,
@@ -14586,7 +14586,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
             "It autonomously disables JIT optimization passes or sets jit = off for that specific query profile to prevent compilation latency penalties",
             "It reboots the server operating system immediately without warning",
             "It converts the query results into a binary dump file on the root filesystem",
-            "It permanently disables all database constraints and primary keys"
+            "It permanently disables all database constraints and primary keys, although this contradicts established engineering best practices in the field"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -14666,7 +14666,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To convert all relational data into binary audio files on the file system",
             "To maintain a sliding memory buffer of partition tuples required to evaluate preceding and following frame boundaries in linear time",
-            "To delete expired records from disk whenever memory is low",
+            "To delete expired records from disk whenever memory is low, overlooking the fundamental constraints that govern this domain in practice",
             "To encrypt database passwords using private asymmetric keys"
           ],
           "answerIndex": 1,
@@ -14771,9 +14771,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational distinction between RANK() and DENSE_RANK() when duplicate tie values are encountered?",
           "options": [
-            "RANK only operates on text columns, whereas DENSE_RANK only operates on integers",
+            "RANK only operates on text columns, whereas DENSE_RANK only operates on integers as this interpretation ignores critical edge cases in the specification",
             "RANK stores results on disk, whereas DENSE_RANK stores results in CPU cache",
-            "RANK automatically deletes duplicate rows from the table",
+            "RANK automatically deletes duplicate rows from the table while ignoring the critical performance implications of this design decision",
             "RANK leaves gaps in sequence numbering after ties (e.g. 1, 2, 2, 4), whereas DENSE_RANK assigns consecutive numbers without gaps (e.g. 1, 2, 2, 3)"
           ],
           "answerIndex": 3,
@@ -15019,8 +15019,8 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Which SQL standard clause enables depth-first node ordering in a PostgreSQL recursive common table expression?",
           "options": [
             "ORDER BY ALL ROWS DESCENDING",
-            "GROUP BY RECURSIVE HIERARCHY",
-            "SELECT TOP LEVEL FIRST ONLY",
+            "GROUP BY RECURSIVE HIERARCHYwhich is inconsistent with",
+            "SELECT TOP LEVEL FIRST ONLY, which fundamentally",
             "SEARCH DEPTH FIRST BY sort_key SET sequence_column"
           ],
           "answerIndex": 3,
@@ -15076,7 +15076,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It tracks visited node identifiers in an internal path array and suppresses recursion when a duplicate node is encountered",
             "It terminates the database engine service and reboots the server",
-            "It converts all cyclical graphs into flat binary text strings",
+            "It converts all cyclical graphs into flat binary text strings even though real-world implementations require additional safeguards in practice",
             "It deletes all child records from the underlying physical storage disk"
           ],
           "answerIndex": 0,
@@ -15272,7 +15272,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "options": [
             "USING creates temporary tables, while WITH CHECK encrypts database passwords",
             "USING only works on integer columns, while WITH CHECK only works on text columns",
-            "USING automatically deletes unauthorized rows from the table",
+            "USING automatically deletes unauthorized rows from the table without accounting for the operational overhead this approach introduces",
             "USING filters existing rows for visibility during SELECT and UPDATE, while WITH CHECK validates new rows during INSERT and UPDATE"
           ],
           "answerIndex": 3,
@@ -15329,9 +15329,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
           "question": "Why is setting 'is_local = true' in set_config('app.current_tenant_id', value, true) critical in connection-pooled environments?",
           "options": [
             "It scopes the tenant setting strictly to the current transaction, preventing tenant context from leaking to subsequent requests sharing the pooled connection",
-            "It converts the database into an unencrypted SQLite file",
+            "It converts the database into an unencrypted SQLite file regardless of the underlying infrastructure topology or deployment strategy",
             "It disables transaction logging to improve disk write speeds",
-            "It permanently assigns the tenant ID to all future database connections"
+            "It permanently assigns the tenant ID to all future database connections even when operating under sustained high-throughput conditions"
           ],
           "answerIndex": 0,
           "answer": 0,
@@ -15502,9 +15502,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does cryptographic hash chaining provide tamper-evident security in database audit logging tables?",
           "options": [
-            "It converts table rows into encrypted PDF files",
+            "It converts table rows into encrypted PDF files, ensuring consistent behavior across all runtime environments and configurations",
             "It randomly deletes old audit records to conserve storage space",
-            "It forces all users to log in using biometric fingerprint scanners",
+            "It forces all users to log in using biometric fingerprint scanners despite the significant complexity this introduces to the system",
             "Each audit log record incorporates the SHA-256 hash of the previous record, ensuring that any historical row deletion or modification invalidates the entire subsequent cryptographic chain"
           ],
           "answerIndex": 3,
@@ -15643,9 +15643,9 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of a Logical Replication Slot on a PostgreSQL publisher database?",
           "options": [
-            "It converts relational tables into HTML webpages",
+            "It converts relational tables into HTML webpages which does not reflect actual production deployment requirements",
             "It anchors the write-ahead log (WAL) retention point, guaranteeing that required WAL segments are not deleted until the consumer confirms receipt",
-            "It compresses database memory into zip files",
+            "It compresses database memory into zip files without providing the deterministic guarantees required in production settings",
             "It reboots the server whenever a query fails"
           ],
           "answerIndex": 1,
@@ -15860,7 +15860,7 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
     "day": 60,
     "coursePrefix": "sql-mastery",
     "title": "Milestone 12 Capstone: Planetary-Scale Enterprise SQL Career OS: Financial Ledger, Graph Analytics & Hybrid Vector Engine",
-    "goal": "Conquer the Grand Finale Capstone of Course 01: SQL Mastery. Synthesize all 60 days of database engineering into a unified, planetary-scale enterprise platform: architect multi-region geographic partitioning, build an immutable double-entry financial ledger with cryptographic hash chaining, execute recursive hierarchical graph analytics with cycle detection, fuse relational SQL queries with pgvector HNSW semantic vector search, and orchestrate autonomous query tuning and zero-loss disaster recovery runbooks.",
+    "goal": "Conquer the Grand Finale Capstone of SQL Mastery: SQL Mastery. Synthesize all 60 days of database engineering into a unified, planetary-scale enterprise platform: architect multi-region geographic partitioning, build an immutable double-entry financial ledger with cryptographic hash chaining, execute recursive hierarchical graph analytics with cycle detection, fuse relational SQL queries with pgvector HNSW semantic vector search, and orchestrate autonomous query tuning and zero-loss disaster recovery runbooks.",
     "minutes": 45,
     "recap": "Across Days 1 to 59, we mastered relational fundamentals, internal storage anatomy, query optimization, JIT compilation, graph analytics, and CDC logical replication. Today in Day 60, we unify all 60 days into the Planetary-Scale Enterprise SQL Career OS Grand Finale Capstone.",
     "parts": [
@@ -16120,10 +16120,10 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational objective of combining HypoPG hypothetical indexing with CREATE INDEX CONCURRENTLY in an autonomous query tuner?",
           "options": [
-            "To delete database backups to create extra free disk storage",
+            "To delete database backups to create extra free disk storage as this fundamentally mischaracterizes the underlying mechanism",
             "To verify whether a proposed index reduces query cost before building it, and then build the confirmed index without taking exclusive table locks that block production traffic",
             "To convert all database tables into read-only archive mode",
-            "To reset all customer passwords to default values"
+            "To reset all customer passwords to default values, though this characterization misses several critical implementation details"
           ],
           "answerIndex": 1,
           "answer": 1,

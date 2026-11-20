@@ -153,7 +153,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   }, [activeEnrollment, enrolledPlan, enrolledProgress, COURSES_REGISTRY, completedQuests]);
 
   const continueCourse = () => {
-    const next = courseProgress.next;
+    const progressToUse = enrolledProgress || courseProgress;
+    const next = progressToUse?.next;
     const quest = next
       ? COURSES_REGISTRY.find((c) => c.id === next.courseId)?.quests.find((q) => q.id === next.questId)
       : undefined;

@@ -236,7 +236,7 @@ export function countLessonWords(lesson: LongLesson): number {
 /**
  * Validates that a lesson part strictly satisfies the SRS lesson standard:
  * - 8–12 say lines per part
- * - exactly 3 options
+ * - 3 or 4 options
  * - codeNotes in every part with valid 1-based line numbers
  */
 export function validateLessonPart(part: LongLessonPart, where: string): string[] {
@@ -244,8 +244,8 @@ export function validateLessonPart(part: LongLessonPart, where: string): string[
   if (!part.say || part.say.length < 8 || part.say.length > 12) {
     errors.push(`${where}: must have 8–12 say lines (got ${part.say?.length ?? 0})`);
   }
-  if (!part.check || !part.check.options || part.check.options.length !== 3) {
-    errors.push(`${where}: check must have exactly 3 options (got ${part.check?.options?.length ?? 0})`);
+  if (!part.check || !part.check.options || part.check.options.length < 3 || part.check.options.length > 4) {
+    errors.push(`${where}: check must have 3 or 4 options (got ${part.check?.options?.length ?? 0})`);
   }
   if (!part.codeNotes || !Array.isArray(part.codeNotes) || part.codeNotes.length === 0) {
     errors.push(`${where}: missing codeNotes`);
@@ -331,11 +331,13 @@ test('F-16: lesson standard validator catches violations of say lines, options, 
   const weakPart13 = { title: 'T', say: new Array(13).fill('line'), check: { question: 'q', options: ['a', 'b', 'c'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
   assert.ok(validateLessonPart(weakPart13 as any, 'test').some((e) => e.includes('8–12 say lines')), 'Must flag > 12 say lines');
 
-  // 2. options (must be exactly 3)
+  // 2. options (must be 3 or 4)
   const weakOpts2 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
-  assert.ok(validateLessonPart(weakOpts2 as any, 'test').some((e) => e.includes('exactly 3 options')), 'Must flag 2 options');
-  const weakOpts4 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c', 'd'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
-  assert.ok(validateLessonPart(weakOpts4 as any, 'test').some((e) => e.includes('exactly 3 options')), 'Must flag 4 options');
+  assert.ok(validateLessonPart(weakOpts2 as any, 'test').some((e) => e.includes('3 or 4 options')), 'Must flag 2 options');
+  const weakOpts5 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c', 'd', 'e'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.ok(validateLessonPart(weakOpts5 as any, 'test').some((e) => e.includes('3 or 4 options')), 'Must flag 5 options');
+  const validOpts4 = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c', 'd'], answer: 0, why: 'w' }, codeNotes: [{ line: 1, note: 'n' }] };
+  assert.strictEqual(validateLessonPart(validOpts4 as any, 'test').filter((e) => e.includes('options')).length, 0, '4 options must be valid');
 
   // 3. codeNotes
   const weakNoNotes = { title: 'T', say: new Array(9).fill('line'), check: { question: 'q', options: ['a', 'b', 'c'], answer: 0, why: 'w' } };

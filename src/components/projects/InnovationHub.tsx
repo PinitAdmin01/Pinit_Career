@@ -21,6 +21,7 @@ interface InnovationHubProps {
   initialRepoUrl?: string;
   initialTitle?: string;
   initialProblem?: string;
+  autoOpenCreateModal?: boolean;
 }
 
 export const InnovationHub: React.FC<InnovationHubProps> = ({
@@ -31,6 +32,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   initialRepoUrl,
   initialTitle,
   initialProblem,
+  autoOpenCreateModal = false,
 }) => {
   const [squads, setSquads] = useState<HackathonSquad[]>([]);
   const [selectedSquadId, setSelectedSquadId] = useState<string>('');
@@ -67,6 +69,27 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
       setShowCreateModal(true);
     }
   }, [initialRepoUrl, initialTitle, initialProblem]);
+
+  // Voice action deep-link: `/innovation-hub?autostart=squad`
+  // Opens the free Hackathon Squad creation modal once per navigation (0 Pins spent).
+  const autoOpenSquadRef = useRef(false);
+  useEffect(() => {
+    if (!autoOpenCreateModal) {
+      autoOpenSquadRef.current = false;
+      return;
+    }
+    if (autoOpenSquadRef.current) return;
+    autoOpenSquadRef.current = true;
+    setShowCreateModal(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [autoOpenCreateModal]);
 
   // Form state for Join Request
   const [joinRole, setJoinRole] = useState<TeamRole>('frontend_lead');

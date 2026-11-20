@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export interface Mission {
@@ -83,14 +83,9 @@ export function useMissionsState(defaultRole: string = 'Software Developer') {
     }
   };
 
-  // Auto-cleanup stale URL param on page reload if no active roleplay session exists
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (!roleplayActive && isRoleplayParam && !(window as any).__pinitMissionsRoleplayActive) {
-        router.replace('/missions');
-      }
-    }
-  }, [isRoleplayParam, roleplayActive, router]);
+  // NOTE: Incoming `?roleplay=true` deep-links are handled idempotently in MissionsPageInner
+  // (auto-starting if already unlocked, or opening the ready-to-confirm launch modal without
+  // silently spending Pins) and cleared from the URL after handling.
 
   const [roleplayLoading, setRoleplayLoading] = useState(false);
   const [roleplayScenario, setScenario] = useState<RoleplayScenario | null>(null);

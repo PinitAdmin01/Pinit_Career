@@ -23,6 +23,7 @@ import { capstoneInterviewPath } from '@/lib/interview/capstoneInterview';
 import { api, ApiError } from '@/lib/api/client';
 import { CapstoneNextStep } from './CapstoneNextStep';
 import { CourseProjectProgressBar } from '@/components/projects/CourseProjectProgressBar';
+import { ProjectActivityJourney } from '@/components/projects/ProjectActivityJourney';
 import { InnovationHub } from '@/components/projects/InnovationHub';
 import { IndependentWorkspace } from '@/components/projects/IndependentWorkspace';
 import { saveIndependentProjectToDb, fetchIndependentProjectsFromDb } from '@/lib/api/independentProjectsApi';
@@ -126,6 +127,30 @@ function ProjectsPageContent() {
   const [ownProjectRepoUrl, setOwnProjectRepoUrl] = useState<string>('');
   const [ownProjectTechStack, setOwnProjectTechStack] = useState<string>('Python, FastAPI, Docker, Pytest');
   const [ownProjectDesc, setOwnProjectDesc] = useState<string>('');
+
+  // Voice action deep-link: `/projects?autostart=new`
+  // Safely opens the free "Start Your Own Project" modal once per navigation (0 Pins spent).
+  const autostartNewHandledRef = useRef(false);
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'new') {
+      autostartNewHandledRef.current = false;
+      return;
+    }
+    if (autostartNewHandledRef.current) return;
+    autostartNewHandledRef.current = true;
+    setMainTab('projects');
+    setOwnProjectStep('confirm');
+    setShowOwnProjectModal(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams]);
 
   const handleCreateOwnProject = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1101,7 +1126,16 @@ function ProjectsPageContent() {
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
-      
+      {/* ── VISUAL LESSON & BUILD JOURNEY (REAL TELEMETRY MILESTONES) ── */}
+      <ProjectActivityJourney
+        courseTitle={activeCourse.title}
+        completedQuests={completedQuests || []}
+        matchedCourseQuests={selectedPathway === 'standalone' ? standaloneMatchedQuests : certMatchedQuests}
+        completedMissions={cOS.completedMissions || []}
+        missionStreak={cOS.missionStreak || 0}
+        projects={projects}
+      />
+
       {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
       <div
         style={{

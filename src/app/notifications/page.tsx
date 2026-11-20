@@ -2,7 +2,8 @@
 // src/app/notifications/page.tsx
 // Campus Communication Hub containing announcement boards, notifications feed, simulated email readboxes, simulated phone SMS messages, and push notification triggers.
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import { useNotifications, useMarkRead, KEYS } from '@/lib/api/hooks';
@@ -29,11 +30,34 @@ const TYPE_META: Record<string, { icon: string; color: string; bg: string }> = {
   info: { icon: '◎', color: 'var(--accent)', bg: 'var(--accent-light)' },
 };
 
-export default function CampusCommunicationHub() {
+function CampusCommunicationHubInner() {
   const queryClient = useQueryClient();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<CommTab>('announcements');
   const { data: notifData, isLoading: loadingNotifs } = useNotifications();
   const markReadMutation = useMarkRead();
+  const autostartUnreadRef = useRef(false);
+
+  // Voice action deep-link: `/notifications?autostart=unread`
+  // Switches immediately to the System Alerts tab showing unread notifications (0 Pins spent).
+  useEffect(() => {
+    const autostart = searchParams?.get('autostart');
+    if (autostart !== 'unread') {
+      autostartUnreadRef.current = false;
+      return;
+    }
+    if (autostartUnreadRef.current) return;
+    autostartUnreadRef.current = true;
+    setActiveTab('notifications');
+
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('autostart');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  }, [searchParams]);
 
   const [announcements, setAnnouncements] = useState<any[]>([]);
   const [emails, setEmails] = useState<any[]>([]);
@@ -506,5 +530,13 @@ export default function CampusCommunicationHub() {
 
       </div>
     </div>
+  );
+}
+
+export default function CampusCommunicationHub() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t2)' }}>Loading Notifications...</div>}>
+      <CampusCommunicationHubInner />
+    </Suspense>
   );
 }

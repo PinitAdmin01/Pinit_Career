@@ -733,6 +733,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         setMobileOpen={setMobileOpen}
         toggleLeftSidebar={toggleLeftSidebar}
         activeTourRoute={activeTourRoute}
+        activeTourTabKey={activeTourTabKey}
         setActiveAcademicTab={setActiveAcademicTab}
         activeAcademicTab={activeAcademicTab}
         currentSearch={searchParams?.toString() || ''}
@@ -772,6 +773,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           toggleRightSidebar={toggleRightSidebar}
           isRightSidebarOpen={!rightCollapsed}
           isCollegeConnected={isCollegeConnected}
+          activeTourTabKey={activeTourTabKey}
           onOpenConnectCollege={() => {
             setCollegeError('');
             setShowConnectCollegeModal(true);
@@ -851,7 +853,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           }}
         >
           {/* Header with Close ✕ */}
-          <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ padding: '14px 14px 12px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
             <div>
               <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{institutionName}</div>
               <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Services &amp; Life</div>
@@ -875,6 +877,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 justifyContent: 'center',
                 padding: 0,
                 lineHeight: 1,
+                flexShrink: 0,
               }}
             >
               ✕
@@ -882,7 +885,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Student Info Card */}
-          <div style={{ padding: '14px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent-light), var(--bg2))', textAlign: 'center' }}>
+          <div style={{ padding: '14px 14px 16px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent-light), var(--bg2))', textAlign: 'center', flexShrink: 0 }}>
             {(() => {
               const rawDisp = typeof user?.displayName === 'string' ? user.displayName : (typeof user?.name === 'string' ? user.name : '');
               const rawReal = (user as any)?.fullName || (user as any)?.full_name || (user as any)?.candidateName || (user as any)?.onboardingAnswers?.candidateName || (user as any)?.onboardingAnswers?.fullName;
@@ -922,7 +925,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Navigation Links (Unified LeftSidebar Vector SVG + .nav-item Tab Representation) */}
-          <nav className="sidebar-nav" style={{ flex: 1, padding: '8px 7px', display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto' }}>
+          <nav
+            className="sidebar-nav"
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: '10px 10px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 4,
+              overflowY: 'auto',
+            }}
+          >
             {RIGHT_NAV.map(item => {
               const active = item.href ? isPathActive(pathname, item.href) : activeAcademicTab === item.id;
               const isTourSpotlight = activeTourTabKey === 'academic-sidebar';
@@ -949,14 +963,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                       window.history.pushState({}, '', url.toString());
                     }
                   }}
-                  style={isTourSpotlight ? {
-                    background: 'var(--accent-light)',
-                    border: '1.5px solid var(--accent)',
-                    boxShadow: '0 0 16px rgba(99, 102, 241, 0.35)',
-                    transform: 'scale(1.01)',
-                    transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    zIndex: 5,
-                  } : undefined}
+                  style={{
+                    flexShrink: 0,
+                    padding: '9px 12px',
+                    gap: 10,
+                    margin: 0,
+                    minHeight: 38,
+                    ...(isTourSpotlight ? {
+                      background: 'var(--accent-light)',
+                      border: '1.5px solid var(--accent)',
+                      boxShadow: '0 0 16px rgba(99, 102, 241, 0.35)',
+                      transform: 'scale(1.01)',
+                      transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                      zIndex: 5,
+                    } : {}),
+                  }}
                   title={item.label}
                   aria-label={item.label}
                 >
@@ -992,7 +1013,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           {/* Sidebar Close Button */}
-          <div style={{ padding: '8px 7px', borderTop: '1px solid var(--border)' }}>
+          <div style={{ padding: '10px 10px 12px', borderTop: '1px solid var(--border)', flexShrink: 0 }}>
             <button
               onClick={() => toggleRightSidebar(true)}
               title="Close Academic Tabs"
@@ -1002,7 +1023,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: 6,
-                padding: '9px 10px',
+                padding: '9px 12px',
                 background: 'var(--bg3)',
                 border: '1px solid var(--border)',
                 borderRadius: 9,
@@ -1026,6 +1047,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           refreshProfile={refreshProfile}
           onOpenRightSidebar={() => toggleRightSidebar(false)}
           onExpandLeftNav={() => toggleLeftSidebar(false)}
+          onCollapseLeftNav={() => toggleLeftSidebar(true)}
           isRightSidebarOpen={!rightCollapsed}
           isLeftSidebarOpen={!collapsed}
           onTourSlideChange={(route, tabKey) => {

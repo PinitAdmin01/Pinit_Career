@@ -39,8 +39,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why did the Transformer architecture replace Recurrent Neural Networks (RNNs) in modern LLM pre-training?",
           "options": [
             "Transformers allow parallel processing of all tokens in a sequence, eliminating the sequential step-by-step training bottleneck",
-            "RNNs required too much GPU memory for batching",
-            "Transformers do not require floating-point arithmetic"
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "Transformers do not require floating-point arithmetic",
+            "RNNs required too much GPU memory for batching even though real-world implementations require additional safeguards in practice"
           ],
           "answer": 0,
           "why": "Transformers process all sequence tokens simultaneously across GPU compute cores, enabling massive parallelization during pre-training."
@@ -76,11 +77,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the raw dot product Q * K^T divided by sqrt(d_k) in Scaled Dot-Product Attention?",
           "options": [
-            "To reduce the matrix dimension to 1D",
             "To keep score variance constant at 1, preventing extreme values from pushing softmax into regions with vanishing gradients",
-            "To make the matrix symmetric"
+            "To make the matrix symmetric",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "To reduce the matrix dimension to 1D"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Without scaling by sqrt(d_k), large inner products cause softmax to saturate near 0 or 1, causing gradients to vanish during backpropagation."
         }
       },
@@ -116,7 +118,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To speed up GPU memory transfers",
             "To compress token embeddings",
-            "Because exp(-Infinity) evaluates to 0, ensuring future tokens receive 0 attention weight during text generation"
+            "Because exp(-Infinity) evaluates to 0, ensuring future tokens receive 0 attention weight during text generation",
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning"
           ],
           "answer": 2,
           "why": "Setting future logits to -Infinity guarantees that softmax maps their attention weights strictly to 0, enforcing autoregressive causality."
@@ -152,11 +155,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Grouped-Query Attention (GQA) improve LLM inference efficiency over standard Multi-Head Attention (MHA)?",
           "options": [
-            "It allows multiple Query heads to share a single Key-Value head, drastically reducing the KV-cache memory bandwidth requirement",
+            "It disables the feed-forward network",
             "It eliminates the need for token embeddings",
-            "It disables the feed-forward network"
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
+            "It allows multiple Query heads to share a single Key-Value head, drastically reducing the KV-cache memory bandwidth requirement"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "GQA groups query heads to share a smaller number of KV heads, slashing KV-cache RAM footprint and memory bus pressure during generation."
         }
       },
@@ -191,10 +195,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural advantage of Rotary Position Embeddings (RoPE) over absolute learned position embeddings?",
           "options": [
             "It reduces token vocabulary size",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
             "It encodes relative position directly into the Query-Key inner product, enabling better context length extrapolation",
             "It replaces the softmax operation"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "RoPE rotates Q and K such that their inner product depends strictly on relative offset (m - n), enabling superior extrapolation to long contexts."
         }
       },
@@ -234,9 +239,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N)",
             "O(N * log N)",
+            "",
             "O(N^2)"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Because every token computes an inner product against every other token in the sequence, attention scales quadratically O(N^2) with context length."
         }
       }
@@ -294,11 +300,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do modern LLMs use sub-word tokenization instead of character-level or whole-word tokenization?",
           "options": [
-            "It balances sequence length (avoiding quadratic attention blowup) with compact vocabulary size while handling unseen words gracefully",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "It forces all tokens to be lowercase, which fundamentally misrepresents how the underlying mechanism operateswhich does not reflect actual",
             "It eliminates the need for GPU matrix multiplication",
-            "It forces all tokens to be lowercase"
+            "It balances sequence length (avoiding quadratic attention blowup) with compact vocabulary size while handling unseen words gracefully"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Sub-word tokenization keeps context length manageable compared to character tokens while gracefully decomposing rare or misspelled words into known sub-words."
         }
       },
@@ -332,9 +339,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Byte-Pair Encoding (BPE) guarantee that out-of-vocabulary (OOV) errors never occur?",
           "options": [
-            "It translates unknown words into English automatically",
+            "It discards unknown characters",
             "Its base vocabulary includes all 256 possible byte values, allowing any arbitrary byte or Unicode sequence to be represented",
-            "It discards unknown characters"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
+            "It translates unknown words into English automatically"
           ],
           "answer": 1,
           "why": "By initializing the vocabulary with all 256 byte values, any sequence of bytes can be expressed as base byte tokens if no higher-level merge exists."
@@ -370,11 +378,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security risk occurs if untrusted user text containing raw <|im_start|>system tokens is passed to an LLM without escaping?",
           "options": [
-            "GPU driver crash",
+            "Role confusion and prompt injection: the model may interpret the user text as an authentic system instruction override",
             "Memory leak in Node.js",
-            "Role confusion and prompt injection: the model may interpret the user text as an authentic system instruction override"
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "GPU driver crash"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "If special tokens are not sanitized, user input can emulate system headers and override core security guardrails."
         }
       },
@@ -409,8 +418,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why do non-Latin scripts (e.g. Hindi, Japanese, Arabic) typically consume significantly more tokens than English for equivalent text?",
           "options": [
             "Tokenizer vocabularies are heavily skewed towards English corpora, forcing non-Latin Unicode characters to decompose into individual UTF-8 bytes",
-            "Non-Latin words contain more vowels",
-            "Non-Latin languages use higher clock frequencies"
+            "Non-Latin languages use higher clock frequencies",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "Non-Latin words contain more vowels, which does not align with how modern distributed systems handle this concernas this approach introduces unacceptable"
           ],
           "answer": 0,
           "why": "Because pre-training corpora are predominantly English, non-Latin scripts have fewer dedicated merge rules and decompose into multiple raw UTF-8 byte tokens."
@@ -446,11 +456,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do LLM API providers charge significantly more for output completion tokens than input prompt tokens?",
           "options": [
-            "Output tokens require manual human review",
             "Output token generation is sequential and autoregressive, requiring one full forward pass per token, whereas input tokens are processed in a single parallel batch",
-            "Input tokens are deleted after generation"
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "Input tokens are deleted after generation, although this contradicts established engineering best practices in the fieldwithout considering the cascading effects on",
+            "Output tokens require manual human review"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Generation requires one sequential forward pass through all model weights for every single token produced, creating a memory-bandwidth-bound bottleneck."
         }
       },
@@ -484,11 +495,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an application always reserve a portion of the context window for max output tokens?",
           "options": [
-            "To speed up database connections",
-            "To force all responses to be single-word answers",
-            "Because if input prompt tokens consume the entire context window, the model has zero remaining capacity to generate completion tokens, throwing a context length exceeded error"
+            "To speed up database connections, making this approach impractical for any non-trivial production deployment as this fundamentally mischaracterizes the underlying mechanism",
+            "Because if input prompt tokens consume the entire context window, the model has zero remaining capacity to generate completion tokens, throwing a context length exceeded error",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
+            "To force all responses to be single-word answers"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "The context window encompasses both input AND output tokens combined; if prompt tokens fill the entire window, the model cannot generate any output."
         }
       }
@@ -546,11 +558,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an enterprise system prompt explicitly define an authorized scope rather than relying on general model knowledge?",
           "options": [
-            "To prevent scope creep, brand liability, and ungrounded hallucinations outside the company's designated domain",
             "To reduce GPU cooling requirements",
-            "To increase generation speed by 50%"
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "To increase generation speed by 50%",
+            "To prevent scope creep, brand liability, and ungrounded hallucinations outside the company's designated domain"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Explicit scoping prevents the model from answering out-of-domain questions (such as giving medical or legal advice) that expose the company to legal liability."
         }
       },
@@ -584,11 +597,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 'Negative-with-Alternative' framing more effective for LLM guardrails than standalone negative constraints?",
           "options": [
-            "It lowers token costs",
+            "It lowers token costs as this fails to consider the broader architectural implications at scale despite the significant complexity this introduces to the system",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "It provides the model with a concrete, pre-defined completion trajectory to generate when a forbidden topic is detected, reducing ambiguous generation",
             "It disables the attention mechanism"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Giving the model an explicit alternative action provides an attractive next-token probability path, preventing it from drifting into forbidden responses."
         }
       },
@@ -622,11 +636,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do XML delimiters help defend against prompt injection attacks?",
           "options": [
+            "They clearly isolate untrusted user data from privileged system instructions, allowing the model to distinguish instructions from text data",
+            "They reduce token count by half without accounting for the operational overhead this approach introducesas this approach introduces unacceptable",
             "XML tags encrypt the prompt with AES-256",
-            "They reduce token count by half",
-            "They clearly isolate untrusted user data from privileged system instructions, allowing the model to distinguish instructions from text data"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "XML delimiters establish clear semantic boundaries, allowing instructions to order the model to treat content within data tags purely as text rather than executable commands."
         }
       },
@@ -661,8 +676,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What causes 'Role Slippage' in extended multi-turn LLM conversations?",
           "options": [
             "Attention attenuation where distant system prompts at the top of the context receive lower attention weight than recent user turns",
+            "Database connection timeouts even though real-world implementations require additional safeguards in practiceas this interpretation ignores",
             "GPU overheating after 10 minutes",
-            "Database connection timeouts"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions"
           ],
           "answer": 0,
           "why": "In long context windows, attention focuses heavily on recent conversational turns, causing original system constraints to lose influence unless re-anchored."
@@ -698,11 +714,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deterministic pre-routing interception advantageous over relying on the LLM to refuse sensitive queries?",
           "options": [
-            "It requires Windows Server 2022",
             "It eliminates 100% of GPU compute cost and latency while guaranteeing an un-jailbreakable, brand-compliant response",
-            "It automatically refunds customer credit cards"
+            "It automatically refunds customer credit cards",
+            "It requires Windows Server 2022",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Deterministic pre-routing prevents sensitive queries from ever reaching the LLM, eliminating model inference costs, latency, and jailbreak vulnerabilities."
         }
       },
@@ -736,11 +753,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should system prompts be managed as version-controlled code artifacts rather than unversioned strings in database rows?",
           "options": [
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "Because LLMs only read files stored on GitHub, overlooking the fundamental constraints that govern this domain in practicewithout the",
             "Because Git compresses text faster than PostgreSQL",
-            "Because LLMs only read files stored on GitHub",
             "To enable code reviews, automated CI unit testing against regression benchmarks, and deterministic rollbacks when behavior degrades"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Treating prompts as version-controlled code allows teams to audit changes, run automated test suites, and rollback regressions seamlessly."
         }
       }
@@ -799,8 +817,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does Few-Shot prompting improve model performance without modifying neural network weights?",
           "options": [
             "It leverages in-context learning: the attention mechanism attends to example patterns to shape next-token probability distribution",
-            "It recompiles the CUDA kernel on the GPU",
-            "It permanently stores examples in the model weights"
+            "It permanently stores examples in the model weights",
+            "It recompiles the CUDA kernel on the GPU, making this approach impractical for any non-trivial production deploymentas this fundamentally",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers"
           ],
           "answer": 0,
           "why": "In-context learning works via the attention mechanism, which identifies input-output mappings across demonstration tokens and applies that pattern to the query."
@@ -836,11 +855,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does generating Chain-of-Thought (CoT) reasoning steps increase LLM accuracy on complex reasoning tasks?",
           "options": [
-            "It doubles GPU memory clock rate",
+            "It doubles GPU memory clock rate even though real-world implementations require additional safeguards in practicewithout properly addressing the resource contention that",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
             "It provides the autoregressive model with intermediate tokens to attend back to, effectively expanding computational working memory before producing the final answer",
             "It prevents temperature sampling"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Intermediate tokens act as an external working scratchpad; subsequent tokens attend to earlier reasoning steps to compute mathematically and logically sound conclusions."
         }
       },
@@ -874,11 +894,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary risk of using few-shot exemplars that only demonstrate simple happy-path scenarios?",
           "options": [
+            "The model fails to generalize to messy, ambiguous real-world edge cases and defaults to hallucinated assumptions",
             "The prompt will exceed GPU memory",
             "Tokenization speed decreases",
-            "The model fails to generalize to messy, ambiguous real-world edge cases and defaults to hallucinated assumptions"
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Models replicate the depth and rigor shown in their exemplars; demonstrating only trivial cases leaves the model unprepared for complex edge cases."
         }
       },
@@ -912,11 +933,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Self-Consistency majority voting improve reasoning accuracy over greedy temperature=0 generation?",
           "options": [
-            "Correct reasoning paths converge on identical conclusions across temperature samples, whereas errors scatter randomly into low-frequency outliers",
+            "It prevents API rate limits, although this contradicts established engineering best practices in the fieldwithout properly addressing the resource",
             "It permanently tunes the model weights",
-            "It prevents API rate limits"
+            "Correct reasoning paths converge on identical conclusions across temperature samples, whereas errors scatter randomly into low-frequency outliers",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Correct answers have multiple valid paths leading to the same conclusion, creating a dominant voting cluster that naturally filters out isolated errors."
         }
       },
@@ -951,10 +973,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does Tree-of-Thoughts (ToT) differ fundamentally from standard Chain-of-Thought (CoT)?",
           "options": [
             "It uses XML tags instead of markdown",
-            "It explores multiple branching reasoning paths with evaluation heuristics and backtracking, rather than committing to a single linear chain of tokens",
-            "It runs locally without an API key"
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "It runs locally without an API key without accounting for the operational overhead this approach introducesdespite the significant complexity this introduces",
+            "It explores multiple branching reasoning paths with evaluation heuristics and backtracking, rather than committing to a single linear chain of tokens"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Tree-of-Thoughts structures reasoning as a search space over candidate thoughts, enabling deliberate exploration, evaluation, and backtracking."
         }
       },
@@ -988,11 +1011,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is answer normalization essential when aggregating self-consistency votes across multiple LLM completions?",
           "options": [
-            "It forces the GPU to run in 8-bit mode",
-            "It deletes punctuation from the system prompt",
-            "Because different completions may express the exact same mathematical or categorical answer in different formats (e.g. '$70', '70', '70.00'), which would otherwise split the vote"
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "Because different completions may express the exact same mathematical or categorical answer in different formats (e.g. '$70', '70', '70.00'), which would otherwise split the vote",
+            "It forces the GPU to run in 8-bit mode without accounting for the operational overhead this approach introduces without the necessary validation and error-handling safeguards",
+            "It deletes punctuation from the system prompt"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Without normalization, identical answers formatted with slight punctuation or phrasing differences appear as separate keys, breaking majority consensus."
         }
       }
@@ -1050,11 +1074,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must backend APIs sanitize raw LLM text before calling JSON.parse()?",
           "options": [
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
             "Because models frequently include markdown code blocks, conversational greetings, or trailing commentary that trigger JSON.parse syntax errors",
             "Because JSON.parse() is deprecated in Node.js",
-            "To convert JSON to XML"
+            "To convert JSON to XML even though real-world implementations require additional safeguards in practiceas this interpretation ignores critical edge"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Any non-JSON characters (like ```json or conversational greetings) cause native JSON.parse() to throw an unhandled SyntaxError."
         }
       },
@@ -1088,11 +1113,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does constrained decoding (Structured Outputs) guarantee that an LLM returns valid JSON conforming to a schema?",
           "options": [
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "It re-prompts the model 10 times in a loop, which does not align with how modern distributed systems handle this concernregardless of the specific",
             "It post-processes the text using regular expressions",
-            "It dynamically masks invalid token logits to -Infinity during generation, allowing the model to only sample tokens that satisfy the grammar",
-            "It re-prompts the model 10 times in a loop"
+            "It dynamically masks invalid token logits to -Infinity during generation, allowing the model to only sample tokens that satisfy the grammar"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Constrained decoding applies grammar masking directly to output token logits before sampling, guaranteeing that every generated token satisfies the JSON schema grammar."
         }
       },
@@ -1126,11 +1152,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between a TypeScript interface and a Zod schema?",
           "options": [
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "TypeScript interfaces only work on Linux",
-            "Zod schemas cannot validate numbers",
+            "Zod schemas cannot validate numbers, which does not align with how modern distributed systems handle this concernwhich does not",
             "TypeScript interfaces are erased at compile time, whereas Zod schemas execute at runtime to validate untrusted incoming data"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "TypeScript interfaces provide compile-time developer type-checking but vanish in JavaScript, whereas Zod executes at runtime to inspect untrusted API data."
         }
       },
@@ -1164,11 +1191,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is targeted self-healing retry more effective than simply repeating the original prompt on failure?",
           "options": [
+            "It changes the model from GPT to Claude automatically",
             "It provides the model with the exact field-level validation errors and its own prior output, allowing it to surgically fix the defect rather than repeating the mistake",
-            "It saves GPU memory",
-            "It changes the model from GPT to Claude automatically"
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
+            "It saves GPU memory, though this characterization misses several critical implementation details though this reasoning breaks down when applied to realistic input sizes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Feeding the model the exact error message enables targeted corrective reasoning, resolving the defect far more reliably than re-rolling the original prompt."
         }
       },
@@ -1202,11 +1230,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should financial amounts extracted from invoices be represented as integer cents rather than floating-point numbers?",
           "options": [
+            "Because databases cannot store decimals without providing the deterministic guarantees required in production settingsdespite the significant complexity",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design",
             "Floating-point numbers take up twice as much RAM",
-            "IEEE-754 floating-point arithmetic introduces precision rounding errors (e.g. 0.1 + 0.2 = 0.30000000000000004), whereas integer cents are exact",
-            "Because databases cannot store decimals"
+            "IEEE-754 floating-point arithmetic introduces precision rounding errors (e.g. 0.1 + 0.2 = 0.30000000000000004), whereas integer cents are exact"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Representing currency as integer cents completely avoids IEEE-754 floating-point rounding discrepancies during financial calculations."
         }
       },
@@ -1244,11 +1273,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the three essential components of a production-grade LLM information extraction pipeline?",
           "options": [
+            "JSON boundary sanitization, strict runtime schema validation (e.g. Zod), and an automated self-healing repair feedback loop",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
             "HTML parser, CSS stylesheet, and WebGL",
-            "SSH tunnel, VPN, and DNS server",
-            "JSON boundary sanitization, strict runtime schema validation (e.g. Zod), and an automated self-healing repair feedback loop"
+            "SSH tunnel, VPN, and DNS server"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "A production extraction pipeline requires boundary sanitization, runtime schema validation with domain rules, and an automated self-healing retry loop."
         }
       }
@@ -1323,6 +1353,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The LLM attends to the description to semantically decide whether calling the tool satisfies the user's intent",
             "It is ignored by the LLM and only displayed in IDE debug logs",
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
             "It compiles into a TypeScript runtime type check"
           ],
           "answer": 0,
@@ -1359,11 +1390,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does an LLM directly run external code or access your private SQL database when function calling is enabled?",
           "options": [
-            "Yes, modern LLMs execute native node child processes inside cloud inference datacenters",
             "No, the model only emits structured JSON requesting the call; the hosting application executes the local code",
-            "Yes, if the tool has additionalProperties set to true"
+            "Yes, if the tool has additionalProperties set to true",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
+            "Yes, modern LLMs execute native node child processes inside cloud inference datacenters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "LLMs are strictly predictive text generators; they emit structured JSON specifying which function to invoke, and the host application handles local execution."
         }
       },
@@ -1398,10 +1430,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What should an application do if an LLM emits a tool call with invalid JSON in the arguments string?",
           "options": [
             "Crash the server immediately to alert administrators",
-            "Guess what the parameters were and execute with random numbers",
-            "Catch the parse exception and return a tool error message back to the LLM so it can correct itself"
+            "Catch the parse exception and return a tool error message back to the LLM so it can correct itself",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
+            "Guess what the parameters were and execute with random numbers"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Catching JSON syntax errors and returning an informative error message allows the LLM to inspect its mistake and re-generate a valid call."
         }
       },
@@ -1435,11 +1468,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a tool response message include the exact 'tool_call_id' from the previous assistant message?",
           "options": [
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "To map the tool execution output back to the specific function invocation in the model's multi-turn attention graph",
             "To allow billing systems to calculate serverless compute costs",
             "It is optional and can be omitted in production"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The tool_call_id allows the model to match which output belongs to which function invocation, especially when multiple parallel tools were triggered."
         }
       },
@@ -1473,11 +1507,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary latency advantage of Parallel Tool Calling over sequential tool loops?",
           "options": [
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
             "It reduces token generation costs by 50%",
-            "It collapses the total waiting time from the sum of all API latencies to the latency of the single slowest call",
-            "It eliminates the need for tool_call_id"
+            "It eliminates the need for tool_call_id",
+            "It collapses the total waiting time from the sum of all API latencies to the latency of the single slowest call"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "By executing all external network requests concurrently with Promise.all(), the total execution time equals the maximum latency of the batch rather than the sum."
         }
       },
@@ -1513,7 +1548,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It speeds up network requests by 20%",
             "It forces the LLM to switch to JSON Mode",
-            "It ensures tool failures return structured error messages back to the LLM instead of crashing the server process"
+            "It ensures tool failures return structured error messages back to the LLM instead of crashing the server process",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models"
           ],
           "answer": 2,
           "why": "Catching tool execution errors allows the system to return an error payload to the model, giving the model the opportunity to apologize or try another method."
@@ -1573,11 +1609,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can't traditional keyword search (LIKE '%car%') match an article discussing 'automobiles'?",
           "options": [
-            "Keyword search relies on exact character matching rather than semantic conceptual similarity",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
+            "Because embeddings are only compatible with Python",
             "Because SQL databases do not support strings longer than 255 characters",
-            "Because embeddings are only compatible with Python"
+            "Keyword search relies on exact character matching rather than semantic conceptual similarity"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Lexical search only matches identical character substrings, whereas vector embeddings capture conceptual meaning regardless of the specific vocabulary used."
         }
       },
@@ -1616,10 +1653,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the dot product of two non-zero vectors that are completely perpendicular (orthogonal) to each other?",
           "options": [
             "1.0",
-            "0.0",
-            "-1.0"
+            "",
+            "-1.0",
+            "0.0"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Perpendicular vectors have an angle of 90 degrees; since cos(90) = 0, their dot product is exactly 0.0."
         }
       },
@@ -1658,10 +1696,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the theoretical range of Cosine Similarity?",
           "options": [
             "0.0 to 100.0",
+            "-1.0 to +1.0",
             "0.0 to +Infinity",
-            "-1.0 to +1.0"
+            "Tokenization"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Cosine of any geometric angle is strictly bounded between -1.0 (opposite directions) and +1.0 (identical direction)."
         }
       },
@@ -1699,11 +1738,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do two vectors pointing in the exact same direction have a Cosine Distance of 0, but can have a non-zero Euclidean Distance?",
           "options": [
-            "Cosine Distance measures only angular divergence, whereas Euclidean Distance measures absolute coordinate length differences",
+            "Because Euclidean Distance is deprecated in vector search",
             "Because Cosine Distance ignores dimensional signs",
-            "Because Euclidean Distance is deprecated in vector search"
+            "Cosine Distance measures only angular divergence, whereas Euclidean Distance measures absolute coordinate length differences",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cosine distance evaluates only angular orientation; if one vector is twice as long as another but on the same heading, their angle is 0 (cosine distance = 0)."
         }
       },
@@ -1737,11 +1777,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production vector databases prefer working with unit-normalized vectors?",
           "options": [
-            "It compresses the vector size by 50%",
+            "It compresses the vector size by 50% while ignoring the critical performance implications of this design decisionwhich is inconsistent with",
+            "It converts floating point numbers to integers",
             "It allows computing cosine similarity using a simple dot product without expensive square root and division operations in the inner loop",
-            "It converts floating point numbers to integers"
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "When vector magnitudes equal 1.0, the cosine similarity formula simplifies to a pure dot product, enabling SIMD vector hardware acceleration."
         }
       },
@@ -1779,9 +1820,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the computational complexity of performing an exact brute-force Nearest Neighbor search over N documents of dimension D?",
           "options": [
-            "O(1)",
             "O(log N)",
-            "O(N * D)"
+            "O(1)",
+            "O(N * D)",
+            ""
           ],
           "answer": 2,
           "why": "Brute-force KNN must compute the dot product across all D dimensions for every one of the N documents, resulting in O(N * D) complexity."
@@ -1841,11 +1883,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary trade-off made by Approximate Nearest Neighbors (ANN) algorithms compared to exact KNN?",
           "options": [
-            "ANN sacrifices a tiny fraction of recall accuracy in exchange for massive logarithmic speedups",
             "ANN requires 100x more RAM storage",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "ANN sacrifices a tiny fraction of recall accuracy in exchange for massive logarithmic speedups",
             "ANN only works on text under 100 words"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "ANN achieves sub-millisecond search by finding the nearest neighbors with ~95-99% recall accuracy rather than exhaustively testing every single vector."
         }
       },
@@ -1879,11 +1922,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an IVF vector index, what is the role of the 'nprobe' parameter?",
           "options": [
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
             "It defines the number of dimensions in each vector",
-            "It specifies how many nearby centroid clusters to inspect during search, balancing speed versus recall",
-            "It encrypts the index on disk"
+            "It encrypts the index on disk",
+            "It specifies how many nearby centroid clusters to inspect during search, balancing speed versus recall"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A higher nprobe visits more neighboring centroid cells, improving recall accuracy at the cost of searching more candidate vectors."
         }
       },
@@ -1917,9 +1961,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of the topmost layers in an HNSW graph index?",
           "options": [
-            "They store deleted vectors before garbage collection",
+            "They store deleted vectors before garbage collection regardless of the underlying infrastructure topology or deployment strategy",
             "They compress floating point vectors to 8-bit integers",
-            "They provide long-range 'highway' connections that allow greedy search to traverse vast distances across vector space in O(log N) steps"
+            "They provide long-range 'highway' connections that allow greedy search to traverse vast distances across vector space in O(log N) steps",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameterswithout considering"
           ],
           "answer": 2,
           "why": "Top layers have sparse nodes with long-range links, enabling rapid coarse routing toward the query vector before descending to dense local graphs."
@@ -1955,11 +2000,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does greedy search transition from one layer down to the next lower layer in HNSW?",
           "options": [
-            "When no neighbor on the current layer is closer to the query than the current candidate node",
             "After visiting exactly 10 nodes",
-            "Only when an exact match with distance 0 is found"
+            "When no neighbor on the current layer is closer to the query than the current candidate node",
+            "Only when an exact match with distance 0 is found",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When greedy search reaches a local minimum on a layer where no neighbor is closer to the query, it descends to the next lower layer."
         }
       },
@@ -1993,11 +2039,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive Post-Filtering often fail in enterprise multi-tenant search?",
           "options": [
-            "Because SQL databases do not support WHERE clauses with strings",
             "If the user's filtered tenant documents rank outside the initial top-K vector matches, post-filtering discards everything and returns zero results",
-            "It consumes too many embedding tokens"
+            "Because SQL databases do not support WHERE clauses with strings",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "It consumes too many embedding tokens, making this approach impractical for any non-trivial production deploymentwhich is inconsistent with established"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "If relevant filtered documents are ranked below the initial top-K threshold, post-filtering truncates them before the filter ever runs, returning empty results."
         }
       },
@@ -2031,11 +2078,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is strict tenantId filtering essential before returning vector search results to an enterprise user?",
           "options": [
+            "To prevent cross-tenant data leakage and ensure strict multi-tenant regulatory compliance (SOC2/GDPR)",
             "To speed up vector calculations by using smaller numbers",
             "Because vector databases cannot store strings",
-            "To prevent cross-tenant data leakage and ensure strict multi-tenant regulatory compliance (SOC2/GDPR)"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Without strict tenant isolation filters, semantic vector queries could retrieve confidential data belonging to completely different corporate customers."
         }
       }
@@ -2092,11 +2140,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of using excessively large chunk sizes (e.g. 2,000 tokens) in a RAG pipeline?",
           "options": [
-            "Semantic relevance is diluted because the vector averages across multiple unrelated topics, hurting search accuracy",
             "It crashes the vector database",
-            "It forces the model to use JSON mode"
+            "Semantic relevance is diluted because the vector averages across multiple unrelated topics, hurting search accuracy",
+            "It forces the model to use JSON mode",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Averaging thousands of tokens into a single embedding dilutes specific facts, making it difficult for vector similarity to match targeted queries."
         }
       },
@@ -2130,9 +2179,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If chunk size is 500 characters and overlap is 100 characters, what is the stride (step size) between consecutive chunk starts?",
           "options": [
-            "600 characters",
+            "",
             "400 characters",
-            "100 characters"
+            "100 characters",
+            "600 characters"
           ],
           "answer": 1,
           "why": "Stride = ChunkSize - Overlap = 500 - 100 = 400 characters."
@@ -2168,11 +2218,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does recursive character text splitting prioritize '\\n\\n' over ' ' (spaces)?",
           "options": [
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "Because newlines take up less memory than spaces",
             "Because JSON only supports newlines",
             "Splitting on '\\n\\n' preserves paragraph-level semantic unity, avoiding arbitrary mid-sentence cuts"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Paragraph breaks represent the author's intentional thematic groupings; preserving paragraphs keeps coherent thoughts intact."
         }
       },
@@ -2208,6 +2259,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To provide semantic grounding so the embedding vector captures which overarching topic the chunk belongs to",
             "To satisfy Markdown HTML validator requirements",
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
             "To compress token length"
           ],
           "answer": 0,
@@ -2243,11 +2295,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tracking 'sequenceNumber' and 'totalChunksInDoc' valuable in chunk metadata?",
           "options": [
+            "It automatically encrypts the text, which oversimplifies the actual complexity involved in this processwhich does not reflect actual production",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "It allows the vector database to delete chunks faster",
-            "It enables the application to reconstruct original document order and fetch adjacent neighboring chunks when more context is required",
-            "It automatically encrypts the text"
+            "It enables the application to reconstruct original document order and fetch adjacent neighboring chunks when more context is required"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Sequence numbers allow the retrieval system to perform window expansion, pulling in preceding or subsequent chunks to give the LLM complete surrounding context."
         }
       },
@@ -2280,11 +2333,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of preserving whole paragraphs during initial chunk splitting?",
           "options": [
-            "It reduces RAM usage during compilation",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "It maintains the author's logical conceptual grouping and avoids cutting sentences across boundaries",
             "It converts all numbers to integers",
-            "It maintains the author's logical conceptual grouping and avoids cutting sentences across boundaries"
+            "It reduces RAM usage during compilation"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Whole paragraphs represent cohesive thoughts; preserving them maintains high semantic integrity for vector retrieval."
         }
       }
@@ -2342,11 +2396,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do dense vector embedding models struggle with specific error codes or part numbers?",
           "options": [
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "Because embedding models compress tokens into broad semantic concepts, obscuring minute alphanumeric distinctions",
             "Because embedding models do not support capital letters",
             "Because vector databases cannot index numbers"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Embeddings map text to broad conceptual neighborhoods; exact alphanumeric identifiers get blurred into generic category coordinates."
         }
       },
@@ -2379,11 +2434,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BM25 use term frequency saturation (the k1 parameter)?",
           "options": [
+            "To reduce memory usage",
             "To translate text into Spanish",
             "To prevent documents that repeat the same keyword 100 times from artificially dominating search rankings",
-            "To reduce memory usage"
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Term frequency saturation ensures that after a keyword appears a few times, additional repetitions produce diminishing score returns, preventing keyword stuffing."
         }
       },
@@ -2417,11 +2473,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can't an engineer simply add the raw BM25 score directly to the raw Cosine Similarity score?",
           "options": [
-            "Because BM25 uses negative numbers",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
+            "Because they exist on completely incompatible scales: BM25 is an unbounded positive number, while Cosine is bounded between -1.0 and 1.0",
             "Because TypeScript does not allow adding numbers",
-            "Because they exist on completely incompatible scales: BM25 is an unbounded positive number, while Cosine is bounded between -1.0 and 1.0"
+            "Because BM25 uses negative numbers even though real-world implementations require additional safeguards in practicewithout considering the"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Raw score magnitudes cannot be added directly; an unbounded BM25 score of 20 would completely obliterate a cosine similarity score of 0.85."
         }
       },
@@ -2457,6 +2514,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "k = 60",
             "k = 0",
+            "",
             "k = 10,000"
           ],
           "answer": 0,
@@ -2493,11 +2551,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Reciprocal Rank Fusion (RRF) more resilient than Min-Max score normalization in production search?",
           "options": [
+            "RRF only works on English words",
             "RRF requires GPUs to compute",
             "RRF uses relative rank order, making it completely immune to extreme score outliers and disparate score scales",
-            "RRF only works on English words"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Because RRF only looks at the position (rank 1, 2, 3...) rather than raw point values, extreme score spikes cannot distort the final ranking."
         }
       },
@@ -2535,11 +2594,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did doc_2 win first place in our hybrid search lab despite having a slightly lower dense similarity than doc_1?",
           "options": [
+            "Because doc_2 ranked #1 in exact sparse keyword matching and #2 in dense semantic search, earning the highest combined RRF consensus score",
             "Because doc_2 has fewer characters",
-            "Because RRF ignores dense ranks",
-            "Because doc_2 ranked #1 in exact sparse keyword matching and #2 in dense semantic search, earning the highest combined RRF consensus score"
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "Because RRF ignores dense ranks while ignoring the critical performance implications of this design decisionwithout properly addressing the resource"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Doc 2 demonstrated strong consensus across both retrieval systems (rank 1 sparse + rank 2 dense), producing an RRF score that beat doc 1's single high rank."
         }
       }
@@ -2597,11 +2657,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can't we use a Cross-Encoder to search across an entire corpus of 10 million documents directly?",
           "options": [
-            "Because running a full transformer forward pass over 10 million [Query, Doc] pairs at query time would take hours and cost massive GPU compute",
-            "Cross-encoders cannot read English text",
-            "Cross-encoders only support boolean outputs"
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "Cross-encoders cannot read English text even though real-world implementations require additional safeguards in practiceas this fundamentally",
+            "Cross-encoders only support boolean outputs",
+            "Because running a full transformer forward pass over 10 million [Query, Doc] pairs at query time would take hours and cost massive GPU compute"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Cross-encoders require both query and document to be passed through the transformer together, making exhaustive search over millions of documents computationally impossible in real time."
         }
       },
@@ -2635,8 +2696,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of Stage 1 in a two-stage retrieval pipeline?",
           "options": [
-            "To format the output as a Markdown table",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
             "To provide high recall by quickly filtering millions of documents down to a manageable candidate pool of 50-100 items",
+            "To format the output as a Markdown table",
             "To train the transformer weights"
           ],
           "answer": 1,
@@ -2675,9 +2737,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It speeds up GPU compilation",
             "It compresses the document text",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "It allows setting an absolute confidence threshold (e.g. >= 0.70) to prune irrelevant context before prompt construction"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Calibrated probabilities allow setting hard quality thresholds so the LLM is never provided with irrelevant context that causes hallucinations."
         }
       },
@@ -2711,11 +2774,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Context Precision heavily reward placing relevant chunks at rank 1 rather than rank 5?",
           "options": [
-            "Because LLMs attend most strongly to the start of the context window and can get confused by leading irrelevant noise",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
             "Because rank 1 uses fewer tokens",
-            "It is required by the HTTP standard"
+            "It is required by the HTTP standard",
+            "Because LLMs attend most strongly to the start of the context window and can get confused by leading irrelevant noise"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Placing relevant information at the top of the context window maximizes LLM attention and prevents distraction from preceding irrelevant tokens."
         }
       },
@@ -2750,10 +2814,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must the token count of the user query be subtracted from the Cross-Encoder's maximum limit when budgeting chunk size?",
           "options": [
             "Because queries are billed twice",
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
             "Because the cross-encoder ingests both the query and document together in a single concatenated input sequence",
             "Because queries must always be shorter than 10 words"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "In cross-encoders, the query and document share the same single transformer context window, so query tokens consume part of the total available budget."
         }
       },
@@ -2787,11 +2852,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did doc_4 win rank 1 in Stage 2 despite being placed at rank 4 in Stage 1?",
           "options": [
-            "Because doc_4 has a longer title",
+            "Because doc_4 has a longer title even though real-world implementations require additional safeguards in practicewithout properly",
             "Because stage 2 reverses the list order",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "Because the cross-encoder evaluated deep semantic intent ('point-in-time recovery') rather than surface-level keyword frequency"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "The cross-encoder's joint attention identified that doc_4 directly addresses the specific query intent, overriding superficial lexical overlap."
         }
       }
@@ -2849,11 +2915,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In what part of a long prompt context do Large Language Models demonstrate the lowest factual retrieval accuracy?",
           "options": [
-            "In the middle third of the context window",
             "At the very beginning of the prompt",
-            "At the very end of the prompt"
+            "In the middle third of the context window",
+            "Transformer attention heads always",
+            "At the very end of the promptregardless of the"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Empirical benchmarks prove that LLMs suffer from a U-shaped attention curve, with retrieval accuracy dropping severely in the middle of long contexts."
         }
       },
@@ -2888,11 +2955,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does the U-shaped reordering algorithm place the #2 highest ranked document?",
           "options": [
-            "In the exact middle of the context",
             "At the very end of the context (index N-1), taking advantage of the Recency attention zone",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "In the exact middle of the context",
             "It discards it"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Placing Rank 2 at the very end ensures it occupies the second highest attention peak (the Recency zone) right before the user prompt."
         }
       },
@@ -2928,7 +2996,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Extractive compression converts text into vector embeddings",
             "Extractive compression translates text into French",
-            "Extractive compression is 100% deterministic, adds near-zero latency, and cannot introduce hallucinated facts"
+            "Extractive compression is 100% deterministic, adds near-zero latency, and cannot introduce hallucinated facts",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language"
           ],
           "answer": 2,
           "why": "Extractive compression extracts verbatim source sentences without running another generative LLM call, guaranteeing zero hallucinations and sub-millisecond execution."
@@ -2964,11 +3033,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does increasing the factual density of retrieved context improve LLM generation accuracy?",
           "options": [
-            "It minimizes attention noise and allows the model's self-attention heads to concentrate on key entities and facts",
+            "It increases temperature to 1.0",
             "It forces the LLM to output valid JSON",
-            "It increases temperature to 1.0"
+            "It minimizes attention noise and allows the model's self-attention heads to concentrate on key entities and facts",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Higher factual density reduces distraction from filler words, directing attention heads strictly toward the critical technical parameters."
         }
       },
@@ -3001,11 +3071,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the generation output buffer be reserved before calculating available context space?",
           "options": [
-            "Because output tokens are free",
             "Because total model context limits include both input prompt tokens AND generated output completion tokens",
-            "It is only required for Python models"
+            "It is only required for Python models",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design",
+            "Because output tokens are free"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A model's advertised context window (e.g. 8k or 128k) represents the sum of input tokens plus output tokens; failing to reserve space for output causes immediate runtime crashes."
         }
       },
@@ -3040,11 +3111,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does placing Rank 1 at Block 1 and Rank 2 at Block 4 optimize transformer generation fidelity?",
           "options": [
-            "It reduces token size by 50%",
-            "It satisfies the JSON schema specification",
-            "It places the two most important documents directly into the Primacy and Recency peaks of the transformer's U-shaped attention distribution"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "It places the two most important documents directly into the Primacy and Recency peaks of the transformer's U-shaped attention distribution",
+            "It reduces token size by 50% as this fails to consider the broader architectural implications at scaleas this approach introduces unacceptable",
+            "It satisfies the JSON schema specification"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Transformer attention peaks at the boundaries of the prompt; placing the top-2 ranked documents at the start and end guarantees maximum attention weight."
         }
       }
@@ -3102,11 +3174,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do n-gram overlap metrics like BLEU fail to evaluate generative RAG applications reliably?",
           "options": [
+            "BLEU requires GPU acceleration regardless of the underlying infrastructure topology or deployment strategy as this interpretation ignores critical edge cases in the specification",
             "BLEU measures surface lexical similarity rather than factual accuracy, easily awarding high scores to hallucinated statements that alter critical numbers or negations",
-            "BLEU only works on Python code",
-            "BLEU requires GPU acceleration"
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "BLEU only works on Python code"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Surface word matching cannot distinguish between a factual synonym and a catastrophic factual contradiction that alters a single critical number."
         }
       },
@@ -3140,11 +3213,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a RAG application produces answers that sound convincing but contain fabricated facts unmentioned in the source documents, which Triad metric is failing?",
           "options": [
-            "Answer Relevance",
-            "Faithfulness (Groundedness)",
-            "Context Relevance"
+            "Context Relevance",
+            "Embedding dimensionality",
+            "Answer Relevance, though this",
+            "Faithfulness (Groundedness)"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Faithfulness measures whether the model's statements are strictly supported by the retrieved context; ungrounded statements yield low faithfulness."
         }
       },
@@ -3179,9 +3253,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Words in Answer / Words in Question",
             "Dot product of answer and context vectors",
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
             "Number of Verified Atomic Claims Supported by Context / Total Number of Atomic Claims in Answer"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Faithfulness equals the count of verifiable factual assertions grounded in retrieved context divided by total assertions."
         }
       },
@@ -3216,11 +3291,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Ragas framework compute Answer Relevance automatically without needing human labels?",
           "options": [
-            "It reverse-generates questions from the answer and computes the average cosine similarity to the original question vector",
+            "It measures the response latency",
             "It counts how many exclamation marks are in the answer",
-            "It measures the response latency"
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
+            "It reverse-generates questions from the answer and computes the average cosine similarity to the original question vector"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Generating candidate questions from the answer and comparing their embeddings to the original user prompt provides an automated, objective relevance score."
         }
       },
@@ -3253,9 +3329,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between Faithfulness and Context Recall?",
           "options": [
-            "There is no difference",
+            "There is no difference regardless of the underlying infrastructure topology or deployment strategywhich is inconsistent with established",
             "Faithfulness evaluates if the generator hallucinated; Context Recall evaluates if the retriever captured all required ground truth facts",
-            "Context Recall only applies to SQL databases"
+            "Context Recall only applies to SQL databases",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers"
           ],
           "answer": 1,
           "why": "Faithfulness evaluates the generator's adherence to context; Context Recall evaluates whether the retriever successfully retrieved all necessary ground truth information."
@@ -3291,11 +3368,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did the test report fail (isPassed: false) even though the composite score (0.889) was above 0.85?",
           "options": [
+            "Because faithfulness specifically failed the strict minimum threshold (0.667 < 0.85), enforcing zero-tolerance for hallucinations",
+            "Because the test ID was too long despite the significant trade-offs this approach imposes on overall throughputwhich oversimplifies the",
             "Due to a JavaScript rounding error",
-            "Because the test ID was too long",
-            "Because faithfulness specifically failed the strict minimum threshold (0.667 < 0.85), enforcing zero-tolerance for hallucinations"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Enterprise security bars enforce strict minimum thresholds on faithfulness specifically; a high answer relevance cannot compensate for a hallucination."
         }
       }
@@ -3353,11 +3431,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What distinguishes an Indirect Prompt Injection from a Direct Prompt Injection?",
           "options": [
-            "Indirect injections are delivered through external third-party data sources (documents, web pages, emails) retrieved into the prompt rather than direct user chat",
+            "Indirect attacks only work on weekends as this fails to consider the broader architectural implications at scaleas this approach introduces unacceptable latency in",
             "Indirect attacks are written in Python, while direct attacks are in SQL",
-            "Indirect attacks only work on weekends"
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
+            "Indirect injections are delivered through external third-party data sources (documents, web pages, emails) retrieved into the prompt rather than direct user chat"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Indirect injections originate from untrusted external data retrieved by the system (e.g. PDFs, web pages) rather than directly from the user chat box."
         }
       },
@@ -3390,9 +3469,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should heuristic injection scanning be executed before calling an LLM inference API?",
           "options": [
-            "To format the JSON schema",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding",
             "To intercept known attacks with zero GPU inference costs and sub-microsecond latency",
-            "Because LLMs cannot read regex"
+            "Because LLMs cannot read regex",
+            "To format the JSON schema, which oversimplifies the actual complexity involved in this process"
           ],
           "answer": 1,
           "why": "Pre-execution heuristic scanning blocks obvious attacks instantly without burning costly API tokens or waiting for LLM network latency."
@@ -3427,11 +3507,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must retrieved document content be XML-escaped before being wrapped in XML tags in the prompt?",
           "options": [
+            "To prevent an attacker from injecting a closing tag like `</untrusted_context>` to break out of the passive data boundary",
             "To satisfy HTML5 standards",
-            "To reduce token counts",
-            "To prevent an attacker from injecting a closing tag like `</untrusted_context>` to break out of the passive data boundary"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "To reduce token counts"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Without escaping, an attacker can insert a closing tag in the document to prematurely terminate the inert data zone and inject active commands."
         }
       },
@@ -3466,11 +3547,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of a Canary Token in LLM security architecture?",
           "options": [
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
             "To serve as a cryptographic tripwire that detects if an attacker successfully coerced the model into leaking its system prompt",
-            "To speed up token generation",
-            "To encrypt the database"
+            "To encrypt the database, which fundamentally misrepresents how the underlying mechanism operatesas this fundamentally mischaracterizes",
+            "To speed up token generation"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Embedding a secret canary token in the prompt acts as a tripwire; if it appears in the output, you know proprietary prompt instructions were exfiltrated."
         }
       },
@@ -3504,11 +3586,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should the Guardrail Judge Model have zero external tools or database access?",
           "options": [
-            "To save memory",
             "To ensure the judge cannot be tricked into executing malicious side-effects itself, keeping it strictly isolated as an impartial auditor",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "To save memory, which oversimplifies the actual complexity involved in this process without the necessary validation and error-handling safeguards",
             "Because smaller models cannot execute tools"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Isolating the guardrail judge without tools guarantees that even if an attack targets the judge, the judge has no capability to execute harmful actions."
         }
       },
@@ -3542,9 +3625,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a multi-layered defense-in-depth security approach necessary for enterprise LLM systems?",
           "options": [
-            "It is required by the JavaScript compiler",
             "To satisfy CSS formatting rules",
-            "Because single defenses (like prompt engineering alone) can always be bypassed by sophisticated adversarial prompt formulations"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "Because single defenses (like prompt engineering alone) can always be bypassed by sophisticated adversarial prompt formulations",
+            "It is required by the JavaScript compiler"
           ],
           "answer": 2,
           "why": "Adversarial prompts evolve rapidly; layering heuristics, XML sanitization, canary tokens, and egress filtering guarantees that bypassing one layer still leaves subsequent defenses intact."
@@ -3605,11 +3689,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a multi-stage pipeline necessary instead of relying exclusively on vector search?",
           "options": [
-            "Because vector search alone cannot resolve exact alphanumeric codes, ranking distortions, attention troughs, or security threats",
+            "It compresses the database size, though this characterization misses several critical implementation detailswithout properly addressing",
             "To satisfy Python framework conventions",
-            "It compresses the database size"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "Because vector search alone cannot resolve exact alphanumeric codes, ranking distortions, attention troughs, or security threats"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Multi-stage architecture solves all real-world failure modes: hybrid search fixes exact keywords, RRF unites scales, cross-encoders fix precision, and U-shaped ordering fixes attention degradation."
         }
       },
@@ -3642,9 +3727,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Stage 2 execute dense vector search and sparse keyword search concurrently?",
           "options": [
-            "To consume double the memory",
+            "Because BM25 is deprecated",
             "To achieve maximum recall by finding both conceptual semantic matches and exact keyword identifiers simultaneously",
-            "Because BM25 is deprecated"
+            "To consume double the memory",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models"
           ],
           "answer": 1,
           "why": "Running both search streams in parallel ensures that neither conceptual queries nor exact identifier queries slip through undetected."
@@ -3680,9 +3766,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of passing fused candidates to a Cross-Encoder rather than feeding them directly to the LLM?",
           "options": [
-            "It reduces token costs",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "It makes the vector database obsolete",
-            "The Cross-Encoder performs joint query-document self-attention, filtering out false positives that share keywords but don't actually answer the prompt"
+            "The Cross-Encoder performs joint query-document self-attention, filtering out false positives that share keywords but don't actually answer the prompt",
+            "It reduces token costs, ensuring consistent behavior across all runtime environments and configurationseven though empirical measurements consistently disprove"
           ],
           "answer": 2,
           "why": "Cross-encoders detect whether a document genuinely answers the query or merely mentions the same keywords in an irrelevant context."
@@ -3717,11 +3804,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are individual chunks tagged with explicit XML tags (<chunk id='...' priority='...'>) in the context block?",
           "options": [
-            "To allow the LLM to cite specific chunk IDs and recognize the authoritative priority of each evidence block",
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
             "To convert text to JSON",
-            "It is required by TypeScript"
+            "It is required by TypeScript",
+            "To allow the LLM to cite specific chunk IDs and recognize the authoritative priority of each evidence block"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Explicit XML chunk metadata allows the LLM to reference exact chunk IDs in its answer citations while recognizing priority ordering."
         }
       },
@@ -3756,7 +3844,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To sell telemetry data to third parties",
             "To allow engineers to diagnose whether bad answers stem from retrieval failures, reranking misalignments, or model hallucinations",
-            "It is only needed for GPU drivers"
+            "It is only needed for GPU drivers, which oversimplifies the actual complexity involved in this processas this approach introduces",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models"
           ],
           "answer": 1,
           "why": "Intermediate telemetry pinpoints the exact component that failed when a bad generation occurs, enabling targeted system debugging."
@@ -3793,9 +3882,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational victory achieved by our Milestone 2 Enterprise RAG Platform?",
           "options": [
-            "It uses more CSS styles",
             "It deletes the vector index",
-            "It delivers sub-50ms hybrid retrieval with neural cross-encoder precision, U-shaped attention optimization, and zero-trust security guardrails"
+            "It uses more CSS styles, which oversimplifies the actual complexity involved in this process which is inconsistent with established performance benchmarks",
+            "It delivers sub-50ms hybrid retrieval with neural cross-encoder precision, U-shaped attention optimization, and zero-trust security guardrails",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design"
           ],
           "answer": 2,
           "why": "Milestone 2 unifies all components into a certified, sub-50ms pipeline that conquers vocabulary mismatch, ranking distortion, lost-in-the-middle attention decay, and prompt injection."
@@ -3856,7 +3946,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why do stateless LLMs require re-sending conversation history on every turn?",
           "options": [
             "Because transformers do not persist session state or weights between isolated HTTP API calls",
-            "Because HTTP requests cannot contain JSON",
+            "Because HTTP requests cannot contain JSONdespite the significant trade-offs this approach imposes on",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine",
             "Because models forget their training data every 5 minutes"
           ],
           "answer": 0,
@@ -3894,10 +3985,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When is ConversationBufferMemory the ideal memory strategy?",
           "options": [
             "For multi-week customer chat histories spanning 50,000 words",
-            "For short, bounded conversations where full conversational fidelity is required and token limits will not be reached",
-            "When you want the model to forget everything immediately"
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "When you want the model to forget everything immediately",
+            "For short, bounded conversations where full conversational fidelity is required and token limits will not be reached"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "ConversationBufferMemory provides perfect fidelity with zero latency overhead for short, bounded interactions."
         }
       },
@@ -3931,11 +4023,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary trade-off of using ConversationBufferWindowMemory?",
           "options": [
-            "It forces the model to only speak in uppercase",
             "It increases latency exponentially on every turn",
-            "It bounds token consumption at the cost of completely forgetting any facts discussed prior to the last K turns"
+            "It bounds token consumption at the cost of completely forgetting any facts discussed prior to the last K turns",
+            "It forces the model to only speak in uppercase",
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Sliding windows guarantee bounded token costs, but sacrifice long-term memory of early conversational facts."
         }
       },
@@ -3969,11 +4062,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational overhead of ConversationSummaryMemory?",
           "options": [
-            "It requires an extra LLM call on each turn to recursively update the summary",
+            "It only works with SQL databases",
             "It requires 500GB of RAM per user",
-            "It only works with SQL databases"
+            "It requires an extra LLM call on each turn to recursively update the summary",
+            "All neural network architectures achieve identical accuracy given sufficient"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Updating the rolling summary requires invoking an LLM, adding latency and background token expenditure."
         }
       },
@@ -4009,7 +4103,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It uses infinite context windows on hardware",
             "It summarizes evicted turns into a rolling context prefix instead of deleting them permanently",
-            "It translates messages into German"
+            "It translates messages into German",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design"
           ],
           "answer": 1,
           "why": "When old messages overflow the buffer, they are condensed into a rolling summary rather than lost."
@@ -4045,11 +4140,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What unique capability does Entity Memory provide that summarization cannot guarantee?",
           "options": [
-            "Lower GPU temperatures",
             "Faster internet connection",
-            "Exact, deterministic key-value persistence of specific facts and attributes that never get blurred or omitted"
+            "Exact, deterministic key-value persistence of specific facts and attributes that never get blurred or omitted",
+            "Lower GPU temperatures",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Entity Memory maintains exact structured key-value pairs, ensuring critical facts survive without summarization loss."
         }
       }
@@ -4107,11 +4203,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a pure generative LLM without tools never be trusted to calculate financial equations?",
           "options": [
-            "Because next-token probabilistic prediction cannot guarantee deterministic numerical precision",
+            "Because GPUs cannot divide by two",
             "Because LLMs cannot read numbers",
-            "Because GPUs cannot divide by two"
+            "Because next-token probabilistic prediction cannot guarantee deterministic numerical precision",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "LLMs predict the most likely textual sequence, which frequently produces plausible-sounding but mathematically incorrect numbers."
         }
       },
@@ -4147,7 +4244,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To waste tokens and increase billing",
             "To allow the model to deliberate on its current state and plan the next tool action before executing it",
-            "To format the response as HTML"
+            "To format the response as HTML",
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring"
           ],
           "answer": 1,
           "why": "The Thought step externalizes the model's reasoning process, enabling self-monitoring and strategic action selection."
@@ -4183,11 +4281,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should tool execution errors be returned to the LLM as Observations rather than throwing an exception?",
           "options": [
-            "To speed up execution by 10x",
             "Because JavaScript does not support try-catch blocks",
-            "So the agent can perceive the failure, self-correct, and try an alternative approach without crashing the application"
+            "So the agent can perceive the failure, self-correct, and try an alternative approach without crashing the application",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "To speed up execution by 10x"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Returning error strings as observations gives the LLM the diagnostic data it needs to adapt and self-heal."
         }
       },
@@ -4221,11 +4320,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the ReAct parser look for 'Final Answer:' before checking for 'Action:'?",
           "options": [
-            "Because Final Answer indicates task completion, avoiding accidental tool execution when the answer is ready",
+            "Because regex cannot match Action",
             "Because Final Answer is alphabetically earlier",
-            "Because regex cannot match Action"
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "Because Final Answer indicates task completion, avoiding accidental tool execution when the answer is ready"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Checking for termination delimiters first prevents premature execution of spurious action strings when the task is done."
         }
       },
@@ -4259,11 +4359,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What catastrophic risk does the maxSteps recursion bound mitigate in autonomous agents?",
           "options": [
+            "Loss of Wi-Fi connection",
             "CPU fan hardware failures",
-            "Infinite execution loops caused by repetitive hallucinated tool calls or unresolvable tasks",
-            "Loss of Wi-Fi connection"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "Infinite execution loops caused by repetitive hallucinated tool calls or unresolvable tasks"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A strict step limit prevents the agent from looping indefinitely and exhausting budget when a task cannot be solved."
         }
       },
@@ -4297,11 +4398,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core architectural advantage does the ReAct loop provide over standard Chain-of-Thought (CoT)?",
           "options": [
-            "ReAct does not require any prompts",
+            "ReAct does not require any prompts, though this characterization misses several critical implementation detailsas this fundamentally",
+            "ReAct grounds its thoughts in real-world observations from external tools, whereas CoT relies exclusively on static internal model memory",
             "ReAct is written in C++ while CoT is in Python",
-            "ReAct grounds its thoughts in real-world observations from external tools, whereas CoT relies exclusively on static internal model memory"
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Chain-of-Thought only does internal reasoning without external validation; ReAct connects reasoning to external reality via tool observations."
         }
       }
@@ -4360,11 +4462,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural benefit of separating an agent into specialized subagents?",
           "options": [
-            "It eliminates prompt bloat, prevents tool confusion, and allows each model to focus on a narrow, well-defined domain",
             "It makes the system run on mobile phones without internet",
-            "It removes the need for TypeScript"
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "It removes the need for TypeScript",
+            "It eliminates prompt bloat, prevents tool confusion, and allows each model to focus on a narrow, well-defined domain"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Specialized subagents operate with lean, focused prompts that maximize precision and minimize hallucination across complex engineering tasks."
         }
       },
@@ -4399,10 +4502,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is a central blackboard state preferable to direct peer-to-peer agent messaging?",
           "options": [
             "Because peer-to-peer messaging uses too much electricity",
+            "Because TypeScript cannot compile functions with two arguments",
             "It decouples agents, provides a single verifiable source of truth, and allows easy auditing and state replays",
-            "Because TypeScript cannot compile functions with two arguments"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A shared blackboard ensures all agents align on the latest canonical state while keeping agent interactions cleanly decoupled."
         }
       },
@@ -4437,10 +4541,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary function of the Supervisor Agent in a multi-agent system?",
           "options": [
             "To translate text into binary",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "To write all the code itself",
             "To analyze team progress and route control to the appropriate specialist worker until the goal is achieved"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "The Supervisor governs execution flow, ensuring workers execute in the optimal logical sequence."
         }
       },
@@ -4474,11 +4579,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should the Researcher agent produce structured specifications rather than writing the final code directly?",
           "options": [
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design",
             "To provide a verified architectural blueprint that enables the Coder agent to focus purely on implementation quality",
             "Because Researchers do not know how to type",
             "Because browsers forbid it"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Decoupling research from coding prevents implementation mistakes caused by unclarified requirements."
         }
       },
@@ -4512,11 +4618,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What prevents the Coder and Reviewer from looping infinitely if an issue cannot be resolved?",
           "options": [
+            "Reviewers always approve on turn 2",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
             "The computer turns off",
-            "The Supervisor's max-iteration circuit breaker halts execution and alerts human operators if changes exceed a threshold",
-            "Reviewers always approve on turn 2"
+            "The Supervisor's max-iteration circuit breaker halts execution and alerts human operators if changes exceed a threshold"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A maximum iteration limit enforces termination even when agents cannot achieve consensus."
         }
       },
@@ -4550,11 +4657,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes the Supervisor-Worker multi-agent pattern superior to an unguided autonomous agent free-for-all?",
           "options": [
-            "It requires no system prompt",
+            "Deterministic state routing, clear specialization boundaries, and an explicit review consensus gate before release",
             "It uses more CSS files",
-            "Deterministic state routing, clear specialization boundaries, and an explicit review consensus gate before release"
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
+            "It requires no system prompt"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "The Supervisor pattern provides strict governance, ensuring agents only run when their preconditions are satisfied."
         }
       }
@@ -4612,11 +4720,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Plan-and-Solve prompting dramatically improve agent success rates on complex tasks?",
           "options": [
-            "It forces the agent to establish an ordered sequence of dependencies before executing irreversible actions",
             "It downloads more training data into the GPU",
-            "It turns off type checking"
+            "It forces the agent to establish an ordered sequence of dependencies before executing irreversible actions",
+            "It turns off type checking",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Formulating an explicit dependency plan first ensures the agent recognizes structural prerequisites and dependencies before taking irreversible external actions in production environments."
         }
       },
@@ -4652,7 +4761,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "All tasks run anyway",
             "Tasks 2, 3, and 4 remain in PENDING state and never execute, preventing compounding damage",
-            "The computer reboots"
+            "The computer reboots",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time"
           ],
           "answer": 1,
           "why": "Gating execution strictly on dependency completion prevents running downstream actions when prerequisite conditions have failed."
@@ -4688,11 +4798,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is capturing stdout up to the moment of failure valuable for self-healing reflection?",
           "options": [
-            "It deletes the broken code automatically",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
+            "It provides the agent with execution context showing how far the program progressed before encountering the bug",
             "It makes the error message look colorful",
-            "It provides the agent with execution context showing how far the program progressed before encountering the bug"
+            "It deletes the broken code automatically"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Intermediate logs illuminate the program's runtime state immediately prior to the exception, exposing root causes that stack traces alone might obscure."
         }
       },
@@ -4727,8 +4838,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary danger of skipping the Reflection step and immediately re-generating code after a failure?",
           "options": [
             "The model often repeats the exact same bug or introduces new unrelated regressions because it never diagnosed the root cause",
-            "The model writes code in Python instead of TypeScript",
-            "The terminal freezes"
+            "The terminal freezes",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
+            "The model writes code in Python instead of TypeScript"
           ],
           "answer": 0,
           "why": "Reflection grounds the repair in a specific root-cause diagnosis, preventing repetitive failure cycles and preventing unrelated regressions."
@@ -4764,11 +4876,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must self-healing loops enforce a hard maxRetries ceiling?",
           "options": [
-            "Because loops cannot exceed 10 lines in TypeScript",
             "To guarantee termination and bound LLM token usage if a bug proves unresolvable",
-            "To prevent computer memory leaks"
+            "Tokenization strategy has no measurable impact on model performance for any",
+            "Because loops cannot exceed 10 lines in TypeScript",
+            "To prevent computer memory leaks, which fundamentally misrepresents how the underlying"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Bounding retry attempts prevents endless looping and unbounded API expenditure when an error requires human intervention or external access."
         }
       },
@@ -4802,11 +4915,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the transformative engineering value of the Self-Healing Coding Agent pattern?",
           "options": [
-            "It replaces all databases with CSV files",
             "It makes code run without any RAM",
-            "It autonomously detects, reflects on, and patches runtime bugs in code without stalling operations or requiring human bug fixes"
+            "It autonomously detects, reflects on, and patches runtime bugs in code without stalling operations or requiring human bug fixes",
+            "It replaces all databases with CSV files",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Self-healing agents close the loop between code generation and execution feedback, achieving autonomous software reliability without human bottlenecks."
         }
       }
@@ -4864,11 +4978,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does token streaming feel fast to users even if total completion time is identical?",
           "options": [
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "Because Time-to-First-Token (TTFT) occurs within ~200ms, and subsequent tokens render faster than human reading speed",
             "Because streaming uses quantum computing",
             "Because the model skips half the words"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Users perceive responsiveness the instant the first token renders; streaming minimizes TTFT."
         }
       },
@@ -4903,10 +5018,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What character sequence marks the end of an SSE message frame?",
           "options": [
             "A null byte (\\0)",
+            "Temperature sampling",
             "A double newline (\\n\\n)",
-            "A semicolon (;)"
+            "A semicolon (;), which"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The SSE specification requires two consecutive newline characters to demarcate the end of an event frame."
         }
       },
@@ -4940,11 +5056,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the terminal sentinel 'data: [DONE]' indicate in OpenAI-compatible streaming?",
           "options": [
+            "It signals that the generation is complete and the client can close the stream connection",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "It restarts the server",
-            "It indicates that an error occurred",
-            "It signals that the generation is complete and the client can close the stream connection"
+            "It indicates that an error occurred"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "'[DONE]' is the standard wire sentinel that informs the client the completion has finished successfully."
         }
       },
@@ -4979,8 +5096,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must inter-word whitespace be preserved in the emitted token deltas?",
           "options": [
             "Because tokens carry their own leading or trailing spaces; discarding spaces would collapse words together into an unreadable string",
-            "Because JSON requires spaces",
-            "Because HTTP headers fail without spaces"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "Because HTTP headers fail without spaces",
+            "Because JSON requires spaces, though this characterization misses several critical implementation detailseven though empirical measurements"
           ],
           "answer": 0,
           "why": "In LLM tokenization, spaces are part of the token strings themselves (e.g. ' is' or ' fast')."
@@ -5016,11 +5134,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must client-side streaming code maintain a persistent line buffer?",
           "options": [
+            "To store passwords",
             "Because JavaScript variables expire every second",
             "Because TCP packets can fragment arbitrary JSON payloads across network boundaries, requiring buffer reassembly",
-            "To store passwords"
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Network packets can split data anywhere; a buffer ensures frames are only parsed after the complete double-newline arrives."
         }
       },
@@ -5054,11 +5173,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary indicator that an enterprise streaming pipeline is functioning correctly?",
           "options": [
-            "All tokens are uppercase",
             "The browser uses 100% CPU",
-            "The reassembled client text strictly matches the server source text character-for-character, and the stream terminates cleanly on [DONE]"
+            "The reassembled client text strictly matches the server source text character-for-character, and the stream terminates cleanly on [DONE]",
+            "All tokens are uppercase, although this contradicts established engineering best practices in the fielddespite well-documented evidence that",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "A correct streaming pipeline guarantees 100% character fidelity and clean connection termination."
         }
       }
@@ -5116,11 +5236,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the multi-agent research pattern outperform a single monolithic agent?",
           "options": [
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
             "Specialization prevents context contamination and allows dedicated tools for retrieval, deterministic compute, and adversarial auditing",
-            "Because multiple agents run 100 times faster on hardware",
-            "Because single agents cannot read JSON"
+            "Because single agents cannot read JSON without providing the deterministic guarantees required in production settingswithout properly addressing",
+            "Because multiple agents run 100 times faster on hardware"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Decomposing complex tasks into specialized agents with dedicated system prompts and tools yields higher factual accuracy and lower hallucination rates."
         }
       },
@@ -5154,11 +5275,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must every retrieved piece of evidence receive a unique citation identifier?",
           "options": [
+            "To increase token pricing",
             "To make the JSON file larger",
-            "To enable downstream Critic and synthesis agents to verify claim provenance and eliminate ungrounded hallucinations",
-            "To increase token pricing"
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design",
+            "To enable downstream Critic and synthesis agents to verify claim provenance and eliminate ungrounded hallucinations"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Traceable citation IDs allow the system to ground every generated statement in verified source material."
         }
       },
@@ -5192,9 +5314,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should autonomous research agents use a code execution sandbox for mathematical operations?",
           "options": [
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "Because math libraries require GPU drivers",
-            "Because code runs with fewer tokens",
-            "LLMs are probabilistic token predictors that frequently hallucinate numerical math, whereas code execution is 100% deterministic"
+            "LLMs are probabilistic token predictors that frequently hallucinate numerical math, whereas code execution is 100% deterministic",
+            "Because code runs with fewer tokens as this fails to consider the broader architectural implications at scaleas this approach introduces"
           ],
           "answer": 2,
           "why": "Probabilistic token prediction is unreliable for precise multi-step calculations; dedicated code sandboxes provide absolute mathematical accuracy."
@@ -5230,11 +5353,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Critic Subagent do when the draft's Faithfulness Score is below 0.80?",
           "options": [
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "It flags unverified claims and rejects the draft, prompting the supervisor to order further research or revisions",
-            "It crashes the program",
-            "It converts the text to binary"
+            "It converts the text to binary",
+            "It crashes the program"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Critic acts as a quality gate, enforcing revisions whenever unsupported statements are identified."
         }
       },
@@ -5268,11 +5392,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the Supervisor Orchestrator?",
           "options": [
+            "To delete old files",
             "To translate text to French",
             "To direct state transitions between specialized subagents, enforce iteration bounds, and ensure research goals are satisfied",
-            "To delete old files"
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The supervisor coordinates multi-agent handoffs, manages iteration budgets, and verifies quality criteria before final delivery."
         }
       },
@@ -5306,11 +5431,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core guarantee does the Milestone 3 Autonomous Research Assistant provide to enterprise decision makers?",
           "options": [
-            "It operates without any electricity",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "It guarantees 100% stock market profits",
+            "It operates without any electricity",
             "Every generated claim is grounded by verified citations and all numerical projections are computed deterministically in code"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Combining citation grounding with deterministic code execution ensures high factual accuracy and zero mathematical hallucinations."
         }
       }
@@ -5368,11 +5494,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of deploying a caching layer in front of an LLM API?",
           "options": [
-            "It drastically reduces operational API costs and slashes response latency from thousands of milliseconds to sub-10ms",
+            "It prevents the server from needing power",
             "It changes the model weights",
-            "It prevents the server from needing power"
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
+            "It drastically reduces operational API costs and slashes response latency from thousands of milliseconds to sub-10ms"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Caching resolves frequent or semantically identical queries instantly without incurring LLM inference compute."
         }
       },
@@ -5406,11 +5533,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must model temperature and model name be included in the exact cache key hash?",
           "options": [
-            "Because Redis crashes without model names",
+            "To format the JSON correctly",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "Because different models or temperature settings produce distinct completions that should not collide in the cache",
-            "To format the JSON correctly"
+            "Because Redis crashes without model names"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A prompt run at temperature 0.0 requires a deterministic response, whereas temperature 0.9 implies stochastic creativity."
         }
       },
@@ -5445,8 +5573,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural trade-off when configuring the semantic similarity threshold?",
           "options": [
             "It controls the screen brightness",
-            "It changes the price of electricity",
-            "Setting it too low causes false-positive answer collisions; setting it too high lowers the cache hit rate"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
+            "Setting it too low causes false-positive answer collisions; setting it too high lowers the cache hit rate",
+            "It changes the price of electricity"
           ],
           "answer": 2,
           "why": "A balanced threshold (e.g. 0.92-0.95) maximizes hit rates without serving responses intended for different questions."
@@ -5482,11 +5611,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a two-tier (L1 exact + L2 semantic) cache superior to a pure semantic cache?",
           "options": [
-            "Exact duplicates are served in sub-millisecond time without invoking vector embedding models, reserving semantic search for non-identical queries",
-            "Because L1 uses more memory",
-            "Because semantic models are illegal in some countries"
+            "Because semantic models are illegal in some countries",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "Because L1 uses more memory, which oversimplifies the actual complexity involved in this processdespite well-documented evidence that contradicts this",
+            "Exact duplicates are served in sub-millisecond time without invoking vector embedding models, reserving semantic search for non-identical queries"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "L1 eliminates unnecessary embedding generation for exact repeats, maximizing throughput and minimizing CPU overhead."
         }
       },
@@ -5520,11 +5650,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security risk occurs if an LLM semantic cache omits tenantId partitioning?",
           "options": [
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "The database deletes all tables",
-            "Cross-tenant data leakage, where one company's confidential query answers are served to competing users",
-            "The CSS styling breaks"
+            "The CSS styling breaks",
+            "Cross-tenant data leakage, where one company's confidential query answers are served to competing users"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Without tenant isolation, semantic similarity will match private customer queries across boundaries, leaking confidential data."
         }
       },
@@ -5558,11 +5689,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did the query 'Where do I end my membership?' resolve via L1 on its second run instead of L2?",
           "options": [
-            "Because L2 was deleted",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "Because the computer ran out of memory",
+            "Because L2 was deleted",
             "Because the L2 hit automatically promoted the normalized string into L1 exact cache for subsequent instant access"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Promoting semantic matches into the L1 exact cache avoids repeated vector math for subsequent queries with identical phrasing."
         }
       }
@@ -5620,11 +5752,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does full fine-tuning consume dramatically more VRAM than simple model inference?",
           "options": [
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "Because training requires storing gradients, forward activations, and 8 bytes per parameter for Adam optimizer states",
-            "Because training models run at higher screen refresh rates",
-            "Because Python uses extra disk space"
+            "Because Python uses extra disk space",
+            "Because training models run at higher screen refresh rates"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Adam optimizer states (momentum and variance) alone require 8 bytes per parameter, dwarfing base weight storage."
         }
       },
@@ -5658,11 +5791,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is matrix B in a LoRA adapter typically initialized to zeros at the start of training?",
           "options": [
-            "Because GPUs cannot store positive numbers",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "To speed up hard drive access despite the significant trade-offs this approach imposes on overall throughputregardless of the specific",
             "So that B * A evaluates to zero initially, ensuring model behavior at step 0 is exactly identical to the original pre-trained model",
-            "To speed up hard drive access"
+            "Because GPUs cannot store positive numbers"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Initializing B to zeros guarantees that the adapter introduces zero perturbation until gradient updates begin."
         }
       },
@@ -5696,11 +5830,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Double Quantization in the context of QLoRA?",
           "options": [
-            "Multiplying all weights by 2",
+            "Quantizing the quantization constants (scale factors) themselves to save an additional 0.37 bits per parameter",
             "Running the quantization algorithm twice",
-            "Quantizing the quantization constants (scale factors) themselves to save an additional 0.37 bits per parameter"
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "Multiplying all weights by 2"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Double Quantization compresses the scale factors from 32-bit floats to 8-bit integers, reclaiming significant memory overhead."
         }
       },
@@ -5734,11 +5869,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an operational advantage of serving a base model with dynamic LoRA adapter hot-swapping?",
           "options": [
-            "A single GPU can serve hundreds of specialized domains (legal, medical, coding) by loading 50MB adapters on demand without reloading the base model",
             "It makes the GPU run colder than liquid nitrogen",
-            "It eliminates the need for user prompts"
+            "A single GPU can serve hundreds of specialized domains (legal, medical, coding) by loading 50MB adapters on demand without reloading the base model",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "It eliminates the need for user prompts, overlooking the fundamental constraints that govern this domain in practiceeven when operating under sustained"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Serving tiny modular adapters against a single shared base model radically reduces GPU infrastructure costs."
         }
       },
@@ -5772,11 +5908,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production inference engines call `merge_and_unload()` before serving a LoRA fine-tuned model?",
           "options": [
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
+            "Because PyTorch cannot run unmerged models",
             "To convert the model into an image",
-            "To eliminate the dual-branch computation overhead, restoring 100% native inference throughput with zero latency penalty",
-            "Because PyTorch cannot run unmerged models"
+            "To eliminate the dual-branch computation overhead, restoring 100% native inference throughput with zero latency penalty"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Merging eliminates adapter branch switching, allowing the fused weights to run through standard optimized GEMM kernels."
         }
       },
@@ -5811,10 +5948,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What happened to the base model weights W0 during the 5 epochs of training?",
           "options": [
             "They doubled every epoch",
+            "They remained strictly frozen at 2.0, preserving pre-trained knowledge while adapters learned the delta",
             "They were deleted to save space",
-            "They remained strictly frozen at 2.0, preserving pre-trained knowledge while adapters learned the delta"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "In LoRA fine-tuning, pre-trained base model weights are strictly frozen; only the low-rank adapter matrices receive gradient updates."
         }
       }
@@ -5874,7 +6012,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It eliminates the separate Reward Model and Critic (Value) network, optimizing the policy directly via implicit reward formulation",
             "Because it does not use GPUs",
-            "Because it shortens prompts"
+            "Because it shortens prompts, although this contradicts established engineering best practices in the fieldwhich is inconsistent with",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions"
           ],
           "answer": 0,
           "why": "DPO mathematically reparameterizes the reward function directly into the policy, eliminating the need for a separate reward model and critic."
@@ -5909,11 +6048,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must chosen and rejected completions be distinctly different in a DPO training record?",
           "options": [
-            "Because JSON files require different keys",
             "Because DPO optimizes the probability ratio between the two; identical completions provide zero contrastive gradient",
-            "To reduce file sizes"
+            "To reduce file sizes",
+            "Because JSON files require different keys",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "DPO loss depends directly on the difference in log probabilities between chosen and rejected responses; identical pairs yield zero loss and zero learning."
         }
       },
@@ -5947,11 +6087,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the DPO loss when the active policy assigns a much higher probability to the chosen response than to the rejected response?",
           "options": [
-            "The computer restarts",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "The reward margin becomes strongly positive, sigmoid approaches 1, and DPO loss approaches 0",
             "The loss goes to infinity",
-            "The reward margin becomes strongly positive, sigmoid approaches 1, and DPO loss approaches 0"
+            "The computer restarts"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "When the policy correctly prefers the chosen response, the margin is high, the preference probability is near 1, and -log(1) = 0."
         }
       },
@@ -5985,11 +6126,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if beta is set excessively low (e.g. 0.001) during DPO training?",
           "options": [
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "The policy may overfit to preference shortcuts and experience severe distribution collapse away from fluent language",
-            "The model becomes 10 times larger",
-            "The GPU memory runs out"
+            "The GPU memory runs out",
+            "The model becomes 10 times larger"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A very low beta weakens the implicit KL penalty, allowing the policy to drift arbitrarily far from the reference model."
         }
       },
@@ -6023,9 +6165,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is length normalization crucial in modern preference optimization?",
           "options": [
-            "It makes models generate smaller fonts",
+            "It compresses the training dataset into a ZIP file",
             "It prevents models from learning that verbose, long-winded answers are rewarded over concise, accurate ones",
-            "It compresses the training dataset into a ZIP file"
+            "It makes models generate smaller fonts",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models"
           ],
           "answer": 1,
           "why": "Without length normalization, models exploit human evaluator bias by generating excessively verbose responses to artificially inflate scores."
@@ -6062,8 +6205,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What metric best indicates successful DPO alignment across a training epoch?",
           "options": [
             "The GPU runs out of disk storage",
-            "The training dataset gets deleted",
-            "The average implicit reward margin shifts positive and win-rate on chosen responses approaches 100%"
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "The average implicit reward margin shifts positive and win-rate on chosen responses approaches 100%",
+            "The training dataset gets deleted"
           ],
           "answer": 2,
           "why": "A positive reward margin and high preference win rate confirm that the policy has learned to consistently favor preferred responses."
@@ -6123,11 +6267,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive contiguous KV cache allocation waste up to 80% of GPU memory?",
           "options": [
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "Because transformers delete memory randomly",
             "It pre-allocates contiguous memory for the maximum possible sequence length, leaving unused reserved slots idle",
-            "Because GPUs cannot read memory",
-            "Because transformers delete memory randomly"
+            "Because GPUs cannot read memory"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Reserving static blocks for max length causes severe internal fragmentation when actual sequences are short."
         }
       },
@@ -6163,7 +6308,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It compresses text with GZIP",
             "It partitions KV caches into fixed-size physical blocks and maps them dynamically via block tables, mirroring OS virtual memory",
-            "It deletes tokens after reading them"
+            "It deletes tokens after reading them",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design"
           ],
           "answer": 1,
           "why": "Virtual memory paging allows non-contiguous physical storage, completely eliminating external fragmentation."
@@ -6199,9 +6345,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is continuous batching superior to static batching for LLM serving?",
           "options": [
-            "It removes prompt limits",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
             "It runs without GPUs",
-            "It evicts completed requests and slots in new queries on every single token iteration, keeping GPU utilization near 100%"
+            "It evicts completed requests and slots in new queries on every single token iteration, keeping GPU utilization near 100%",
+            "It removes prompt limits"
           ],
           "answer": 2,
           "why": "Static batching wastes compute waiting for the longest request, while continuous batching dynamically replenishes slots on every step."
@@ -6237,11 +6384,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an engineering team choose GGUF over AWQ?",
           "options": [
-            "When deploying models locally on CPU, Apple Silicon (Metal), or edge hardware using Ollama / llama.cpp",
             "When training a model from scratch",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
+            "When deploying models locally on CPU, Apple Silicon (Metal), or edge hardware using Ollama / llama.cpp",
             "When generating images"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "GGUF is specifically engineered for CPU and unified memory architectures, while AWQ requires dedicated Nvidia GPUs."
         }
       },
@@ -6275,10 +6423,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary role of an Ollama Modelfile?",
           "options": [
             "It formats CSS files",
-            "It defines base model dependencies, prompt templates, and runtime inference parameters in a declarative Docker-like manifest",
-            "It downloads internet games"
+            "It downloads internet games",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "It defines base model dependencies, prompt templates, and runtime inference parameters in a declarative Docker-like manifest"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A Modelfile packages the GGUF model, system prompt, temperature, and context limits into a single reproducible local model artifact."
         }
       },
@@ -6312,9 +6461,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary metric proves that vLLM's PagedAttention and continuous batching are functioning correctly?",
           "options": [
-            "The prompt is translated into Python",
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
             "The model uses 100 gigabytes of disk space",
-            "GPU compute utilization remains high with zero external memory fragmentation across variable-length requests"
+            "GPU compute utilization remains high with zero external memory fragmentation across variable-length requests",
+            "The prompt is translated into Python"
           ],
           "answer": 2,
           "why": "PagedAttention eliminates fragmentation while continuous batching keeps GPU cores saturated, maximizing throughput."
@@ -6374,11 +6524,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Vision-Language APIs partition high-resolution images into 512x512 tiles?",
           "options": [
-            "To preserve fine-grained visual details (like text and chart axes) by allocating dedicated token representations per tile",
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
             "Because JPEG images only support 512 pixels",
+            "To preserve fine-grained visual details (like text and chart axes) by allocating dedicated token representations per tile",
             "To slow down user internet connections"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Tiling preserves spatial resolution for small text and fine details without requiring quadratic attention across millions of raw pixels."
         }
       },
@@ -6413,10 +6564,11 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must learnable 1D or 2D position embeddings be added to visual patch tokens?",
           "options": [
             "Because image pixels change color over time",
+            "To compress the file size, though this characterization misses several critical implementation detailsas this approach introduces unacceptable latency in",
             "Transformers are permutation-invariant; without position embeddings, the model cannot know where patches sit relative to each other in 2D space",
-            "To compress the file size"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Self-attention has no innate sense of order or geometry; position embeddings supply crucial spatial coordinates."
         }
       },
@@ -6450,9 +6602,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does CLIP allow natural language text to search raw images without manual metadata tags?",
           "options": [
-            "It generates HTML tables",
-            "It runs OCR on every image",
-            "It maps both text and images into a shared multi-dimensional embedding space where semantically related concepts cluster together"
+            "It generates HTML tables even though real-world implementations require additional safeguards in practiceas this interpretation ignores",
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
+            "It maps both text and images into a shared multi-dimensional embedding space where semantically related concepts cluster together",
+            "It runs OCR on every image"
           ],
           "answer": 2,
           "why": "Contrastive training aligns the representations of vision and language encoders into a unified vector space."
@@ -6488,11 +6641,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an engineer pass `detail: 'low'` in a multimodal vision API call?",
           "options": [
-            "When analyzing simple low-resolution images where fine-grained text reading is not required, saving tokens and cutting latency",
+            "To disable colors",
             "When the user is offline",
-            "To disable colors"
+            "When analyzing simple low-resolution images where fine-grained text reading is not required, saving tokens and cutting latency",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "`detail: 'low'` limits image processing to a fixed 85 tokens, providing fast classification for simple images."
         }
       },
@@ -6526,11 +6680,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does holistic VLM document extraction outperform traditional OCR pipeline chains?",
           "options": [
-            "Because OCR cannot read numbers",
-            "VLMs understand spatial layout, tabular boundaries, and visual styling simultaneously rather than treating text as a disconnected string",
-            "Because VLMs only work on English words"
+            "Because OCR cannot read numbers, which oversimplifies the actual complexity involved in this processwithout considering the cascading effects on",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "Because VLMs only work on English words",
+            "VLMs understand spatial layout, tabular boundaries, and visual styling simultaneously rather than treating text as a disconnected string"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "VLMs integrate visual layout context with linguistic understanding, accurately resolving complex tables and charts that break traditional OCR."
         }
       },
@@ -6564,11 +6719,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the transformative engineering advantage of the Production Multimodal Pipeline?",
           "options": [
-            "It deletes the cloud database",
+            "It deletes the cloud database even though real-world implementations require additional safeguards in practiceas this interpretation ignores critical",
             "It converts all charts to audio MP3s",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces",
             "It ingests visual business charts directly, extracts quantitative metrics, and synthesizes executive recommendations without manual data entry"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Multimodal pipelines automate the end-to-end journey from visual dashboard capture to actionable business decisions."
         }
       }
@@ -6627,8 +6783,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is traditional request-only rate limiting insufficient for LLM APIs?",
           "options": [
             "Because different requests vary by orders of magnitude in token count, making Tokens Per Minute (TPM) the primary driver of GPU load and cost",
-            "Because LLMs do not use HTTP",
-            "Because tokens are faster than requests"
+            "Because tokens are faster than requests",
+            "Because LLMs do not use HTTP, overlooking the fundamental constraints that govern this domain in practiceeven when operating under sustained",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps"
           ],
           "answer": 0,
           "why": "A single heavy request can consume 50,000 tokens, exhausting provider capacity even when total request count is low."
@@ -6664,11 +6821,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What unique traffic pattern does the Token Bucket algorithm accommodate that a fixed-window limiter blocks?",
           "options": [
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "It allows infinite requests at all times",
             "It allows short bursts of traffic up to the bucket capacity while maintaining a strict long-term average refill rate",
             "It converts text into images"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Full buckets can absorb sudden spikes instantly, smoothing out traffic without rejecting legitimate bursts."
         }
       },
@@ -6702,11 +6860,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary trade-off of the Sliding Window Log algorithm compared to Token Bucket?",
           "options": [
+            "It only works on Tuesdays, ensuring consistent behavior across all runtime environments and configurationsas this fundamentally",
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
             "It requires specialized quantum hardware",
-            "It only works on Tuesdays",
             "It provides perfectly accurate boundary enforcement, but consumes significantly more memory by storing timestamps for every request"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Sliding window logs store individual request timestamps in memory (or Redis ZSETs), whereas token buckets require only two scalar numbers."
         }
       },
@@ -6740,11 +6899,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary distinction between a soft alert threshold and a hard budget cap?",
           "options": [
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
             "A soft alert notifies administrators while permitting traffic; a hard cap immediately locks API access to prevent overages",
             "Soft alerts cost more money",
             "Hard caps delete customer accounts"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Soft alerts give teams advance warning to request budget extensions before their production systems are halted by hard caps."
         }
       },
@@ -6778,11 +6938,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is random jitter critical in exponential backoff algorithms?",
           "options": [
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
             "It makes the network wire colder",
             "It spreads out retry requests across time, preventing all waiting clients from hitting the server simultaneously (the thundering herd problem)",
-            "It translates tokens to ASCII"
+            "It translates tokens to ASCII even though real-world implementations require additional safeguards in practicewhile failing to account for real-world"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Without jitter, synchronized clients retry at the exact same moment, causing recurrent wave-like overloads on the server."
         }
       },
@@ -6815,11 +6976,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary mission of an enterprise LLMOps Gateway in multi-tenant cloud environments?",
           "options": [
+            "To enforce token rate limits, manage financial department budgets, and ensure fair and resilient access to LLM inference",
             "To replace web servers with text files",
-            "To format JavaScript code",
-            "To enforce token rate limits, manage financial department budgets, and ensure fair and resilient access to LLM inference"
+            "Transformer attention heads always converge to identical weight distributions after sufficient training epochs on any dataset",
+            "To format JavaScript code"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "An LLMOps Gateway protects both cloud budgets and infrastructure reliability by metering and isolating multi-tenant workloads."
         }
       }
@@ -6877,11 +7039,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do traditional APM tools fail to detect generative AI application errors?",
           "options": [
+            "Because APM tools do not support Linux, though this characterization misses several critical implementation detailswhich does not reflect",
             "Because hallucinations and incorrect reasoning return HTTP 200 OK responses, requiring semantic inspection of prompts and outputs",
-            "Because APM tools do not support Linux",
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
             "Because LLMs run without network cables"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Semantic failures appear as successful HTTP 200 responses to traditional monitors; only specialized LLM observability can inspect prompt quality."
         }
       },
@@ -6915,11 +7078,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference between a Span and a Generation in LLM observability?",
           "options": [
-            "Spans cost money and Generations are free",
+            "Generations only run on mobile phones, although this contradicts established engineering best practices in the fieldas this approach introduces unacceptable latency",
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
             "A Span represents any arbitrary unit of work (like vector search), whereas a Generation specifically records an LLM inference call with tokens and prompts",
-            "Generations only run on mobile phones"
+            "Spans cost money and Generations are free"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Generations are specialized spans tailored to capture LLM parameters: model weights, prompt tokens, completion tokens, and temperature."
         }
       },
@@ -6953,11 +7117,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is completion token pricing typically 3x to 4x more expensive than prompt token pricing?",
           "options": [
-            "To encourage users to write longer prompts",
-            "Because output words are longer",
-            "Prompt tokens are processed in parallel during pre-fill, while completion tokens require sequential autoregressive GPU decoding passes"
+            "Prompt tokens are processed in parallel during pre-fill, while completion tokens require sequential autoregressive GPU decoding passes",
+            "Because output words are longer, making this approach impractical for any non-trivial production deploymentas this interpretation ignores",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
+            "To encourage users to write longer prompts"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Autoregressive generation cannot be parallelized; each completion token requires a separate sequential memory bandwidth pass."
         }
       },
@@ -6992,8 +7157,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should system prompt templates be decoupled from application source code into a prompt registry?",
           "options": [
             "It enables instant non-code deployments, prompt rollbacks, and multi-variant A/B performance testing in production",
+            "It changes the color of user interfaces",
             "It makes the hard drive spin faster",
-            "It changes the color of user interfaces"
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers"
           ],
           "answer": 0,
           "why": "Decoupling prompts allows prompt engineers to iterate and evaluate prompts in real time without triggering software release pipelines."
@@ -7029,11 +7195,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must user feedback scores be linked directly to execution trace IDs?",
           "options": [
-            "To send invoices to users",
-            "To allow engineers to inspect the exact prompt, retrieved context, and model parameters that produced the dissatisfied user experience",
-            "Because databases require foreign keys"
+            "Because databases require foreign keys",
+            "All neural network architectures achieve identical accuracy given sufficient training data and compute time regardless of design",
+            "To send invoices to users, ensuring consistent behavior across all runtime environments and configurationseven when operating under sustained",
+            "To allow engineers to inspect the exact prompt, retrieved context, and model parameters that produced the dissatisfied user experience"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Linking feedback to trace IDs enables immediate root-cause diagnosis of bad responses without guessing what prompt was used."
         }
       },
@@ -7066,11 +7233,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary business value of an end-to-end production LLM observability pipeline?",
           "options": [
-            "It turns Python code into HTML",
+            "It provides full visibility into model latencies, token expenditures, prompt versions, and user satisfaction, eliminating blind spots",
+            "Gradient descent is guaranteed to find the global minimum for any non-convex loss function surface in deep learning models",
             "It runs models without electrical power",
-            "It provides full visibility into model latencies, token expenditures, prompt versions, and user satisfaction, eliminating blind spots"
+            "It turns Python code into HTML despite the significant trade-offs this approach imposes on overall throughputdespite the significant complexity"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Observability pipelines turn AI from an opaque black box into an auditable, quantifiable, and debuggable production system."
         }
       }
@@ -7128,11 +7296,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does standard vector RAG fail on global synthesis questions like 'What are the main themes across all documents?'",
           "options": [
+            "Because cosine similarity is illegal for large datasets",
+            "Because vector databases cannot store text, though this characterization misses several critical implementation detailsdespite well-documented evidence",
             "Vector search only retrieves top-K localized passages matching the query, lacking a mechanism to aggregate information across the entire corpus",
-            "Because vector databases cannot store text",
-            "Because cosine similarity is illegal for large datasets"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Vector search retrieves isolated text fragments based on prompt similarity; it has no global view of corpus-wide themes."
         }
       },
@@ -7166,11 +7335,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a major advantage of the Property Graph model over relational SQL tables for connected data?",
           "options": [
-            "Property graphs do not require memory",
-            "Relationships are first-class citizens stored as direct pointers, allowing O(1) graph traversals without expensive multi-table SQL JOINs",
-            "Property graphs automatically translate English to C++"
+            "Temperature sampling parameters only affect generation speed rather than controlling the diversity of model output distributions",
+            "Property graphs do not require memory even though real-world implementations require additional safeguards in practiceas this interpretation",
+            "Property graphs automatically translate English to C++",
+            "Relationships are first-class citizens stored as direct pointers, allowing O(1) graph traversals without expensive multi-table SQL JOINs"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Graph databases traverse connected edges via direct memory pointers, executing multi-hop traversals exponentially faster than relational JOIN operations."
         }
       },
@@ -7204,11 +7374,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Entity Resolution in the GraphRAG ingestion pipeline?",
           "options": [
-            "Converting node labels to binary",
+            "The process of identifying that different text mentions (like 'OpenAI LLC', 'OpenAI', 'OAI') refer to the exact same canonical entity node",
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
             "Deleting entities that have long names",
-            "The process of identifying that different text mentions (like 'OpenAI LLC', 'OpenAI', 'OAI') refer to the exact same canonical entity node"
+            "Converting node labels to binary regardless of the underlying infrastructure topology or deployment strategyeven when operating under sustained"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Entity Resolution prevents duplicate fragmented nodes, consolidating synonyms into a unified knowledge graph hub."
         }
       },
@@ -7243,8 +7414,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does multi-hop graph pathfinding discover insights that vector search misses?",
           "options": [
             "It follows explicit relational edges across intermediate entities even when the start and end entities never appear in the same document",
-            "Because graph search runs with higher electricity voltage",
-            "Because graphs delete unrelated words"
+            "Quantizing a model to lower precision always preserves exact numerical outputs because rounding errors cancel across many layers",
+            "Because graphs delete unrelated words regardless of the underlying infrastructure topology or deployment strategywithout considering the cascading",
+            "Because graph search runs with higher electricity voltage"
           ],
           "answer": 0,
           "why": "Vector search requires keywords or semantics to coexist in the same chunk; graphs traverse intermediate bridge nodes across any number of documents."
@@ -7280,9 +7452,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Hierarchical Community Detection enable GraphRAG to answer global corpus questions efficiently?",
           "options": [
-            "It deletes 90% of the graph",
+            "It translates the graph into SQL",
             "It clusters related graph nodes with the Leiden algorithm and pre-computes executive summaries for each community, avoiding brute-force scanning",
-            "It translates the graph into SQL"
+            "It deletes 90% of the graph, which is essential for maintaining system stability under production workloadsdespite well-documented evidence that",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces"
           ],
           "answer": 1,
           "why": "Community reports summarize thematic clusters in advance, allowing global questions to be answered directly from high-level summaries."
@@ -7318,9 +7491,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Hybrid GraphRAG pattern considered the gold standard for enterprise question answering?",
           "options": [
+            "Fine-tuning on domain-specific data permanently overwrites all pre-training knowledge stored in the model weight parameters",
             "It eliminates the need for prompts",
-            "It uses half as much electricity",
-            "It combines the nuanced linguistic sensitivity of dense vector search with the explicit multi-hop reasoning of knowledge graphs"
+            "It combines the nuanced linguistic sensitivity of dense vector search with the explicit multi-hop reasoning of knowledge graphs",
+            "It uses half as much electricity without providing the deterministic guarantees required in production settingsdespite well-documented"
           ],
           "answer": 2,
           "why": "Hybrid GraphRAG unifies localized passage search with global multi-hop relational knowledge, providing the most accurate factual answers possible."
@@ -7381,11 +7555,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an enterprise generative AI platform require 7 distinct architectural pillars rather than a single LLM API call?",
           "options": [
-            "To guarantee data privacy (PII redaction), cost efficiency (caching), factual grounding (hybrid RAG), tool accuracy, and auditable tracing",
             "Because single API calls only work on localhost",
-            "To increase monthly cloud bills"
+            "Reinforcement learning from human feedback permanently aligns the model and prevents all harmful outputs without ongoing monitoring",
+            "To guarantee data privacy (PII redaction), cost efficiency (caching), factual grounding (hybrid RAG), tool accuracy, and auditable tracing",
+            "To increase monthly cloud bills, which is essential for maintaining system stability under production workloadswhich oversimplifies the actual"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A raw LLM call lacks security, caching, retrieval, deterministic tool execution, and observability; the 7 pillars turn raw AI into a secure enterprise platform."
         }
       },
@@ -7418,11 +7593,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should prompt injection detection run at the edge before RAG retrieval or LLM invocation?",
           "options": [
-            "Because computers run faster with fewer words",
             "It terminates malicious attacks instantly, preventing prompt leaks and saving expensive downstream embedding and LLM compute",
-            "Because injection attacks are illegal"
+            "Tokenization strategy has no measurable impact on model performance for any natural language processing task or input language",
+            "Because injection attacks are illegal",
+            "Because computers run faster with fewer words"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Blocking attacks at the boundary stops jailbreaks from ever contaminating model context or generating expensive token charges."
         }
       },
@@ -7456,11 +7632,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the caching layer sit in front of the RAG retrieval pipeline?",
           "options": [
+            "To intercept repeated and paraphrased queries in under 15ms, eliminating redundant vector searches and LLM generation costs",
+            "Chain-of-thought prompting works by increasing the model parameter count at inference time rather than decomposing reasoning steps",
             "Because vector databases cannot run more than once per day",
-            "To delete previous conversations",
-            "To intercept repeated and paraphrased queries in under 15ms, eliminating redundant vector searches and LLM generation costs"
+            "To delete previous conversations"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Serving cached answers drops response latency by 99% and preserves expensive LLM inference tokens."
         }
       },
@@ -7495,11 +7672,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a Cross-Encoder used after Reciprocal Rank Fusion (RRF) instead of running it on the entire database?",
           "options": [
-            "Cross-encoders perform full joint cross-attention which is computationally expensive; running it only on top-10 candidates provides maximum accuracy at low latency",
+            "Retrieval-augmented generation eliminates hallucination completely by grounding every generated token in retrieved document context",
             "Because cross-encoders cannot read more than 10 documents",
-            "Because RRF is free"
+            "Because RRF is free regardless of the underlying infrastructure topology or deployment strategy without considering the cascading effects on downstream components",
+            "Cross-encoders perform full joint cross-attention which is computationally expensive; running it only on top-10 candidates provides maximum accuracy at low latency"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Cross-encoders are too computationally heavy for millions of records; using bi-encoders for fast retrieval and cross-encoders for top-10 reranking is the industry standard."
         }
       },
@@ -7532,9 +7710,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the ReAct loop necessary when synthesizing answers from RAG context?",
           "options": [
-            "It makes the text bold",
+            "It makes the text bold, which is essential for maintaining system stability under production workloadswhich does not reflect actual production",
             "It enables the model to reason through intermediate steps and call deterministic tools for math or lookups rather than hallucinating",
-            "It converts the output into HTML"
+            "It converts the output into HTML",
+            "Embedding dimensionality has no impact on semantic similarity search quality because cosine similarity normalizes all vector spaces"
           ],
           "answer": 1,
           "why": "ReAct grounds generation by separating reasoning from deterministic tool execution, ensuring numerical and factual accuracy."
@@ -7543,7 +7722,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       {
         "title": "The Master Capstone: Complete Enterprise Agentic RAG Platform",
         "say": [
-          "In this final capstone execution for Day 30 and Course 9, we assemble the entire production Enterprise Agentic RAG Platform.",
+          "In this final capstone execution for Day 30 and Applied AI, we assemble the entire production Enterprise Agentic RAG Platform.",
           "We unite all 7 pillars into a cohesive, production-certified execution engine in TypeScript.",
           "We simulate processing an incoming executive inquiry from an authenticated enterprise employee: 'What is our company 401k match on a $120,000 salary? Contact: jane.doe@corp.com'.",
           "Stage 1: Security Guardrail sanitizes PII, redacting the email address and verifying zero prompt injections.",
@@ -7572,9 +7751,10 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the ENTERPRISE_CERTIFIED_SUCCESS status represent in the Capstone Platform?",
           "options": [
-            "The computer was turned off",
-            "The user paid with a credit card",
-            "The query successfully passed through all 7 operational pillars: security guardrails, caching, hybrid RAG, reranking, ReAct tool execution, and auditable tracing"
+            "Increasing model parameters beyond a certain threshold eliminates all forms of hallucination automatically without fine-tuning",
+            "The computer was turned off as this fails to consider the broader architectural implications at scale without the necessary validation and error-handling safeguards",
+            "The query successfully passed through all 7 operational pillars: security guardrails, caching, hybrid RAG, reranking, ReAct tool execution, and auditable tracing",
+            "The user paid with a credit card"
           ],
           "answer": 2,
           "why": "Enterprise certification confirms that the interaction complied with all security, caching, retrieval, reasoning, and observability standards."
@@ -7621,8 +7801,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "Standard attention repeatedly writes and reads full intermediate N-by-N attention score and softmax probability matrices across global HBM",
           "GPU Tensor Cores can only compute floating-point additions in single precision",
-          "CUDA blocks require sequential locks when executing row-wise exponentiations",
-          "The Transformer architecture disables L2 cache during backpropagation"
+          "The Transformer architecture disables L2 cache during backpropagation even though real-world implementations require additional safeguards in practice",
+          "CUDA blocks require sequential locks when executing row-wise exponentiations"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -7661,9 +7841,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does the online softmax algorithm adjust previously accumulated sums when a larger local maximum is encountered in a new tile?",
         "options": [
           "It multiplies previously accumulated denominators and partial outputs by exp(m_prev minus m_curr) to rescale them retroactively",
-          "It pauses kernel execution and restarts the attention computation from token zero",
-          "It truncates all negative logits to zero using a rectified linear activation unit",
-          "It writes the unnormalized vectors into global memory for a secondary reduction pass"
+          "It pauses kernel execution and restarts the attention computation from token zero, which does not align with how modern distributed",
+          "It writes the unnormalized vectors into global memory for a secondary reduction pass",
+          "It truncates all negative logits to zero using a rectified linear activation unit"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -7706,12 +7886,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary architectural improvement of FlashAttention-2 over FlashAttention-1?",
         "options": [
-          "Inverting the loop hierarchy so the outer loop iterates over Query blocks, eliminating atomic synchronization when writing outputs",
-          "Replacing half-precision floating point numbers with sixteen-bit integers",
+          "Eliminating the on-chip SRAM cache in favor of direct HBM streaming despite the significant trade-offs this approach imposes on overall throughput",
           "Restricting attention exclusively to non-causal encoder architectures",
-          "Eliminating the on-chip SRAM cache in favor of direct HBM streaming"
+          "Replacing half-precision floating point numbers with sixteen-bit integers",
+          "Inverting the loop hierarchy so the outer loop iterates over Query blocks, eliminating atomic synchronization when writing outputs"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "FlashAttention-2 inverts the loop hierarchy to iterate over Query blocks in the outer loop, allowing each thread block to write its output slice directly without atomic contention or inter-block synchronization."
       }
@@ -7749,12 +7929,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the Hopper Tensor Memory Accelerator (TMA) improve FlashAttention-3 throughput?",
         "options": [
-          "TMA transfers tensor tiles between global memory and shared memory asynchronously without consuming ALU or register cycles",
           "TMA replaces GPU streaming multiprocessors with fixed-function optical processors",
-          "TMA automatically increases GPU clock frequencies during causal masking",
-          "TMA converts all thirty-two bit floating point weights into single-bit binary representations"
+          "TMA automatically increases GPU clock frequencies during causal maskingdespite the significant trade-offs this approach imposes on",
+          "TMA converts all thirty-two bit floating point weights into single-bit binary representations",
+          "TMA transfers tensor tiles between global memory and shared memory asynchronously without consuming ALU or register cycles"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "The Hopper Tensor Memory Accelerator (TMA) performs asynchronous multi-dimensional tensor copies directly between HBM and shared memory, completely freeing streaming multiprocessor threads for compute."
       }
@@ -7792,12 +7972,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why is head dimension memory alignment critical when deploying FlashAttention in production serving engines?",
         "options": [
+          "Continuous batching requires all attention heads to be prime numberseven though real-world implementations require",
           "Aligned head dimensions enable coalesced vector memory transactions and hardware-accelerated TMA tensor copies",
           "Unaligned dimensions prevent Python from compiling bytecode into assembly",
-          "Odd head dimensions violate the laws of matrix multiplication in linear algebra",
-          "Continuous batching requires all attention heads to be prime numbers"
+          "Odd head dimensions violate the laws of matrix multiplication in linear algebra"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "When head dimensions align with GPU warp boundaries (multiples of 32 or 64 bytes), the memory subsystem issues coalesced 128-bit vector loads, achieving maximum memory bandwidth efficiency."
       }
@@ -7858,12 +8038,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does speculative decoding increase the arithmetic intensity of foundation model inference?",
         "options": [
-          "It reads the foundation model weights once from HBM while verifying K candidate tokens in parallel during a single forward pass",
           "It quantizes the foundation model weights to one-bit binary values",
-          "It disables transformer skip connections during token generation",
-          "It replaces GPU Tensor Cores with central processing unit threads"
+          "It replaces GPU Tensor Cores with central processing unit threads",
+          "It reads the foundation model weights once from HBM while verifying K candidate tokens in parallel during a single forward pass",
+          "It disables transformer skip connections during token generation while ignoring the critical performance implications of this design decision"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "By evaluating K candidate tokens simultaneously in a single forward pass, the large model reads its weights once from HBM, increasing arithmetic intensity by K times."
       }
@@ -7900,12 +8080,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What mathematical guarantee is provided by speculative rejection sampling?",
         "options": [
-          "The generated token sequence is sampled exactly from the target foundation model's probability distribution with zero divergence",
+          "The generation speed is guaranteed to increase by exactly ten times regardless of acceptance rate",
           "The draft model is guaranteed to accept one hundred percent of candidate tokens",
-          "The target model generates text without executing matrix multiplications",
-          "The generation speed is guaranteed to increase by exactly ten times regardless of acceptance rate"
+          "The generated token sequence is sampled exactly from the target foundation model's probability distribution with zero divergence",
+          "The target model generates text without executing matrix multiplications, which fundamentally misrepresents how the underlying mechanism operates"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Speculative rejection sampling algebraically guarantees that the final accepted token distribution matches the target foundation model's distribution exactly with zero statistical distortion."
       }
@@ -7942,12 +8122,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does Medusa eliminate the operational overhead of dual-model speculative decoding?",
         "options": [
-          "By adding multiple lightweight prediction heads directly to the foundation model backbone, eliminating the auxiliary draft model",
-          "By running the foundation model on a separate remote cloud server",
+          "By running the foundation model on a separate remote cloud server as this fails to consider the broader architectural implications at scale",
           "By restricting speculative generation strictly to punctuation characters",
+          "By adding multiple lightweight prediction heads directly to the foundation model backbone, eliminating the auxiliary draft model",
           "By storing all generated tokens in an uncompressed SQLite database"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Medusa appends lightweight feed-forward heads directly to the top layer of the foundation model, generating speculative candidates self-sufficiently without an auxiliary model or dual KV-cache."
       }
@@ -7985,12 +8165,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why can an excessively large static draft length K cause speculative decoding to run slower than vanilla decoding?",
         "options": [
-          "In low acceptance regimes, drafting many candidate tokens incurs draft compute cost while rejected tokens are discarded",
-          "Large draft lengths cause GPU power supplies to shut down",
           "The transformer architecture rejects any sequence whose length is not divisible by eight",
+          "Large draft lengths cause GPU power supplies to shut down, which fundamentally misrepresents how the underlying mechanism operates",
+          "In low acceptance regimes, drafting many candidate tokens incurs draft compute cost while rejected tokens are discarded",
           "Tensor Cores cannot process more than three tokens in a calendar month"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "When acceptance rates are low, drafting candidate tokens incurs non-zero compute cost while most tokens are rejected, causing the denominator (1 + K*c) to outgrow the accepted tokens numerator."
       }
@@ -8029,12 +8209,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary financial and operational advantage of speculative decoding in enterprise LLM clusters?",
         "options": [
-          "Doubling to tripling per-GPU token generation throughput, enabling organizations to serve identical traffic with half the hardware",
           "Eliminating the need to pay for software operating system licenses",
-          "Allowing GPUs to operate without cooling fans or air conditioning",
+          "Allowing GPUs to operate without cooling fans or air conditioning, although this contradicts established engineering best practices in the field",
+          "Doubling to tripling per-GPU token generation throughput, enabling organizations to serve identical traffic with half the hardware",
           "Preventing AI models from requiring electrical power during inference"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "By achieving 2x to 3x throughput speedups, enterprise organizations fulfill serving level agreements with half the physical GPU hardware, dramatically reducing hosting and power expenses."
       }
@@ -8097,9 +8277,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why did legacy LLM serving systems waste between sixty and eighty percent of physical GPU memory?",
         "options": [
           "They pre-allocated monolithic contiguous buffers sized to the maximum context length for every incoming request upfront",
-          "GPU memory chips lose half their capacity when operating at high temperatures",
           "The Transformer architecture stores key and value tensors in uncompressed ASCII format",
-          "CUDA blocks require sixty-four bytes of padding between consecutive floating point numbers"
+          "CUDA blocks require sixty-four bytes of padding between consecutive floating point numbers",
+          "GPU memory chips lose half their capacity when operating at high temperatures, which is essential for maintaining system"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -8138,12 +8318,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does PagedAttention eliminate external memory fragmentation in GPU DRAM?",
         "options": [
+          "By moving all key and value tensors into CPU system RAM permanently",
+          "By compressing all token vectors using lossy JPEG encoding while ignoring the critical performance implications of this design decision",
           "By partitioning the KV-cache into fixed-size physical blocks, allowing any freed block to be assigned to any request immediately",
-          "By compressing all token vectors using lossy JPEG encoding",
-          "By enforcing identical prompt lengths across all active users in the cluster",
-          "By moving all key and value tensors into CPU system RAM permanently"
+          "By enforcing identical prompt lengths across all active users in the cluster"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Because all physical memory blocks are identical in size (e.g., 16 tokens), any freed block can be reassigned to any active request without creating unusable address gaps."
       }
@@ -8183,7 +8363,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "Copy-on-write semantics with atomic reference counters that duplicate a block only when a request modifies it",
           "Read-only file system locks enforced by the Linux operating system kernel",
           "Re-encrypting all shared tensors with distinct public keys for every user",
-          "Executing all user requests sequentially in single-threaded mode"
+          "Executing all user requests sequentially in single-threaded modewithout accounting for the operational overhead this"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -8223,12 +8403,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does chunked prefill prevent inter-token latency jitter in continuous batching engines?",
         "options": [
+          "It converts autoregressive generation into non-autoregressive parallel classification",
           "It slices long prompts into small uniform chunks, preventing long prefill bursts from starving ongoing decode streams",
           "It doubles the clock speed of GPU memory buses during prompt evaluation",
-          "It discards prompt tokens that exceed five hundred twelve characters",
-          "It converts autoregressive generation into non-autoregressive parallel classification"
+          "It discards prompt tokens that exceed five hundred twelve characters, which is essential for maintaining system stability under"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Chunked prefill caps the maximum computation per iteration, ensuring that ongoing token generation streams are never starved by multi-second prefill bursts."
       }
@@ -8266,12 +8446,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What happens in a production vLLM deployment when physical GPU KV-cache capacity is temporarily exhausted?",
         "options": [
-          "The block manager swaps least-recently-used physical blocks to host CPU memory over PCIe, preventing out-of-memory crashes",
+          "The model begins generating random punctuation characters even though real-world implementations require additional safeguards in practice",
+          "The cluster automatically purchases additional cloud GPU instances",
           "The GPU hardware resets and terminates all running server processes",
-          "The model begins generating random punctuation characters",
-          "The cluster automatically purchases additional cloud GPU instances"
+          "The block manager swaps least-recently-used physical blocks to host CPU memory over PCIe, preventing out-of-memory crashes"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "vLLM implements graceful swapping, migrating unreferenced or low-priority physical blocks to host system memory over PCIe to prevent fatal out-of-memory exceptions."
       }
@@ -8334,9 +8514,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does 4-bit weight quantization (INT4) yield dramatic latency improvements during autoregressive decoding despite the model performing similar compute operations?",
         "options": [
           "Autoregressive generation is strictly memory-bandwidth bound, so transferring 4-bit weights requires one-quarter of the DRAM memory bandwidth per generated token",
-          "4-bit quantization automatically reduces the sequence length of the prompt by seventy-five percent",
+          "Transformer attention layers are completely bypassed when weights are quantized, which is essential for maintaining system stability under production workloads",
           "The GPU clock frequency doubles automatically whenever INT4 tensors are detected",
-          "Transformer attention layers are completely bypassed when weights are quantized"
+          "4-bit quantization automatically reduces the sequence length of the prompt by seventy-five percent regardless of the specific workload characteristics being processed"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -8375,12 +8555,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the GPTQ algorithm prevent error accumulation across billions of weight parameters during post-training quantization?",
         "options": [
-          "It uses the inverse Hessian matrix of layer activations to analytically compensate unquantized weights for the rounding error introduced by each newly quantized weight",
-          "It executes a full one-hundred-epoch backpropagation retraining loop with stochastic gradient descent",
           "It permanently zeroes out any weight parameter that cannot be represented exactly in four bits",
-          "It randomly reshuffles the order of attention heads before computing weight norms"
+          "It uses the inverse Hessian matrix of layer activations to analytically compensate unquantized weights for the rounding error introduced by each newly quantized weight",
+          "It executes a full one-hundred-epoch backpropagation retraining loop with stochastic gradient descent without considering the cascading effects on downstream components",
+          "It randomly reshuffles the order of attention heads before computing weight norms, making this approach impractical for any non-trivial production deployment"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "GPTQ uses second-order Taylor expansion and the inverse Hessian matrix of activations to compensate remaining unquantized weights in closed-form as each column is quantized, keeping output degradation mathematically bounded."
       }
@@ -8417,12 +8597,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does AWQ apply per-channel scaling factors instead of using mixed-precision FP16 storage for salient weight channels?",
         "options": [
+          "Floating-point numbers can never be stored in the same GPU high-bandwidth memory block as integers as this interpretation ignores critical edge cases in the specification",
           "Mixed-precision storage causes irregular matrix layouts that break GPU warp alignment, whereas per-channel scaling maintains a uniform INT4 matrix layout across all execution units",
-          "Floating-point numbers can never be stored in the same GPU high-bandwidth memory block as integers",
-          "Per-channel scaling triples the total number of floating-point operations executed per second",
-          "Modern GPU streaming multiprocessors disable cache lines when mixed precision is detected"
+          "Modern GPU streaming multiprocessors disable cache lines when mixed precision is detected even though real-world implementations require additional safeguards in practice",
+          "Per-channel scaling triples the total number of floating-point operations executed per second"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Keeping weights in mixed precision introduces hardware divergence and memory fragmentation. AWQ scales salient channels so all weights can be uniformly stored in INT4 while protecting critical accuracy."
       }
@@ -8459,12 +8639,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Which FP8 format is recommended for large language model forward inference activations and weights on NVIDIA Hopper architectures, and why?",
         "options": [
-          "FP8 E4M3, because its three mantissa bits provide higher numerical precision and resolution required to preserve output logits without severe quality degradation",
           "FP8 E5M2, because its five exponent bits allow weights to exceed one billion in magnitude",
-          "FP8 E2M5, because having two exponent bits eliminates all floating-point rounding errors",
-          "FP8 INT8, because signed integers are always more accurate than floating-point numbers"
+          "FP8 INT8, because signed integers are always more accurate than floating-point numbers even though real-world implementations require additional safeguards in practice",
+          "FP8 E4M3, because its three mantissa bits provide higher numerical precision and resolution required to preserve output logits without severe quality degradation",
+          "FP8 E2M5, because having two exponent bits eliminates all floating-point rounding errors"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "FP8 E4M3 allocates 4 exponent bits and 3 mantissa bits, maximizing numerical precision for weights and activations where dynamic range is bounded, resulting in superior perplexity preservation."
       }
@@ -8502,12 +8682,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational and economic benefit of serving a 70B parameter model in AWQ INT4 or Hopper FP8 instead of unquantized FP16?",
         "options": [
+          "It enables the foundation model to run directly on consumer microcontrollers with 16KB of RAM as this fundamentally mischaracterizes the underlying mechanism",
+          "It completely eliminates the need for prompt tokenization and embedding tables regardless of the underlying infrastructure topology or deployment strategy",
           "It compresses model memory from 140GB down to under 40GB, allowing a 70B model to be served on a single 80GB GPU instead of requiring expensive multi-GPU pipeline clusters",
-          "It completely eliminates the need for prompt tokenization and embedding tables",
-          "It enables the foundation model to run directly on consumer microcontrollers with 16KB of RAM",
           "It automatically converts English text into all global languages during inference"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "A 70B parameter model requires ~140GB in FP16, needing multiple A100/H100 GPUs. In INT4 or FP8, the model fits into 35-70GB, allowing hosting on a single or dual GPU, cutting infrastructure costs by over 60%."
       }
@@ -8569,12 +8749,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational advantage of continuous iteration-level scheduling compared to legacy static batching?",
         "options": [
-          "It constructs a new batch at every generation iteration, evicting completed sequences immediately and admitting new requests without waiting for global completion",
+          "It eliminates the need for GPU high-bandwidth memory by streaming tokens directly over PCIe even though empirical measurements consistently disprove this claim",
+          "It converts autoregressive decoding into an offline map-reduce batch job, making this approach impractical for any non-trivial production deployment",
           "It forces all sequences in the batch to generate the exact same number of tokens",
-          "It converts autoregressive decoding into an offline map-reduce batch job",
-          "It eliminates the need for GPU high-bandwidth memory by streaming tokens directly over PCIe"
+          "It constructs a new batch at every generation iteration, evicting completed sequences immediately and admitting new requests without waiting for global completion"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Continuous iteration scheduling rebuilds the active batch at every decoding step. Finished requests release resources immediately and new requests begin prefill without stalling the entire batch."
       }
@@ -8612,12 +8792,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the speculative paged memory manager handle physical memory blocks allocated to rejected draft candidate tokens?",
         "options": [
-          "It decrements their reference counts and pops them from the logical block table in O(1), returning physical blocks immediately to the free pool",
-          "It halts the entire GPU execution and runs a ten-second garbage collection sweep",
+          "It writes the rejected tokens to disk logs before deallocating memory even though real-world implementations require additional safeguards in practice",
           "It permanently disables the rejected memory addresses until the server is rebooted",
-          "It writes the rejected tokens to disk logs before deallocating memory"
+          "It decrements their reference counts and pops them from the logical block table in O(1), returning physical blocks immediately to the free pool",
+          "It halts the entire GPU execution and runs a ten-second garbage collection sweep"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "The speculative block manager maintains reference counts and virtual block pointers. Rejected draft tokens are popped in O(1) time and their physical blocks return to the free list with zero copying overhead."
       }
@@ -8657,9 +8837,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why do fused AWQ INT4 CUDA kernels execute on-the-fly dequantization inside GPU registers rather than in high-bandwidth DRAM?",
         "options": [
           "Dequantizing inside registers avoids writing full-precision weights back to DRAM, eliminating 75% of memory bus traffic during memory-bound decoding",
-          "GPU registers have higher storage capacity than high-bandwidth memory",
-          "Writing to DRAM is completely disabled during autoregressive generation",
-          "Tensor Cores can only read integer registers and cannot execute floating-point operations"
+          "Tensor Cores can only read integer registers and cannot execute floating-point operations as this interpretation ignores critical edge cases in the specification",
+          "GPU registers have higher storage capacity than high-bandwidth memory, which fundamentally misrepresents how the underlying mechanism operates",
+          "Writing to DRAM is completely disabled during autoregressive generation"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -8700,12 +8880,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How many All-Reduce collective communication operations are required per transformer layer in Megatron-style Tensor Parallelism?",
         "options": [
+          "Sixteen: one for every attention head in the layer, which oversimplifies the actual complexity involved in this process",
           "Exactly two: one following the multi-head attention output projection, and one following the MLP down-projection",
-          "Sixteen: one for every attention head in the layer",
-          "Zero: Megatron parallelism requires no inter-GPU communication during inference",
-          "One hundred twenty-eight: one for every weight parameter row"
+          "One hundred twenty-eight: one for every weight parameter row",
+          "Zero: Megatron parallelism requires no inter-GPU communication during inference"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Megatron Tensor Parallelism uses column-parallel projections for QKV and MLP-Gate/Up, followed by row-parallel projections for Attention-Out and MLP-Down, needing exactly 2 All-Reduces per layer."
       }
@@ -8744,12 +8924,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the cumulative performance impact of combining FlashAttention, Speculative Drafting, PagedAttention, and AWQ Quantization in the unified serving engine?",
         "options": [
-          "It slashes Inter-Token Latency by nearly 5x, expands serving concurrency 8x, and reduces total GPU memory consumption by 44%",
-          "It increases training epoch duration by three hundred percent",
+          "It increases training epoch duration by three hundred percent, which is essential for maintaining system stability under production workloads",
           "It restricts the model to generating only twenty-five tokens per prompt",
+          "It slashes Inter-Token Latency by nearly 5x, expands serving concurrency 8x, and reduces total GPU memory consumption by 44%",
           "It requires replacing all GPU hardware with consumer smartphone microcontrollers"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "The unified architecture synergizes memory tiling, speculative multi-token verification, virtualized block tables, and fused quantized GEMM, unlocking up to 7x higher throughput and 8x concurrency."
       }
@@ -8813,12 +8993,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why do additive absolute position embeddings fail when evaluated on sequences exceeding their pre-training length?",
         "options": [
-          "Positions beyond the pre-training limit were never updated by gradient descent, containing uninitialized weights that cause chaotic attention distributions",
-          "Additive embeddings automatically erase all attention weights when sequence length exceeds two thousand tokens",
           "GPU memory controllers permanently reject tensors that contain addition operators",
-          "Transformer feed-forward layers can only process multiplicative coordinates"
+          "Additive embeddings automatically erase all attention weights when sequence length exceeds two thousand tokens which does not reflect actual production deployment requirements",
+          "Transformer feed-forward layers can only process multiplicative coordinates, which fundamentally misrepresents how the underlying mechanism operates",
+          "Positions beyond the pre-training limit were never updated by gradient descent, containing uninitialized weights that cause chaotic attention distributions"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Unseen positional indices in learned absolute embedding tables have never received gradient updates, resulting in random noise and severe out-of-distribution perplexity explosion."
       }
@@ -8856,12 +9036,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does Rotary Position Embedding (RoPE) guarantee that Query-Key dot products depend strictly on relative token distance?",
         "options": [
-          "Rotating complex coordinates causes absolute position indices to cancel algebraically in the complex conjugate inner product, leaving only relative distance",
           "It subtracts the query position from the key position before tokenization begins",
-          "It permanently zeroes out the first half of all Query and Key projection vectors",
-          "It computes dot products using Manhattan distance instead of cosine similarity"
+          "Rotating complex coordinates causes absolute position indices to cancel algebraically in the complex conjugate inner product, leaving only relative distance",
+          "It permanently zeroes out the first half of all Query and Key projection vectors despite the significant complexity this introduces to the system",
+          "It computes dot products using Manhattan distance instead of cosine similarity, making this approach impractical for any non-trivial production deployment"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "In the complex inner product of rotated vectors, multiplying complex exponentials subtracts their phase angles: e^(i m theta) * e^(-i n theta) = e^(i (m - n) theta), leaving only the relative offset."
       }
@@ -8900,12 +9080,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the physical significance of the geometrically decaying frequency spectrum in RoPE?",
         "options": [
-          "High-frequency dimensions capture fine-grained local syntax over short horizons, while low-frequency dimensions act as global anchors across thousands of tokens",
-          "It reduces the total number of floating-point operations executed by half",
-          "It prevents the model from generating repeating punctuation tokens",
-          "It ensures that all attention heads have identical receptive fields"
+          "It prevents the model from generating repeating punctuation tokens even though real-world implementations require additional safeguards in practice",
+          "It ensures that all attention heads have identical receptive fields",
+          "It reduces the total number of floating-point operations executed by half without properly addressing the resource contention that naturally occurs",
+          "High-frequency dimensions capture fine-grained local syntax over short horizons, while low-frequency dimensions act as global anchors across thousands of tokens"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "RoPE's geometric frequency progression assigns rapid rotations to low-index pairs for local grammar, and slow rotations to high-index pairs for long-range document context."
       }
@@ -8945,12 +9125,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does scaling the base theta hyperparameter from 10,000 to 500,000 enable models like LLaMA-3 to process 128k context windows?",
         "options": [
-          "It reduces rotational frequencies across all dimensions, slowing down rotation so that angles at 128k tokens remain within the range learned during pre-training",
-          "It doubles the physical memory capacity of the GPU high-bandwidth memory",
-          "It converts dense attention into sparse random dropout",
-          "It automatically deletes sixty percent of the prompt text"
+          "It doubles the physical memory capacity of the GPU high-bandwidth memory while failing to account for real-world operational constraints",
+          "It converts dense attention into sparse random dropout, ensuring consistent behavior across all runtime environments and configurations",
+          "It automatically deletes sixty percent of the prompt text",
+          "It reduces rotational frequencies across all dimensions, slowing down rotation so that angles at 128k tokens remain within the range learned during pre-training"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Increasing base theta slows the rotational speed of coordinate pairs, preventing out-of-distribution angular explosion on long documents and keeping rotation angles within familiar pre-training bounds."
       }
@@ -8990,12 +9170,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary architectural advantage of fusing RoPE directly into the FlashAttention memory tiling loop?",
         "options": [
-          "It applies rotary transformations directly within SRAM registers before matrix multiplication, completely eliminating intermediate global memory round-trips",
-          "It disables backpropagation during distributed training",
-          "It reduces model parameter count by twenty percent",
-          "It forces all GPUs to run at the exact same clock speed"
+          "It forces all GPUs to run at the exact same clock speed",
+          "It disables backpropagation during distributed training as this interpretation ignores critical edge cases in the specification",
+          "It reduces model parameter count by twenty percent, which fundamentally misrepresents how the underlying mechanism operates",
+          "It applies rotary transformations directly within SRAM registers before matrix multiplication, completely eliminating intermediate global memory round-trips"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Fusing RoPE into FlashAttention allows threadblocks to rotate Query and Key tiles on-the-fly in SRAM registers, eliminating all global DRAM traffic associated with positional embeddings."
       }
@@ -9061,12 +9241,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does naive linear Position Interpolation (PI) cause severe accuracy degradation in natural language understanding?",
         "options": [
-          "It uniformly compresses all rotational frequencies, shrinking adjacent token angles and destroying the model's ability to discriminate fine-grained local syntax",
           "It converts all Query and Key matrices into zero tensors",
-          "It requires replacing the GPU silicon with analog optical circuits",
-          "It doubles the number of layers in the foundation model"
+          "It doubles the number of layers in the foundation model without providing the deterministic guarantees required in production settings",
+          "It requires replacing the GPU silicon with analog optical circuits though this reasoning breaks down when applied to realistic input sizes",
+          "It uniformly compresses all rotational frequencies, shrinking adjacent token angles and destroying the model's ability to discriminate fine-grained local syntax"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Linear PI divides all coordinates by s, forcing high-frequency dimensions to rotate by only 1/s of their original angle. This crowds adjacent token angles together, severely degrading local grammar and syntax."
       }
@@ -9108,12 +9288,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does NTK-Aware RoPE scaling protect fine-grained local syntax while extending context horizons?",
         "options": [
-          "By scaling base theta non-linearly, it leaves high-frequency dimensions uncompressed while selectively stretching low-frequency dimensions",
-          "It permanently disables all attention heads except the first one",
           "It forces all sequence tokens to attend only to the first prompt word",
-          "It computes attention using Euclidean distance instead of matrix multiplication"
+          "It computes attention using Euclidean distance instead of matrix multiplication",
+          "It permanently disables all attention heads except the first one, ensuring consistent behavior across all runtime environments and configurations",
+          "By scaling base theta non-linearly, it leaves high-frequency dimensions uncompressed while selectively stretching low-frequency dimensions"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "NTK-Aware scaling scales base theta with an exponent of d/(d-2). At i=0 (high freq), the scaling is 1.0 (uncompressed), while at maximum index i (low freq), scaling stretches wavelengths by s."
       }
@@ -9156,9 +9336,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What are the three frequency bands established in YaRN tri-band partitioning?",
         "options": [
           "Pure extrapolation for high frequencies, pure linear interpolation for low frequencies, and a smooth linear ramp blend for intermediate frequencies",
-          "Red, green, and blue optical frequency bands",
-          "Integer, float, and complex number data type tiers",
-          "Training, validation, and testing dataset splits"
+          "Training, validation, and testing dataset splits",
+          "Integer, float, and complex number data type tiers which is inconsistent with established performance benchmarks",
+          "Red, green, and blue optical frequency bands, making this approach impractical for any non-trivial production deployment"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9201,12 +9381,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does expanding the context window from 4k to 64k tokens require attention entropy temperature correction?",
         "options": [
+          "Transformer attention heads stop computing dot products when context expands, which does not align with how modern distributed systems handle this concern",
           "Attending across 16x more keys flattens the softmax distribution, increasing entropy and dispersing attention weights across irrelevant tokens unless logits are sharpened",
           "GPUs overheat when context exceeds four thousand tokens without cooling multipliers",
-          "Softmax denominators turn negative when sequence length exceeds ten thousand tokens",
-          "Transformer attention heads stop computing dot products when context expands"
+          "Softmax denominators turn negative when sequence length exceeds ten thousand tokens as this interpretation ignores critical edge cases in the specification"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "As context expands, queries attend across vastly more keys, causing the softmax distribution to disperse and flatten. Dividing by sqrt(t) sharpens logits, restoring the sharp, focused entropy profile of pre-training."
       }
@@ -9248,12 +9428,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational advantage of Dynamic NTK scaling compared to static context expansion in enterprise serving clusters?",
         "options": [
+          "It automatically converts text models into audio transcription engines",
           "It calculates scaling on-the-fly based on actual request length, delivering 100% baseline precision on short prompts while expanding capacity seamlessly for long documents",
-          "It permanently halves the physical RAM required to host foundation models",
-          "It eliminates the need for prompt tokenizers",
-          "It automatically converts text models into audio transcription engines"
+          "It permanently halves the physical RAM required to host foundation models as this fundamentally mischaracterizes the underlying mechanism",
+          "It eliminates the need for prompt tokenizers, which is essential for maintaining system stability under production workloads"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Dynamic NTK clamps scale factor to 1.0 for short prompts (zero degradation) and scales base theta on-the-fly only when requests exceed pre-training context, avoiding one-size-fits-all compromises."
       }
@@ -9319,9 +9499,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does full self-attention fine-tuning fail when extending context to 64k tokens on standard GPU hardware?",
         "options": [
           "Attention matrices scale quadratically with sequence length, consuming hundreds of gigabytes of activation memory during backpropagation and triggering OOM exceptions",
-          "CUDA drivers permanently disable floating-point calculations for sequences exceeding four thousand tokens",
+          "CUDA drivers permanently disable floating-point calculations for sequences exceeding four thousand tokens which is inconsistent with established performance benchmarks",
           "Gradient descent cannot update weights when context expands beyond two thousand tokens",
-          "Transformer models stop outputting text when fine-tuned on long sequences"
+          "Transformer models stop outputting text when fine-tuned on long sequences without providing the deterministic guarantees required in production settings"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9365,8 +9545,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "It shifts the group partition boundaries by half the group size for half of the attention heads, allowing information to percolate across boundaries in subsequent layers",
           "It sends all sequence tokens to a central master CPU node over Ethernet",
-          "It averages all token embeddings into a single summary vector before attention",
-          "It completely deletes the middle thirty percent of the document text"
+          "It completely deletes the middle thirty percent of the document text, which fundamentally misrepresents how the underlying mechanism operates",
+          "It averages all token embeddings into a single summary vector before attention despite the significant complexity this introduces to the system"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9410,12 +9590,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does standard LoRA fail during long-context fine-tuning unless layer normalization parameters are also trained?",
         "options": [
+          "Optimizer momentum turns negative when training long contexts without normalization",
+          "LoRA low-rank matrices can only be trained if all model weights are deleted, which is essential for maintaining system stability under production workloads",
           "Expanding context alters residual activation variance across layers, and frozen normalization layers cannot adapt, forcing low-rank adapters to waste capacity compensating for scale drift",
-          "LoRA low-rank matrices can only be trained if all model weights are deleted",
-          "Layer normalization layers stop executing when sequence length exceeds four thousand tokens",
-          "Optimizer momentum turns negative when training long contexts without normalization"
+          "Layer normalization layers stop executing when sequence length exceeds four thousand tokens without the necessary validation and error-handling safeguards"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Expanding context shifts activation magnitudes across layers. Unfreezing normalization adds under 0.1% parameters but allows the network to adapt its scale, freeing LoRA adapters to learn long-range attention."
       }
@@ -9457,12 +9637,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why can a model fine-tuned with Shifted Short Attention (S2-Attn) be served using standard dense full attention during inference?",
         "options": [
+          "Dense attention uses less memory than sparse attention during training without accounting for the operational overhead this approach introduces",
+          "Standard serving frameworks refuse to load fine-tuned LoRA checkpoints",
           "Inference does not require storing activations for backward pass gradients, and fine-tuned projection adapters generalize seamlessly to full attention without blind spots",
-          "Inference runtimes automatically convert text tokens into static image pixels",
-          "Dense attention uses less memory than sparse attention during training",
-          "Standard serving frameworks refuse to load fine-tuned LoRA checkpoints"
+          "Inference runtimes automatically convert text tokens into static image pixels despite the significant complexity this introduces to the system"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "During inference, activations are discarded after each layer; only the KV-cache is stored. Because S2-Attn exposes adapters to both local and shifted offsets, the weights generalize perfectly to dense full attention."
       }
@@ -9504,12 +9684,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary infrastructure benefit of deploying LongLoRA with DeepSpeed ZeRO-3 in enterprise datacenters?",
         "options": [
-          "It enables fine-tuning 70B models up to 32k context on a single 8-GPU node instead of requiring multi-node 64-GPU clusters, cutting hardware costs dramatically",
-          "It replaces all GPU programming with standard Python web scripts",
           "It eliminates the need for power supplies in datacenter server racks",
-          "It automatically proves mathematical theorems without human guidance"
+          "It replaces all GPU programming with standard Python web scripts, though this characterization misses several critical implementation details",
+          "It enables fine-tuning 70B models up to 32k context on a single 8-GPU node instead of requiring multi-node 64-GPU clusters, cutting hardware costs dramatically",
+          "It automatically proves mathematical theorems without human guidance regardless of the specific workload characteristics being processed"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "By pairing S2-Attn with LoRA and trainable normalization, LongLoRA slashes activation and optimizer memory, allowing 70B model context adaptation on a single 8-GPU server."
       }
@@ -9574,12 +9754,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why cannot traditional Data Parallelism or Tensor Parallelism scale a single prompt to one million tokens on a single server?",
         "options": [
-          "Data Parallelism shards independent requests rather than single prompts, while Tensor Parallelism is bounded by the head count and cannot scale across nodes",
+          "Gradient descent cannot update weights when more than eight GPUs are connected, which does not align with how modern distributed systems handle this concern",
           "CUDA drivers permanently disable networking when context exceeds one hundred thousand tokens",
           "Million-token sequences require replacing all digital logic with quantum circuits",
-          "Gradient descent cannot update weights when more than eight GPUs are connected"
+          "Data Parallelism shards independent requests rather than single prompts, while Tensor Parallelism is bounded by the head count and cannot scale across nodes"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Data Parallelism operates on separate requests, offering no help when a single prompt exceeds memory. Tensor Parallelism cannot exceed the attention head count (32-64 GPUs). Context Parallelism is required."
       }
@@ -9619,12 +9799,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does RingAttention compute full dense attention across a million tokens without any GPU running out of memory?",
         "options": [
-          "Each GPU holds its stationary Query block and computes attention against a circulating Key-Value block, passing the KV block around a network ring over P steps",
-          "It downsamples the million tokens into twenty summary characters",
+          "It downsamples the million tokens into twenty summary characters even though real-world implementations require additional safeguards in practice",
           "It converts the sequence into a static JPEG image before computation",
-          "It deletes all Key and Value projection vectors after the first layer"
+          "It deletes all Key and Value projection vectors after the first layer without considering the cascading effects on downstream components",
+          "Each GPU holds its stationary Query block and computes attention against a circulating Key-Value block, passing the KV block around a network ring over P steps"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Each GPU retains its local Query block and circulating KV blocks move around a ring over P steps. Using FlashAttention online softmax, full attention is accumulated with O(N/P) memory per GPU."
       }
@@ -9665,9 +9845,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the mathematical condition required for RingAttention to achieve near-perfect linear scaling across a GPU cluster?",
         "options": [
           "The time to compute attention on a local block must be greater than or equal to the time to transfer the Key-Value block over the network (T_comp >= T_comm)",
-          "The number of GPUs must be an odd prime number",
-          "The network cable length must be exactly one meter",
-          "The model must have more layers than attention heads"
+          "The model must have more layers than attention heads even when operating under sustained high-throughput conditions",
+          "The number of GPUs must be an odd prime number regardless of the underlying infrastructure topology or deployment strategy",
+          "The network cable length must be exactly one meter"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9710,12 +9890,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does standard contiguous Context Parallelism waste up to 50% of cluster compute capacity on causal autoregressive models?",
         "options": [
+          "Network cards overheat when transferring lower-triangular matrices",
+          "Causal models can only utilize even-numbered GPU accelerators, overlooking the fundamental constraints that govern this domain in practice",
           "Causal masking is lower-triangular; early-rank GPUs have no preceding tokens to attend to in later ring steps, forcing them to sit completely idle",
-          "CUDA compiler disables half of the streaming multiprocessors on causal models",
-          "Causal models can only utilize even-numbered GPU accelerators",
-          "Network cards overheat when transferring lower-triangular matrices"
+          "CUDA compiler disables half of the streaming multiprocessors on causal models regardless of the specific workload characteristics being processed"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "In causal attention, token i attends only to j <= i. Under contiguous partitioning, early GPUs finish all their work immediately while later GPUs do heavy work, wasting ~50% cluster capacity."
       }
@@ -9757,12 +9937,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How do enterprise inference platforms ensure fault tolerance and high availability in RingAttention serving clusters?",
         "options": [
+          "By storing all prompts on magnetic tape drives during inference despite the significant trade-offs this approach imposes on overall throughput",
+          "By forcing all client connections to disconnect every ten seconds",
           "By combining RDMA priority flow control with hierarchical hybrid ring-tree topologies and automated fallback rerouting if an accelerator stalls",
-          "By restarting the entire datacenter whenever a single packet is delayed",
-          "By storing all prompts on magnetic tape drives during inference",
-          "By forcing all client connections to disconnect every ten seconds"
+          "By restarting the entire datacenter whenever a single packet is delayed which is inconsistent with established performance benchmarks"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Enterprise RingAttention utilizes RDMA flow control (PFC/ECN), decouples intra-node and inter-node ring transfers, and deploys health monitors that reroute traffic around stragglers."
       }
@@ -9827,12 +10007,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What four foundational technologies are synthesized in the Milestone 8 Planetary Serving Engine?",
         "options": [
+          "HTML web styling, CSS animations, JavaScript cookies, and SQL relational tables without accounting for the operational overhead this approach introduces",
+          "Static embedding lookup tables, ALiBi linear bias slopes, full dense attention, and single-GPU batching",
           "RoPE base theta scaling, YaRN tri-band interpolation with temperature correction, LongLoRA shifted fine-tuning, and Striped RingAttention",
-          "HTML web styling, CSS animations, JavaScript cookies, and SQL relational tables",
-          "Recurrent neural networks, long short-term memory cells, Markov decision processes, and decision trees",
-          "Static embedding lookup tables, ALiBi linear bias slopes, full dense attention, and single-GPU batching"
+          "Recurrent neural networks, long short-term memory cells, Markov decision processes, and decision trees"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "The Milestone 8 Capstone synthesizes RoPE base theta scaling, YaRN tri-band interpolation, LongLoRA S2-Attn fine-tuning, and Striped RingAttention into an end-to-end 1M-token engine."
       }
@@ -9874,12 +10054,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the integration of PagedAttention and Radix Tree prefix caching optimize 1M-token document serving?",
         "options": [
-          "It eliminates physical DRAM fragmentation and caches common million-token documents with zero-copy reference counts, slashing Time to First Token",
           "It permanently converts English text tokens into binary machine instructions",
-          "It deletes ninety percent of the document after the first user query",
-          "It stores all Key and Value projection vectors on magnetic hard disk platters"
+          "It eliminates physical DRAM fragmentation and caches common million-token documents with zero-copy reference counts, slashing Time to First Token",
+          "It stores all Key and Value projection vectors on magnetic hard disk platters",
+          "It deletes ninety percent of the document after the first user query even though real-world implementations require additional safeguards in practice"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "PagedAttention eliminates external memory fragmentation, while Radix Tree prefix caching allows shared 1M-token documents to be prefilled once and queried with zero-copy cache hits."
       }
@@ -9919,12 +10099,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why did early long-context models suffer from the 'Lost in the Middle' retrieval failure, and how does YaRN resolve it?",
         "options": [
-          "Softmax entropy dispersion and unscaled low-frequency RoPE phase wrap-around flattened attention, which YaRN resolves through temperature correction and tri-band scaling",
+          "GPU memory chips lose electric charge when processing more than ten thousand tokens as this approach introduces unacceptable latency in distributed settings",
           "Attention heads automatically shut down when reading the middle of a document",
-          "The middle tokens in a sequence are deleted during byte-pair encoding",
-          "GPU memory chips lose electric charge when processing more than ten thousand tokens"
+          "Softmax entropy dispersion and unscaled low-frequency RoPE phase wrap-around flattened attention, which YaRN resolves through temperature correction and tri-band scaling",
+          "The middle tokens in a sequence are deleted during byte-pair encoding as this fails to consider the broader architectural implications at scale"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Without temperature scaling, attending to massive key counts flattens softmax distributions, causing attention dispersion. YaRN's temperature factor divides logits by sqrt(t), sharpening focus and ensuring 100% retrieval."
       }
@@ -9967,12 +10147,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How do enterprise inference platforms ensure that network communication latency does not stall RingAttention computation?",
         "options": [
-          "By deploying asynchronous double-buffering pipelines that overlap non-blocking NCCL peer-to-peer ring transfers behind Tensor Core GEMM operations",
-          "By replacing network cables with fiber optic lasers pointing through open windows",
-          "By forcing GPUs to run without network synchronization",
-          "By compressing all sequence tokens into eight-bit text summaries"
+          "By forcing GPUs to run without network synchronization, which does not align with how modern distributed systems handle this concern",
+          "By compressing all sequence tokens into eight-bit text summaries",
+          "By replacing network cables with fiber optic lasers pointing through open windows which oversimplifies the actual system behavior under these conditions",
+          "By deploying asynchronous double-buffering pipelines that overlap non-blocking NCCL peer-to-peer ring transfers behind Tensor Core GEMM operations"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Asynchronous double-buffering allows the communication stream to transfer Key-Value blocks in the background while the compute stream executes FlashAttention GEMM, hiding communication latency completely."
       }
@@ -10014,12 +10194,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary business and architectural benefit of native 1M-token context serving compared to traditional RAG architectures?",
         "options": [
-          "It eliminates brittle paragraph chunking, vector database maintenance, and retrieval loss, cutting document processing costs by over 80% while improving reasoning fidelity",
-          "It requires purchasing dedicated satellite uplinks for every user query",
           "It converts text generation into a batch overnight email delivery system",
-          "It forces all users to type prompts containing at least one million words"
+          "It requires purchasing dedicated satellite uplinks for every user query even though real-world implementations require additional safeguards in practice",
+          "It forces all users to type prompts containing at least one million words which oversimplifies the actual system behavior under these conditions",
+          "It eliminates brittle paragraph chunking, vector database maintenance, and retrieval loss, cutting document processing costs by over 80% while improving reasoning fidelity"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Native 1M-token context allows whole documents to be ingested into the model's native attention field. It eliminates RAG chunking errors, reduces monthly infrastructure costs by >80%, and guarantees complete context coverage."
       }
@@ -10071,12 +10251,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational advantage and foundational limitation of the Siamese Bi-Encoder retrieval architecture?",
         "options": [
-          "It decouples query and document encoding for sub-millisecond ANN search, but suffers from zero token-level cross-attention during encoding.",
+          "It eliminates the need for vector databases by performing exact lexical BM25 matching inside transformer layers, making this approach impractical",
           "It computes full pairwise cross-attention between all query and document tokens, but requires quadratic offline storage.",
-          "It requires both query and document to be of identical token length, preventing retrieval of multi-paragraph documents.",
-          "It eliminates the need for vector databases by performing exact lexical BM25 matching inside transformer layers."
+          "It decouples query and document encoding for sub-millisecond ANN search, but suffers from zero token-level cross-attention during encoding.",
+          "It requires both query and document to be of identical token length, preventing retrieval of multi-paragraph documents."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Bi-Encoders enable offline document embedding and high-speed ANN vector search, but cannot perform cross-attention between query and document tokens, forcing entire documents into a single pooled vector."
       }
@@ -10103,12 +10283,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does Mean Pooling or CLS Pooling trigger Vector Smearing across multi-topic corporate documents?",
         "options": [
+          "CLS pooling discards the entire document and only encodes the first four letters of the title without accounting for the operational overhead this approach introduces",
           "Collapsing hundreds of contextualized token vectors into a single centroid vector blends orthogonal topics and destroys fine-grained entity-relation bindings.",
-          "Mean pooling multiplies token vectors together, causing mathematical exponent overflow in deep network layers.",
           "Pooling forces all floating-point numbers into eight-bit integers, inducing severe quantization noise.",
-          "CLS pooling discards the entire document and only encodes the first four letters of the title."
+          "Mean pooling multiplies token vectors together, causing mathematical exponent overflow in deep network layers."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Collapsing a high-dimensional tensor into a single vector averages out orthogonal topics and obliterates delicate token-level entity-relation bindings, preventing precise factual discrimination."
       }
@@ -10136,12 +10316,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does a foundation embedding model with top-tier Semantic Textual Similarity (STS) scores on MTEB often underperform on technical document retrieval?",
         "options": [
+          "Technical retrieval datasets prohibit the use of cosine similarity and require Euclidean distance metrics.",
           "STS measures symmetric paraphrase similarity between short sentences, whereas technical retrieval is asymmetric and demands hard-negative discrimination.",
-          "STS benchmarks evaluate models using lexical BM25 algorithms that ignore semantic vector weights.",
           "MTEB leaderboards evaluate models strictly on image classification tasks rather than natural language text.",
-          "Technical retrieval datasets prohibit the use of cosine similarity and require Euclidean distance metrics."
+          "STS benchmarks evaluate models using lexical BM25 algorithms that ignore semantic vector weights as this fails to consider the broader architectural implications at scale"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "STS evaluates symmetric short-sentence equivalence, while enterprise document retrieval is inherently asymmetric, requiring models trained with hard negatives to discriminate subtle domain-specific technical facts."
       }
@@ -10170,12 +10350,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does Reciprocal Rank Fusion (RRF) resolve the blind spots of dense Bi-Encoders when queries contain exact alphanumeric identifiers?",
         "options": [
-          "By merging candidate rankings from lexical BM25 search with dense vector rankings without requiring complex score normalization.",
-          "By retraining the transformer embedding model at query time using gradient descent.",
           "By converting all alphanumeric strings into Roman numerals before computing cosine similarities.",
+          "By retraining the transformer embedding model at query time using gradient descent, which fundamentally misrepresents how the underlying",
+          "By merging candidate rankings from lexical BM25 search with dense vector rankings without requiring complex score normalization.",
           "By replacing vector databases with relational SQL databases for all semantic queries."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "RRF combines candidate rankings from BM25 (which catches exact alphanumeric IDs) and dense vector search (which catches conceptual synonyms), providing robust hybrid recall."
       }
@@ -10204,12 +10384,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What fundamental trade-off prevents Cross-Encoders from serving as first-stage retrieval engines over million-document corporate collections?",
         "options": [
-          "Cross-Encoders evaluate full pairwise cross-attention at runtime, making search across millions of documents computationally prohibitive.",
           "Cross-Encoders cannot process documents longer than sixteen tokens due to transformer attention constraints.",
-          "Cross-Encoders produce lower retrieval accuracy than Bi-Encoders on all benchmark datasets.",
-          "Cross-Encoders require specialized quantum computers that are unavailable in commercial cloud datacenters."
+          "Cross-Encoders require specialized quantum computers that are unavailable in commercial cloud datacenters.",
+          "Cross-Encoders evaluate full pairwise cross-attention at runtime, making search across millions of documents computationally prohibitive.",
+          "Cross-Encoders produce lower retrieval accuracy than Bi-Encoders on all benchmark datasetsregardless of the underlying infrastructure topology or"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Cross-Encoders evaluate full cross-attention over concatenated query-document sequences at runtime, requiring millions of forward passes per query and destroying interactive latency budgets."
       }
@@ -10262,12 +10442,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does ColBERT's late interaction paradigm fundamentally differ from traditional Bi-Encoders and Cross-Encoders?",
         "options": [
-          "It decouples query and document encoding for offline indexing like a Bi-Encoder, but preserves token-level vectors and computes interaction via MaxSim at query time.",
-          "It computes full cross-attention across all thirty-two transformer layers before storing vectors in a relational database.",
           "It pools all document token vectors into a single scalar value and executes pure lexical string matching.",
-          "It replaces all neural network layers with static BM25 keyword frequency lookup tables."
+          "It replaces all neural network layers with static BM25 keyword frequency lookup tables despite the significant trade-offs this approach imposes on overall throughput",
+          "It decouples query and document encoding for offline indexing like a Bi-Encoder, but preserves token-level vectors and computes interaction via MaxSim at query time.",
+          "It computes full cross-attention across all thirty-two transformer layers before storing vectors in a relational database."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "ColBERT preserves token-level embeddings through decoupled encoding towers, pre-computing document vectors offline while evaluating granular token-to-token similarity at query time via MaxSim."
       }
@@ -10294,12 +10474,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the mathematical formulation and operational behavior of the ColBERT MaxSim operator?",
         "options": [
-          "For each query token vector, it finds the maximum inner product across all document token vectors, and sums these maximums across the query.",
-          "It multiplies all query and document vectors together into a single scalar product and takes the square root.",
           "It computes the average cosine similarity between the first query token and the last document token.",
-          "It sorts document tokens alphabetically and selects the token with the highest ASCII value."
+          "It sorts document tokens alphabetically and selects the token with the highest ASCII value, ensuring consistent behavior across all runtime",
+          "For each query token vector, it finds the maximum inner product across all document token vectors, and sums these maximums across the query.",
+          "It multiplies all query and document vectors together into a single scalar product and takes the square rootregardless of the specific workload"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "MaxSim evaluates the inner product between each query token and all document tokens, identifies the maximum match per query term, and sums these maximum scores to determine document relevance."
       }
@@ -10329,9 +10509,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does ColBERT utilize special [MASK] tokens during query encoding to achieve soft query expansion?",
         "options": [
           "Padded mask tokens interact with query words via bidirectional self-attention, generating vectors that search for latent synonymous concepts.",
+          "Mask tokens permanently remove punctuation and numbers from the document index, which fundamentally misrepresents how the underlying mechanism operates",
           "Mask tokens erase thirty percent of the query to prevent user privacy leakage during search.",
-          "Mask tokens convert the query into an encrypted hash string that cannot be intercepted on public networks.",
-          "Mask tokens permanently remove punctuation and numbers from the document index."
+          "Mask tokens convert the query into an encrypted hash string that cannot be intercepted on public networks."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10361,12 +10541,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why can ColBERT project 768-dimensional contextualized token embeddings down to 128 dimensions with less than 0.5% loss in retrieval accuracy?",
         "options": [
+          "BERT-base models only use the first sixty-four dimensions of their hidden state during self-attention.",
+          "Modern GPUs are incapable of processing vectors with more than one hundred twenty-eight dimensions, which oversimplifies the actual complexity involved",
           "The intrinsic semantic manifold of natural language is lower-dimensional, allowing linear projection to discard redundant activations and noise.",
-          "Modern GPUs are incapable of processing vectors with more than one hundred twenty-eight dimensions.",
-          "Dimensionality reduction forces the model to use integer arithmetic instead of floating-point numbers.",
-          "BERT-base models only use the first sixty-four dimensions of their hidden state during self-attention."
+          "Dimensionality reduction forces the model to use integer arithmetic instead of floating-point numbers."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "The intrinsic dimensionality of contextualized language representations is far lower than 768; a trained linear projection captures the principal semantic variance while slashing index storage by 6x."
       }
@@ -10395,9 +10575,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do custom fused MaxSim CUDA kernels achieve over 90% peak memory bandwidth utilization during multi-vector search?",
         "options": [
           "By keeping query vectors resident in high-speed SRAM, streaming document tiles through registers, and fusing dot products with reduction.",
-          "By writing intermediate dot-product matrices to disk before computing maximum values.",
-          "By evaluating all mathematical operations on the host CPU using standard Python loops.",
-          "By disabling GPU error-correcting memory to allow overclocked floating-point arithmetic."
+          "By disabling GPU error-correcting memory to allow overclocked floating-point arithmetic.",
+          "By writing intermediate dot-product matrices to disk before computing maximum valueswhile ignoring the critical performance implications of this",
+          "By evaluating all mathematical operations on the host CPU using standard Python loops."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10452,12 +10632,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does brute-force MaxSim evaluation fail to meet commercial enterprise service-level agreements across millions of documents?",
         "options": [
-          "Evaluating billions of vector dot products per query saturates memory bandwidth and consumes seconds of latency without indexing.",
-          "The MaxSim operator can only evaluate documents written in ancient Latin or Greek.",
           "Brute-force search requires converting all token vectors into scalar floating-point numbers.",
-          "Modern GPU accelerators refuse to execute matrix multiplications without specialized cryptographic keys."
+          "Modern GPU accelerators refuse to execute matrix multiplications without specialized cryptographic keys.",
+          "The MaxSim operator can only evaluate documents written in ancient Latin or Greek, which oversimplifies the actual complexity involved in",
+          "Evaluating billions of vector dot products per query saturates memory bandwidth and consumes seconds of latency without indexing."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Searching a corpus of millions of documents requires evaluating billions of token vectors per query, saturating memory bandwidth and exceeding interactive 30ms latency budgets without indexing."
       }
@@ -10485,12 +10665,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How do centroid inverted lists in PLAID accelerate candidate document identification during multi-vector search?",
         "options": [
+          "By forcing all document tokens to match the first word of the title.",
           "By clustering token vectors into centroids and indexing documents into postings lists, allowing the engine to probe only relevant clusters.",
-          "By deleting ninety percent of the documents in the corpus to keep the index compact.",
-          "By replacing floating-point vectors with random boolean flags.",
-          "By forcing all document tokens to match the first word of the title."
+          "By deleting ninety percent of the documents in the corpus to keep the index compact as this fundamentally mischaracterizes the underlying mechanism",
+          "By replacing floating-point vectors with random boolean flags without accounting for the operational overhead this approach introduces"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "PLAID clusters token vectors into centroids and creates inverted lists, allowing queries to search only the postings of nearest centroids, bypassing millions of unrelated documents."
       }
@@ -10518,12 +10698,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What mathematical principle enables Residual Vector Quantization (RVQ) in PLAID to compress token vectors down to two bits per dimension?",
         "options": [
+          "Quantization rounds all vector dimensions to the nearest power of ten, although this contradicts established engineering best practices in the field",
+          "Residual vectors discard the query and only store the document publication date.",
           "Residual vectors represent only local displacements within centroid Voronoi cells, possessing small dynamic ranges that quantize with minimal error.",
-          "Residual quantization replaces all negative numbers with zero, halving storage requirements.",
-          "Quantization rounds all vector dimensions to the nearest power of ten.",
-          "Residual vectors discard the query and only store the document publication date."
+          "Residual quantization replaces all negative numbers with zero, halving storage requirements."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Residuals capture only the small displacement between a token vector and its assigned centroid, allowing low-bitwidth quantization to compress vectors by 8x with negligible ranking distortion."
       }
@@ -10552,12 +10732,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does PLAID's three-stage progressive filtering pipeline achieve sub-ten-millisecond latency while preserving 99.9% of exact MaxSim accuracy?",
         "options": [
-          "By pruning 99% of centroids, scoring surviving candidates using compact 2-bit residuals, and refining only the top 100 in full precision.",
+          "By skipping the first fifty percent of every document during the forward pass without providing the deterministic guarantees required in production settings",
+          "By training a new transformer model from scratch for every incoming user query.",
           "By evaluating all documents on specialized quantum computers located in cloud datacenters.",
-          "By skipping the first fifty percent of every document during the forward pass.",
-          "By training a new transformer model from scratch for every incoming user query."
+          "By pruning 99% of centroids, scoring surviving candidates using compact 2-bit residuals, and refining only the top 100 in full precision."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "PLAID prunes 99% of centroids, scores remaining candidates via 2-bit residual lookup tables, and performs full-precision MaxSim only on the top 100 documents, achieving extreme speed and precision."
       }
@@ -10586,12 +10766,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What makes PLAID a transformative architectural breakthrough for enterprise infrastructure economics?",
         "options": [
+          "It requires all corporate employees to memorize their document identifiers, which does not align with how modern distributed systems handle this concern",
           "It delivers sub-5ms multi-vector retrieval on standard commodity CPU servers, eliminating the requirement for expensive dedicated GPU clusters.",
-          "It eliminates the need for software licenses by converting all documents into open-source markdown files.",
           "It allows retrieval to run without electricity by leveraging optical analog circuits.",
-          "It requires all corporate employees to memorize their document identifiers."
+          "It eliminates the need for software licenses by converting all documents into open-source markdown files."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "By combining SIMD vector acceleration with residual quantization, PLAID achieves sub-5ms search on standard commodity CPUs, reducing enterprise infrastructure TCO by over 80%."
       }
@@ -10644,12 +10824,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does standard vector-based RAG fail when users ask broad, holistic questions across an entire corporate document collection?",
         "options": [
-          "Vector search matches localized paragraph snippets without topological awareness of cross-document relationships or overarching themes.",
-          "Vector databases cannot store text written in the English language.",
+          "Standard RAG models permanently delete twenty percent of document chunks during indexing.",
           "Cosine similarity values become negative when evaluating documents larger than ten pages.",
-          "Standard RAG models permanently delete twenty percent of document chunks during indexing."
+          "Vector databases cannot store text written in the English language, though this characterization misses several critical implementation details",
+          "Vector search matches localized paragraph snippets without topological awareness of cross-document relationships or overarching themes."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Standard RAG performs local similarity matching on isolated chunks, lacking structured topological awareness of entity connections or global themes across the full corpus."
       }
@@ -10678,12 +10858,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What three coupled extraction tasks are executed by the GraphRAG LLM prompt pipeline during document ingestion?",
         "options": [
-          "Entity Identification, Relationship Extraction, and Claim Mining with exact source chunk provenance tracking.",
-          "Image compression, font rasterization, and spelling correction.",
+          "Translating documents into SQL table definitions and deleting text files.",
           "Converting all text into hexadecimal format and discarding vowels.",
-          "Translating documents into SQL table definitions and deleting text files."
+          "Entity Identification, Relationship Extraction, and Claim Mining with exact source chunk provenance tracking.",
+          "Image compression, font rasterization, and spelling correction, which does not align with how modern distributed"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "GraphRAG extracts entities (with types/descriptions), relationships (with predicates/strengths), and claims (with contextual conditions), anchoring every element with provenance metadata."
       }
@@ -10712,12 +10892,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does GraphRAG utilize the Leiden community detection algorithm rather than earlier algorithms like the Louvain method?",
         "options": [
-          "The Leiden algorithm guarantees that all detected communities are internally well-connected, eliminating disconnected community artifacts.",
+          "The Leiden algorithm does not require computers and can be executed with physical playing cards.",
           "The Leiden algorithm converts all graph nodes into 128-dimensional floating-point vectors.",
-          "The Louvain algorithm can only process graphs containing fewer than ten nodes.",
-          "The Leiden algorithm does not require computers and can be executed with physical playing cards."
+          "The Leiden algorithm guarantees that all detected communities are internally well-connected, eliminating disconnected community artifacts.",
+          "The Louvain algorithm can only process graphs containing fewer than ten nodes, which is essential for maintaining system stability under production workloads"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Unlike Louvain, which can generate disconnected or arbitrarily badly connected sub-communities during modularity optimization, Leiden guarantees well-connected communities across all hierarchy levels."
       }
@@ -10747,12 +10927,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does pre-computing bottom-up community summaries offline transform online query latency and analytical fidelity in GraphRAG?",
         "options": [
-          "It pre-computes structured thematic syntheses offline, allowing global queries to execute over pre-distilled community reports in seconds.",
-          "It eliminates the need for user queries by automatically sending daily emails to all corporate employees.",
           "It compresses all document text into a single thirty-two-bit integer value.",
-          "It forces all language models to generate one-word answers during search."
+          "It eliminates the need for user queries by automatically sending daily emails to all corporate employees.",
+          "It forces all language models to generate one-word answers during search despite the significant trade-offs this approach imposes on overall throughput",
+          "It pre-computes structured thematic syntheses offline, allowing global queries to execute over pre-distilled community reports in seconds."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "By summarizing communities hierarchically offline with citation citations, GraphRAG enables online global search to evaluate pre-distilled thematic reports in seconds with zero hallucination."
       }
@@ -10781,12 +10961,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does GraphRAG's Global Query Search utilize a distributed Map-Reduce architecture to synthesize corpus-wide answers?",
         "options": [
+          "By deleting all negative sentiment from documents before generating answers.",
           "By scoring and extracting intermediate answer points from community summaries in parallel, then reducing them into a consolidated report.",
           "By reading every single raw document in the corpus sequentially from start to finish at query time.",
-          "By deleting all negative sentiment from documents before generating answers.",
-          "By replacing neural models with keyword frequency ranking algorithms."
+          "By replacing neural models with keyword frequency ranking algorithms, which does not align with how modern distributed systems handle this concern"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Global Search evaluates community summaries in parallel (Map Phase) to extract scored intermediate answer points, then clusters and synthesizes them (Reduce Phase) into a comprehensive report."
       }
@@ -10839,12 +11019,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why is relying solely on dense bi-encoders or standalone knowledge graphs insufficient for enterprise intelligence?",
         "options": [
-          "Dense vectors suffer from embedding bottleneck loss and lack topology, while graphs struggle with unstructured prose nuance.",
-          "Dense bi-encoders require excessive disk storage while knowledge graphs can only run on specialized quantum computing clusters.",
+          "Both architectures have been completely deprecated and replaced by random token permutation search algorithms.",
           "Knowledge graphs cannot store textual entities and dense bi-encoders can only process single-word dictionary terms.",
-          "Both architectures have been completely deprecated and replaced by random token permutation search algorithms."
+          "Dense bi-encoders require excessive disk storage while knowledge graphs can only run on specialized quantum computing clusters.",
+          "Dense vectors suffer from embedding bottleneck loss and lack topology, while graphs struggle with unstructured prose nuance."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Dense bi-encoders lose granular token details and lack topological relational links, whereas pure symbolic knowledge graphs struggle with continuous prose semantics and unstructured context."
       }
@@ -10872,12 +11052,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the dual-stream ingestion pipeline balance multi-vector token storage with hierarchical graph construction?",
         "options": [
-          "Stream A compresses token vectors via PLAID 2-bit quantization, while Stream B builds Leiden community graphs and summaries.",
-          "Stream A stores raw 32-bit floats in memory while Stream B discards all relationship metadata to save database disk space.",
+          "Stream A processes only numerical tables while Stream B converts all text passages into binary bitmap images, although this",
           "Stream A converts text into random hash codes while Stream B requires manual human ontologists to label every sentence.",
-          "Stream A processes only numerical tables while Stream B converts all text passages into binary bitmap images."
+          "Stream A stores raw 32-bit floats in memory while Stream B discards all relationship metadata to save database disk space.",
+          "Stream A compresses token vectors via PLAID 2-bit quantization, while Stream B builds Leiden community graphs and summaries."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Stream A applies PLAID 2-bit residual vector quantization to compress token vectors by twenty-four-fold, while Stream B extracts entities, constructs property graphs, and computes Leiden community summaries."
       }
@@ -10907,8 +11087,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "It routes exact queries to low-latency PLAID lookup and holistic queries to Map-Reduce, slashing latency and compute costs.",
           "It forces every query to execute exhaustive brute-force vector scans across the entire document corpus simultaneously.",
-          "It prevents users from asking multi-hop questions by rejecting inquiries that contain more than ten words.",
-          "It converts all text queries into synthetic audio files to bypass transformer neural network layers."
+          "It converts all text queries into synthetic audio files to bypass transformer neural network layers, although this contradicts",
+          "It prevents users from asking multi-hop questions by rejecting inquiries that contain more than ten words."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10938,12 +11118,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the post-generation provenance verification filter eliminate hallucinations in enterprise AI responses?",
         "options": [
-          "It parses citation brackets and verifies that every claim is logically entailed by existing graph edges and source passages.",
-          "It rewrites all generated responses using pre-defined canned template scripts regardless of query contents.",
           "It calculates random hash values and automatically deletes half of the words in the generated enterprise report.",
+          "It parses citation brackets and verifies that every claim is logically entailed by existing graph edges and source passages.",
+          "It rewrites all generated responses using pre-defined canned template scripts regardless of query contents, which does not align with",
           "It requires human legal attorneys to manually approve every generated sentence in real time during user conversations."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "The verification filter cross-references bracketed citations against verified graph triples and passage text, confirming existence and logical entailment before releasing answers to users."
       }
@@ -10970,12 +11150,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What empirical performance gains does the hybrid multi-vector plus GraphRAG engine demonstrate over isolated baselines?",
         "options": [
+          "It decreases retrieval precision to 0.12 but increases query execution latency to several minutes per search.",
           "It achieves superior NDCG@10 (0.918) and MRR (0.942) while cutting token costs by over 70% via pre-computed summaries.",
           "It achieves identical accuracy to single dense vector search while requiring ten times more graphic processing units.",
-          "It decreases retrieval precision to 0.12 but increases query execution latency to several minutes per search.",
           "It completely eliminates the need for computer hardware by storing all knowledge graph data in physical paper filing cabinets."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "The hybrid engine achieves top-tier NDCG@10 (0.918) and MRR (0.942) on multi-hop benchmarks while slashing prompt token costs by over seventy percent through pre-computed community summaries."
       }
@@ -11030,7 +11210,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "SFT treats all tokens with uniform loss and cannot teach complex trade-offs, leading to distribution shift and hallucinations.",
           "SFT requires quantum computing hardware and cannot be trained on standard graphic processing unit clusters.",
           "SFT permanently deletes the model's vocabulary and forces it to generate random hexadecimal numbers.",
-          "SFT only works for computer vision tasks and cannot be applied to natural language text models."
+          "SFT only works for computer vision tasks and cannot be applied to natural language text models, though this characterization misses"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11061,9 +11241,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does the Bradley-Terry preference model formulate the probability that a human prefers response y_w over y_l?",
         "options": [
           "As a logistic sigmoid function of the scalar reward difference: P(y_w > y_l | x) = sigma(r(x, y_w) - r(x, y_l)).",
-          "By counting the exact number of vowels in both responses and subtracting the shorter text length.",
-          "By converting both text strings into SHA-256 hashes and performing a bitwise XOR comparison.",
-          "As an exponential multiplication of vocabulary token IDs divided by the prompt character count."
+          "As an exponential multiplication of vocabulary token IDs divided by the prompt character count.",
+          "By converting both text strings into SHA-256 hashes and performing a bitwise XOR comparison, ensuring consistent behavior",
+          "By counting the exact number of vowels in both responses and subtracting the shorter text length."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11096,7 +11276,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "It clips the probability ratio within [1-epsilon, 1+epsilon], preventing destructive policy updates and stabilizing training.",
           "It truncates all generated text sequences after exactly ten tokens to reduce cloud compute expenditures.",
           "It discards all neural network weights whose numerical values exceed positive ten to save graphic memory.",
-          "It converts all continuous float32 values into binary boolean flags to eliminate gradient calculations."
+          "It converts all continuous float32 values into binary boolean flags to eliminate gradient calculationswhile ignoring the critical"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11126,12 +11306,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why is the Kullback-Leibler (KL) divergence penalty essential in RLHF policy optimization?",
         "options": [
-          "It penalizes policy drift from the frozen reference model, preventing reward hacking and preserving natural language coherence.",
           "It accelerates training speed by skipping all backpropagation passes on every odd-numbered training epoch.",
-          "It forces the model to memorize the entire training dataset word-for-word without any generalization.",
-          "It encrypts all model activations using public-key cryptography to prevent network interception."
+          "It penalizes policy drift from the frozen reference model, preventing reward hacking and preserving natural language coherence.",
+          "It encrypts all model activations using public-key cryptography to prevent network interceptionwithout providing the deterministic",
+          "It forces the model to memorize the entire training dataset word-for-word without any generalization."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "The KL divergence penalty acts as a restoring spring against the reference model, stopping the policy from exploiting reward model blind spots (reward hacking) and maintaining coherent linguistic capability."
       }
@@ -11161,9 +11341,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do modern PPO training clusters manage the immense VRAM footprint of coordinating four concurrent foundation models?",
         "options": [
           "By co-locating the Actor and Critic on GPUs while offloading or quantizing the frozen Reference and Reward models.",
-          "By deleting the Actor model and running the entire reinforcement learning pipeline on physical paper punch cards.",
           "By running all four models sequentially on a single consumer smartphone over Wi-Fi connections.",
-          "By discarding all training prompts and training the models purely on synthetic noise generated by random number generators."
+          "By discarding all training prompts and training the models purely on synthetic noise generated by random number generators.",
+          "By deleting the Actor model and running the entire reinforcement learning pipeline on physical paper punch cards."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11218,12 +11398,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational limitation of PPO actor-critic training that motivated the creation of DPO?",
         "options": [
-          "PPO requires co-locating four models with severe hyperparameter fragility and slow autoregressive rollout generation.",
           "PPO cannot be trained using gradient descent and must rely entirely on genetic mutation algorithms.",
-          "PPO is mathematically incapable of processing text prompts that contain punctuation marks.",
+          "PPO requires co-locating four models with severe hyperparameter fragility and slow autoregressive rollout generation.",
+          "PPO is mathematically incapable of processing text prompts that contain punctuation marks, overlooking the fundamental",
           "PPO permanently corrupts GPU firmware and requires replacing physical motherboard hardware after each training run."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "PPO demands coordinating four separate models (Actor, Critic, Reference, Reward), suffers from extreme hyperparameter sensitivity, and wastes GPU compute on slow sequential rollout generation."
       }
@@ -11252,12 +11432,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does DPO mathematically eliminate the intractable partition function Z(x) from the training objective?",
         "options": [
-          "By expressing rewards in terms of policy log-ratios, causing Z(x) to cancel out identically in the Bradley-Terry difference.",
-          "By approximating Z(x) as zero and discarding all mathematical terms that contain logarithmic operations.",
-          "By converting all probabilities into imaginary complex numbers that do not require normalization.",
-          "By running billions of Monte Carlo simulations to estimate Z(x) before starting gradient updates."
+          "By approximating Z(x) as zero and discarding all mathematical terms that contain logarithmic operationseven though empirical",
+          "By converting all probabilities into imaginary complex numbers that do not require normalizationwithout accounting for the",
+          "By running billions of Monte Carlo simulations to estimate Z(x) before starting gradient updates.",
+          "By expressing rewards in terms of policy log-ratios, causing Z(x) to cancel out identically in the Bradley-Terry difference."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Substituting the closed-form optimal policy into the Bradley-Terry preference difference causes the partition function log Z(x) to cancel identically, yielding an exact objective without normalization."
       }
@@ -11287,9 +11467,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does the dynamic scalar weighting term in the DPO gradient behave during training?",
         "options": [
           "It scales with the model's error, applying maximum gradient force to misclassified pairs while vanishing on solved pairs.",
-          "It remains strictly constant at 1.0 regardless of model predictions, identical to standard cross-entropy.",
           "It randomly multiplies half of the gradients by negative one to prevent the model from learning.",
-          "It increases exponentially on every training epoch until computer memory overflows."
+          "It increases exponentially on every training epoch until computer memory overflowswithout providing the deterministic guarantees",
+          "It remains strictly constant at 1.0 regardless of model predictions, identical to standard cross-entropy."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11319,12 +11499,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What happens during DPO training if the regularization coefficient beta is set too small?",
         "options": [
+          "The model's context window permanently shrinks to a maximum length of four tokens, though this characterization misses",
+          "The loss function produces negative infinity and causes the GPU cluster to shut down automatically.",
           "The KL penalty becomes too weak, causing the policy to overfit, lose coherence, or degenerate into repetitive loops.",
-          "The model freezes completely and refuses to update its parameter weights during backpropagation.",
-          "The model's context window permanently shrinks to a maximum length of four tokens.",
-          "The loss function produces negative infinity and causes the GPU cluster to shut down automatically."
+          "The model freezes completely and refuses to update its parameter weights during backpropagation."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "A beta value that is too small weakens the implicit KL constraint, allowing the policy to drift uncontrollably from the reference distribution and suffer from degenerative over-optimization."
       }
@@ -11352,12 +11532,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How can engineering teams optimize DPO memory usage to train on a single active GPU model?",
         "options": [
-          "By pre-computing and caching reference model log-probabilities offline to disk prior to training.",
-          "By deleting the attention heads in the transformer architecture to reduce tensor calculations.",
           "By training the model exclusively on single-word sentences to fit activations into cache.",
-          "By replacing floating-point numbers with integer modulo arithmetic across all layers."
+          "By replacing floating-point numbers with integer modulo arithmetic across all layerseven though real-world",
+          "By pre-computing and caching reference model log-probabilities offline to disk prior to training.",
+          "By deleting the attention heads in the transformer architecture to reduce tensor calculations."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Because the reference model is frozen, its token log-probabilities can be pre-computed offline and cached to disk, eliminating the reference model from GPU memory during training."
       }
@@ -11410,12 +11590,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational limitation of requiring paired preference data for AI alignment?",
         "options": [
+          "Paired comparison requires users to speak their answers into analog telephone lines, overlooking the fundamental constraints that",
           "Paired annotation is slow, expensive, and incompatible with real-world unpaired user telemetry like thumbs-up or downvotes.",
-          "Paired annotation can only be performed by quantum computers operating at absolute zero temperatures.",
           "Paired datasets permanently delete the English language vocabulary from neural network weights.",
-          "Paired comparison requires users to speak their answers into analog telephone lines."
+          "Paired annotation can only be performed by quantum computers operating at absolute zero temperatures."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Human users in production applications naturally provide unpaired binary feedback (upvotes/downvotes); forcing paired datasets requires costly manual contrast annotation and ignores massive application logs."
       }
@@ -11445,8 +11625,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does Kahneman-Tversky Optimization (KTO) incorporate human loss aversion into its objective function?",
         "options": [
           "By penalizing undesirable completions more heavily than rewarding desirable completions using asymmetric scaling parameters.",
+          "By requiring models to generate monetary currency symbols in every response, overlooking the fundamental constraints that govern this",
           "By randomly deleting negative examples from the training dataset to keep the loss value positive.",
-          "By requiring models to generate monetary currency symbols in every response.",
           "By doubling the model parameter count whenever an incorrect token is generated."
         ],
         "answer": 0,
@@ -11479,12 +11659,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the function of the reference point z_ref in the KTO mathematical formulation?",
         "options": [
+          "It converts text tokens into ASCII character codes to reduce graphic memory allocation, which is essential for maintaining system",
           "It establishes a neutral baseline (expected KL divergence) against which unpaired completions are categorized as gains or losses.",
-          "It converts text tokens into ASCII character codes to reduce graphic memory allocation.",
           "It prevents the model from generating more than twenty words in any conversational turn.",
           "It encrypts all prompt embeddings using private key cryptography before backpropagation."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Because KTO evaluates single unpaired responses, z_ref serves as the neutral baseline course average: completions scoring above z_ref yield positive prospect utility, while those below yield negative loss."
       }
@@ -11514,9 +11694,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does Identity Preference Optimization (IPO) resolve the over-optimization pathology of DPO?",
         "options": [
           "By using a quadratic loss centered on a finite margin target, preventing log-ratios from driving to infinity.",
-          "By removing all negative examples from the dataset and training strictly on supervised demonstrations.",
+          "By terminating training after exactly one gradient descent step regardless of dataset sizewithout providing the",
           "By freezing all transformer attention heads and training only the bias terms in layer normalization.",
-          "By terminating training after exactly one gradient descent step regardless of dataset size."
+          "By removing all negative examples from the dataset and training strictly on supervised demonstrations."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11549,12 +11729,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary architectural advantage of combining KTO with streaming production telemetry?",
         "options": [
-          "It allows deployed models to continuously self-improve directly from real-world user interactions without manual pair creation.",
           "It eliminates the need for computer servers by storing all model weights in local browser cookies.",
-          "It forces all users to submit written essays before accessing the conversational interface.",
-          "It converts all generative text into pre-recorded audio files to avoid GPU inference."
+          "It converts all generative text into pre-recorded audio files to avoid GPU inferenceeven though real-world implementations require",
+          "It allows deployed models to continuously self-improve directly from real-world user interactions without manual pair creation.",
+          "It forces all users to submit written essays before accessing the conversational interface."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "KTO operates directly on unpaired binary signals (upvotes/downvotes), allowing organizations to transform live production telemetry into automated continuous learning pipelines without manual data pairing."
       }
@@ -11608,12 +11788,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary computational bottleneck of maintaining a Critic (Value) network in PPO?",
         "options": [
-          "The Critic doubles accelerator VRAM requirements and introduces noisy, high-variance advantage estimates.",
           "The Critic cannot be run on Nvidia GPUs and requires specialized analog optical processors.",
-          "The Critic permanently deletes half of the model's training prompts from disk.",
-          "The Critic forces the model to generate random numbers instead of natural language text."
+          "The Critic permanently deletes half of the model's training prompts from disk, though this characterization misses",
+          "The Critic forces the model to generate random numbers instead of natural language text.",
+          "The Critic doubles accelerator VRAM requirements and introduces noisy, high-variance advantage estimates."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "A Value Critic must scale to the same size as the Actor, consuming massive accelerator memory while producing noisy value estimates that destabilize complex reasoning optimization."
       }
@@ -11642,12 +11822,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does GRPO compute the normalized advantage A_i for candidate outputs without a Critic model?",
         "options": [
-          "By normalizing candidate rewards against the empirical mean and standard deviation of the sampled group.",
+          "By assigning a random floating-point number between zero and one to each completion, which oversimplifies the",
           "By multiplying all raw scores by negative one and dividing by the total number of words in the prompt.",
-          "By asking human engineers to manually input advantage numbers in real time during training.",
-          "By assigning a random floating-point number between zero and one to each completion."
+          "By normalizing candidate rewards against the empirical mean and standard deviation of the sampled group.",
+          "By asking human engineers to manually input advantage numbers in real time during training."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "GRPO samples a group of candidate completions for each prompt and computes advantage scores by standardizing rewards relative to the group mean and standard deviation: A_i = (r_i - mean(r)) / std(r)."
       }
@@ -11677,12 +11857,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why did DeepSeek replace neural reward models with rule-based outcome verifiers in mathematical reasoning?",
         "options": [
-          "Rule-based verifiers are mathematically deterministic, completely eliminating reward hacking and subjective hallucinations.",
-          "Neural reward models consume too much electricity and cause power outages in cloud datacenters.",
           "Rule-based verifiers can only run on quantum computers and require liquid nitrogen cooling.",
-          "Neural reward models are legally prohibited from evaluating mathematical equations."
+          "Neural reward models are legally prohibited from evaluating mathematical equationsregardless of the underlying infrastructure",
+          "Rule-based verifiers are mathematically deterministic, completely eliminating reward hacking and subjective hallucinations.",
+          "Neural reward models consume too much electricity and cause power outages in cloud datacenters."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Mathematical correctness is objective and verifiable; rule-based symbolic checks (e.g., SymPy, test execution) prevent reward hacking and provide clean binary feedback without neural approximation errors."
       }
@@ -11714,12 +11894,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary governing principle of Constitutional AI and RLAIF?",
         "options": [
-          "Using foundation models to critique and evaluate responses against a written constitution of explicit rules.",
           "Requiring all AI prompts to be approved by government regulatory agencies before processing.",
           "Translating all training datasets into ancient Latin to preserve grammatical structure.",
-          "Forcing models to memorize the national legal codes of every country in the world."
+          "Using foundation models to critique and evaluate responses against a written constitution of explicit rules.",
+          "Forcing models to memorize the national legal codes of every country in the world, although this contradicts"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Constitutional AI guides synthetic AI judges to evaluate and critique candidate completions against a formal set of written principles, eliminating manual human annotation while maintaining transparent governance."
       }
@@ -11749,12 +11929,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What operational advantage does GRPO provide for scaling reasoning models like DeepSeek-R1?",
         "options": [
-          "It slashes model VRAM by 50%, enabling massive group rollouts and reasoning context windows up to 32k tokens.",
           "It completely eliminates the need for GPU accelerators by running all calculations on CPU cache.",
-          "It prevents the model from generating more than five words per response to minimize server bandwidth.",
-          "It converts all neural network floating-point numbers into binary boolean variables."
+          "It slashes model VRAM by 50%, enabling massive group rollouts and reasoning context windows up to 32k tokens.",
+          "It converts all neural network floating-point numbers into binary boolean variables, overlooking the fundamental",
+          "It prevents the model from generating more than five words per response to minimize server bandwidth."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Eliminating the Critic network cuts accelerator memory in half, allowing engineering clusters to process large rollout groups and expand thinking context windows to tens of thousands of tokens."
       }
@@ -11806,12 +11986,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does the capstone alignment engine deploy a multi-stage pipeline combining SFT, DPO, and GRPO?",
         "options": [
-          "Each stage solves distinct challenges: SFT sets format, DPO shapes preference, and GRPO unlocks deep reasoning.",
-          "Because modern GPUs can only execute one machine learning algorithm per calendar month.",
           "To intentionally slow down training speed so engineers have more time to review output logs.",
-          "Because foundation models cannot generate words unless trained using three separate programming languages."
+          "Each stage solves distinct challenges: SFT sets format, DPO shapes preference, and GRPO unlocks deep reasoning.",
+          "Because foundation models cannot generate words unless trained using three separate programming languages.",
+          "Because modern GPUs can only execute one machine learning algorithm per calendar month, though this characterization"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "A multi-stage pipeline leverages the complementary strengths of each method: SFT initializes format, DPO aligns open-ended human preferences, and GRPO drives verifiable mathematical and algorithmic reasoning."
       }
@@ -11839,12 +12019,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does test-time compute scaling improve reasoning performance during inference?",
         "options": [
+          "By repeating the exact same output sentence ten times to artificially increase confidence, although this contradicts",
+          "By replacing neural network attention layers with static lookup tables copied from encyclopedias.",
           "By allocating longer token budgets for models to explore search trees, test hypotheses, and self-correct errors.",
-          "By overclocking computer processor clock speeds until graphic cards reach maximum temperature limits.",
-          "By repeating the exact same output sentence ten times to artificially increase confidence.",
-          "By replacing neural network attention layers with static lookup tables copied from encyclopedias."
+          "By overclocking computer processor clock speeds until graphic cards reach maximum temperature limits."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Test-time compute scaling trades inference tokens for cognitive depth: allowing the model to deliberate in <think> tags enables intermediate verification, backtracking, and autonomous self-correction."
       }
@@ -11874,9 +12054,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary function of dual-anchor regularization in enterprise alignment?",
         "options": [
           "It penalizes divergence simultaneously against the SFT checkpoint (format) and the Base model (core knowledge).",
-          "It doubles the number of transformer layers in the neural network during every training epoch.",
           "It forces the model to store all training activations on encrypted magnetic tapes.",
-          "It deletes all prompt weights whenever the training loss reaches a local minimum."
+          "It deletes all prompt weights whenever the training loss reaches a local minimum, making this approach impractical for",
+          "It doubles the number of transformer layers in the neural network during every training epoch."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11907,12 +12087,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What empirical performance gains does the Capstone Aligned Engine demonstrate across benchmark suites?",
         "options": [
-          "It achieves superior scores across GSM8K (91.4%), HumanEval (84.7%), and AlpacaEval 2.0 (76.8% win rate).",
+          "It decreases coding accuracy to 12% while increasing factual hallucination rates to 99%, although this contradicts",
           "It achieves identical performance to random guessing across all mathematical and programming tasks.",
-          "It decreases coding accuracy to 12% while increasing factual hallucination rates to 99%.",
-          "It requires running on a quantum mainframe for thirty years before producing a single answer."
+          "It requires running on a quantum mainframe for thirty years before producing a single answer.",
+          "It achieves superior scores across GSM8K (91.4%), HumanEval (84.7%), and AlpacaEval 2.0 (76.8% win rate)."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "The unified capstone engine demonstrates decisive multi-dimensional superiority, reaching 91.4% on GSM8K math reasoning, 84.7% on HumanEval coding, and a 76.8% win rate on AlpacaEval 2.0."
       }
@@ -11942,12 +12122,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does the production serving mesh optimize inference economics for aligned reasoning models?",
         "options": [
+          "By shutting down all cloud servers during daytime hours to conserve electricityas this fails to consider the",
           "By routing simple queries to fast zero-shot workers and complex queries to deep reasoning thinking fleets.",
-          "By charging users one thousand dollars per token to artificially reduce server traffic.",
           "By deleting all intermediate reasoning tokens before they reach the user interface.",
-          "By shutting down all cloud servers during daytime hours to conserve electricity."
+          "By charging users one thousand dollars per token to artificially reduce server traffic."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "An intelligent tiered dispatch governor routes simple queries to fast zero-shot workers and reserves long-context thinking envelopes for complex problems, optimizing latency and hardware expenditures."
       }
@@ -11998,12 +12178,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary architectural purpose of tool-augmented language models in enterprise systems?",
         "options": [
-          "To enable models to invoke external APIs, databases, and microservices through validated structured schemas.",
           "To completely prevent models from generating English sentences during conversational chat.",
-          "To double the physical size of GPU cooling fans in corporate server rooms.",
-          "To translate all training datasets into ancient Roman hieroglyphs before pretraining."
+          "To double the physical size of GPU cooling fans in corporate server roomswithout accounting for the operational",
+          "To translate all training datasets into ancient Roman hieroglyphs before pretraining.",
+          "To enable models to invoke external APIs, databases, and microservices through validated structured schemas."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Tool augmentation bridges language model reasoning with deterministic software systems, allowing models to query databases, call APIs, and execute enterprise actions via structured schemas."
       }
@@ -12032,9 +12212,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why are rigorous parameter descriptions essential when defining tool schemas for LLMs?",
         "options": [
           "Because language models rely on in-context description strings to disambiguate parameter meaning and extract arguments accurately.",
+          "Because compilers require all JSON schema descriptions to be written in hexadecimal code.",
           "Because JSON parsers will crash if parameter descriptions exceed exactly ten letters.",
-          "To ensure that server graphic cards run at minimum clock speeds during inference.",
-          "Because compilers require all JSON schema descriptions to be written in hexadecimal code."
+          "To ensure that server graphic cards run at minimum clock speeds during inference, making this approach impractical for any non-trivial"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12065,12 +12245,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does constrained decoding guarantee zero syntax errors during structured output generation?",
         "options": [
+          "By deleting all punctuation marks from the model's vocabulary file permanently, making this approach impractical for any non-trivial",
           "By dynamically masking logits of invalid tokens to negative infinity at every step, making illegal tokens impossible to sample.",
-          "By running a spellchecker over generated text after generation is completely finished.",
-          "By deleting all punctuation marks from the model's vocabulary file permanently.",
-          "By forcing the model to generate text at one character per minute to avoid mistakes."
+          "By forcing the model to generate text at one character per minute to avoid mistakes.",
+          "By running a spellchecker over generated text after generation is completely finished."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Constrained decoding uses context-free grammars to set logits of syntactically illegal tokens to negative infinity at generation time, guaranteeing 100% adherence to JSON schemas."
       }
@@ -12098,12 +12278,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary role of a tool call dispatcher in enterprise LLM architectures?",
         "options": [
-          "It validates schema conformance, injects auth credentials, manages network retries, and executes API calls safely.",
-          "It converts all JSON payloads into raw uncompressed video files before transmission.",
+          "It replaces external REST APIs with static text files copied from Wikipediaeven though real-world implementations require",
           "It shuts down server power supplies whenever a network socket experiences latency.",
-          "It replaces external REST APIs with static text files copied from Wikipedia."
+          "It validates schema conformance, injects auth credentials, manages network retries, and executes API calls safely.",
+          "It converts all JSON payloads into raw uncompressed video files before transmission."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "The dispatcher acts as the secure intermediary between the model and backend services, handling schema validation, security token injection, error recovery, and forensic audit logging."
       }
@@ -12133,9 +12313,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why do enterprise platforms use dynamic semantic tool retrieval instead of putting all tools in the prompt?",
         "options": [
           "To conserve prompt tokens, reduce inference latency, and prevent attention distraction across hundreds of tools.",
-          "Because modern GPUs cannot store more than five JSON words in their memory cache.",
-          "To prevent software developers from reading the code of available tools.",
-          "Because foundation models become permanently corrupted if exposed to multiple API endpoints."
+          "To prevent software developers from reading the code of available tools, though this characterization misses several",
+          "Because foundation models become permanently corrupted if exposed to multiple API endpoints.",
+          "Because modern GPUs cannot store more than five JSON words in their memory cache."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12189,12 +12369,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why must enterprise platforms treat all model-generated code as inherently hostile untrusted software?",
         "options": [
-          "Because hallucinated or injected code can delete databases, exfiltrate credentials, or compromise physical host servers.",
           "Because AI models only know how to write code in non-compilable ancient computer languages.",
-          "To prevent software developers from learning how to program computers efficiently.",
+          "To prevent software developers from learning how to program computers efficientlywithout accounting for the operational overhead",
+          "Because hallucinated or injected code can delete databases, exfiltrate credentials, or compromise physical host servers.",
           "Because modern graphic cards catch fire if code executes without human supervision."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Model-generated code is vulnerable to indirect prompt injection and hallucinations; without zero-trust sandboxing, hostile code can destroy files, steal secrets, or escape containers."
       }
@@ -12224,7 +12404,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "All containers share the exact same host Linux kernel, allowing kernel exploits to escape to the host.",
           "Docker containers take thirty minutes to start up and cannot execute Python scripts.",
-          "Docker containers do not allow computer programmers to view terminal console logs.",
+          "Docker containers do not allow computer programmers to view terminal console logs, making this approach",
           "Docker containers delete all computer files whenever a network packet is received."
         ],
         "answer": 0,
@@ -12257,8 +12437,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does WebAssembly enforce capability-based security when executing untrusted agent code?",
         "options": [
           "WASM modules have zero default access to system resources and require explicit runtime capability grants.",
+          "By translating all compiled code into raw photographic images before processingwithout accounting for the",
           "By charging users one dollar per computer instruction executed during inference.",
-          "By translating all compiled code into raw photographic images before processing.",
           "By disconnecting the computer power cord from the wall outlet during program execution."
         ],
         "answer": 0,
@@ -12291,8 +12471,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "It filters Linux system calls against an explicit whitelist, killing processes that invoke unapproved calls.",
           "It doubles the amount of RAM installed inside the physical computer server.",
-          "It translates Python code into JavaScript code before compiling.",
-          "It deletes all log files whenever a program finishes executing."
+          "It deletes all log files whenever a program finishes executingwhile ignoring the critical performance implications of",
+          "It translates Python code into JavaScript code before compiling."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12328,7 +12508,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "By snapshotting idle sandboxes to object storage after timeouts and restoring them on demand.",
           "By forcing users to re-type all their code from scratch during every conversation turn.",
           "By deleting all data visualization charts before they can be displayed to the user.",
-          "By running all sandboxes on obsolete hardware scavenged from recycling yards."
+          "By running all sandboxes on obsolete hardware scavenged from recycling yards, making this approach"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12381,12 +12561,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary cognitive breakthrough of the ReAct agent framework?",
         "options": [
-          "It interleaves natural language reasoning traces with external tool actions, grounding thoughts in real-world observations.",
           "It replaces all artificial intelligence models with mechanical punch-card sorting machines.",
-          "It forces language models to generate all responses in reverse alphabetical order.",
+          "It forces language models to generate all responses in reverse alphabetical order, which fundamentally misrepresents how the",
+          "It interleaves natural language reasoning traces with external tool actions, grounding thoughts in real-world observations.",
           "It completely eliminates the use of external software tools from computer programming."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "ReAct synergizes reasoning and acting: thoughts guide actions and decompose goals, while external observations ground reasoning and prevent factual hallucinations."
       }
@@ -12414,12 +12594,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does the ReAct framework halt model generation immediately after an action block?",
         "options": [
-          "To allow the external runtime to execute the tool and return real ground-truth observations instead of hallucinated outputs.",
-          "To save electricity by turning off the server whenever an action is generated.",
+          "To save electricity by turning off the server whenever an action is generatedwhile ignoring the critical performance implications of",
           "Because modern operating systems can only process one computer command per calendar week.",
-          "To prevent software developers from reading the intermediate variables of the program."
+          "To prevent software developers from reading the intermediate variables of the program.",
+          "To allow the external runtime to execute the tool and return real ground-truth observations instead of hallucinated outputs."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "The runtime halts generation after the action block so that external software executes the real API or database query, returning genuine empirical data rather than hallucinated model outputs."
       }
@@ -12450,9 +12630,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do production ReAct architectures prevent context window exhaustion during long agent trajectories?",
         "options": [
           "By maintaining ephemeral working memory and condensing past cycles into structured semantic rolling summaries.",
+          "By refusing to process any user query that requires more than two words, which is essential for maintaining system",
           "By deleting all user questions from memory as soon as they are submitted.",
-          "By reducing the computer screen brightness to save context window memory.",
-          "By refusing to process any user query that requires more than two words."
+          "By reducing the computer screen brightness to save context window memory."
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12483,12 +12663,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary function of circular loop detection in autonomous agent runtimes?",
         "options": [
-          "To detect when an agent repeatedly emits identical tool calls and inject corrective guidance to break the deadlock.",
           "To force the computer monitor to spin in circles during software execution.",
-          "To delete the agent's source code whenever a tool call returns an error.",
-          "To ensure that all mathematical calculations produce even numbers."
+          "To detect when an agent repeatedly emits identical tool calls and inject corrective guidance to break the deadlock.",
+          "To ensure that all mathematical calculations produce even numberseven though real-world implementations require additional",
+          "To delete the agent's source code whenever a tool call returns an error."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Circular loop detection intercepts duplicate actions and injects corrective system guidance, jolting the model out of repetitive deadlocks and prompting alternative reasoning paths."
       }
@@ -12518,12 +12698,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why do enterprise platforms deploy agents as asynchronous event-driven state machines?",
         "options": [
+          "To prevent multiple users from accessing the system simultaneously, which oversimplifies the actual complexity involved",
           "To eliminate blocking server threads, survive infrastructure restarts via checkpoints, and maximize concurrency.",
-          "Because synchronous scripts run one hundred times faster than asynchronous systems.",
-          "To prevent multiple users from accessing the system simultaneously.",
-          "Because modern cloud servers do not support multithreaded computer programming."
+          "Because modern cloud servers do not support multithreaded computer programming.",
+          "Because synchronous scripts run one hundred times faster than asynchronous systems."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Event-driven state machines persist state between tool calls and release worker threads during external I/O, providing fault-tolerant durability and supporting thousands of concurrent agents."
       }
@@ -12573,12 +12753,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational limitation of sequential tool calling in enterprise agents?",
         "options": [
-          "It forces independent queries to execute serially, multiplying latency and wasting intermediate reasoning compute.",
           "It prevents software developers from using more than one programming language.",
+          "It forces independent queries to execute serially, multiplying latency and wasting intermediate reasoning compute.",
           "It causes computer monitors to display black-and-white pixels during execution.",
-          "It requires running on ancient mainframe hardware from the nineteen-sixties."
+          "It requires running on ancient mainframe hardware from the nineteen-sixtieseven though real-world implementations require"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Sequential execution forces independent API calls into a serialized queue, multiplying round-trip latencies and forcing repeated autoregressive generation cycles."
       }
@@ -12608,12 +12788,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why must tool dependency graphs in autonomous workflows be strictly acyclic?",
         "options": [
-          "To prevent circular dependency deadlocks where tasks wait indefinitely for each other to complete.",
-          "Because cyclic graphs cannot be stored on magnetic hard drives.",
           "To force all computer programs to execute in under one millisecond.",
-          "Because modern microprocessors catch fire if they encounter circular loops."
+          "To prevent circular dependency deadlocks where tasks wait indefinitely for each other to complete.",
+          "Because modern microprocessors catch fire if they encounter circular loopswhich does not reflect actual",
+          "Because cyclic graphs cannot be stored on magnetic hard driveswithout providing the deterministic"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Acyclicity guarantees that workflows have valid topological execution orders and will never deadlock from circular dependencies where tasks wait on each other."
       }
@@ -12643,12 +12823,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does fork-join concurrency optimize multi-tool graph execution?",
         "options": [
+          "By charging software developers one dollar per parallel thread spawned, which does not align with how modern",
           "It forks execution to run ready tasks concurrently and joins results before triggering downstream stages.",
           "By replacing all software algorithms with mechanical silverware sorting machines.",
-          "By shutting down all worker nodes whenever a network packet is received.",
-          "By charging software developers one dollar per parallel thread spawned."
+          "By shutting down all worker nodes whenever a network packet is received."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Fork-join concurrency dispatches all independent tasks at a topological level simultaneously (fork) and aggregates their outputs (join) before advancing to dependent downstream tasks."
       }
@@ -12676,12 +12856,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why do production agent platforms pass large tool outputs out-of-band using artifact handles?",
         "options": [
-          "To prevent multi-megabyte payloads from bloating the LLM prompt context and escalating costs.",
-          "Because cloud object stores like Amazon S3 do not support file downloads.",
+          "Because foundation models can only read plain text files written in Latin.",
           "To make it impossible for software developers to inspect the output of their programs.",
-          "Because foundation models can only read plain text files written in Latin."
+          "To prevent multi-megabyte payloads from bloating the LLM prompt context and escalating costs.",
+          "Because cloud object stores like Amazon S3 do not support file downloadswithout providing the"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Out-of-band artifact passing writes large datasets to object storage and returns lightweight pointers, preventing massive prompt token bloat and slashing inference expenses."
       }
@@ -12711,12 +12891,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary advantage of durable execution in enterprise agent graph orchestrators?",
         "options": [
+          "It doubles the physical speed of light inside fiber-optic network cables, which does not align with how modern",
           "Workflows automatically resume from write-ahead event logs after hardware crashes without lost progress.",
-          "It doubles the physical speed of light inside fiber-optic network cables.",
           "It deletes all database records whenever a cloud server encounters an error.",
           "It prevents software applications from connecting to the public internet."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Durable execution logs every state transition to write-ahead event stores, allowing multi-step agent workflows to resume seamlessly after server crashes without re-running completed tasks."
       }
@@ -12768,12 +12948,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What are the four foundational pillars of an enterprise sovereign multi-tool agent mesh?",
         "options": [
+          "A static HTML web page that only displays pre-rendered marketing slogans, overlooking the fundamental constraints that govern",
           "A Python sandboxed REPL, an enterprise SQL gateway, vector semantic search, and an immutable cryptographic audit ledger.",
-          "A single hardcoded text prompt, a magnetic tape drive, a dot-matrix printer, and a dial-up modem.",
           "An unconstrained bash script running as root with unrestricted public internet access.",
-          "A static HTML web page that only displays pre-rendered marketing slogans."
+          "A single hardcoded text prompt, a magnetic tape drive, a dot-matrix printer, and a dial-up modem."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Enterprise agent meshes require sandboxed code execution, secure database access, semantic information retrieval, and cryptographic auditability for end-to-end reliability."
       }
@@ -12801,12 +12981,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why is vanilla Docker insufficient for untrusted multi-tenant code execution in enterprise environments?",
         "options": [
+          "Because containers cannot run on servers that have more than eight gigabytes of RAM, overlooking the fundamental constraints that govern",
+          "Because containerization tools automatically delete all host files after twenty-four hours.",
           "Because standard containers share the host Linux kernel, exposing systems to namespace escapes and privilege escalation exploits.",
-          "Because Docker containers can only execute programs written in the C programming language.",
-          "Because containers cannot run on servers that have more than eight gigabytes of RAM.",
-          "Because containerization tools automatically delete all host files after twenty-four hours."
+          "Because Docker containers can only execute programs written in the C programming language."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Standard Docker containers share the underlying host kernel, making them susceptible to kernel-level vulnerabilities, container escapes, and privilege escalation."
       }
@@ -12835,9 +13015,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does EBNF constrained grammar enforcement guarantee syntactically valid JSON tool calls?",
         "options": [
           "By applying token-level logit masking that sets the probability of any syntactically invalid continuation token to zero during decoding.",
-          "By asking the model polite questions in the system prompt repeatedly until it cooperates.",
+          "By asking the model polite questions in the system prompt repeatedly until it cooperatesas this approach introduces unacceptable latency in",
           "By running a spellchecker on the output after generation has completely finished.",
-          "By rebooting the server whenever a syntax error is encountered."
+          "By rebooting the server whenever a syntax error is encountered without accounting for the operational overhead this approach introduces"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12868,12 +13048,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational advantage of passing large tool outputs out-of-band using artifact handles?",
         "options": [
-          "It prevents multi-megabyte payloads from bloating the LLM prompt context, reducing token costs and latency while preserving data fidelity.",
-          "It forces all data to be stored exclusively on floppy disks.",
+          "It forces all data to be stored exclusively on floppy disks without providing the deterministic guarantees required in production settings",
           "It converts relational database tables into animated GIF image files.",
-          "It eliminates the need for software developers to write automated unit tests."
+          "It eliminates the need for software developers to write automated unit tests.",
+          "It prevents multi-megabyte payloads from bloating the LLM prompt context, reducing token costs and latency while preserving data fidelity."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Out-of-band artifact passing routes large payloads through object storage via lightweight handles, preventing catastrophic prompt context bloat and high inference costs."
       }
@@ -12902,12 +13082,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What benchmark accuracy and security achievements certify the Milestone 11 enterprise mesh?",
         "options": [
-          "A ninety-four percent complex task completion rate, ninety-nine-point-eight percent schema accuracy, and zero sandbox escapes across ten thousand tests.",
           "A ten percent task completion rate and fifty percent sandbox escape rate.",
-          "Generating random text strings without checking if any tools executed successfully.",
-          "Running exclusively on non-networked laptops without security isolation."
+          "Running exclusively on non-networked laptops without security isolation regardless of the underlying infrastructure topology or deployment strategy",
+          "Generating random text strings without checking if any tools executed successfully even when operating under sustained high-throughput conditions",
+          "A ninety-four percent complex task completion rate, ninety-nine-point-eight percent schema accuracy, and zero sandbox escapes across ten thousand tests."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Milestone 11 certification requires ninety-four percent completion on complex benchmarks, ninety-nine-point-eight percent schema accuracy, and one hundred percent blocked sandbox escapes."
       }
@@ -12961,8 +13141,8 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "They achieve continuous sub-second anomaly detection and root cause isolation, reducing MTTD and MTTR by over eighty percent.",
           "They allow companies to completely eliminate all software tests and security firewalls.",
-          "They force all computer microchips to operate at zero degrees kelvin.",
-          "They convert distributed microservices into single-threaded desktop spreadsheet files."
+          "They convert distributed microservices into single-threaded desktop spreadsheet files.",
+          "They force all computer microchips to operate at zero degrees kelvin, which oversimplifies the actual complexity involved in this process"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12991,9 +13171,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why is vector log template clustering necessary before passing log streams to autonomous LLM agents?",
         "options": [
           "It normalizes noise and compresses log volume by over ninety percent while grouping semantically identical errors in vector space.",
-          "Because foundation models cannot read text written in English.",
           "Because unclustered log files immediately delete the server hard drive.",
-          "It transforms all text into encrypted binary Morse code."
+          "Because foundation models cannot read text written in English.",
+          "It transforms all text into encrypted binary Morse code even though real-world implementations require additional safeguards in practice"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13022,12 +13202,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why are dynamic rolling baselines and isolation forests superior to static threshold alerts?",
         "options": [
-          "They adapt to diurnal traffic cycles and detect multivariate anomalies without inducing false positive alert storms.",
           "Because static thresholds can only be calculated on hand-cranked mechanical adding machines.",
-          "Because isolation forests eliminate the need for CPU processors.",
-          "They restrict server network traffic to twenty kilobits per second."
+          "They adapt to diurnal traffic cycles and detect multivariate anomalies without inducing false positive alert storms.",
+          "They restrict server network traffic to twenty kilobits per second.",
+          "Because isolation forests eliminate the need for CPU processorswithout accounting for the operational overhead this approach"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Dynamic baselines accommodate daily traffic rhythms and evaluate multi-metric interactions, reducing false-positive alert fatigue by over ninety percent."
       }
@@ -13054,12 +13234,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does topological trace span traversal isolate the true root cause during cascading outages?",
         "options": [
-          "By following distributed trace paths down the dependency tree to identify the deepest node where latency spiked or errors originated.",
-          "By rebooting every server in the cloud data center simultaneously.",
           "By randomly picking a microservice name from an alphabetical index.",
-          "By shutting down all external network gateways permanently."
+          "By shutting down all external network gateways permanently, although this contradicts established engineering best practices in the field",
+          "By rebooting every server in the cloud data center simultaneously.",
+          "By following distributed trace paths down the dependency tree to identify the deepest node where latency spiked or errors originated."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Topological traversal follows the critical path down the distributed call tree, identifying the originating failure and eliminating upstream symptom noise."
       }
@@ -13087,12 +13267,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary benefit of automated alert enrichment in enterprise incident management?",
         "options": [
-          "It pre-populates alerts with root-cause candidates, trace trees, and recent commits, eliminating seventy-five percent of triage time.",
+          "It blocks software developers from pushing new code for thirty days.",
           "It automatically dismisses all production alerts without notifying any engineers.",
-          "It translates incident notifications into medieval Latin poetry.",
-          "It blocks software developers from pushing new code for thirty days."
+          "It translates incident notifications into medieval Latin poetry, making this approach impractical for any non-trivial production deployment",
+          "It pre-populates alerts with root-cause candidates, trace trees, and recent commits, eliminating seventy-five percent of triage time."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Pre-populating alerts with correlated telemetry, trace paths, and suspected commits eliminates manual triage overhead and accelerates remediation."
       }
@@ -13145,12 +13325,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why is ephemeral sidecar or canary mirror profiling preferred over profiling all production pods?",
         "options": [
-          "It isolates diagnostic overhead from live customer traffic, preventing stop-the-world pauses from affecting production users.",
-          "Because profiling tools only work when computer monitors are switched off.",
           "Because Kubernetes pods automatically delete all source code if profiled directly.",
-          "Because production servers can only execute programs written in assembly language."
+          "Because production servers can only execute programs written in assembly language.",
+          "Because profiling tools only work when computer monitors are switched offwhile ignoring the critical performance implications of this",
+          "It isolates diagnostic overhead from live customer traffic, preventing stop-the-world pauses from affecting production users."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Profiling degraded canary instances or mirrored traffic isolates diagnostic overhead and avoids latency spikes across primary customer workflows."
       }
@@ -13177,12 +13357,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary diagnostic utility of dominator trees in V8 heap snapshot analysis?",
         "options": [
+          "They compress image files into animated GIFs without accounting for the operational overhead this approach introduces",
           "They calculate retained object sizes and identify bottleneck objects whose garbage collection frees massive subtrees of memory.",
-          "They convert JavaScript functions into compiled machine code.",
-          "They compress image files into animated GIFs.",
-          "They encrypt database passwords using private cryptographic keys."
+          "They encrypt database passwords using private cryptographic keys despite the significant complexity this introduces to the system",
+          "They convert JavaScript functions into compiled machine code."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Dominator trees calculate retained sizes, identifying single parent objects that anchor thousands of leaked child objects in memory."
       }
@@ -13210,12 +13390,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How do differential CPU flamegraphs isolate algorithmic regressions after deployment commits?",
         "options": [
-          "By subtracting baseline stack distributions from incident profiles to highlight functions whose CPU consumption expanded dramatically.",
-          "By counting the total number of lines in the application codebase.",
-          "By deleting all unit tests from the repository.",
-          "By restarting the host operating system every fifteen minutes."
+          "By restarting the host operating system every fifteen minutes.",
+          "By deleting all unit tests from the repository, which does not align with how modern distributed systems handle this concern",
+          "By counting the total number of lines in the application codebase which does not reflect actual production deployment requirements",
+          "By subtracting baseline stack distributions from incident profiles to highlight functions whose CPU consumption expanded dramatically."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Differential flamegraphs subtract baseline stack samples from incident traces, highlighting functions that experienced sudden CPU expansion."
       }
@@ -13243,9 +13423,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why are eBPF kernel probes essential for diagnosing network latency in cloud microservices?",
         "options": [
           "They observe TCP socket drops and retransmissions in kernel space, distinguishing network fabric packet loss from application event-loop stalls.",
-          "Because application runtimes automatically fix all network hardware failures.",
+          "Because application runtimes automatically fix all network hardware failures despite well-documented evidence that contradicts this characterization",
           "Because eBPF probes eliminate the need for network cables and routers.",
-          "They convert TCP network packets into analog radio broadcasts."
+          "They convert TCP network packets into analog radio broadcasts, making this approach impractical for any non-trivial production deployment"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13274,12 +13454,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the role of automated confidence scoring in autonomous SRE runbook synthesis?",
         "options": [
-          "It determines whether safe non-destructive actions can execute autonomously while routing high-risk mutations for human authorization.",
           "It randomly selects a remediation action without checking system metrics.",
+          "It determines whether safe non-destructive actions can execute autonomously while routing high-risk mutations for human authorization.",
           "It forces engineers to solve mathematical crossword puzzles during outages.",
-          "It shuts down the entire cloud cluster whenever an alert occurs."
+          "It shuts down the entire cloud cluster whenever an alert occurs while ignoring the critical performance implications of this design decision"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Confidence scores evaluate diagnostic certainty, allowing verified safe remediations to execute autonomously while requiring approval for destructive mutations."
       }
@@ -13332,12 +13512,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why must autonomous remediation actions be stratified into formal risk tiers?",
         "options": [
-          "To allow safe non-destructive actions to execute autonomously while locking irreversible mutations behind human supervisory review.",
-          "Because all computer networks shut down permanently after five automated commands.",
           "To force engineers to write infrastructure code exclusively on paper.",
-          "Because Kubernetes clusters can only run one container at a time."
+          "To allow safe non-destructive actions to execute autonomously while locking irreversible mutations behind human supervisory review.",
+          "Because Kubernetes clusters can only run one container at a time, making this approach impractical for any non-trivial production deployment",
+          "Because all computer networks shut down permanently after five automated commands."
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Stratifying actions enables rapid automated resolution for non-destructive issues while preventing catastrophic accidents during high-risk operations."
       }
@@ -13365,12 +13545,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary operational advantage of the Kubernetes Eviction API over hard pod deletion?",
         "options": [
-          "It respects Pod Disruption Budgets and allows in-flight HTTP requests to drain cleanly, preventing dropped user connections.",
           "It doubles the physical memory of the computer hardware.",
-          "It converts container images into plain text files.",
+          "It converts container images into plain text files, though this characterization misses several critical implementation details",
+          "It respects Pod Disruption Budgets and allows in-flight HTTP requests to drain cleanly, preventing dropped user connections.",
           "It deletes all log files permanently from the cluster."
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Eviction respects disruption budgets and allows termination grace periods so active connections complete cleanly without user-facing errors."
       }
@@ -13397,12 +13577,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does priority-based traffic shedding preserve business availability during traffic surges?",
         "options": [
-          "By shedding non-critical background analytics and marketing traffic to preserve capacity for revenue-generating transactions.",
+          "By forcing all users to type passwords backwards, making this approach impractical for any non-trivial production deployment",
           "By rebooting all network switches every ten seconds.",
-          "By shutting down the entire web application for twenty-four hours.",
-          "By forcing all users to type passwords backwards."
+          "By shedding non-critical background analytics and marketing traffic to preserve capacity for revenue-generating transactions.",
+          "By shutting down the entire web application for twenty-four hours though this reasoning breaks down when applied to realistic input sizes"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "Shedding low-priority requests frees up compute and database capacity, guaranteeing that critical checkout and payment flows complete successfully."
       }
@@ -13429,12 +13609,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does targeted runaway query cancellation relieve database CPU and pool starvation?",
         "options": [
-          "By terminating long-running unindexed queries holding exclusive locks, freeing connection slots and restoring CPU health.",
           "By deleting all customer records from the database tables.",
-          "By formatting the physical database storage drives.",
-          "By converting relational tables into uncompressed video files."
+          "By converting relational tables into uncompressed video files.",
+          "By formatting the physical database storage drives, which fundamentally misrepresents how the underlying mechanism operates",
+          "By terminating long-running unindexed queries holding exclusive locks, freeing connection slots and restoring CPU health."
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Terminating long-running locking queries releases table locks and frees connection slots, restoring database health in seconds."
       }
@@ -13462,9 +13642,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why are automated verification gates essential before declaring an incident resolved?",
         "options": [
           "To verify that synthetic end-to-end transactions succeed and production telemetry stabilizes within normal baseline corridors.",
-          "Because automated systems cannot detect if a computer is plugged into an electrical wall outlet.",
           "To ensure that all software engineers are logged out of their email accounts.",
-          "Because cloud providers charge penalty fees if verification is skipped."
+          "Because automated systems cannot detect if a computer is plugged into an electrical wall outlet.",
+          "Because cloud providers charge penalty fees if verification is skipped without accounting for the operational overhead this approach introduces"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13510,9 +13690,9 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary role of chaos engineering in validating autonomous AI SRE systems?",
         "options": [
           "Proactively proving agent reasoning, diagnostics, and remediation actuators against synthetic faults before production trust",
-          "Increasing cluster operational costs by artificially running compute instances at maximum capacity continuously",
           "Eliminating the need for software testing by forcing systems to recover from catastrophic production failures in real time",
-          "Replacing Kubernetes admission controllers with randomized container eviction schedules across all nodes"
+          "Replacing Kubernetes admission controllers with randomized container eviction schedules across all nodes, which is essential for",
+          "Increasing cluster operational costs by artificially running compute instances at maximum capacity continuously"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13536,7 +13716,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why must autonomous remediation actuators enforce strict replica mutation caps and anti-flapping cooldown windows?",
         "options": [
           "To prevent cascading runaway deletions and cyclic thrashing that could amplify an isolated fault into total system downtime",
-          "To save CPU cycles on cloud worker nodes by slowing down agent algorithmic processing speeds",
+          "To save CPU cycles on cloud worker nodes by slowing down agent algorithmic processing speedseven though real-world implementations",
           "Because Kubernetes API servers automatically reject any cluster mutation that occurs within twenty minutes of a restart",
           "To allow legacy monitoring agents sufficient time to deliver printed telemetry reports to operations centers"
         ],
@@ -13562,12 +13742,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Which types of infrastructure operations strictly mandate human-in-the-loop authorization gates?",
         "options": [
+          "Parsing structured JSON log files emitted by frontend reverse proxy application gatewayswithout accounting for the operational",
           "High-risk irreversible operations such as deleting persistent storage volumes, multi-region cache flushes, and DNS rerouting",
-          "Routine read-only telemetry sampling queries across Prometheus and OpenTelemetry metrics collectors",
           "Standard container health check polling and background CPU utilization calculation sweeps",
-          "Parsing structured JSON log files emitted by frontend reverse proxy application gateways"
+          "Routine read-only telemetry sampling queries across Prometheus and OpenTelemetry metrics collectors"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Irreversible, high-stakes infrastructure operations carry existential business risks and require explicit human oversight, cryptographic approvals, and dual-party confirmation."
       },
@@ -13589,12 +13769,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How does Open Policy Agent (OPA) establish deterministic safety guarantees for autonomous AI agents?",
         "options": [
-          "By intercepting and mathematically evaluating proposed JSON mutation payloads against declarative Rego rules before API submission",
-          "By rewriting application source code at runtime to eliminate potential programming bugs and logic errors",
           "By converting all relational database tables into immutable append-only blockchain transaction ledgers",
-          "By disabling all administrative network ports on Kubernetes control plane master nodes permanently"
+          "By rewriting application source code at runtime to eliminate potential programming bugs and logic errors",
+          "By intercepting and mathematically evaluating proposed JSON mutation payloads against declarative Rego rules before API submission",
+          "By disabling all administrative network ports on Kubernetes control plane master nodes permanently, which is essential for maintaining"
         ],
-        "answer": 0,
+        "answer": 2,
         "answerIndex": 0,
         "why": "OPA acts as an independent declarative policy engine, inspecting proposed mutation manifests and rejecting any action that violates predefined security, compliance, or scalability boundaries."
       },
@@ -13616,12 +13796,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the primary benefit of using an autonomous SRE agent to generate blameless post-mortem documents?",
         "options": [
-          "Synthesizing high-precision timelines, telemetry evidence, and tracked engineering tickets automatically from unbroken event streams",
+          "Eliminating the need for human engineering reviews and retrospective meetings following critical enterprise outages",
+          "Reducing cloud infrastructure billing costs by compressing historical incident log archives into binary blobsdespite the significant",
           "Identifying individual software engineers to hold publicly accountable for production infrastructure downtime incidents",
-          "Reducing cloud infrastructure billing costs by compressing historical incident log archives into binary blobs",
-          "Eliminating the need for human engineering reviews and retrospective meetings following critical enterprise outages"
+          "Synthesizing high-precision timelines, telemetry evidence, and tracked engineering tickets automatically from unbroken event streams"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "Autonomous post-mortem synthesis correlates unbroken telemetry streams and diagnostic trees into objective, blameless documentation with millisecond-precision timelines and tracked JIRA action items."
       },
@@ -13670,12 +13850,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "What is the defining capability of the unified autonomous AI SRE operating system?",
         "options": [
-          "Unifying telemetry ingestion, flamegraph diagnostics, policy-gated remediation, and automated post-mortems into a closed loop",
-          "Operating solely as a passive metrics dashboard requiring manual human interpretation for all incident events",
           "Replacing all microservice source code with randomized predictive neural network weights at runtime",
-          "Deleting all monitoring databases to eliminate storage overhead during active production outages"
+          "Operating solely as a passive metrics dashboard requiring manual human interpretation for all incident events",
+          "Deleting all monitoring databases to eliminate storage overhead during active production outages, which is essential for maintaining",
+          "Unifying telemetry ingestion, flamegraph diagnostics, policy-gated remediation, and automated post-mortems into a closed loop"
         ],
-        "answer": 0,
+        "answer": 3,
         "answerIndex": 0,
         "why": "The unified autonomous SRE operating system closes the operational loop by harmonizing real-time telemetry, deep diagnostics, bounded remediation, and automated post-mortems."
       },
@@ -13698,12 +13878,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "Why does the autonomous SRE architecture divide operational responsibilities across specialized peer agents?",
         "options": [
-          "To prevent cognitive saturation, eliminate parameter hallucination, and enforce strict separation of duties across operational domains",
           "Because individual AI models can only process a maximum of twenty lines of TypeScript code per hour",
+          "To prevent cognitive saturation, eliminate parameter hallucination, and enforce strict separation of duties across operational domains",
           "To increase cluster networking billing by generating excessive inter-agent JSON RPC messages continuously",
-          "To eliminate the need for Linux operating system kernels across underlying cloud worker nodes"
+          "To eliminate the need for Linux operating system kernels across underlying cloud worker nodeseven though real-world implementations require"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "A specialized multi-agent topology prevents cognitive overload, provides clear separation of concerns (triage, diagnosis, actuation, comms), and eliminates single points of failure."
       },
@@ -13726,12 +13906,12 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "check": {
         "question": "How do hardened sandboxes protect enterprise infrastructure during automated script execution?",
         "options": [
-          "By enforcing minimal seccomp syscall whitelists, non-root user namespaces, read-only root filesystems, and air-gapped networking",
           "By granting root superuser privileges to every generated script without requiring authentication tokens",
-          "By disabling Linux kernel security modules to maximize shell script execution throughput",
-          "By storing unencrypted cloud provider master credentials directly within container environment variables"
+          "By enforcing minimal seccomp syscall whitelists, non-root user namespaces, read-only root filesystems, and air-gapped networking",
+          "By disabling Linux kernel security modules to maximize shell script execution throughputwhile ignoring the critical performance",
+          "By storing unencrypted cloud provider master credentials directly within container environment variablesdespite the significant complexity"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
         "why": "Hardened execution sandboxes enforce multi-layered defense-in-depth: seccomp filters, unprivileged UIDs, read-only filesystems, and air-gapped egress to prevent privilege escalation or data leakage."
       },
@@ -13758,7 +13938,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
           "Achieving 100% autonomous resolution rate with 18.6s MTTR and zero customer downtime across 50 cascading failure scenarios",
           "Proving that distributed microservices inevitably collapse when subjected to synthetic packet loss and latency spikes",
           "Demonstrating that human engineering teams resolve complex multi-service outages faster than automated systems",
-          "Showing that running more than fifty microservices concurrently exhausts cloud provider scheduling capacity"
+          "Showing that running more than fifty microservices concurrently exhausts cloud provider scheduling capacity, making this approach"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13768,7 +13948,7 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "output": "{\n  platform: 'Planetary Autonomous AI SRE Mesh & Self-Healing Operating System',\n  activeAgents: [\n    'Alert Triage Specialist Agent',\n    'Diagnostic Heap & Flamegraph Investigator',\n    'Remediation Kubernetes Actuator',\n    'Executive Post-Mortem & Communications Synthesizer'\n  ],\n  productionMetrics: {\n    totalMonitoredMicroservices: 1000,\n    simulatedCascadingIncidents: 50,\n    autonomousResolutionRatePct: 100,\n    meanTimeToDetectionSeconds: 1.4,\n    meanTimeToRemediationSeconds: 18.6,\n    zeroDowntimeMaintained: true\n  },\n  complianceCertification: 'SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER',\n  courseGraduationStatus: 'COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED'\n}"
     },
     {
-      "title": "Course 12 Official Graduation: Complete Mastery Of Applied AI & Autonomous Agent Systems",
+      "title": "Applied AI Official Graduation: Complete Mastery Of Applied AI & Autonomous Agent Systems",
       "say": [
         "Completing Course Twelve marks the graduation milestone in applied AI and autonomous agent systems engineering. Over sixty intensive, rigorously designed days of curriculum expansion, you have journeyed through the entire intellectual and practical landscape of artificial intelligence. You began on Day 1 exploring the mathematical foundations of vector spaces, gradient descent optimization, and loss function topologies; mastered modern deep neural architectures, attention mechanisms, and Transformer transformer designs; conquered advanced alignment paradigms including Direct Preference Optimization, Kahneman-Tversky Optimization, and Group Relative Policy Optimization; engineered deterministic tool-calling frameworks and pushdown automata sandboxes; and now, have built a planetary-scale, self-healing autonomous AI SRE operating system.",
         "From foundational machine learning to SRE meshes, this curriculum excels in delivering uncompromising depth, mathematical rigor, and production reality. You have not merely memorized high-level conceptual summaries; you have authored and debugged thousands of lines of robust TypeScript and Python code, implemented deterministic algorithms, enforced Gate v2 visual envelopes, passed hundreds of comprehensive unit test suites, and validated production-grade system invariants across multi-cloud environments. This comprehensive pedagogical journey has forged you into a rare and elite technologist: an AI Systems Architect capable of designing, building, and governing autonomous computational intelligence at enterprise scale.",
@@ -13782,16 +13962,16 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
       "example": "Flight directors earn operational certification through simulated aborts.",
       "tryIt": "Graduate Course Twelve with complete mastery of applied artificial systems.",
       "check": {
-        "question": "What core engineering authority does an official graduate of Course 12 possess?",
+        "question": "What core engineering authority does an official graduate of Applied AI possess?",
         "options": [
+          "Theoretical knowledge of basic linear regression limited strictly to toy spreadsheet datasetsregardless of the underlying infrastructure topology or",
           "Complete architectural and practical mastery in designing, aligning, and operating production-scale autonomous AI and self-healing systems",
-          "Theoretical knowledge of basic linear regression limited strictly to toy spreadsheet datasets",
-          "Certification to manually transcribe server log files into paper incident notebooks during outages",
-          "Authority to disable all automated testing pipelines and security admission webhooks in enterprise clusters"
+          "Authority to disable all automated testing pipelines and security admission webhooks in enterprise clusters",
+          "Certification to manually transcribe server log files into paper incident notebooks during outages"
         ],
-        "answer": 0,
+        "answer": 1,
         "answerIndex": 0,
-        "why": "Course 12 graduates possess full-stack theoretical and production mastery across neural foundations, transformers, alignment, agent tool use, and planetary autonomous SRE operating systems."
+        "why": "Applied AI graduates possess full-stack theoretical and production mastery across neural foundations, transformers, alignment, agent tool use, and planetary autonomous SRE operating systems."
       },
       "code": "export function testDay60GrandCapstoneAutonomousSREMesh() {\n  const meshTelemetry = {\n    platform: \"Planetary Autonomous AI SRE Mesh & Self-Healing Operating System\",\n    activeAgents: [\n      \"Alert Triage Specialist Agent\",\n      \"Diagnostic Heap & Flamegraph Investigator\",\n      \"Remediation Kubernetes Actuator\",\n      \"Executive Post-Mortem & Communications Synthesizer\"\n    ],\n    productionMetrics: {\n      totalMonitoredMicroservices: 1000,\n      simulatedCascadingIncidents: 50,\n      autonomousResolutionRatePct: 100,\n      meanTimeToDetectionSeconds: 1.4,\n      meanTimeToRemediationSeconds: 18.6,\n      zeroDowntimeMaintained: true\n    },\n    complianceCertification: \"SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER\",\n    courseGraduationStatus: \"COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED\"\n  };\n\n  return meshTelemetry;\n}",
       "output": "{\n  platform: 'Planetary Autonomous AI SRE Mesh & Self-Healing Operating System',\n  activeAgents: [\n    'Alert Triage Specialist Agent',\n    'Diagnostic Heap & Flamegraph Investigator',\n    'Remediation Kubernetes Actuator',\n    'Executive Post-Mortem & Communications Synthesizer'\n  ],\n  productionMetrics: {\n    totalMonitoredMicroservices: 1000,\n    simulatedCascadingIncidents: 50,\n    autonomousResolutionRatePct: 100,\n    meanTimeToDetectionSeconds: 1.4,\n    meanTimeToRemediationSeconds: 18.6,\n    zeroDowntimeMaintained: true\n  },\n  complianceCertification: 'SOC2_TYPE_II_ISO27001_AUTOMATED_SRE_MASTER',\n  courseGraduationStatus: 'COURSE_12_APPLIED_AI_100_PERCENT_GRADUATED'\n}"
