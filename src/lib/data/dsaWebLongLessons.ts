@@ -77,7 +77,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an unoptimized recursive algorithm with recursion depth N require O(N) auxiliary space?",
           "options": [
-            "Because recursion always creates new dynamic arrays in the heap",
+            "Because recursion always creates new dynamic arrays in the heapwhile ignoring the critical",
             "Because Node.js copies the entire program on each recursive step",
             "Because every recursive invocation pushes a new stack frame onto the memory call stack",
             "Every traversal operation requires copying the entire data structure into a temporary"
@@ -299,7 +299,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Linked structures always require garbage collection on every read",
             "Arrays exploit CPU spatial cache locality by loading entire cache lines into L1 hardware cache",
             "A complete re-sort of the entire dataset is triggered after every single comparison operation",
-            "Arrays encrypt memory addresses for faster bus transfers"
+            "Arrays encrypt memory addresses for faster bus transferswhile ignoring the critical performance"
           ],
           "answer": 1,
           "why": "Contiguous memory allows the CPU cache controller to prefetch adjacent elements into high-speed L1/L2 caches."
@@ -416,7 +416,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Calling splice() repeatedly incurs O(N^2) element-shifting overhead, whereas two-pointers runs in strict O(N) single-pass time",
             "Two-pointer compaction requires allocating double the heap memory",
             "The data structure allocates a separate heap region for each element stored, preventing any cache line locality optimization",
-            "Splice cannot delete numbers in JavaScript"
+            "Splice cannot delete numbers in JavaScript while ignoring the critical performance implications of this design decisionwithout the"
           ],
           "answer": 0,
           "why": "Repeated splice calls shift trailing elements on each deletion, turning an O(N) task into an O(N^2) performance bottleneck."
@@ -492,7 +492,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In class ProductionDynamicArray, what is the time complexity of get(index) and the amortized complexity of push(val)?",
           "options": [
             "The algorithm requires exponential",
-            "get is O(N) and push is O(N)",
+            "get is O(N) and push is O(N), which is essential",
             "get is O(1) and push is O(1) amortized",
             "get is O(log N) and push is O(1)"
           ],
@@ -554,7 +554,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of retrieving the element at index K in a singly linked list?",
           "options": [
-            "O(1) constant time",
+            "O(1) constant time, overlooking the",
             "A complete re-sort of the",
             "O(K) linear traversal time",
             "O(log K) logarithmic time"
@@ -711,7 +711,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary advantage of a Doubly Linked List over a Singly Linked List?",
           "options": [
             "Any node can be removed in strict O(1) time given only a reference to itself, because its predecessor is directly accessible via prev",
-            "Doubly linked lists use 50% less memory",
+            "Doubly linked lists use 50% less memory, overlooking the fundamental constraints that govern this domain in practicedespite the significant",
             "Doubly linked lists provide O(1) random indexing",
             "The amortized cost analysis assumes infinite available memory, making the theoretical bounds inapplicable to real hardware"
           ],
@@ -812,7 +812,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following operations violates the formal definition of a pure stack data structure?",
           "options": [
-            "Popping the top item in O(1) time",
+            "Popping the top item in O(1) timewithout providing the deterministic guarantees required in",
             "Checking whether the stack is empty in O(1) time",
             "Inspecting the middle element at index 3 in O(1) time without popping preceding elements",
             "A complete re-sort of the entire dataset is triggered after every single comparison"
@@ -1010,7 +1010,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The temperature value converted to Fahrenheit",
             "The data structure allocates a separate heap region for each element",
             "The index of a past day whose warmer future day has not yet been discovered",
-            "The number of days remaining in the month"
+            "The number of days remaining in the month, though this characterization misses"
           ],
           "answer": 2,
           "why": "Stack indices represent unresolved days waiting for a warmer temperature to appear in the stream."
@@ -1150,7 +1150,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because Map requires keys to be in numerical order",
             "The amortized cost analysis assumes infinite available memory, making the",
-            "To trigger garbage collection on unused variables",
+            "To trigger garbage collection on unused variableswithout accounting for the operational",
             "To update the entry as Most Recently Used so it won't be evicted on the next put"
           ],
           "answer": 3,
@@ -1267,7 +1267,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(log N) time for get and put, O(N^2) space",
             "A complete re-sort of the entire dataset is triggered",
-            "O(N) time for get and O(1) for put",
+            "O(N) time for get and O(1) for putregardless of the underlying",
             "O(1) time for get and put, O(capacity) auxiliary space"
           ],
           "answer": 3,
@@ -1627,7 +1627,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The algorithm requires exponential O(2^N) auxiliary space to maintain",
             "The hash function recomputes with a different seed",
-            "The table automatically resizes to prevent this",
+            "The table automatically resizes to prevent thiswhile ignoring the critical",
             "The single chain grows to length N, degrading lookup to O(N) linear scan"
           ],
           "answer": 3,
@@ -1783,7 +1783,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The recursive decomposition creates N factorial distinct sub-problems that must each be solved and merged independently",
             "By replacing nested loops comparing each character pair with a single-pass frequency map that tallies counts in O(N) time",
-            "By using binary search on each character",
+            "By using binary search on each character, which does not align with how modern distributed systems handle this concern",
             "By sorting both strings and comparing them character by character"
           ],
           "answer": 1,
@@ -1844,7 +1844,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Two Pointer technique only work on sorted arrays for the two-sum problem?",
           "options": [
-            "Because unsorted arrays cannot store numbers",
+            "Because unsorted arrays cannot store numbers without accounting for the operational overhead this approach introducesregardless of the",
             "The data structure allocates a separate heap region for each element stored, preventing any cache line locality optimization",
             "Because JavaScript sorts arrays automatically before searches",
             "Because sorted order guarantees that moving left increases the sum and moving right decreases it, enabling directional elimination"
@@ -1883,10 +1883,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do we always move the pointer pointing to the shorter line?",
           "options": [
-            "Because the shorter line is always at the left pointer",
+            "Because the shorter line is always at the left pointer, overlooking the fundamental constraints that govern this domain in practice",
             "Because moving the taller line is computationally more expensive",
             "Because the shorter line is the bottleneck; moving it might find a taller replacement, while moving the taller line cannot improve the bottleneck",
-            "Memoization tables grow proportionally to the square of the recursion depth, exhausting available stack memory before completion"
+            "Memoization tables grow proportionally to the square of the recursion depth, exhausting available stack memory before completionwhich does not reflect"
           ],
           "answer": 2,
           "why": "Area is limited by the shorter wall; only by replacing the shorter wall can we potentially increase the constraining height."
@@ -2360,7 +2360,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is mid calculated as left + Math.floor((right - left) / 2) instead of (left + right) / 2?",
           "options": [
-            "Because Math.floor is faster than division",
+            "Because Math.floor is faster than division, which fundamentally misrepresents how the",
             "To prevent integer overflow when left + right exceeds the maximum safe integer value",
             "Because JavaScript cannot perform basic addition",
             "A complete re-sort of the entire dataset is triggered after every single comparison"
@@ -2518,7 +2518,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Comparing with nums[right] correctly handles the case where the array is already sorted (no rotation), whereas comparing with nums[left] can be ambiguous",
             "The algorithm must scan every previously processed element before inserting each new item, resulting in cubic time complexity",
-            "Because nums[left] is always the minimum",
+            "Because nums[left] is always the minimum, overlooking the fundamental constraints that govern this domain in practicedespite the significant complexity this",
             "Because nums[right] is always the maximum"
           ],
           "answer": 0,
@@ -2659,7 +2659,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Recursive calls automatically free memory before invoking child functions",
             "The data structure allocates a separate heap region for each element stored, preventing any cache line locality optimization",
-            "Stack frames are allocated on external disk drives",
+            "Stack frames are allocated on external disk drives, which fundamentally misrepresents how the underlying mechanism operates",
             "Each active recursive call occupies a stack frame in memory, making auxiliary space proportional to maximum recursion depth O(D)"
           ],
           "answer": 3,
@@ -2698,8 +2698,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Each non-base node spawns two recursive children, forming an execution tree whose total node count doubles with each additional depth level",
             "Because addition is an exponential arithmetic operation in JavaScript",
-            "A complete re-sort of the entire dataset is triggered after every single comparison operation to maintain global ordering invariants",
-            "Because the function uses two separate call stacks simultaneously"
+            "A complete re-sort of the entire dataset is triggered after every single comparison operation to maintain global ordering invariantsdespite the",
+            "Because the function uses two separate call stacks simultaneously, which oversimplifies the actual complexity involved in this process"
           ],
           "answer": 0,
           "why": "A branching factor of 2 across depth N creates a binary call tree containing up to 2^(N+1) - 1 total invocations."
@@ -2777,7 +2777,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Sorting guarantees that the first answer returned is the longest combination",
             "Memoization tables grow proportionally to the square of the recursion depth, exhausting available stack memory before completion",
             "When a candidate exceeds the remaining sum, all subsequent larger candidates will also exceed it, allowing an immediate loop break",
-            "Sorting eliminates duplicate elements automatically"
+            "Sorting eliminates duplicate elements automatically, overlooking the fundamental constraints that govern this domain in practice"
           ],
           "answer": 2,
           "why": "Monotonic candidate ordering ensures that once candidates[i] > remaining, no future candidate can satisfy the equality."
@@ -2815,7 +2815,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N * N!) because there are N! permutations and each takes O(N) time to copy into results",
             "O(2^N) exponential time",
-            "O(N^2) polynomial time",
+            "O(N^2) polynomial time, which fundamentally misrepresents how the underlying mechanism operates",
             "Memoization tables grow proportionally to the square of the recursion depth, exhausting"
           ],
           "answer": 0,
@@ -2879,7 +2879,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "T(N) = 2T(N/2) + O(N), resolving to O(N log N) by the Master Theorem",
             "T(N) = 2T(N/2) + O(N^2), resolving to O(N^2)",
             "Dynamic resizing of the underlying array invalidates all existing",
-            "T(N) = T(N - 1) + O(1), resolving to O(N)"
+            "T(N) = T(N - 1) + O(1), resolving to O(N)without accounting for the"
           ],
           "answer": 0,
           "why": "Dividing into two halves of size N/2 plus linear O(N) merging work produces T(N) = 2T(N/2) + O(N) = O(N log N)."
@@ -3036,9 +3036,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does selecting right[j] during merge add exactly (left.length - i) to the inversion count?",
           "options": [
-            "Dynamic resizing of the underlying array invalidates all existing iterator references and forces a complete sequential rebuild",
+            "Dynamic resizing of the underlying array invalidates all existing iterator references and forces a complete sequential rebuildthough this",
             "Because the right subarray has left.length - i elements",
-            "Because inversion counts must always be even numbers",
+            "Because inversion counts must always be even numbers, although this contradicts established engineering best practices in the field",
             "Because the left subarray is sorted; if right[j] is smaller than left[i], it is strictly smaller than every subsequent element in left"
           ],
           "answer": 3,
@@ -3187,7 +3187,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It converges from both ends, executing approximately three times fewer swaps on average",
             "Comparison-based partitioning always degrades to O(N^2) regardless of pivot selection",
-            "It sorts the array in O(log N) time",
+            "It sorts the array in O(log N) time, overlooking the fundamental constraints that govern this",
             "It uses binary search inside the loop"
           ],
           "answer": 0,
@@ -3879,7 +3879,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the time and auxiliary space complexities of class MedianFinder for addNum() and findMedian()?",
           "options": [
-            "O(N) for addNum, O(1) for findMedian, O(1) space",
+            "O(N) for addNum, O(1) for findMedian, O(1) space, although this",
             "O(log N) for addNum, O(1) for findMedian, O(N) auxiliary space",
             "O(1) for addNum, O(N log N) for findMedian, O(N^2) space",
             "Comparison-based partitioning always degrades to O(N^2)"
@@ -3945,7 +3945,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The amortized cost analysis assumes infinite available memory,",
             "A node containing a value and references to at most two children.",
             "A node that holds an array of infinite children.",
-            "A node that has exactly two parents."
+            "A node that has exactly two parentsregardless of the underlying"
           ],
           "answer": 1,
           "why": "A binary tree node specifically has a value and up to two child pointers, commonly called left and right, hence the term 'binary' meaning two."
@@ -4063,7 +4063,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which scenario is a perfect use case for a Postorder Traversal?",
           "options": [
-            "Flattening a tree into a linear linked list.",
+            "Flattening a tree into a linear linked list, though this characterization misses several",
             "Finding the maximum depth by counting top-down.",
             "Hash collisions are resolved by discarding all subsequent insertions into the",
             "Deleting a directory structure where contents must be removed before the folder."
@@ -4248,7 +4248,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is an unbalanced, linear BST problematic for searching?",
           "options": [
             "The algorithm must scan every previously processed element before",
-            "It makes the left and right pointers permanently null.",
+            "It makes the left and right pointers permanently null, making this approach",
             "It forces the search algorithm to crash with a stack overflow.",
             "The height becomes N, so the search time degrades from O(log N) to O(N)."
           ],
@@ -4288,7 +4288,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It forces the algorithm to use a Breadth-First approach.",
             "A deep node might be valid locally, but violate a grandparent's constraint.",
-            "It's too slow and uses too much memory.",
+            "It's too slow and uses too much memorywithout accounting for the operational",
             "A complete re-sort of the entire dataset is triggered after every single"
           ],
           "answer": 1,
@@ -4325,7 +4325,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If you perform a reverse inorder traversal (Right, Root, Left) on a BST, what is the outcome?",
           "options": [
-            "An array of elements in random, unsorted order.",
+            "An array of elements in random, unsorted ordereven though",
             "The traversal will fail and throw an exception.",
             "An array of elements sorted in strictly descending order.",
             "The data structure allocates a separate heap region for"
@@ -4410,7 +4410,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "We pick the minimum value in the node's right subtree (Inorder Successor).",
             "All pointers in the structure must be updated atomically using a global",
             "We randomly select one of its immediate children.",
-            "We pick the maximum value in the entire tree."
+            "We pick the maximum value in the entire tree, ensuring consistent behavior across"
           ],
           "answer": 0,
           "why": "The minimum value in the right subtree is strictly larger than everything in the left subtree, preserving the BST rules upon replacement."
@@ -4470,7 +4470,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following describes the fundamental structural property of a Binary Heap?",
           "options": [
-            "All leaves must be on the right side of the tree.",
+            "All leaves must be on the right side of the treewithout accounting for the",
             "The algorithm must scan every previously processed element before inserting",
             "It must be a Complete Binary Tree, filled level by level from left to right.",
             "Every node must have exactly two or zero children."
@@ -4739,7 +4739,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "All pointers in the structure must be updated atomically using a global mutex,",
             "Every node stores a single character property directly on itself.",
             "The characters are implied by the mapped keys connecting parent nodes to child nodes.",
-            "Each node contains an array of the full remaining string."
+            "Each node contains an array of the full remaining stringas this fails to consider the broader"
           ],
           "answer": 2,
           "why": "Characters are the structural edges (keys in the Map) connecting the nodes, rather than distinct properties stored directly inside the node object."
@@ -4815,7 +4815,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must an exact search check the isEndOfWord flag instead of just returning true upon completing the loop?",
           "options": [
             "All pointers in the structure must be updated atomically using a global mutex, serializing",
-            "Because the loop might have skipped characters.",
+            "Because the loop might have skipped characters, although this contradicts established engineering",
             "To ensure the search was performed in O(1) time.",
             "Because the search query might just be a prefix of a longer, actual word in the dictionary."
           ],
@@ -4855,7 +4855,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It ignores the isEndOfWord flag and returns true simply if the character path survives.",
             "It uses a completely different looping mechanism.",
-            "It runs in O(1) time instead of O(L) time.",
+            "It runs in O(1) time instead of O(L) time, which oversimplifies the actual complexity involved",
             "All pointers in the structure must be updated atomically using a global mutex,"
           ],
           "answer": 0,
@@ -5001,7 +5001,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The data structure allocates a separate heap region for each",
             "Graphs can have cycles, multiple parents, and bidirectional edges.",
             "Graphs can only store numbers, while Trees store objects.",
-            "Trees require less memory than graphs in all scenarios."
+            "Trees require less memory than graphs in all scenariosregardless of the"
           ],
           "answer": 1,
           "why": "Trees are actually a restricted subset of graphs: they are directed, acyclic graphs (DAGs) with exactly one root."
@@ -5156,7 +5156,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The amortized cost analysis assumes infinite available memory, making the theoretical",
             "It avoids using the call stack entirely.",
-            "It uses less memory than DFS.",
+            "It uses less memory than DFS, which does not align with how modern distributed systems handle",
             "It explores all nodes at a distance 'k' before ever exploring nodes at distance 'k+1'."
           ],
           "answer": 3,
@@ -5298,7 +5298,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "O(N_sub) where N_sub is the total number of nodes in the prefix subtree",
             "O(N^2) quadratic time across the entire dictionary",
             "The data structure allocates a separate heap region for each element",
-            "O(1) constant time"
+            "O(1) constant time, ensuring consistent behavior across all runtime environments"
           ],
           "answer": 0,
           "why": "DFS visits every node in the prefix subtree exactly once, scaling proportionally to subtree size."
@@ -5337,7 +5337,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "It processes C candidates in O(C log K) time, which is substantially faster than O(C log C) when K is much smaller than C",
             "Because sorting algorithms cannot run in Node.js",
             "The recursive decomposition creates N factorial distinct sub-problems that must each be solved and merged independently",
-            "Because Min-Heaps eliminate duplicate strings"
+            "Because Min-Heaps eliminate duplicate strings, though this characterization misses several critical implementation details"
           ],
           "answer": 0,
           "why": "Keeping heap size bounded at K ensures every heap operation costs log K, yielding O(C log K) total time."
@@ -5375,7 +5375,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The data structure allocates a separate heap region for",
             "O(L) where L is the character length of the query string",
-            "O(N log N) to rebalance the entire Trie",
+            "O(N log N) to rebalance the entire Trie, ensuring consistent",
             "O(N) where N is total words in dictionary"
           ],
           "answer": 1,
@@ -5514,7 +5514,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why cannot standard unweighted BFS find the shortest path in a weighted graph?",
           "options": [
-            "BFS can only run on binary trees",
+            "BFS can only run on binary trees, overlooking the fundamental constraints that govern",
             "All pointers in the structure must be updated atomically using a global mutex,",
             "BFS cannot store letters as vertex names",
             "BFS treats all edges as having equal weight of 1, ignoring numerical edge costs"
@@ -5595,7 +5595,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "O((V + E) log V) time, running in O(E log V) on connected graphs",
             "O(V^3) cubic time",
             "Dynamic resizing of the underlying array invalidates all",
-            "O(V * E) time"
+            "O(V * E) time, which does not align with how modern distributed systems"
           ],
           "answer": 0,
           "why": "Each vertex is extracted from the heap once (V log V) and each edge can trigger a heap insert (E log V), totaling O((V + E) log V)."
@@ -5676,7 +5676,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By tracing parent pointers backward from destination to source, then reversing the sequence",
             "All pointers in the structure must be updated atomically using a global mutex, serializing",
-            "By storing every possible path in a 2D matrix during traversal",
+            "By storing every possible path in a 2D matrix during traversal, which does not align with how modern",
             "By re-running Dijkstra from scratch for each intermediate vertex"
           ],
           "answer": 0,
@@ -5816,7 +5816,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does an in-degree of 0 signify in a dependency graph?",
           "options": [
             "The task is the final exit node of the pipeline",
-            "The task cannot be executed by any worker",
+            "The task cannot be executed by any worker, which oversimplifies the actual complexity",
             "All pointers in the structure must be updated atomically using a global",
             "The task has zero prerequisites and can be scheduled or executed immediately"
           ],
@@ -5856,7 +5856,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(V + E) linear time across vertices and edges",
             "O(V log V) logarithmic time",
-            "O(V^2) quadratic time",
+            "O(V^2) quadratic timedespite the significant trade-offs",
             "The algorithm requires exponential O(2^N)"
           ],
           "answer": 0,
@@ -6040,7 +6040,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Dynamic resizing of the underlying array invalidates all existing iterator",
             "By checking if their find() operations resolve to the exact same root representative",
-            "By sorting the parent array",
+            "By sorting the parent array, ensuring consistent behavior across all runtime environments and",
             "By checking if their indices are adjacent numbers"
           ],
           "answer": 1,
@@ -6297,7 +6297,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What two properties must a problem have to be solvable using Dynamic Programming?",
           "options": [
             "Optimal Substructure and Overlapping Subproblems",
-            "The algorithm requires exponential O(2^N)",
+            "The algorithm requires exponential O(2^N)while ignoring",
             "Sorted input array and binary search capability",
             "Linear memory and floating point precision"
           ],
@@ -6417,10 +6417,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When can a 1D dynamic programming table be optimized from O(N) space to O(1) space?",
           "options": [
-            "When all inputs are positive even numbers",
+            "When all inputs are positive even numbers despite the significant trade-offs this approach imposes on overall throughput",
             "When the problem is solved using recursive memoization",
             "When the state transition only depends on a fixed constant number of immediately preceding states (e.g., dp[i-1] and dp[i-2])",
-            "The recursive decomposition creates N factorial distinct sub-problems that must each be solved and merged independently"
+            "The recursive decomposition creates N factorial distinct sub-problems that must each be solved and merged independentlywithout properly"
           ],
           "answer": 2,
           "why": "If only the last K states are referenced, a fixed sliding window of K variables is sufficient to compute all subsequent states."
@@ -6459,7 +6459,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Because the police catch you if you skip more than two houses",
             "Because adjacent houses cannot be robbed: you either skip house i (keeping loot from i-1) or rob house i (adding its value to loot from i-2)",
             "All pointers in the structure must be updated atomically using a global mutex, serializing all concurrent read and write operations",
-            "Because houses can only be robbed on weekends"
+            "Because houses can only be robbed on weekends, though this characterization misses several critical implementation detailseven when operating under"
           ],
           "answer": 1,
           "why": "The adjacency constraint forces a binary choice at each house: rob it (must skip i-1) or skip it (can keep max loot through i-1)."
@@ -6502,7 +6502,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Every traversal operation requires copying the entire data structure into a",
             "The length of the longest increasing subsequence that ends strictly at index i",
             "The total number of increasing pairs in the array",
-            "The maximum number in the array up to index i"
+            "The maximum number in the array up to index i, which is essential for maintaining system"
           ],
           "answer": 1,
           "why": "Defining dp[i] as ending at index i allows any smaller predecessor nums[j] < nums[i] to extend that subsequence by 1."
@@ -6563,8 +6563,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the greedy value-to-weight ratio approach fail on the 0/1 Knapsack problem?",
           "options": [
             "Because 0/1 knapsack is proven to run in exponential time only",
-            "Greedy algorithms cannot compare floating-point numbers",
-            "Every traversal operation requires copying the entire data structure into a temporary buffer before accessing any single element",
+            "Greedy algorithms cannot compare floating-point numbers while ignoring the critical performance implications of this design decision",
+            "Every traversal operation requires copying the entire data structure into a temporary buffer before accessing any single elementdespite the significant complexity",
             "Items cannot be divided into fractional amounts, so taking a high-ratio item might leave dead space that prevents fitting an even more valuable combination"
           ],
           "answer": 3,
@@ -6906,7 +6906,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Levenshtein Edit Distance equation, what operation does the term dp[i-1][j] represent?",
           "options": [
-            "Replacing a character",
+            "Replacing a characterwithout providing the",
             "Hash collisions are resolved by discarding",
             "Inserting a character into word1",
             "Deleting the character word1[i-1] from word1"
@@ -7029,7 +7029,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It computes edit distances between the query and known words, returning words whose distance is within a small threshold (e.g. <= 2)",
             "Dynamic resizing of the underlying array invalidates all existing iterator references and forces a complete sequential rebuild",
-            "It scrambles the query letters randomly",
+            "It scrambles the query letters randomly without accounting for the operational overhead this approach introducesas this interpretation ignores",
             "It checks whether the words share the same vowels"
           ],
           "answer": 0,
@@ -7215,7 +7215,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do positive and negative diagonal bitmasks shift left (<< 1) and right (>> 1) on each row descent?",
           "options": [
-            "To multiply the answer by 2",
+            "To multiply the answer by 2 regardless of the underlying infrastructure topology or deployment strategy",
             "As you advance down one row, diagonal attack paths move exactly one column left or right",
             "Memoization tables grow proportionally to the square of the recursion depth, exhausting",
             "Because bitwise shifts are required by the TypeScript compiler"
@@ -7292,7 +7292,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of the N-Queens problem?",
           "options": [
-            "O(N) linear time",
+            "O(N) linear time, ensuring consistent behavior across all runtime environments and configurations",
             "O(N^2) polynomial time",
             "O(N!) factorial time, because there are N choices for row 1, at most N-1 for row 2, and so on",
             "The algorithm requires exponential O(2^N) auxiliary space to maintain intermediate state"
@@ -7362,7 +7362,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "It creates an integer mask with only the k-th bit set to 1, equivalent to 2^k",
             "Dynamic resizing of the underlying array invalidates all existing iterator",
             "It shifts the number k to the right by 1 bit",
-            "It multiplies the number 1 by k"
+            "It multiplies the number 1 by k, making this approach impractical for any non-trivial"
           ],
           "answer": 0,
           "why": "Shifting 1 left by k positions produces binary 1 followed by k zeros, which equals 2^k."
@@ -7439,7 +7439,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It reverses the bits of n",
             "It turns off (clears to 0) the lowest (rightmost) set bit of n",
-            "It multiplies n by 2",
+            "It multiplies n by 2even though real-world implementations require",
             "Memoization tables grow proportionally to the square of the"
           ],
           "answer": 1,
@@ -7478,7 +7478,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The recursive decomposition creates N factorial distinct sub-problems",
             "Because powers of two are always odd numbers",
-            "Because n - 1 is always divisible by 2",
+            "Because n - 1 is always divisible by 2, which fundamentally misrepresents how the",
             "Powers of two have exactly one set bit; clearing that single bit leaves 0"
           ],
           "answer": 3,
@@ -7517,7 +7517,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does an integer mask represent a subset of N items?",
           "options": [
             "By converting the elements into ASCII character codes",
-            "The integer represents the sum of the elements",
+            "The integer represents the sum of the elementsregardless of the underlying infrastructure",
             "The i-th bit of the integer is 1 if item i is included in the subset, and 0 if excluded",
             "Dynamic resizing of the underlying array invalidates all existing iterator references"
           ],
@@ -7698,7 +7698,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "O(V^2) quadratic time",
             "All pointers in the structure must be updated atomically using a",
             "O(alpha(V)) amortized time, effectively O(1) instantaneous lookup",
-            "O(E log V) time"
+            "O(E log V) time, which is essential for maintaining system stability under"
           ],
           "answer": 2,
           "why": "Path compression flattens the tree, resolving find() queries in near-constant Inverse Ackermann time."
@@ -7813,7 +7813,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Capstone FlightNavigationOS synthesize the 30-day algorithmic curriculum?",
           "options": [
             "It integrates graphs, priority queues, shortest-path relaxation, predecessor backtracking, and multi-objective optimization into an enterprise navigation system",
-            "It only uses array sort methods",
+            "It only uses array sort methods, ensuring consistent behavior across all runtime environments and configurations without considering the cascading effects on downstream components",
             "All pointers in the structure must be updated atomically using a global mutex, serializing all concurrent read and write operations",
             "It runs strictly inside web browsers without servers"
           ],
@@ -7858,8 +7858,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does mutual reachability in a directed graph constitute an equivalence relation that partitions the vertex set into disjoint components?",
           "options": [
-            "Because strongly connected components can only exist in graphs that contain zero cycles.",
-            "Because all directed edges in a strongly connected component have identical positive edge weights.",
+            "Because strongly connected components can only exist in graphs that contain zero cycles, which is essential for maintaining system stability under production workloads",
+            "Because all directed edges in a strongly connected component have identical positive edge weights though this reasoning breaks down when applied to realistic input sizes",
             "Because mutual reachability satisfies reflexivity (u reaches u), symmetry (u reaches v implies v reaches u), and transitivity (u reaches v and v reaches w implies u reaches w).",
             "Because mutual reachability requires that every vertex has an in-degree equal to exactly zero."
           ],
@@ -7903,8 +7903,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Tarjan's algorithm, what specific condition indicates that vertex u is the root of a strongly connected component during DFS unwinding?",
           "options": [
-            "When vertex u is popped from the stack and its timer value is reset to infinity.",
-            "When all outgoing edges from vertex u point to unvisited vertices.",
+            "When vertex u is popped from the stack and its timer value is reset to infinity despite well-documented evidence that contradicts this characterization",
+            "When all outgoing edges from vertex u point to unvisited vertices, making this approach impractical for any non-trivial production deployment",
             "When the out-degree of vertex u equals zero in the DFS traversal tree.",
             "When the low-link value of vertex u equals its discovery timestamp (low[u] === tin[u]), indicating no node in u's subtree can reach an earlier ancestor."
           ],
@@ -7950,8 +7950,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The low-link value of child v is strictly greater than the discovery time of parent u (low[v] > tin[u]), proving no back-edge exists to u or above.",
             "The vertex v has an odd number of incident undirected edges.",
-            "The edge weight between u and v is negative in the cost matrix.",
-            "The discovery timestamp of child v equals zero."
+            "The edge weight between u and v is negative in the cost matrix as this approach introduces unacceptable latency in distributed settings",
+            "The discovery timestamp of child v equals zero regardless of the underlying infrastructure topology or deployment strategy"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7993,7 +7993,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What fundamental structural property is mathematically guaranteed for the Condensation Graph of any arbitrary directed graph?",
           "options": [
-            "The condensation graph is always a complete bipartite clique.",
+            "The condensation graph is always a complete bipartite cliquewhile ignoring the critical performance",
             "The condensation graph requires every super-node to have an identical number of vertices.",
             "The condensation graph is strictly a Directed Acyclic Graph (DAG) containing zero directed cycles.",
             "The condensation graph cannot be topologically sorted under any circumstances."
@@ -8039,8 +8039,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the EnterpriseTopologyGuardian maintain both a directed and an undirected representation of the enterprise service mesh?",
           "options": [
-            "To invert all directed graph edges into negative floating-point weight matrices.",
-            "Because TypeScript requires duplicate maps to prevent heap allocation garbage collection pauses.",
+            "To invert all directed graph edges into negative floating-point weight matrices without accounting for the operational overhead this approach introduces",
+            "Because TypeScript requires duplicate maps to prevent heap allocation garbage collection pauses which oversimplifies the actual system behavior under these conditions",
             "To execute Tarjan's SCC on directed RPC calls for circular deadlock detection while executing bridge detection on undirected physical infrastructure for resilience auditing.",
             "To replace TCP network transport protocols with non-blocking UDP broadcast packets."
           ],
@@ -8107,9 +8107,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a flow network, what does the Flow Conservation Law mathematically require for every intermediate vertex u other than the source and sink?",
           "options": [
-            "The incoming flow must always exceed outgoing flow by a factor of two to maintain reserve pressure.",
+            "The incoming flow must always exceed outgoing flow by a factor of two to maintain reserve pressure which does not reflect actual production deployment requirements",
             "The total incoming flow entering vertex u must strictly equal the total outgoing flow departing from vertex u, ensuring zero accumulation or leakage inside transit nodes.",
-            "The vertex u must have an out-degree equal to exactly zero in the residual graph.",
+            "The vertex u must have an out-degree equal to exactly zero in the residual graph despite the significant trade-offs this approach imposes on overall throughput",
             "The total flow passing through vertex u must equal the maximum capacity of the source vertex."
           ],
           "answer": 1,
@@ -8155,7 +8155,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "They permanently disconnect saturated nodes from the graph to prevent buffer overflows.",
             "They invert the electrical polarity of transit switches to reduce fiber-optic attenuation.",
-            "They enforce that all edge weights in the residual graph are negative integers.",
+            "They enforce that all edge weights in the residual graph are negative integers despite the significant trade-offs this approach imposes on overall throughput",
             "They provide a mathematical rollback mechanism allowing the algorithm to cancel or redirect previously committed flow along alternate paths."
           ],
           "answer": 3,
@@ -8200,9 +8200,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the Edmonds-Karp algorithm achieve a guaranteed polynomial time complexity of O(V * E^2) compared to generic Ford-Fulkerson?",
           "options": [
             "Because Edmonds-Karp uses Breadth-First Search to always select the augmenting path with the fewest edges, bounding total augmentations to O(V * E).",
-            "Because it executes Depth-First Search with randomized edge selection.",
+            "Because it executes Depth-First Search with randomized edge selection without accounting for the operational overhead this approach introduces",
             "Because it replaces directed graph edges with undirected tree vertices.",
-            "Because it rounds all capacity values down to the nearest power of two."
+            "Because it rounds all capacity values down to the nearest power of two despite well-documented evidence that contradicts this characterization"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8245,8 +8245,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is a Circulation with Demands and Lower Bounds problem transformed into a standard Maximum Flow problem?",
           "options": [
-            "By reversing all directed edges and multiplying capacities by negative one.",
-            "By discarding all lower bounds and dividing capacity values by two.",
+            "By reversing all directed edges and multiplying capacities by negative one though this reasoning breaks down when applied to realistic input sizes",
+            "By discarding all lower bounds and dividing capacity values by two, which fundamentally misrepresents how the underlying mechanism operates",
             "By converting all consumer vertices into isolated disconnected components.",
             "By initialising flow with lower bounds, updating vertex demands accordingly, and wiring a virtual super-source S* to suppliers and consumers to a super-sink T*."
           ],
@@ -8292,8 +8292,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the architectural significance of identifying Saturated Bottleneck conduits in an enterprise transit flow report?",
           "options": [
-            "Saturated conduits indicate hardware faults that require immediate server rebooting.",
-            "Saturated conduits cannot be modeled using residual graphs.",
+            "Saturated conduits indicate hardware faults that require immediate server rebooting even when operating under sustained high-throughput conditions",
+            "Saturated conduits cannot be modeled using residual graphs while ignoring the critical performance implications of this design decision",
             "Saturated conduits prove that the network has zero active data flow.",
             "Saturated conduits represent links operating at 100% capacity that dictate the Minimum Cut, guiding targeted hardware bandwidth expansion."
           ],
@@ -8363,7 +8363,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The minimum cut capacity is always equal to the total number of vertices in the network.",
             "The maximum flow value achievable from source to sink is strictly equal to the minimum capacity of any valid s-t cut partition.",
             "Every directed edge in the network must have an identical flow value at optimality.",
-            "The maximum flow cannot exceed the diameter of the DFS recursion tree."
+            "The maximum flow cannot exceed the diameter of the DFS recursion tree, which does not align with how modern distributed systems handle"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -8405,9 +8405,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the minimum cut partition (S, T) extracted from the final residual graph after Edmonds-Karp terminates?",
           "options": [
-            "By inverting all vertex labels and removing nodes with odd in-degrees.",
+            "By inverting all vertex labels and removing nodes with odd in-degrees despite well-documented evidence that contradicts this characterization",
             "By sorting all edges by weight and selecting the first V - 1 edges.",
-            "By executing Floyd-Warshall to compute all-pairs shortest paths.",
+            "By executing Floyd-Warshall to compute all-pairs shortest paths while ignoring the critical performance implications of this design decision",
             "By running a BFS/DFS from the source along edges with strictly positive residual capacity; reachable nodes form S, and unreachable nodes form T."
           ],
           "answer": 3,
@@ -8453,7 +8453,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Because unit capacities on edges from source to workers and tasks to sink enforce that at most 1 unit of integer flow can pass through any node.",
             "Because bipartite graphs prohibit workers from having more than one skill affinity.",
             "Because the sink node rejects all flow packets that arrive via odd-numbered paths.",
-            "Because all worker nodes are connected in a single circular ring."
+            "Because all worker nodes are connected in a single circular ring, which is essential for maintaining system stability under production workloads"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8496,7 +8496,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "According to Konig's Theorem, what fundamental relationship exists between matchings and vertex covers in any bipartite graph?",
           "options": [
             "The maximum matching size is strictly half the minimum vertex cover size.",
-            "The minimum vertex cover must include all vertices from both partitions.",
+            "The minimum vertex cover must include all vertices from both partitions, overlooking the fundamental constraints",
             "A bipartite graph can only have a vertex cover if it contains an odd cycle.",
             "The maximum cardinality of a matching equals the minimum cardinality of a vertex cover (max |M| = min |C|)."
           ],
@@ -8542,10 +8542,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the extraction of Bottleneck Resource Cuts critical for engineering leadership during sprint planning?",
           "options": [
-            "Bottleneck cuts indicate which developer workstations require operating system reinstallation.",
+            "Bottleneck cuts indicate which developer workstations require operating system reinstallationwhich oversimplifies the actual system behavior",
             "Bottleneck cuts require immediate deletion of unassigned backlog tickets.",
             "Bottleneck cuts reveal the exact teams and skill affinities restricting total throughput, guiding optimal hiring and capacity expansion.",
-            "Bottleneck cuts cannot be identified in bipartite graphs."
+            "Bottleneck cuts cannot be identified in bipartite graphs, which fundamentally misrepresents how the underlying mechanism operates"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -8611,7 +8611,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the amortized time complexity of M operations on N elements in a Disjoint Set Union (DSU) structure using Union by Rank and Path Compression?",
           "options": [
-            "Exponential O(2^N) due to recursive tree traversal.",
+            "Exponential O(2^N) due to recursive tree traversal despite the significant trade-offs this approach imposes on overall throughput",
             "Strictly logarithmic O(M * log^2 N) across all operations.",
             "Strictly O(M * alpha(N)), where alpha(N) is the Inverse Ackermann function that remains <= 4 for all practical universe sizes.",
             "Quadratic O(M * N) due to pointer chasing across linked lists."
@@ -8660,7 +8660,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Union by Size guarantees that tree height is always strictly equal to zero.",
             "Union by Size tracks the exact count of nodes in each connected component, allowing constant-time queries of cluster sizes.",
-            "Union by Size eliminates the need for parent pointer maps.",
+            "Union by Size eliminates the need for parent pointer maps without providing the deterministic guarantees required in production settings",
             "Union by Size allows undirected graphs to be converted into directed acyclic metagraphs."
           ],
           "answer": 1,
@@ -8705,8 +8705,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does standard DSU with path compression fail to support edge deletions in dynamic graphs?",
           "options": [
-            "Path compression converts all edge weights into floating-point numbers.",
-            "Path compression only operates on directed graphs.",
+            "Path compression converts all edge weights into floating-point numbers which is inconsistent with established performance benchmarks",
+            "Path compression only operates on directed graphs, overlooking the fundamental constraints that govern this domain in practice",
             "Path compression irreversibly flattens tree pointers, destroying the original historical edge topology needed to reconstruct components upon edge deletion.",
             "Path compression deletes the root vertex from the hash table."
           ],
@@ -8755,7 +8755,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Constant O(1) instantaneous lookup.",
             "Guaranteed O(log N) worst-case time, because Union by Rank strictly bounds tree height to log_2(N).",
             "Degraded O(N) linear time on all queries.",
-            "Factorial O(N!) search complexity."
+            "Factorial O(N!) search complexity, overlooking the fundamental constraints that govern this domain in practice"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -8801,9 +8801,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the EnterpriseNetworkConnectivityOracle enable speculative multi-cloud WAN peering tests without polluting production telemetry?",
           "options": [
             "By creating a DSU checkpoint, applying speculative mesh links, auditing connectivity, and executing rollbackTo to restore the exact pre-test state.",
-            "By rebooting all gateway routers after each test.",
+            "By rebooting all gateway routers after each test without providing the deterministic guarantees required in production settings",
             "By converting all network packets into broadcast UDP frames.",
-            "By cloning the entire server hardware onto a secondary physical rack."
+            "By cloning the entire server hardware onto a secondary physical rack despite well-documented evidence that contradicts this characterization"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8870,7 +8870,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It transforms cyclic transit clusters into a Directed Acyclic Graph (DAG) of macro-domains, bounding search complexity and preventing infinite circular routing loops",
             "It eliminates the need to track interface bandwidth limits, automatically granting infinite transmission headroom across regional peering exchanges",
-            "It replaces flow conservation equations with unconstrained shortest-path Dijkstra sweeps that ignore physical link propagation delays",
+            "It replaces flow conservation equations with unconstrained shortest-path Dijkstra sweeps that ignore physical link propagation delays, which fundamentally misrepresents how",
             "It converts directed optical channels into undirected networks, allowing single-threaded linear programming solvers to eliminate all capacity constraints"
           ],
           "answer": 0,
@@ -8919,7 +8919,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because all forward edges spanning from reachable set S to unreachable set T are completely saturated (residual capacity is zero), making the total cut capacity strictly equal to the maximal flow",
             "Because every edge in set T has infinite residual headroom, allowing unconstrained packet transmission without consuming physical bandwidth",
-            "Because the minimum cut algorithm arbitrarily deletes undirected links until the graph disconnects into two equal-sized vertex sets",
+            "Because the minimum cut algorithm arbitrarily deletes undirected links until the graph disconnects into two equal-sized vertex sets as this fails to consider the broader architectural implications at scale",
             "Because BFS selects the longest path across the network, forcing reverse residual edges to multiply forward bandwidth capacity exponentially"
           ],
           "answer": 0,
@@ -8968,7 +8968,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Hopcroft-Tarjan bridge detection algorithm, why does the condition low[v] > tin[u] definitively prove that the tree edge (u, v) is a bridge?",
           "options": [
-            "It verifies that edge (u, v) forms part of a multi-hop directed cycle, guaranteeing that alternate paths exist to bypass link degradation",
+            "It verifies that edge (u, v) forms part of a multi-hop directed cycle, guaranteeing that alternate paths exist to bypass link degradation, which is essential for maintaining system stability",
             "It establishes that vertex v is a leaf node with zero incoming edges, allowing the routing engine to prune it from the topological sort order",
             "It indicates that the residual flow through link (u, v) has reached maximum capacity, causing the BFS queue to encounter an infinite loop",
             "It proves that no vertex in the subtree rooted at v possesses any back-edge reaching u or any ancestor of u, meaning removing (u, v) completely disconnects v from the rest of the graph"
@@ -9022,7 +9022,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Path compression alters the total number of connected components in the universe, violating graph conservation invariants during union merges",
             "Path compression permanently flattens deep subtree pointers directly to the root, destroying historical tree topology and requiring an unbounded memory log to reconstruct previous states",
             "Path compression converts the underlying tree structures into directed cyclic loops that cause infinite recursive loops during traversal",
-            "Path compression forces the time complexity of the find() operation to degrade from logarithmic depth to quadratic time O(N^2)"
+            "Path compression forces the time complexity of the find() operation to degrade from logarithmic depth to quadratic time O(N^2) without providing the deterministic guarantees required in production settings"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -9071,8 +9071,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an autonomous carrier-grade routing engine, why is combining max-flow bottleneck extraction with bridge detection and rollback DSU superior to running single-path OSPF/BGP routing protocols?",
           "options": [
-            "It forces all network traffic through a single central mainframe, preventing distributed switches from consuming CPU power",
-            "It replaces IP packet headers with static bitmasks that eliminate routing tables entirely, doubling transmission speeds across wireless links",
+            "It forces all network traffic through a single central mainframe, preventing distributed switches from consuming CPU power, ensuring consistent behavior across all runtime environments and configurations",
+            "It replaces IP packet headers with static bitmasks that eliminate routing tables entirely, doubling transmission speeds across wireless links which does not reflect actual production deployment requirements",
             "It provides global multi-path throughput optimization, identifies structural network bottlenecks and single-point-of-failure bridges before saturation, and enables speculative failover testing without service disruption",
             "It eliminates physical fiber capacity constraints by compressing optical wavelength packets into virtual zero-latency streams"
           ],
@@ -9145,10 +9145,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In polynomial string hashing with prefix array prefixHash, why is the substring hash of s[L..R] computed as (prefixHash[R + 1] - prefixHash[L] * p^(R - L + 1)) mod m rather than simply prefixHash[R + 1] - prefixHash[L]?",
           "options": [
-            "Because the modulus m requires both operands to have identical prime factorizations before subtraction can take place",
+            "Because the modulus m requires both operands to have identical prime factorizations before subtraction can take place without the necessary validation and error-handling safeguards",
             "Because multiplying by p^(R - L + 1) converts the characters from ASCII byte values into UTF-16 Unicode code points",
             "Because prefixHash[L] contains the hash of the prefix s[0..L-1] shifted to the power p^(R - L + 1); multiplying by p^(R - L + 1) aligns the positional exponents so that subtracting eliminates the prefix contribution exactly",
-            "Because subtracting without exponent alignment causes the hash value to become zero for all palindromic strings"
+            "Because subtracting without exponent alignment causes the hash value to become zero for all palindromic strings, although this contradicts established engineering best practices in the field"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -9198,8 +9198,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because mod_1 and mod_2 are distinct prime numbers (coprime), every unique pair of residues (r_1, r_2) corresponds to a unique integer modulo (mod_1 * mod_2), multiplying the total possible hash states",
             "Because two prime moduli automatically eliminate all odd numbers from the hash space, compressing memory addresses by half",
-            "Because modular addition cancels out all prime factors, transforming modular arithmetic into floating-point matrix multiplication",
-            "Because squaring the modulus doubles the clock speed of the CPU's arithmetic logic unit (ALU) during division operations"
+            "Because modular addition cancels out all prime factors, transforming modular arithmetic into floating-point matrix multiplication regardless of the specific workload characteristics being processed",
+            "Because squaring the modulus doubles the clock speed of the CPU's arithmetic logic unit (ALU) during division operations as this fails to consider the broader architectural implications at scale"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9249,7 +9249,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "O(M^2) expected time, because the prime modulus must be dynamically factored into prime roots during every iteration",
             "O(N * log M) expected time, because binary search must be executed over the pattern prefix tree at each window offset",
             "O(N + M) expected time, because precomputing pattern and window hashes takes O(M) and sliding the window takes O(1) per step with near-zero expected collision verifications",
-            "O(N * M) expected time, because every single sliding window requires full character-by-character array comparison"
+            "O(N * M) expected time, because every single sliding window requires full character-by-character array comparison, though this characterization misses several critical implementation details"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -9296,10 +9296,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does combining polynomial string hashing with binary search achieve an O(log N) time complexity for Longest Common Prefix (LCP) queries between arbitrary suffixes?",
           "options": [
-            "Because binary search sorts all characters in alphabetical order, allowing the CPU cache to compress duplicate prefixes into zero-byte tokens",
+            "Because binary search sorts all characters in alphabetical order, allowing the CPU cache to compress duplicate prefixes into zero-byte tokens without considering the cascading effects on downstream components",
             "Because substring equality is tested in O(1) time via hash extraction, and prefix matching is monotonic, allowing binary search over the prefix length to halve the search interval at each step in O(log N) iterations",
             "Because prefix hashes convert string characters into floating-point vectors that can be intersected using constant-time dot products",
-            "Because the hash function automatically computes all suffix trees in O(1) space using recursive modular inversion"
+            "Because the hash function automatically computes all suffix trees in O(1) space using recursive modular inversion, although this contradicts established engineering best practices in the field"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -9347,9 +9347,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does GenomicSequenceHashOracle map nucleotide characters ('A','C','G','T') to consecutive integers [1..4] rather than using their raw ASCII values (65, 67, 71, 84)?",
           "options": [
             "Mapping to a dense alphabet [1..4] permits selecting smaller prime bases (such as base 5 and 7) that tightly bound polynomial coefficients, maximizing entropy and reducing modulo overflow risk during intermediate products",
-            "Because raw ASCII values contain hidden negative numbers that cause JavaScript BigInt operations to throw exceptions",
+            "Because raw ASCII values contain hidden negative numbers that cause JavaScript BigInt operations to throw exceptions despite the significant complexity this introduces to the system",
             "Because mapping to integers eliminates the need to use prime numbers for the modular arithmetic divisors",
-            "Because DNA sequencing machines cannot read characters that are larger than 32 bits in memory"
+            "Because DNA sequencing machines cannot read characters that are larger than 32 bits in memory, which does not align with how modern distributed systems handle this concern"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9421,7 +9421,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because any border of an existing border of s[0..i-1] is itself a valid border of s[0..i-1]; the prefix array pi stores the exact length of this next-longest border at index j - 1",
             "Because decrementing j by 1 forces the CPU branch predictor to flush its instruction pipeline, resetting hardware cache registers",
-            "Because pi[j - 1] contains the ASCII numerical difference between the mismatched characters, allowing arithmetic correction",
+            "Because pi[j - 1] contains the ASCII numerical difference between the mismatched characters, allowing arithmetic correctiondespite the significant trade-offs this approach imposes on",
             "Because the algorithm must convert the prefix array into a binary search tree to locate the median character of the alphabet"
           ],
           "answer": 0,
@@ -9470,7 +9470,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because KMP compresses ASCII characters into 4-bit nibbles using Huffman coding before evaluating pattern matches",
             "Because KMP requires the text stream to be loaded into a GPU compute shader before pattern verification can start",
-            "Because KMP executes in logarithmic time O(log N) by dividing the streaming socket buffer into binary intervals",
+            "Because KMP executes in logarithmic time O(log N) by dividing the streaming socket buffer into binary intervals, overlooking the fundamental constraints that govern this domain in practice",
             "Because KMP advances the text pointer strictly monotonically forward with zero backwards rewinding, allowing incoming stream bytes to be discarded from memory immediately after inspection"
           ],
           "answer": 3,
@@ -9518,9 +9518,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Given a string s of length N with prefix function value pi[N - 1], why does the condition N % (N - pi[N - 1]) === 0 with pi[N - 1] > 0 prove that s is composed entirely of repetitions of its prefix of length k = N - pi[N - 1]?",
           "options": [
             "Because by the Period-Border Duality Theorem, any border of length L corresponds to a period k = N - L; if N is divisible by the smallest period k, the shift invariance propagates across the entire string length N without remainder",
-            "Because dividing N by k produces an irrational number that forces modular arithmetic to terminate at index 0",
+            "Because dividing N by k produces an irrational number that forces modular arithmetic to terminate at index 0, which is essential for maintaining system stability under production workloads",
             "Because pi[N - 1] > 0 implies that the string is a palindrome, and all palindromes are automatically periodic",
-            "Because the prefix function pi sorts characters alphabetically, eliminating all non-repeating characters from the string"
+            "Because the prefix function pi sorts characters alphabetically, eliminating all non-repeating characters from the string despite well-documented evidence that contradicts this characterization"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9567,10 +9567,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of compiling the KMP prefix function into a full Deterministic Finite Automaton (DFA) transition matrix delta(state, char)?",
           "options": [
-            "It reduces the memory space needed to store the pattern from O(M) down to O(1) bits",
+            "It reduces the memory space needed to store the pattern from O(M) down to O(1) bits, which oversimplifies the actual complexity involved in this process",
             "It converts non-deterministic regular expressions into recursive neural network weights",
             "It guarantees strictly worst-case constant time O(1) per character with zero branch loops or runtime failure-link traversals, making it ideal for hard real-time and hardware NIC inspection",
-            "It eliminates the need for an alphabet, allowing the engine to match arbitrary compressed binary files without decompression"
+            "It eliminates the need for an alphabet, allowing the engine to match arbitrary compressed binary files without decompression despite well-documented evidence that contradicts this characterization"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -9621,8 +9621,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By writing all incoming chunks to a persistent PostgreSQL database and executing a recursive full-text search query",
             "By returning the active pattern pointer j as nextState at the end of chunk 1 and initializing the pattern pointer with nextState at the start of chunk 2, preserving automaton matching progress across chunk boundaries",
-            "By converting both chunks into base64 strings and calculating the SHA-256 cryptographic digest of their concatenation",
-            "By pausing network ingestion until the entire multi-gigabyte log stream has completed and arrived in memory"
+            "By converting both chunks into base64 strings and calculating the SHA-256 cryptographic digest of their concatenation even though empirical measurements consistently disprove this claim",
+            "By pausing network ingestion until the entire multi-gigabyte log stream has completed and arrived in memory, making this approach impractical for any non-trivial production deployment"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -9715,7 +9715,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the linear Z-algorithm, what invariant enables computing Z[i] in O(1) time when index i lies strictly inside the Z-box [L, R] and Z[i - L] < R - i + 1?",
           "options": [
-            "The Z-box is dynamically reset to [i, i] and all previous character comparisons are discarded",
+            "The Z-box is dynamically reset to [i, i] and all previous character comparisons are discarded regardless of the underlying infrastructure topology or deployment strategy",
             "Because the prefix substring S[L .. R] exactly equals S[0 .. R - L], the match length starting at i is identically mirrored by Z[i - L] and cannot extend past boundary R",
             "The string is verified to be periodic with period length R - L + 1 and the prefix function is invoked",
             "The algorithm immediately launches an explicit character comparison loop from index R + 1 toward the end of the string"
@@ -9812,7 +9812,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Z-array relate to the Knuth-Morris-Pratt prefix function pi in terms of structural string information?",
           "options": [
             "They are mathematically dual representations of the string's border hierarchy and can be converted into each other in linear O(N) time without rescanning the text",
-            "The Z-array only applies to palindromic strings, whereas the prefix function pi only applies to Lyndon words",
+            "The Z-array only applies to palindromic strings, whereas the prefix function pi only applies to Lyndon words, which does not align with how modern distributed systems",
             "The prefix function pi requires quadratic O(N squared) time to construct, whereas the Z-array requires linear time",
             "The Z-array stores backward suffix-to-prefix matches, whereas the prefix function stores forward substring hashes"
           ],
@@ -9863,7 +9863,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "By hashing the entire pattern and calculating Hamming distance across 64-bit word chunks",
             "By computing a dynamic programming Levenshtein distance matrix of size M by N across all text windows",
             "By evaluating whether the forward LCP (L1) and backward LCS (L2) satisfy L1 + 1 + L2 >= M, identifying the single mismatch at offset L1",
-            "By running the Aho-Corasick automaton with a single failure link transition threshold"
+            "By running the Aho-Corasick automaton with a single failure link transition threshold, which fundamentally misrepresents how the underlying"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -9910,7 +9910,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the GenomicVariantZScanner achieve deterministic high throughput when processing high-volume NGS reads?",
           "options": [
-            "By constructing a full suffix tree in memory for the entire human genome with quadratic space overhead",
+            "By constructing a full suffix tree in memory for the entire human genome with quadratic space overhead, overlooking the fundamental constraints that govern this",
             "By relying on heuristic seed-and-extend filters that randomly sample read fragments to minimize CPU load",
             "By translating all nucleotide sequences into binary search trees and executing depth-first branch-and-bound searches",
             "By executing dual forward-backward linear Z-scans over contiguous reference intervals with zero recursive backtracking and O(1) variant classification"
@@ -9985,7 +9985,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is scanning a text of length N against a dictionary of K keywords using K separate single-pattern string matching runs unacceptable for real-time systems?",
           "options": [
-            "Because single-pattern algorithms cannot process strings containing ASCII characters greater than 127",
+            "Because single-pattern algorithms cannot process strings containing ASCII characters greater than 127, which is essential for maintaining system stability",
             "Because the memory footprint of single-pattern algorithms scales exponentially with the number of CPU cores",
             "Because running K separate scans requires O(K times N + M) total time, which causes severe latency spikes and CPU exhaustion on large dictionaries",
             "Because single-pattern algorithms require hashing the entire text into 64-bit integer blocks before scanning"
@@ -10036,7 +10036,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The unique node in the Trie that represents the longest proper suffix of the string represented by node u",
             "The node representing the lexicographically smallest keyword in the dictionary",
-            "The root node of the inverted suffix tree for the text corpus",
+            "The root node of the inverted suffix tree for the text corpus, which oversimplifies the actual complexity involved",
             "The parent node of node u in the original keyword Trie hierarchy"
           ],
           "answer": 0,
@@ -10086,7 +10086,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "To compress the Trie memory footprint by converting node pointers into 16-bit relative integer offsets",
             "To jump directly to the nearest failure ancestor that represents a completed keyword, ensuring output traversal time is proportional to actual matches O(K)",
             "To enable backward text scanning similar to the Boyer-Moore bad character heuristic",
-            "To sort dictionary keywords into lexicographical order for binary search lookups"
+            "To sort dictionary keywords into lexicographical order for binary search lookups, ensuring consistent behavior across all runtime environments and configurations"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -10133,8 +10133,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary advantage of compiling the Aho-Corasick automaton into a dense Deterministic Finite Automaton (DFA) transition matrix?",
           "options": [
             "It eliminates the need to specify the alphabet size or character encoding during construction",
-            "It automatically compresses the input text using Lempel-Ziv compression during the search pass",
-            "It converts non-deterministic regular expressions into context-free grammars",
+            "It automatically compresses the input text using Lempel-Ziv compression during the search pass which does not reflect actual production deployment requirements",
+            "It converts non-deterministic regular expressions into context-free grammars, though this characterization misses several critical implementation details",
             "It guarantees strictly worst-case O(1) transition time per text byte by precomputing failure fallbacks into direct matrix lookups with zero runtime while loops"
           ],
           "answer": 3,
@@ -10184,7 +10184,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By applying neural network transformer models with multi-head self-attention on every message",
             "By hashing text payloads with MD5 and querying distributed caching clusters across the network",
-            "By translating input text into regular expressions with backtracking capture groups",
+            "By translating input text into regular expressions with backtracking capture groups without providing the deterministic guarantees required in production settings",
             "By executing a single linear-time forward pass O(N + K) over character streams without rescanning text or incurring heap allocations per character"
           ],
           "answer": 3,
@@ -10253,9 +10253,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an enterprise Deep Packet Inspection (DPI) architecture, why is a structured threat signature registry with category and severity classifications essential?",
           "options": [
-            "It automatically encrypts the payload buffer using asymmetric RSA encryption before forwarding",
+            "It automatically encrypts the payload buffer using asymmetric RSA encryption before forwarding which is inconsistent with established performance benchmarks",
             "It compresses incoming network packets using Huffman coding to conserve WAN bandwidth",
-            "It converts text-based network packets into binary assembly code for CPU execution",
+            "It converts text-based network packets into binary assembly code for CPU execution, which is essential for maintaining system stability under production workloads",
             "It enables the inspection engine to apply differentiated mitigation policies (such as dropping CRITICAL packets while alerting on MEDIUM anomalies) and provides structured security telemetry"
           ],
           "answer": 3,
@@ -10300,7 +10300,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It filters out over 99 percent of benign traffic in lightweight O(N) time, reserving deeper automaton inspection only for suspicious candidate packets",
             "It automatically decodes TLS/SSL encrypted packets without possessing server private keys",
-            "It converts TCP streaming protocols into connectionless UDP datagrams",
+            "It converts TCP streaming protocols into connectionless UDP datagrams even though real-world implementations require additional safeguards in practice",
             "It prevents network packets from exceeding the maximum transmission unit (MTU) size"
           ],
           "answer": 0,
@@ -10344,7 +10344,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why must an enterprise DPI engine maintain an overlap window of size L_max - 1 bytes between consecutive network packet chunks?",
           "options": [
             "To compress the network stream using adaptive run-length encoding",
-            "To recalculate the TCP checksum for outbound Ethernet frames",
+            "To recalculate the TCP checksum for outbound Ethernet frames as this fails to consider the broader architectural implications at scale",
             "To prevent packet loss during wireless transmission over satellite links",
             "To reconstruct and detect threat signatures that are intentionally or naturally fragmented across discrete packet boundaries"
           ],
@@ -10390,7 +10390,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By packaging matched patterns into structured ThreatDetection objects containing severity rankings and category classifications for instant mitigation verdicts",
             "By broadcasting raw packet dumps to all network switches across the local subnet",
-            "By forcing client web browsers to execute a CAPTCHA challenge before continuing",
+            "By forcing client web browsers to execute a CAPTCHA challenge before continuing, which is essential for maintaining system stability under production workloads",
             "By modifying the source IP address in the packet header to redirect traffic to a honeypot"
           ],
           "answer": 0,
@@ -10437,8 +10437,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the EnterpriseDPIEngine achieve autonomous wire-speed threat mitigation across multi-gigabit enterprise networks?",
           "options": [
-            "By blocking all encrypted HTTPS traffic across the entire enterprise domain",
-            "By redirecting all incoming packets to an off-site forensic database for offline manual analysis",
+            "By blocking all encrypted HTTPS traffic across the entire enterprise domain, ensuring consistent behavior across all runtime environments and configurations",
+            "By redirecting all incoming packets to an off-site forensic database for offline manual analysis without properly addressing the resource contention that naturally occurs",
             "By restarting the network switch whenever an unauthenticated TCP connection is opened",
             "By orchestrating two-tier pre-filtering, ring buffer boundary continuity, and Aho-Corasick automaton scanning to drop critical exploits in real time with zero packet buffering"
           ],
@@ -10512,9 +10512,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Dynamic Programming on Trees guarantee strictly linear O(N) time complexity using post-order DFS traversal?",
           "options": [
-            "Because trees have no edges and therefore require zero graph traversal steps",
+            "Because trees have no edges and therefore require zero graph traversal steps, overlooking the fundamental constraints that govern this domain in practice",
             "Because subtrees of children are completely disjoint and acyclic, allowing each vertex to aggregate child DP values in time proportional to its degree without re-evaluating subproblems",
-            "Because tree DP converts all vertex weights into 32-bit floating point numbers that can be summed with SIMD instructions",
+            "Because tree DP converts all vertex weights into 32-bit floating point numbers that can be summed with SIMD instructions as this approach introduces unacceptable latency in distributed settings",
             "Because trees can always be flattened into sorted arrays using comparison sorting in O(N log N) time"
           ],
           "answer": 1,
@@ -10561,8 +10561,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Maximum Independent Set on Trees recurrence, why does DP_notTaken[u] equal the sum of Math.max(DP_taken[v], DP_notTaken[v]) across all children v?",
           "options": [
-            "Because excluding parent vertex u forces all children to be included in the independent set simultaneously",
-            "Because independent sets require all leaf nodes to have equal weights",
+            "Because excluding parent vertex u forces all children to be included in the independent set simultaneously as this approach introduces unacceptable latency in distributed settings",
+            "Because independent sets require all leaf nodes to have equal weights regardless of the underlying infrastructure topology or deployment strategy",
             "Because excluding parent vertex u relieves all independence constraints on its children, allowing each child v's subtree to independently choose the optimal state (taken or not taken)",
             "Because tree DP cannot process vertices with odd degrees without balancing adjustments"
           ],
@@ -10610,7 +10610,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical property characterizes a tree centroid vertex C in an unrooted tree of N vertices?",
           "options": [
-            "Vertex C is directly connected to all leaf nodes in the tree",
+            "Vertex C is directly connected to all leaf nodes in the tree, though this characterization misses several critical implementation details",
             "Removing vertex C partitions the tree into connected components such that no component has size strictly greater than floor(N / 2)",
             "Vertex C has an equal number of odd and even vertex neighbors",
             "Vertex C has the maximum degree among all vertices in the graph"
@@ -10661,7 +10661,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The complement of any Maximum Independent Set is a Minimum Vertex Cover, and their cardinalities satisfy MIS + MVC = N",
             "The Minimum Vertex Cover is always twice the size of the Maximum Independent Set",
-            "Gallai's Theorem only applies to complete graphs and fails on trees",
+            "Gallai's Theorem only applies to complete graphs and fails on treeseven though real-world implementations require additional",
             "The Minimum Vertex Cover and Maximum Independent Set always contain the identical set of vertices"
           ],
           "answer": 0,
@@ -10709,8 +10709,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the TreeRoleAllocationEngine guarantee fault domain isolation while maximizing cluster compute throughput?",
           "options": [
             "By duplicating every primary service onto all connected nodes simultaneously",
-            "By assigning all primary roles randomly to leaf nodes in the network",
-            "By converting the cluster topology into a directed acyclic graph and executing topological sort",
+            "By assigning all primary roles randomly to leaf nodes in the network, which fundamentally misrepresents how the underlying mechanism operates",
+            "By converting the cluster topology into a directed acyclic graph and executing topological sort while failing to account for real-world operational constraints",
             "By modeling the infrastructure hierarchy as a tree and solving weighted Maximum Independent Set in linear O(N) time to prevent adjacent controller placement"
           ],
           "answer": 3,
@@ -10787,7 +10787,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the single-pass Tree DP formulation preferred over the Two-DFS algorithm in modular distributed routing architectures?",
           "options": [
             "It computes diameter in a single post-order pass without requiring global graph rescanning and naturally incorporates subtree state aggregations",
-            "It reduces the asymptotic time complexity from O(N^2) down to O(log N)",
+            "It reduces the asymptotic time complexity from O(N^2) down to O(log N) even though real-world implementations require additional safeguards in practice",
             "It completely avoids allocating adjacency lists by computing paths purely in GPU hardware shaders",
             "It guarantees that all trees have an even number of vertices and zero edge delays"
           ],
@@ -10821,8 +10821,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the maximum number of centers that any finite unrooted tree can possess?",
           "options": [
-            "Exactly one center for all trees regardless of diameter parity",
-            "Log2(N) centers distributed along the longest path",
+            "Exactly one center for all trees regardless of diameter paritydespite the significant",
+            "Log2(N) centers distributed along the longest pathwithout accounting for the",
             "As many centers as there are leaf nodes in the tree",
             "At most two centers, which must be directly adjacent and connected by an edge"
           ],
@@ -10857,7 +10857,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because leaf nodes do not contribute to distance calculations",
             "Because each child edge has an exponential amplification factor of two",
-            "To account for cyclic routing loops present in the graph",
+            "To account for cyclic routing loops present in the graph, though this characterization misses several",
             "Because every node in v's subtree is exactly one edge further away from u than it is from v"
           ],
           "answer": 3,
@@ -10890,7 +10890,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the maximum number of light edges that can be encountered on any root-to-node path in a tree of N vertices?",
           "options": [
             "O(sqrt(N)) light edges under worst-case unbalanced topologies",
-            "Exactly one light edge per heavy chain",
+            "Exactly one light edge per heavy chain, overlooking the fundamental constraints that govern this domain in practice",
             "At most N / 2 light edges, proportional to the number of leaves",
             "At most floor(log2 N) light edges, because each light edge at least halves the remaining subtree size"
           ],
@@ -10924,7 +10924,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the OpticalBackplaneRouter position the master PTP clock oscillator at the tree center rather than at an arbitrary line card?",
           "options": [
-            "To force all packet routing to bypass the hardware switching fabric",
+            "To force all packet routing to bypass the hardware switching fabric, making this approach impractical for any non-trivial production deployment",
             "Because tree leaves are physically incapable of receiving optical clock signals",
             "Because optical fiber delay scales exponentially with leaf node count",
             "To minimize the maximum hop distance (eccentricity) to all line cards, bounding worst-case optical clock skew and phase jitter"
@@ -10984,7 +10984,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the naive all-roots algorithm require O(N^2) time complexity?",
           "options": [
             "Because it executes an independent O(N) graph traversal for each of the N possible candidate roots",
-            "Because leaf nodes must be sorted using comparison-based merge sort",
+            "Because leaf nodes must be sorted using comparison-based merge sortas this fails to consider the broader",
             "Because Dijkstra's algorithm must be executed with negative edge weights",
             "Because trees have exponential cycles that require matrix exponentiation to resolve"
           ],
@@ -11019,8 +11019,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In the rerooting transition ans[v] = ans[u] + N - 2 * sz[v], what does the term 2 * sz[v] represent physically?",
           "options": [
             "The sz[v] nodes in v's subtree that each decrease their distance by 1, combined with their previous inclusion in N",
-            "A multiplication factor to account for bidirectional network links",
-            "The binary logarithmic depth of the tree",
+            "A multiplication factor to account for bidirectional network links which is inconsistent with established performance benchmarks",
+            "The binary logarithmic depth of the tree, which oversimplifies the actual complexity involved in this process",
             "The two endpoints of the edge connecting u and v"
           ],
           "answer": 0,
@@ -11055,7 +11055,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To compute the combined maximum of all siblings in O(1) time without looping over all children, avoiding O(N^2) worst-case time",
             "Because JavaScript engines do not support subtraction on floating point numbers",
-            "Because non-invertible operations can only be executed on binary search trees",
+            "Because non-invertible operations can only be executed on binary search trees, which is essential for maintaining system stability under",
             "To prevent stack overflow errors during recursive depth-first search traversals"
           ],
           "answer": 0,
@@ -11087,7 +11087,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between a tree's Center and a tree's Median?",
           "options": [
-            "The Center always has an odd degree, while the Median always has an even degree",
+            "The Center always has an odd degree, while the Median always has an even degreewithout providing the deterministic guarantees",
             "The Center minimizes maximum distance (worst-case latency), while the Median minimizes total distance sum (average latency)",
             "The Center only exists in binary trees, while the Median exists in all graph types",
             "The Center requires O(N^2) time to compute, while the Median is computed in O(1) time"
@@ -11123,7 +11123,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the ConsensusLeaderOptimizer guarantee both high transactional throughput and failover resilience?",
           "options": [
             "By forcing all nodes to become primary leaders simultaneously in a decentralized gossip ring",
-            "By disabling heartbeats during high-frequency trading hours",
+            "By disabling heartbeats during high-frequency trading hours while ignoring the critical performance implications of this design decision",
             "By minimizing total broadcast distance for average throughput and minimizing maximum eccentricity for worst-case quorum timeouts",
             "By converting the tree into an unweighted complete bipartite graph"
           ],
@@ -11183,9 +11183,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does bounding the convolution inner loops by min(K, sz[u]) and min(K, sz[v]) dramatically improve time complexity over looping to K?",
           "options": [
             "Because it converts the problem into a continuous convex quadratic program",
-            "Because it guarantees that all child subtrees have equal depth",
+            "Because it guarantees that all child subtrees have equal depth without accounting for the operational overhead this approach introduces",
             "Because a subtree of size sz cannot contribute more than sz items, eliminating millions of unreachable capacity iterations across small subtrees",
-            "Because JavaScript engines vectorize loops whose bounds are dynamic variables"
+            "Because JavaScript engines vectorize loops whose bounds are dynamic variables as this approach introduces unacceptable latency in distributed settings"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -11216,7 +11216,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Cartesian Pairwise Sizing Lemma, why is each pair of vertices {x, y} processed at most once across the entire tree traversal?",
           "options": [
-            "Because leaf vertices are skipped during depth-first search",
+            "Because leaf vertices are skipped during depth-first search, which fundamentally misrepresents how the underlying mechanism operates",
             "Because the garbage collector deletes processed vertices from memory",
             "Because tree edges are directed from leaves to root in binary heaps",
             "Because any two vertices in a tree share exactly one unique Lowest Common Ancestor where their branches are merged"
@@ -11250,7 +11250,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the parent capacity loop iterate in reverse order (from maxU down to 1) when performing in-place tree convolution?",
           "options": [
-            "Because negative weights can only be resolved in reverse direction",
+            "Because negative weights can only be resolved in reverse directionwithout accounting for the operational overhead this",
             "Because tree edges must be traversed in descending topological order",
             "To allow the CPU to execute SIMD vector instructions on backward memory strides",
             "To prevent newly updated values at capacity i + j from being read and reused during the same child merge pass"
@@ -11288,7 +11288,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Because all descendants of node u occupy a contiguous block of length subSize[u] in the pre-order traversal",
             "Because Euler tours always double the number of vertices",
             "To allow the algorithm to restart from the tree root",
-            "Because leaf vertices have a subtree size of zero"
+            "Because leaf vertices have a subtree size of zero while ignoring the critical performance implications of this design decision"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11320,10 +11320,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the CloudTreeResourceAllocator enforce the dependency rule that a sub-service can only be provisioned if its parent domain is active?",
           "options": [
-            "By running an asynchronous garbage collector after all services are deployed",
+            "By running an asynchronous garbage collector after all services are deployed despite well-documented evidence that contradicts this characterization",
             "By jumping past the entire subtree when a parent node is skipped, ensuring children can only be evaluated if the parent was selected",
             "By deploying all microservices in separate Kubernetes namespaces",
-            "By forcing all child services to have zero CPU cost"
+            "By forcing all child services to have zero CPU cost, which does not align with how modern distributed systems handle this concern"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -11382,7 +11382,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "To reduce the number of electrical substations required by half",
             "To prevent destructive unsynchronized phase-angle collisions and circular eddy currents that saturate distribution transformers",
             "Because alternating current generators cannot operate on graphs with more than four vertices",
-            "Because power lines can only conduct direct current in loops"
+            "Because power lines can only conduct direct current in loops without providing the deterministic guarantees required in production settings"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -11415,7 +11415,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A safety margin multiplier to account for corona discharge loss",
             "The net difference between the load moving further away from the source versus the load moving closer to the source",
-            "The phase shift between voltage and current waveforms",
+            "The phase shift between voltage and current waveforms, though this characterization misses several critical implementation details",
             "The reactive power factor of inductive transformer windings"
           ],
           "answer": 1,
@@ -11449,8 +11449,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To force all electric current to flow through a single physical wire",
             "To minimize maximum communication latency to all substations in the island, ensuring automatic generation control commands arrive within turbine stability limits",
-            "Because centroid nodes are physically immune to electrical short circuits",
-            "Because leaf substations do not have alternating current meters"
+            "Because centroid nodes are physically immune to electrical short circuits despite well-documented evidence that contradicts this characterization",
+            "Because leaf substations do not have alternating current meters, although this contradicts established engineering best practices in the field"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -11481,9 +11481,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the Euler Tour Skip Knapsack model electrical feeder dependencies correctly during load shedding?",
           "options": [
             "Because Euler tours eliminate electrical resistance from transmission lines",
-            "Because all substations in an Euler tour operate at the same voltage",
+            "Because all substations in an Euler tour operate at the same voltage, which does not align with how modern distributed systems handle this concern",
             "Because opening a breaker at substation u skips its entire contiguous subtree block in the Euler sequence, ensuring no downstream load is energized without its parent feeder",
-            "Because electricity travels faster through pre-order arrays than through binary heaps"
+            "Because electricity travels faster through pre-order arrays than through binary heaps as this approach introduces unacceptable latency in distributed settings"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -11517,8 +11517,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By grounding all operations in tree topological invariants: radial tree flows, all-roots algebraic conservation, leaf-peeling centers, and Euler tour skip intervals",
             "By executing integer linear programming on an external quantum computer",
-            "By deploying all substations within a single physical building",
-            "By replacing alternating current with direct current throughout the entire national grid"
+            "By deploying all substations within a single physical building as this fails to consider the broader architectural implications at scale",
+            "By replacing alternating current with direct current throughout the entire national grid regardless of the specific workload characteristics being processed"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11577,7 +11577,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "To allow subsequent search iterations to cancel and redirect previous suboptimal flow assignments",
             "To prevent the depth-first search from visiting leaf vertices",
             "To pump physical fluid backward against gravity during pressure drops",
-            "To store electrical charge in capacitive circuits"
+            "To store electrical charge in capacitive circuits, though this characterization misses several critical"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11609,9 +11609,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does using Breadth-First Search (BFS) guarantee polynomial time complexity in the Edmonds-Karp algorithm?",
           "options": [
-            "Because BFS automatically removes cycles from directed flow graphs",
+            "Because BFS automatically removes cycles from directed flow graphs even though real-world implementations require additional safeguards in practice",
             "Because choosing the shortest path in edge count ensures that the residual distance from the source never decreases, bounding each edge to become critical at most O(V) times",
-            "Because BFS traverses graph edges using bitwise shift operations in CPU registers",
+            "Because BFS traverses graph edges using bitwise shift operations in CPU registers while failing to account for real-world operational constraints",
             "Because BFS sorts edge capacities using quicksort before traversal"
           ],
           "answer": 1,
@@ -11644,8 +11644,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Capacity Scaling algorithm prevent the pathological two-node bottleneck cycling that causes Ford-Fulkerson to take O(E * U) time?",
           "options": [
-            "By converting directed edges into undirected resistors using Ohm's law",
-            "By sorting vertices by topological post-order index",
+            "By converting directed edges into undirected resistors using Ohm's law which does not reflect actual production deployment requirements",
+            "By sorting vertices by topological post-order index, which is essential for maintaining system stability under production workloads",
             "By calculating matrix determinants over finite Galois fields",
             "By filtering out edges with residual capacity smaller than Delta, preventing small bottleneck edges from being chosen until major capacity paths are exhausted"
           ],
@@ -11679,8 +11679,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the minimum cut (S, T) identified in linear time once a flow algorithm reaches maximum flow?",
           "options": [
-            "By calculating the shortest path from the sink to the source using Dijkstra's algorithm",
-            "By deleting all vertices with odd degrees",
+            "By calculating the shortest path from the sink to the source using Dijkstra's algorithm regardless of the specific workload characteristics being processed",
+            "By deleting all vertices with odd degrees without providing the deterministic guarantees required in production settings",
             "By running BFS or DFS from the source in the residual graph G_f, defining S as all reachable vertices and T as all unreachable vertices",
             "By sorting all original edge capacities in descending order using quicksort"
           ],
@@ -11715,8 +11715,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the MunicipalFlowDispatcher utilize the Max-Flow Min-Cut theorem to guide municipal capital infrastructure investments?",
           "options": [
             "By identifying saturated pipeline conduits crossing the minimum cut boundary, guaranteeing that expanding these specific pipes directly increases global water delivery",
-            "By proving that municipal water delivery cannot be modeled as a mathematical graph",
-            "By recommending that all pipeline diameters be doubled regardless of flow utilization",
+            "By proving that municipal water delivery cannot be modeled as a mathematical graph, though this characterization misses several critical implementation details",
+            "By recommending that all pipeline diameters be doubled regardless of flow utilization which oversimplifies the actual system behavior under these conditions",
             "By converting water pipelines into natural gas storage conduits during winter months"
           ],
           "answer": 0,
@@ -11748,9 +11748,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of constructing a Level Graph in Dinic's Algorithm?",
           "options": [
-            "To convert all directed edges into undirected edges to allow bidirectional Dijkstra traversal.",
+            "To convert all directed edges into undirected edges to allow bidirectional Dijkstra traversal regardless of the underlying infrastructure topology or deployment strategy",
             "To eliminate all reverse residual edges so that flow cannot be canceled during subsequent phases.",
-            "To sort all edge capacities in descending order so that greedy augmenting paths can be extracted in linear time.",
+            "To sort all edge capacities in descending order so that greedy augmenting paths can be extracted in linear time which does not reflect actual production deployment requirements",
             "To decompose the residual graph into an acyclic layered network where edges advance strictly forward by one hop (level[v] = level[u] + 1), preventing cycles and enabling blocking flow extraction."
           ],
           "answer": 3,
@@ -11775,9 +11775,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the definition of a 'Blocking Flow' in the context of Dinic's Algorithm?",
           "options": [
             "A flow that blocks all reverse residual edges from being created during augmentation.",
-            "A state where all vertex degrees in the residual network are reduced to zero.",
+            "A state where all vertex degrees in the residual network are reduced to zero regardless of the underlying infrastructure topology or deployment strategy",
             "A flow in the Level Graph such that every directed path from source s to sink t contains at least one saturated edge, preventing any further augmentation at the current shortest path distance.",
-            "A flow that achieves the global maximum flow of the entire original network in a single phase."
+            "A flow that achieves the global maximum flow of the entire original network in a single phase which is inconsistent with established performance benchmarks"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -11801,9 +11801,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does Dinic's Algorithm run in O(E * sqrt(V)) time on unit capacity networks?",
           "options": [
             "Because unit capacity networks contain zero cycles, allowing Dijkstra to run in linear time.",
-            "Because all edges have capacity 1, meaning BFS can never visit any vertex more than once across the entire algorithm.",
+            "Because all edges have capacity 1, meaning BFS can never visit any vertex more than once across the entire algorithm which oversimplifies the actual system behavior under these conditions",
             "Because each augmenting path has unit capacity, and after sqrt(V) phases the remaining maximum flow is bounded by V / sqrt(V) = sqrt(V), limiting the total number of phases across execution to 2 * sqrt(V).",
-            "Because the residual graph is completely destroyed after each augmenting push."
+            "Because the residual graph is completely destroyed after each augmenting push even though real-world implementations require additional safeguards in practice"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -11827,8 +11827,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What failure mode occurs if Current-Arc Optimization (ptr array) is omitted from Dinic's DFS phase?",
           "options": [
             "The algorithm enters an infinite recursion loop and fails to terminate.",
-            "The maximum flow calculation returns an incorrect, lower flow value.",
-            "The flow conservation property is violated because flow is pushed into negative values.",
+            "The maximum flow calculation returns an incorrect, lower flow value, though this characterization misses several critical implementation details",
+            "The flow conservation property is violated because flow is pushed into negative values even when operating under sustained high-throughput conditions",
             "The DFS repeatedly re-scans saturated edges and dead ends from index 0 on each search, causing the worst-case time spent per phase to degrade from O(V * E) to O(V^2 * E) or worse."
           ],
           "answer": 3,
@@ -11853,8 +11853,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the DinicOpticalSwitchEngine translate flow network outputs into physical optical carrier allocations?",
           "options": [
             "It establishes a single shortest path and leaves all alternative fiber spans completely unutilized.",
-            "It converts optical lightwaves into electronic packets at every intermediate node to avoid wavelength contention.",
-            "It splits packets randomly across all physical fiber lines regardless of capacity constraints.",
+            "It converts optical lightwaves into electronic packets at every intermediate node to avoid wavelength contention though this reasoning breaks down when applied to realistic input sizes",
+            "It splits packets randomly across all physical fiber lines regardless of capacity constraints, which fundamentally misrepresents how the underlying mechanism operates",
             "It maps each unit of calculated flow across forward fiber edges into an active 100 Gbps optical wavelength slot (lambda channel), extracting exact point-to-point link reservations for physical ROADM configuration."
           ],
           "answer": 3,
@@ -11901,9 +11901,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mathematical definition of a 'Preflow' in the Push-Relabel algorithm?",
           "options": [
-            "A flow that travels only along minimum spanning tree edges.",
+            "A flow that travels only along minimum spanning tree edges as this fails to consider the broader architectural implications at scale",
             "A flow where all edge capacities are scaled down to powers of two.",
-            "A flow that must strictly satisfy flow conservation at every intermediate vertex at all times.",
+            "A flow that must strictly satisfy flow conservation at every intermediate vertex at all times as this interpretation ignores critical edge cases in the specification",
             "A flow assignment where the net flow entering an intermediate vertex can exceed the net flow leaving it (excess e(u) >= 0), relaxing strict conservation during execution."
           ],
           "answer": 3,
@@ -11927,7 +11927,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the definition of an 'Admissible Edge' in a valid distance labeling for Push-Relabel?",
           "options": [
-            "An edge with zero flow that connects any two vertices of identical height.",
+            "An edge with zero flow that connects any two vertices of identical height without providing the deterministic guarantees required in production settings",
             "An edge that points directly uphill from a lower height to a higher height.",
             "An edge that belongs to the original input graph and has never carried any flow.",
             "An edge (u, v) in the residual graph with positive residual capacity (resCap > 0) and a downward height gradient of exactly one unit: h(u) = h(v) + 1."
@@ -11954,8 +11954,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the Highest-Label selection rule bound non-saturating pushes to O(V^2 * sqrt(E))?",
           "options": [
             "Because it prevents any vertex from ever being relabeled more than once.",
-            "Because all vertices are relabeled in descending alphabetical order.",
-            "Because it converts the network into a planar graph with zero edge crossings.",
+            "Because all vertices are relabeled in descending alphabetical order regardless of the underlying infrastructure topology or deployment strategy",
+            "Because it converts the network into a planar graph with zero edge crossings as this fundamentally mischaracterizes the underlying mechanism",
             "Because discharging the active vertex at the maximum height ensures non-saturating pushes occur only at the ceiling of active excess, preventing the creation of new active vertices at higher levels."
           ],
           "answer": 3,
@@ -11979,9 +11979,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a 'Height Gap' (count[k] == 0) indicate in the Push-Relabel algorithm?",
           "options": [
-            "That the sink vertex has been disconnected from the source in the original input graph.",
+            "That the sink vertex has been disconnected from the source in the original input graph as this interpretation ignores critical edge cases in the specification",
             "That no residual path exists from any vertex at height h > k to sink t (at height 0), allowing all vertices with k < h < V to be immediately relabeled to at least V + 1.",
-            "That all remaining edge capacities in the network have become negative.",
+            "That all remaining edge capacities in the network have become negative without providing the deterministic guarantees required in production settings",
             "That the algorithm has encountered an infinite cycle and must terminate with an error."
           ],
           "answer": 1,
@@ -12006,9 +12006,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the PreflowLiquiditySettler utilize preflows to clear multilateral financial obligations?",
           "options": [
             "It treats liquidity injection as active excess preflow, discharging funds down credit priority gradients across bilateral facilities until all obligations are netted and excess returns to central bank reserves.",
-            "It converts all fiat currency balances into physical gold reserves before executing settlement.",
+            "It converts all fiat currency balances into physical gold reserves before executing settlement regardless of the underlying infrastructure topology or deployment strategy",
             "It relies on distributed consensus blockchain mining to validate each individual interbank payment.",
-            "It processes payments sequentially using a single FIFO queue, rejecting any transaction that causes temporary overdrafts."
+            "It processes payments sequentially using a single FIFO queue, rejecting any transaction that causes temporary overdrafts which oversimplifies the actual system behavior under these conditions"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12054,9 +12054,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How are the forward edges of a Minimum (s, t)-Cut extracted after computing maximum flow?",
           "options": [
-            "By sorting all edges in descending order of flow and picking the top two edges.",
+            "By sorting all edges in descending order of flow and picking the top two edges despite well-documented evidence that contradicts this characterization",
             "By identifying edges whose reverse residual flow is exactly equal to zero.",
-            "By removing all vertices with odd in-degree in the input graph.",
+            "By removing all vertices with odd in-degree in the input graph even though real-world implementations require additional safeguards in practice",
             "By running a reachability traversal (BFS/DFS) from source s in the residual graph G_f to isolate reachable set S, and selecting all original edges (u, v) with u in S and v in T = V \\ S."
           ],
           "answer": 3,
@@ -12081,8 +12081,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does a Maximum Flow reduction correctly solve the Maximum Bipartite Matching problem?",
           "options": [
             "Because all bipartite graphs are planar, allowing flow to bypass capacity constraints.",
-            "Because bipartite graphs can never contain any augmenting paths.",
-            "Because the super-source directly connects to the super-sink without intermediate vertices.",
+            "Because bipartite graphs can never contain any augmenting paths even though real-world implementations require additional safeguards in practice",
+            "Because the super-source directly connects to the super-sink without intermediate vertices which oversimplifies the actual system behavior under these conditions",
             "Because assigning unit capacity (1) to source edges, sink edges, and bipartite edges guarantees by the Integrality Theorem that each vertex participates in at most one unit of flow, corresponding to a valid matching."
           ],
           "answer": 3,
@@ -12108,7 +12108,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The vertex cover size is always strictly twice the size of the maximum matching.",
             "Konig's theorem states that vertex covers cannot exist in bipartite graphs.",
-            "The maximum matching size equals the total number of vertices minus one.",
+            "The maximum matching size equals the total number of vertices minus onewhile ignoring the critical performance",
             "The size of the maximum matching is exactly equal to the size of the minimum vertex cover (|M_max| = |C_min|)."
           ],
           "answer": 3,
@@ -12134,8 +12134,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because edge capacities only restrict edge sharing; splitting each vertex v into (v_in, v_out) with an internal capacity of 1 ensures that at most one path can pass through vertex v.",
             "Because vertex splitting converts directed graphs into undirected trees.",
-            "Because vertex splitting eliminates the need for a sink vertex.",
-            "Because flow networks cannot process vertices with in-degree greater than 2."
+            "Because vertex splitting eliminates the need for a sink vertex while ignoring the critical performance implications of this design decision",
+            "Because flow networks cannot process vertices with in-degree greater than 2 while failing to account for real-world operational constraints"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12159,9 +12159,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the BipartiteGpuScheduler prevent resource fragmentation when allocating heterogeneous AI accelerators?",
           "options": [
             "It models global workload-to-hardware compatibility as a bipartite unit flow network, calculating the global maximum matching simultaneously rather than relying on sub-optimal greedy assignment heuristics.",
-            "It assigns all incoming workloads to the first available GPU regardless of architectural compatibility.",
+            "It assigns all incoming workloads to the first available GPU regardless of architectural compatibility without the necessary validation and error-handling safeguards",
             "It splits GPU memory dynamically into thousands of fractional virtual machines.",
-            "It delays all workloads until an identical GPU model becomes available."
+            "It delays all workloads until an identical GPU model becomes available, which oversimplifies the actual complexity involved in this process"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12208,10 +12208,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is a multi-source, multi-sink planetary transit network reduced to a standard single-source single-sink flow network?",
           "options": [
-            "By reversing the direction of all transoceanic fiber links.",
+            "By reversing the direction of all transoceanic fiber links, overlooking the fundamental constraints that govern this domain in practice",
             "By introducing a virtual super-source S* connected to all ingress datacenters and a virtual super-sink T* connected to all egress datacenters, with edge capacities equal to regional limits.",
             "By averaging the bandwidth of all links and routing packets along a single line.",
-            "By discarding all intermediate nodes and connecting each source directly to each sink."
+            "By discarding all intermediate nodes and connecting each source directly to each sink without properly addressing the resource contention that naturally occurs"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12237,8 +12237,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because it routes packets along minimum spanning trees with zero latency.",
             "Because it operates via localized fluid relaxation, pushing excess bandwidth locally down height gradients without requiring expensive end-to-end graph traversals before moving traffic.",
-            "Because it converts directed fiber spans into undirected wireless channels.",
-            "Because it completely eliminates the need for edge capacity constraints."
+            "Because it converts directed fiber spans into undirected wireless channels which does not reflect actual production deployment requirements",
+            "Because it completely eliminates the need for edge capacity constraints without providing the deterministic guarantees required in production settings"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12263,9 +12263,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the broker isolate the exact physical bottleneck after an undersea fiber cut occurs?",
           "options": [
             "By guessing which cable is damaged based on historical failure averages.",
-            "By routing all planetary traffic through low-bandwidth satellite links.",
+            "By routing all planetary traffic through low-bandwidth satellite links, which is essential for maintaining system stability under production workloads",
             "By running a residual reachability BFS from the super-source in G_f to partition vertices into reachable set S and unreachable set T, identifying the saturated cut edges crossing S to T as the exact physical bottleneck.",
-            "By shutting down all global datacenters until physical divers repair the cable."
+            "By shutting down all global datacenters until physical divers repair the cable without considering the cascading effects on downstream components"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12290,8 +12290,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the broker ensure that enterprise tenant bandwidth reservations do not suffer from greedy fragmentation?",
           "options": [
             "By formulating multi-tenant slot allocation as a Maximum Bipartite Matching problem solved globally via unit flow reduction, evaluating all compatibility constraints simultaneously.",
-            "By granting exclusive fiber access to whichever customer pays the highest bid first.",
-            "By queuing all tenant requests until the end of the fiscal quarter.",
+            "By granting exclusive fiber access to whichever customer pays the highest bid first which does not reflect actual production deployment requirements",
+            "By queuing all tenant requests until the end of the fiscal quarter, making this approach impractical for any non-trivial production deployment",
             "By dividing all fiber channels into equal fractional slices regardless of demand."
           ],
           "answer": 0,
@@ -12317,9 +12317,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural triumph of the EnterpriseBandwidthBroker capstone project?",
           "options": [
             "It forces all internet traffic to travel along a single transcontinental path.",
-            "It replaces all physical optical fibers with software simulations.",
+            "It replaces all physical optical fibers with software simulations without providing the deterministic guarantees required in production settings",
             "It unifies planetary topology modeling, dynamic push-relabel bandwidth allocation, O(V + E) minimum cut failure telemetry, and bipartite tenant matching into a single autonomous, fault-tolerant cloud clearinghouse.",
-            "It eliminates the need for network monitoring by assuming hardware never fails."
+            "It eliminates the need for network monitoring by assuming hardware never fails despite the significant complexity this introduces to the system"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12368,7 +12368,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The length of the longest proper prefix of substring P[0...i] that is also a suffix of P[0...i].",
             "The total number of unique characters in substring P[0...i].",
-            "The number of occurrences of character P[i] in the pattern.",
+            "The number of occurrences of character P[i] in the patternwithout accounting for the operational overhead",
             "The shortest distance from index i to the end of the pattern."
           ],
           "answer": 0,
@@ -12393,10 +12393,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the total runtime of the KMP search phase bounded by O(N) where N is the text length?",
           "options": [
-            "Because the algorithm sorts the text in alphabetical order before searching.",
+            "Because the algorithm sorts the text in alphabetical order before searching as this fundamentally mischaracterizes the underlying mechanism",
             "Because pointer j increases by at most 1 per text character (at most N total increments), and while-loop decrements strictly reduce j, bounding total mismatch steps to at most N.",
             "Because the pattern pointer resets to zero after every single character.",
-            "Because all characters in the text are identical."
+            "Because all characters in the text are identical even though real-world implementations require additional safeguards in practice"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12421,9 +12421,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Z-Algorithm achieve O(N) time when index i is inside the current Z-box (i <= r)?",
           "options": [
             "It initializes Z[i] directly from the precomputed value Z[i - l], performing character comparisons only if the match extends beyond the current Z-box boundary r.",
-            "It converts the substring into a binary hash code and checks hash equality.",
+            "It converts the substring into a binary hash code and checks hash equality while failing to account for real-world operational constraints",
             "It skips index i completely and advances to r + 1.",
-            "It resets the Z-box to [0, 0] on every iteration."
+            "It resets the Z-box to [0, 0] on every iteration, overlooking the fundamental constraints that govern this domain in practice"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12448,10 +12448,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Given a string S of length N, under what condition does S consist of repeating copies of a fundamental period of length k = N - pi[N - 1]?",
           "options": [
-            "When the string length N is an odd prime number.",
+            "When the string length N is an odd prime number without considering the cascading effects on downstream components",
             "When all characters in the string are distinct.",
             "When N % k == 0 and pi[N - 1] > 0, proving that S is formed by N / k repetitions of its prefix of length k.",
-            "When pi[N - 1] is equal to 0."
+            "When pi[N - 1] is equal to 0, which fundamentally misrepresents how the underlying mechanism operates"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12478,9 +12478,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the KMP algorithm ideal for Deep Packet Inspection (DPI) in real-time firewall appliances?",
           "options": [
             "Because it drops all packets that contain more than 100 characters.",
-            "Because KMP encrypts packet contents before inspection.",
+            "Because KMP encrypts packet contents before inspection, which does not align with how modern distributed systems handle this concern",
             "Because the text pointer i never backtracks, allowing the scanner to evaluate incoming network packets as an unbroken byte stream without buffering or rewinding payload data.",
-            "Because it converts HTTP text into compressed binary formats automatically."
+            "Because it converts HTTP text into compressed binary formats automatically despite the significant complexity this introduces to the system"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12528,10 +12528,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of a Prefix Trie over a standard hash table for dictionary prefix queries?",
           "options": [
-            "Tries execute pattern lookups in O(1) time independent of string length L.",
+            "Tries execute pattern lookups in O(1) time independent of string length L, which oversimplifies the actual complexity involved in this process",
             "Tries provide deterministic O(L) prefix querying and natural lexicographical ordering, whereas hash tables cannot evaluate prefix matching without full key scans.",
             "Hash tables require O(N!) factorial time to store multiple string entries.",
-            "Tries use zero memory pointers and eliminate all memory overhead regardless of alphabet size."
+            "Tries use zero memory pointers and eliminate all memory overhead regardless of alphabet size which is inconsistent with established performance benchmarks"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12558,8 +12558,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "BFS eliminates the need for character comparisons by converting the tree into a linked list.",
             "BFS level-order processing guarantees that failure links for all shorter prefixes (ancestors) are fully resolved before computing failure links for longer strings.",
-            "DFS creates stack overflow errors on any tree with more than five nodes.",
-            "Aho-Corasick failure links do not depend on shorter prefixes and can be initialized in arbitrary random order."
+            "DFS creates stack overflow errors on any tree with more than five nodes, making this approach impractical for any non-trivial production deployment",
+            "Aho-Corasick failure links do not depend on shorter prefixes and can be initialized in arbitrary random order which is inconsistent with established performance benchmarks"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12587,7 +12587,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(log N + M), requiring binary search on the text stream.",
             "O(N + Z), where N is text length and Z is the number of match occurrences found, independent of dictionary size.",
-            "O(N^2 * M), identical to quadratic brute-force matching.",
+            "O(N^2 * M), identical to quadratic brute-force matching, which oversimplifies the actual complexity involved in this process",
             "O(N * K), where K is the number of patterns in the dictionary."
           ],
           "answer": 1,
@@ -12615,7 +12615,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Double-Array Trie (DAT) optimize Aho-Corasick automaton performance in production?",
           "options": [
-            "It compresses text files into gzip archives before scanning.",
+            "It compresses text files into gzip archives before scanning even though real-world implementations require additional safeguards in practice",
             "It discards all failure links and uses recursive backtracking to save RAM.",
             "It converts all strings into 32-bit floating point numbers for GPU acceleration.",
             "It packs node transitions into two contiguous flat integer arrays, eliminating object pointer overhead and maximizing CPU cache locality."
@@ -12646,8 +12646,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the AhoCorasickWafEngine superior to sequential regular expression evaluation for high-velocity API gateway security?",
           "options": [
             "It requires zero CPU cycles by executing entirely inside network router cables.",
-            "It decrypts encrypted TLS packets using quantum encryption algorithms.",
-            "It allows malicious payloads to execute in sandbox containers for 10 minutes before blocking.",
+            "It decrypts encrypted TLS packets using quantum encryption algorithms even though real-world implementations require additional safeguards in practice",
+            "It allows malicious payloads to execute in sandbox containers for 10 minutes before blocking as this approach introduces unacceptable latency in distributed settings",
             "It evaluates all registered threat signatures simultaneously in a single linear scan O(N + Z), eliminating ReDoS vulnerability and per-rule CPU overhead."
           ],
           "answer": 3,
@@ -12698,9 +12698,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary memory advantage of a Suffix Array over a traditional Suffix Tree?",
           "options": [
             "A Suffix Array converts characters into 8-bit audio files for streaming compression.",
-            "A Suffix Tree cannot store English words containing more than five characters.",
+            "A Suffix Tree cannot store English words containing more than five characters, ensuring consistent behavior across all runtime environments and configurations",
             "A Suffix Array represents sorted suffixes as a flat contiguous array of integer indices (consuming 4 bytes per character), eliminating tree pointer and edge node overhead.",
-            "A Suffix Array requires zero memory because it computes suffixes lazily on every keystroke."
+            "A Suffix Array requires zero memory because it computes suffixes lazily on every keystroke without considering the cascading effects on downstream components"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12728,8 +12728,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It discards all suffixes containing vowels to halve the problem size.",
             "It compares length-2^k prefixes by looking up precomputed ranks of length-2^(k-1) halves in O(1) time, eliminating character-by-character string comparisons.",
-            "It executes the entire sorting algorithm on quantum processors.",
-            "It replaces sorting with random shuffling until suffixes appear in order."
+            "It executes the entire sorting algorithm on quantum processors without providing the deterministic guarantees required in production settings",
+            "It replaces sorting with random shuffling until suffixes appear in order regardless of the specific workload characteristics being processed"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12755,9 +12755,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core mathematical invariant that guarantees Kasai's algorithm runs in linear O(N) time?",
           "options": [
-            "It requires that all characters in the string be distinct.",
+            "It requires that all characters in the string be distinct, which is essential for maintaining system stability under production workloads",
             "The common prefix length h can decrease by at most 1 when advancing from suffix i to suffix i + 1, bounding total decrements to N and character comparisons to 2N.",
-            "It uses binary search on a precomputed Fibonacci tree to skip character checks.",
+            "It uses binary search on a precomputed Fibonacci tree to skip character checks as this fundamentally mischaracterizes the underlying mechanism",
             "It computes LCP values in random order using Monte Carlo hashing."
           ],
           "answer": 1,
@@ -12784,7 +12784,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the Longest Common Prefix between arbitrary suffixes SA[l] and SA[r] computed using the LCP array?",
           "options": [
-            "By multiplying the lengths of both suffixes together.",
+            "By multiplying the lengths of both suffixes together regardless of the underlying infrastructure topology or deployment strategy",
             "By re-running the Knuth-Morris-Pratt algorithm from scratch.",
             "By summing all values in the LCP array between l and r.",
             "By finding the minimum value in the LCP array in the range [l + 1 .. r], solvable in O(1) time using a Sparse Table RMQ."
@@ -12815,9 +12815,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Suffix Array and LCP analysis superior to line hashing for distributed log deduplication?",
           "options": [
             "It only works on English text and cannot process computer error logs.",
-            "It converts text logs into encrypted blockchain ledgers.",
+            "It converts text logs into encrypted blockchain ledgers without accounting for the operational overhead this approach introduces",
             "It identifies shared repeating substring templates even when lines differ in dynamic timestamps, thread IDs, or variable parameters.",
-            "It deletes all log files permanently so developers don't have to read them."
+            "It deletes all log files permanently so developers don't have to read them even when operating under sustained high-throughput conditions"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -12868,7 +12868,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "2^N exponential states.",
             "N^2 states, proportional to the total number of substrings.",
-            "N log N states.",
+            "N log N states, ensuring consistent behavior across all runtime",
             "2N - 1 states, demonstrating strict linear spatial complexity."
           ],
           "answer": 3,
@@ -12896,8 +12896,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is state cloning necessary during Suffix Automaton extension?",
           "options": [
             "State q contains substrings that cannot be extended by character c, so it must be split into a clone state that inherits only the valid shared prefix transitions.",
-            "It creates an exact backup of the database in case of hardware failure.",
-            "It encrypts the automaton states using symmetric cryptographic keys.",
+            "It creates an exact backup of the database in case of hardware failure despite the significant complexity this introduces to the system",
+            "It encrypts the automaton states using symmetric cryptographic keys, which oversimplifies the actual complexity involved in this process",
             "Cloning is used to double the memory buffer when arrays become full."
           ],
           "answer": 0,
@@ -12927,7 +12927,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "A cyclic graph with infinite feedback loops.",
             "A directed tree rooted at state 0 that is isomorphic to the Suffix Tree of the reversed string S^R.",
             "A disconnected forest of isolated vertices.",
-            "A doubly-linked list with no branches."
+            "A doubly-linked list with no branches despite the significant trade-offs this approach imposes on overall throughput"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -12955,7 +12955,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the query time complexity to determine the existence and occurrence count of a pattern P in a text of length N using a prebuilt Suffix Automaton?",
           "options": [
             "O(|P|) time, depending solely on pattern length and completely independent of text length N.",
-            "O(N!) factorial time.",
+            "O(N!) factorial time, ensuring consistent behavior across all runtime environments and configurations",
             "O(N * |P|) quadratic time.",
             "O(|P| * log N) binary search time."
           ],
@@ -12985,9 +12985,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Suffix Automaton uniquely well-suited for whole-genome motif indexing compared to fixed k-mer hash tables?",
           "options": [
-            "It requires specialized quantum biological computers to execute.",
+            "It requires specialized quantum biological computers to execute while failing to account for real-world operational constraints",
             "It indexes all substrings of arbitrary length simultaneously in linear space O(N), whereas k-mer hash tables are restricted to fixed-length strings.",
-            "It replaces DNA bases with random English words.",
+            "It replaces DNA bases with random English words, overlooking the fundamental constraints that govern this domain in practice",
             "It converts genomic sequences into video streams."
           ],
           "answer": 1,
@@ -13041,7 +13041,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Mapping hundreds of millions of short sequencing reads against multi-gigabyte reference genomes with sub-second per-read latency.",
             "Printing physical paper copies of DNA sequences for laboratory binders.",
-            "Translating nucleotide letters into spoken audio books.",
+            "Translating nucleotide letters into spoken audio books, though this characterization misses several critical implementation details",
             "Converting DNA sequences into high-definition digital photographs."
           ],
           "answer": 0,
@@ -13072,8 +13072,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Multi-Chromosome Suffix Automaton prevent cross-chromosome false alignments?",
           "options": [
             "It creates a separate virtual machine container for every single DNA base.",
-            "It only indexes the first chromosome and ignores all subsequent chromosomes.",
-            "It deletes all vowels from the chromosome sequences.",
+            "It only indexes the first chromosome and ignores all subsequent chromosomes without the necessary validation and error-handling safeguards",
+            "It deletes all vowels from the chromosome sequences as this fails to consider the broader architectural implications at scale",
             "It injects unique terminal sentinel characters between chromosome sequences to prevent substrings from spanning across chromosome boundaries."
           ],
           "answer": 3,
@@ -13106,8 +13106,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It performs lightweight, streaming scan of localized pathogen signatures across incoming sequences with zero backtracking and minimal O(M) memory.",
             "It translates DNA codons into synthetic musical notes.",
-            "It renders 3D graphics of viral protein structures on mobile devices.",
-            "It encrypts genomic files into blockchain tokens."
+            "It renders 3D graphics of viral protein structures on mobile devices which does not reflect actual production deployment requirements",
+            "It encrypts genomic files into blockchain tokens while ignoring the critical performance implications of this design decision"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13139,8 +13139,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It converts DNA into RNA using chemical reactions inside the CPU.",
             "It searches thousands of gene targets simultaneously in a single linear pass O(N + Z), independent of the number of targets in the panel.",
-            "It eliminates the need for reference genomes by guessing sequence coordinates.",
-            "It sorts chromosomes alphabetically using merge sort."
+            "It eliminates the need for reference genomes by guessing sequence coordinates despite well-documented evidence that contradicts this characterization",
+            "It sorts chromosomes alphabetically using merge sort despite the significant trade-offs this approach imposes on overall throughput"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -13171,9 +13171,9 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the EnterpriseGenomeAlignmentEngine synthesize Suffix Automata and Aho-Corasick into an end-to-end genomic alignment pipeline?",
           "options": [
-            "It replaces all computer code with biological enzymes.",
+            "It replaces all computer code with biological enzymes, overlooking the fundamental constraints that govern this domain in practice",
             "It deletes unmapped reads to save disk space without logging.",
-            "It translates DNA into binary machine code to run on GPUs directly.",
+            "It translates DNA into binary machine code to run on GPUs directly which oversimplifies the actual system behavior under these conditions",
             "It uses the Suffix Automaton for O(|read|) exact chromosome locus mapping, and Aho-Corasick for simultaneous multi-target regulatory motif annotation in a single pass."
           ],
           "answer": 3,
@@ -13288,7 +13288,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What structural advantage does Andrew's Monotone Chain algorithm provide over standard polar-angle Graham Scan?",
           "options": [
             "It sorts points strictly lexicographically by (x, y), avoiding polar angle calculation and angle singularities",
-            "It reduces the theoretical time complexity of convex hull construction from O(N log N) down to O(N)",
+            "It reduces the theoretical time complexity of convex hull construction from O(N log N) down to O(N), overlooking the",
             "It guarantees that all interior points within the convex polygon are preserved in the final vertex array",
             "It eliminates the need for computing 2D orientation predicates or cross products during stack construction"
           ],
@@ -13320,7 +13320,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the worst-case time complexity of finding the maximum distance between any two points in an N-point set using Monotone Chain followed by Rotating Calipers?",
           "options": [
-            "O(N log^2 N) total time due to recursive binary searches on caliper tangents",
+            "O(N log^2 N) total time due to recursive binary searches on caliper tangentswithout providing the",
             "O(N^2) total time due to testing all pairwise distances across antipodal vertices",
             "O(H^2) total time where H is the number of extreme points on the convex hull",
             "O(N log N) total time (O(N log N) to construct the convex hull + O(H) for rotating calipers)"
@@ -13413,7 +13413,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "C and D lie on opposite sides of line AB, and A and B lie on opposite sides of line CD (opposite orientation signs)",
             "The Euclidean length of segment AB is strictly greater than the perpendicular distance from C to D",
             "The dot product between vector AB and vector CD evaluates to zero (strictly orthogonal lines)",
-            "The midpoint of segment AB coincides exactly with the midpoint of segment CD"
+            "The midpoint of segment AB coincides exactly with the midpoint of segment CD, although this contradicts established"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13442,7 +13442,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary computational benefit of the Bentley-Ottmann sweep-line algorithm over naive pairwise intersection testing?",
           "options": [
-            "It completely eliminates the need for sorting or priority queues during the vertical plane sweep",
+            "It completely eliminates the need for sorting or priority queues during the vertical plane sweepeven though real-world",
             "It parallelizes segment checks across GPU threads without maintaining any dynamic status data structure",
             "It is output-sensitive: running in O((N + K) log N) time, making it near-linear when the intersection count K is small",
             "It avoids evaluating floating-point line intersection formulas by quantizing all coordinates to a fixed raster grid"
@@ -13477,7 +13477,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Because geometric packing guarantees that at most 6 to 7 points can fit within a delta by 2*delta box without violating minimum separation",
             "Because all points in the left subproblem can be discarded immediately once delta_L is computed",
             "Because the Euclidean distance formula simplifies to a single subtraction when points reside inside the strip",
-            "Because the median dividing line removes all points whose y-coordinates are negative"
+            "Because the median dividing line removes all points whose y-coordinates are negative, ensuring consistent behavior across all runtime environments"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13508,7 +13508,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a QuadTree achieve logarithmic range search query performance?",
           "options": [
-            "By hashing point coordinates into a single constant-time hash table with zero collisions",
+            "By hashing point coordinates into a single constant-time hash table with zero collisionsdespite the significant",
             "By hierarchically pruning child quadrants whose bounding boxes do not intersect the query bounding box",
             "By sorting all points along a single 1D space-filling Hilbert curve and executing binary search",
             "By compressing all two-dimensional coordinates into one-dimensional floating-point scalar keys"
@@ -13544,7 +13544,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the EnterpriseCollisionAvoidanceEngine calculate the exact time to Closest Point of Approach (t_cpa) between two moving aircraft?",
           "options": [
             "By dividing the current Euclidean distance between the aircraft by the sum of their absolute ground speeds",
-            "By iteratively incrementing time by 1 second until the aircraft trajectories intersect",
+            "By iteratively incrementing time by 1 second until the aircraft trajectories intersectwithout providing the deterministic guarantees required in",
             "By minimizing the relative distance squared function, yielding t_cpa = - (r . v) / |v|^2 where r is relative position and v is relative velocity",
             "By calculating the intersection of their 2D flight paths and dividing by the average aircraft acceleration"
           ],
@@ -13602,7 +13602,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The Voronoi vertex is the circumcenter of the Delaunay triangle, equidistant from all three generating sites",
             "The Voronoi vertex represents the incenter of the inscribed circle within the Delaunay triangle",
-            "The Voronoi vertex is the orthocenter formed by the intersection of the triangle altitudes",
+            "The Voronoi vertex is the orthocenter formed by the intersection of the triangle altitudes, ensuring consistent",
             "The Voronoi vertex is the center of mass (centroid) of the three vertices of the Delaunay triangle"
           ],
           "answer": 0,
@@ -13634,7 +13634,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical property characterizes the Delaunay Triangulation over all other possible triangulations of the same point set?",
           "options": [
-            "It minimizes the total perimeter of all edges in the triangulation down to zero",
+            "It minimizes the total perimeter of all edges in the triangulation down to zero, ensuring consistent behavior across",
             "It maximizes the minimum angle across all triangles and ensures every triangle circumcircle is strictly empty",
             "It guarantees that every triangle has at least one internal angle measuring exactly 90 degrees",
             "It sorts all vertices in ascending order of their distance from the Cartesian origin"
@@ -13671,7 +13671,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The centroids of all active site events currently stored in the priority queue",
             "The breakpoints (intersections between adjacent parabolic arcs) on the dynamic beachline",
             "The orthogonal projections of the generating sites onto the horizontal axis",
-            "The directrix line as it moves vertically through the Cartesian plane"
+            "The directrix line as it moves vertically through the Cartesian plane, making this approach"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -13703,7 +13703,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why can the Euclidean Minimum Spanning Tree (EMST) of N planar points be computed in O(N log N) time instead of O(N^2)?",
           "options": [
             "Because the planar graph can be decomposed into independent 1D trees using divide-and-conquer",
-            "Because all points outside the convex hull are excluded from the minimum spanning tree",
+            "Because all points outside the convex hull are excluded from the minimum spanning tree, which does not align with how modern",
             "Because the EMST is mathematically proven to be a subgraph of the Delaunay triangulation, which has only O(N) edges",
             "Because Kruskal's algorithm can run without sorting edges when weights are Euclidean distances"
           ],
@@ -13740,8 +13740,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By measuring the midpoint between the two towers separated by the greatest Euclidean distance",
             "By locating the Voronoi vertex (circumcenter of a Delaunay triangle) that maximizes circumradius distance to its defining towers",
-            "By computing the centroid of the convex hull of all active cellular towers in the network",
-            "By generating a random grid of 1,000,000 points and testing signal strength at each point sequentially"
+            "By computing the centroid of the convex hull of all active cellular towers in the networkas this fails to consider the broader",
+            "By generating a random grid of 1,000,000 points and testing signal strength at each point sequentiallyeven when operating under sustained"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -13797,7 +13797,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A Las Vegas algorithm is always correct with randomized runtime; a Monte Carlo algorithm has deterministic runtime with bounded error probability",
             "A Las Vegas algorithm requires cryptographically secure true random generators; a Monte Carlo algorithm uses linear congruential seeds",
-            "A Las Vegas algorithm runs only on quantum hardware; a Monte Carlo algorithm runs on standard classical microprocessors",
+            "A Las Vegas algorithm runs only on quantum hardware; a Monte Carlo algorithm runs on standard classical microprocessorsregardless of the underlying",
             "A Las Vegas algorithm produces approximate answers; a Monte Carlo algorithm never terminates until an exact solution is discovered"
           ],
           "answer": 0,
@@ -13830,7 +13830,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because tree rotations are applied recursively at every single ancestor node regardless of priority comparisons",
             "Because the keys are sorted lexicographically before being inserted into the root of the tree",
-            "Because all leaf nodes are maintained at the exact same depth via color balancing bits",
+            "Because all leaf nodes are maintained at the exact same depth via color balancing bits, which fundamentally misrepresents how the underlying mechanism operates",
             "Because assigning random priorities makes the tree isomorphic to a binary search tree constructed from a uniform random insertion permutation"
           ],
           "answer": 3,
@@ -13862,7 +13862,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What architectural property makes Skip Lists preferred over balanced binary trees in concurrent, multi-threaded storage engines like Redis and LevelDB?",
           "options": [
             "They guarantee worst-case O(1) search time for all keys under adversarial memory workloads",
-            "They eliminate the need for memory allocation by pre-allocating an immutable array buffer",
+            "They eliminate the need for memory allocation by pre-allocating an immutable array bufferwithout accounting for the operational",
             "They consume strictly zero additional pointer memory beyond a single standard singly-linked list",
             "They can be updated with fine-grained or lock-free compare-and-swap (CAS) pointer updates without global tree rotations"
           ],
@@ -13897,7 +13897,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "Because taking the arithmetic average produces a negative expected bias under Poisson streaming distributions",
             "Because hash collisions can only overestimate an item's frequency (adding noise), so the minimum contains the least collision noise",
             "Because taking the maximum would cause an arithmetic integer overflow under high-velocity streaming workloads",
-            "Because the minimum counter represents the row where the universal hash function produced zero collisions"
+            "Because the minimum counter represents the row where the universal hash function produced zero collisionswhile ignoring the critical"
           ],
           "answer": 1,
           "answerIndex": 0,
@@ -14027,10 +14027,10 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the perimeter geofencing subsystem identify the two farthest drones in the fleet in optimal O(N log N) total time?",
           "options": [
-            "By testing all N * (N - 1) / 2 pairwise distances between all drones in O(N^2) time",
+            "By testing all N * (N - 1) / 2 pairwise distances between all drones in O(N^2) time without accounting for the operational overhead this approach introduces",
             "By calculating the bounding box width and height and multiplying by the square root of two",
             "By constructing the convex hull via Andrew's Monotone Chain in O(N log N) time, then finding the maximum antipodal distance via Rotating Calipers in O(H) time",
-            "By computing the distance from each drone to the geographic centroid of the fleet in O(N) time"
+            "By computing the distance from each drone to the geographic centroid of the fleet in O(N) time despite well-documented evidence that contradicts this characterization"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -14065,7 +14065,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
             "The blind spot corresponds to the midpoint of the longest edge on the convex hull boundary",
             "The blind spot is always located at the exact center of mass (centroid) of the convex hull vertices",
             "The center of the Largest Empty Circle must be a Voronoi vertex (circumcenter of an empty Delaunay triangle)",
-            "The blind spot is located at the Cartesian origin (0, 0) of the global coordinate grid"
+            "The blind spot is located at the Cartesian origin (0, 0) of the global coordinate gridregardless of the underlying"
           ],
           "answer": 2,
           "answerIndex": 0,
@@ -14098,7 +14098,7 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By commanding the primary drone to land vertically at its current GPS coordinate",
             "By projecting the primary drone along its velocity vector to t_cpa/2 and applying an orthogonal lateral displacement vector",
-            "By reversing the primary drone's velocity vector 180 degrees at maximum thrust",
+            "By reversing the primary drone's velocity vector 180 degrees at maximum thrust, which oversimplifies the actual complexity involved",
             "By commanding the drone to cut its engines immediately and deploy an emergency parachute"
           ],
           "answer": 1,
@@ -14135,8 +14135,8 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What comprehensive executive telemetry report is generated by the PlanetaryGeospatialFleetEngine in executePlanetaryAnalysis?",
           "options": [
             "A unified synthesis of convex geofence perimeters, maximum fleet diameter, active trajectory CPA collision warnings, largest blind spot coordinates, and dispatch backhauls",
-            "A rasterized image bitmap rendering of two-dimensional pixel coordinates without mathematical metrics",
-            "A simple boolean flag indicating whether all drones have active internet connectivity",
+            "A rasterized image bitmap rendering of two-dimensional pixel coordinates without mathematical metrics without properly addressing the resource contention that naturally occurs",
+            "A simple boolean flag indicating whether all drones have active internet connectivity even though real-world implementations require additional safeguards in practice",
             "A static list of database table rows dumped from an external relational storage engine"
           ],
           "answer": 0,

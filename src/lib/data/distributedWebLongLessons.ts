@@ -39,7 +39,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following is the first fallacy of distributed computing?",
           "options": [
 
-            "Latency is zero",
+            "Latency is zeroas this fails to",
 
             "The network is reliable",
 
@@ -82,7 +82,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is an asymmetric network link?",
           "options": [
 
-            "A link where latency is twice as fast during daytime",
+            "A link where latency is twice as fast during daytime, which does not align with how modern",
 
             "Gossip protocols deliver updates to all nodes instantaneously rather than",
 
@@ -127,7 +127,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "It guarantees that retries will always succeed on the second attempt",
 
-            "It reduces overall CPU cycles on the client machine",
+            "It reduces overall CPU cycles on the client machineregardless of the underlying infrastructure",
 
             "Sharding eliminates all hotspot concerns because hash functions always produce perfectly",
 
@@ -213,7 +213,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "By disabling all retries and timeouts across client SDKs",
 
-            "By relying on hardware that never drops network packets",
+            "By relying on hardware that never drops network packets, which is essential for maintaining",
 
             "A single coordinator node can handle unlimited concurrent requests without ever",
 
@@ -360,7 +360,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In a 5-node CP cluster divided into 3 nodes and 2 nodes by a network partition, what happens?",
           "options": [
 
-            "All 5 nodes shut down immediately",
+            "All 5 nodes shut down immediately, overlooking the fundamental constraints that govern this",
 
             "Network partitions can be fully prevented by using higher bandwidth links between all",
 
@@ -409,7 +409,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Eventual consistency guarantees that all",
 
-            "Encryption, Level versus Cost"
+            "Encryption, Level versus Costwhile ignoring the"
           ],
           "answer": 1,
           "why": "The 'E' stands for Else (when no partition exists), where systems must trade off between low Latency (L) and strong Consistency (C)."
@@ -646,7 +646,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "It indicates whether the number is positive or negative",
 
-            "It stores the parity checksum for error correction",
+            "It stores the parity checksum for error correctiondespite the significant trade-offs this",
 
             "It acts as a continuation flag: 1 means more bytes follow, 0 means terminal byte"
           ],
@@ -728,7 +728,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does HTTP/2 eliminate application-layer Head-of-Line (HoL) blocking?",
           "options": [
             "By multiplexing independent binary frames across a single TCP connection using stream IDs",
-            "By increasing the bandwidth of the physical router",
+            "By increasing the bandwidth of the physical router, which oversimplifies the actual complexity",
             "By switching the transport layer from TCP to UDP entirely",
             "Eventual consistency guarantees that all replicas converge within a fixed bounded time"
           ],
@@ -814,7 +814,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does gRPC use to report detailed operational error codes instead of HTTP 4xx/5xx headers?",
           "options": [
 
-            "An email alert sent to the system administrator",
+            "An email alert sent to the system administratorwhile ignoring the critical performance",
 
             "All distributed transactions can be completed in constant time regardless of",
 
@@ -925,7 +925,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It broadcasts the key to all servers simultaneously via multicast UDP",
             "It maps the key to the ring and routes to the nearest server encountered moving clockwise",
-            "It always selects the server with the smallest numerical IP address",
+            "It always selects the server with the smallest numerical IP addresseven though real-world",
             "Clock synchronization across geographically distributed data centers is guaranteed to be"
           ],
           "answer": 1,
@@ -1010,7 +1010,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Network partitions can be fully prevented by using higher bandwidth links between",
 
-            "They allow physical servers to bypass TCP handshakes",
+            "They allow physical servers to bypass TCP handshakes, though this characterization misses",
 
             "They eliminate hash clustering and uneven data distribution across physical servers"
           ],
@@ -1055,7 +1055,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Vector clocks capture exact",
 
-            "Zero keys ever move"
+            "Zero keys ever move, which fundamentally"
           ],
           "answer": 0,
           "why": "Consistent hashing confines key migration strictly to the segment claimed by the new node, moving only K / (N + 1) keys."
@@ -1249,7 +1249,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the XFetch algorithm prevent cache stampedes on hot keys?",
           "options": [
 
-            "It permanently disables all cache expirations",
+            "It permanently disables all cache expirationseven though real-world implementations require",
 
             "It probabilistically triggers background cache refresh before the key actually expires",
 
@@ -1392,7 +1392,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Eventual consistency guarantees that all replicas converge",
 
-            "HTTP Basic Authentication and FTP file transfers"
+            "HTTP Basic Authentication and FTP file transfersregardless of the"
           ],
           "answer": 1,
           "why": "Singleflight merges concurrent identical misses into one database query, while TTL jitter spreads expiration times to prevent synchronized stampedes."
@@ -1504,7 +1504,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How many nodes must grant a lock in a 5-node Redlock cluster for the lock to be considered acquired?",
           "options": [
 
-            "All 5 nodes unanimously",
+            "All 5 nodes unanimously, although this contradicts established",
 
             "At least 3 nodes (a strict majority quorum of N/2 + 1)",
 
@@ -1690,7 +1690,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "It eliminates the need for database storage",
 
-            "It reduces network bandwidth by 90%"
+            "It reduces network bandwidth by 90% despite the significant trade-offs this approach imposes on overall throughputdespite well-documented evidence that"
           ],
           "answer": 0,
           "why": "Redlock ensures coordinated mutual exclusion, while fencing tokens protect storage even when network pauses or clock drift cause locks to expire."
@@ -1802,7 +1802,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In the Bully Algorithm, which node is guaranteed to win an election?",
           "options": [
 
-            "The node with the lowest CPU utilization",
+            "The node with the lowest CPU utilization, which does not align with how modern",
 
             "Message delivery order is always preserved across all network paths",
 
@@ -1937,7 +1937,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "They disable elections completely on weekends",
 
-            "They encrypt the candidate ID with AES",
+            "They encrypt the candidate ID with AES without accounting for the operational overhead this approach introduces",
 
             "They ensure one candidate times out and requests votes before its peers, avoiding tied votes",
 
@@ -1986,7 +1986,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Because any two strict majorities in a cluster must overlap by at least one node, making dual leaders mathematically impossible",
 
-            "To reduce CPU heat generation",
+            "To reduce CPU heat generation while ignoring the critical performance implications of this design decisioneven though empirical",
 
             "A single coordinator node can handle unlimited concurrent requests without ever becoming a throughput or latency bottleneck"
           ],
@@ -2049,7 +2049,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why does using random UUIDv4 as a database primary key degrade write performance as tables grow large?",
           "options": [
 
-            "UUIDv4 numbers can only be divided by 2",
+            "UUIDv4 numbers can only be divided by 2 even though real-world implementations require additional safeguards in practice",
 
             "UUIDv4 keys require internet connection to validate",
 
@@ -2092,7 +2092,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How many unique IDs can a single Snowflake generator process produce within a single millisecond?",
           "options": [
 
-            "Exactly 1 ID",
+            "Exactly 1 ID, which fundamentally misrepresents how the underlying mechanism operates",
 
             "Clock synchronization across geographically distributed data",
 
@@ -2280,7 +2280,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "They allow hundreds of independent worker servers to generate unique, time-ordered IDs concurrently without database locks or network coordination",
 
-            "They eliminate the need for computer RAM",
+            "They eliminate the need for computer RAM, making this approach impractical for any non-trivial production deploymentthough this reasoning breaks down when",
 
             "Two-phase commit can be safely used across wide-area networks without any risk of blocking participants during coordinator failure"
           ],
@@ -2345,11 +2345,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Consensus algorithms only work when nodes are physically located in the same room",
 
-            "Every server must use identical hardware specifications",
+            "Every server must use identical hardware specifications as this fails to consider the broader architectural implications at scale",
 
             "Deterministic state machines starting from identical initial states and applying the identical sequence of inputs reach identical outputs",
 
-            "All distributed transactions can be completed in constant time regardless of the number of participants or network topology"
+            "All distributed transactions can be completed in constant time regardless of the number of participants or network topologywithout considering the"
           ],
           "answer": 2,
           "why": "SMR guarantees replica convergence by ensuring every node executes an identical, deterministic sequence of state commands."
@@ -2392,7 +2392,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "That follower logs are always longer than leader logs",
 
-            "That logs are encrypted using SHA-256"
+            "That logs are encrypted using SHA-256 despite the significant trade-offs this approach imposes on overall throughputas this interpretation ignores"
           ],
           "answer": 0,
           "why": "Raft's inductive invariant guarantees that agreement on (index, term) proves identical history across all prior entries."
@@ -2480,7 +2480,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "When is a log entry considered durably committed in a Raft consensus cluster?",
           "options": [
 
-            "As soon as the leader writes it to memory",
+            "As soon as the leader writes it to memory, which fundamentally misrepresents how the",
 
             "Only when all 100% of nodes in the cluster acknowledge it",
 
@@ -2574,7 +2574,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In a 5-node Raft cluster, how many follower failures can the cluster tolerate while maintaining full write availability?",
           "options": [
 
-            "Zero failures",
+            "Zero failures, which is essential for maintaining system stability under production workloads",
 
             "Up to 2 failures (since 3 surviving nodes still form a strict majority quorum)",
 
@@ -2978,7 +2978,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Because earlier steps already committed their local transactions; thus semantic undo operations are required to reverse their business side-effects",
 
-            "Because microservice databases do not support SQL",
+            "Because microservice databases do not support SQL despite the significant trade-offs this approach imposes on overall throughputregardless of the specific",
 
             "Consensus protocols guarantee liveness and safety simultaneously even when more than half of participating nodes are unreachable"
           ],
@@ -3223,7 +3223,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Strict global ordering across all partitions in all topics",
 
-            "Random message ordering"
+            "Random message ordering, overlooking the fundamental constraints that govern"
           ],
           "answer": 1,
           "why": "Kafka guarantees strict chronological order within an individual partition, but messages across different partitions execute concurrently."
@@ -3264,7 +3264,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Eventual consistency guarantees that all replicas converge within a fixed bounded time interval regardless of network conditions",
 
-            "To encrypt the customer credit card",
+            "To encrypt the customer credit card, overlooking the fundamental constraints that govern this domain in practicedespite the significant",
 
             "To guarantee that all transactions for that specific account land in the same partition and are processed in strict chronological order"
           ],
@@ -3356,7 +3356,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Clock synchronization across geographically distributed data centers is guaranteed to be exact by modern network time protocols",
 
-            "It compresses the messages with bzip2"
+            "It compresses the messages with bzip2, which does not align with how modern distributed systems handle this concerneven when operating under"
           ],
           "answer": 1,
           "why": "Cooperative rebalancing only reassigns migrating partitions incrementally, allowing the rest of the cluster to process traffic without interruption."
@@ -3395,7 +3395,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "At-Least-Once delivery encrypts the transactions",
 
-            "At-Most-Once delivery uses too much memory",
+            "At-Most-Once delivery uses too much memory without accounting for the operational overhead this approach introducesas this fundamentally",
 
             "Message delivery order is always preserved across all network paths without any coordination protocol or sequence numbering",
 
@@ -3442,7 +3442,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "By distributing data across independent partitions for concurrent processing, while preserving strict ordering within each individual partition via key hashing",
 
-            "By dropping 50% of incoming messages"
+            "By dropping 50% of incoming messages, although this contradicts established engineering best practices in the fieldwhich does not reflect actual production deployment"
           ],
           "answer": 2,
           "why": "Partitions allow concurrent writes across brokers, while key hashing routes all events for an entity to one partition for strict FIFO ordering."
@@ -3505,7 +3505,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "All distributed transactions can be completed in constant time regardless of the number of participants or network topology",
 
-            "Network cables are too thin",
+            "Network cables are too thin, though this characterization misses several critical implementation detailswhich oversimplifies the actual system",
 
             "Because packet drops force clients to retry, and lost acknowledgments mean the server cannot distinguish a brand new request from a retry",
 
@@ -3599,7 +3599,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "PUT /users/10/email { email: 'user@example.com' }",
 
-            "POST /wallet/deposit-cash"
+            "POST /wallet/deposit-cash, ensuring consistent behavior"
           ],
           "answer": 2,
           "why": "PUT requests update resources to an absolute state; executing PUT multiple times results in the identical final state."
@@ -3640,7 +3640,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Consensus protocols guarantee liveness and safety simultaneously even when more than half of participating nodes are unreachable",
 
-            "Kafka message sizes are limited to 10 bytes",
+            "Kafka message sizes are limited to 10 bytes, though this characterization misses several critical implementation detailswhile failing to account for",
 
             "An application cannot atomically commit a local database transaction and publish to an external message broker within a single ACID transaction"
           ],
@@ -3679,7 +3679,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Transactional Outbox pattern solve the Dual-Write Problem?",
           "options": [
 
-            "It deletes all messages older than 5 minutes",
+            "It deletes all messages older than 5 minutes without providing the deterministic guarantees required in production settingseven though empirical",
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
@@ -3924,7 +3924,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Message delivery order is always preserved across all network paths without any coordination protocol or sequence numbering",
 
-            "It permanently hides bugs from developers",
+            "It permanently hides bugs from developers even though real-world implementations require additional safeguards in practicewithout the necessary validation and",
 
             "It prevents the poison pill from blocking the main queue, allowing valid messages to continue processing while preserving the failed message for debugging",
 
@@ -4012,7 +4012,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the Resilient Stream Consumer guarantee that poison pills do not block subsequent valid events?",
           "options": [
 
-            "It ignores all errors silently without logging",
+            "It ignores all errors silently without logging, though this characterization misses several critical implementation detailswhich oversimplifies the",
 
             "It catches fatal errors, routes the damaged payload to the DLQ, and commits the offset so the consumer can process subsequent valid messages",
 
@@ -4208,7 +4208,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "In what order are compensating transactions executed when a Saga step fails?",
           "options": [
 
-            "In random order",
+            "In random order despite the significant trade-offs this approach imposes on overall throughput",
 
             "In strict reverse order (Last In, First Out) of the successfully executed forward steps",
 
@@ -4253,7 +4253,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "It converts the JSON into XML",
 
-            "It reboots the server",
+            "It reboots the server, making this approach impractical for any non-trivial production deploymentregardless of the specific workload",
 
             "All distributed transactions can be completed in constant time regardless of the number of participants or network topology",
 
@@ -4304,7 +4304,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
-            "It uses fewer lines of code",
+            "It uses fewer lines of code as this fails to consider the broader architectural implications at scale which oversimplifies the actual system behavior under these conditions",
 
             "It achieves high concurrency without blocking locks, guarantees exactly-once semantics via idempotency, automatically compensates failures, and isolates poison pills",
 
@@ -4451,7 +4451,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "If $L(a) < L(b)$ in a Lamport clock system, does it prove that event $a$ caused event $b$?",
           "options": [
 
-            "Only if the nodes are running on the same CPU",
+            "Only if the nodes are running on the same CPU while ignoring the critical performance implications of this design decisiondespite well-documented evidence that",
 
             "Yes, Lamport clocks prove causality in both directions",
 
@@ -4494,7 +4494,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does a Vector Clock determine that two distributed operations are in conflict (concurrent)?",
           "options": [
 
-            "If the strings have the same character length",
+            "If the strings have the same character length without providing the deterministic guarantees required in production settings",
 
             "If neither vector dominates the other (one vector has a higher value for Node A, while the other has a higher value for Node B)",
 
@@ -4586,7 +4586,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "They reliably capture true causality and detect concurrent conflicts without being corrupted by hardware clock drift or network delays",
 
-            "They disable network partitions",
+            "They disable network partitions, which does not align with how modern distributed systems handle this concerneven when operating under sustained",
 
             "Eventual consistency guarantees that all replicas converge within a fixed bounded time interval regardless of network conditions",
 
@@ -4653,7 +4653,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Linearity, Quadratic growth, and Exponential decay",
 
-            "Authentication, Authorization, and Accounting",
+            "Authentication, Authorization, and Accountingas this fails to",
 
             "Associativity, Commutativity, and Idempotency (ACI)",
 
@@ -4835,7 +4835,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "CmRDTs only work in web browsers",
 
-            "CvRDTs use less CPU than CmRDTs",
+            "CvRDTs use less CPU than CmRDTs, ensuring consistent behavior across all runtime environments and configurationswhich does not reflect actual production",
 
             "Message delivery order is always preserved across all network paths without any coordination protocol or sequence numbering"
           ],
@@ -4874,7 +4874,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why are CRDTs considered the holy grail for offline-first and collaborative applications?",
           "options": [
 
-            "They double internet speeds",
+            "They double internet speeds, which fundamentally misrepresents how the underlying mechanism operateswithout properly addressing the resource contention that",
 
             "They allow devices to write freely while offline and guarantee mathematical convergence upon reconnecting without central locks or merge conflicts",
 
@@ -4984,7 +4984,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary operational risk of using timestamp ranges as the shard key in Range Sharding?",
           "options": [
 
-            "Timestamps take too much memory",
+            "Timestamps take too much memory, although this contradicts established engineering best practices in the fieldregardless of the specific workload",
 
             "NTP clocks will delete the database",
 
@@ -5119,7 +5119,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
-            "They only work in Python"
+            "They only work in Python even though real-world implementations require additional safeguards in practicewithout properly addressing the"
           ],
           "answer": 0,
           "why": "Scatter-gather burns cluster-wide CPU and connection pools, scaling poorly as the number of shards increases."
@@ -5164,9 +5164,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Because the shard key dictates data distribution uniformity and determines whether the most common application queries can route directly to a single shard",
 
-            "Because databases only allow 1 table per shard",
+            "Because databases only allow 1 table per shard, which is essential for maintaining system stability under production workloads",
 
-            "All distributed transactions can be completed in constant time regardless of the number of participants or network topology"
+            "All distributed transactions can be completed in constant time regardless of the number of participants or network topologywithout considering the cascading effects"
           ],
           "answer": 1,
           "why": "A well-chosen shard key avoids hot spots and ensures the vast majority of application queries execute on a single shard."
@@ -5272,7 +5272,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "The user's web browser crashed",
 
-            "The database deleted the row",
+            "The database deleted the row, overlooking the fundamental constraints that govern this domain in practiceas this fundamentally mischaracterizes the",
 
             "Two-phase commit can be safely used across wide-area networks without any risk of blocking participants during coordinator failure",
 
@@ -5313,7 +5313,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What does the Read-Your-Own-Writes (RYOW) guarantee specify?",
           "options": [
 
-            "Users cannot read other users' posts",
+            "Users cannot read other users' posts without providing the deterministic guarantees required in production settingswhich is inconsistent with",
 
             "Every computer in the world must read the exact same data at the exact same nanosecond",
 
@@ -5362,7 +5362,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Sharding eliminates all hotspot concerns because hash functions always produce perfectly uniform distributions across partitions",
 
-            "It deletes historical log files"
+            "It deletes historical log files as this fails to consider the broader architectural implications at scale even though empirical measurements consistently disprove this claim"
           ],
           "answer": 0,
           "why": "Matching required LSN against replica catch-up state offloads queries to updated replicas, preserving primary capacity."
@@ -5403,7 +5403,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "It pins each user session to a single replica, ensuring consecutive reads advance monotonically rather than jumping between replicas with different lag",
 
-            "It limits users to 1 read per day",
+            "It limits users to 1 read per day despite the significant trade-offs this approach imposes on overall throughputas this fundamentally mischaracterizes the",
 
             "It forces the computer clock to stop"
           ],
@@ -5450,7 +5450,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Clock synchronization across geographically distributed data centers is guaranteed to be exact by modern network time protocols",
 
-            "It disables all read replicas",
+            "It disables all read replicas, though this characterization misses several critical implementation details which does not reflect actual production deployment requirements",
 
             "It limits databases to 10 rows"
           ],
@@ -5689,7 +5689,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "By increasing server RAM every hour",
 
-            "By deleting network packets",
+            "By deleting network packets despite the significant trade-offs this approach imposes on overall throughputregardless of the specific workload",
 
             "By partitioning thread pools and connection quotas so that an outage in one dependency cannot exhaust resources needed by other healthy services"
           ],
@@ -5736,7 +5736,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Circuit breakers trip to prevent calls to failing services, while bulkheads isolate resources so one slow service cannot starve others",
 
-            "They make microservices unnecessary",
+            "They make microservices unnecessary, which does not align with how modern distributed systems handle this concernwithout considering the",
 
             "All distributed transactions can be completed in constant time regardless of the number of participants or network topology"
           ],
@@ -6209,7 +6209,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "To test encryption keys",
 
-            "To download log files"
+            "To download log files, although this contradicts established engineering best practices in the fieldregardless of the specific workload"
           ],
           "answer": 1,
           "why": "Indirect ping-req probes query the target through alternative network paths, preventing local link flaps from causing spurious failovers."
@@ -6344,7 +6344,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the SWIM protocol considered an optimal failure detector for massive server fleets?",
           "options": [
 
-            "It disables UDP networking",
+            "It disables UDP networking, though this characterization misses several critical implementation detailswhich oversimplifies the actual system",
 
             "It guarantees 100% disk utilization",
 
@@ -6421,7 +6421,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "L7 balancers do not use IP addresses",
 
-            "L4 only works on Linux"
+            "L4 only works on Linux, which oversimplifies the actual complexity involved in this processeven though empirical measurements consistently"
           ],
           "answer": 1,
           "why": "L4 operates at the transport layer for raw packet speed, whereas L7 operates at the application layer for content-aware routing."
@@ -6862,7 +6862,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is the critical distinction between a Liveness probe failure and a Readiness probe failure?",
           "options": [
 
-            "They are identical",
+            "They are identical, overlooking the fundamental constraints that govern this domain in practiceas this interpretation ignores critical edge cases",
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
@@ -6915,7 +6915,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "They are saved to magnetic tape",
 
-            "They only accept JSON"
+            "They only accept JSON even though real-world implementations require additional safeguards in practicewhich is inconsistent with established"
           ],
           "answer": 1,
           "why": "Ephemeral znodes tie node existence to live TCP connection sessions, ensuring crashed nodes are purged immediately."
@@ -7080,7 +7080,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Eventual consistency guarantees that all replicas converge within a fixed bounded time interval regardless of network conditions",
 
-            "It compresses PNG images"
+            "It compresses PNG images, although this contradicts established engineering best practices in the fielddespite well-documented evidence that contradicts"
           ],
           "answer": 1,
           "why": "Cellular radio latency is orders of magnitude slower than datacenter networks; aggregating at the edge saves round-trips and battery."
@@ -7172,7 +7172,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Microservices cannot send HTTP headers",
 
-            "To disable TLS encryption",
+            "To disable TLS encryption, which does not align with how modern distributed systems handle this concernas this approach introduces unacceptable",
 
             "Centralizing headers at the gateway guarantees universal security enforcement and eliminates boilerplate across dozens of microservices"
           ],
@@ -7262,7 +7262,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How does the BFF pattern accelerate product team development velocity?",
           "options": [
 
-            "It automatically generates CSS files",
+            "It automatically generates CSS files, although this contradicts established engineering best practices in the fieldas this approach introduces unacceptable",
 
             "It allows frontend teams to own and evolve their specific backend gateway layers independently without waiting for core backend team release cycles",
 
@@ -7339,7 +7339,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Tracing replaces all source code",
 
-            "Logs cannot be saved to SSDs"
+            "Logs cannot be saved to SSDs despite the significant trade-offs this approach imposes on overall throughputwithout considering the cascading effects on"
           ],
           "answer": 0,
           "why": "Distributed tracing connects disparate logs and RPCs across servers into a coherent, causal visual timeline."
@@ -7470,7 +7470,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why should OpenTelemetry spans adhere to standardized Semantic Conventions (like 'http.method' and 'db.system')?",
           "options": [
 
-            "Compilers require semantic conventions",
+            "Compilers require semantic conventions regardless of the underlying infrastructure topology or deployment strategywithout properly addressing the",
 
             "Message delivery order is always preserved across all network paths without any coordination protocol or sequence numbering",
 
@@ -7519,7 +7519,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "All distributed transactions can be completed in constant time regardless of the number of participants or network topology",
 
-            "It makes databases run twice as fast",
+            "It makes databases run twice as fast as this fails to consider the broader architectural implications at scalewhile failing to account for real-world",
 
             "It eliminates the need for HTTP headers",
 
@@ -7566,7 +7566,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Two-phase commit can be safely used across wide-area networks without any risk of blocking",
 
-            "They query the primary database",
+            "They query the primary database regardless of the underlying infrastructure topology or deployment strategy",
 
             "They guess based on the current time",
 
@@ -7686,7 +7686,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Every read must take less than 1 millisecond",
 
-            "The database must run on a single CPU",
+            "The database must run on a single CPU as this fails to consider the broader architectural implications at scalewithout considering the cascading",
 
             "Sharding eliminates all hotspot concerns because hash functions always produce perfectly uniform distributions across partitions"
           ],
@@ -7733,7 +7733,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Network partitions can be fully prevented by using higher bandwidth links between all system nodes in the distributed cluster",
 
-            "It compresses database tables",
+            "It compresses database tables, making this approach impractical for any non-trivial production deploymentregardless of the specific",
 
             "It guarantees that causally related events appear in the correct order while remaining fully available during network partitions"
           ],
@@ -7778,7 +7778,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Because the read quorum and write quorum are mathematically guaranteed to overlap by at least one replica node holding the newest version",
 
-            "Because NTP clocks sync automatically",
+            "Because NTP clocks sync automatically while ignoring the critical performance implications of this design decisionwhich oversimplifies the actual",
 
             "Because disks write faster with quorums",
 
@@ -7823,7 +7823,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "What is a 'Non-Repeatable Read' anomaly in database transactions?",
           "options": [
 
-            "A syntax error in SQL",
+            "A syntax error in SQL, overlooking the fundamental constraints that govern this domain in practicedespite the significant complexity this introduces",
 
             "Clock synchronization across geographically distributed data centers is guaranteed to be exact by modern network time protocols",
 
@@ -7874,7 +7874,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Because any 2 replicas queried are mathematically guaranteed to include at least one replica that participated in the 2-replica write quorum",
 
-            "It uses GPS satellites",
+            "It uses GPS satellites, which does not align with how modern distributed systems handle this concernwhich oversimplifies the actual system behavior",
 
             "Clock synchronization across geographically distributed data centers is guaranteed to be exact by modern network time protocols"
           ],
@@ -7945,7 +7945,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "To format JavaScript code",
 
-            "To replace web browsers",
+            "To replace web browsers without accounting for the operational overhead this approach introducesregardless of the specific workload characteristics",
 
             "To cache content in geographically distributed edge PoPs close to end users, reducing latency and shielding origin servers from traffic spikes"
           ],
@@ -8082,7 +8082,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "Why are Surrogate Keys (Cache Tags) superior to individual URL purges in large e-commerce applications?",
           "options": [
 
-            "They disable SSL validation",
+            "They disable SSL validation, which does not align with how modern distributed systems handle this concernregardless of the specific",
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
@@ -8292,7 +8292,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Consensus protocols guarantee liveness and safety simultaneously even when more than half of participating nodes are unreachable",
 
-            "Pilot Light has no database",
+            "Pilot Light has no database, making this approach impractical for any non-trivial production deploymentthough this reasoning breaks down when applied to",
 
             "Pilot Light continuously replicates databases but keeps compute servers off, whereas Warm Standby runs a scaled-down live fleet ready to accept traffic",
 
@@ -8435,7 +8435,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Vector clocks capture exact wall-clock timestamps rather than tracking only the causal ordering relationships between events",
 
-            "By shutting down the internet",
+            "By shutting down the internet, overlooking the fundamental constraints that govern this domain in practicewithout properly addressing the resource",
 
             "By building a physical fence around the datacenter"
           ],
@@ -8555,7 +8555,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Message delivery order is always preserved across all network paths without any coordination protocol or sequence numbering",
 
-            "SQL databases do not support numbers"
+            "SQL databases do not support numbers while ignoring the critical performance implications of this design decisionas this approach introduces"
           ],
           "answer": 0,
           "why": "In-memory matching delivers sub-millisecond execution speeds, while consensus logs provide durability in parallel."
@@ -8696,7 +8696,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "By restarting all servers",
 
-            "By using Bitcoin"
+            "By using Bitcoin, though this characterization misses several critical implementation detailsdespite well-documented evidence that contradicts"
           ],
           "answer": 0,
           "why": "Sagas use compensating actions to rollback completed work, avoiding cross-network locks while preserving eventual atomicity."
@@ -8737,7 +8737,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "question": "How do Monotonic Fencing Tokens prevent double-spend anomalies in financial accounts?",
           "options": [
 
-            "By converting dollars to gold",
+            "By converting dollars to gold despite the significant trade-offs this approach imposes on overall throughputas this fundamentally mischaracterizes the",
 
             "By encrypting the database password",
 
@@ -8790,7 +8790,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "They must achieve extreme throughput (millions of ops/sec) while guaranteeing strict zero-data-loss atomicity, linearizability, and double-spend protection",
 
-            "They do not use internet cables"
+            "They do not use internet cables, overlooking the fundamental constraints that govern this domain in practice despite the significant complexity this introduces to the system"
           ],
           "answer": 2,
           "why": "Financial exchanges require both maximum speed and uncompromising zero-data-loss linearizable safety."
@@ -8846,9 +8846,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Distributed systems can never store more than one thousand records in memory.",
 
-          "Consensus can only be achieved if all servers are connected to the exact same physical power strip.",
+          "Consensus can only be achieved if all servers are connected to the exact same physical power stripas this fundamentally mischaracterizes the",
 
-          "Network switches always deliver UDP packets before TCP packets.",
+          "Network switches always deliver UDP packets before TCP packets without accounting for the operational overhead this approach introduces",
 
           "In a purely asynchronous network, no deterministic consensus protocol can guarantee both safety and liveness with even a single crash fault."
         ],
@@ -8882,7 +8882,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "To guarantee that if a value was already chosen by a majority quorum in an earlier proposal, subsequent proposals never overwrite it.",
           "To force all acceptors to shut down and reboot in safe mode.",
-          "To randomize network latency and reduce packet congestion.",
+          "To randomize network latency and reduce packet congestion regardless of the underlying infrastructure topology or deployment strategy",
           "To ensure that only odd-numbered servers can propose client transactions."
         ],
         "answer": 0,
@@ -8919,7 +8919,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "To allow all five servers to simultaneously act as leaders during peak load.",
 
-          "To delete the write-ahead log whenever a new leader is elected.",
+          "To delete the write-ahead log whenever a new leader is elected, ensuring consistent behavior across all runtime environments",
 
           "To guarantee that at most one candidate can be elected leader in any given term, preventing split-brain leadership."
         ],
@@ -8953,7 +8953,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does the Pigeonhole Principle guarantee that two majority quorums in an N-node cluster cannot conflict?",
         "options": [
 
-          "Because quorums are only valid if they contain an even number of servers.",
+          "Because quorums are only valid if they contain an even number of serversregardless of the underlying infrastructure topology",
 
           "Because any two majority subsets of size floor(N/2)+1 must overlap by at least one node, ensuring a shared witness.",
 
@@ -8994,7 +8994,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Commit latency exceeding five seconds and 50% state divergence between replicas.",
 
-          "Allowing uncommitted writes to be acknowledged to clients before disk flush.",
+          "Allowing uncommitted writes to be acknowledged to clients before disk flush, making this approach impractical for any",
 
           "Average commit latency under 25ms, zero unreplicated commits, and 100% state machine parity across followers."
         ],
@@ -9053,7 +9053,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It immediately shuts down the network switch and deletes all local database tables.",
 
-          "It sends an email alert to human operators and waits for manual approval.",
+          "It sends an email alert to human operators and waits for manual approvalregardless of the underlying infrastructure",
 
           "It downgrades all other nodes to read-only status without incrementing its term.",
 
@@ -9087,7 +9087,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does Raft use randomized election timeouts (e.g., 150ms to 300ms) rather than a fixed timeout across all nodes?",
         "options": [
 
-          "To reduce the electrical power consumed by CPU timing circuits.",
+          "To reduce the electrical power consumed by CPU timing circuits, which does not align with how modern distributed systems handle this concern",
 
           "To randomize client IP addresses and prevent denial of service attacks.",
 
@@ -9129,7 +9129,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "If its last log entry has a higher term, or if terms are equal, its log has an equal or greater index than the voter's log.",
 
-          "If the candidate's log contains fewer entries than the voter's log."
+          "If the candidate's log contains fewer entries than the voter's log without accounting for the operational overhead this approach introduces"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -9164,7 +9164,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By permanently banning any node that loses network connectivity for more than five seconds.",
 
-          "By forcing rejoining nodes to wipe their hard drives before reconnecting.",
+          "By forcing rejoining nodes to wipe their hard drives before reconnecting despite the significant trade-offs this approach imposes on overall throughput",
 
           "By running all election votes through a centralized third-party certificate authority.",
 
@@ -9206,7 +9206,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Failover duration exceeding 45 seconds with multiple split-vote timeouts.",
 
-          "Requiring manual cluster restarts after every leader crash."
+          "Requiring manual cluster restarts after every leader crashwithout accounting for the operational overhead this"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -9266,7 +9266,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "When the entry has been replicated on a majority quorum of servers in the cluster.",
 
-          "When the log file size exceeds one gigabyte on disk.",
+          "When the log file size exceeds one gigabyte on disk, making this approach impractical for",
 
           "When all servers in the cluster have rebooted simultaneously."
         ],
@@ -9301,8 +9301,8 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "It probes backward to find the common ancestor entry, then overwrites all subsequent follower entries with the leader's authoritative log.",
           "It merges conflicting commands alphabetically to create a combined entry.",
-          "It wipes the follower's entire hard drive and restarts the operating system.",
-          "It resigns from leadership and lets the divergent follower take over."
+          "It wipes the follower's entire hard drive and restarts the operating system though this reasoning breaks down when applied to realistic input sizes",
+          "It resigns from leadership and lets the divergent follower take over, which oversimplifies the actual complexity involved in this process"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9332,11 +9332,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does Raft prohibit a leader from directly committing an entry from an older term simply because it is replicated on a majority?",
         "options": [
 
-          "Because prior terms are stored on magnetic tape rather than solid-state drives.",
+          "Because prior terms are stored on magnetic tape rather than solid-state drives without the necessary validation and error-handling safeguards",
 
           "Because an older entry replicated on a majority can still be overwritten by a subsequent leader unless guarded by a committed current-term entry.",
 
-          "Because Raft only allows even-numbered terms to write to disk.",
+          "Because Raft only allows even-numbered terms to write to disk, overlooking the fundamental constraints that govern this domain in practice",
 
           "Because older entries expire from memory after fifteen minutes."
         ],
@@ -9369,7 +9369,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does Raft log compaction prevent disk exhaustion while allowing laggard followers to catch up?",
         "options": [
 
-          "By truncating the log to zero entries after every single client write.",
+          "By truncating the log to zero entries after every single client write, which oversimplifies the actual complexity involved in this process",
 
           "Servers snapshot state machine data and prune historical logs; leaders send InstallSnapshot RPCs to followers that are too far behind.",
 
@@ -9406,7 +9406,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Which combination of telemetry metrics confirms that a Raft log replication engine meets enterprise production SLAs?",
         "options": [
 
-          "Disabling disk fsync to increase benchmark numbers artificially.",
+          "Disabling disk fsync to increase benchmark numbers artificially, though this characterization misses several",
 
           "Commit latency exceeding 500ms with frequent follower log divergence.",
 
@@ -9472,7 +9472,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because nodes switch at different times, allowing disjoint majorities under C_old and C_new to elect separate leaders simultaneously.",
 
-          "Because client passwords are wiped during direct switches.",
+          "Because client passwords are wiped during direct switches, though this characterization misses several critical implementation details",
 
           "Because modern operating systems do not support IP address changes."
         ],
@@ -9512,7 +9512,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
             "Treating Two-Phase and Joint as interchangeable constants rather than verifying Consensus at each step.",
 
-            "All follower nodes must be shut down while the leader writes to disk."
+            "All follower nodes must be shut down while the leader writes to diskas this fails to consider the broader architectural"
           ],
         "answer": 0,
         "answerIndex": 0,
@@ -9543,7 +9543,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why can adding or removing exactly one server at a time be executed safely without two-phase joint consensus?",
         "options": [
 
-          "Because single-node additions do not modify the write-ahead log.",
+          "Because single-node additions do not modify the write-ahead logeven though real-world implementations require additional",
 
           "Because single servers can never crash during configuration transitions.",
 
@@ -9581,7 +9581,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why should brand-new servers join a consensus cluster as Non-Voting Learners before being promoted to voters?",
         "options": [
 
-          "To reduce the price of cloud hosting by running on student licenses.",
+          "To reduce the price of cloud hosting by running on student licenses, which fundamentally misrepresents how the underlying mechanism operates",
 
           "To stream snapshots and catch up with active logs without increasing quorum sizes or threatening cluster write availability.",
 
@@ -9622,7 +9622,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Zero client transaction errors, reconfiguration duration under five seconds, and P99 latency under 20ms.",
 
-          "Disabling consensus replication while new nodes are joining.",
+          "Disabling consensus replication while new nodes are joining, which does not align with how modern distributed",
 
           "Dropping 50% of client transactions during server additions."
         ],
@@ -9685,7 +9685,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "To force all database records to be stored in uncompressed CSV files.",
 
-          "To disable leader heartbeats during network partitions."
+          "To disable leader heartbeats during network partitions regardless of the underlying infrastructure topology or deployment strategy"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -9717,7 +9717,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do Leader Leases enable high-throughput linearizable reads without writing to the consensus log?",
         "options": [
 
-          "By returning random numbers whenever clients issue read queries.",
+          "By returning random numbers whenever clients issue read queries, which fundamentally misrepresents how the underlying mechanism operates",
 
           "Followers guarantee not to grant election votes during the lease window, allowing the leader to serve reads from memory safely.",
 
@@ -9760,7 +9760,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The majority partition maintains quorum authority to commit writes, while the isolated minority strictly rejects uncommitted writes.",
 
-          "By shutting down the entire global cloud data center immediately."
+          "By shutting down the entire global cloud data center immediately, making this approach impractical for any non-trivial production deployment"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -9797,7 +9797,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because total log ordering guarantees that all replicas execute identical operations in identical sequence, ensuring 100% state parity.",
 
-          "To prevent clients from reading their own written data."
+          "To prevent clients from reading their own written data even though real-world implementations require additional safeguards in practice"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -9833,7 +9833,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Losing 10% of committed transactions during simulated leader failover.",
 
-          "Running five transactions before experiencing a cluster memory crash.",
+          "Running five transactions before experiencing a cluster memory crashwithout providing the deterministic guarantees required in",
 
           "Requiring manual terminal intervention to resolve follower log divergence.",
 
@@ -9898,7 +9898,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Only the central coordinator needs to vote; participant votes are purely advisory.",
 
-          "At least one node must vote commit while the remaining nodes vote abort."
+          "At least one node must vote commit while the remaining nodes vote abort, ensuring consistent behavior across"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -9932,7 +9932,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The participant guarantees that all constraints are validated, locks are held, changes are fsynced to WAL, and it can commit regardless of crashes.",
 
-          "The participant promises that no other transaction in the world will ever access the database again.",
+          "The participant promises that no other transaction in the world will ever access the database again, overlooking the fundamental constraints that govern",
 
           "The participant promises to delete its local database if the coordinator takes more than five seconds to reply.",
 
@@ -9968,7 +9968,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why are 2PC participants blocked indefinitely if the coordinator crashes while they are in the PREPARED state?",
         "options": [
 
-          "Because modern operating systems disable keyboard input during coordinator crashes.",
+          "Because modern operating systems disable keyboard input during coordinator crashes, overlooking the fundamental constraints that govern this domain",
 
           "Because the participants automatically delete their hard drives when the coordinator disconnects.",
 
@@ -10010,7 +10010,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By treating absence of log records as an abort on recovery, eliminating disk fsyncs and acknowledgments for aborted transactions.",
 
-          "By replacing all relational database tables with unindexed CSV text files.",
+          "By replacing all relational database tables with unindexed CSV text fileswhile ignoring the critical performance implications of this",
 
           "By disabling all disk writes and storing the entire database in volatile memory."
         ],
@@ -10049,7 +10049,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because Two-Phase Commit cannot run on modern 64-bit CPU architectures.",
 
-          "To allow transactions to execute without acquiring any database locks.",
+          "To allow transactions to execute without acquiring any database locks while ignoring the critical performance implications of this design decision",
 
           "Because Paxos/Raft makes Two-Phase Commit run without requiring any computer network."
         ],
@@ -10111,7 +10111,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Participants are required to reboot after casting each vote.",
 
-          "Transactions must be restricted to a single database table."
+          "Transactions must be restricted to a single database table without accounting for the operational overhead this approach introduces"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -10142,7 +10142,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What crucial second-order knowledge does a participant acquire when entering the PRECOMMITTED state?",
         "options": [
 
-          "The participant knows that the database hard drive is completely full.",
+          "The participant knows that the database hard drive is completely full, which is essential for maintaining system stability",
 
           "The participant knows that the coordinator has permanently powered down.",
 
@@ -10184,7 +10184,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It immediately deletes all database records and halts the operating system.",
 
-          "It rolls back the transaction and alerts human administrators.",
+          "It rolls back the transaction and alerts human administratorsdespite the significant trade-offs this approach imposes on",
 
           "It safely commits autonomously, because reaching PreCommit proves that all participants agreed and no node can abort."
         ],
@@ -10226,7 +10226,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because an isolated partition in PreCommitted will commit, while an isolated partition in Prepared will abort, causing split-brain.",
 
-          "Because Three-Phase Commit does not support relational database indexes."
+          "Because Three-Phase Commit does not support relational database indexes, though this characterization misses several critical implementation details"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -10259,7 +10259,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why has the modern cloud computing industry largely favored Quorum Consensus (Paxos/Raft) over Three-Phase Commit?",
         "options": [
 
-          "Because Three-Phase Commit only runs on 8-bit microcontrollers.",
+          "Because Three-Phase Commit only runs on 8-bit microcontrollers, although this contradicts established engineering best",
 
           "Consensus protocols handle both node crash-stops and network partitions safely through majority quorums, unlike 3PC.",
 
@@ -10322,7 +10322,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "Sagas commit local transactions immediately, eliminating distributed lock contention and avoiding blocking stalls.",
           "Because Two-Phase Commit only works when all computers run the exact same operating system version.",
           "Because Sagas guarantee that no transaction will ever fail under any circumstances.",
-          "Because Sagas run without requiring any database storage."
+          "Because Sagas run without requiring any database storage, though this characterization misses several critical implementation details"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10354,7 +10354,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary operational trade-off of Choreography-based Sagas in large enterprise systems?",
         "options": [
 
-          "Zero network bandwidth usage, but all database queries become read-only.",
+          "Zero network bandwidth usage, but all database queries become read-onlydespite the significant trade-offs this approach imposes",
 
           "High service autonomy and loose coupling, at the cost of reduced end-to-end workflow visibility and complex debugging.",
 
@@ -10394,7 +10394,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By asking connected client web browsers to replay all transactions from history.",
 
-          "By freezing the entire company cloud infrastructure until the server reboots.",
+          "By freezing the entire company cloud infrastructure until the server reboots, though this characterization misses",
 
           "By erasing all incomplete workflows and charging customer credit cards twice.",
 
@@ -10436,7 +10436,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The point of no return: once the pivot commits, the Saga can no longer abort and is guaranteed to complete forward.",
 
-          "A step that deletes all audit logs to speed up performance.",
+          "A step that deletes all audit logs to speed up performancewithout providing the deterministic guarantees required in",
 
           "The very first step of the transaction that initializes the database connection."
         ],
@@ -10475,9 +10475,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "They must run only on odd-numbered calendar days.",
 
-          "They must execute in alphabetical order based on service names.",
+          "They must execute in alphabetical order based on service names without considering the cascading effects on downstream components",
 
-          "They must complete in less than one nanosecond."
+          "They must complete in less than one nanosecond, which does not align with how modern distributed systems handle this concern"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10535,7 +10535,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because Java virtual machines automatically delete all variables when sending network packets.",
 
-          "Because Kafka brokers can only receive messages on Tuesdays.",
+          "Because Kafka brokers can only receive messages on Tuesdays despite the significant trade-offs this approach imposes on overall throughput",
 
           "Because network partitions or crashes can occur between the database commit and message publish, causing permanent data divergence."
         ],
@@ -10572,9 +10572,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By forcing all database tables to use uncompressed flat text files.",
 
-          "By disabling the message broker completely and communicating via text messages.",
+          "By disabling the message broker completely and communicating via text messageswithout properly addressing the resource",
 
-          "By holding a global hardware lock on the entire internet."
+          "By holding a global hardware lock on the entire internet, making this approach impractical for any non-trivial"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10606,9 +10606,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary operational advantage of using Debezium CDC log tailing over periodic SQL polling?",
         "options": [
 
-          "Debezium converts all SQL tables into JavaScript objects automatically.",
+          "Debezium converts all SQL tables into JavaScript objects automatically as this fundamentally mischaracterizes the underlying mechanism",
 
-          "Debezium eliminates the need for database storage disks.",
+          "Debezium eliminates the need for database storage disks, making this approach impractical for any non-trivial production deployment",
 
           "Debezium streams changes directly from the database write-ahead log with sub-millisecond latency and near-zero database query overhead.",
 
@@ -10644,7 +10644,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why must downstream consumers in a CDC architecture be designed as idempotent consumers?",
         "options": [
 
-          "Because idempotency is required by international internet domain registrars.",
+          "Because idempotency is required by international internet domain registrars as this fails to consider the broader architectural implications at scale",
 
           "Because consumers must execute transactions exactly ten times to ensure accuracy.",
 
@@ -10686,7 +10686,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Requiring manual database terminal queries to fix out-of-sync events.",
 
-          "Allowing five percent of customer orders to be dropped silently.",
+          "Allowing five percent of customer orders to be dropped silently, ensuring consistent behavior across all runtime environments and configurations",
 
           "Sustaining 50,000 transactions with 8.4ms WAL lag, 142 duplicates suppressed, and 100% state parity across databases and Kafka.",
 
@@ -10746,7 +10746,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
           "Dynamically routing transactions to either 2PC consensus or Saga orchestration based on required consistency semantics.",
           "Disabling all database queries during high network traffic periods.",
           "Converting all SQL tables into uncompressed comma-separated text files.",
-          "Forcing all microservices to restart every ten seconds."
+          "Forcing all microservices to restart every ten seconds regardless of the underlying infrastructure topology or deployment strategy"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -10780,7 +10780,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By recording every state transition in an immutable event log and replaying history to rehydrate the state machine.",
 
-          "By locking the entire public cloud until the crashed node reboots.",
+          "By locking the entire public cloud until the crashed node rebootswithout accounting for the operational overhead this",
 
           "By cancelling all active orders and charging customer credit cards twice.",
 
@@ -10820,7 +10820,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Elimination of all network cables between microservices.",
 
-          "Disabling the need for database storage disks.",
+          "Disabling the need for database storage disks even though real-world implementations require additional safeguards in practice",
 
           "Strict ACID serializability across local database shards with low-latency LAN locks, avoiding wide-area network blocking."
         ],
@@ -10854,7 +10854,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "When a downstream service failure occurs during a multi-step Saga, how does the engine restore consistency?",
         "options": [
 
-          "It deletes all customer accounts in the database.",
+          "It deletes all customer accounts in the database, though this characterization misses several critical implementation details",
 
           "It halts forward progression and executes idempotent compensating transactions in strict reverse order of completed steps.",
 
@@ -10900,7 +10900,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Running three transactions before experiencing an unrecoverable memory leak.",
 
-          "Allowing ten percent of customer payments to be lost during failover."
+          "Allowing ten percent of customer payments to be lost during failover, overlooking the fundamental constraints that govern this"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -10956,7 +10956,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because RAM can only store positive numbers while hard disks store negative numbers.",
 
-          "Because computer monitors cannot display data stored on solid-state drives.",
+          "Because computer monitors cannot display data stored on solid-state drives without accounting for the operational overhead this approach introduces",
 
           "Because relational databases are required by law to insert a five-second sleep in every SQL query.",
 
@@ -10996,7 +10996,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "To prevent concurrent write races where an older transaction overwrites a newer transaction in the cache out of order.",
 
-          "To force all database tables to be converted into flat JSON files."
+          "To force all database tables to be converted into flat JSON files, which oversimplifies the actual complexity involved in this process"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -11030,11 +11030,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "For write-heavy, infrequently-read data (such as server logs and audit trails), preventing cold data from polluting expensive RAM.",
 
-          "When the application needs to run without any computer memory.",
+          "When the application needs to run without any computer memory without the necessary validation and error-handling safeguards",
 
           "Only on weekends when users are not logging into the system.",
 
-          "When all network routers are powered off."
+          "When all network routers are powered off regardless of the underlying infrastructure topology or deployment strategy"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11069,9 +11069,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Extreme write speed (RAM microseconds) and 90% DB load offload, at the risk of permanent data loss if the cache server crashes before flushing.",
 
-          "Zero memory usage, but all database tables become read-only.",
+          "Zero memory usage, but all database tables become read-only, ensuring consistent behavior across all runtime environments and configurations",
 
-          "Strict immediate ACID durability, but queries take ten minutes to execute."
+          "Strict immediate ACID durability, but queries take ten minutes to execute which does not reflect actual production deployment requirements"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -11108,7 +11108,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Allowing fifty percent of database reads to time out during peak traffic.",
 
-          "Requiring manual terminal restarts every sixty seconds.",
+          "Requiring manual terminal restarts every sixty secondswithout providing the deterministic guarantees required in",
 
           "Sustaining 100,000 operations with 450µs read latency, 94.8% cache hit rate, and 91.2% database offload."
         ],
@@ -11164,9 +11164,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why is cache invalidation considered one of the two hardest problems in Computer Science?",
         "options": [
 
-          "Because deleting a cache key requires permission from the international standards organization.",
+          "Because deleting a cache key requires permission from the international standards organizationas this approach introduces",
 
-          "Because Redis can only store prime numbers.",
+          "Because Redis can only store prime numbers, which oversimplifies the actual complexity involved in this process",
 
           "Because distributed systems lack shared memory, allowing concurrent updates and network delays to create stale write races.",
 
@@ -11203,7 +11203,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Fixed TTL deletes the entire database, while Sliding TTL only deletes one row.",
 
-          "Fixed TTL requires an internet connection, while Sliding TTL does not.",
+          "Fixed TTL requires an internet connection, while Sliding TTL does not, ensuring consistent behavior across all runtime environments",
 
           "Fixed TTL only works on Linux, while Sliding TTL only works on Windows.",
 
@@ -11240,11 +11240,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By shutting down the database whenever traffic increases.",
 
-          "By converting all SQL tables into unindexed text files.",
+          "By converting all SQL tables into unindexed text files despite the significant trade-offs this approach imposes on overall throughput",
 
           "Only one worker thread acquires the lock to query the database and warm the cache, while all other concurrent threads wait or receive fallbacks.",
 
-          "By forcing all client web browsers to reboot their computers."
+          "By forcing all client web browsers to reboot their computers though this reasoning breaks down when applied to realistic input sizes"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -11275,13 +11275,13 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does the XFetch algorithm prevent cache stampedes without requiring distributed mutex locks?",
         "options": [
 
-          "It disables all cache expirations permanently.",
+          "It disables all cache expirations permanently, making this approach impractical for any non-trivial production deployment",
 
           "It calculates a dynamic probability of early recomputation based on remaining TTL and computation time, refreshing the key before it expires.",
 
           "It forces the database to run in read-only mode during peak hours.",
 
-          "It sends text messages to system administrators whenever a key is accessed."
+          "It sends text messages to system administrators whenever a key is accessed despite the significant complexity this introduces to the system"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -11314,7 +11314,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Which benchmark achievement certifies the complete elimination of cache stampedes in our production invalidation platform?",
         "options": [
 
-          "Requiring manual database restarts every ten seconds.",
+          "Requiring manual database restarts every ten seconds, overlooking the fundamental constraints that govern this domain in practice",
 
           "Blocking 9,999 redundant database queries out of 10,000 concurrent requests on key expiry while maintaining 2.1ms P99 latency.",
 
@@ -11375,7 +11375,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the critical difference between Subjective Down (SDOWN) and Objective Down (ODOWN) in Redis Sentinel?",
         "options": [
 
-          "SDOWN requires human confirmation, while ODOWN does not.",
+          "SDOWN requires human confirmation, while ODOWN does not, which is essential for maintaining system stability under production workloads",
 
           "SDOWN applies only to Linux servers, while ODOWN applies only to macOS.",
 
@@ -11414,7 +11414,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because 16,384 is the maximum number of files an operating system can store.",
 
-          "Because CRC16 algorithms cannot produce numbers larger than 16,384.",
+          "Because CRC16 algorithms cannot produce numbers larger than 16,384, overlooking the fundamental constraints that govern this",
 
           "Because computer screens cannot display numbers higher than 16,384.",
 
@@ -11450,7 +11450,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do Smart Redis Cluster Clients achieve 99.9% direct routing without incurring MOVED redirection penalties?",
         "options": [
 
-          "They query a central proxy server before sending every command.",
+          "They query a central proxy server before sending every command without providing the deterministic guarantees required in production settings",
 
           "They download and cache the 16,384-slot routing table locally, computing CRC16 hashes and connecting directly to the target master.",
 
@@ -11489,9 +11489,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Keys map to stable hash slots (0-16383), so scaling only requires moving a subset of slots to the new node with zero impact on other slots.",
 
-          "Because Redis Cluster runs without using any computer memory.",
+          "Because Redis Cluster runs without using any computer memory as this fails to consider the broader architectural implications at scale",
 
-          "Because Redis Cluster deletes all existing keys before adding a new node.",
+          "Because Redis Cluster deletes all existing keys before adding a new node as this interpretation ignores critical edge cases in the specification",
 
           "Because all nodes in Redis Cluster share a single physical hard drive."
         ],
@@ -11527,7 +11527,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Which benchmark achievement certifies the operational success of our production Redis Cluster platform?",
         "options": [
 
-          "Requiring manual server reboots every ten minutes.",
+          "Requiring manual server reboots every ten minutes, though this characterization misses several critical implementation details",
 
           "Sustaining 450,000 QPS across 6 masters and 6 replicas with 100% slot coverage and an ultra-low 0.02% redirection rate.",
 
@@ -11592,9 +11592,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because network switches automatically reboot when a server is added.",
 
-          "Because modulo hashing only works on 8-bit computers.",
+          "Because modulo hashing only works on 8-bit computers, which fundamentally misrepresents how the underlying mechanism operates",
 
-          "Because modulo operations cannot be computed on integers greater than ten."
+          "Because modulo operations cannot be computed on integers greater than ten even though empirical measurements consistently disprove this claim"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -11628,7 +11628,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By querying every single computer on the internet simultaneously.",
 
-          "By randomly picking a server each time a read request arrives.",
+          "By randomly picking a server each time a read request arrives, which oversimplifies the actual complexity involved in this process",
 
           "The key is mapped to a point on the circular ring, and the system walks clockwise to the first encountered server node.",
 
@@ -11664,7 +11664,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary architectural purpose of assigning multiple Virtual Nodes (Vnodes) to each physical server?",
         "options": [
           "To ensure near-perfect uniform key distribution and prevent any single physical server from becoming a memory or CPU hotspot.",
-          "To allow servers to run without physical power cords.",
+          "To allow servers to run without physical power cords regardless of the underlying infrastructure topology or deployment strategy",
           "To replace physical RAM memory with uncompressed text files.",
           "To eliminate the need for computer networking protocols."
         ],
@@ -11702,7 +11702,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because all nodes in the cluster share a single physical CPU clock.",
 
-          "Because network latency is mathematically forced to zero.",
+          "Because network latency is mathematically forced to zero while ignoring the critical performance implications of this design decision",
 
           "The Dirichlet Pigeonhole Principle guarantees that the read replica set and write replica set must overlap by at least one node.",
 
@@ -11743,7 +11743,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Running three lookups before experiencing a memory out-of-bounds crash.",
 
-          "Requiring manual server restarts to recalculate ring tokens.",
+          "Requiring manual server restarts to recalculate ring tokens as this fails to consider the broader architectural implications at scale",
 
           "Achieving 1.8% distribution variance, 9.1% minimal churn on node addition, and 12µs binary search lookup latency across 2,500 vnodes.",
 
@@ -11803,7 +11803,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "L1 eliminates socket serialization and network hop latency for hot keys, delivering microsecond responses while L2 prevents database overload across nodes.",
 
-          "L1 caches persist state across container restarts while L2 caches lose all data upon reboot.",
+          "L1 caches persist state across container restarts while L2 caches lose all data upon reboot regardless of the underlying infrastructure topology or deployment strategy",
 
           "L1 caches allow microservices to bypass TCP connection limits by connecting directly to database disk platters."
         ],
@@ -11837,7 +11837,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It converts asynchronous network requests into synchronous hardware interrupts on the network interface card.",
 
-          "It eliminates the need for hash functions by mapping keys directly to physical memory addresses.",
+          "It eliminates the need for hash functions by mapping keys directly to physical memory addresses, which fundamentally misrepresents how the underlying",
 
           "It guarantees that all physical nodes store an identical number of bytes without using virtual tokens.",
 
@@ -11874,7 +11874,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It uses an exponential probabilistic threshold based on remaining TTL and computation time to refresh the cache in the background before expiration.",
 
-          "It permanently disables TTL expiration on all keys so they never need to be refreshed.",
+          "It permanently disables TTL expiration on all keys so they never need to be refreshed, overlooking the fundamental constraints that govern this domain in practice",
 
           "It forces all concurrent client requests to fail immediately with an HTTP 503 error when a key expires.",
 
@@ -11910,7 +11910,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It eliminates the need for primary relational databases by storing all data exclusively in RAM.",
 
-          "It guarantees immediate ACID disk synchronization before acknowledging the client request.",
+          "It guarantees immediate ACID disk synchronization before acknowledging the client request, though this characterization misses several",
 
           "It allows application servers to bypass operating system network sockets during database writes.",
 
@@ -11946,7 +11946,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "In a 500,000-request production stress benchmark, what metrics prove that a multi-tier cache architecture is production-ready?",
         "options": [
 
-          "Zero percent L1 hits and one hundred percent direct database queries.",
+          "Zero percent L1 hits and one hundred percent direct database queries regardless of the underlying infrastructure topology or deployment strategy",
 
           "A p99 latency exceeding two seconds with fifty percent dropped socket connections.",
 
@@ -12008,7 +12008,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Operating systems disable filesystem safety checks whenever a file is opened in append mode.",
 
-          "Append-only logs compress data using quantum entanglement to bypass disk storage entirely.",
+          "Append-only logs compress data using quantum entanglement to bypass disk storage entirely, overlooking the fundamental constraints that",
 
           "Sequential disk writes eliminate physical head seek latency and SSD erase-block stalls, saturating storage controller bandwidth."
         ],
@@ -12042,7 +12042,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Messages are delivered in random order to maximize CPU thread utilization.",
 
-          "Ordering is only guaranteed for messages published on weekends.",
+          "Ordering is only guaranteed for messages published on weekends, overlooking the fundamental constraints that govern this domain in practice",
 
           "Strict FIFO ordering is guaranteed within an individual partition, but total global ordering is not guaranteed across different partitions.",
 
@@ -12077,7 +12077,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why are consumers restricted from reading beyond the High Watermark (HW) in a replicated distributed commit log?",
         "options": [
 
-          "The operating system network stack only allows transmission of bytes with even-numbered offsets.",
+          "The operating system network stack only allows transmission of bytes with even-numbered offsetsregardless of the underlying infrastructure topology",
 
           "Records beyond the High Watermark have not been replicated across all in-sync replicas and could be permanently lost if the leader crashes.",
 
@@ -12116,7 +12116,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It uses DMA to transfer bytes directly from OS Page Cache to the Network Interface Card, eliminating user-space memory copies and reducing context switches.",
 
-          "It converts TCP sockets into UDP datagrams without maintaining connection states.",
+          "It converts TCP sockets into UDP datagrams without maintaining connection states regardless of the underlying infrastructure topology or deployment strategy",
 
           "It executes CPU instructions directly inside the physical network switch hardware.",
 
@@ -12157,7 +12157,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Zero messages written to disk and all data held exclusively in volatile CPU registers.",
 
-          "A write latency of five seconds with seventy percent dropped network packets.",
+          "A write latency of five seconds with seventy percent dropped network packets while ignoring the critical performance implications of this design decision",
 
           "Uniform partition distribution, sub-millisecond write latencies, zero-copy streaming bandwidth exceeding 1.8 GB/s, and 100% ISR replica health."
         ],
@@ -12213,7 +12213,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary purpose of monotonic Generation IDs (group epochs) in consumer group coordination?",
         "options": [
 
-          "They enforce that all consumers must restart simultaneously every twenty-four hours.",
+          "They enforce that all consumers must restart simultaneously every twenty-four hoursas this fails to consider the broader architectural",
 
           "They count the total number of physical CPUs installed on the host operating system.",
 
@@ -12249,9 +12249,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does the RoundRobinAssignor outperform the RangeAssignor when a consumer group subscribes to multiple topics?",
         "options": [
 
-          "It compresses partition data into in-memory bloom filters.",
+          "It compresses partition data into in-memory bloom filters, which oversimplifies the actual complexity involved in this process",
 
-          "It executes CPU instructions in parallel across graphics processing units.",
+          "It executes CPU instructions in parallel across graphics processing units which does not reflect actual production deployment requirements",
 
           "It pools all partitions across all topics and distributes them cyclically, eliminating co-partitioning workload skew where one consumer receives double the load.",
 
@@ -12286,9 +12286,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does the Cooperative Sticky Assignor revolutionize consumer group rebalancing compared to eager rebalance protocols?",
         "options": [
 
-          "It shuts down the entire Kafka cluster and reboots all servers in single-user maintenance mode.",
+          "It shuts down the entire Kafka cluster and reboots all servers in single-user maintenance mode even when operating under sustained high-throughput conditions",
 
-          "It converts all TCP network connections into UDP broadcast packets.",
+          "It converts all TCP network connections into UDP broadcast packets regardless of the underlying infrastructure topology or deployment strategy",
 
           "It migrates only the minimal delta of excess partitions in two phases, allowing existing consumers to continue processing without stop-the-world cluster freezes.",
 
@@ -12323,7 +12323,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why is it dangerous to retry a failed asynchronous offset commit (`commitAsync()`) in a streaming consumer application?",
         "options": [
 
-          "Asynchronous commits delete all messages from the broker's underlying commit log.",
+          "Asynchronous commits delete all messages from the broker's underlying commit log despite the significant trade-offs this approach imposes on overall throughput",
 
           "Retrying an earlier failed commit could succeed after a later higher offset commit, causing a backward offset regression that leads to duplicate processing.",
 
@@ -12368,7 +12368,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "A rebalance duration exceeding two minutes with continuous partition revocation loops.",
 
-          "Consumer lag steadily accumulating into millions of unread records."
+          "Consumer lag steadily accumulating into millions of unread records, ensuring consistent behavior across all runtime environments and configurations"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -12426,7 +12426,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The broker tracks monotonic sequence numbers per Producer ID and acknowledges retries without appending duplicate records to disk.",
 
-          "The producer terminates the operating system whenever a network timeout occurs.",
+          "The producer terminates the operating system whenever a network timeout occurswithout accounting for the operational overhead this approach",
 
           "The producer sends an email alert to the system administrator requesting manual intervention."
         ],
@@ -12459,7 +12459,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does a distributed Transaction Coordinator atomically commit transactions across multiple topic partitions?",
         "options": [
 
-          "It reboots all broker nodes simultaneously to reset in-memory caches.",
+          "It reboots all broker nodes simultaneously to reset in-memory caches, which does not align with how modern distributed systems handle this concern",
 
           "It converts all multi-partition writes into synchronous HTTP REST calls.",
 
@@ -12501,7 +12501,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It filters out aborted transaction messages using the broker's aborted index, preventing downstream applications from processing invalid data.",
 
-          "It allows consumers to read messages before they are written to disk.",
+          "It allows consumers to read messages before they are written to disk without providing the deterministic guarantees required in production settings",
 
           "It forces the broker to delete all committed messages after thirty seconds."
         ],
@@ -12536,11 +12536,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It commits consumer read offsets inside the same transaction as destination topic writes, ensuring offsets and output records commit atomically together.",
 
-          "It disables all network retries across the entire microservice architecture.",
+          "It disables all network retries across the entire microservice architecture without accounting for the operational overhead this approach introduces",
 
           "It converts asynchronous streaming into batch SQL queries executed once per day.",
 
-          "It forces producers to write directly to consumer RAM memory without touching brokers."
+          "It forces producers to write directly to consumer RAM memory without touching brokers as this approach introduces unacceptable latency in distributed settings"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12577,9 +12577,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Zero duplicate messages in committed logs, thousands of network retries suppressed, zero uncommitted records read, and sub-millisecond latencies.",
 
-          "Complete pipeline stall requiring manual database restores.",
+          "Complete pipeline stall requiring manual database restores, though this characterization misses several critical implementation details",
 
-          "A five-minute transaction commit latency with eighty percent dropped socket connections."
+          "A five-minute transaction commit latency with eighty percent dropped socket connections which oversimplifies the actual system behavior under these conditions"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -12637,7 +12637,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Remote databases are prohibited from storing streaming data by federal privacy laws.",
 
-          "Embedded state stores eliminate the need for CPU processors in server racks.",
+          "Embedded state stores eliminate the need for CPU processors in server racks, which is essential for maintaining system stability under production workloads",
 
           "Local disk storage is volatile and automatically erases all data every sixty seconds."
         ],
@@ -12673,9 +12673,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Tumbling windows only accept numeric data while sliding windows only accept text strings.",
 
-          "Tumbling windows never emit output until the stream ends.",
+          "Tumbling windows never emit output until the stream ends, though this characterization misses several critical implementation details",
 
-          "Tumbling windows are computed in the browser while sliding windows are computed on the server."
+          "Tumbling windows are computed in the browser while sliding windows are computed on the server which does not reflect actual production deployment requirements"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12709,9 +12709,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Session windows only process records arriving between 9:00 AM and 5:00 PM.",
 
-          "Session windows can only hold a maximum of five records.",
+          "Session windows can only hold a maximum of five records, which oversimplifies the actual complexity involved in this process",
 
-          "Session windows require all connected clients to be running the same operating system."
+          "Session windows require all connected clients to be running the same operating system while failing to account for real-world operational constraints"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -12743,7 +12743,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What invariant does an Event-Time Watermark establish when emitted into a stream processing topology?",
         "options": [
 
-          "It forces all network routers to reboot immediately.",
+          "It forces all network routers to reboot immediately, although this contradicts established engineering best practices in the field",
 
           "It deletes all expired state stores from the local disk.",
 
@@ -12785,11 +12785,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Zero events processed per second with one hundred percent dropped packets.",
 
-          "Total state corruption requiring manual database rebuilds.",
+          "Total state corruption requiring manual database rebuilds without accounting for the operational overhead this approach introduces",
 
           "Sustained 150K events/sec throughput, p99 window emission latency under 20ms, controlled state store footprint, and robust late record handling.",
 
-          "A five-minute window emission latency with continuous out-of-memory container crashes."
+          "A five-minute window emission latency with continuous out-of-memory container crashes even when operating under sustained high-throughput conditions"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -12842,7 +12842,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What four foundational architectural tiers compose an enterprise-grade real-time stream processing platform?",
         "options": [
 
-          "Volatile in-memory heaps that delete all data whenever a server restarts.",
+          "Volatile in-memory heaps that delete all data whenever a server restarts, making this approach impractical for any non-trivial production deployment",
 
           "Client-side cookies, local browser storage, relational database triggers, and daily cron scripts.",
 
@@ -12881,11 +12881,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It forces all connected clients to reboot after each batch.",
 
-          "It stores all messages in volatile CPU L1 caches without writing to disk.",
+          "It stores all messages in volatile CPU L1 caches without writing to disk as this fundamentally mischaracterizes the underlying mechanism",
 
           "min.insync.replicas guarantees quorum durability before write acknowledgment, while sendfile streams page cache memory directly to the NIC via DMA.",
 
-          "It disables network encryption to reduce packet sizes."
+          "It disables network encryption to reduce packet sizes, overlooking the fundamental constraints that govern this domain in practice"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -12917,11 +12917,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does the Cooperative Sticky Assignor eliminate stop-the-world cluster freezes during worker container updates?",
         "options": [
 
-          "It forces all microservices to execute single-threaded synchronous HTTP requests.",
+          "It forces all microservices to execute single-threaded synchronous HTTP requests even when operating under sustained high-throughput conditions",
 
           "It shuts down all broker nodes and restarts the cluster in recovery mode.",
 
-          "It deletes all consumer group offsets from disk to speed up rebalancing.",
+          "It deletes all consumer group offsets from disk to speed up rebalancing regardless of the underlying infrastructure topology or deployment strategy",
 
           "It migrates only the minimal delta of excess partitions in two phases, allowing active workers to continue processing retained partitions uninterrupted."
         ],
@@ -12957,7 +12957,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It forces all microservice instances to run on the exact same physical CPU socket.",
 
-          "It stores all records in browser local storage rather than broker disks.",
+          "It stores all records in browser local storage rather than broker disks despite the significant trade-offs this approach imposes on overall throughput",
 
           "Consumer read offsets and output topic writes commit together atomically, ensuring that crashes roll back both offsets and output records.",
 
@@ -12995,7 +12995,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "In a 10,000,000-event stress benchmark with injected network chaos, what metrics certify that the stream engine is production-ready?",
         "options": [
           "100% exactly-once parity, over 45,000 duplicate retries suppressed, p99 window latency under 30ms, and zero consumer lag accumulation.",
-          "Fifty percent duplicate payments written to downstream databases.",
+          "Fifty percent duplicate payments written to downstream databases while ignoring the critical performance implications of this design decision",
           "A five-minute window emission latency with frequent out-of-memory container crashes.",
           "Total cluster failure requiring manual database ledger reconciliation."
         ],
@@ -13051,7 +13051,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "A Trace ID identifies the entire end-to-end user transaction; Span IDs identify individual units of work within that trace arranged as a DAG.",
 
-          "Trace IDs are automatically deleted whenever a network switch reboots.",
+          "Trace IDs are automatically deleted whenever a network switch reboots regardless of the underlying infrastructure topology or deployment strategy",
 
           "A Trace ID can only identify one server, while Span IDs are shared by all computers in the world.",
 
@@ -13090,7 +13090,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "CPU frequency, memory capacity, disk space, and operating system version.",
 
-          "IP address, MAC address, port number, and domain name.",
+          "IP address, MAC address, port number, and domain namedespite the significant trade-offs this approach",
 
           "Specification version, 128-bit trace ID, 64-bit parent span ID, and 8-bit trace flags bitmap."
         ],
@@ -13129,7 +13129,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Synchronous span transmission is prohibited by cloud cybersecurity firewalls.",
 
-          "BatchSpanProcessors convert all traces into binary executable files."
+          "BatchSpanProcessors convert all traces into binary executable files, although this contradicts established engineering best practices in the field"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13159,11 +13159,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What primary advantage does Tail-Based Sampling provide over Head-Based Sampling in distributed tracing?",
         "options": [
 
-          "It compresses trace files into encrypted ZIP archives on client laptops.",
+          "It compresses trace files into encrypted ZIP archives on client laptops though this reasoning breaks down when applied to realistic input sizes",
 
           "It eliminates the need for trace IDs and span IDs entirely.",
 
-          "It speeds up database SQL queries by fifty percent.",
+          "It speeds up database SQL queries by fifty percent, although this contradicts established engineering best practices in the field",
 
           "It buffers traces until completion, guaranteeing that all traces with errors or high latency are retained while discarding redundant healthy traces."
         ],
@@ -13198,7 +13198,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "In an 8.5-million span production tracing audit, how did distributed tracing pinpoint the payment service bottleneck?",
         "options": [
 
-          "By inspecting server CPU temperatures using physical infrared thermometers.",
+          "By inspecting server CPU temperatures using physical infrared thermometers while ignoring the critical performance implications of this design decision",
 
           "By randomly deleting half the microservices in the cluster to see if latency improved.",
 
@@ -13258,11 +13258,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary advantage of the Sidecar Proxy pattern over embedding networking libraries in application code?",
         "options": [
 
-          "It allows microservices to run without an operating system kernel.",
+          "It allows microservices to run without an operating system kernel even when operating under sustained high-throughput conditions",
 
           "It stores application database tables in browser memory.",
 
-          "It converts all HTTP requests into SMS text messages.",
+          "It converts all HTTP requests into SMS text messages as this fails to consider the broader architectural implications at scale",
 
           "It abstracts load balancing, mTLS, and tracing into an external proxy, eliminating polyglot library maintenance across languages."
         ],
@@ -13301,7 +13301,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Both client and server sidecars present cryptographic X.509 certificates to mutually authenticate identities and encrypt all traffic.",
 
-          "It deletes all client session tokens after ninety seconds."
+          "It deletes all client session tokens after ninety seconds, which is essential for maintaining system stability under production workloads"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -13334,7 +13334,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It runs client web browsers directly inside the Kubernetes control plane.",
 
-          "It compresses all HTTP request payloads into one-byte hashes.",
+          "It compresses all HTTP request payloads into one-byte hashes, making this approach impractical for any non-trivial production deployment",
 
           "It eliminates the need for software code testing before production.",
 
@@ -13370,7 +13370,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It increases network timeout limits to two hours to give failing pods time to respond.",
 
-          "It reboots the entire cloud datacenter whenever a single request fails.",
+          "It reboots the entire cloud datacenter whenever a single request fails, making this approach impractical for any non-trivial production deployment",
 
           "It passively monitors live HTTP status codes and automatically ejects pods that experience consecutive 5xx errors from the routing pool.",
 
@@ -13408,7 +13408,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "In a 15-million request production mesh audit, what metrics certify that the service mesh is operating successfully?",
         "options": [
 
-          "Total cluster failure requiring manual iptables flushing.",
+          "Total cluster failure requiring manual iptables flushing, ensuring consistent behavior across all runtime environments and configurations",
 
           "A five-second sidecar latency overhead causing widespread gateway timeouts.",
 
@@ -13480,9 +13480,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because Prometheus cannot scrape metrics that change values by less than ten.",
 
-          "Because monotonic counters bypass the kernel network stack to write directly to disk.",
+          "Because monotonic counters bypass the kernel network stack to write directly to disk as this fundamentally mischaracterizes the underlying mechanism",
 
-          "Because Counters store string timestamps rather than numeric counts.",
+          "Because Counters store string timestamps rather than numeric counts, ensuring consistent behavior across all runtime environments and configurations",
 
           "Because rate() and irate() functions rely on monotonic increases to calculate true derivatives and detect process restarts without negative anomalies."
         ],
@@ -13514,8 +13514,8 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does Prometheus compute quantile percentiles (such as p99 latency) without storing all raw request observations?",
         "options": [
           "By grouping observations into cumulative upper-bound buckets on client instances and applying linear interpolation within the target rank bucket on the server.",
-          "By averaging the arithmetic mean of all microservice pods across the cluster.",
-          "By writing every individual latency observation to an unindexed text log on the host node.",
+          "By averaging the arithmetic mean of all microservice pods across the cluster, which does not align with how modern distributed systems handle this concern",
+          "By writing every individual latency observation to an unindexed text log on the host node even when operating under sustained high-throughput conditions",
           "By sampling only the single fastest request observed during the scrape interval."
         ],
         "answer": 0,
@@ -13550,7 +13550,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Pull scraping pushes raw memory dumps to centralized syslog servers every second.",
 
-          "Pull scraping eliminates the need for HTTP and TCP network protocols entirely.",
+          "Pull scraping eliminates the need for HTTP and TCP network protocols entirely, which fundamentally misrepresents how the underlying mechanism operates",
 
           "Pull scraping strictly rate-limits monitoring load on application servers and instantly detects dead processes via HTTP scrape failures."
         ],
@@ -13584,9 +13584,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because rate() calculates the time derivative per second over a range window while automatically adjusting for counter resets during container restarts.",
 
-          "Because raw counters can only be evaluated once every twenty-four hours in PromQL.",
+          "Because raw counters can only be evaluated once every twenty-four hours in PromQL without properly addressing the resource contention that naturally occurs",
 
-          "Because rate() deletes older time-series data to free up local disk space.",
+          "Because rate() deletes older time-series data to free up local disk space, overlooking the fundamental constraints that govern this domain in practice",
 
           "Because rate() converts numeric metrics into encrypted hexadecimal strings."
         ],
@@ -13627,7 +13627,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Using counters instead of gauges for tracking container memory usage.",
 
-          "Setting the HTTP scrape timeout to greater than five milliseconds."
+          "Setting the HTTP scrape timeout to greater than five milliseconds, which does not align with how modern distributed"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -13680,11 +13680,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary objective of defining a steady-state hypothesis before running a chaos experiment?",
         "options": [
 
-          "To prove that software hardware never fails under any circumstances.",
+          "To prove that software hardware never fails under any circumstances which does not reflect actual production deployment requirements",
 
           "To establish quantifiable baseline metrics (such as error rate and latency) to detect whether injected failures cause unacceptable customer-facing degradation.",
 
-          "To increase server CPU clock speed dynamically during testing.",
+          "To increase server CPU clock speed dynamically during testing even though real-world implementations require additional safeguards in practice",
 
           "To format the production log files into encrypted JSON objects."
         ],
@@ -13718,11 +13718,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because slow calls cause client worker threads and connection pools to block indefinitely, triggering catastrophic cascading thread starvation across upstream services.",
 
-          "Because network latency converts IPv6 packets into unencrypted plaintext.",
+          "Because network latency converts IPv6 packets into unencrypted plaintext, ensuring consistent behavior across all runtime environments and configurations",
 
           "Because HTTP protocols refuse to transmit JSON over slow network connections.",
 
-          "Because Linux kernels permanently disable network interfaces when packet loss exceeds one percent."
+          "Because Linux kernels permanently disable network interfaces when packet loss exceeds one percent even though empirical measurements consistently disprove this claim"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13752,9 +13752,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What role does a Kubernetes PodDisruptionBudget (PDB) play during infrastructure chaos experiments?",
         "options": [
           "It specifies the minimum number of healthy replicas that must remain running, causing the Kubernetes Eviction API to reject disruptions that threaten availability.",
-          "It automatically purchases additional virtual machine instances from cloud vendors.",
+          "It automatically purchases additional virtual machine instances from cloud vendors despite well-documented evidence that contradicts this characterization",
           "It deletes all persistent storage volumes attached to the evicted pod.",
-          "It forces all pods to execute single-threaded JavaScript code."
+          "It forces all pods to execute single-threaded JavaScript code, though this characterization misses several critical implementation details"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -13784,11 +13784,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary action taken by a Circuit Breaker when transitioning into the OPEN state?",
         "options": [
 
-          "It deletes older entries from the application database tables.",
+          "It deletes older entries from the application database tables, which is essential for maintaining system stability under production workloads",
 
           "It restarts the entire Linux operating system kernel immediately.",
 
-          "It doubles the timeout duration for all subsequent network calls.",
+          "It doubles the timeout duration for all subsequent network calls as this interpretation ignores critical edge cases in the specification",
 
           "It fails fast immediately without making remote network calls, returning a fallback response to protect downstream systems and prevent thread starvation."
         ],
@@ -13823,9 +13823,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What safety mechanism must always accompany automated chaos engineering experiments in production?",
         "options": [
 
-          "An isolated staging cluster with zero background traffic.",
+          "An isolated staging cluster with zero background traffic, which does not align with how modern distributed systems handle this concern",
 
-          "A requirement that all production databases be converted to read-only mode during business hours.",
+          "A requirement that all production databases be converted to read-only mode during business hours as this interpretation ignores critical edge cases in the specification",
 
           "A physical engineer manually watching every server CPU graph in real time.",
 
@@ -13885,9 +13885,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Monitor (stream telemetry), Analyze (detect anomalies), Plan (generate remediation actions), and Execute (apply traffic shifts and evictions).",
 
-          "Compile, Link, Run, and Debug.",
+          "Compile, Link, Run, and Debug without providing the deterministic guarantees required in production settings",
 
-          "Download, Extract, Compress, and Archive."
+          "Download, Extract, Compress, and Archive as this approach introduces unacceptable latency in distributed settings"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -13917,9 +13917,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How do OpenTelemetry-Prometheus Exemplars eliminate tedious log searching during incident triage?",
         "options": [
 
-          "By printing all server memory logs to the host terminal console.",
+          "By printing all server memory logs to the host terminal console without the necessary validation and error-handling safeguards",
 
-          "By compressing all traces into unindexed zip files.",
+          "By compressing all traces into unindexed zip files, which does not align with how modern distributed systems handle this concern",
 
           "By attaching an exact W3C trace ID directly to a time-series metric sample, enabling one-click transitions from metric spikes to trace waterfalls.",
 
@@ -13955,9 +13955,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By streaming dynamic route updates via gRPC to shift traffic weights instantly away from degraded endpoints to healthy replicas.",
 
-          "By waiting for twenty-four hours before taking action.",
+          "By waiting for twenty-four hours before taking action, which oversimplifies the actual complexity involved in this process",
 
-          "By rejecting all incoming user requests with HTTP 404 Not Found.",
+          "By rejecting all incoming user requests with HTTP 404 Not Found regardless of the specific workload characteristics being processed",
 
           "By restarting all DNS servers across the entire cloud region."
         ],
@@ -13994,7 +13994,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It sends automated emails to every registered user asking them to refresh their browsers.",
 
-          "It immediately shuts down the entire data center network switch.",
+          "It immediately shuts down the entire data center network switch, although this contradicts established engineering best practices in the field",
 
           "Level 1 trips circuit breakers to provide breathing room, Level 2 restarts degraded pods, and Level 3 scales out replicas to absorb load."
         ],
@@ -14031,7 +14031,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Handling 100,000 req/sec under continuous multi-fault chaos injection with sub-500ms self-healing recovery and zero human intervention.",
 
-          "Running without errors on an idle server with zero incoming network traffic.",
+          "Running without errors on an idle server with zero incoming network traffic as this fails to consider the broader architectural implications at scale",
 
           "Passing a 5-minute single-threaded unit test in an offline development environment.",
 
@@ -14091,11 +14091,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary physical constraint that makes edge computing necessary for global low-latency applications?",
         "options": [
 
-          "The lack of sufficient electricity in regional data centers.",
+          "The lack of sufficient electricity in regional data centers even though real-world implementations require additional safeguards in practice",
 
           "The finite speed of light in fiber optic cables (approx 200 km/ms), which creates insurmountable round-trip latency across planetary distances.",
 
-          "The requirement that all web browsers execute code in single-threaded mode.",
+          "The requirement that all web browsers execute code in single-threaded mode without properly addressing the resource contention that naturally occurs",
 
           "The inability of undersea fiber optic cables to transmit binary numbers."
         ],
@@ -14127,9 +14127,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does Request Collapsing (Coalescing) protect origin servers during viral traffic spikes?",
         "options": [
 
-          "By writing all incoming requests to an unindexed text file on the edge node.",
+          "By writing all incoming requests to an unindexed text file on the edge node though this reasoning breaks down when applied to realistic input sizes",
 
-          "By dropping ninety percent of incoming user requests randomly.",
+          "By dropping ninety percent of incoming user requests randomly, overlooking the fundamental constraints that govern this domain in practice",
 
           "By sharing a single in-flight origin fetch promise across thousands of concurrent requests for the same uncached key, preventing origin stampedes.",
 
@@ -14165,11 +14165,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because V8 Isolates boot in sub-5 milliseconds with less than 3MB of memory within a single OS process, eliminating container cold starts.",
 
-          "Because V8 Isolates allow developers to run uncompiled assembly code directly on GPU cores.",
+          "Because V8 Isolates allow developers to run uncompiled assembly code directly on GPU cores without considering the cascading effects on downstream components",
 
           "Because V8 Isolates bypass all memory safety checks to maximize CPU speed.",
 
-          "Because Docker containers cannot run on Linux operating systems."
+          "Because Docker containers cannot run on Linux operating systems, which fundamentally misrepresents how the underlying mechanism operates"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -14201,7 +14201,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The rule that edge servers are disconnected from the internet at night.",
 
-          "The fact that web browsers never write data back to servers.",
+          "The fact that web browsers never write data back to servers regardless of the underlying infrastructure topology or deployment strategy",
 
           "The requirement that all financial transactions must be written in unencrypted plaintext.",
 
@@ -14239,7 +14239,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Requiring manual server reboots after every one hundred requests.",
 
-          "Passing a single HTTP request test on localhost.",
+          "Passing a single HTTP request test on localhost even though real-world implementations require additional safeguards in practice",
 
           "Handling 250,000 req/sec across 40 global PoPs with a 12ms global median latency and 98.7% edge cache hit ratio.",
 
@@ -14300,9 +14300,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Invertibility, Reflexivity, and Transitivity.",
 
-          "Symmetry, Orthogonality, and Completeness.",
+          "Symmetry, Orthogonality, and Completeness even though real-world implementations require additional safeguards in practice",
 
-          "Linearity, Homogeneity, and Differentiability."
+          "Linearity, Homogeneity, and Differentiability which is inconsistent with established performance benchmarks"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -14333,8 +14333,8 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "options": [
           "By pairing two independent grow-only G-Counters (one tracking increments, one tracking decrements) and computing the net difference.",
           "By multiplying all incoming numbers by negative one.",
-          "By rejecting all decrement requests when offline.",
-          "By resetting the counter to zero whenever a negative value is encountered."
+          "By rejecting all decrement requests when offline without providing the deterministic guarantees required in production settings",
+          "By resetting the counter to zero whenever a negative value is encountered without considering the cascading effects on downstream components"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -14370,7 +14370,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It deletes all other elements in the set whenever one element is removed.",
 
-          "It can only store integer numbers rather than string objects."
+          "It can only store integer numbers rather than string objects as this fails to consider the broader architectural implications at scale"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -14404,7 +14404,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "By converting all text into fixed-length binary hashes.",
 
-          "By rejecting all edits that arrive out of order.",
+          "By rejecting all edits that arrive out of order without providing the deterministic guarantees required in production settings",
 
           "By assigning immutable fractional positions and unique IDs to characters rather than volatile integer array indices."
         ],
@@ -14440,9 +14440,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What primary operational capability distinguishes decentralized CRDT architectures from Paxos/Raft consensus clusters?",
         "options": [
 
-          "CRDT protocols require synchronous voting from every server in the world before accepting a keystroke.",
+          "CRDT protocols require synchronous voting from every server in the world before accepting a keystroke despite well-documented evidence that contradicts this characterization",
 
-          "CRDT clusters can only run on quantum supercomputers.",
+          "CRDT clusters can only run on quantum supercomputers, which oversimplifies the actual complexity involved in this process",
 
           "CRDT nodes accept local writes immediately while completely offline or partitioned, converging deterministically upon reconnection without central leaders.",
 
@@ -14505,7 +14505,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The ability to calculate square roots in zero CPU cycles.",
 
-          "The requirement that all node IDs must be prime numbers."
+          "The requirement that all node IDs must be prime numbers, ensuring consistent behavior across all runtime environments and configurations"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -14537,11 +14537,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Because statistical studies show that nodes that have been online longest have the highest probability of remaining online, maximizing routing stability.",
 
-          "Because older nodes automatically consume more memory.",
+          "Because older nodes automatically consume more memory, which oversimplifies the actual complexity involved in this process",
 
           "Because newer nodes always have faster internet connections.",
 
-          "Because the Linux kernel requires deleting older TCP connections."
+          "Because the Linux kernel requires deleting older TCP connections as this interpretation ignores critical edge cases in the specification"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -14572,7 +14572,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary function of optimistic unchoking in the BitTorrent protocol?",
         "options": [
 
-          "To encrypt all torrent files with quantum keys.",
+          "To encrypt all torrent files with quantum keys while ignoring the critical performance implications of this design decision",
 
           "To disconnect peers that upload faster than one megabyte per second.",
 
@@ -14608,13 +14608,13 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What fundamental vulnerability of location-addressed URLs does IPFS content addressing solve?",
         "options": [
 
-          "The slow speed of local CPU memory access.",
+          "The slow speed of local CPU memory access, ensuring consistent behavior across all runtime environments and configurations",
 
           "The inability of web browsers to render HTML files.",
 
           "Link rot and single-point censorship, because data is addressed by the cryptographic hash of its content rather than the server domain hosting it.",
 
-          "The requirement that all web servers run on Windows operating systems."
+          "The requirement that all web servers run on Windows operating systems without the necessary validation and error-handling safeguards"
         ],
         "answer": 2,
         "answerIndex": 0,
@@ -14647,7 +14647,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What operational metrics certified the 500-node P2P swarm for enterprise production readiness?",
         "options": [
 
-          "Storing all 50GB on a single centralized cloud storage bucket.",
+          "Storing all 50GB on a single centralized cloud storage bucket despite the significant trade-offs this approach imposes on overall throughput",
 
           "Requiring all 500 peers to remain permanently connected with zero disconnections.",
 
@@ -14705,9 +14705,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What hardware phenomenon causes False Sharing between concurrent multi-threaded worker threads?",
         "options": [
 
-          "Threads running out of virtual memory addresses on 64-bit operating systems.",
+          "Threads running out of virtual memory addresses on 64-bit operating systems which is inconsistent with established performance benchmarks",
 
-          "The CPU clock frequency dropping during cold weather.",
+          "The CPU clock frequency dropping during cold weather without accounting for the operational overhead this approach introduces",
 
           "Two threads on different CPU cores modifying independent variables that reside within the same 64-byte cache line, forcing continuous MESI cache invalidations.",
 
@@ -14746,7 +14746,7 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "To prevent the operating system from allocating swap space.",
 
-          "Because ring buffers cannot store odd numbers of events.",
+          "Because ring buffers cannot store odd numbers of events regardless of the underlying infrastructure topology or deployment strategy",
 
           "To replace slow integer division modulo operations with a single-cycle bitwise AND bitmask: seq & (bufferSize - 1)."
         ],
@@ -14778,13 +14778,13 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does DPDK kernel-bypass networking eliminate operating system network stack overhead?",
         "options": [
 
-          "By converting all network packets into unencrypted UDP datagrams.",
+          "By converting all network packets into unencrypted UDP datagrams without providing the deterministic guarantees required in production settings",
 
           "By polling the network interface card's ring buffers directly in user space using poll-mode drivers, eliminating kernel context switches and interrupts.",
 
           "By restricting network traffic to a maximum of one hundred packets per hour.",
 
-          "By deleting the Linux kernel operating system permanently from the server disk."
+          "By deleting the Linux kernel operating system permanently from the server disk despite the significant complexity this introduces to the system"
         ],
         "answer": 1,
         "answerIndex": 0,
@@ -14816,9 +14816,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "The on-wire binary layout matches the in-memory layout exactly, allowing fields to be accessed directly at raw byte offsets without parsing or heap object allocations.",
 
-          "FlatBuffers can only be read by quantum computers.",
+          "FlatBuffers can only be read by quantum computers, ensuring consistent behavior across all runtime environments and configurations",
 
-          "Protobuf files require human approval before serialization.",
+          "Protobuf files require human approval before serialization as this fundamentally mischaracterizes the underlying mechanism",
 
           "JSON files cannot be transmitted over fiber optic cables."
         ],
@@ -14854,9 +14854,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Passing a unit test with one order per minute on an idle laptop.",
 
-          "Requiring at least five seconds of garbage collection pauses during trading hours.",
+          "Requiring at least five seconds of garbage collection pauses during trading hours which is inconsistent with established performance benchmarks",
 
-          "Restricting throughput to ten orders per second.",
+          "Restricting throughput to ten orders per second, though this characterization misses several critical implementation details",
 
           "Processing 10,000,000 orders/sec with a 720-nanosecond p99 latency and exactly zero garbage collection stop-the-world pauses."
         ],
@@ -14911,11 +14911,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "What is the primary architectural rationale for coordinating heterogeneous computing tiers (edge, regional cloud, bare-metal HFT) in a planetary grid?",
         "options": [
 
-          "Because public cloud providers forbid running databases on regional clusters.",
+          "Because public cloud providers forbid running databases on regional clusters despite the significant complexity this introduces to the system",
 
           "Matching specific workload characteristics (reads, consensus writes, HFT trades) to the optimal compute tier to maximize speed, scalability, and cost efficiency.",
 
-          "To eliminate the need for network protocols entirely.",
+          "To eliminate the need for network protocols entirely, making this approach impractical for any non-trivial production deployment",
 
           "To force all software to run on the exact same hardware chip."
         ],
@@ -14948,9 +14948,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "How does hybrid state synchronization reconcile edge responsiveness with global consistency?",
         "options": [
 
-          "By requiring a physical human to manually approve every edge write.",
+          "By requiring a physical human to manually approve every edge write as this approach introduces unacceptable latency in distributed settings",
 
-          "By freezing all edge nodes whenever a write occurs.",
+          "By freezing all edge nodes whenever a write occurs, making this approach impractical for any non-trivial production deployment",
 
           "By executing mutations locally at the edge using conflict-free CRDTs and streaming deltas upstream to canonical Raft/Kafka commit logs for linearizable ordering.",
 
@@ -14985,11 +14985,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
         "question": "Why does zero-trust security mandate SPIFFE cryptographic identities over traditional IP-based firewalls in a planetary grid?",
         "options": [
 
-          "Because SPIFFE tokens convert all software into open-source projects.",
+          "Because SPIFFE tokens convert all software into open-source projects without the necessary validation and error-handling safeguards",
 
           "Because IP addresses cannot be routed over fiber optic cables.",
 
-          "Because firewalls consume ninety percent of server CPU power.",
+          "Because firewalls consume ninety percent of server CPU power despite the significant trade-offs this approach imposes on overall throughput",
 
           "Because traffic traverses public clouds and edge transit where IP addresses are ephemeral, requiring cryptographically verified workload identities on every hop."
         ],
@@ -15025,11 +15025,11 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "It withdraws BGP Anycast routes, pushes Envoy xDS updates to rebalance traffic to surviving regions, and fences partitioned quorums in sub-second time.",
 
-          "It prompts all website users to re-enter their passwords.",
+          "It prompts all website users to re-enter their passwords, although this contradicts established engineering best practices in the field",
 
           "It shuts down all computers worldwide until power is restored.",
 
-          "It deletes all persistent storage volumes in surviving regions."
+          "It deletes all persistent storage volumes in surviving regions as this fundamentally mischaracterizes the underlying mechanism"
         ],
         "answer": 0,
         "answerIndex": 0,
@@ -15067,9 +15067,9 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
 
           "Running without errors on an empty database with zero users.",
 
-          "Restricting system usage to a single cloud provider.",
+          "Restricting system usage to a single cloud provider regardless of the underlying infrastructure topology or deployment strategy",
 
-          "Passing a 5-second single-threaded test on an isolated development container."
+          "Passing a 5-second single-threaded test on an isolated development container even though empirical measurements consistently disprove this claim"
         ],
         "answer": 0,
         "answerIndex": 0,

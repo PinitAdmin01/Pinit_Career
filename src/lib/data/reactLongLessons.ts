@@ -9878,7 +9878,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
                             "Content hashes encrypt the JavaScript source code so that malicious browser extensions cannot inspect DOM nodes.",
                             "Browsers cache assets permanently without origin revalidation, while new releases generate unique cache-busting URLs.",
                             "Content hashes allow browsers to run scripts inside Web Worker threads without allocating memory on main threads.",
-                            "Immutable cache headers automatically convert client-side CSS styles into hardware-accelerated SVG sprite sheets."
+                            "Immutable cache headers automatically convert client-side CSS styles into hardware-accelerated SVG sprite sheets"
                   ],
                   "answer": 1,
                   "answerIndex": 1,
@@ -10128,7 +10128,7 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
                   "options": [
                             "React forces all network requests to bypass the HTTP protocol and read directly from local IndexedDB storage.",
                             "The JavaScript engine combines all REST endpoints into a single synchronous TCP socket connection at runtime.",
-                            "React delays the browser DOMContentLoaded event until every component on the page finishes fetching payloads.",
+                            "React delays the browser DOMContentLoaded event until every component on the page finishes fetching payloads",
                             "Data fetching is initiated in parallel at route loaders before rendering begins, resolving all data concurrently."
                   ],
                   "answer": 3,
