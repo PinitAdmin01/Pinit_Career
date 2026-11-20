@@ -217,3 +217,18 @@ test('Task 5: ProjectActivityJourney renders honest visual lesson milestones ("D
   assert.ok(html.includes('Verified Visual Log:'), 'SSR output must display visual log strip');
   assert.ok(html.includes('Capstone Gate'), 'SSR output must display Capstone Gate milestone node');
 });
+
+test('Task 6: ProjectActivityJourney is positioned at the end of the Projects page layout', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const pageContent = fs.readFileSync(path.join(__dirname, '../src/app/projects/page.tsx'), 'utf-8');
+
+  const journeyIdx = pageContent.lastIndexOf('<ProjectActivityJourney');
+  const pathwayNavIdx = pageContent.indexOf('data-testid="pathway-card-certification"');
+  const activeWorkspaceIdx = pageContent.indexOf('selectedGuideProject.status === \'Completed\'');
+
+  assert.ok(journeyIdx > 0, 'ProjectActivityJourney must be present in page.tsx');
+  assert.ok(pathwayNavIdx > 0, 'Pathway sub-tab navigation must be present in page.tsx');
+  assert.ok(journeyIdx > pathwayNavIdx, 'ProjectActivityJourney must be positioned AFTER the pathway navigation');
+  assert.ok(journeyIdx > activeWorkspaceIdx, 'ProjectActivityJourney must be positioned at the last of the project content flow');
+});

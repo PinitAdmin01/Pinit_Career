@@ -1126,16 +1126,6 @@ function ProjectsPageContent() {
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
-      {/* ── VISUAL LESSON & BUILD JOURNEY (REAL TELEMETRY MILESTONES) ── */}
-      <ProjectActivityJourney
-        courseTitle={activeCourse.title}
-        completedQuests={completedQuests || []}
-        matchedCourseQuests={selectedPathway === 'standalone' ? standaloneMatchedQuests : certMatchedQuests}
-        completedMissions={cOS.completedMissions || []}
-        missionStreak={cOS.missionStreak || 0}
-        projects={projects}
-      />
-
       {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
       <div
         style={{
@@ -2398,6 +2388,18 @@ function ProjectsPageContent() {
 
         </div>
       )}
+
+      {/* ── VISUAL LESSON & BUILD JOURNEY (REAL TELEMETRY MILESTONES - MOVED TO LAST) ── */}
+      <div style={{ marginTop: 28 }}>
+        <ProjectActivityJourney
+          courseTitle={activeCourse.title}
+          completedQuests={completedQuests || []}
+          matchedCourseQuests={selectedPathway === 'standalone' ? standaloneMatchedQuests : certMatchedQuests}
+          completedMissions={cOS.completedMissions || []}
+          missionStreak={cOS.missionStreak || 0}
+          projects={projects}
+        />
+      </div>
 
       {/* AI Verification Loader Overlay */}
       {verifying && (
