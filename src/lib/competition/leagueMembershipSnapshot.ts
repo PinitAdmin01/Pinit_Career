@@ -14,14 +14,14 @@ export function isConfirmedLeagueMembershipCacheValue(value: string | null): boo
 
 /**
  * Decide whether a successful, account-specific server snapshot can be applied.
- * The caller rejects responses from another account and responses that started
- * before a membership change. Once those freshness checks pass, the server is
- * authoritative in both directions so stale browser storage cannot claim that
- * a user is enrolled when the persisted profile is not.
+ * A successful join is persisted and there is no user-facing leave flow, so a
+ * later negative snapshot must not undo that confirmed state (for example, if
+ * the read comes from a lagging replica). New users still follow the server.
  */
 export function shouldApplyLeagueMembershipSnapshot(
   userId: string,
   serverJoined: boolean,
+  hasConfirmedMembership = false,
 ): boolean {
-  return Boolean(userId.trim()) && typeof serverJoined === 'boolean';
+  return Boolean(userId.trim()) && typeof serverJoined === 'boolean' && (serverJoined || !hasConfirmedMembership);
 }

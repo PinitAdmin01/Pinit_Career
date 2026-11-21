@@ -546,6 +546,15 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
             if (typeof res.pinsTotal === 'number' && Number.isFinite(res.pinsTotal)) {
               save(keys.pins, res.pinsTotal);
             }
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+                detail: {
+                  user_id: userId,
+                  ...(typeof res.xpTotal === 'number' ? { xp_total: res.xpTotal } : {}),
+                  ...(typeof res.weeklyXp === 'number' ? { weekly_xp: res.weeklyXp } : {}),
+                },
+              }));
+            }
           }
         })
         .catch((err: unknown) => {

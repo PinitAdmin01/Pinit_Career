@@ -159,11 +159,12 @@ export async function GET(req: Request) {
     // client that a failed database read is proof the user has not joined.
     let currentUserHasJoined: boolean | null = null;
     let currentUserTotalXp = 0;
+    let currentUserStats: { weeklyXp: number; arenaPoints: number; arenaElo: number } | null = null;
     if (currentUserId && admin) {
       try {
         const { data: userProfile, error: userProfileError } = await admin
           .from('users')
-          .select('league_tier, league_joined_at, xp_total')
+          .select('league_tier, league_joined_at, xp_total, weekly_xp, weekly_arena_points, arena_elo, arena_wins')
           .eq('id', currentUserId)
           .maybeSingle();
 
@@ -173,6 +174,17 @@ export async function GET(req: Request) {
           currentUserHasJoined = Boolean(userProfile?.league_joined_at);
           const parsedTotalXp = Number(userProfile?.xp_total);
           currentUserTotalXp = Number.isFinite(parsedTotalXp) ? Math.max(0, parsedTotalXp) : 0;
+          const storedElo = userProfile?.arena_elo === null || userProfile?.arena_elo === undefined
+            ? Number.NaN
+            : Number(userProfile.arena_elo);
+          const arenaElo = !Number.isFinite(storedElo) || storedElo < 0 || (storedElo === 1200 && !(Number(userProfile?.arena_wins) > 0))
+            ? 100
+            : storedElo;
+          currentUserStats = {
+            weeklyXp: Math.max(0, Number(userProfile?.weekly_xp) || 0),
+            arenaPoints: Math.max(0, Number(userProfile?.weekly_arena_points) || 0),
+            arenaElo,
+          };
           if (userProfile?.league_tier && validLeagues.has(userProfile.league_tier.toLowerCase() as LeagueTier)) {
             currentUserLeague = userProfile.league_tier.toLowerCase() as LeagueTier;
           }
@@ -635,8 +647,10 @@ export async function GET(req: Request) {
       mode,
       activeLeague,
       currentUserLeague,
+      currentUserId,
       currentUserHasJoined,
       currentUserTotalXp,
+      currentUserStats,
       leaderboard: entries,
       guilds,
       totalCount: entries.length,

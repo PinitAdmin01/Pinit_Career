@@ -16,11 +16,11 @@ test('accepts a positive server membership confirmation', () => {
   assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', true), true);
 });
 
-test('a fresh server response removes a stale local membership confirmation', () => {
-  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false), true);
+test('a negative snapshot cannot undo a server-confirmed join', () => {
+  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false, true), false);
 });
 
-test('a fresh server response can reconcile a previously confirmed join', () => {
+test('a negative snapshot can reconcile a user without a confirmed join', () => {
   assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false), true);
 });
 

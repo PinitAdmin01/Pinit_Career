@@ -28,6 +28,7 @@ import {
   createCombatEvent,
 } from '@/lib/arena/codeWarRules';
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
+import { isConfirmedLeagueMembershipCacheValue } from '@/lib/competition/leagueMembershipSnapshot';
 import styles from '../competition-experience.module.css';
 
 const MonacoEditor = dynamic(
@@ -77,12 +78,25 @@ function ArenaContent() {
   // Live ELO state with instant cache hydration (Baseline 100)
   const [liveElo, setLiveElo] = useState<number | null>(null);
   const [arenaStanding, setArenaStanding] = useState<{
+    userId: string | null;
     rank: number | null;
     league: string;
     weeklyXp: number;
+    weeklyArenaPoints: number;
     careerXp: number;
     joined: boolean;
-  }>({ rank: null, league: 'browns', weeklyXp: 0, careerXp: 0, joined: false });
+  }>({ userId: null, rank: null, league: 'browns', weeklyXp: 0, weeklyArenaPoints: 0, careerXp: 0, joined: false });
+
+  useEffect(() => {
+    if (!user?.id || typeof window === 'undefined') return;
+    try {
+      const cachedMembership = localStorage.getItem(`pinit_joined_league_${user.id}`);
+      if (!isConfirmedLeagueMembershipCacheValue(cachedMembership)) return;
+      setArenaStanding(previous => previous.userId === user.id && previous.joined
+        ? previous
+        : { ...previous, userId: user.id, joined: true });
+    } catch {}
+  }, [user?.id]);
   const [cachedElo, setCachedElo] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const saved = Number(localStorage.getItem(`pinit_user_elo_${studentId}`));
@@ -114,6 +128,8 @@ function ArenaContent() {
   // Synchronize dynamic profile events across tabs and contexts
   useEffect(() => {
     const handleProfileUpdate = (e: any) => {
+      const eventUserId = typeof e?.detail?.user_id === 'string' ? e.detail.user_id : null;
+      if (eventUserId && eventUserId !== user?.id) return;
       const incomingElo = typeof e?.detail?.arena_elo === 'number'
         ? e.detail.arena_elo
         : (typeof e?.detail?.elo === 'number' ? e.detail.elo : null);
@@ -125,7 +141,7 @@ function ArenaContent() {
       window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
       return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
     }
-  }, []);
+  }, [user?.id]);
 
   // Solo Sparring Match Settlement Reward State
   const [soloReward, setSoloReward] = useState<{
@@ -237,8 +253,17 @@ function ArenaContent() {
   }, [searchParams, activeRoom, soloMatch]);
 
   // In-battle state
-  const [language, setLanguage] = useState<'typescript' | 'python' | 'java'>('typescript');
+  const [language, setLanguage] = useState<'typescript' | 'python' | 'java'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(`pinit_arena_language_${studentId}`);
+      if (saved === 'typescript' || saved === 'python' || saved === 'java') return saved;
+    }
+    return 'typescript';
+  });
   const [code, setCode] = useState<string>('');
+  const codeDraftsRef = useRef<Record<string, string>>({});
+  const [isAnswerPadOpen, setIsAnswerPadOpen] = useState(false);
+  const [answerScratchpad, setAnswerScratchpad] = useState('');
   const [timeRemaining, setTimeRemaining] = useState<number>(600);
   const [isRunningTests, setIsRunningTests] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -284,7 +309,7 @@ function ArenaContent() {
 
   useEffect(() => {
     if (!user?.id) {
-      setArenaStanding({ rank: null, league: 'browns', weeklyXp: 0, careerXp: Math.max(0, Number(xp) || 0), joined: false });
+      setArenaStanding({ userId: null, rank: null, league: 'browns', weeklyXp: 0, weeklyArenaPoints: 0, careerXp: Math.max(0, Number(xp) || 0), joined: false });
       return;
     }
 
@@ -304,17 +329,27 @@ function ArenaContent() {
         const response = await fetch(`/api/leaderboard?${params.toString()}`, { headers, cache: 'no-store' });
         if (!response.ok) return;
         const data = await response.json();
-        if (cancelled || !data?.ok) return;
+        if (cancelled || !data?.ok || data.currentUserId !== user.id) return;
 
-        const standingElo = Number(data.currentUser?.eloRating);
+        const stats = data.currentUserStats || {};
+        const standingElo = Number(data.currentUser?.eloRating ?? stats.arenaElo);
         if (Number.isFinite(standingElo) && standingElo > 0) setLiveElo(standingElo);
 
-        setArenaStanding({
-          rank: data.currentUserHasJoined && Number.isFinite(Number(data.currentUser?.rank)) ? Number(data.currentUser.rank) : null,
-          league: typeof data.currentUserLeague === 'string' ? data.currentUserLeague : 'browns',
-          weeklyXp: Math.max(0, Number(data.currentUser?.weeklyXp) || 0),
-          careerXp: Math.max(0, Number(data.currentUserTotalXp) || Number(xp) || 0),
-          joined: Boolean(data.currentUserHasJoined),
+        setArenaStanding(previous => {
+          const sameAccount = previous.userId === user.id;
+          const joined = Boolean(data.currentUserHasJoined || (sameAccount && previous.joined) || (user as any)?.league_joined_at);
+          const serverRank = Number(data.currentUser?.rank);
+          return {
+            userId: user.id,
+            rank: joined
+              ? (data.currentUserHasJoined && Number.isFinite(serverRank) ? serverRank : sameAccount ? previous.rank : null)
+              : null,
+            league: typeof data.currentUserLeague === 'string' ? data.currentUserLeague : 'browns',
+            weeklyXp: Math.max(0, Number(stats.weeklyXp ?? data.currentUser?.weeklyXp) || 0),
+            weeklyArenaPoints: Math.max(0, Number(stats.arenaPoints ?? data.currentUser?.arenaPoints) || 0),
+            careerXp: Math.max(0, Number(data.currentUserTotalXp) || Number(xp) || 0),
+            joined,
+          };
         });
       } catch {
         // Keep the fast local profile values visible if the standings endpoint is unavailable.
@@ -328,6 +363,7 @@ function ArenaContent() {
     };
     const handleProfileUpdate = (event: Event) => {
       const detail = (event as CustomEvent<Record<string, unknown>>).detail || {};
+      if (typeof detail.user_id === 'string' && detail.user_id !== user.id) return;
       const updatedElo = typeof detail.arena_elo === 'number'
         ? detail.arena_elo
         : typeof detail.elo === 'number' ? detail.elo : null;
@@ -337,13 +373,20 @@ function ArenaContent() {
       const updatedCareerXp = typeof detail.xp_total === 'number'
         ? detail.xp_total
         : typeof detail.totalXp === 'number' ? detail.totalXp : typeof detail.xp === 'number' ? detail.xp : null;
+      const updatedArenaPoints = typeof detail.weekly_arena_points === 'number'
+        ? detail.weekly_arena_points
+        : typeof detail.arenaPoints === 'number' ? detail.arenaPoints : null;
+      const confirmedJoin = typeof detail.league_joined_at === 'string' && detail.league_joined_at.length > 0;
 
       if (updatedElo !== null && Number.isFinite(updatedElo)) setLiveElo(updatedElo);
-      if ((updatedWeeklyXp !== null && Number.isFinite(updatedWeeklyXp)) || (updatedCareerXp !== null && Number.isFinite(updatedCareerXp))) {
+      if ((updatedWeeklyXp !== null && Number.isFinite(updatedWeeklyXp)) || (updatedCareerXp !== null && Number.isFinite(updatedCareerXp)) || (updatedArenaPoints !== null && Number.isFinite(updatedArenaPoints)) || confirmedJoin) {
         setArenaStanding(previous => ({
           ...previous,
+          userId: user.id,
           weeklyXp: updatedWeeklyXp !== null && Number.isFinite(updatedWeeklyXp) ? Math.max(0, updatedWeeklyXp) : previous.weeklyXp,
+          weeklyArenaPoints: updatedArenaPoints !== null && Number.isFinite(updatedArenaPoints) ? Math.max(0, updatedArenaPoints) : previous.weeklyArenaPoints,
           careerXp: updatedCareerXp !== null && Number.isFinite(updatedCareerXp) ? Math.max(0, updatedCareerXp) : previous.careerXp,
+          joined: confirmedJoin || (previous.userId === user.id && previous.joined),
         }));
       }
       refreshWhenVisible();
@@ -387,6 +430,62 @@ function ArenaContent() {
 
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || (selectedProblemId !== 'auto' ? selectedProblemId : ''))) || problems[0];
+
+  const handleLanguageChange = (nextLanguage: 'typescript' | 'python' | 'java') => {
+    if (nextLanguage === language) return;
+    if (activeProblem) codeDraftsRef.current[`${activeProblem.id}:${language}`] = code;
+    setLanguage(nextLanguage);
+    try {
+      localStorage.setItem(`pinit_arena_language_${studentId}`, nextLanguage);
+    } catch {}
+  };
+
+  const handleEditorCodeChange = (nextCode: string) => {
+    setCode(nextCode);
+    if (activeProblem) codeDraftsRef.current[`${activeProblem.id}:${language}`] = nextCode;
+  };
+
+  const resetEditorCode = () => {
+    if (!activeProblem) return;
+    const starter = activeProblem.starterCode[language] || activeProblem.starterCode.typescript || '';
+    codeDraftsRef.current[`${activeProblem.id}:${language}`] = starter;
+    setCode(starter);
+  };
+
+  const copyScratchpad = async () => {
+    if (!answerScratchpad.trim()) {
+      toast.error('Nothing to copy', 'Add or paste an answer into the temporary pad first.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(answerScratchpad);
+      toast.success('Answer copied', 'The temporary answer is ready to paste.');
+    } catch {
+      toast.error('Could not copy answer', 'Allow clipboard access, then try again.');
+    }
+  };
+
+  const copyEditorAnswer = async () => {
+    if (!code.trim()) {
+      toast.error('Nothing to copy', 'The editor is empty.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(code);
+      toast.success('Editor answer copied', 'Your current code is on the clipboard.');
+    } catch {
+      toast.error('Could not copy answer', 'Allow clipboard access, then try again.');
+    }
+  };
+
+  const useScratchpadInEditor = () => {
+    if (!answerScratchpad.trim()) {
+      toast.error('Answer pad is empty', 'Paste or write code in the temporary pad first.');
+      return;
+    }
+    handleEditorCodeChange(answerScratchpad);
+    toast.success('Answer moved to editor', 'Run the tests when you are ready.');
+  };
 
   // Latest versions of handlers used inside effects. They are recreated on every render; reading them
   // through refs keeps the effects below from restarting on each render (assigned after their definitions).
@@ -485,30 +584,12 @@ function ArenaContent() {
     }
   }, [activeRoom?.events, studentId]);
 
-  // Synchronize player editor language to active room slot when entering match
-  useEffect(() => {
-    if (!activeRoom) return;
-    const onHostDevice = Boolean(combatantDeviceId && activeRoom.hostDeviceId === combatantDeviceId);
-    const onGuestDevice = Boolean(combatantDeviceId && activeRoom.guestDeviceId === combatantDeviceId);
-    const isHost = onHostDevice || (!onGuestDevice && activeRoom.hostId === studentId);
-    const isGuest = onGuestDevice || (!onHostDevice && (activeRoom.guestId === studentId || activeRoom.guestId === `${studentId}_challenger`));
-    const targetSlotLang = isHost
-      ? activeRoom.hostLanguage
-      : isGuest
-      ? activeRoom.guestLanguage
-      : undefined;
-
-    if (targetSlotLang && (targetSlotLang === 'python' || targetSlotLang === 'typescript' || targetSlotLang === 'java')) {
-      if (language !== targetSlotLang) {
-        setLanguage(targetSlotLang as 'python' | 'typescript' | 'java');
-      }
-    }
-  }, [activeRoom, activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostDeviceId, activeRoom?.guestDeviceId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language, combatantDeviceId]);
-
   // Load starter code on problem or language change
   useEffect(() => {
     if (activeProblem && activeProblem.starterCode) {
-      setCode(activeProblem.starterCode[language] || activeProblem.starterCode.typescript || '// Write solution here');
+      const draftKey = `${activeProblem.id}:${language}`;
+      const savedDraft = codeDraftsRef.current[draftKey];
+      setCode(savedDraft ?? activeProblem.starterCode[language] ?? activeProblem.starterCode.typescript ?? '// Write solution here');
     }
   }, [activeProblem, language]);
 
@@ -950,9 +1031,11 @@ function ArenaContent() {
   const didIDraw = activeRoom?.winnerId === 'draw';
   const currentCareerXp = Math.max(0, Number(arenaStanding.careerXp) || 0, Number(xp) || 0);
   const arenaLeagueLabel = `${arenaStanding.league.charAt(0).toUpperCase()}${arenaStanding.league.slice(1)} League`;
-  const arenaRankLabel = arenaStanding.joined && arenaStanding.rank ? `#${arenaStanding.rank}` : 'Unranked';
+  const arenaRankLabel = arenaStanding.joined
+    ? arenaStanding.rank ? `#${arenaStanding.rank}` : 'Syncing'
+    : 'Unranked';
   const arenaRankCaption = arenaStanding.joined
-    ? arenaLeagueLabel
+    ? arenaStanding.rank ? arenaLeagueLabel : 'Updating your League Points position'
     : currentCareerXp >= 100 ? 'Join Browns to start your sprint' : 'Reach 100 Career XP to qualify';
 
   // Audio Fanfare & Report on Match Conclusion
@@ -1003,6 +1086,7 @@ function ArenaContent() {
           detail: {
             arena_elo: myNewElo,
             elo: myNewElo,
+            user_id: studentId,
             weekly_arena_points: currentArenaPoints + addArenaPoints,
             arenaPoints: currentArenaPoints + addArenaPoints,
           }
@@ -1044,6 +1128,7 @@ function ArenaContent() {
             detail: {
               arena_elo: data.newElo,
               elo: data.newElo,
+              user_id: studentId,
               weekly_arena_points: data.newArenaPoints ?? (currentArenaPoints + (data.arenaPointsAwarded || 0)),
               arenaPoints: data.newArenaPoints ?? (currentArenaPoints + (data.arenaPointsAwarded || 0)),
             }
@@ -1124,8 +1209,10 @@ function ArenaContent() {
                 {[
                   { label: 'Your rank', value: arenaRankLabel, detail: arenaRankCaption, color: '#22d3ee' },
                   { label: 'Arena ELO', value: String(liveElo ?? sanitizedUserElo ?? cachedElo), detail: 'Match rating', color: '#a78bfa' },
-                  { label: 'Sprint gain', value: `${arenaStanding.weeklyXp.toLocaleString()} XP`, detail: 'Learning XP this sprint', color: '#10b981' },
-                  { label: 'Entry goal', value: `${Math.min(100, currentCareerXp)} / 100`, detail: arenaStanding.joined ? 'Browns entry complete' : 'Career XP to qualify', color: '#fbbf24' },
+                  { label: 'Weekly XP', value: `${arenaStanding.weeklyXp.toLocaleString()} XP`, detail: 'Learning XP this sprint', color: '#10b981' },
+                  arenaStanding.joined
+                    ? { label: 'Arena Points', value: arenaStanding.weeklyArenaPoints.toLocaleString(), detail: 'This sprint · counts toward League Points', color: '#fbbf24' }
+                    : { label: 'Entry goal', value: `${Math.min(100, currentCareerXp)} / 100`, detail: 'Career XP to qualify', color: '#fbbf24' },
                 ].map(card => (
                   <div key={card.label} className={styles.metricCard}>
                     <span aria-hidden="true" className={styles.metricAccent} style={{ background: card.color }} />
@@ -2085,7 +2172,8 @@ function ArenaContent() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <select
                         value={language}
-                        onChange={e => setLanguage(e.target.value as any)}
+                        aria-label="Programming language"
+                        onChange={e => handleLanguageChange(e.target.value as 'typescript' | 'python' | 'java')}
                         style={{
                           padding: '6px 12px',
                           borderRadius: 8,
@@ -2103,7 +2191,7 @@ function ArenaContent() {
                       </select>
 
                       <button
-                        onClick={() => setCode(activeProblem.starterCode[language] || activeProblem.starterCode.typescript || '')}
+                        onClick={resetEditorCode}
                         title="Reset code template"
                         style={{
                           padding: '6px 12px',
@@ -2127,7 +2215,7 @@ function ArenaContent() {
                       language={language === 'python' ? 'python' : language === 'java' ? 'java' : 'typescript'}
                       theme={theme === 'light' ? 'vs' : 'vs-dark'}
                       value={code}
-                      onChange={(val) => setCode(val || '')}
+                      onChange={(val) => handleEditorCodeChange(val || '')}
                       options={{
                         fontSize: 14,
                         minimap: { enabled: false },
@@ -2138,6 +2226,39 @@ function ArenaContent() {
                       }}
                     />
                   </div>
+
+                  <section
+                    aria-label="Temporary answer pad"
+                    style={{ borderTop: '1px solid var(--border)', background: theme === 'light' ? 'rgba(0,0,0,0.015)' : 'rgba(255,255,255,0.015)' }}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isAnswerPadOpen}
+                      onClick={() => setIsAnswerPadOpen(open => !open)}
+                      style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 16px', background: 'transparent', border: 0, color: 'var(--t1)', fontSize: 12.5, fontWeight: 800, cursor: 'pointer' }}
+                    >
+                      <span>Temporary answer pad <span style={{ color: 'var(--t3)', fontWeight: 500 }}>· paste or draft code, then move it to the editor</span></span>
+                      <span aria-hidden="true">{isAnswerPadOpen ? '−' : '+'}</span>
+                    </button>
+                    {isAnswerPadOpen && (
+                      <div style={{ padding: '0 14px 12px' }}>
+                        <textarea
+                          aria-label="Temporary answer text"
+                          value={answerScratchpad}
+                          onChange={event => setAnswerScratchpad(event.target.value)}
+                          placeholder={`Paste or draft a ${language === 'python' ? 'Python' : language === 'java' ? 'Java' : 'TypeScript'} answer here…`}
+                          spellCheck={false}
+                          style={{ width: '100%', minHeight: 110, resize: 'vertical', padding: 12, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--t1)', fontFamily: "'JetBrains Mono', Consolas, Monaco, monospace", fontSize: 12.5, lineHeight: 1.5 }}
+                        />
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 8, marginTop: 8 }}>
+                          <button type="button" onClick={() => setAnswerScratchpad('')} style={{ padding: '7px 10px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--t2)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Clear pad</button>
+                          <button type="button" onClick={() => void copyEditorAnswer()} style={{ padding: '7px 10px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--t2)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Copy editor code</button>
+                          <button type="button" onClick={() => void copyScratchpad()} style={{ padding: '7px 10px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', color: 'var(--t2)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Copy pad</button>
+                          <button type="button" onClick={useScratchpadInEditor} style={{ padding: '7px 11px', borderRadius: 8, border: '1px solid rgba(56,189,248,.45)', background: 'rgba(56,189,248,.12)', color: '#38bdf8', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>Use in editor</button>
+                        </div>
+                      </div>
+                    )}
+                  </section>
 
                   {/* Inline Test Output Drawer */}
                   {testResult && (

@@ -60,7 +60,7 @@ function hasStoredLeagueMembership(userId?: string | null): boolean {
   if (!userId || typeof window === 'undefined') return false;
   try {
     const value = localStorage.getItem(`pinit_joined_league_${userId}`);
-    return value === 'true' || isConfirmedLeagueMembershipCacheValue(value);
+    return isConfirmedLeagueMembershipCacheValue(value);
   } catch {
     return false;
   }
@@ -459,20 +459,88 @@ function LeaderboardContent() {
         if (data.ok && isMounted) {
           loadedQueryKeyRef.current = queryKey;
           setLastUpdatedAt(new Date());
-          setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
-          setServerCurrentUser(data.currentUser || null);
-          if (data.currentUser) {
-            setServerCurrentUser(data.currentUser);
+          const responseEntries: LeaderboardEntry[] = Array.isArray(data.leaderboard) ? data.leaderboard : [];
+          const apiResolvedUserMatches = requestUserId
+            ? data.currentUserId === requestUserId
+            : !data.currentUserId;
+          const hasConfirmedJoin = Boolean(requestUserId && (
+            hasStoredLeagueMembership(requestUserId) ||
+            (membershipStatusRef.current?.userId === requestUserId && membershipStatusRef.current.joined) ||
+            (membershipUserId === requestUserId && Boolean(profileLeagueJoinedAt))
+          ) && apiResolvedUserMatches);
+          let responseCurrentUser: LeaderboardEntry | null = apiResolvedUserMatches ? (data.currentUser || null) : null;
+
+          // A join POST is verified against the saved profile before it succeeds.
+          // If a following leaderboard read is briefly stale, keep the confirmed
+          // member visible and calculate their position from the same League Points
+          // ordering while the server catches up.
+          const currentTier = normalizeLeagueTier(data.currentUserLeague);
+          const viewingCurrentTier = normalizeLeagueTier(data.activeLeague || selectedLeague) === currentTier;
+          if (
+            activeTab !== 'guild' && requestUserId && hasConfirmedJoin && viewingCurrentTier &&
+            !responseEntries.some(entry => entry.studentId === requestUserId)
+          ) {
+            const stats = data.currentUserStats || {};
+            const weeklyXp = Math.max(0, Number(stats.weeklyXp ?? (user as any)?.weekly_xp ?? (user as any)?.weeklyXp) || 0);
+            const arenaPoints = Math.max(0, Number(stats.arenaPoints ?? (user as any)?.weekly_arena_points ?? (user as any)?.arenaPoints) || 0);
+            const totalXp = Math.max(0, Number(data.currentUserTotalXp) || Number((user as any)?.xp_total) || Number(cOS?.xp) || 0);
+            const leaguePoints = weeklyXp + arenaPoints;
+            const name = (user as any)?.display_name || (user as any)?.full_name || (user as any)?.name || 'Student Candidate';
+            const ownEntry: LeaderboardEntry = {
+              rank: 0,
+              studentId: requestUserId,
+              name,
+              avatarUrl: (user as any)?.avatar_url || '',
+              college: (user as any)?.college || (cOS as any)?.onboardingAnswers?.college || 'PinIT Career OS Academy',
+              programTitle: (user as any)?.target_role ? `${(user as any).target_role} Track` : 'Software Engineering Track',
+              verifiedSkillsCount: 0,
+              demonstratedSkillsCount: Array.isArray((user as any)?.completed_quests) ? (user as any).completed_quests.length : 0,
+              defenseScore: 0,
+              readinessStatus: 'exploring',
+              learningGainPoints: Math.max(0, Math.round(totalXp / 50)),
+              eloRating: Math.max(0, Number(stats.arenaElo ?? (user as any)?.arena_elo) || 100),
+              arenaPoints,
+              leaguePoints,
+              leagueTier: currentTier,
+              weeklyXp,
+              totalXp,
+              zone: 'safe',
+              isCurrentUser: true,
+            };
+            const higherRankedCount = responseEntries.filter(entry => {
+              if (normalizeLeagueTier(entry.leagueTier) !== currentTier) return false;
+              const points = Number(entry.leaguePoints ?? (entry.weeklyXp + (entry.arenaPoints || 0))) || 0;
+              if (points !== leaguePoints) return points > leaguePoints;
+              if (entry.weeklyXp !== weeklyXp) return entry.weeklyXp > weeklyXp;
+              if (entry.totalXp !== totalXp) return entry.totalXp > totalXp;
+              return entry.studentId.localeCompare(requestUserId) < 0;
+            }).length;
+            ownEntry.rank = higherRankedCount + 1;
+            const cutoff = Number(data.promotionCutoffRank) || 0;
+            const demotion = Number(data.demotionCutoffRank) || 0;
+            ownEntry.zone = currentTier !== 'ruby' && cutoff > 0 && ownEntry.rank <= cutoff
+              ? 'promotion'
+              : currentTier !== 'browns' && demotion > 0 && ownEntry.rank >= demotion
+                ? 'demotion'
+                : 'safe';
+            responseEntries.push(ownEntry);
+            responseEntries.sort((a, b) => a.rank - b.rank);
+            responseCurrentUser = ownEntry;
           }
+
+          setLeaderboard(responseEntries);
+          setServerCurrentUser(responseCurrentUser);
           if (typeof data.currentUserHasJoined === 'boolean') {
-            // Ignore a response that began before a successful join, but let a
-            // fresh server answer clear stale browser state (for example after
-            // an administrator revokes membership).
-            const responseStillMatchesAccount = requestUserId && requestUserId === latestMembershipUserIdRef.current;
+            // Ignore responses from another account and don't let a negative,
+            // possibly lagging read undo a join already confirmed by the server.
+            const responseStillMatchesAccount = requestUserId && requestUserId === latestMembershipUserIdRef.current && apiResolvedUserMatches;
             const responseIsCurrent = membershipRevisionAtStart === membershipRevisionRef.current;
             const snapshotIsSafeToApply = requestUserId && shouldApplyLeagueMembershipSnapshot(
               requestUserId,
               data.currentUserHasJoined,
+              hasStoredLeagueMembership(requestUserId) ||
+                (membershipStatusRef.current?.userId === requestUserId && membershipStatusRef.current.joined) ||
+                (membershipUserId === requestUserId && Boolean(profileLeagueJoinedAt)),
             );
             if (responseStillMatchesAccount && responseIsCurrent && snapshotIsSafeToApply) {
               membershipStatusRef.current = { userId: requestUserId, joined: data.currentUserHasJoined };
@@ -481,7 +549,7 @@ function LeaderboardContent() {
               setJoinedLeague(data.currentUserHasJoined);
             }
           }
-          if (Number.isFinite(data.currentUserTotalXp)) {
+          if (apiResolvedUserMatches && Number.isFinite(data.currentUserTotalXp)) {
             setServerCareerXp(Number(data.currentUserTotalXp));
           }
           if (Array.isArray(data.guilds)) {
@@ -492,7 +560,7 @@ function LeaderboardContent() {
           if (typeof data.remainingMs === 'number') {
             setRemainingMs(data.remainingMs);
           }
-          if (data.currentUserLeague) {
+          if (apiResolvedUserMatches && data.currentUserLeague) {
             const userTier = normalizeLeagueTier(data.currentUserLeague);
             setCurrentUserLeague(userTier);
             if (data.currentUserHasJoined && !hasManuallySelectedRef.current && userTier !== 'browns') {

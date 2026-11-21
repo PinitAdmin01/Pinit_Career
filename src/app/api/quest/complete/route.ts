@@ -72,6 +72,7 @@ export async function POST(req: Request) {
         alreadyCompleted: true,
         completedQuests: currentCompleted,
         xpTotal: profile.xp_total || 0,
+        weeklyXp: profile.weekly_xp || 0,
         pinsTotal: profile.pins || 0,
       });
     }
