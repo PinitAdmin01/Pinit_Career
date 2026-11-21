@@ -32,15 +32,20 @@ export interface LeagueMove {
   league_points: number;
 }
 
-const isTier = (t: unknown): t is LeagueTier => (LEAGUE_TIERS as readonly unknown[]).includes(t);
+function normalizeTier(value: unknown): LeagueTier | null {
+  if (typeof value !== 'string') return null;
+  const normalized = value.toLowerCase() as LeagueTier;
+  return (LEAGUE_TIERS as readonly string[]).includes(normalized) ? normalized : null;
+}
 
 export function planWeeklyLeagueMoves(players: LeaguePlayer[]): LeagueMove[] {
   const byTier = new Map<LeagueTier, LeaguePlayer[]>();
   for (const p of players) {
-    if (!isTier(p.league_tier) || ('league_joined_at' in p && !p.league_joined_at) || (p.xp_total ?? 0) < 100) continue;
-    const group = byTier.get(p.league_tier) ?? [];
+    const tier = normalizeTier(p.league_tier);
+    if (!tier || !p.league_joined_at || (p.xp_total ?? 0) < 100) continue;
+    const group = byTier.get(tier) ?? [];
     group.push(p);
-    byTier.set(p.league_tier, group);
+    byTier.set(tier, group);
   }
 
   const moves: LeagueMove[] = [];

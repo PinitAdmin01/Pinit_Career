@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { rankLeagueEntries } from '../src/lib/leagues/leaguePoints';
+import { GET as getLeaderboard } from '../src/app/api/leaderboard/route';
+import { setSupabaseAdminForTests } from '../src/lib/server/supabaseAdmin';
 
 const root = path.join(__dirname, '..');
 
@@ -61,4 +63,54 @@ test('API and live client refresh recalculate the row order after a score update
   assert.match(route, /entries\.push\(currentUserEntry\);[\s\S]*rankLeagueEntries\(/);
   assert.match(page, /leaguePoints: weeklyXp \+ arenaPoints,[\s\S]*rankLeagueEntries\(/);
   assert.match(page, /Keep the visible score, row order, and rank in one optimistic update/);
+});
+
+test('production leaderboard ignores unverified user IDs and does not return their private stats', async () => {
+  const originalNodeEnv = process.env.NODE_ENV;
+  const originalDevBypass = process.env.ALLOW_DEV_AUTH_BYPASS;
+  const originalSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const originalServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const originalAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  process.env.NODE_ENV = 'production';
+  process.env.ALLOW_DEV_AUTH_BYPASS = 'false';
+  process.env.NEXT_PUBLIC_SUPABASE_URL = '';
+  process.env.SUPABASE_SERVICE_ROLE_KEY = '';
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = '';
+
+  const query = {
+    select() { return this; },
+    or() { return this; },
+    not() { return this; },
+    in() { return Promise.resolve({ data: [], count: 0, error: null }); },
+    order() { return this; },
+    range() { return Promise.resolve({ data: [], count: 0, error: null }); },
+    limit() { return Promise.resolve({ data: [], count: 0, error: null }); },
+  };
+  setSupabaseAdminForTests({ from: () => query });
+
+  try {
+    const response = await getLeaderboard(new Request(
+      'http://localhost/api/leaderboard?mode=weekly_leagues&league=browns&userId=victim-user-id',
+      { headers: { 'x-user-id': 'victim-user-id' } },
+    ));
+    const body = await response.json();
+    assert.equal(body.ok, true);
+    assert.equal(body.currentUserId, null);
+    assert.equal(body.currentUserHasJoined, null);
+    assert.equal(body.currentUserTotalXp, 0);
+    assert.equal(body.currentUserStats, null);
+    assert.equal(body.currentUser, null);
+  } finally {
+    setSupabaseAdminForTests(null);
+    if (originalNodeEnv === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = originalNodeEnv;
+    if (originalDevBypass === undefined) delete process.env.ALLOW_DEV_AUTH_BYPASS;
+    else process.env.ALLOW_DEV_AUTH_BYPASS = originalDevBypass;
+    if (originalSupabaseUrl === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    else process.env.NEXT_PUBLIC_SUPABASE_URL = originalSupabaseUrl;
+    if (originalServiceKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalServiceKey;
+    if (originalAnonKey === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    else process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = originalAnonKey;
+  }
 });

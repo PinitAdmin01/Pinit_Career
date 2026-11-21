@@ -111,7 +111,9 @@ export async function GET(req: Request) {
       });
     }
 
-    // Identify current user if signed in (bearer token, headers, search params, or cookie fallback)
+    // Only a verified bearer session may identify a user in production. The
+    // leaderboard also accepts client-supplied IDs in explicitly enabled local
+    // test mode, but never uses those IDs to expose another profile's stats.
     let currentUserId: string | null = null;
     let authSource = 'anonymous';
     try {
@@ -122,7 +124,7 @@ export async function GET(req: Request) {
       }
     } catch {}
 
-    if (!currentUserId) {
+    if (!currentUserId && process.env.NODE_ENV !== 'production' && process.env.ALLOW_DEV_AUTH_BYPASS === 'true') {
       const headerUid = req.headers.get('x-user-id') || req.headers.get('x-pinit-user-id');
       const paramUid = url.searchParams.get('userId') || url.searchParams.get('user_id');
       if (headerUid && headerUid.trim()) {

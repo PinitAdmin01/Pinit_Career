@@ -10,14 +10,18 @@ const leaderboardRoutePath = path.join(ROOT, 'src/app/api/leaderboard/route.ts')
 const leaderboardPage = fs.readFileSync(leaderboardPagePath, 'utf8');
 const leaderboardRoute = fs.readFileSync(leaderboardRoutePath, 'utf8');
 
-test('TASK 3 AUDIT: Backend leaderboard extracts user identification from headers and params', () => {
+test('TASK 3 AUDIT: Leaderboard uses verified identity in production and fences local ID fallback', () => {
   assert.ok(
-    leaderboardRoute.includes("req.headers.get('x-user-id')"),
-    'Backend must accept x-user-id header'
+    leaderboardRoute.includes('const gated = await requireUserFromRequest(req);'),
+    'Backend must identify the current user from a verified session'
   );
   assert.ok(
-    leaderboardRoute.includes("url.searchParams.get('userId')"),
-    'Backend must accept userId search parameter'
+    leaderboardRoute.includes("process.env.NODE_ENV !== 'production' && process.env.ALLOW_DEV_AUTH_BYPASS === 'true'"),
+    'Client-supplied IDs are allowed only in explicitly enabled non-production test mode'
+  );
+  assert.ok(
+    leaderboardRoute.includes("req.headers.get('x-user-id')") && leaderboardRoute.includes("url.searchParams.get('userId')"),
+    'Local test identity fallbacks remain available inside the non-production guard'
   );
 });
 
@@ -46,16 +50,16 @@ test('TASK 3 AUDIT: Frontend joins Browns through the qualified server endpoint'
 
 test('TASK 3 AUDIT: Frontend stores serverCurrentUser and ensures user always appears in leaderboard table', () => {
   assert.ok(
-    leaderboardPage.includes('setServerCurrentUser(data.currentUser);'),
-    'Frontend must save data.currentUser into serverCurrentUser state'
+    leaderboardPage.includes('setServerCurrentUser(responseCurrentUser);'),
+    'Frontend must save the rank-reconciled API current user into serverCurrentUser state'
   );
   assert.ok(
     leaderboardPage.includes('return serverCurrentUser;'),
     'currentUserEntry must fall back to serverCurrentUser'
   );
   assert.ok(
-    leaderboardPage.includes('params.set(\'userId\', user.id);'),
-    'Frontend fetchLeaderboard must pass userId query parameter'
+    leaderboardPage.includes("params.set('userId', membershipUserId);"),
+    'Frontend may pass its identity hint, while the production server trusts only the verified bearer session'
   );
   assert.ok(leaderboardPage.includes('const result = list.filter(entry => {'), 'Search must filter the full leaderboard response');
   assert.ok(leaderboardPage.includes('filteredEntries.map((entry, idx) => {'), 'The current user entry returned by the server must render in the standings table');

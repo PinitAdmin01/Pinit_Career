@@ -108,14 +108,12 @@ test('BRUTAL VECTOR 3: Anti-unranked logic, Supabase league persistence & active
     'handleJoinLeague must fire pinit:user_profile_updated event'
   );
 
-  // 2. Multi-channel user identification in API
+  // 2. Verified user identity in production; client ID hints stay test-only
   assert.ok(
-    leaderboardRoute.includes("req.headers.get('x-user-id')"),
-    'API must read x-user-id header'
-  );
-  assert.ok(
-    leaderboardRoute.includes("url.searchParams.get('userId')"),
-    'API must read userId query parameter'
+    leaderboardRoute.includes("process.env.NODE_ENV !== 'production' && process.env.ALLOW_DEV_AUTH_BYPASS === 'true'") &&
+      leaderboardRoute.includes("req.headers.get('x-user-id')") &&
+      leaderboardRoute.includes("url.searchParams.get('userId')"),
+    'API may use client ID hints only in explicitly enabled non-production test mode'
   );
 
   // 3. Off-cohort user appended to entries and returned in payload
@@ -130,8 +128,8 @@ test('BRUTAL VECTOR 3: Anti-unranked logic, Supabase league persistence & active
 
   // 4. Reactive client hydration and search integrity
   assert.ok(
-    leaderboardPage.includes('setServerCurrentUser(data.currentUser);'),
-    'Frontend must record server-computed currentUser'
+    leaderboardPage.includes('setServerCurrentUser(responseCurrentUser);'),
+    'Frontend must record the rank-reconciled server current user'
   );
   assert.ok(
     leaderboardPage.includes('setJoinedLeague(true);'),
