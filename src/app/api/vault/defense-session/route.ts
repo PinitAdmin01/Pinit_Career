@@ -6,12 +6,14 @@ import {
 } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { checkRateLimit } from '@/lib/server/rateLimit';
+import { isReadableDocumentText } from '@/lib/ats/pdfTextExtractor';
 import {
   analyzeDocumentTextWithGroq,
   analyzeVaultFileBufferWithGroq,
   evaluateDefenseWithGroq,
   type AnalyzedDocumentProject,
 } from '@/lib/vault/groqDocumentAnalyzer';
+import { extractSkillsFast } from '@/lib/vault/vaultDefenseEngine';
 
 const FALLBACK_GENERIC_SKILLS = new Set(['system design', 'problem solving']);
 
@@ -29,11 +31,12 @@ function filterRealSkills(skills: unknown): string[] {
 /**
  * POST /api/vault/defense-session
  *
- * Powers Groq-grounded Brutal Vault Defense interviews:
- * - action: 'prepare'  -> Reads the candidate's actual uploaded file from Supabase Storage ('resumes')
- *                         using Groq AI (text + Vision for images/scanned PDFs), extracts ALL real skills
- *                         and projects, backfills vault_items.skill_tags, and returns 3 tailored questions.
- * - action: 'evaluate' -> Strictly grades the candidate's 3 answers against the actual resume claims via Groq.
+ * Powers Groq-grounded Proof Vault Resume/Certificate Verification:
+ * - action: 'prepare'  -> Downloads the candidate's actual uploaded file from Supabase Storage ('resumes'),
+ *                         extracts real text with Mozilla PDF.js (`unpdf`) + Groq Vision/LLM, heals generic
+ *                         'Supporting Document' / empty skill_tags in vault_items, and returns the real
+ *                         resume text excerpt, skills, projects, certifications, and tailored questions.
+ * - action: 'evaluate' -> Strictly grades the candidate's live defense answers against their actual document via Groq.
  */
 export async function POST(req: Request) {
   try {
@@ -63,6 +66,7 @@ export async function POST(req: Request) {
       const claimedSkills = filterRealSkills(body?.claimedSkills);
       const projects: AnalyzedDocumentProject[] = Array.isArray(body?.projects) ? body.projects : [];
       const summary = typeof body?.summary === 'string' ? body.summary : '';
+      const rawTextExcerpt = typeof body?.rawTextExcerpt === 'string' ? body.rawTextExcerpt : '';
       const questions: string[] = Array.isArray(body?.questions)
         ? body.questions.map((q: any) => String(q || '').trim()).filter(Boolean)
         : [];
@@ -76,6 +80,7 @@ export async function POST(req: Request) {
         claimedSkills,
         projects,
         summary,
+        rawTextExcerpt,
         questions,
         answers,
         customGroqKey: headerGroqKey,
@@ -106,6 +111,9 @@ export async function POST(req: Request) {
     const dbSkills = filterRealSkills(vaultDoc?.skill_tags);
 
     let groqAnalysis = null;
+    let effectiveRawText = '';
+    let attemptedFileDownload = false;
+    let unreadableReason = '';
 
     // 1. Download the REAL uploaded file from Supabase Storage ('resumes' bucket) with strict user namespace guard
     const storageMatch = docDesc.match(/Storage:\s*([^\s]+)/i);
@@ -115,6 +123,7 @@ export async function POST(req: Request) {
     }
 
     if (storagePath && storagePath.startsWith(`vault/${userId}/`)) {
+      attemptedFileDownload = true;
       try {
         const { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
         if (!dlErr && blob) {
@@ -132,30 +141,43 @@ export async function POST(req: Request) {
             }
           );
           groqAnalysis = analyzed.groqAnalysis;
+          effectiveRawText = (analyzed.effectiveRawText || analyzed.groqAnalysis?.rawTextExcerpt || '').trim();
+          if (!effectiveRawText && !groqAnalysis) {
+            unreadableReason =
+              'Could not extract readable text from this file (it may be a password-protected or flattened scan without selectable text). Try uploading a standard PDF, DOCX, or clear PNG/JPG screenshot of your resume.';
+          }
         } else if (dlErr) {
           console.warn('[vault/defense-session] Storage download warning:', dlErr.message);
+          unreadableReason = 'Could not load the stored document file from secure vault storage.';
         }
       } catch (storageErr: any) {
         console.warn('[vault/defense-session] Storage analysis warning:', storageErr?.message || storageErr);
+        unreadableReason = 'Error reading the stored document file.';
       }
     }
 
-    // 2. If file wasn't in storage (or manual entry), run Groq on title + description + existing skills
-    if (!groqAnalysis) {
-      const cleanDesc = docDesc.replace(/Storage:\s*[^\s]+/gi, '').trim();
+    // 2. If manual entry (no binary file in storage), analyze non-boilerplate notes via Groq
+    if (!groqAnalysis && !attemptedFileDownload) {
+      const cleanDesc = docDesc
+        .replace(/^Uploaded to Candidate Secure Vault.*$/gim, '')
+        .replace(/Storage:\s*[^\s]+/gi, '')
+        .trim();
       const nonGenericExisting = [...dbSkills, ...clientSkills].filter(
         (s) => !FALLBACK_GENERIC_SKILLS.has(s.toLowerCase())
       );
       const syntheticText = [
-        `Document Title: ${docTitle}`,
-        vaultDoc?.organization_name ? `Organization: ${vaultDoc.organization_name}` : '',
-        cleanDesc ? `Description: ${cleanDesc}` : '',
+        docTitle && docTitle !== 'Supporting Document' ? `Document Title: ${docTitle}` : '',
+        vaultDoc?.organization_name && vaultDoc.organization_name !== 'Academic Institution'
+          ? `Organization: ${vaultDoc.organization_name}`
+          : '',
+        cleanDesc ? `Details: ${cleanDesc}` : '',
         nonGenericExisting.length > 0 ? `Claimed Skills: ${nonGenericExisting.join(', ')}` : '',
       ]
         .filter(Boolean)
         .join('\n');
 
       if (syntheticText.length >= 25) {
+        effectiveRawText = syntheticText;
         groqAnalysis = await analyzeDocumentTextWithGroq(syntheticText, {
           title: docTitle,
           auditorName,
@@ -164,50 +186,88 @@ export async function POST(req: Request) {
       }
     }
 
-    // Merge real extracted skills (prefer Groq's actual resume skills; drop dummy fallback if real skills exist)
+    // Merge real extracted skills (Groq primary + deterministic extraction from REAL PDF text + non-generic existing)
     const mergedMap = new Map<string, string>();
     const groqSkills = groqAnalysis?.skills || [];
+    const textDictSkills = isReadableDocumentText(effectiveRawText)
+      ? extractSkillsFast(effectiveRawText)
+      : [];
     const existingNonGeneric = [...dbSkills, ...clientSkills].filter(
       (s) => !FALLBACK_GENERIC_SKILLS.has(s.toLowerCase())
     );
-    for (const sk of [...groqSkills, ...existingNonGeneric]) {
+    for (const sk of [...groqSkills, ...textDictSkills, ...existingNonGeneric]) {
       const clean = String(sk || '').trim();
       if (clean && !mergedMap.has(clean.toLowerCase())) {
         mergedMap.set(clean.toLowerCase(), clean);
       }
     }
 
-    const claimedSkills = Array.from(mergedMap.values()).slice(0, 15);
+    const claimedSkills = Array.from(mergedMap.values()).slice(0, 18);
+    const resolvedTitle =
+      groqAnalysis?.documentTitle && groqAnalysis.documentTitle.length >= 4
+        ? groqAnalysis.documentTitle
+        : docTitle === 'Supporting Document' && groqAnalysis?.documentType === 'resume'
+        ? 'Candidate Master Resume'
+        : docTitle;
+    const resolvedType =
+      groqAnalysis?.documentType && groqAnalysis.documentType !== 'other'
+        ? groqAnalysis.documentType
+        : vaultDoc?.item_type || 'resume';
 
-    // Backfill real extracted skills into vault_items so Proof Vault immediately reflects them!
-    if (docId && vaultDoc && groqSkills.length > 0) {
+    const readable = Boolean(
+      isReadableDocumentText(effectiveRawText) ||
+        groqSkills.length > 0 ||
+        (groqAnalysis?.projects?.length || 0) > 0 ||
+        claimedSkills.length > 0
+    );
+
+    // Backfill real extracted skills & heal generic 'Supporting Document' / 'other' metadata in Supabase!
+    if (docId && vaultDoc && readable) {
       try {
-        const updatePayload: Record<string, any> = {
-          skill_tags: claimedSkills,
-        };
+        const updatePayload: Record<string, any> = {};
+        if (claimedSkills.length > 0) {
+          updatePayload.skill_tags = claimedSkills;
+        }
+        if (
+          resolvedTitle &&
+          resolvedTitle !== vaultDoc.title &&
+          (vaultDoc.title === 'Supporting Document' || vaultDoc.title === 'Primary Candidate Master Resume')
+        ) {
+          updatePayload.title = resolvedTitle;
+        }
+        if (resolvedType && resolvedType !== 'other' && vaultDoc.item_type === 'other') {
+          updatePayload.item_type = resolvedType;
+        }
         if (
           groqAnalysis?.institution &&
           (!vaultDoc.organization_name || vaultDoc.organization_name === 'Academic Institution')
         ) {
           updatePayload.organization_name = groqAnalysis.institution;
         }
-        await db
-          .from('vault_items')
-          .update(updatePayload)
-          .eq('id', docId)
-          .eq('user_id', userId);
+        if (Object.keys(updatePayload).length > 0) {
+          await db
+            .from('vault_items')
+            .update(updatePayload)
+            .eq('id', docId)
+            .eq('user_id', userId);
+        }
       } catch (updateErr) {
-        console.warn('[vault/defense-session] vault_items skill backfill warning:', updateErr);
+        console.warn('[vault/defense-session] vault_items backfill warning:', updateErr);
       }
     }
 
     return NextResponse.json({
       ok: true,
-      analysisSource: groqAnalysis?.source || 'fallback',
+      readable,
+      unreadableReason: readable ? '' : unreadableReason || 'No readable resume/certificate text was found in this document.',
+      analysisSource: groqAnalysis?.source || (isReadableDocumentText(effectiveRawText) ? 'pdfjs-text' : 'fallback'),
+      documentTitle: resolvedTitle,
+      documentType: resolvedType,
       claimedSkills,
       projects: groqAnalysis?.projects || [],
       certifications: groqAnalysis?.certifications || [],
       summary: groqAnalysis?.summary || '',
+      rawTextExcerpt: effectiveRawText.slice(0, 4500),
       defenseQuestions: groqAnalysis?.defenseQuestions || [],
       candidateName: groqAnalysis?.candidateName || '',
       institution: groqAnalysis?.institution || vaultDoc?.organization_name || '',

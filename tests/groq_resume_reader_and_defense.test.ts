@@ -4,16 +4,19 @@ import * as zlib from 'zlib';
 import {
   extractTextFromPdfBuffer,
   extractEmbeddedImagesFromPdf,
+  isReadableDocumentText,
 } from '../src/lib/ats/pdfTextExtractor';
 import {
   analyzeDocumentTextWithGroq,
   analyzeVaultFileBufferWithGroq,
   evaluateDefenseWithGroq,
   extractDocumentWithGroqVision,
+  extractPdfTextWithPdfJs,
   getGroqApiKeys,
   setGroqAnalyzerFetchForTests,
 } from '../src/lib/vault/groqDocumentAnalyzer';
 import {
+  extractSkillsFast,
   generateBrutalDefensePrompt,
   resolveVaultAuditorMentor,
   type VaultDefenseChallenge,
@@ -418,5 +421,75 @@ test('VaultDefenseRoom reuses existing AI Interview studio components and live /
   // /api/interview/chat must support reactive vault_defense stage grounded in vaultContext
   assert.match(chatSrc, /stage === 'vault_defense'/);
   assert.match(chatSrc, /vaultContext/);
+  assert.match(chatSrc, /STRICT AUDIT RULES:/);
   assert.match(chatSrc, /I don't know/);
+});
+
+test('isReadableDocumentText rejects garbled CID/font junk and accepts real resumes', () => {
+  assert.equal(isReadableDocumentText('$8A) !#9F %^&* ()_+ {}[] :;<> ~` 0024 0038'), false);
+  assert.equal(isReadableDocumentText('1 0 obj << /Filter /FlateDecode >> endobj endstream'), false);
+  assert.equal(isReadableDocumentText('short text'), false);
+  assert.equal(
+    isReadableDocumentText(
+      'Vinay N Kashyap | Full-Stack Software Engineer | Skills: Next.js, TypeScript, Flutter, PostgreSQL, Docker, ESP32 IoT'
+    ),
+    true
+  );
+});
+
+test('extractSkillsFast NEVER fabricates fake System Design / Problem Solving for generic resume titles', () => {
+  const fromGeneric = extractSkillsFast('Supporting Document Primary Candidate Master Resume');
+  assert.deepEqual(fromGeneric, []);
+});
+
+test('unpdf Mozilla PDF.js decodes valid standard PDF documents into clean text', async () => {
+  // Build a minimal standards-compliant PDF 1.4 with xref table so Mozilla PDF.js parses it cleanly
+  const content = 'BT /F1 12 Tf 72 720 Td (Vinay Kashyap - Resume: Flutter, Firebase, Python, FastAPI, Docker) Tj ET';
+  const obj1 = '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n';
+  const obj2 = '2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n';
+  const obj3 =
+    '3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n';
+  const obj4 = '4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n';
+  const obj5 = `5 0 obj\n<< /Length ${content.length} >>\nstream\n${content}\nendstream\nendobj\n`;
+
+  const header = '%PDF-1.4\n';
+  const offsets: number[] = [];
+  let body = header;
+  for (const obj of [obj1, obj2, obj3, obj4, obj5]) {
+    offsets.push(body.length);
+    body += obj;
+  }
+  const xrefStart = body.length;
+  body += 'xref\n0 6\n0000000000 65535 f \n';
+  for (const off of offsets) {
+    body += `${String(off).padStart(10, '0')} 00000 n \n`;
+  }
+  body += `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`;
+
+  const res = await extractPdfTextWithPdfJs(Buffer.from(body, 'binary'));
+  assert.ok(res, 'unpdf should decode standard PDF');
+  assert.match(res.rawText, /Vinay Kashyap/);
+  assert.match(res.rawText, /Flutter/);
+  assert.match(res.rawText, /FastAPI/);
+});
+
+test('Proof Vault exposes secure /api/vault/file viewer endpoint and in-app Preview + Re-scan modal', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const fileRouteSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/api/vault/file/route.ts'),
+    'utf8'
+  );
+  const vaultPageSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/vault/page.tsx'),
+    'utf8'
+  );
+
+  assert.match(fileRouteSrc, /requireUserFromRequest/);
+  assert.match(fileRouteSrc, /storagePath\.startsWith\(`vault\/\$\{userId\}\/`\)/);
+  assert.match(fileRouteSrc, /Content-Disposition/);
+  assert.match(vaultPageSrc, /\/api\/vault\/file\?docId=/);
+  assert.match(vaultPageSrc, /openDocumentViewer/);
+  assert.match(vaultPageSrc, /handleRescanDocument/);
+  assert.match(vaultPageSrc, /Re-scan with Groq AI/);
 });

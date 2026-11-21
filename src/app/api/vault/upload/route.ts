@@ -30,10 +30,12 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
+import { isReadableDocumentText } from '@/lib/ats/pdfTextExtractor';
 import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
 import { bridgeAtsToCompetencyGraph } from '@/lib/pathway/atsCompetencyBridge';
 import { auditResumeATS } from '@/lib/ats/atsScreener';
 import { analyzeVaultFileBufferWithGroq } from '@/lib/vault/groqDocumentAnalyzer';
+import { extractSkillsFast } from '@/lib/vault/vaultDefenseEngine';
 import {
   classifyDocumentCategory,
   checkNameSimilarity,
@@ -125,13 +127,13 @@ export async function POST(req: Request) {
       : extraction.extractionConfidence;
     console.log(`🔑 [STAGE 4/12 - Evidence Fingerprint]: Document SHA-256 = ${extraction.documentHash} (Extracted ${rawText.length} clean chars, Groq=${groqAnalysis?.source || 'none'})`);
 
-    // Honest Refusal: Immediately reject truly unreadable files when neither native parser nor Groq Vision could read content
-    if (rawText.trim().length < 30 && !groqAnalysis) {
+    // Honest Refusal: Immediately reject truly unreadable/garbled files when neither PDF.js/native parser nor Groq Vision could read content
+    if (!isReadableDocumentText(rawText) && !groqAnalysis) {
       console.warn(`🛑 [STAGE 4/12 - Extraction Refusal]: Document contains unreadable content (${rawText.length} chars, confidence ${extraction.extractionConfidence}).`);
       return NextResponse.json(
         {
           error: 'UNREADABLE_DOCUMENT',
-          message: 'We could not read this document. Please ensure your file contains selectable text or a clear image and is not encrypted or corrupted.'
+          message: 'We could not read readable text from this file. Please upload a non-encrypted PDF, DOCX, TXT, or clear PNG/JPG image of your resume or certificate.'
         },
         { status: 422 }
       );
@@ -173,15 +175,19 @@ export async function POST(req: Request) {
         : groqAnalysis?.institution || 'Academic Institution';
     const scoreOrGpa = validatedGraph.scoreOrGpa || (category === '10th' ? '10th Marksheet' : category === '12th_puc' ? '12th/PUC Certificate' : 'Academic Credential');
 
-    // Merge Groq-extracted real skills (primary) with deterministic lexicon skills (secondary)
+    // Merge Groq-extracted real skills (primary) with grounded & dictionary skills from real extracted text
     const mergedSkillMap = new Map<string, string>();
-    for (const sk of [...(groqAnalysis?.skills || []), ...(validatedGraph.documentSupportedSkills || [])]) {
+    for (const sk of [
+      ...(groqAnalysis?.skills || []),
+      ...(validatedGraph.documentSupportedSkills || []),
+      ...extractSkillsFast(rawText),
+    ]) {
       const clean = String(sk || '').trim();
       if (clean && !mergedSkillMap.has(clean.toLowerCase())) {
         mergedSkillMap.set(clean.toLowerCase(), clean);
       }
     }
-    const skills = Array.from(mergedSkillMap.values()).slice(0, 15);
+    const skills = Array.from(mergedSkillMap.values()).slice(0, 18);
 
     console.log(`📊 [STAGE 8/12 - Grounded Entity Summary]:\n   - Name: "${detectedName}"\n   - Institution: "${institution}"\n   - Score/Grade: "${scoreOrGpa}"\n   - Document-Supported Skills (${skills.length}): [${skills.join(', ')}]\n   - Projects Grounded (${validatedGraph.projects.length}): [${validatedGraph.projects.map(p => p.title).join(', ')}]`);
 
@@ -301,7 +307,13 @@ export async function POST(req: Request) {
       'other': 'Supporting Document'
     };
 
-    const title = categoryTitles[category] || `${fileName} (${category})`;
+    const cleanBaseFileName = fileName.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').trim();
+    const title =
+      (groqAnalysis?.documentTitle && groqAnalysis.documentTitle.length >= 4
+        ? groqAnalysis.documentTitle
+        : category === 'other' && cleanBaseFileName.length >= 3
+        ? cleanBaseFileName
+        : categoryTitles[category]) || `${fileName} (${category})`;
     const description = `Uploaded to Candidate Secure Vault (${scoreOrGpa}). Organization: ${institution}. Storage: ${storagePath}`;
 
     let dbId = `vault_${Date.now()}`;
@@ -363,16 +375,17 @@ export async function POST(req: Request) {
       ok: true,
       data: slotPayload,
       document: slotPayload,
-      aiAnalysis: groqAnalysis
-        ? {
-            source: groqAnalysis.source,
-            skills,
-            projects: groqAnalysis.projects,
-            certifications: groqAnalysis.certifications,
-            summary: groqAnalysis.summary,
-            defenseQuestions: groqAnalysis.defenseQuestions,
-          }
-        : null,
+      aiAnalysis: {
+        source: groqAnalysis?.source || 'fallback',
+        documentTitle: title,
+        documentType: itemTypeMap[category] || 'other',
+        skills,
+        projects: groqAnalysis?.projects || [],
+        certifications: groqAnalysis?.certifications || [],
+        summary: groqAnalysis?.summary || '',
+        rawTextExcerpt: (groqAnalysis?.rawTextExcerpt || rawText || '').slice(0, 4500),
+        defenseQuestions: groqAnalysis?.defenseQuestions || [],
+      },
       provenance: validatedGraph.provenanceRecords,
       executionTimeMs: totalDurationMs,
       message: `Successfully grounded and processed ${fileName}`

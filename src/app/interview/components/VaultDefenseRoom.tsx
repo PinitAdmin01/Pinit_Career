@@ -41,23 +41,29 @@ function buildVaultPromptContext(challenge: VaultDefenseChallenge): string {
     `Document Title: ${challenge.title}`,
     `Document Category: ${challenge.itemType}`,
   ];
-  if (challenge.organizationName) {
+  if (challenge.organizationName && challenge.organizationName !== 'Academic Institution') {
     lines.push(`Organization / Issuer: ${challenge.organizationName}`);
   }
   if (challenge.claimedSkills.length > 0) {
-    lines.push(`Extracted Skills & Tools: ${challenge.claimedSkills.join(', ')}`);
+    lines.push(`Real Extracted Skills & Tools: ${challenge.claimedSkills.join(', ')}`);
   }
   if (challenge.projects && challenge.projects.length > 0) {
     lines.push(
-      `Extracted Projects & Experience:\n${challenge.projects
+      `Real Extracted Projects & Experience:\n${challenge.projects
         .map((p) => `- ${p.name}${p.techStack.length ? ` [${p.techStack.join(', ')}]` : ''}: ${p.claim}`)
         .join('\n')}`
     );
   }
+  if (challenge.certifications && challenge.certifications.length > 0) {
+    lines.push(`Certifications Listed: ${challenge.certifications.join(', ')}`);
+  }
   if (challenge.summary) {
     lines.push(`Document Summary: ${challenge.summary}`);
   }
-  return lines.join('\n');
+  if (challenge.rawTextExcerpt && challenge.rawTextExcerpt.trim().length > 30) {
+    lines.push(`ACTUAL DOCUMENT TEXT EXCERPT:\n${challenge.rawTextExcerpt.trim().slice(0, 2600)}`);
+  }
+  return lines.join('\n\n');
 }
 
 const TOTAL_DEFENSE_TURNS = 3;
@@ -72,6 +78,8 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   const [challenge, setChallenge] = useState<VaultDefenseChallenge | null>(() => initialChallenge);
   const [started, setStarted] = useState(false);
   const [isPreparing, setIsPreparing] = useState(false);
+  const [unreadableReason, setUnreadableReason] = useState<string>('');
+  const [showTextPreview, setShowTextPreview] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [manualTextInput, setManualTextInput] = useState('');
@@ -125,7 +133,9 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
             ? skills
             : extractSkillsFast(`${vaultItem.title} ${vaultItem.description || ''}`, vaultItem.skill_tags),
         projects: cachedAi?.projects,
+        certifications: cachedAi?.certifications,
         summary: cachedAi?.summary,
+        rawTextExcerpt: cachedAi?.rawTextExcerpt,
         defenseQuestions: cachedAi?.defenseQuestions,
         analysisSource: cachedAi?.source,
         auditor,
@@ -134,7 +144,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     }
   }, [challenge, docId, cOS?.vaultItems, user]);
 
-  // Step 1: Deep Groq Document Read (reads actual uploaded PDF/DOCX/Image from Supabase Storage)
+  // Step 1: Deep PDF.js + Groq Document Read (reads actual uploaded file from Supabase Storage)
   useEffect(() => {
     if (!challenge || started) return;
     if (preparedDocIdRef.current === challenge.docId) return;
@@ -142,13 +152,14 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     const onlyGenericSkills =
       challenge.claimedSkills.length === 0 ||
       challenge.claimedSkills.every((s) => ['system design', 'problem solving'].includes(s.toLowerCase()));
-    const hasAiAnalysis = Boolean(
-      challenge.analysisSource &&
-        challenge.analysisSource !== 'fallback' &&
-        (challenge.projects?.length || challenge.summary)
+    const hasRealContent = Boolean(
+      challenge.rawTextExcerpt &&
+        challenge.rawTextExcerpt.trim().length > 40 &&
+        challenge.title !== 'Supporting Document' &&
+        !onlyGenericSkills
     );
 
-    if (hasAiAnalysis && !onlyGenericSkills) {
+    if (hasRealContent) {
       preparedDocIdRef.current = challenge.docId;
       return;
     }
@@ -158,16 +169,24 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     const activeDocId = challenge.docId;
     preparedDocIdRef.current = activeDocId;
     setIsPreparing(true);
+    setUnreadableReason('');
     setAnimState('thinking');
 
     api
       .post<{
         ok: boolean;
+        readable?: boolean;
+        unreadableReason?: string;
         analysisSource?: string;
+        documentTitle?: string;
+        documentType?: string;
         claimedSkills?: string[];
         projects?: Array<{ name: string; techStack: string[]; claim: string }>;
+        certifications?: string[];
         summary?: string;
+        rawTextExcerpt?: string;
         defenseQuestions?: string[];
+        institution?: string;
       }>('/api/vault/defense-session', {
         action: 'prepare',
         docId: activeDocId,
@@ -179,46 +198,72 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
       .then((res) => {
         if (cancelled || !res?.ok) return;
         completed = true;
+        if (res.readable === false) {
+          setUnreadableReason(
+            res.unreadableReason ||
+              'Could not extract readable text from this file. Please re-upload a standard PDF, DOCX, or clear PNG/JPG image of your resume.'
+          );
+          return;
+        }
         const nextSkills =
           Array.isArray(res.claimedSkills) && res.claimedSkills.length > 0
             ? res.claimedSkills
-            : challenge.claimedSkills.length > 0
-            ? challenge.claimedSkills
-            : ['Core Technical Foundations'];
+            : challenge.claimedSkills;
         const nextQuestions =
           Array.isArray(res.defenseQuestions) && res.defenseQuestions.length > 0
             ? res.defenseQuestions
             : challenge.defenseQuestions;
+        const nextTitle = res.documentTitle || challenge.title;
+        const nextType = res.documentType || challenge.itemType;
 
         setChallenge((prev) =>
           prev
             ? {
                 ...prev,
+                title: nextTitle,
+                itemType: nextType,
+                organizationName: res.institution || prev.organizationName,
                 claimedSkills: nextSkills,
                 projects: Array.isArray(res.projects) && res.projects.length > 0 ? res.projects : prev.projects,
+                certifications:
+                  Array.isArray(res.certifications) && res.certifications.length > 0
+                    ? res.certifications
+                    : prev.certifications,
                 summary: res.summary || prev.summary,
+                rawTextExcerpt: res.rawTextExcerpt || prev.rawTextExcerpt,
                 defenseQuestions: nextQuestions,
                 analysisSource: res.analysisSource || prev.analysisSource,
               }
             : prev
         );
 
-        if (res.claimedSkills && res.claimedSkills.length > 0) {
-          cOS?.updateVaultItem?.(activeDocId, { skill_tags: nextSkills }, { skipTrustMutation: true });
-          if (typeof window !== 'undefined') {
-            try {
-              localStorage.setItem(
-                `pinit_vault_ai_analysis_${activeDocId}`,
-                JSON.stringify({
-                  source: res.analysisSource,
-                  skills: nextSkills,
-                  projects: res.projects || [],
-                  summary: res.summary || '',
-                  defenseQuestions: nextQuestions || [],
-                })
-              );
-            } catch {}
-          }
+        cOS?.updateVaultItem?.(
+          activeDocId,
+          {
+            title: nextTitle,
+            item_type: nextType,
+            skill_tags: nextSkills,
+            ...(res.institution ? { organization_name: res.institution } : {}),
+          },
+          { skipTrustMutation: true }
+        );
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(
+              `pinit_vault_ai_analysis_${activeDocId}`,
+              JSON.stringify({
+                source: res.analysisSource,
+                documentTitle: nextTitle,
+                documentType: nextType,
+                skills: nextSkills,
+                projects: res.projects || [],
+                certifications: res.certifications || [],
+                summary: res.summary || '',
+                rawTextExcerpt: res.rawTextExcerpt || '',
+                defenseQuestions: nextQuestions || [],
+              })
+            );
+          } catch {}
         }
       })
       .catch(() => {})
@@ -403,6 +448,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
             claimedSkills: activeChallenge.claimedSkills,
             projects: activeChallenge.projects || [],
             summary: activeChallenge.summary || '',
+            rawTextExcerpt: activeChallenge.rawTextExcerpt || '',
             questions: askedQuestions,
             answers: allAnswers,
           })
@@ -552,7 +598,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   handleSendRef.current = handleSendMessage;
 
   const startDefense = async () => {
-    if (!challenge || isPreparing) return;
+    if (!challenge || isPreparing || unreadableReason) return;
     unlockSpeechSynthesis();
     setStarted(true);
     setElapsedSeconds(0);
@@ -561,11 +607,13 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     setIsSendingReply(true);
     setAnimState('thinking');
 
-    // Call the EXISTING /api/interview/chat engine for a natural, resume-grounded opening
+    // Call the EXISTING /api/interview/chat engine (dedicated vault_defense prompt) for a sharp, resume-grounded opening
+    const startSignal =
+      'Audit my uploaded document now and ask your first specific verification question directly referencing a real project, internship, certification, or skill written in it.';
     const openingPrompt = await requestConversationalTurn(
       challenge,
-      [{ role: 'user', content: 'I am ready to defend my uploaded document.' }],
-      'I am ready to defend my uploaded document.'
+      [{ role: 'user', content: startSignal }],
+      startSignal
     );
 
     setMessages([{ role: 'assistant', content: openingPrompt }]);
@@ -650,46 +698,78 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
               : `You will enter the live 3D AI Interview Studio with ${challenge.auditor.name} (${challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'}) for a 3-turn voice & text conversation directly about the skills and projects on your document.`}
           </p>
 
+          {/* Unreadable File Honest Guard (never launch an interview on an unreadable file) */}
+          {!isPreparing && unreadableReason && (
+            <div style={{ marginBottom: 16, padding: '12px 14px', borderRadius: 12, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.35)', fontSize: 12.5, color: 'var(--t1)' }}>
+              <div style={{ fontWeight: 800, color: '#dc2626', marginBottom: 4 }}>
+                ⚠️ Could Not Read Uploaded File
+              </div>
+              <div style={{ color: 'var(--t2)', lineHeight: 1.5, marginBottom: 10 }}>{unreadableReason}</div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    preparedDocIdRef.current = null;
+                    setUnreadableReason('');
+                    setChallenge((prev) => (prev ? { ...prev } : prev));
+                  }}
+                  className="btn-ghost btn-sm"
+                >
+                  🔄 Retry AI Scan
+                </button>
+                <button type="button" onClick={() => router.push('/vault')} className="btn-primary btn-sm">
+                  📤 Re-upload Readable PDF / PNG
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Extracted Skills */}
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
-              Skills Read From Your Document
-            </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              {isPreparing ? (
-                <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
-                  🔍 Scanning document with Groq AI...
-                </span>
-              ) : (
-                challenge.claimedSkills.map((sk) => (
-                  <span
-                    key={sk}
-                    style={{
-                      fontSize: 11.5,
-                      padding: '3px 9px',
-                      borderRadius: 6,
-                      background: 'rgba(99,102,241,0.12)',
-                      color: 'var(--accent)',
-                      border: '1px solid rgba(99,102,241,0.3)',
-                      fontFamily: 'var(--font-mono)',
-                      fontWeight: 600,
-                    }}
-                  >
-                    {sk}
+          {!unreadableReason && (
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                Skills Read From Your Document ({challenge.claimedSkills.length})
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {isPreparing ? (
+                  <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                    🔍 Reading PDF &amp; analyzing claims with Groq AI...
                   </span>
-                ))
-              )}
+                ) : challenge.claimedSkills.length > 0 ? (
+                  challenge.claimedSkills.map((sk) => (
+                    <span
+                      key={sk}
+                      style={{
+                        fontSize: 11.5,
+                        padding: '3px 9px',
+                        borderRadius: 6,
+                        background: 'rgba(99,102,241,0.12)',
+                        color: 'var(--accent)',
+                        border: '1px solid rgba(99,102,241,0.3)',
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {sk}
+                    </span>
+                  ))
+                ) : (
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+                    No skill tags extracted yet — AI will question directly from the document text below.
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Extracted Projects */}
-          {!isPreparing && challenge.projects && challenge.projects.length > 0 && (
-            <div style={{ marginBottom: 16, padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+          {!isPreparing && !unreadableReason && challenge.projects && challenge.projects.length > 0 && (
+            <div style={{ marginBottom: 14, padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
-                Projects &amp; Claims Detected ({challenge.projects.length})
+                Projects &amp; Experience Read ({challenge.projects.length})
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                {challenge.projects.slice(0, 4).map((proj, idx) => (
+                {challenge.projects.slice(0, 5).map((proj, idx) => (
                   <div key={idx} style={{ fontSize: 12.5, color: 'var(--t1)' }}>
                     <strong>• {proj.name}</strong>
                     {proj.techStack?.length > 0 && (
@@ -698,6 +778,40 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Transparent Extracted Text Preview Toggle */}
+          {!isPreparing && !unreadableReason && challenge.rawTextExcerpt && (
+            <div style={{ marginBottom: 16 }}>
+              <button
+                type="button"
+                onClick={() => setShowTextPreview((v) => !v)}
+                className="btn-ghost btn-sm"
+                style={{ fontSize: 11.5, padding: '4px 10px' }}
+              >
+                {showTextPreview ? '▲ Hide Extracted Resume Text' : '📄 Verify What AI Read From Your Resume'}
+              </button>
+              {showTextPreview && (
+                <pre
+                  style={{
+                    marginTop: 8,
+                    padding: 10,
+                    borderRadius: 10,
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    fontSize: 11,
+                    lineHeight: 1.5,
+                    color: 'var(--t2)',
+                    maxHeight: 180,
+                    overflowY: 'auto',
+                    whiteSpace: 'pre-wrap',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                >
+                  {challenge.rawTextExcerpt.slice(0, 2200)}
+                </pre>
+              )}
             </div>
           )}
 
@@ -711,11 +825,11 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
               type="button"
               data-testid="start-vault-defense-btn"
               onClick={startDefense}
-              disabled={isPreparing}
+              disabled={isPreparing || Boolean(unreadableReason)}
               className="btn-primary"
-              style={{ padding: '11px 22px', fontSize: 14, fontWeight: 800, opacity: isPreparing ? 0.65 : 1 }}
+              style={{ padding: '11px 22px', fontSize: 14, fontWeight: 800, opacity: isPreparing || unreadableReason ? 0.55 : 1 }}
             >
-              {isPreparing ? '⏳ Reading Resume with Groq AI...' : `🎙️ Start Live Defense with ${challenge.auditor.name}`}
+              {isPreparing ? '⏳ Reading Resume with Groq AI...' : `🎙️ Start Live Verification with ${challenge.auditor.name}`}
             </button>
           </div>
         </div>

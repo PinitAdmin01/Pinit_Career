@@ -47,7 +47,7 @@ const CSP = [
     'https://tessdata.projectnaptha.com',
     'https://*.projectnaptha.com',
   ].join(' '),
-  "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
+  "frame-src 'self' blob: https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -123,12 +123,14 @@ const nextConfig = {
   },
 
   experimental: {
-    serverComponentsExternalPackages: ['esbuild', 'sharp', 'onnxruntime-node', 'pyodide'],
+    serverComponentsExternalPackages: ['esbuild', 'sharp', 'onnxruntime-node', 'pyodide', 'unpdf'],
     outputFileTracingIncludes: {
       '/api/visuals': ['./src/lib/data/lessonVisuals/**/*', './src/generated/longLessons/**/*'],
       '/api/lesson': ['./src/generated/longLessons/**/*'],
       '/api/quests/grade-test': ['./src/generated/longLessons/**/*'],
       '/api/quests/verify': ['./node_modules/pyodide/**/*', './public/pyodide/**/*'],
+      '/api/vault/upload': ['./node_modules/unpdf/**/*'],
+      '/api/vault/defense-session': ['./node_modules/unpdf/**/*'],
     },
     outputFileTracingExcludes: {
       '*': [

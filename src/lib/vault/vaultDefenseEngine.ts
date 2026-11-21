@@ -34,7 +34,9 @@ export interface VaultDefenseChallenge {
   organizationName?: string;
   claimedSkills: string[];
   projects?: VaultDefenseProject[];
+  certifications?: string[];
   summary?: string;
+  rawTextExcerpt?: string;
   defenseQuestions?: string[];
   analysisSource?: string;
   auditor: VaultAuditorProfile;
@@ -170,15 +172,7 @@ export function extractSkillsFast(text: string, existingSkills?: string[]): stri
       result.set(entry.canonical.toLowerCase(), entry.canonical);
     }
   }
-  if (result.size === 0 && source.trim().length > 0) {
-    if (/resume|cv/i.test(source)) {
-      result.set('system design', 'System Design');
-      result.set('problem solving', 'Problem Solving');
-    } else if (/certif/i.test(source)) {
-      result.set('applied domain mastery', 'Applied Domain Mastery');
-    }
-  }
-  return Array.from(result.values()).slice(0, 12);
+  return Array.from(result.values()).slice(0, 15);
 }
 
 /**

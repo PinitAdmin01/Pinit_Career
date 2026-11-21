@@ -71,6 +71,28 @@ export default function VaultPage() {
     confidence: number;
   } | null>(null);
 
+  const [previewDoc, setPreviewDoc] = useState<{
+    item: any;
+    loadingFile: boolean;
+    fileError: string;
+    blobUrl: string | null;
+    mimeType: string;
+    fileName: string;
+    textContent: string;
+    aiAnalysis: any;
+    rescanning: boolean;
+  } | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewDoc?.blobUrl) {
+        try {
+          URL.revokeObjectURL(previewDoc.blobUrl);
+        } catch {}
+      }
+    };
+  }, [previewDoc?.blobUrl]);
+
   const [form, setForm] = useState({
     title: '',
     itemType: 'resume',
@@ -136,12 +158,14 @@ export default function VaultPage() {
     savePendingVaultDefense({
       docId: item.id,
       userId: user?.id,
-      title: item.title || 'Uploaded Credential',
-      itemType: item.item_type || 'resume',
+      title: cachedAi?.documentTitle || item.title || 'Uploaded Credential',
+      itemType: cachedAi?.documentType || item.item_type || 'resume',
       organizationName: item.organization_name || '',
       claimedSkills: inferredSkills,
       projects: cachedAi?.projects || undefined,
+      certifications: cachedAi?.certifications || undefined,
       summary: cachedAi?.summary || undefined,
+      rawTextExcerpt: cachedAi?.rawTextExcerpt || undefined,
       defenseQuestions: cachedAi?.defenseQuestions || undefined,
       analysisSource: cachedAi?.source || undefined,
       auditor,
@@ -149,6 +173,161 @@ export default function VaultPage() {
     });
 
     router.push(`/interview?mode=vault_verify&docId=${encodeURIComponent(item.id)}`);
+  };
+
+  const closeDocumentViewer = () => {
+    setPreviewDoc((prev) => {
+      if (prev?.blobUrl) {
+        try {
+          URL.revokeObjectURL(prev.blobUrl);
+        } catch {}
+      }
+      return null;
+    });
+  };
+
+  const openDocumentViewer = async (item: any) => {
+    const cachedAi = getLocalAiAnalysis(item.id);
+    setPreviewDoc({
+      item,
+      loadingFile: true,
+      fileError: '',
+      blobUrl: null,
+      mimeType: '',
+      fileName: item.title || 'document.pdf',
+      textContent: '',
+      aiAnalysis: cachedAi,
+      rescanning: false,
+    });
+
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken =
+        sessionData?.session?.access_token ||
+        (typeof window !== 'undefined' ? localStorage.getItem('pinit_vault_jwt') : null);
+      const headers: Record<string, string> = { 'X-Pinit-Direct': '1' };
+      if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
+
+      const res = await fetch(`/api/vault/file?docId=${encodeURIComponent(item.id)}`, {
+        method: 'GET',
+        headers,
+      });
+
+      if (!res.ok) {
+        const errPayload = await res.json().catch(() => ({}));
+        setPreviewDoc((prev) =>
+          prev
+            ? {
+                ...prev,
+                loadingFile: false,
+                fileError: errPayload?.message || 'No previewable binary file found for this entry.',
+              }
+            : null
+        );
+        return;
+      }
+
+      const mimeType = res.headers.get('content-type') || 'application/pdf';
+      const fileName = res.headers.get('x-vault-filename') || item.title || 'document.pdf';
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const textContent = mimeType.startsWith('text/') ? await blob.text() : '';
+
+      setPreviewDoc((prev) =>
+        prev
+          ? {
+              ...prev,
+              loadingFile: false,
+              blobUrl,
+              mimeType,
+              fileName,
+              textContent,
+            }
+          : null
+      );
+    } catch (err: any) {
+      setPreviewDoc((prev) =>
+        prev
+          ? {
+              ...prev,
+              loadingFile: false,
+              fileError: err?.message || 'Failed to load document preview.',
+            }
+          : null
+      );
+    }
+  };
+
+  const handleRescanDocument = async (item: any) => {
+    setPreviewDoc((prev) => (prev ? { ...prev, rescanning: true } : null));
+    try {
+      const res = await api.post<any>('/api/vault/defense-session', {
+        action: 'prepare',
+        docId: item.id,
+        title: item.title,
+        itemType: item.item_type,
+        auditorName: auditor.name,
+        existingSkills: item.skill_tags || [],
+      });
+
+      if (res?.ok && res?.readable) {
+        const nextAi = {
+          source: res.analysisSource,
+          documentTitle: res.documentTitle,
+          documentType: res.documentType,
+          skills: res.claimedSkills || [],
+          projects: res.projects || [],
+          certifications: res.certifications || [],
+          summary: res.summary || '',
+          rawTextExcerpt: res.rawTextExcerpt || '',
+          defenseQuestions: res.defenseQuestions || [],
+        };
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(`pinit_vault_ai_analysis_${item.id}`, JSON.stringify(nextAi));
+          } catch {}
+        }
+        updateVaultItem(
+          item.id,
+          {
+            title: res.documentTitle || item.title,
+            item_type: res.documentType || item.item_type,
+            skill_tags: res.claimedSkills || item.skill_tags,
+            organization_name: res.institution || item.organization_name,
+          },
+          { skipTrustMutation: true }
+        );
+        setPreviewDoc((prev) =>
+          prev
+            ? {
+                ...prev,
+                rescanning: false,
+                aiAnalysis: nextAi,
+                item: {
+                  ...prev.item,
+                  title: res.documentTitle || prev.item.title,
+                  item_type: res.documentType || prev.item.item_type,
+                  skill_tags: res.claimedSkills || prev.item.skill_tags,
+                },
+              }
+            : null
+        );
+        refetch?.();
+        toast.success(
+          '⚡ Resume Re-scanned with Groq AI',
+          `Extracted ${(res.claimedSkills || []).length} real skills and ${(res.projects || []).length} projects.`
+        );
+      } else {
+        setPreviewDoc((prev) => (prev ? { ...prev, rescanning: false } : null));
+        toast.error(
+          'Could Not Extract Resume Text',
+          res?.unreadableReason || 'Try re-uploading a standard PDF, DOCX, or clear PNG/JPG screenshot.'
+        );
+      }
+    } catch (err: any) {
+      setPreviewDoc((prev) => (prev ? { ...prev, rescanning: false } : null));
+      toast.error('Re-scan Failed', err?.message || 'Could not analyze document right now.');
+    }
   };
 
   const handleDeleteItem = async (item: any) => {
@@ -275,9 +454,22 @@ export default function VaultPage() {
       formData.append('primaryName', user?.displayName || 'Candidate');
       formData.append('auditorName', auditor.name);
 
+      let uploadError: any = null;
       const res = await api
         .post<{ ok: boolean; document?: any; data?: any; aiAnalysis?: any; message?: string }>('/api/vault/upload', formData)
-        .catch(() => null);
+        .catch((err) => {
+          uploadError = err;
+          return null;
+        });
+
+      if (uploadError && (uploadError?.status === 422 || uploadError?.status === 400 || uploadError?.status === 413)) {
+        toast.error(
+          'Could Not Read Document',
+          uploadError?.message || 'Please upload a readable PDF, DOCX, TXT, or clear PNG/JPG image.'
+        );
+        return;
+      }
+
       const doc = res?.document || res?.data;
 
       if (doc) {
@@ -300,8 +492,10 @@ export default function VaultPage() {
           confidence: Math.round(doc.ai_confidence_score || 85),
         });
         toast.success(
-          '⚡ Document Analyzed with AI',
-          `${aiSkills.length} real skills extracted. Ready to verify with ${auditor.name}!`
+          '⚡ Document Analyzed with Groq AI',
+          aiSkills.length > 0
+            ? `${aiSkills.length} real skills extracted. Ready to verify with ${auditor.name}!`
+            : `Document uploaded. Click View to inspect or start verification with ${auditor.name}.`
         );
         if (user?.id) {
           const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
@@ -868,12 +1062,13 @@ export default function VaultPage() {
 
                       <button
                         type="button"
-                        onClick={() => updateVaultItem(item.id, { is_public: !item.is_public })}
+                        data-testid={`vault-view-btn-${item.id}`}
+                        onClick={() => openDocumentViewer(item)}
                         className="btn-ghost btn-sm"
-                        title={item.is_public ? 'Make private' : 'Share publicly'}
+                        title="View uploaded document & AI scan"
                         style={{ fontSize: 11.5, padding: '6px 9px' }}
                       >
-                        {item.is_public ? '🔒' : '👁'}
+                        👁 View
                       </button>
 
                       {!isItemVerified && (
@@ -907,6 +1102,217 @@ export default function VaultPage() {
           verifiedCount={verified_total}
           totalVaultCount={total}
         />
+      )}
+
+      {/* IN-APP DOCUMENT PREVIEW & GROQ AI SCAN MODAL */}
+      {previewDoc && (
+        <div
+          onClick={closeDocumentViewer}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(2, 6, 23, 0.78)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 16,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '100%',
+              maxWidth: 1080,
+              maxHeight: '90vh',
+              borderRadius: 18,
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Modal Header */}
+            <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  📄 {previewDoc.item.title}
+                </div>
+                <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                  {previewDoc.fileName}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => handleRescanDocument(previewDoc.item)}
+                  disabled={previewDoc.rescanning}
+                  className="btn-ghost btn-sm"
+                  style={{ fontSize: 12 }}
+                >
+                  {previewDoc.rescanning ? '⏳ Scanning with Groq AI...' : '🔄 Re-scan with Groq AI'}
+                </button>
+                {previewDoc.blobUrl && (
+                  <a
+                    href={previewDoc.blobUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost btn-sm"
+                    style={{ fontSize: 12, textDecoration: 'none' }}
+                  >
+                    ↗ Open in New Tab
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={closeDocumentViewer}
+                  className="btn-ghost btn-sm"
+                  style={{ fontSize: 12 }}
+                >
+                  ✕ Close
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Split Body: Left = Live Document Viewer, Right = What Groq AI Read */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 1.35fr) minmax(260px, 0.85fr)', flex: 1, minHeight: 0, overflow: 'hidden' }}>
+              {/* Left: Rendered PDF / Image / Text */}
+              <div style={{ background: 'var(--bg2)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', minHeight: 460, maxHeight: '76vh' }}>
+                {previewDoc.loadingFile ? (
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13.5 }}>
+                    ⏳ Loading your uploaded document from Secure Vault...
+                  </div>
+                ) : previewDoc.fileError ? (
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, textAlign: 'center', gap: 10 }}>
+                    <div style={{ fontSize: 28 }}>📂</div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>Document Preview Unavailable</div>
+                    <div style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360 }}>{previewDoc.fileError}</div>
+                  </div>
+                ) : previewDoc.blobUrl && previewDoc.mimeType.includes('pdf') ? (
+                  <iframe
+                    src={previewDoc.blobUrl}
+                    title={previewDoc.fileName}
+                    style={{ width: '100%', height: '100%', minHeight: 480, border: 'none' }}
+                  />
+                ) : previewDoc.blobUrl && previewDoc.mimeType.startsWith('image/') ? (
+                  <div style={{ flex: 1, overflow: 'auto', padding: 14, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <img
+                      src={previewDoc.blobUrl}
+                      alt={previewDoc.fileName}
+                      style={{ maxWidth: '100%', borderRadius: 10, boxShadow: '0 6px 20px rgba(0,0,0,0.25)' }}
+                    />
+                  </div>
+                ) : previewDoc.textContent ? (
+                  <pre style={{ flex: 1, overflow: 'auto', padding: 16, margin: 0, fontSize: 12, lineHeight: 1.55, color: 'var(--t1)', whiteSpace: 'pre-wrap', fontFamily: 'var(--font-mono)' }}>
+                    {previewDoc.textContent}
+                  </pre>
+                ) : previewDoc.blobUrl ? (
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, gap: 12, textAlign: 'center' }}>
+                    <div style={{ fontSize: 32 }}>📎</div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>{previewDoc.fileName}</div>
+                    <a
+                      href={previewDoc.blobUrl}
+                      download={previewDoc.fileName}
+                      className="btn-primary btn-sm"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      ⬇ Download File
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+
+              {/* Right: Groq AI Extracted Understanding */}
+              <div style={{ padding: 16, overflowY: 'auto', maxHeight: '76vh', display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                    Skills Extracted From This File
+                  </div>
+                  {((previewDoc.aiAnalysis?.skills?.length || 0) > 0 || (previewDoc.item.skill_tags?.length || 0) > 0) ? (
+                    <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+                      {Array.from(
+                        new Set<string>([
+                          ...(previewDoc.aiAnalysis?.skills || []),
+                          ...(previewDoc.item.skill_tags || []),
+                        ])
+                      ).map((sk) => (
+                        <span
+                          key={sk}
+                          style={{
+                            fontSize: 11,
+                            padding: '2px 8px',
+                            borderRadius: 6,
+                            background: 'rgba(99,102,241,0.12)',
+                            color: 'var(--accent)',
+                            border: '1px solid rgba(99,102,241,0.3)',
+                            fontFamily: 'var(--font-mono)',
+                            fontWeight: 600,
+                          }}
+                        >
+                          {sk}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+                      No skills extracted yet. Click <strong>Re-scan with Groq AI</strong> above to read this file now.
+                    </div>
+                  )}
+                </div>
+
+                {previewDoc.aiAnalysis?.projects?.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                      Projects &amp; Experience Read ({previewDoc.aiAnalysis.projects.length})
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {previewDoc.aiAnalysis.projects.map((p: any, idx: number) => (
+                        <div key={idx} style={{ padding: '8px 10px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', fontSize: 12 }}>
+                          <div style={{ fontWeight: 700, color: 'var(--t1)' }}>{p.name}</div>
+                          {p.techStack?.length > 0 && (
+                            <div style={{ fontSize: 11, color: 'var(--accent)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                              {p.techStack.join(' · ')}
+                            </div>
+                          )}
+                          {p.claim && <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 3 }}>{p.claim}</div>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {previewDoc.aiAnalysis?.rawTextExcerpt && (
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                      Extracted Document Text Preview
+                    </div>
+                    <pre style={{ margin: 0, padding: 10, borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', fontSize: 11, lineHeight: 1.5, color: 'var(--t2)', maxHeight: 200, overflowY: 'auto', whiteSpace: 'pre-wrap', fontFamily: 'var(--font-mono)' }}>
+                      {previewDoc.aiAnalysis.rawTextExcerpt.slice(0, 1800)}
+                    </pre>
+                  </div>
+                )}
+
+                <div style={{ marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--border)' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const target = previewDoc.item;
+                      closeDocumentViewer();
+                      launchDefenseRoom(target);
+                    }}
+                    className="btn-primary btn-sm"
+                    style={{ width: '100%', justifyContent: 'center', fontWeight: 800 }}
+                  >
+                    ⚔️ Verify Accuracy with {auditor.name}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

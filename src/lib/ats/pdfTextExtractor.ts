@@ -104,14 +104,34 @@ export function parseCMap(text: string): Map<number, string> {
 
 function decodeHexWithCMap(hex: string, cmap?: Map<number, string>): string {
   let res = '';
-  // Try 4-digit (16-bit) chunking first if applicable
+  // Try 4-digit (16-bit) chunking when a ToUnicode CMap is present or UTF-16BE ASCII (<0041>)
   if (hex.length >= 4 && hex.length % 4 === 0) {
-    for (let i = 0; i < hex.length; i += 4) {
-      const code = parseInt(hex.substring(i, i + 4), 16);
-      const ch = cmap ? cmap.get(code) : (code >= 32 && code <= 126 ? String.fromCharCode(code) : undefined);
-      if (ch) res += ch;
+    if (cmap) {
+      for (let i = 0; i < hex.length; i += 4) {
+        const code = parseInt(hex.substring(i, i + 4), 16);
+        const ch = cmap.get(code);
+        if (ch) res += ch;
+      }
+      if (res.length > 0) return res;
     }
-    return res;
+    // Without a CMap, only decode 16-bit hex if it looks like UTF-16BE ASCII (high bytes 0x00 + printable ASCII letters/digits)
+    let allUtf16Ascii = true;
+    let utf16Out = '';
+    for (let i = 0; i < hex.length; i += 4) {
+      const hi = parseInt(hex.substring(i, i + 2), 16);
+      const lo = parseInt(hex.substring(i + 2, i + 4), 16);
+      if (hi === 0 && lo >= 32 && lo <= 126) {
+        utf16Out += String.fromCharCode(lo);
+      } else {
+        allUtf16Ascii = false;
+        break;
+      }
+    }
+    if (allUtf16Ascii && /[A-Za-z0-9]{2,}/.test(utf16Out)) {
+      return utf16Out;
+    }
+    // If no CMap and not UTF-16BE ASCII, do NOT emit raw CID glyph indices as garbage punctuation
+    return '';
   }
   // Otherwise 2-digit (8-bit) chunking
   for (let i = 0; i < hex.length; i += 2) {
@@ -120,6 +140,27 @@ function decodeHexWithCMap(hex: string, cmap?: Map<number, string>): string {
     if (ch) res += ch;
   }
   return res;
+}
+
+/**
+ * Validates that extracted document text is genuine human-readable content
+ * rather than garbled CID glyph indices, binary noise, or empty placeholders.
+ */
+export function isReadableDocumentText(text: string): boolean {
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  if (clean.length < 30) return false;
+  // Count genuine alphabetic words (2+ ASCII/Unicode letters)
+  const realWords = clean.match(/[A-Za-z]{2,}/g) || [];
+  if (realWords.length < 5) return false;
+  // Ratio of normal readable chars (letters, digits, spaces, common punctuation) vs total chars
+  const readableChars = (clean.match(/[A-Za-z0-9\s.,;:'"()\-/@+#&%!?[\]{}|_]/g) || []).length;
+  const ratio = readableChars / clean.length;
+  if (ratio < 0.72) return false;
+  // Reject PDF syntax/garbage blobs like "0 0 obj" or "endstream"
+  if (/\b(?:endobj|endstream|flatedecode|cidtogidmap|begincmap)\b/i.test(clean) && realWords.length < 25) {
+    return false;
+  }
+  return true;
 }
 
 export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {

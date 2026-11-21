@@ -656,21 +656,27 @@ export async function POST(req: Request) {
     } else if (stage === 'vault_defense') {
       const assistantTurns = effectiveHistory.filter((m) => m.role === 'assistant').length;
       const docDetails = typeof vaultContext === 'string' && vaultContext.trim()
-        ? vaultContext.trim().slice(0, 2400)
+        ? vaultContext.trim().slice(0, 4800)
         : `Document: ${subTopic}`;
       if (assistantTurns === 0) {
-        stageContext = `This is a LIVE Proof Vault Credential Defense Interview. You are verifying the candidate's ACTUAL uploaded document below:
+        stageContext = `ACTUAL UPLOADED RESUME / CERTIFICATE CONTENT TO AUDIT:
 ${docDetails}
 
-OPENING TURN: Speak naturally in first person as ${selectedInterviewer.name} (2-3 crisp sentences, NO robotic labels like "Question 1 of 3" or "(Credential Auditor):"). Briefly reference 1-2 REAL skills or a REAL project listed in the document above, and ask ONE sharp, direct opening question testing whether they genuinely know it. NEVER ask about "System Design" or "Problem Solving" unless those exact skills are genuinely listed in the document above.`;
+OPENING TURN (EXCHANGE 1 OF 3):
+- Your ONLY job is to verify whether THIS uploaded resume or certificate is genuine and accurate, or fake/exaggerated.
+- Pick ONE specific, concrete project, internship, skill, tool, or certification explicitly written in the document above — quote its EXACT name from the document.
+- Ask ONE sharp, direct, natural question testing whether the candidate truly built or mastered that exact item (2-3 spoken sentences max).
+- NEVER ask generic "tell me about yourself" or "walk me through your background" questions.
+- NEVER ask about "System Design" or "Problem Solving" unless those exact words are written in the document above.`;
       } else {
-        stageContext = `This is a LIVE Proof Vault Credential Defense Interview (Exchange ${assistantTurns + 1} of 3). You are verifying the candidate's ACTUAL uploaded document below:
+        stageContext = `ACTUAL UPLOADED RESUME / CERTIFICATE CONTENT TO AUDIT:
 ${docDetails}
 
-LIVE REACTIVE FOLLOW-UP: Read the candidate's LAST message carefully and react like a real human senior interviewer (2-3 crisp spoken sentences, NO robotic labels like "Question 2 of 3:" or canned scripts):
-- If the candidate said "I don't know", "sorry", "nothing", or evaded the question: DO NOT ignore it and DO NOT pretend they answered. Acknowledge it directly and naturally (e.g., "Alright, noted — you couldn't back that one up."), then pivot cleanly to a DIFFERENT real skill, tool, or project explicitly listed in their document above and ask a direct, fair, concrete question about it.
-- If the candidate gave a substantive technical/domain answer: briefly acknowledge one specific thing they said, then either probe one deeper follow-up on an edge case/failure mode OR test a second real skill/project from their document above.
-- Keep it direct, sharp, natural, and strictly grounded in the uploaded document above.`;
+LIVE REACTIVE FOLLOW-UP (EXCHANGE ${assistantTurns + 1} OF 3):
+- Read the candidate's LAST reply carefully and respond like a real human senior auditor verifying their uploaded resume/certificate (2-3 crisp spoken sentences max).
+- If the candidate said "I don't know", "sorry", "nothing", or evaded the question: acknowledge it directly and candidly ("Alright, noted — you couldn't back up that claim."), then pick a DIFFERENT specific project, skill, tool, or certification explicitly written in the document above and ask a concrete verification question about it.
+- If the candidate gave a real technical or domain answer: briefly acknowledge one specific detail they gave, then either drill one level deeper into an edge case/implementation detail of that exact claim OR test a DIFFERENT named skill/project/certification from their document above.
+- Stay 100% anchored to what is actually written in the uploaded document above.`;
       }
     }
 
@@ -685,7 +691,17 @@ LIVE REACTIVE FOLLOW-UP: Read the candidate's LAST message carefully and react l
       telemetryContext = `[Diagnostic Signal: ${parts.join(', ')}]. Maintain crisp verbal engagement.`;
     }
 
-    const systemPrompt = `You are ${selectedInterviewer.name}, ${selectedInterviewer.role}. ${selectedInterviewer.nature}.
+    const systemPrompt = stage === 'vault_defense'
+      ? `You are ${selectedInterviewer.name}, ${selectedInterviewer.role}. ${selectedInterviewer.nature}
+${stageContext}
+${telemetryContext}
+STRICT AUDIT RULES:
+1. Speak in first person as ${selectedInterviewer.name} in natural, direct spoken dialogue (2-3 sentences max, no markdown bullets, no numbered lists, no "Question 1 of 3:" headers, and NEVER append a sign-off like "— ${selectedInterviewer.name}").
+2. Every single question MUST directly reference a real project, internship, skill, tool, course, or certification written in the ACTUAL UPLOADED DOCUMENT above.
+3. NEVER give generic mock-interview prompts like "walk me through your background" or "use the STAR method" or "click Skip Round".
+4. If the candidate says "I don't know" or gives a vague bluff, call it out calmly and test another specific claim from their document.
+5. Never reveal answers or coach the candidate — you are auditing whether their uploaded credential is authentic.`
+      : `You are ${selectedInterviewer.name}, ${selectedInterviewer.role}. ${selectedInterviewer.nature}.
 ${difficultyPrompt}
 ${topicPrompt}
 ${stageContext}
