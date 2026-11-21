@@ -55,10 +55,10 @@ export async function submitMission(uid: string, missionId: string, data: Record
       });
   }
 
-  // Authoritatively update user trust_score and missions_completed in users table
+  // Authoritatively update user trust_score and missions_completed in users table (+3 trust reward)
   if (userProfile) {
     const nextCount = (userProfile.missions_completed || 0) + 1;
-    const nextTrust = Math.min(100, (userProfile.trust_score || 50) + trustReward);
+    const nextTrust = Math.min(100, (userProfile.trust_score || 50) + 3);
     await supabase
       .from('users')
       .update({
@@ -150,7 +150,7 @@ export async function persistQuestCompletion(
     const newXp = currentXp + (xpAmount || 15);
     const newWeeklyXp = currentWeeklyXp + (xpAmount || 15);
     const newMissions = currentMissions + 1;
-    const newTrust = Math.min(100, currentTrust + 2);
+    const newTrust = Math.min(100, currentTrust + 3);
 
     const { error: updateErr } = await supabase
       .from('users')

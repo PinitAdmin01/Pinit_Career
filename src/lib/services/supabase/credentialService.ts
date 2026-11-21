@@ -101,8 +101,8 @@ export async function verifyVaultItem(
 
     if (updateErr) return { ok: false, error: updateErr.message };
 
-    // Increment student trust score strictly on genuine verification
-    if (isVerified && item.user_id) {
+    // Update student trust score: +5 for verified genuine proof, -5 for rejected/false proof (range 0-100, baseline 50)
+    if (item.user_id) {
       try {
         const { data: userProfile } = await supabase
           .from('users')
@@ -110,15 +110,17 @@ export async function verifyVaultItem(
           .eq('id', item.user_id)
           .maybeSingle();
 
-        const currentTrust = Number(userProfile?.trust_score) || 40;
-        const newTrust = Math.min(100, currentTrust + 5);
+        const currentTrust = typeof userProfile?.trust_score === 'number' ? userProfile.trust_score : 50;
+        const newTrust = isVerified
+          ? Math.min(100, currentTrust + 5)
+          : Math.max(0, currentTrust - 5);
 
         await supabase
           .from('users')
           .update({ trust_score: newTrust })
           .eq('id', item.user_id);
       } catch (trustErr) {
-        console.warn('Trust boost calculation warning:', trustErr);
+        console.warn('Trust adjustment calculation warning:', trustErr);
       }
     }
 

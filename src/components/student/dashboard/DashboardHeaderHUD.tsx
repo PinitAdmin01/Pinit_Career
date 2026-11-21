@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Link from 'next/link';
 import { DynamicRoleReadiness, StudentSkillProfile } from '@/lib/pathway/competencySchema';
+import { getLocalTrustScore, TRUST_CONSTANTS } from '@/lib/trust/trustEngine';
 
 // ── Canvas Hologram ──────────────────────────────────────────────────────────
 function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
@@ -272,28 +273,13 @@ export default function DashboardHeaderHUD({
   }, [firstName, user?.id, hasChosenTrack, trackTitle]);
 
   // ── Dynamic & Honest Telemetry Baseline ────────────────────────────────────
-  // 1. Trust Score: default 100. Deduct 5 if class skipped or suspicious activity; otherwise 100.
+  // 1. Trust Score: default 50 (range 0 to 100). +3 for mission/lesson/exam/interview, -2 for cheating (max once per session)
   const dynamicTrust = useMemo(() => {
     const profileTrust = (user as any)?.trustScore ?? (user as any)?.trust_score;
-    const candidateTrust = (typeof trustScore === 'number' && trustScore > 0 && trustScore !== 100)
-      ? trustScore
-      : (typeof profileTrust === 'number' && profileTrust > 0 && profileTrust !== 100 ? profileTrust : null);
-    if (candidateTrust !== null) {
-      return Math.min(100, Math.max(0, Math.round(candidateTrust)));
-    }
-    if (typeof window !== 'undefined' && user?.id) {
-      try {
-        const raw = localStorage.getItem(`pinit_attendance_v2_${user.id}`);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          const skipped = Number(parsed?.missedDays || parsed?.absentCount || 0);
-          if (skipped > 0) {
-            return Math.max(50, 100 - skipped * 5);
-          }
-        }
-      } catch {}
-    }
-    return 100; // Honest baseline: 100
+    // If profile has legacy seed of 40 and local score not set, normalize to baseline 50
+    const normalizedProfile = (profileTrust === 40 || profileTrust === 0) ? null : profileTrust;
+    const candidateProp = (trustScore > 0 && trustScore !== 40) ? trustScore : null;
+    return getLocalTrustScore(user?.id, candidateProp ?? normalizedProfile ?? TRUST_CONSTANTS.DEFAULT_SCORE);
   }, [trustScore, user]);
 
   // 2. Career Score: default 0 (student has not chosen/completed any course yet)

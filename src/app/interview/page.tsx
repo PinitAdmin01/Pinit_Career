@@ -13,6 +13,7 @@ import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { toast } from '@/lib/store/useAppStore';
+import { applyTrustReward, recordCheatingIncident } from '@/lib/trust/trustEngine';
 import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 import { MindsetArchetype } from '@/lib/interview/scoringMatrix';
 
@@ -296,6 +297,8 @@ export default function InterviewPage() {
       setIsTabInactive(!isVisible);
       if (!isVisible && isInterviewActiveRef.current && activeStageRef.current !== 'results') {
         setTabSwitchCount(prev => prev + 1);
+        const sessId = liveSessionIdRef.current || `interview_sess_${Date.now()}`;
+        recordCheatingIncident(user?.id, sessId, 'interview', 'interview_tab_switch').catch(() => {});
       }
     };
     document.addEventListener('visibilitychange', onVisibilityChange);
@@ -1485,6 +1488,8 @@ export default function InterviewPage() {
     if (typeof resultObj.xpAwarded === 'number' && resultObj.xpAwarded > 0) {
       applyServerXp(resultObj.newXp, resultObj.xpAwarded, 'Completed AI Interview');
     }
+    // Award +3 Trust Score for completing the AI Interview (baseline 50, max 100)
+    applyTrustReward(user?.id, 'interview').catch(() => {});
     // Interview verdict recorded; pins are not earned via gameplay
 
     const { dateStr, isoStr } = safeFormatDate();

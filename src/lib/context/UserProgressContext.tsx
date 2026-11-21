@@ -17,6 +17,14 @@ import {
 } from '@/lib/storage/careerStorage';
 // Lazy-loaded on demand: import('@/lib/data/roadmapFuser')
 import { resolveTrackFromGoal } from '@/lib/onboarding/trackResolver';
+import {
+  getLocalTrustScore,
+  applyTrustReward,
+  recordCheatingIncident,
+  TRUST_CONSTANTS,
+  type TrustActivityType,
+  type CheatingFeature
+} from '@/lib/trust/trustEngine';
 
 export interface OnboardingAnswers {
   role?: string;
@@ -81,6 +89,8 @@ export interface UserProgressContextType {
   setGroupPanelPassed: (val: boolean) => void;
   recruiterVisible: boolean;
   setRecruiterVisible: (val: boolean) => void;
+  applyTrustRewardAction?: (type: TrustActivityType) => Promise<number>;
+  recordCheatingAction?: (sessionId: string, feature: CheatingFeature, violationType: string, details?: any) => Promise<number>;
 }
 
 const UserProgressContext = createContext<UserProgressContextType | null>(null);
@@ -226,6 +236,23 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
   const [javaTestPassed, setJavaTestPassed] = useState(false);
   const [groupPanelPassed, setGroupPanelPassed] = useState(false);
   const [recruiterVisible, setRecruiterVisible] = useState(true);
+
+  // Trust Score State (default strictly 50, bounded 0-100)
+  const [trustScoreState, setTrustScoreState] = useState<number>(() => {
+    return getLocalTrustScore(userId, (user as any)?.trustScore ?? (user as any)?.trust_score);
+  });
+
+  useEffect(() => {
+    const handleTrustUpdated = (e: any) => {
+      if (typeof e?.detail?.score === 'number' && Number.isFinite(e.detail.score)) {
+        setTrustScoreState(e.detail.score);
+      }
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pinit-trust-updated', handleTrustUpdated);
+      return () => window.removeEventListener('pinit-trust-updated', handleTrustUpdated);
+    }
+  }, []);
 
   // Broadcast channel for multi-tab sync
   const broadcastRef = useRef<BroadcastChannel | null>(null);
@@ -390,6 +417,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         setRecruiterVisible(Number(serverRecruiterVis) > 0);
       }
     }
+
+    // 10. Trust Score (default 50)
+    const serverTrust = (user as any).trustScore ?? (user as any).trust_score;
+    if (typeof serverTrust === 'number' && Number.isFinite(serverTrust)) {
+      setTrustScoreState(getLocalTrustScore(userId, serverTrust));
+    }
   }, [user, keys]);
 
   // Offline sync queue processor: drains pending quest completions whenever connection returns
@@ -508,8 +541,14 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         onboarding_answers: nextAnswers,
       }).catch(() => {});
     }
+
+    // Award +3 Trust Score on mission completion (default 50, capped at 100)
+    applyTrustReward(userId, 'mission', trustScoreState).then(res => {
+      setTrustScoreState(res.newScore);
+    }).catch(() => {});
+
     toast.success('Mission Complete! 🎯', 'Great progress today!');
-  }, [commitAnswers, completedMissions, keys, missionStreak, save, userId]);
+  }, [commitAnswers, completedMissions, keys, missionStreak, save, userId, trustScoreState]);
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => {
     const timestamps = answersRef.current.completedQuestsTimestamps || [];
@@ -569,7 +608,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         onboarding_answers: nextAnswers,
       }).catch(() => {});
     }
-  }, [commitAnswers, completedQuests, keys, save, userId]);
+
+    // Award +3 Trust Score on lesson/exam completion (default 50, capped at 100)
+    applyTrustReward(userId, isExam ? 'exam' : 'lesson', trustScoreState).then(res => {
+      setTrustScoreState(res.newScore);
+    }).catch(() => {});
+  }, [commitAnswers, completedQuests, keys, save, userId, trustScoreState]);
 
   const saveQuestCode = useCallback((questId: string, code: string) => {
     const prev = answersRef.current;
@@ -734,10 +778,20 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     return Math.min(100, Math.min(70, completedQuests.length * 5) + Math.min(30, missionStreak * 5));
   }, [completedQuests.length, missionStreak]);
 
-  const trustScore = useMemo(() => {
-    if (completedMissions.length === 0) return 0;
-    return Math.min(100, Math.min(100, completedMissions.length * 20));
-  }, [completedMissions.length]);
+  // Authoritative Trust Score: strictly defaults to 50, bounded [0, 100]
+  const trustScore = trustScoreState;
+
+  const applyTrustRewardAction = useCallback(async (type: TrustActivityType) => {
+    const res = await applyTrustReward(userId, type, trustScoreState);
+    setTrustScoreState(res.newScore);
+    return res.newScore;
+  }, [userId, trustScoreState]);
+
+  const recordCheatingAction = useCallback(async (sessionId: string, feature: CheatingFeature, violationType: string, details?: any) => {
+    const res = await recordCheatingIncident(userId, sessionId, feature, violationType, details);
+    setTrustScoreState(res.score);
+    return res.score;
+  }, [userId]);
 
   const setRecruiterVisibleAuthoritative = useCallback((val: boolean) => {
     setRecruiterVisible(val);
@@ -784,6 +838,8 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setGroupPanelPassed,
     recruiterVisible,
     setRecruiterVisible: setRecruiterVisibleAuthoritative,
+    applyTrustRewardAction,
+    recordCheatingAction,
   }), [
     onboardingAnswers,
     setOnboarding,
@@ -821,6 +877,8 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setGroupPanelPassed,
     recruiterVisible,
     setRecruiterVisibleAuthoritative,
+    applyTrustRewardAction,
+    recordCheatingAction,
   ]);
 
   return (

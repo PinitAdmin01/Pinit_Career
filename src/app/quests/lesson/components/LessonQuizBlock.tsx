@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { toast } from '@/lib/store/useAppStore';
+import { createMcqVelocityTracker } from '@/lib/trust/antiCheatingCheckers';
+import { recordCheatingIncident } from '@/lib/trust/trustEngine';
 
 export function getExplanationText(explanation: any): string {
   if (!explanation) return '';
@@ -153,6 +155,23 @@ export function LessonQuizBlock({
   }
 
   const question = hybridExamQuestions[examQuestionIndex];
+
+  // Anti-Cheating Guardian: Tracks click velocity to stop brute force cycling
+  const mcqVelocityTrackerRef = useRef<ReturnType<typeof createMcqVelocityTracker> | null>(null);
+  const quizSessionIdRef = useRef<string>(`quiz_${Date.now()}`);
+
+  useEffect(() => {
+    if (!mcqVelocityTrackerRef.current) {
+      mcqVelocityTrackerRef.current = createMcqVelocityTracker({
+        onCheatingDetected: (violationType, details) => {
+          recordCheatingIncident('student', quizSessionIdRef.current, 'lesson', violationType, details);
+        }
+      });
+    } else {
+      mcqVelocityTrackerRef.current.reset();
+    }
+  }, [examQuestionIndex]);
+
   if (!question) {
     return (
       <div style={{ textAlign: 'center', padding: '12px 0' }}>
@@ -278,7 +297,10 @@ export function LessonQuizBlock({
                 key={oIdx}
                 data-testid={`mcq-option-${oIdx}`}
                 disabled={mcqChecked}
-                onClick={() => setSelectedMcqAnswer(oIdx)}
+                onClick={() => {
+                  mcqVelocityTrackerRef.current?.recordClick(oIdx);
+                  setSelectedMcqAnswer(oIdx);
+                }}
                 className={`mcq-option-btn ${stateClass}`}
                 style={{
                   textAlign: 'left',

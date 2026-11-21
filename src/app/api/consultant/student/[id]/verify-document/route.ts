@@ -39,25 +39,25 @@ export async function POST(
       console.warn('[Consultant Verify Document] DB update warning:', updateErr.message);
     }
 
-    // 2. If genuine verification, apply +5 Trust Quotient boost to the candidate (max 100)
-    if (isVerified) {
-      try {
-        const { data: userRow } = await admin
-          .from('users')
-          .select('trust_score')
-          .eq('id', studentId)
-          .maybeSingle();
+    // 2. Adjust Trust score: +5 for verified genuine proof, -5 for rejected/false proof (range 0-100, default 50)
+    try {
+      const { data: userRow } = await admin
+        .from('users')
+        .select('trust_score')
+        .eq('id', studentId)
+        .maybeSingle();
 
-        const currentTrust = Number(userRow?.trust_score) || 50;
-        const newTrust = Math.min(100, currentTrust + 5);
+      const currentTrust = typeof userRow?.trust_score === 'number' ? userRow.trust_score : 50;
+      const newTrust = isVerified
+        ? Math.min(100, currentTrust + 5)
+        : Math.max(0, currentTrust - 5);
 
-        await admin
-          .from('users')
-          .update({ trust_score: newTrust })
-          .eq('id', studentId);
-      } catch (trustErr) {
-        console.warn('[Consultant Verify Document] Trust boost notice:', trustErr);
-      }
+      await admin
+        .from('users')
+        .update({ trust_score: newTrust })
+        .eq('id', studentId);
+    } catch (trustErr) {
+      console.warn('[Consultant Verify Document] Trust adjustment notice:', trustErr);
     }
 
     // 3. Log audit event

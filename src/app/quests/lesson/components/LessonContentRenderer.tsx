@@ -16,6 +16,8 @@ import {
   getTappableLabelsForVisual,
   tokenizeParagraphWithUnderlines,
 } from '@/lib/visuals/visualRules';
+import { createMcqVelocityTracker } from '@/lib/trust/antiCheatingCheckers';
+import { recordCheatingIncident } from '@/lib/trust/trustEngine';
 
 interface LessonContentRendererProps {
   userId: string;
@@ -207,6 +209,22 @@ export function LessonContentRenderer({
   const tappableLabels = getTappableLabelsForVisual(currentVisual);
 
   const [highlightedLabel, setHighlightedLabel] = useState<string | null>(null);
+
+  // Anti-Cheating Guardian: Detect automated brute-force spam while permitting honest mis-clicks
+  const mcqVelocityTrackerRef = useRef<ReturnType<typeof createMcqVelocityTracker> | null>(null);
+  const lessonSessionIdRef = useRef<string>(`lesson_${questId || 'quest'}_${Date.now()}`);
+
+  useEffect(() => {
+    if (!mcqVelocityTrackerRef.current) {
+      mcqVelocityTrackerRef.current = createMcqVelocityTracker({
+        onCheatingDetected: (violationType, details) => {
+          recordCheatingIncident(userId, lessonSessionIdRef.current, 'lesson', violationType, details);
+        }
+      });
+    } else {
+      mcqVelocityTrackerRef.current.reset();
+    }
+  }, [currentSlide, userId, questId]);
 
   // Parse quest identity for 2.5D puzzle & rapid-fire battle synthesis
   const parsedQuest = useMemo(() => parseQuestId(questId || ''), [questId]);
@@ -890,6 +908,9 @@ export function LessonContentRenderer({
                           }
 
                           const handleOptionClick = () => {
+                            // Anti-Cheating Velocity Check: permits honest trial-and-error and mis-clicks, flags brute-force spam
+                            mcqVelocityTrackerRef.current?.recordClick(oIdx);
+
                             setSelectedSlideAnswers(prev => ({ ...prev, [slideIdx]: oIdx }));
                             const isCorrect = oIdx === slide.mcq.answerIndex;
                             if (isCorrect) {

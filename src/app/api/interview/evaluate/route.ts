@@ -517,6 +517,28 @@ Return ONLY valid JSON matching this schema:
       }
     }
 
+    // Award +3 Trust Score for genuine interview completion (range 0-100, default 50)
+    if (gated.user?.id) {
+      try {
+        const admin = getSupabaseAdmin();
+        const { data: userProfile } = await admin
+          .from('users')
+          .select('trust_score')
+          .eq('id', gated.user.id)
+          .maybeSingle();
+
+        const currentTrust = typeof userProfile?.trust_score === 'number' ? userProfile.trust_score : 50;
+        const newTrust = Math.min(100, currentTrust + 3);
+
+        await admin
+          .from('users')
+          .update({ trust_score: newTrust })
+          .eq('id', gated.user.id);
+      } catch (trustErr) {
+        console.warn('[Interview Evaluate] Trust award warning:', trustErr);
+      }
+    }
+
     // Bound to the recorded interview's topic, so the result proves which interview it came from.
     const topicEvaluationToken = recorded && live && gated.user?.id
       ? createTopicEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict, live.topic)

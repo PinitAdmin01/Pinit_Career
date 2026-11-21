@@ -29,6 +29,7 @@ import {
 } from '@/lib/arena/codeWarRules';
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
 import { isConfirmedLeagueMembershipCacheValue } from '@/lib/competition/leagueMembershipSnapshot';
+import { recordCheatingIncident } from '@/lib/trust/trustEngine';
 import styles from '../competition-experience.module.css';
 
 const MonacoEditor = dynamic(
@@ -306,6 +307,24 @@ function ArenaContent() {
       document.removeEventListener('webkitfullscreenchange', syncFullscreenState);
     };
   }, []);
+
+  // Anti-Cheating Guardian: Proctor active Arena battles against tab switching
+  useEffect(() => {
+    const isBattleRunning = Boolean(activeRoom || soloMatch) && timeRemaining > 0 && !testResult?.passed;
+    if (!isBattleRunning) return;
+
+    const handleVisibilityChange = () => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') {
+        const battleId = activeRoom?.id || soloMatch?.id || 'arena_battle';
+        recordCheatingIncident(user?.id, `arena_${battleId}`, 'arena', 'arena_tab_switch').catch(() => {});
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [activeRoom, soloMatch, timeRemaining, testResult, user?.id]);
 
   useEffect(() => {
     if (!user?.id) {
