@@ -84,7 +84,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
       <div className="iv-panel" style={{ padding: 26 }}>
         <h2 style={{ fontSize: 20, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>Start AI Corporate Interview</h2>
         <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 20px' }}>
-          Practice real-time corporate interviews with spoken voice communication, Monaco code sandbox, interactive architecture canvas, and automated role-weighted scoring.
+          Practice real-time corporate interviews with spoken voice communication, Monaco code sandbox or Big-4 B.Com financial case desk, interactive architecture &amp; control workflow canvas, 5-question panel defense, and evidence-based scoring.
         </p>
 
         {/* Recoverable Active Session Banner (Survives Browser Refresh) */}
@@ -216,8 +216,10 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
                   { value: 'quant', label: 'Quantitative Systems & Algorithmic Trading' },
                   { value: 'data', label: 'Data Science & Analytics' }
                 ] : [
-                  { value: 'finance', label: 'Finance & Accounting (B.Com)' },
-                  { value: 'marketing', label: 'Digital Marketing & Growth' },
+                  { value: 'finance', label: 'Finance & Accounting (B.Com · Ind AS / IFRS)' },
+                  { value: 'audit_gst', label: 'Statutory Audit & GST Taxation (B.Com · Big-4)' },
+                  { value: 'banking_credit', label: 'Banking, Credit Appraisal & Treasury (B.Com · RBI/Basel)' },
+                  { value: 'marketing', label: 'Digital Marketing & Commercial Growth' },
                   { value: 'bba', label: 'Business Strategy & Product' },
                   { value: 'hr', label: 'HR & Talent Management' },
                   { value: 'operations', label: 'Supply Chain & Operations' }

@@ -16,6 +16,8 @@ import {
 import { computeDeterministicEvaluation } from '../src/app/interview/interviewEvaluator';
 import { InterviewResultsView } from '../src/app/interview/components/InterviewResultsView';
 import { Round2CaseStudy, resolveCaseStudyData } from '../src/app/interview/components/Round2CaseStudy';
+import { Round4StarDrill } from '../src/app/interview/components/Round4StarDrill';
+import { formatReadinessBadge, getVerdictTone } from '../src/app/interview/interviewTypes';
 import { evaluateSystemTopology } from '../src/lib/interview/systemDesignEvaluator';
 
 const ROOT = process.cwd();
@@ -297,4 +299,38 @@ test('Task 1 & 3: page.tsx and chat/route.ts wire 5-question defense and forcefu
   assert.match(pageSrc, /defenseState=\{round3Defense\}/);
   assert.match(chatSrc, /DEFENSE_GRADE:\(PASS\|FAIL\)/);
   assert.match(chatSrc, /Ind AS \/ IFRS/);
+});
+
+test('Deep Audit Invariants: Elimination badge tone, Round 4 B.Com STAR cues, B.Com setup tracks, and voice domainStream sync', () => {
+  assert.equal(getVerdictTone('Eliminated in Round 2'), 'negative');
+  assert.equal(getVerdictTone('Eliminated in Round 3'), 'negative');
+  assert.equal(formatReadinessBadge('Did Not Advance').tone, 'negative');
+
+  const r4Html = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(Round4StarDrill, {
+      domainStream: 'non_tech',
+      activeTeacher: { id: 'aisha', name: 'Ms. Aisha', emoji: '👩‍🏫', title: 'Executive STAR & Case Evaluator' },
+      animState: 'idle',
+      showCameraPreview: false,
+      videoPreviewRef: { current: null },
+      eyeContactScore: null,
+      wpmScore: null,
+      lastInterviewerSpeech: 'Defend your FY25 audit recommendation.',
+      finishInterview: () => {},
+      canFinishInterview: false,
+      manualTextInput: '',
+      setManualTextInput: () => {},
+      onSendMessage: () => {},
+      starStep: 1,
+    })
+  );
+  assert.match(r4Html, /analytical ownership|compliance\/credit/i);
+  assert.equal(/engineering responsibility/i.test(r4Html), false, 'B.Com Round 4 must not show engineering cues');
+
+  const setupSrc = fs.readFileSync(path.join(ROOT, 'src/app/interview/components/InterviewSetupView.tsx'), 'utf8');
+  assert.match(setupSrc, /audit_gst/);
+  assert.match(setupSrc, /banking_credit/);
+
+  const voiceSrc = fs.readFileSync(path.join(ROOT, 'src/app/interview/hooks/useInterviewVoice.ts'), 'utf8');
+  assert.match(voiceSrc, /\[activeStage, activeTopicName, domainStream, onSilenceNudge/);
 });

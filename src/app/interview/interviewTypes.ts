@@ -53,7 +53,7 @@ export interface InterviewSessionRecord {
 export function getVerdictTone(verdict?: string | null): 'positive' | 'conditional' | 'negative' {
   const v = String(verdict || '').trim().toLowerCase();
   if (!v) return 'negative';
-  if (v.includes('no hire') || v.includes('not ready') || v.includes('needs') || v.includes('fail') || v.includes('unverified')) {
+  if (v.includes('no hire') || v.includes('not ready') || v.includes('needs') || v.includes('fail') || v.includes('unverified') || v.includes('eliminat') || v.includes('did not advance')) {
     return 'negative';
   }
   if (v.includes('conditional') || v.includes('borderline') || v.includes('lean')) {
@@ -68,6 +68,9 @@ export function getVerdictTone(verdict?: string | null): 'positive' | 'condition
 export function formatReadinessBadge(readiness?: string | null): { label: string; tone: 'positive' | 'conditional' | 'negative' } {
   const raw = String(readiness || '').trim();
   const lower = raw.toLowerCase();
+  if (lower.includes('did not advance') || lower.includes('eliminat')) {
+    return { label: raw || 'Did Not Advance', tone: 'negative' };
+  }
   if (lower === 'strong' || lower.includes('strong hire')) {
     return { label: 'Strong Hire Ready', tone: 'positive' };
   }

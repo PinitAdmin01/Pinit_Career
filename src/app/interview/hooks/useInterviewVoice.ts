@@ -514,7 +514,7 @@ export function useInterviewVoice({
         }, 800);
       }
     }
-  }, [activeStage, activeTopicName, onSilenceNudge, isInterviewActive, flushAndSubmitTranscript, isMicBlocked]);
+  }, [activeStage, activeTopicName, domainStream, onSilenceNudge, isInterviewActive, flushAndSubmitTranscript, isMicBlocked]);
 
   startRecognitionInternalRef.current = startRecognitionInternal;
 

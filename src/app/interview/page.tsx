@@ -88,6 +88,8 @@ const SUBTOPIC_LABELS: Record<string, string> = {
   quant: 'Quantitative Systems & Algorithmic Trading',
   data: 'Data Science & Analytics',
   finance: 'Finance & Accounting (B.Com)',
+  audit_gst: 'Statutory Audit & GST Taxation (B.Com)',
+  banking_credit: 'Banking, Credit Appraisal & Treasury (B.Com)',
   marketing: 'Digital Marketing & Growth',
   bba: 'Business Strategy & Product',
   hr: 'HR & Talent Management',
@@ -556,7 +558,7 @@ export default function InterviewPage() {
       speakWithAvatarRef.current(targetMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
       return [...prev, { role: 'assistant', content: targetMsg }];
     });
-  }, [activeTeacher.id, activeStage]);
+  }, [activeTeacher.id, activeStage, domainStream]);
 
   const {
     isVoiceListening,
@@ -785,10 +787,12 @@ export default function InterviewPage() {
     setCodeSubmitted(false);
     setArchitectureEvaluation(null);
     setLatestTopology(activeSessionDraft.latestTopology || null);
+    setRound2Defense(createInitialDefenseState(2, activeSessionDraft.domainStream === 'non_tech' ? 'case' : 'code'));
+    setRound3Defense(createInitialDefenseState(3, activeSessionDraft.domainStream === 'non_tech' ? 'workflow' : 'architecture'));
     codePerLangRef.current = {};
     codeModifiedRef.current = Boolean(activeSessionDraft.codeContent);
     setSelectedLang(activeSessionDraft.selectedLang || 'python');
-    if (activeSessionDraft.activeStage === 'round2_coding') {
+    if (activeSessionDraft.activeStage === 'round2_coding' && activeSessionDraft.domainStream !== 'non_tech') {
       const resumedAttempt = Math.max(0, Number(activeSessionDraft.codingAttempt) || 0);
       setCodingAttempt(resumedAttempt);
       const savedProblem = activeSessionDraft.codingProblem;
@@ -1933,7 +1937,12 @@ export default function InterviewPage() {
   finishInterviewRef.current = finishInterview;
 
   const handleSkipRound = async () => {
-    if (stageTransitionRef.current || finishingRef.current) return;
+    if (
+      stageTransitionRef.current ||
+      finishingRef.current ||
+      round2DefenseRef.current.status === 'eliminated' ||
+      round3DefenseRef.current.status === 'eliminated'
+    ) return;
     stopSpeaking();
     isSendingInterviewMessageRef.current = false;
     setIsSendingInterviewMessage(false);
@@ -1991,8 +2000,8 @@ export default function InterviewPage() {
     const allText = scopedMsgs.map(m => m.content.toLowerCase()).join(' ');
     const hasS = /situation|context|problem|challenge|project|working on|scenario/.test(allText);
     const hasT = /task|goal|needed to|objective|responsible|requirement|deliverable/.test(allText);
-    const hasA = /action|i built|i implemented|i designed|i created|i refactored|i led|i used|i engineered/.test(allText);
-    const hasR = /result|impact|improved|reduced|increased|delivered|metric|outcome|%|latency|throughput/.test(allText);
+    const hasA = /action|i built|i implemented|i designed|i created|i refactored|i led|i used|i engineered|i audited|i reconciled|i calculated|i analyzed|i prepared|i reversed|i proposed|i reviewed|i negotiated/.test(allText);
+    const hasR = /result|impact|improved|reduced|increased|delivered|metric|outcome|%|latency|throughput|saved|recovered|margin|cash flow|bps|lakh|crore|₹|\$|dso|roas|unqualified|sanctioned/.test(allText);
     const count = [hasS, hasT, hasA, hasR].filter(Boolean).length;
     return { hasS, hasT, hasA, hasR, count };
   }, [messages, userResponses, round4StartMsgIndex]);
@@ -2387,6 +2396,7 @@ export default function InterviewPage() {
           {/* Round 4: STAR Assessment */}
           {activeStage === 'round4_star' && (
             <Round4StarDrill
+              domainStream={domainStream}
               activeTeacher={activeTeacher}
               animState={animState}
               showCameraPreview={showCameraPreview}

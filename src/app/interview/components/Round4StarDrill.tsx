@@ -11,6 +11,7 @@ const VRoidInterviewAvatar = dynamic(
 );
 
 export interface Round4StarDrillProps {
+  domainStream?: 'tech' | 'non_tech';
   activeTeacher: { id: string; name: string; emoji: string; title: string };
   animState: AnimState;
   showCameraPreview: boolean;
@@ -56,6 +57,7 @@ export interface Round4StarDrillProps {
 }
 
 export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
+  domainStream = 'tech',
   activeTeacher,
   animState,
   showCameraPreview,
@@ -293,13 +295,21 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           }}
         >
           {starStep === 0
-            ? 'Focus: Set the business & technical context, system scale, and primary constraints.'
+            ? (domainStream === 'non_tech'
+                ? 'Focus: Frame the commercial, audit, or financial context, balance-sheet stakes, and regulatory constraints.'
+                : 'Focus: Set the business & technical context, system scale, and primary constraints.')
             : starStep === 1
-            ? 'Focus: Define your exact engineering responsibility, milestone targets, and success criteria.'
+            ? (domainStream === 'non_tech'
+                ? 'Focus: Define your exact analytical ownership, compliance/credit targets, and stakeholder expectations.'
+                : 'Focus: Define your exact engineering responsibility, milestone targets, and success criteria.')
             : starStep === 2
-            ? 'Focus: Explain the concrete technical actions, trade-offs, architecture choices, and teamwork.'
+            ? (domainStream === 'non_tech'
+                ? 'Focus: Explain the concrete accounting, tax, credit, or financial actions, controls, and trade-offs you drove.'
+                : 'Focus: Explain the concrete technical actions, trade-offs, architecture choices, and teamwork.')
             : starStep === 3
-            ? 'Focus: Quantify measurable impact — latency drops, uptime gains, revenue unlocked, or error reductions.'
+            ? (domainStream === 'non_tech'
+                ? 'Focus: Quantify measurable business impact — margin bps, ₹ cash flow protected, DSO reduction, or audit sign-off.'
+                : 'Focus: Quantify measurable impact — latency drops, uptime gains, revenue unlocked, or error reductions.')
             : 'All 4 STAR quadrants completed! Submit your defense to review your scorecard.'}
         </div>
 
