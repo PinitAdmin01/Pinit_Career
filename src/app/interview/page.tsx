@@ -1166,26 +1166,6 @@ export default function InterviewPage() {
   };
   handleSendMessageWithTextRef.current = handleSendMessageWithText;
 
-  const handleSkipQuestion = useCallback(async () => {
-    if (isSendingInterviewMessageRef.current) return;
-    stopSpeaking();
-    if (activeStage === 'round2_coding') {
-      setCodeSubmitted(true);
-      setCodeReviewStarted(true);
-      setCodeReviewAnswered(true);
-      setCodeRunFailed(false);
-      codeReviewQuestionPendingRef.current = false;
-      toast.info('Challenge Skipped', 'Challenge marked as skipped. You can now proceed to architecture analysis.');
-    }
-    // Send a single canonical skip turn via handleSendMessageWithText (avoids concurrent CAS collision on live_sessions)
-    const skipNotice = activeStage === 'round2_coding'
-      ? 'I would like to skip the current coding question or review and move on.'
-      : activeStage === 'round3_systems'
-      ? 'I would like to skip this architecture defense question and move forward.'
-      : 'I would like to skip this question and proceed to the next topic.';
-    await handleSendMessageWithText(skipNotice);
-  }, [activeStage, handleSendMessageWithText]);
-
   // The code the student submits is recorded in the server's interview record, so the evaluator
   // judges the code itself (the in-browser test run below is feedback for the student only).
   const lastRecordedCodeRef = useRef('');
@@ -1571,6 +1551,32 @@ export default function InterviewPage() {
     }
   };
 
+  const handleSkipRound = async () => {
+    if (stageTransitionRef.current || finishingRef.current) return;
+    stopSpeaking();
+    isSendingInterviewMessageRef.current = false;
+    setIsSendingInterviewMessage(false);
+    codeReviewQuestionPendingRef.current = false;
+    architectureQuestionPendingRef.current = false;
+
+    postLiveEvent('skip', activeStage);
+    setMessages(prev => [...prev, { role: 'user', content: '[Candidate skipped round]' }]);
+
+    if (activeStage === 'round1_behavioral') {
+      toast.info('Round 1 Skipped', 'Advancing directly to Round 2.');
+      await proceedToNextStage('round2_coding');
+    } else if (activeStage === 'round2_coding') {
+      toast.info('Round 2 Skipped', 'Advancing directly to Round 3.');
+      await proceedToNextStage('round3_systems');
+    } else if (activeStage === 'round3_systems') {
+      toast.info('Round 3 Skipped', 'Advancing directly to Round 4 Deep Dive.');
+      await proceedToNextStage('round4_star');
+    } else if (activeStage === 'round4_star') {
+      toast.info('Round 4 Skipped', 'Finalizing your interview scorecard.');
+      await finishInterview();
+    }
+  };
+
   const exportInterviewTranscript = (format: 'markdown' | 'json' | 'pdf' = 'markdown') => {
     exportInterviewTranscriptFile({
       format, activeTopicName, domainStream,
@@ -1806,6 +1812,7 @@ export default function InterviewPage() {
               isVoiceListening={isVoiceListening}
               lastInterviewerSpeech={lastInterviewerSpeech}
               onProceed={() => proceedToNextStage('round2_coding')}
+              onSkipRound={handleSkipRound}
               canProceed={hasSubstantiveRound1}
               isSendingInterviewMessage={isSendingInterviewMessage}
               fillerWordCount={fillerWordCount}
@@ -1865,7 +1872,7 @@ export default function InterviewPage() {
                 terminalLogs={terminalLogs}
                 setTerminalLogs={setTerminalLogs}
                 onRequestHint={handleRequestCodingHint}
-                onSkipChallenge={handleSkipQuestion}
+                onSkipChallenge={handleSkipRound}
                 isAssistModeActive={isAssistModeActive}
                 setIsAssistModeActive={setIsAssistModeActive}
                 assistData={assistData}
@@ -1928,7 +1935,7 @@ export default function InterviewPage() {
                 terminalLogs={terminalLogs}
                 setTerminalLogs={setTerminalLogs}
                 onRequestHint={handleRequestCodingHint}
-                onSkipChallenge={handleSkipQuestion}
+                onSkipChallenge={handleSkipRound}
                 isAssistModeActive={isAssistModeActive}
                 setIsAssistModeActive={setIsAssistModeActive}
                 assistData={assistData}
@@ -1953,6 +1960,7 @@ export default function InterviewPage() {
               domainStream={domainStream}
               activeTopicName={activeTopicName}
               onProceed={() => proceedToNextStage('round4_star')}
+              onSkipRound={handleSkipRound}
               canProceed={Boolean(
                 architectureDefenseAnswered &&
                 Number(architectureEvaluation?.score) >= 60 &&
@@ -1997,6 +2005,7 @@ export default function InterviewPage() {
               wpmScore={wpmScore}
               lastInterviewerSpeech={lastInterviewerSpeech}
               finishInterview={finishInterview}
+              onSkipRound={handleSkipRound}
               canFinishInterview={(starStep >= 4 || starCoverage.count >= 3) && !isSendingInterviewMessage && !isAvatarSpeaking}
               isSendingInterviewMessage={isSendingInterviewMessage}
               manualTextInput={manualTextInput}

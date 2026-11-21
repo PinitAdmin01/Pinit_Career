@@ -19,6 +19,7 @@ export interface Round4StarDrillProps {
   wpmScore: number | null;
   lastInterviewerSpeech: string;
   finishInterview: () => void;
+  onSkipRound?: () => void;
   canFinishInterview: boolean;
   isSendingInterviewMessage?: boolean;
   manualTextInput: string;
@@ -63,6 +64,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
   wpmScore,
   lastInterviewerSpeech,
   finishInterview,
+  onSkipRound,
   canFinishInterview,
   isSendingInterviewMessage = false,
   manualTextInput,
@@ -184,28 +186,51 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 4 OF 4</span>
             <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Executive STAR Deep Dive</h2>
           </div>
-          <button
-            onClick={finishInterview}
-            disabled={!canFinishInterview || isSendingInterviewMessage}
-            className={canFinishInterview ? 'iv-btn-primary' : undefined}
-            style={{
-              background: canFinishInterview ? undefined : 'var(--bg3)',
-              border: canFinishInterview ? undefined : '1px solid var(--border)',
-              color: canFinishInterview ? '#ffffff' : 'var(--t3)',
-              borderRadius: 8,
-              padding: '6px 12px',
-              fontSize: 11.5,
-              fontWeight: 900,
-              cursor: canFinishInterview ? 'pointer' : 'not-allowed',
-              flexShrink: 0
-            }}
-          >
-            {canFinishInterview
-              ? 'Complete interview ➔'
-              : (starStep >= 4 || (starCoverage?.count ?? 0) >= 3)
-              ? 'Waiting for interviewer…'
-              : `Answer ${Math.max(1, 4 - starStep)} more STAR question${4 - starStep === 1 ? '' : 's'}`}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+            <button
+              onClick={finishInterview}
+              disabled={!canFinishInterview || isSendingInterviewMessage}
+              className={canFinishInterview ? 'iv-btn-primary' : undefined}
+              style={{
+                background: canFinishInterview ? undefined : 'var(--bg3)',
+                border: canFinishInterview ? undefined : '1px solid var(--border)',
+                color: canFinishInterview ? '#ffffff' : 'var(--t3)',
+                borderRadius: 8,
+                padding: '6px 12px',
+                fontSize: 11.5,
+                fontWeight: 900,
+                cursor: canFinishInterview ? 'pointer' : 'not-allowed',
+                flexShrink: 0
+              }}
+            >
+              {canFinishInterview
+                ? 'Complete interview ➔'
+                : (starStep >= 4 || (starCoverage?.count ?? 0) >= 3)
+                ? 'Waiting for interviewer…'
+                : `Answer ${Math.max(1, 4 - starStep)} more STAR question${4 - starStep === 1 ? '' : 's'}`}
+            </button>
+            {!canFinishInterview && onSkipRound && (
+              <button
+                type="button"
+                data-testid="round4-skip-round-btn"
+                onClick={onSkipRound}
+                title="Skip Round 4 and finish the interview immediately (recorded as skipped)"
+                style={{
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t2)',
+                  borderRadius: 8,
+                  padding: '6px 10px',
+                  fontSize: 11.5,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                ⏭ Skip &amp; Finish
+              </button>
+            )}
+          </div>
         </div>
 
         {/* 🌟 S-T-A-R Assessment Progression Stepper */}

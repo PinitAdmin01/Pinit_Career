@@ -46,7 +46,7 @@ const LANG_DISPLAY_MAP: Record<string, string> = {
   typescript: 'TypeScript'
 };
 
-export const SKIP_TURN_REGEX = /^(?:\[Candidate skipped question\]|I would like to skip\b)/i;
+export const SKIP_TURN_REGEX = /^(?:\[Candidate skipped (?:question|round)\]|I would like to skip\b)/i;
 
 /**
  * Extracts verified, defended technologies & domain frameworks from candidate transcript,

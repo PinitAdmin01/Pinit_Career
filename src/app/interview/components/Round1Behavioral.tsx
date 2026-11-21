@@ -28,6 +28,7 @@ export interface Round1BehavioralProps {
   isVoiceListening: boolean;
   lastInterviewerSpeech: string;
   onProceed: () => void;
+  onSkipRound?: () => void;
   canProceed: boolean;
   isSendingInterviewMessage?: boolean;
   fillerWordCount: number;
@@ -74,6 +75,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
   isVoiceListening,
   lastInterviewerSpeech,
   onProceed,
+  onSkipRound,
   canProceed,
   isSendingInterviewMessage = false,
   fillerWordCount,
@@ -199,11 +201,33 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
             <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
           </div>
-          {canProceed && (
-            <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
-              {domainStream === 'non_tech' ? 'Continue to case study ➔' : 'Continue to coding ➔'}
-            </button>
-          )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+            {canProceed ? (
+              <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
+                {domainStream === 'non_tech' ? 'Continue to case study ➔' : 'Continue to coding ➔'}
+              </button>
+            ) : onSkipRound && (
+              <button
+                type="button"
+                data-testid="round1-skip-round-btn"
+                onClick={onSkipRound}
+                title="Skip Round 1 and move directly to Round 2 (recorded as skipped)"
+                style={{
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t2)',
+                  borderRadius: 6,
+                  padding: '5px 10px',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                ⏭ Skip Round
+              </button>
+            )}
+          </div>
         </div>
 
         <div

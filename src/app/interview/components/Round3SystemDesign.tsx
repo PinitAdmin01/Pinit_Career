@@ -19,6 +19,7 @@ export interface Round3SystemDesignProps {
   domainStream: 'tech' | 'non_tech';
   activeTopicName: string;
   onProceed: () => void;
+  onSkipRound?: () => void;
   canProceed?: boolean;
   setLatestTopology: (topo: any) => void;
   analyzeSystemArchitecture: () => void;
@@ -59,6 +60,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   domainStream,
   activeTopicName,
   onProceed,
+  onSkipRound,
   canProceed = false,
   setLatestTopology,
   analyzeSystemArchitecture,
@@ -96,9 +98,33 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
               {domainStream === 'non_tech' ? 'Business Workflow Canvas:' : 'System Architecture Canvas:'} {activeTopicName}
             </h2>
           </div>
-          {canProceed && <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
-            Continue to deep dive ➔
-          </button>}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+            {canProceed ? (
+              <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
+                Continue to deep dive ➔
+              </button>
+            ) : onSkipRound && (
+              <button
+                type="button"
+                data-testid="round3-skip-round-btn"
+                onClick={onSkipRound}
+                title="Skip Round 3 and move directly to Round 4 (recorded as skipped)"
+                style={{
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t2)',
+                  borderRadius: 8,
+                  padding: '7px 12px',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                ⏭ Skip Round
+              </button>
+            )}
+          </div>
         </div>
 
         <div

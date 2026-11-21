@@ -403,7 +403,16 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
 
   // 10. Candidate explicitly skipped
   if (analysis.intent === 'skip') {
-    return `Understood—we'll note the skip and move forward. Let's pivot to another dimension of ${subTopic}: what is an area in this domain where you've spent significant hands-on time?`;
+    if (stage === 'round3_systems') {
+      return `Understood—if you'd like to skip this round completely, click the Skip Round button at the top right of the canvas panel to move straight to Round 4. Otherwise, feel free to place any two components to start.`;
+    }
+    if (stage === 'round2_coding') {
+      return `Understood—you can click the Skip Challenge button at the top right of the problem panel anytime to move directly to Round 3, or share your initial approach if you'd like to try.`;
+    }
+    if (stage === 'round4_star') {
+      return `Understood—you can click the Skip & Finish button at the top right whenever you'd like to end the interview and view your scorecard, or we can pivot to another project example.`;
+    }
+    return `Understood—we'll note the skip. You can click Skip Round at the top right to jump to Round 2 anytime, or share another area of ${subTopic} you feel comfortable discussing.`;
   }
 
   // 11. Candidate provided substantive response with technical / metric / action details
@@ -641,7 +650,7 @@ RULES:
 2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'}
 3. If the candidate says "I don't know", expresses confusion, or feels stuck, NEVER pretend they gave an answer or praise them for not knowing. Supportively acknowledge it ("No problem at all—let's look at this from a different angle...") and guide them with a simpler stepping-stone question strictly inside the CURRENT stage (${stage || 'round1_behavioral'}) — NEVER drift back into Round 1 college background or unrelated syntax trivia during Round 2 or Round 3.
 4. If the candidate gives a broad introductory greeting without project specifics, warmly acknowledge them and ask for one specific project, the technical problem it solved, and their direct contribution.
-5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
+5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly ask to skip a question or skip the current round/canvas, NEVER say they cannot skip it — politely acknowledge and let them know they can click the "Skip Round" button at the top right of the round panel anytime to move directly to the next round.
 6. Never give the complete code or answer away.
 7. Keep response under 3 sentences max for natural spoken voice pacing.
 8. If the candidate repeats a bare greeting (like "hi" or "hello") or says they do not know what to do, NEVER hallucinate that they made a technical decision or praise "your initial approach". Politely invite them to introduce their background or project experience in ${subTopic}.
