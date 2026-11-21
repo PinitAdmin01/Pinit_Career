@@ -21,6 +21,12 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
       'utf8',
     );
     await db.exec(migration);
+    const promotionMigration = fs.readFileSync(
+      path.join(process.cwd(), 'supabase/migrations/20261121190000_league_top_25_percent_promotion.sql'),
+      'utf8',
+    );
+    await db.exec(promotionMigration);
+    await db.exec(promotionMigration);
     const roomFeeMigration = fs.readFileSync(
       path.join(process.cwd(), 'supabase/migrations/20261117010000_atomic_arena_room_creation_and_fee.sql'),
       'utf8',
@@ -412,12 +418,18 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     const { rows: movedRows } = await db.query<{ id: string; league_tier: string; weekly_xp: number; weekly_arena_points: number }>(
       `select id::text, league_tier, weekly_xp, weekly_arena_points
        from public.users where id = any($1::uuid[])`,
-      [[browns[0].id, browns[19].id, silver[0].id, silver[19].id]],
+      [[browns[0].id, browns[1].id, browns[4].id, browns[5].id, browns[19].id,
+        silver[0].id, silver[4].id, silver[5].id, silver[19].id]],
     );
     const movedById = new Map(movedRows.map((row) => [row.id, row]));
     assert.equal(movedById.get(browns[0].id)?.league_tier, 'silver', 'Browns promotion follows weekly League Points rank');
+    assert.equal(movedById.get(browns[1].id)?.league_tier, 'silver', 'The second-ranked Browns student is promoted inside the top 25%');
+    assert.equal(movedById.get(browns[4].id)?.league_tier, 'silver', 'The fifth-ranked of 20 Browns students is promoted at the 25% cutoff');
+    assert.equal(movedById.get(browns[5].id)?.league_tier, 'browns', 'The sixth-ranked of 20 Browns students is outside the promotion cutoff');
     assert.equal(movedById.get(browns[19].id)?.league_tier, 'browns', 'High ELO alone does not move a low-ranked Browns member');
     assert.equal(movedById.get(silver[0].id)?.league_tier, 'gold', 'Arena Points can carry a low-ELO learner into promotion');
+    assert.equal(movedById.get(silver[4].id)?.league_tier, 'gold', 'The fifth-ranked of 20 Silver students is promoted at the 25% cutoff');
+    assert.equal(movedById.get(silver[5].id)?.league_tier, 'silver', 'The sixth-ranked of 20 Silver students is outside the promotion cutoff');
     assert.equal(movedById.get(silver[19].id)?.league_tier, 'browns', 'A high-ELO player at the bottom is demoted by League Points rank');
     assert.ok(movedRows.every((row) => row.weekly_xp === 0 && row.weekly_arena_points === 0), 'Both sprint score inputs reset after moves');
 

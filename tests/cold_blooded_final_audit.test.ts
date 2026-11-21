@@ -276,7 +276,7 @@ describe('COLD-BLOODED ADVERSARIAL FINAL VERIFICATION SUITE', () => {
       assert.equal(validatePinItId(pinitId).valid, true);
     });
 
-    it('P5.5: Task 10 League Promotion/Demotion Formula: Top 10% Promote, Bottom 10% Demote', () => {
+    it('P5.5: Task 10 League Promotion/Demotion Formula: Top 25% Promote, Bottom 10% Demote', () => {
       // 10 students in weekly league cohort
       const cohort = Array.from({ length: 10 }, (_, i) => ({
         id: `student_${i + 1}`,
@@ -290,9 +290,10 @@ describe('COLD-BLOODED ADVERSARIAL FINAL VERIFICATION SUITE', () => {
         leagueScore: c.weeklyXp + c.eloGain,
       })).sort((a, b) => b.leagueScore - a.leagueScore);
 
-      // Top 10% (rank 1) is promotion
+      // Top 25% of 10 rounds up to ranks 1-3 for promotion.
       assert.equal(scored[0].id, 'student_1');
       assert.equal(scored[0].leagueScore, 1020); // 1000 + 20
+      assert.equal(Math.ceil(scored.length * 0.25), 3);
 
       // Rank 2
       assert.equal(scored[1].id, 'student_2');

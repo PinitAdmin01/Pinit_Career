@@ -36,6 +36,7 @@ export interface GuildLeaderboardEntry {
   guildId: string;
   guildName: string;
   hackathonTitle: string;
+  finalScore: number | null;
   teamLeadName: string;
   membersCount: number;
   completedProjectsCount: number;
@@ -580,23 +581,28 @@ export async function GET(req: Request) {
 
     // 7. Guild Leaderboard: Query authentic student hackathon squads (zero mock data)
     let guilds: GuildLeaderboardEntry[] = [];
+    let guildsLoadError: string | null = null;
     if (admin) {
       try {
-        const { data: squadRows } = await admin
+        const { data: squadRows, error: squadError } = await admin
           .from('hackathon_squads')
           .select('id, name, hackathon_title, team_lead_student_id, status, milestones, final_score, created_at')
           .order('final_score', { ascending: false, nullsFirst: false })
+          .order('created_at', { ascending: true })
+          .order('id', { ascending: true })
           .limit(50);
+        if (squadError) throw squadError;
 
         if (squadRows && squadRows.length > 0) {
           // Fetch lead names
           const leadIds = Array.from(new Set(squadRows.map((s: any) => s.team_lead_student_id).filter(Boolean)));
           const leadNameMap = new Map<string, string>();
           if (leadIds.length > 0) {
-            const { data: leadUsers } = await admin
+            const { data: leadUsers, error: leadError } = await admin
               .from('users')
               .select('id, display_name')
               .in('id', leadIds);
+            if (leadError) throw leadError;
             if (leadUsers) {
               leadUsers.forEach((u: any) => {
                 leadNameMap.set(u.id, u.display_name || 'Student Lead');
@@ -607,27 +613,28 @@ export async function GET(req: Request) {
           // Fetch member counts from hackathon_squad_members if present
           const squadIds = squadRows.map((s: any) => s.id);
           const memberCountsMap = new Map<string, number>();
-          try {
-            const { data: memberRows } = await admin
-              .from('hackathon_squad_members')
-              .select('squad_id')
-              .in('squad_id', squadIds);
-            if (memberRows) {
-              memberRows.forEach((m: any) => {
-                memberCountsMap.set(m.squad_id, (memberCountsMap.get(m.squad_id) || 0) + 1);
-              });
-            }
-          } catch {}
+          const { data: memberRows, error: memberError } = await admin
+            .from('hackathon_squad_members')
+            .select('squad_id')
+            .in('squad_id', squadIds);
+          if (memberError) throw memberError;
+          if (memberRows) {
+            memberRows.forEach((m: any) => {
+              memberCountsMap.set(m.squad_id, (memberCountsMap.get(m.squad_id) || 0) + 1);
+            });
+          }
 
           guilds = squadRows.map((squad: any, idx: number) => {
             const milestones = Array.isArray(squad.milestones) ? squad.milestones : [];
             const completedMilestones = milestones.filter((m: any) => m.isCompleted).length;
-            const membersCount = memberCountsMap.get(squad.id) || (milestones.length > 0 ? 3 : 1);
+            const membersCount = memberCountsMap.get(squad.id) ?? 0;
+            const score = squad.final_score == null ? null : Number(squad.final_score);
             return {
               rank: idx + 1,
               guildId: squad.id,
               guildName: squad.name || `Squad ${squad.id}`,
               hackathonTitle: squad.hackathon_title || 'Engineering Sprint Challenge',
+              finalScore: score != null && Number.isFinite(score) ? score : null,
               teamLeadName: leadNameMap.get(squad.team_lead_student_id) || 'Student Lead',
               membersCount,
               completedProjectsCount: completedMilestones,
@@ -638,7 +645,10 @@ export async function GET(req: Request) {
       } catch (err) {
         console.warn('[Leaderboard] Failed to query hackathon squads:', err);
         guilds = [];
+        guildsLoadError = 'Could not load project squads. Please refresh and try again.';
       }
+    } else if (DB_CONFIGURED || process.env.NODE_ENV === 'production') {
+      guildsLoadError = 'Could not load project squads. Please refresh and try again.';
     }
 
     console.log('[LEADERBOARD_MIDDLEPOINT][Guild Squads]', {
@@ -668,6 +678,7 @@ export async function GET(req: Request) {
       currentUserStats,
       leaderboard: entries,
       guilds,
+      guildsLoadError,
       totalCount: entries.length,
       currentUser: currentUserEntry,
       promotionCutoffRank,

@@ -43,7 +43,7 @@ describe('Task 10: 100 XP League Gate & Multi-Tier Leaderboard Audit', () => {
     const content = fs.readFileSync(pagePath, 'utf8');
 
     assert.match(content, /data-testid="guild-projects-table-container"/, 'Must render Guild Projects Table container');
-    assert.match(content, /Guild \/ Engineering Squad/);
+    assert.match(content, /Project Squad/);
     assert.match(content, /Projects Completed/);
     assert.match(content, /completedProjectsCount/);
   });
@@ -76,8 +76,8 @@ describe('Task 10: 100 XP League Gate & Multi-Tier Leaderboard Audit', () => {
     const pagePath = path.join(root, 'src', 'app', 'leaderboard', 'page.tsx');
     const content = fs.readFileSync(pagePath, 'utf8');
 
-    assert.match(content, /Promotion Cutoff Line — Top 10% advance to higher league/);
-    assert.match(content, /Demotion Cutoff Line — Bottom 10% demote to lower league/);
+    assert.match(content, /Promotion Cutoff Line — Top 25% \(rounded up\) advance by rank/);
+    assert.match(content, /Demotion Cutoff Line — Bottom 10% move down by rank/);
     assert.match(content, /renderPromotionDivider/);
     assert.match(content, /renderDemotionDivider/);
   });

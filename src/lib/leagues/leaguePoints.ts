@@ -72,7 +72,7 @@ export function getLeagueCutoffs(memberCount: number) {
     return { promotionCutoffRank: 0, demotionCutoffRank: 0 };
   }
 
-  const promotionCutoffRank = Math.max(1, Math.ceil(memberCount * 0.1));
+  const promotionCutoffRank = Math.max(1, Math.ceil(memberCount * 0.25));
   const demotionCutoffRank = memberCount >= 10
     ? memberCount - Math.floor(memberCount * 0.1) + 1
     : 0;

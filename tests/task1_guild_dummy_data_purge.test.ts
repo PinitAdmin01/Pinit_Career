@@ -31,7 +31,7 @@ test('TASK 1 AUDIT: Backend leaderboard route purges all hardcoded dummy guilds'
   }
 });
 
-test('TASK 1 AUDIT: Backend queries authentic hackathon_squads table or defaults to empty array', () => {
+test('TASK 1 AUDIT: Backend queries authentic squads and reports read errors without invented member counts', () => {
   assert.ok(
     leaderboardRoute.includes("from('hackathon_squads')"),
     'Backend must query authentic hackathon_squads table'
@@ -44,6 +44,9 @@ test('TASK 1 AUDIT: Backend queries authentic hackathon_squads table or defaults
     leaderboardRoute.includes('guilds = [];'),
     'Backend must fall back to empty array [] on error'
   );
+  assert.ok(leaderboardRoute.includes('guildsLoadError ='), 'Backend must distinguish a failed read from an empty board');
+  assert.ok(leaderboardRoute.includes('finalScore:'), 'Backend must expose the score used to rank squads');
+  assert.ok(!leaderboardRoute.includes('milestones.length > 0 ? 3 : 1'), 'Backend must not invent squad member counts');
 });
 
 test('TASK 1 AUDIT: Frontend leaderboard renders empty state with link to projects when squads list is empty', () => {
@@ -52,9 +55,10 @@ test('TASK 1 AUDIT: Frontend leaderboard renders empty state with link to projec
     'Frontend must check guilds.length === 0'
   );
   assert.ok(
-    leaderboardPage.includes('No Active Student Guild Squads This Sprint'),
+    leaderboardPage.includes('No Project Squads Found'),
     'Frontend must render informative empty state message'
   );
+  assert.ok(leaderboardPage.includes('guildsLoadError ? ('), 'Frontend must distinguish query failures from an empty board');
   assert.ok(
     leaderboardPage.includes('href="/projects"'),
     'Frontend must provide direct navigation to /projects'

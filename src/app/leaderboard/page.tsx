@@ -47,6 +47,7 @@ export interface GuildLeaderboardEntry {
   guildId: string;
   guildName: string;
   hackathonTitle: string;
+  finalScore: number | null;
   teamLeadName: string;
   membersCount: number;
   completedProjectsCount: number;
@@ -118,6 +119,7 @@ function LeaderboardContent() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [serverCurrentUser, setServerCurrentUser] = useState<LeaderboardEntry | null>(null);
   const [guilds, setGuilds] = useState<GuildLeaderboardEntry[]>([]);
+  const [guildsLoadError, setGuildsLoadError] = useState<string | null>(null);
   const [promotionCutoff, setPromotionCutoff] = useState(1);
   const [demotionCutoff, setDemotionCutoff] = useState(1);
   const [remainingMs, setRemainingMs] = useState(0);
@@ -594,6 +596,7 @@ function LeaderboardContent() {
           }
           if (Array.isArray(data.guilds)) {
             setGuilds(data.guilds);
+            setGuildsLoadError(typeof data.guildsLoadError === 'string' ? data.guildsLoadError : null);
           }
           setPromotionCutoff(Number.isFinite(data.promotionCutoffRank) ? data.promotionCutoffRank : 0);
           setDemotionCutoff(Number.isFinite(data.demotionCutoffRank) ? data.demotionCutoffRank : 0);
@@ -729,7 +732,7 @@ function LeaderboardContent() {
         {/* Card 2: Sprint Standing & Promotion Status */}
         <div className={styles.leagueStanding}>
           <div className={styles.leagueStandingHeader}>
-            <span>Your sprint standing</span>
+            <span>Individual league standing</span>
             <span className={styles.liveSprint}>LIVE SPRINT</span>
           </div>
           <div className={styles.leagueRankLine}>
@@ -982,7 +985,7 @@ function LeaderboardContent() {
                   {formatCountdown(remainingMs)}
                 </div>
                 <div style={{ fontSize: 10.5, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  Sprint resets Monday at 1:00 AM IST. Top 10% promote; bottom 10% demote when the division has 10+ players. Browns and Ruby are the league edges.
+                  Sprint resets Monday at 1:00 AM IST. The top 25% (rounded up, at least one eligible member) promote; the bottom 10% demote when a division has 10+ members. Browns and Ruby are the league edges.
                 </div>
               </div>
             )}
@@ -1156,7 +1159,7 @@ function LeaderboardContent() {
 
       {activeTab === 'global' && (
         <div className={styles.rulesNote}>
-          League Points decide rank within each division. At reset, the top 10% advance; the bottom 10% move down when a division has at least 10 players. Browns has no lower league, Ruby has no higher league, and ELO never changes league placement.
+          League Points decide rank within each division. At reset, the top 25% (rounded up, at least one eligible member) advance; the bottom 10% move down when a division has at least 10 members. Browns has no lower league, Ruby has no higher league, and ELO never changes league placement.
         </div>
       )}
 
@@ -1351,23 +1354,33 @@ function LeaderboardContent() {
             {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
       {activeTab === 'guild' ? (
         <div data-testid="guild-projects-table-container" className={styles.boardShell}>
+          <div className={styles.rulesNote} style={{ margin: '16px 16px 0' }}>
+            This is separate from your individual League rank. The Guild board currently ranks engineering squads from Projects &amp; Hackathons; persistent player clans and Guild Points are not implemented yet.
+          </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', minWidth: 720, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+            <table style={{ width: '100%', minWidth: 900, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
               <thead>
                 <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
-                  <th style={{ padding: '14px 20px' }}>Guild / Engineering Squad</th>
+                  <th style={{ padding: '14px 20px', width: 90 }}>Squad Rank</th>
+                  <th style={{ padding: '14px 20px' }}>Project Squad</th>
                   <th style={{ padding: '14px 20px' }}>Hackathon Theme</th>
                   <th style={{ padding: '14px 20px' }}>Team Lead</th>
                   <th style={{ padding: '14px 20px' }}>Members</th>
                   <th style={{ padding: '14px 20px' }}>Projects Completed</th>
+                  <th style={{ padding: '14px 20px' }}>Squad Score</th>
                   <th style={{ padding: '14px 20px' }}>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {guilds.length === 0 ? (
+                {guildsLoadError ? (
                   <tr>
-                    <td colSpan={7} style={{ padding: '56px 20px', textAlign: 'center' }}>
+                    <td colSpan={8} role="alert" style={{ padding: '56px 20px', textAlign: 'center', color: 'var(--danger, #ef4444)' }}>
+                      {guildsLoadError}
+                    </td>
+                  </tr>
+                ) : guilds.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} style={{ padding: '56px 20px', textAlign: 'center' }}>
                       <div style={{ maxWidth: 460, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
                         <div style={{
                           width: 52,
@@ -1384,10 +1397,10 @@ function LeaderboardContent() {
                           </svg>
                         </div>
                         <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>
-                          No Active Student Guild Squads This Sprint
+                          No Project Squads Found
                         </div>
                         <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
-                          Form an engineering squad in the Projects & Hackathon Hub, collaborate on distributed systems, and ship verified milestones to claim the top rank on the Guild Leaderboard.
+                          Create an engineering squad in Projects &amp; Hackathons, then complete verified milestones to appear on this board.
                         </p>
                         <Link
                           href="/projects"
@@ -1412,7 +1425,7 @@ function LeaderboardContent() {
                     </td>
                   </tr>
                 ) : filteredGuilds.length === 0 ? (
-                  <tr><td colSpan={7} style={{ padding: '48px 20px', textAlign: 'center', color: 'var(--t3)' }}>No guilds match this search.</td></tr>
+                  <tr><td colSpan={8} style={{ padding: '48px 20px', textAlign: 'center', color: 'var(--t3)' }}>No project squads match this search.</td></tr>
                 ) : (
                   filteredGuilds.map((guild) => (
                     <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
@@ -1435,6 +1448,9 @@ function LeaderboardContent() {
                         <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
                           {guild.completedProjectsCount} Projects
                         </span>
+                      </td>
+                      <td style={{ padding: '16px 20px', color: 'var(--t1)', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+                        {guild.finalScore == null ? '—' : guild.finalScore.toLocaleString()}
                       </td>
                       <td style={{ padding: '16px 20px' }}>
                         <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: guild.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)', color: guild.status === 'verified' ? '#22c55e' : '#eab308', textTransform: 'uppercase' }}>
@@ -1585,7 +1601,7 @@ function LeaderboardContent() {
                   <td colSpan={4} style={{ padding: 0 }}>
                               <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #10b981, #10b981 8px, transparent 8px, transparent 16px)' }} />
                               <div style={{ padding: '4px 20px', background: 'rgba(16,185,129,0.1)', color: '#059669', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                Promotion Cutoff Line — Top 10% advance by rank
+                                Promotion Cutoff Line — Top 25% (rounded up) advance by rank
                               </div>
                             </td>
                           </tr>

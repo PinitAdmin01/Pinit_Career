@@ -4,7 +4,7 @@
  *
  * Only students are ranked (the caller passes students only). Every move is decided from one snapshot
  * of the week, so a player moved tonight is never ranked again in their new tier the same night.
- * League Points are sprint Learning XP + Arena Points. In a tier of 2+ players the top 10% (at least 1)
+ * League Points are sprint Learning XP + Arena Points. In a tier of 2+ players the top 25% (rounded up, at least 1)
  * move up; in a tier of 10+ the bottom 10% move down. Browns and Ruby keep their terminal boundaries.
  */
 

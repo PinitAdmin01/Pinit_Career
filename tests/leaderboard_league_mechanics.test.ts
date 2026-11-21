@@ -14,7 +14,7 @@ test('Block 38: League Tier Progression Hierarchy & Canonical Order', () => {
   );
 });
 
-test('Block 38: Weekly League Mechanics Promotion Cutoff (Top 10%)', () => {
+test('Block 38: Weekly League Mechanics Promotion Cutoff (Top 25%, rounded up)', () => {
   // Create 20 players in silver
   const players: LeaguePlayer[] = Array.from({ length: 20 }, (_, i) => ({
     id: `player_${i + 1}`,
@@ -26,13 +26,14 @@ test('Block 38: Weekly League Mechanics Promotion Cutoff (Top 10%)', () => {
 
   const moves = planWeeklyLeagueMoves(players);
 
-  // Top 10% of 20 = 2 promotions
+  // Top 25% of 20 = 5 promotions
   const promotions = moves.filter((m) => m.outcome === 'promoted');
-  assert.strictEqual(promotions.length, 2, 'Top 10% of 20 players must be promoted');
+  assert.strictEqual(promotions.length, 5, 'Top 25% of 20 players must be promoted');
   assert.strictEqual(promotions[0].id, 'player_1');
   assert.strictEqual(promotions[0].from, 'silver');
   assert.strictEqual(promotions[0].to, 'gold');
   assert.strictEqual(promotions[1].id, 'player_2');
+  assert.strictEqual(promotions[4].id, 'player_5');
 
   // Bottom 10% of 20 = 2 demotions
   const demotions = moves.filter((m) => m.outcome === 'demoted');
@@ -41,6 +42,19 @@ test('Block 38: Weekly League Mechanics Promotion Cutoff (Top 10%)', () => {
   assert.strictEqual(demotions[0].from, 'silver');
   assert.strictEqual(demotions[0].to, 'browns');
   assert.strictEqual(demotions[1].id, 'player_20');
+});
+
+test('the 25% cutoff rounds up so second place in a six-member league is promoted', () => {
+  const players: LeaguePlayer[] = Array.from({ length: 6 }, (_, i) => ({
+    id: `six_${i + 1}`,
+    league_tier: 'browns',
+    weekly_xp: 600 - i * 100,
+    xp_total: 1000,
+    league_joined_at: '2026-11-01T00:00:00Z',
+  }));
+
+  const promotions = planWeeklyLeagueMoves(players).filter(move => move.outcome === 'promoted');
+  assert.deepStrictEqual(promotions.map(move => move.id), ['six_1', 'six_2']);
 });
 
 test('Block 38: League Mechanics Edge Cases & Apex Tier Invariants', () => {

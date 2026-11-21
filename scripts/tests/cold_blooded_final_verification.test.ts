@@ -249,7 +249,7 @@ describe('COLD-BLOODED FINAL VERIFICATION SUITE: Zero-Defect System Lockdown', (
       assert.match(content, /guild\.completedProjectsCount/);
 
       // Cutoff lines
-      assert.match(content, /Promotion Cutoff Line — Top 10% advance to higher league/);
+      assert.match(content, /Promotion Cutoff Line — Top 25% \(rounded up\) advance by rank/);
       assert.match(content, /Demotion Cutoff Line — Bottom 10% demote to lower league/);
     });
   });

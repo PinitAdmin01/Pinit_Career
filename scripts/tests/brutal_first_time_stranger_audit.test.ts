@@ -292,16 +292,16 @@ describe('BRUTAL FIRST-TIME STRANGER AUDIT: Chaos, Adversarial & Boundary Testin
       assert.ok(rankA < rankB, 'Player A (1000 XP + 20 ELO) must rank ahead of Player B (1000 XP + 10 ELO)');
     });
 
-    it('Brutal 4.3: Promotion (Top 10%) and Demotion (Bottom 10%) cutoff ranks calculate correctly for cohorts', () => {
+    it('Brutal 4.3: Promotion (Top 25%) and Demotion (Bottom 10%) cutoff ranks calculate correctly for cohorts', () => {
       const cohortSizes = [
-        { total: 10, expectedPromoteCutoff: 1, expectedDemoteCutoff: 10 },
-        { total: 20, expectedPromoteCutoff: 2, expectedDemoteCutoff: 19 },
-        { total: 50, expectedPromoteCutoff: 5, expectedDemoteCutoff: 46 },
-        { total: 100, expectedPromoteCutoff: 10, expectedDemoteCutoff: 91 },
+        { total: 10, expectedPromoteCutoff: 3, expectedDemoteCutoff: 10 },
+        { total: 20, expectedPromoteCutoff: 5, expectedDemoteCutoff: 19 },
+        { total: 50, expectedPromoteCutoff: 13, expectedDemoteCutoff: 46 },
+        { total: 100, expectedPromoteCutoff: 25, expectedDemoteCutoff: 91 },
       ];
 
       for (const cs of cohortSizes) {
-        const promotionCutoffRank = Math.max(1, Math.ceil(cs.total * 0.10));
+        const promotionCutoffRank = Math.max(1, Math.ceil(cs.total * 0.25));
         const demotionCutoffRank = Math.max(1, cs.total - Math.floor(cs.total * 0.10) + 1);
 
         assert.equal(promotionCutoffRank, cs.expectedPromoteCutoff, `Wrong promote cutoff for total=${cs.total}`);

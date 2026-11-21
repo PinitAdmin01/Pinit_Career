@@ -36,7 +36,7 @@ test('TASK 1: Removal of old buttons and replacement with 2 dynamic circles side
     'Circle 2 must render Weekly Sprint Reset Clock dial'
   );
   assert.ok(
-    leaderboardPage.includes('Sprint resets Monday at 1:00 AM IST. Top 10% promote; bottom 10% demote when the division has 10+ players.'),
+    leaderboardPage.includes('Sprint resets Monday at 1:00 AM IST. The top 25% (rounded up, at least one eligible member) promote; the bottom 10% demote when a division has 10+ members.'),
     'Circle 2 popover must explain promote and demote rules on click'
   );
 });

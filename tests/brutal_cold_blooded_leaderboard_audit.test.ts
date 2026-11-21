@@ -42,8 +42,8 @@ test('BRUTAL VECTOR 1: Zero mock squads & zero hardcoded demo data in backend an
 
   // Verify frontend empty state with action link
   assert.ok(
-    leaderboardPage.includes('No Active Student Guild Squads This Sprint'),
-    'Frontend must display empty state when guilds.length === 0'
+    leaderboardPage.includes('No Project Squads Found'),
+    'Frontend must display an honest empty state when there are no project squads'
   );
   assert.ok(
     leaderboardPage.includes('href="/projects"'),

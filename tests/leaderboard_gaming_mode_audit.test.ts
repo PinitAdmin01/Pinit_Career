@@ -279,10 +279,10 @@ test('Behavioral: Monday 1:00 AM IST Countdown Calculation', () => {
 
 test('Behavioral: League Promotion and Demotion Cutoff Zones with 100 students', () => {
   const totalCount = 100;
-  const promotionCutoffRank = Math.max(1, Math.ceil(totalCount * 0.10)); // Rank 10
+  const promotionCutoffRank = Math.max(1, Math.ceil(totalCount * 0.25)); // Rank 25
   const demotionCutoffRank = Math.max(1, totalCount - Math.floor(totalCount * 0.10) + 1); // Rank 91
 
-  assert.strictEqual(promotionCutoffRank, 10, 'Top 10 students promote');
+  assert.strictEqual(promotionCutoffRank, 25, 'Top 25 students promote');
   assert.strictEqual(demotionCutoffRank, 91, 'Ranks 91-100 demote');
 
   // Rank 5 -> promotion
