@@ -22,7 +22,7 @@ export interface FinanceContextType {
     proof_url?: string;
   }) => void;
   updateVaultItem: (id: string, updates: Partial<VaultItem>, opts?: { skipTrustMutation?: boolean }) => void;
-  removeVaultItem: (id: string) => void;
+  removeVaultItem: (id: string) => void | Promise<void>;
   pins: number;
   setPins: (pins: number) => void;
   bonusPins: number;

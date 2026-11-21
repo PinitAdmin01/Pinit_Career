@@ -46,11 +46,12 @@ export default function VaultPage() {
   const cOS = useCareerOS();
   const { vaultItems: ctxItems, setVaultItems, addVaultItem, updateVaultItem, removeVaultItem } = cOS;
   const { data: fsVaultData, refetch } = useVault();
+  const [deletedIds, setDeletedIds] = useState<Set<string>>(() => new Set());
   const fsItems = (fsVaultData || []) as any[];
   const fsIds = new Set(fsItems.map((i: any) => i.id));
   const vaultItems = useMemo(
-    () => [...fsItems, ...ctxItems.filter((i) => !fsIds.has(i.id))],
-    [fsItems, ctxItems]
+    () => [...fsItems, ...ctxItems.filter((i) => !fsIds.has(i.id))].filter((i) => !deletedIds.has(i.id)),
+    [fsItems, ctxItems, deletedIds]
   );
 
   const [vaultView, setVaultView] = useState<'documents' | 'history'>('documents');
@@ -135,15 +136,21 @@ export default function VaultPage() {
   };
 
   const handleDeleteItem = async (item: any) => {
-    removeVaultItem?.(item.id);
+    setDeletedIds((prev) => {
+      const next = new Set(prev);
+      next.add(item.id);
+      return next;
+    });
     if (typeof window !== 'undefined') {
       try {
         localStorage.removeItem(`pinit_vault_audit_status_${item.id}`);
       } catch {}
     }
-    setTimeout(() => {
+    try {
+      await removeVaultItem?.(item.id);
+    } finally {
       refetch?.();
-    }, 350);
+    }
   };
 
   const filteredItems =
@@ -307,6 +314,7 @@ export default function VaultPage() {
       toast.error('Upload Refused', err?.message || 'Could not inspect this document.');
     } finally {
       setUploading(false);
+      if (fileRef.current) fileRef.current.value = '';
     }
   };
 

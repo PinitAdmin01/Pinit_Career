@@ -158,28 +158,28 @@ export function useVault(options: UseVaultOptions = {}) {
     saveVault(updated);
   }, [vaultItems, onAddXp, onEarnPins, saveVault, userId]);
 
-  const removeVaultItem = useCallback((id: string) => {
+  const removeVaultItem = useCallback(async (id: string) => {
     const itemToDelete = vaultItems.find(item => item.id === id);
     const updated = vaultItems.filter(item => item.id !== id);
     saveVault(updated);
     toast.info('Item Removed', 'Vault item deleted.');
 
     if (userId && userId !== 'guest') {
-      api.post('/api/vault/delete', {
-        documentId: id,
-        storageUrl: (itemToDelete as any)?.storage_url || (itemToDelete as any)?.storageUrl,
-      }).catch((err) => {
+      try {
+        await api.post('/api/vault/delete', {
+          documentId: id,
+          storageUrl: (itemToDelete as any)?.storage_url || (itemToDelete as any)?.storageUrl,
+        });
+      } catch (err) {
         console.warn('Failed to purge vault document file via /api/vault/delete, attempting fallback delete:', err);
-        supabase
+        const { error } = await supabase
           .from('vault_items')
           .delete()
-          .eq('id', id)
-          .then(({ error }) => {
-            if (error) {
-              console.error('Failed to delete vault item from Supabase:', error.message);
-            }
-          });
-      });
+          .eq('id', id);
+        if (error) {
+          console.error('Failed to delete vault item from Supabase:', error.message);
+        }
+      }
     }
   }, [vaultItems, userId, saveVault]);
 
