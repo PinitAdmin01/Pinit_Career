@@ -17,6 +17,7 @@ interface UseInterviewVoiceProps {
   onFinalTranscript: (text: string) => void;
   onSilenceNudge: (text: string) => void;
   isTabInactive?: boolean;
+  isSendingInterviewerReply?: boolean;
 }
 
 export function useInterviewVoice({
@@ -26,7 +27,8 @@ export function useInterviewVoice({
   difficulty,
   onFinalTranscript,
   onSilenceNudge,
-  isTabInactive
+  isTabInactive,
+  isSendingInterviewerReply = false
 }: UseInterviewVoiceProps) {
   const [autoVoiceLoop, setAutoVoiceLoop] = useState(true);
   const autoVoiceLoopRef = useRef(true);
@@ -48,6 +50,9 @@ export function useInterviewVoice({
   const [hasStartedMicOnce, setHasStartedMicOnce] = useState<boolean>(false);
   const avatarSpeechStartTimeRef = useRef<number>(0);
   const isAssistPreviewSpeakingRef = useRef<boolean>(false);
+  const isAwaitingReplyRef = useRef<boolean>(Boolean(isSendingInterviewerReply));
+  const awaitingWatchdogRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const speechEpochRef = useRef<number>(0);
   const silenceNudgeFiredRef = useRef<boolean>(false);
 
   const debouncerRef = useRef<SpeechDebounceManager>(
@@ -63,7 +68,8 @@ export function useInterviewVoice({
   const isTabInactiveRef = useRef<boolean>(Boolean(isTabInactive));
 
   const isMountedRef = useRef<boolean>(true);
-  const isInterviewActiveRef = useRef<boolean>(false);
+  const isInterviewActiveRef = useRef<boolean>(Boolean(isInterviewActive));
+  isInterviewActiveRef.current = isInterviewActive;
 
   const [wpmScore, setWpmScore] = useState<number | null>(null);
   const [fillerWordCount, setFillerWordCount] = useState(0);
@@ -92,6 +98,18 @@ export function useInterviewVoice({
     } else {
       userPausedMicRef.current = false;
       isAssistPreviewSpeakingRef.current = false;
+      isAwaitingReplyRef.current = false;
+      isAvatarSpeakingRef.current = false;
+      setIsAvatarSpeaking(false);
+      speechEpochRef.current += 1;
+      if (awaitingWatchdogRef.current) {
+        clearTimeout(awaitingWatchdogRef.current);
+        awaitingWatchdogRef.current = null;
+      }
+      if (autoRestartTimerRef.current) {
+        clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = null;
+      }
       hasStartedMicOnceRef.current = false;
       setHasStartedMicOnce(false);
       debouncerRef.current.reset();
@@ -117,6 +135,47 @@ export function useInterviewVoice({
     }
   }, []);
 
+  const isMicBlocked = useCallback(() => {
+    return (
+      !isMountedRef.current ||
+      !isInterviewActiveRef.current ||
+      isTabInactiveRef.current ||
+      userPausedMicRef.current ||
+      isAvatarSpeakingRef.current ||
+      isAssistPreviewSpeakingRef.current ||
+      isAwaitingReplyRef.current ||
+      (typeof document !== 'undefined' && document.visibilityState === 'hidden')
+    );
+  }, []);
+
+  const stopRecognitionOnly = useCallback(() => {
+    debouncerRef.current.reset();
+    setLiveSpeechTranscript('');
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+    if (autoRestartTimerRef.current) {
+      clearTimeout(autoRestartTimerRef.current);
+      autoRestartTimerRef.current = null;
+    }
+    const activeRec = recognitionRef.current;
+    recognitionRef.current = null;
+    if (activeRec) {
+      try {
+        isStoppingRef.current = true;
+        if (typeof activeRec.abort === 'function') {
+          activeRec.abort();
+        } else {
+          activeRec.stop();
+        }
+      } catch {}
+    }
+    setIsVoiceListening(false);
+    isVoiceListeningRef.current = false;
+    isStartingRef.current = false;
+  }, []);
+
   const flushAndSubmitTranscript = useCallback(() => {
     silenceNudgeFiredRef.current = false;
     const committed = debouncerRef.current.commitSubmission();
@@ -126,12 +185,38 @@ export function useInterviewVoice({
       return;
     }
 
-    if (recognitionRef.current) {
+    // Lock microphone before stopping & dispatching so rec.onend cannot re-open it mid-turn
+    isAwaitingReplyRef.current = true;
+    if (awaitingWatchdogRef.current) clearTimeout(awaitingWatchdogRef.current);
+    awaitingWatchdogRef.current = setTimeout(() => {
+      awaitingWatchdogRef.current = null;
+      isAwaitingReplyRef.current = false;
+    }, 12000);
+
+    if (autoRestartTimerRef.current) {
+      clearTimeout(autoRestartTimerRef.current);
+      autoRestartTimerRef.current = null;
+    }
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+
+    const activeRec = recognitionRef.current;
+    recognitionRef.current = null;
+    if (activeRec) {
       try {
         isStoppingRef.current = true;
-        recognitionRef.current.stop();
+        if (typeof activeRec.abort === 'function') {
+          activeRec.abort();
+        } else {
+          activeRec.stop();
+        }
       } catch {}
     }
+    setIsVoiceListening(false);
+    isVoiceListeningRef.current = false;
+    isStartingRef.current = false;
 
     const { text: fullTranscript, metrics } = committed;
     const rawWpm = Math.min(220, Math.max(60, metrics.clampedWpm));
@@ -146,21 +231,22 @@ export function useInterviewVoice({
     onFinalTranscript(fullTranscript);
   }, [onFinalTranscript]);
 
-  const stopRecognitionOnly = useCallback(() => {
-    debouncerRef.current.reset();
-    setLiveSpeechTranscript('');
-    if (recognitionRef.current) {
-      try {
-        isStoppingRef.current = true;
-        recognitionRef.current.stop();
-      } catch {}
+  useEffect(() => {
+    if (isSendingInterviewerReply) {
+      isAwaitingReplyRef.current = true;
+      if (awaitingWatchdogRef.current) {
+        clearTimeout(awaitingWatchdogRef.current);
+        awaitingWatchdogRef.current = null;
+      }
+      stopRecognitionOnly();
+    } else {
+      isAwaitingReplyRef.current = false;
+      if (awaitingWatchdogRef.current) {
+        clearTimeout(awaitingWatchdogRef.current);
+        awaitingWatchdogRef.current = null;
+      }
     }
-    setIsVoiceListening(false);
-    isVoiceListeningRef.current = false;
-    isStartingRef.current = false;
-    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-    if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
-  }, []);
+  }, [isSendingInterviewerReply, stopRecognitionOnly]);
 
   const stopVoiceListening = useCallback(() => {
     stopRecognitionOnly();
@@ -183,11 +269,14 @@ export function useInterviewVoice({
       }
     }
     if (typeof window === 'undefined' || !isMountedRef.current) return;
-    if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
-    if (isTabInactiveRef.current || userPausedMicRef.current) return;
     if (!isInterviewActiveRef.current && !isInterviewActive) return;
-
-    if (isStartingRef.current || isAvatarSpeakingRef.current || isAssistPreviewSpeakingRef.current) return;
+    if (isMicBlocked() || isStartingRef.current) {
+      if (autoRestartTimerRef.current) {
+        clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = null;
+      }
+      return;
+    }
 
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
@@ -203,7 +292,8 @@ export function useInterviewVoice({
     if (now - lastSpokenEndTimeRef.current < 350) {
       if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
       autoRestartTimerRef.current = setTimeout(() => {
-        if (isMountedRef.current && !userPausedMicRef.current) startRecognitionInternalRef.current(false);
+        autoRestartTimerRef.current = null;
+        if (!isMicBlocked()) startRecognitionInternalRef.current(false);
       }, 350);
       return;
     }
@@ -212,8 +302,12 @@ export function useInterviewVoice({
 
     try {
       if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch {}
+        const oldRec = recognitionRef.current;
         recognitionRef.current = null;
+        try {
+          if (typeof oldRec.abort === 'function') oldRec.abort();
+          else oldRec.stop();
+        } catch {}
       }
 
       const rec = new SpeechRecognition();
@@ -223,6 +317,17 @@ export function useInterviewVoice({
 
       rec.onstart = () => {
         isStartingRef.current = false;
+        // Abort immediately if interviewer started thinking/speaking while rec.start() was async
+        if (isMicBlocked() || recognitionRef.current !== rec) {
+          isVoiceListeningRef.current = false;
+          setIsVoiceListening(false);
+          try {
+            isStoppingRef.current = true;
+            if (typeof rec.abort === 'function') rec.abort();
+            else rec.stop();
+          } catch {}
+          return;
+        }
         isStoppingRef.current = false;
         micRetryCountRef.current = 0;
         if (!hasStartedMicOnceRef.current) {
@@ -237,7 +342,7 @@ export function useInterviewVoice({
         if (!silenceNudgeFiredRef.current) {
           if (activeStage === 'round1_behavioral' || activeStage === 'round4_star') {
             silenceTimerRef.current = setTimeout(() => {
-              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+              if (autoVoiceLoopRef.current && !isMicBlocked() && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
                 silenceNudgeFiredRef.current = true;
                 const nudgeMsg = `Take all the time you need! When you're ready, feel free to share your thoughts or explain your approach for ${activeTopicName}.`;
                 onSilenceNudge(nudgeMsg);
@@ -245,7 +350,7 @@ export function useInterviewVoice({
             }, 45000);
           } else if (activeStage === 'round2_coding') {
             silenceTimerRef.current = setTimeout(() => {
-              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+              if (autoVoiceLoopRef.current && !isMicBlocked() && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
                 silenceNudgeFiredRef.current = true;
                 const nudgeMsg = `How is your implementation coming along? Feel free to explain your approach out loud, or check the hints toggle if you need a nudge!`;
                 onSilenceNudge(nudgeMsg);
@@ -253,7 +358,7 @@ export function useInterviewVoice({
             }, 90000);
           } else if (activeStage === 'round3_systems') {
             silenceTimerRef.current = setTimeout(() => {
-              if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
+              if (autoVoiceLoopRef.current && !isMicBlocked() && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
                 silenceNudgeFiredRef.current = true;
                 const nudgeMsg = `As you lay out your architecture nodes for ${activeTopicName}, consider explaining how traffic flows across your tiers.`;
                 onSilenceNudge(nudgeMsg);
@@ -267,8 +372,8 @@ export function useInterviewVoice({
         if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
         silenceNudgeFiredRef.current = false;
 
-        // Echo protection: ignore mic transcript if avatar or assist preview is actively speaking
-        if (isAvatarSpeakingRef.current || isAssistPreviewSpeakingRef.current) {
+        // Echo/overlap protection: ignore mic transcript when blocked or superseded
+        if (isMicBlocked() || recognitionRef.current !== rec) {
           return;
         }
 
@@ -284,7 +389,7 @@ export function useInterviewVoice({
         }
 
         const triggerFlush = () => {
-          if (!isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current && debouncerRef.current.getCurrentTranscript().trim().length > 2) {
+          if (!isMicBlocked() && debouncerRef.current.getCurrentTranscript().trim().length > 2) {
             flushAndSubmitTranscript();
           }
         };
@@ -309,14 +414,16 @@ export function useInterviewVoice({
       };
 
       rec.onerror = (e: any) => {
+        if (recognitionRef.current !== rec) return;
         isStartingRef.current = false;
         const errType = e?.error || '';
 
         if (errType === 'no-speech') {
-          if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current && isMountedRef.current) {
+          if (autoVoiceLoopRef.current && !isMicBlocked()) {
             if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
             autoRestartTimerRef.current = setTimeout(() => {
-              if (isMountedRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current) {
+              autoRestartTimerRef.current = null;
+              if (!isMicBlocked()) {
                 startRecognitionInternalRef.current(false);
               }
             }, 600);
@@ -328,8 +435,10 @@ export function useInterviewVoice({
         isVoiceListeningRef.current = false;
         setIsVoiceListening(false);
 
-        if (errType === 'not-allowed' || errType === 'service-not-allowed' || errType === 'audio-capture') {
-          console.warn('[Speech STT] Microphone permission denied or capture error:', errType);
+        if (errType === 'not-allowed' || errType === 'service-not-allowed' || errType === 'audio-capture' || errType === 'aborted') {
+          if (errType !== 'aborted') {
+            console.warn('[Speech STT] Microphone permission denied or capture error:', errType);
+          }
           return;
         }
 
@@ -339,13 +448,11 @@ export function useInterviewVoice({
         }
         micRetryCountRef.current += 1;
 
-        if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
-        if (isTabInactiveRef.current || userPausedMicRef.current) return;
-
-        if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current) {
+        if (autoVoiceLoopRef.current && !isMicBlocked()) {
           if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
           autoRestartTimerRef.current = setTimeout(() => {
-            if (isMountedRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current) {
+            autoRestartTimerRef.current = null;
+            if (!isMicBlocked()) {
               startRecognitionInternalRef.current(false);
             }
           }, 1200);
@@ -353,25 +460,35 @@ export function useInterviewVoice({
       };
 
       rec.onend = () => {
+        const wasIntentional = isStoppingRef.current;
+        const isCurrentInstance = recognitionRef.current === rec;
         isStartingRef.current = false;
         isStoppingRef.current = false;
+
+        if (!isCurrentInstance) {
+          // Detached/superseded instance ending asynchronously; never flip or schedule restart
+          return;
+        }
+
         isVoiceListeningRef.current = false;
         setIsVoiceListening(false);
+        if (silenceTimerRef.current) {
+          clearTimeout(silenceTimerRef.current);
+          silenceTimerRef.current = null;
+        }
 
-        if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
-        if (isTabInactiveRef.current || userPausedMicRef.current || isAssistPreviewSpeakingRef.current) return;
+        if (wasIntentional || isMicBlocked()) return;
 
         if (debouncerRef.current.getCurrentTranscript().trim()) {
           flushAndSubmitTranscript();
           return;
         }
 
-        if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-
-        if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && isMountedRef.current) {
+        if (autoVoiceLoopRef.current && !isMicBlocked()) {
           if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
           autoRestartTimerRef.current = setTimeout(() => {
-            if (isMountedRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && isInterviewActiveRef.current && !userPausedMicRef.current) {
+            autoRestartTimerRef.current = null;
+            if (!isMicBlocked()) {
               startRecognitionInternalRef.current(false);
             }
           }, 700);
@@ -382,57 +499,90 @@ export function useInterviewVoice({
       rec.start();
     } catch {
       isStartingRef.current = false;
-      if (autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current && micRetryCountRef.current < 4) {
+      if (autoVoiceLoopRef.current && !isMicBlocked() && micRetryCountRef.current < 4) {
         micRetryCountRef.current += 1;
-        setTimeout(() => {
-          if (isMountedRef.current && !userPausedMicRef.current && !isAssistPreviewSpeakingRef.current) startRecognitionInternalRef.current(false);
+        if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = setTimeout(() => {
+          autoRestartTimerRef.current = null;
+          if (!isMicBlocked()) startRecognitionInternalRef.current(false);
         }, 800);
       }
     }
-  }, [activeStage, activeTopicName, onSilenceNudge, isInterviewActive, flushAndSubmitTranscript]);
+  }, [activeStage, activeTopicName, onSilenceNudge, isInterviewActive, flushAndSubmitTranscript, isMicBlocked]);
 
   startRecognitionInternalRef.current = startRecognitionInternal;
 
   // Explicit user-initiated or button start clears any user pause lock
   const startVoiceListening = useCallback(() => {
+    if (isAwaitingReplyRef.current || isAvatarSpeakingRef.current || isTabInactiveRef.current) {
+      return;
+    }
     startRecognitionInternal(true);
   }, [startRecognitionInternal]);
 
   const speakWithAvatar = useCallback((text: string, teacherId: string, onStart: () => void, onEnd: () => void) => {
+    const epoch = ++speechEpochRef.current;
     isAssistPreviewSpeakingRef.current = false;
+    isAwaitingReplyRef.current = false;
+    if (awaitingWatchdogRef.current) {
+      clearTimeout(awaitingWatchdogRef.current);
+      awaitingWatchdogRef.current = null;
+    }
     isAvatarSpeakingRef.current = true;
     setIsAvatarSpeaking(true);
+    setIsVoiceListening(false);
+    isVoiceListeningRef.current = false;
+    isStartingRef.current = false;
 
+    if (autoRestartTimerRef.current) {
+      clearTimeout(autoRestartTimerRef.current);
+      autoRestartTimerRef.current = null;
+    }
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
     debouncerRef.current.reset();
+    setLiveSpeechTranscript('');
 
-    if (recognitionRef.current) {
+    const activeRec = recognitionRef.current;
+    recognitionRef.current = null;
+    if (activeRec) {
       try {
         isStoppingRef.current = true;
-        recognitionRef.current.stop();
+        if (typeof activeRec.abort === 'function') {
+          activeRec.abort();
+        } else {
+          activeRec.stop();
+        }
       } catch {}
     }
 
     speakWithAvatarRaw(text, teacherId, () => {
+      if (epoch !== speechEpochRef.current) return;
       isAvatarSpeakingRef.current = true;
       avatarSpeechStartTimeRef.current = Date.now();
       setIsAvatarSpeaking(true);
       setSoundscapeDucking(true);
       onStart();
     }, () => {
+      if (epoch !== speechEpochRef.current) return;
       isAvatarSpeakingRef.current = false;
       setIsAvatarSpeaking(false);
       setSoundscapeDucking(false);
       lastSpokenEndTimeRef.current = Date.now();
       onEnd();
-      if (autoVoiceLoopRef.current && (isInterviewActiveRef.current || isInterviewActive) && isMountedRef.current && !userPausedMicRef.current && !isAssistPreviewSpeakingRef.current) {
-        setTimeout(() => {
-          if (isMountedRef.current && !isAvatarSpeakingRef.current && !isAssistPreviewSpeakingRef.current && !userPausedMicRef.current) {
+      if (autoVoiceLoopRef.current && (isInterviewActiveRef.current || isInterviewActive) && isMountedRef.current && !userPausedMicRef.current && !isAssistPreviewSpeakingRef.current && !isAwaitingReplyRef.current) {
+        if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = setTimeout(() => {
+          autoRestartTimerRef.current = null;
+          if (!isMicBlocked()) {
             startRecognitionInternalRef.current(false);
           }
-        }, 500);
+        }, 600);
       }
     }, false, true, difficulty, 1.0, 15000, { startDeadlineMs: 3500 });
-  }, [difficulty, isInterviewActive]);
+  }, [difficulty, isInterviewActive, isMicBlocked]);
 
   const previewAssistSpeech = useCallback((
     text: string,
@@ -449,10 +599,13 @@ export function useInterviewVoice({
       autoRestartTimerRef.current = null;
     }
     debouncerRef.current.reset();
-    if (recognitionRef.current) {
+    const activeRec = recognitionRef.current;
+    recognitionRef.current = null;
+    if (activeRec) {
       try {
         isStoppingRef.current = true;
-        recognitionRef.current.stop();
+        if (typeof activeRec.abort === 'function') activeRec.abort();
+        else activeRec.stop();
       } catch {}
     }
     speakWithAvatarRaw(
@@ -479,12 +632,16 @@ export function useInterviewVoice({
   }, [difficulty]);
 
   const interruptSpeech = useCallback(() => {
+    speechEpochRef.current += 1;
     stopSpeaking();
     setSoundscapeDucking(false);
     isAssistPreviewSpeakingRef.current = false;
     isAvatarSpeakingRef.current = false;
+    isAwaitingReplyRef.current = false;
     setIsAvatarSpeaking(false);
-    startRecognitionInternalRef.current(true);
+    if (!isTabInactiveRef.current) {
+      startRecognitionInternalRef.current(true);
+    }
   }, []);
 
   const interruptSpeechRef = useRef(interruptSpeech);
@@ -618,13 +775,15 @@ export function useInterviewVoice({
         setIsVoiceListening(false);
         isStartingRef.current = false;
       } else {
-        if (isMountedRef.current && autoVoiceLoopRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && (isInterviewActiveRef.current || isInterviewActive)) {
+        if (autoVoiceLoopRef.current && !isMicBlocked() && (isInterviewActiveRef.current || isInterviewActive)) {
           micRetryCountRef.current = 0;
           const shouldResume = wasListeningBeforeHiddenRef.current || autoVoiceLoopRef.current;
           wasListeningBeforeHiddenRef.current = false;
           if (shouldResume) {
-            setTimeout(() => {
-              if (isMountedRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && (isInterviewActiveRef.current || isInterviewActive)) {
+            if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
+            autoRestartTimerRef.current = setTimeout(() => {
+              autoRestartTimerRef.current = null;
+              if (!isMicBlocked() && (isInterviewActiveRef.current || isInterviewActive)) {
                 startRecognitionInternalRef.current(false);
               }
             }, 300);
@@ -637,7 +796,7 @@ export function useInterviewVoice({
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isInterviewActive, isTabInactive]);
+  }, [isInterviewActive, isTabInactive, isMicBlocked]);
 
   // Sync prop changes for isTabInactive
   useEffect(() => {
@@ -649,33 +808,40 @@ export function useInterviewVoice({
       }
       stopRecognitionOnly();
     } else {
-      if (wasListeningBeforeHiddenRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && (isInterviewActiveRef.current || isInterviewActive)) {
+      if (wasListeningBeforeHiddenRef.current && !isMicBlocked() && (isInterviewActiveRef.current || isInterviewActive)) {
         wasListeningBeforeHiddenRef.current = false;
         micRetryCountRef.current = 0;
-        setTimeout(() => {
-          if (isMountedRef.current && !isAvatarSpeakingRef.current && !userPausedMicRef.current && (isInterviewActiveRef.current || isInterviewActive)) {
+        if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = setTimeout(() => {
+          autoRestartTimerRef.current = null;
+          if (!isMicBlocked() && (isInterviewActiveRef.current || isInterviewActive)) {
             startRecognitionInternalRef.current(false);
           }
         }, 300);
       }
     }
-  }, [isTabInactive, stopRecognitionOnly, isInterviewActive]);
+  }, [isTabInactive, stopRecognitionOnly, isInterviewActive, isMicBlocked]);
 
   useEffect(() => {
     isMountedRef.current = true;
     return () => {
       isMountedRef.current = false;
       isInterviewActiveRef.current = false;
+      isAwaitingReplyRef.current = false;
+      isAvatarSpeakingRef.current = false;
+      speechEpochRef.current += 1;
       stopSpeaking();
       debouncerRef.current.reset();
       if (recognitionRef.current) {
         try {
-          recognitionRef.current.stop();
+          if (typeof recognitionRef.current.abort === 'function') recognitionRef.current.abort();
+          else recognitionRef.current.stop();
           recognitionRef.current = null;
         } catch {}
       }
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       if (autoRestartTimerRef.current) clearTimeout(autoRestartTimerRef.current);
+      if (awaitingWatchdogRef.current) clearTimeout(awaitingWatchdogRef.current);
     };
   }, []);
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { VRoidAvatarEngine, AnimState } from './VRoidAvatarEngine';
+import { VRoidAvatarEngine, AnimState, PERSONA_FAST_MODEL } from './VRoidAvatarEngine';
 
 interface Props {
   teacherId?: string;
@@ -11,7 +11,7 @@ interface Props {
   paused?: boolean;
 }
 
-export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 'idle', zoom = 1.6, visible = true, paused = false }: Props) {
+export default function VRoidInterviewAvatar({ teacherId = 'sneha', animState = 'idle', zoom = 1.6, visible = true, paused = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<VRoidAvatarEngine | null>(null);
   const [hasWebGLError, setHasWebGLError] = useState(false);
@@ -192,7 +192,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   );
 }
 
-export function preloadAvatarGLB(teacherIds: string | string[] = ['priya', 'rohan']) {
+export function preloadAvatarGLB(teacherIds: string | string[] = ['sneha', 'rohan', 'vikram']) {
   if (typeof window === 'undefined') return;
 
   const schedulePreload = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 800));
@@ -208,7 +208,7 @@ export function preloadAvatarGLB(teacherIds: string | string[] = ['priya', 'roha
     for (const id of list) {
       if (!id) continue;
       const charId = id.toLowerCase().trim();
-      const url = `/avatar/${charId}.glb`;
+      const url = PERSONA_FAST_MODEL[charId] || `/avatar/${charId}.glb`;
       try {
         if ('caches' in window) {
           const cache = await window.caches.open('pinit_avatar_v1');

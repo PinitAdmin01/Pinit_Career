@@ -138,18 +138,20 @@ export function useVault(options: UseVaultOptions = {}) {
     }
   }, [vaultItems, userId, saveVault]);
 
-  const updateVaultItem = useCallback((id: string, updates: Partial<VaultItem>) => {
+  const updateVaultItem = useCallback((id: string, updates: Partial<VaultItem>, opts?: { skipTrustMutation?: boolean }) => {
     const updated = vaultItems.map(item => {
       if (item.id !== id) return item;
       const merged = { ...item, ...updates };
-      if (updates.verified && !item.verified) {
-        toast.success('✓ Proof Verified', `"${item.title}" is officially verified!`);
-        if (onAddXp) onAddXp(20, 'Proof Verified');
-        // Grant +5 Trust Score for verified authentic document
-        applyTrustReward(userId, 'vault_verified').catch(() => {});
-      } else if (updates.verified === false && item.verified === true) {
-        // Deduct -5 Trust Score for unverified/rejected document
-        applyVaultRejectionPenalty(userId).catch(() => {});
+      if (!opts?.skipTrustMutation) {
+        if (updates.verified && !item.verified) {
+          toast.success('✓ Proof Verified', `"${item.title}" is officially verified!`);
+          if (onAddXp) onAddXp(20, 'Proof Verified');
+          // Grant +5 Trust Score for verified authentic document
+          applyTrustReward(userId, 'vault_verified').catch(() => {});
+        } else if (updates.verified === false && item.verified === true) {
+          // Deduct -5 Trust Score for unverified/rejected document
+          applyVaultRejectionPenalty(userId).catch(() => {});
+        }
       }
       return merged;
     });

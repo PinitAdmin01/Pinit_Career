@@ -1659,34 +1659,36 @@ html[data-gaming-mode="true"] .page-content {
 
 .iv-session-header {
   flex-shrink: 0;
-  height: 68px;
-  min-height: 68px;
-  max-height: 68px;
+  position: relative;
+  z-index: 40;
+  height: 74px;
+  min-height: 74px;
+  max-height: 74px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 4px;
-  padding: 5px 14px;
+  gap: 6px;
+  padding: 8px 16px;
   background: color-mix(in srgb, var(--card, var(--bg2)) 92%, transparent);
   backdrop-filter: blur(16px);
   border-radius: 12px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .iv-voice-hud {
   flex-shrink: 0;
-  height: 46px;
-  min-height: 46px;
-  max-height: 46px;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
   border-radius: 10px;
-  padding: 4px 12px;
+  padding: 6px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 8px;
+  gap: 10px;
   overflow: hidden;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -2036,8 +2038,8 @@ body[data-interview-active='true'] .main-area {
   overflow: hidden !important;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 4px 10px 8px;
+  gap: 10px;
+  padding: 8px 14px 10px;
   box-sizing: border-box;
 }
 

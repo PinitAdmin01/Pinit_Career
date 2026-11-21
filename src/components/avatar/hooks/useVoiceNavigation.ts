@@ -297,7 +297,7 @@ export interface NavMatchResult {
 }
 
 const WAKE_AND_MENTOR_REGEX =
-  /\b(?:hey|hwy|hay|hi|hello|ok|okay|yo|please|pls|plz|priya|preya|pria|freeya|freya|riya|anish|aneesh|kashyap|karthic|karthik|maya|divya|aisha|vikram|rohan|shalini|pinit|mentor)\b/gi;
+  /\b(?:hey|hwy|hay|hi|hello|ok|okay|yo|please|pls|plz|ms|mr|priya|preya|pria|freeya|freya|riya|anish|aneesh|akash|aakash|kashyap|karthic|karthik|maya|divya|aisha|vikram|rohan|shalini|pinit|mentor)\b/gi;
 
 function stripWakeAndNavVerbs(text: string): string {
   let cleaned = text.replace(WAKE_AND_MENTOR_REGEX, ' ').replace(/\s+/g, ' ').trim();
@@ -336,8 +336,9 @@ const FILLER_WORDS = new Set([
   'the', 'a', 'an', 'my', 'me', 'to', 'for', 'of', 'in', 'on', 'at', 'up', 'into',
   'please', 'pls', 'plz', 'can', 'could', 'you', 'u', 'i', 'we', 'want', 'wanna',
   'need', 'let', 'see', 'hey', 'hwy', 'hay', 'hi', 'hello', 'now', 'karo', 'kardo',
-  'priya', 'preya', 'pria', 'anish', 'aneesh', 'tab', 'tabs', 'page', 'section',
-  'screen', 'menu', 'option', 'please', 'bro', 'yaar',
+  'ms', 'mr', 'priya', 'preya', 'pria', 'freeya', 'freya', 'riya', 'anish', 'aneesh',
+  'akash', 'aakash', 'tab', 'tabs', 'page', 'section', 'screen', 'menu', 'option',
+  'please', 'bro', 'yaar',
 ]);
 
 // ── Main Matching Function ──────────────────────────────────────────────────
@@ -354,6 +355,11 @@ export function matchNavigationIntent(
   const text = rawTranscript.toLowerCase().replace(/[.,!?;:'"()]/g, ' ').replace(/\s+/g, ' ').trim();
   const strippedOfWake = text.replace(WAKE_AND_MENTOR_REGEX, ' ').replace(/\s+/g, ' ').trim();
 
+  // Guard: Standalone mentor greeting / wake word (e.g. "hey priya") must NEVER trigger navigation
+  if (!strippedOfWake) {
+    return empty;
+  }
+
   // Exclude genuine informational questions unless an explicit nav verb is present
   const hasExplicitNav = EXPLICIT_NAV_VERB_REGEX.test(text);
   if (QUESTION_EXCLUSION_REGEX.test(strippedOfWake) && !hasExplicitNav) {
@@ -364,13 +370,14 @@ export function matchNavigationIntent(
   const isIndicator = hasRouteIndicator(text);
   const addressedMentor = Boolean(options.addressedMentor) || hasMentorAddress(text);
 
-  // Extract clean target phrase regardless of word order
+  // Extract clean target phrase regardless of word order (never fall back to raw wake-word text)
   const targetPhrase = stripWakeAndNavVerbs(text);
-  const effectiveText = targetPhrase || strippedOfWake || text;
+  if (!targetPhrase) return empty;
 
-  const spokenWords = effectiveText.split(/\s+/).filter(Boolean);
+  const spokenWords = targetPhrase.split(/\s+/).filter(Boolean);
   const meaningfulWords = spokenWords.filter((w) => !FILLER_WORDS.has(w));
-  const wordsToScore = meaningfulWords.length > 0 ? meaningfulWords : spokenWords;
+  if (meaningfulWords.length === 0) return empty;
+  const wordsToScore = meaningfulWords;
 
   // Strict intent gate:
   // Allow if (explicit nav verb) OR (tab/page indicator) OR (addressed mentor with concise 1-3 word route target)

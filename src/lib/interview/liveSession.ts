@@ -129,6 +129,53 @@ export function transcriptForModel(session: LiveSession): Array<{ role: LiveRole
     .map((t) => ({ role: t.role, content: t.content }));
 }
 
+/**
+ * Stage-scoped conversation slice for Round 2 and Round 3 so earlier Round 1
+ * background/language claims cannot bleed into Coding or Architecture rounds.
+ * Round 1 and Round 4 retain the full transcript (Round 4 intentionally connects Rounds 1-3).
+ */
+export function transcriptForStage(session: LiveSession, currentStage?: string): Array<{ role: LiveRole; content: string }> {
+  const valid = (Array.isArray(session.transcript) ? session.transcript : [])
+    .filter((t) => t && (t.role === 'user' || t.role === 'assistant') && typeof t.content === 'string');
+
+  if (currentStage !== 'round2_coding' && currentStage !== 'round3_systems') {
+    return valid.map((t) => ({ role: t.role, content: t.content }));
+  }
+
+  const markerRe = currentStage === 'round2_coding'
+    ? /\[Round 2:|Welcome to Round 2\b|\[Entering Round 2/i
+    : /\[Round 3:|Welcome to Round 3\b|\[Entering Round 3/i;
+
+  let markerIdx = -1;
+  for (let i = valid.length - 1; i >= 0; i--) {
+    if (markerRe.test(valid[i].content)) {
+      markerIdx = i;
+      break;
+    }
+  }
+
+  let contiguousStageStartIdx = -1;
+  for (let i = valid.length - 1; i >= 0; i--) {
+    if (valid[i].stage === currentStage) {
+      contiguousStageStartIdx = i;
+    } else {
+      break;
+    }
+  }
+
+  let startIdx = -1;
+  if (markerIdx >= 0 && contiguousStageStartIdx >= 0) {
+    startIdx = Math.min(markerIdx, contiguousStageStartIdx);
+  } else if (markerIdx >= 0) {
+    startIdx = markerIdx;
+  } else if (contiguousStageStartIdx >= 0) {
+    startIdx = contiguousStageStartIdx;
+  }
+
+  if (startIdx < 0) return [];
+  return valid.slice(startIdx).map((t) => ({ role: t.role, content: t.content }));
+}
+
 /** The student's code as recorded for the evaluator (the code itself, not a pass count from the page). */
 export function codeSubmissionTurn(code: unknown, language: unknown, title: unknown, stage?: string): LiveTurn | null {
   const src = typeof code === 'string' ? code.trim() : '';

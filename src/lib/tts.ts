@@ -105,6 +105,7 @@ const KOKORO_VOICE_MAP: Record<string, string> = {
   // Mentors
   priya:    'af_heart',
   anish:    'am_liam',
+  akash:    'bm_lewis',
   // Teachers
   kashyap:  'am_fenrir',
   karthic:  'am_adam',
@@ -129,6 +130,7 @@ const PERSONA_VOCAL_MATRIX: Record<string, { pitch: number; rateMultiplier: numb
   priya:    { pitch: 1.08, rateMultiplier: 1.15 },
   maya:     { pitch: 0.96, rateMultiplier: 1.05 },
   anish:    { pitch: 1.02, rateMultiplier: 1.14 },
+  akash:    { pitch: 0.88, rateMultiplier: 1.12 },
   karthic:  { pitch: 0.92, rateMultiplier: 1.18 },
   vikram:   { pitch: 0.84, rateMultiplier: 1.08 },
   aditya:   { pitch: 1.06, rateMultiplier: 1.22 },
@@ -220,7 +222,7 @@ function fallbackWebSpeech(
   const speak = () => {
     if (speechId !== currentSpeechId) return;
     const voices = window.speechSynthesis.getVoices();
-    const isFemale = !['anish', 'rohan', 'vikram', 'aditya', 'rajesh', 'abhijit', 'kashyap', 'karthic'].includes(teacherId.toLowerCase());
+    const isFemale = !['anish', 'akash', 'rohan', 'vikram', 'aditya', 'rajesh', 'abhijit', 'kashyap', 'karthic'].includes(teacherId.toLowerCase());
     
     let voice = voices.find(v => 
       v.lang.startsWith('en') && 

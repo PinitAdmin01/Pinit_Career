@@ -272,10 +272,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const isGroupDiscussion = cleanPath === '/group-discussion' || cleanPath.startsWith('/group-discussion/');
   const isExam = cleanPath === '/exams' || cleanPath.startsWith('/exam/');
 
-  // Pause wake-word mic on active voice/exam/lesson routes; keep mentor visible on /missions, /interview lobby, and /attention-span
-  // (live interview sessions hide .avatar-mentor-widget / .mentor-widget automatically via body[data-interview-active="true"])
+  // Hide mentor floating pill completely on active voice/exam/lesson/interview routes
+  // (Priya is the platform mentor and must never appear inside the AI Interview hub or session)
   const isTaskOrProcessActive = isLessonOrDetail || isInterview || isGroupDiscussion || isExam;
-  const shouldHideVisually = (isLessonOrDetail || isGroupDiscussion || isExam) && !celebEvent && !tourActive && !showVoiceRegModal && !storyLocked;
+  const shouldHideVisually = (isLessonOrDetail || isInterview || isGroupDiscussion || isExam) && !celebEvent && !tourActive && !showVoiceRegModal && !storyLocked;
 
   useEffect(() => {
     if (isTaskOrProcessActive && !tourActive && !celebEvent) {

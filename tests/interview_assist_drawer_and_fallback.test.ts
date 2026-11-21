@@ -138,10 +138,12 @@ test('Block 40: InterviewSessionHeader SSR renders header-assist-toggle button i
       toggleCameraPreview: () => {},
       isAvatarSpeaking: false,
       interruptSpeech: () => {},
-      exitInterview: () => {}
+      exitInterview: () => {},
+      defaultSettingsOpen: true
     })
   );
 
+  assert.ok(offMarkup.includes('data-testid="header-settings-toggle"'));
   assert.ok(offMarkup.includes('data-testid="header-assist-toggle"'));
   assert.ok(offMarkup.includes('🎯 Assist Mode: OFF'));
 
@@ -166,7 +168,8 @@ test('Block 40: InterviewSessionHeader SSR renders header-assist-toggle button i
       toggleCameraPreview: () => {},
       isAvatarSpeaking: false,
       interruptSpeech: () => {},
-      exitInterview: () => {}
+      exitInterview: () => {},
+      defaultSettingsOpen: true
     })
   );
 

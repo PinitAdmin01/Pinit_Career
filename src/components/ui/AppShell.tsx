@@ -1168,7 +1168,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {showGamingPill && (
         <div style={{
           position: 'fixed',
-          top: 20,
+          bottom: 24,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 999999,
