@@ -219,7 +219,15 @@ export async function spendPinsDB(
   uid: string,
   featureKey: string,
   itemId?: string
-): Promise<{ ok: boolean; newBalance?: number; newBonusBalance?: number; expiresAt?: number; reason?: string }> {
+): Promise<{
+  ok: boolean;
+  newBalance?: number;
+  newBonusBalance?: number;
+  expiresAt?: number;
+  reason?: string;
+  message?: string;
+  canRefillFromBonus?: boolean;
+}> {
   try {
     if (!IS_VALID_UUID(uid)) {
       // Guest/non-uuid path: optimistic local-only response (no server charge)
@@ -237,7 +245,12 @@ export async function spendPinsDB(
       return { ok: true, newBalance: data.newBalance, newBonusBalance: data.newBonusBalance, expiresAt: data.expiresAt };
     }
 
-    return { ok: false, reason: data.error || data.message || 'SPEND_FAILED' };
+    return {
+      ok: false,
+      reason: data.error || data.message || 'SPEND_FAILED',
+      message: typeof data.message === 'string' ? data.message : undefined,
+      canRefillFromBonus: Boolean(data.canRefillFromBonus),
+    };
   } catch (e: any) {
     console.error('[spendPinsDB] Unexpected error:', e.message);
     return { ok: false, reason: 'ERROR' };

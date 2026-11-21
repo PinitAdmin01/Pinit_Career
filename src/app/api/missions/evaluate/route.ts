@@ -3,6 +3,7 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { MissionEvaluator } from '@/lib/missions/missionEvaluator';
 import { AiArchitectReviewer } from '@/lib/missions/aiArchitectReviewer';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import { DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 export async function POST(req: Request) {
   try {
@@ -82,19 +83,36 @@ export async function POST(req: Request) {
           artifacts: r.artifacts || {},
         }, { onConflict: 'id' });
 
-        // Authoritatively credit student's Pin balance
+        // Authoritatively credit student's Pin balance (fill Current Pins up to 120 cap, overflow to Bonus Vault)
         if (evaluation.pinsAwarded > 0) {
-          const { data: rpcRes, error: rpcErr } = await admin.rpc('credit_pins', {
-            p_user_id: studentId,
-            p_amount: evaluation.pinsAwarded,
-            p_reason: `Mission completed: ${missionTitle}`,
-            p_source: 'mission_complete',
-          });
-          if (rpcErr || !rpcRes?.ok) {
-            const { data: userRow } = await admin.from('users').select('pins').eq('id', studentId).maybeSingle();
-            const newBalance = (userRow?.pins || 0) + evaluation.pinsAwarded;
-            await admin.from('users').update({ pins: newBalance }).eq('id', studentId);
-          }
+          const { data: userRow } = await admin
+            .from('users')
+            .select('pins, bonus_pins, pin_history')
+            .eq('id', studentId)
+            .maybeSingle();
+          const split = splitCreditIntoWallets(
+            typeof userRow?.pins === 'number' ? userRow.pins : 0,
+            typeof userRow?.bonus_pins === 'number' ? userRow.bonus_pins : 0,
+            evaluation.pinsAwarded,
+            DAILY_PIN_CAP
+          );
+          const currentHist = Array.isArray(userRow?.pin_history) ? userRow.pin_history : [];
+          const newTx = {
+            id: 'tx_mission_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8),
+            type: 'earn',
+            amount: evaluation.pinsAwarded,
+            reason: `Mission completed: ${missionTitle}`,
+            source: 'mission_complete',
+            timestamp: Date.now(),
+          };
+          await admin
+            .from('users')
+            .update({
+              pins: split.newPins,
+              bonus_pins: split.newBonus,
+              pin_history: [newTx, ...currentHist].slice(0, 100),
+            })
+            .eq('id', studentId);
         }
       } catch (dbErr: any) {
         console.warn('[Mission Evaluate DB Upsert Notice]:', dbErr?.message);

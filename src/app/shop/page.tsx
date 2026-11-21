@@ -173,8 +173,9 @@ function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 
 
   const { addVaultItem, vaultItems } = useCareerOS();
   const { pins, bonusPins, spendPins } = usePins();
+  // STRICT RULE: Shop items & feature passes spend strictly from Current Pins (`pins`), never Bonus Vault.
   const { isItemUnlocked, getItemRemainingSeconds, unlockItem } = useItemLocks({
-    pins: pins + bonusPins,
+    pins,
     spendPins,
   });
 
@@ -193,7 +194,7 @@ function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 
     } catch {}
   }, []);
 
-  const totalPins = pins + bonusPins;
+  const currentPins = Math.max(0, pins || 0);
 
   const filteredCatalog = useMemo(() => {
     if (activeTab === 'all') return SHOP_CATALOG;
@@ -217,9 +218,14 @@ function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 
       return;
     }
 
-    if (totalPins < item.price) {
-      console.warn('[PinIT System] [Shop-Page] Insufficient balance:', totalPins, 'Needed:', item.price);
-      toast.error('Insufficient Pins 📌', `You need ${item.price} Pins. Current balance: ${totalPins} Pins.`);
+    if (currentPins < item.price) {
+      console.warn('[PinIT System] [Shop-Page] Insufficient current pins:', currentPins, 'Needed:', item.price);
+      toast.error(
+        'Insufficient Current Pins 📌',
+        bonusPins > 0
+          ? `You need ${item.price} Current Pins (you have ${currentPins}/120). Refill Current Pins from your ${bonusPins.toLocaleString()} Bonus Vault pins in the Wallet tab first.`
+          : `You need ${item.price} Current Pins (you have ${currentPins}/120).`
+      );
       return;
     }
 
@@ -396,12 +402,14 @@ function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 
             >
               <div>
                 <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Spendable Balance
+                  Current Pins (Max 120)
                 </div>
                 <div style={{ fontSize: 24, fontWeight: 900, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span>🪙</span>
-                  <span>{totalPins.toLocaleString()}</span>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--t3)' }}>Pins</span>
+                  <span>{currentPins}/120</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--t3)' }}>
+                    Pins{bonusPins > 0 ? ` (+${bonusPins.toLocaleString()} Bonus)` : ''}
+                  </span>
                 </div>
               </div>
               <button
@@ -464,7 +472,7 @@ function ShopPageContent({ initialPillar = 'shop' }: { initialPillar?: 'shop' | 
           const remainingSec = isTimedActive ? getItemRemainingSeconds(item.id) : 0;
           const isPermanentOwned = !item.isTimed && unlockedPermanents.includes(item.id);
           const isOwnedOrActive = isTimedActive || isPermanentOwned;
-          const isAffordable = totalPins >= item.price;
+          const isAffordable = currentPins >= item.price;
           const isProcessing = purchasingId === item.id;
 
           return (

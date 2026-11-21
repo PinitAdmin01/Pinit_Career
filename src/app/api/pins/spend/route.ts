@@ -3,6 +3,7 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
+import { DAILY_PIN_CAP, spendFromCurrentPinsOnly } from '@/lib/pins/pinWalletRules';
 
 // Server-authoritative cost table — client cannot override these (1 Rs = 10 Pins Economy)
 const SERVER_PIN_COSTS: Record<string, number> = {
@@ -145,7 +146,7 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    // 1. Fetch user profile with both daily pins and permanent vault bonus_pins
+    // 1. Fetch user profile with current daily pins and bonus vault balance
     const { data: userProfile, error: profileErr } = await admin
       .from('users')
       .select('pins, bonus_pins, pin_history, unlocked_items')
@@ -161,80 +162,64 @@ export async function POST(req: Request) {
 
     const currentDaily = typeof userProfile.pins === 'number' ? userProfile.pins : 0;
     const currentBonus = typeof userProfile.bonus_pins === 'number' ? userProfile.bonus_pins : 0;
-    const totalAvailable = currentDaily + currentBonus;
 
-    if (totalAvailable < spendAmount) {
+    // STRICT RULE: Every feature usage is paid strictly by Current Pins (`users.pins`), NEVER Bonus Pins (`users.bonus_pins`).
+    const spendCheck = spendFromCurrentPinsOnly(currentDaily, currentBonus, spendAmount, DAILY_PIN_CAP);
+    if (!spendCheck.ok) {
+      const message = spendCheck.canRefillFromBonus
+        ? `Need ${spendAmount} Current Pins, but you have ${currentDaily}/${DAILY_PIN_CAP}. Refill Current Pins from your ${currentBonus} Bonus Vault pins first.`
+        : `Need ${spendAmount} Current Pins, but you have ${currentDaily}/${DAILY_PIN_CAP}. Daily pins reset to ${DAILY_PIN_CAP} at 1:00 AM IST or buy pins.`;
       return NextResponse.json(
         {
           ok: false,
           error: 'INSUFFICIENT_PINS',
-          message: `Need ${spendAmount} pins. You have ${totalAvailable} pins (${currentDaily} daily + ${currentBonus} vault).`,
-          currentBalance: totalAvailable,
+          message,
+          currentBalance: currentDaily,
+          bonusBalance: currentBonus,
+          dailyCap: DAILY_PIN_CAP,
+          canRefillFromBonus: spendCheck.canRefillFromBonus,
+          refillableAmount: spendCheck.refillableAmount,
         },
         { status: 402 }
       );
     }
 
-    let newDaily = currentDaily;
-    let newBonus = currentBonus;
+    // Deduct strictly from Current Pins (`users.pins`) via atomic `spend_pins` RPC (row-locked, never touches `bonus_pins`).
+    const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
+      p_user_id: userId,
+      p_amount: spendAmount,
+      p_reason: `Spend on ${featureKey}`,
+    });
 
-    if (currentDaily >= spendAmount) {
-      // Case A: 100% covered by daily pins — use atomic spend_pins RPC or direct fallback
-      const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
-        p_user_id: userId,
-        p_amount: spendAmount,
-        p_reason: `Spend on ${featureKey}`,
-      });
-
-      if (spendErr) {
-        console.error('[Pin Spend] RPC Error:', spendErr.message);
-        return NextResponse.json(
-          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
-          { status: 500 }
-        );
-      }
-
-      if (spendRes?.ok) {
-        newDaily = spendRes.new_balance;
-      } else {
-        return NextResponse.json(
-          { ok: false, error: spendRes?.reason || 'INSUFFICIENT_PINS', currentBalance: spendRes?.current_balance ?? currentDaily },
-          { status: 402 }
-        );
-      }
-    } else {
-      // Case B: Daily pins exhausted/insufficient, draw remainder from permanent bonus vault
-      const fromBonus = spendAmount - currentDaily;
-      newDaily = 0;
-      newBonus = currentBonus - fromBonus;
-
-      const txId = 'tx_spend_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
-      const newTx = {
-        id: txId,
-        type: 'spend',
-        amount: spendAmount,
-        reason: `Spend on ${featureKey} (${currentDaily} daily + ${fromBonus} vault)`,
-        source: featureKey,
-        timestamp: Date.now(),
-      };
-      const currentHist = Array.isArray(userProfile.pin_history) ? userProfile.pin_history : [];
-      const { error: updatePinErr } = await admin
-        .from('users')
-        .update({
-          pins: 0,
-          bonus_pins: newBonus,
-          pin_history: [newTx, ...currentHist].slice(0, 100),
-        })
-        .eq('id', userId);
-
-      if (updatePinErr) {
-        console.error('[Pin Spend] Dual-wallet deduction failed:', updatePinErr);
-        return NextResponse.json(
-          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
-          { status: 500 }
-        );
-      }
+    if (spendErr) {
+      console.error('[Pin Spend] RPC Error:', spendErr.message);
+      return NextResponse.json(
+        { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
+        { status: 500 }
+      );
     }
+
+    if (!spendRes?.ok) {
+      const liveCurrent = typeof spendRes?.current_balance === 'number' ? spendRes.current_balance : currentDaily;
+      const liveCheck = spendFromCurrentPinsOnly(liveCurrent, currentBonus, spendAmount, DAILY_PIN_CAP);
+      return NextResponse.json(
+        {
+          ok: false,
+          error: spendRes?.reason || 'INSUFFICIENT_PINS',
+          message: liveCheck.canRefillFromBonus
+            ? `Need ${spendAmount} Current Pins, but you have ${liveCurrent}/${DAILY_PIN_CAP}. Refill Current Pins from your ${currentBonus} Bonus Vault pins first.`
+            : `Need ${spendAmount} Current Pins, but you have ${liveCurrent}/${DAILY_PIN_CAP}.`,
+          currentBalance: liveCurrent,
+          bonusBalance: currentBonus,
+          canRefillFromBonus: liveCheck.canRefillFromBonus,
+          refillableAmount: liveCheck.refillableAmount,
+        },
+        { status: 402 }
+      );
+    }
+
+    const newDaily = typeof spendRes.new_balance === 'number' ? spendRes.new_balance : spendCheck.newPins;
+    const newBonus = currentBonus;
 
     // Write unlocked_items server-side — the browser is never allowed to write this column
     const expiresAt = Date.now() + UNLOCK_DURATION_MS;
@@ -249,11 +234,11 @@ export async function POST(req: Request) {
       .eq('id', userId);
 
     if (updateErr) {
-      // Best-effort refund to restore balance
+      // Best-effort refund to restore current pins (bonus_pins was never modified)
       try {
         await admin
           .from('users')
-          .update({ pins: currentDaily, bonus_pins: currentBonus })
+          .update({ pins: currentDaily })
           .eq('id', userId);
       } catch { /* best-effort refund */ }
       console.error('[Pin Spend] Unlock write failed:', updateErr.message);

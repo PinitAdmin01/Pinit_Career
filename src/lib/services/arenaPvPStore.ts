@@ -568,7 +568,29 @@ export class ArenaPvPStore {
     if (params.pinChargeUserId) {
       let result: any;
       try {
-        const { data, error } = await getSupabaseAdmin().rpc('create_arena_room_with_pin_fee', {
+        const admin = getSupabaseAdmin();
+        // Enforce strict Current-Pins-only spending (never draw Arena PvP fee from bonus_pins)
+        // unless this requestId is already recorded as an idempotent replay.
+        const { data: existingReq } = await admin
+          .from('arena_room_create_requests')
+          .select('request_id')
+          .eq('request_id', params.requestId)
+          .maybeSingle();
+
+        if (!existingReq) {
+          const { data: wallet } = await admin
+            .from('users')
+            .select('pins')
+            .eq('id', params.pinChargeUserId)
+            .maybeSingle();
+          const currentPins = typeof wallet?.pins === 'number' ? Math.max(0, wallet.pins) : 0;
+          if (currentPins < 10) {
+            inMemoryRooms.delete(normalizeCode(room.roomCode));
+            throw new Error('INSUFFICIENT_PINS');
+          }
+        }
+
+        const { data, error } = await admin.rpc('create_arena_room_with_pin_fee', {
           p_request_id: params.requestId,
           p_user_id: params.pinChargeUserId,
           p_room_code: room.roomCode,
@@ -586,7 +608,7 @@ export class ArenaPvPStore {
         result = data;
       } catch (err) {
         inMemoryRooms.delete(normalizeCode(room.roomCode));
-        throw err instanceof Error && err.message.startsWith('ARENA_')
+        throw err instanceof Error && (err.message.startsWith('ARENA_') || err.message === 'INSUFFICIENT_PINS')
           ? err
           : new Error('ARENA_PIN_SERVICE_UNAVAILABLE');
       }

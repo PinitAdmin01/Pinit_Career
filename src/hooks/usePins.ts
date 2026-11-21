@@ -43,9 +43,10 @@ export function usePins(options: UsePinsOptions = {}) {
   const balance = usePinBalance(options);
 
   // 2. Manage 30-minute item lock expirations and emergency grace extensions
+  // Strictly evaluate feature unlocks against Current Pins (`balance.pins`), NEVER Bonus Vault (`balance.bonusPins`).
   const locks = useItemLocks({
     userId,
-    pins: balance.pins + balance.bonusPins,
+    pins: balance.pins,
     spendPins: balance.spendPins,
   });
 

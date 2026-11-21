@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { PLAN_PRICES_PAISE } from '../create-order/route';
 import { fulfilCardCoursePurchase, isCoursePlanId, normalizeTrack, type CourseTrack } from '@/lib/server/courseEnrollments';
+import { computeSubscriptionActivation, DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 /**
  * Course plans are enrolled here, as soon as the payment is verified, so a paid student
@@ -177,6 +178,11 @@ export async function POST(req: Request) {
 
         if (isMockCoursePlan) return courseEnrollmentResponse(admin, mockCourseInput);
 
+        let sandboxNewPins: number | undefined;
+        let sandboxNewBonus: number | undefined;
+        let sandboxToCurrent = 0;
+        let sandboxToBonus = 0;
+
         if (planId === 'pro' || planId === 'basic_student' || planId === 'student_99') {
           const nowMs = Date.now();
           const expiresAt = new Date(nowMs + 30 * 24 * 60 * 60 * 1000).toISOString();
@@ -190,6 +196,11 @@ export async function POST(req: Request) {
           const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
           const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
           const bonusToAdd = planId === 'pro' ? 500 : 0;
+          const subSplit = computeSubscriptionActivation(currentPins, currentBonus, bonusToAdd, DAILY_PIN_CAP);
+          sandboxNewPins = subSplit.newPins;
+          sandboxNewBonus = subSplit.newBonus;
+          sandboxToCurrent = subSplit.toCurrent;
+          sandboxToBonus = subSplit.toBonus;
 
           await admin
             .from('users')
@@ -199,29 +210,34 @@ export async function POST(req: Request) {
               subscription_expires_at: expiresAt,
               subscription_status: 'active',
               has_purchased_plan: true,
-              pins: Math.max(currentPins, 120),
-              bonus_pins: currentBonus + bonusToAdd,
+              pins: subSplit.newPins,
+              bonus_pins: subSplit.newBonus,
             })
             .eq('id', gated.user!.id);
         }
 
-        // Deposit individual pin purchases into bonus_pins (Permanent Vault)
-        // so Airtel-style 1:00 AM daily reset never wipes individual purchases!
+        // Fill Current Pins up to 120 daily cap first, and deposit all overflow into Bonus Vault (unlimited).
         if (pinsGranted > 0 && !isSubscriptionPlan) {
           const { data: profile } = await admin
             .from('users')
-            .select('bonus_pins, pin_history')
+            .select('pins, bonus_pins, pin_history')
             .eq('id', gated.user!.id)
             .maybeSingle();
 
+          const currentPins = typeof profile?.pins === 'number' ? profile.pins : 0;
           const currentBonus = typeof profile?.bonus_pins === 'number' ? profile.bonus_pins : 0;
-          const nextBonus = currentBonus + pinsGranted;
+          const split = splitCreditIntoWallets(currentPins, currentBonus, pinsGranted, DAILY_PIN_CAP);
+          sandboxNewPins = split.newPins;
+          sandboxNewBonus = split.newBonus;
+          sandboxToCurrent = split.toCurrent;
+          sandboxToBonus = split.toBonus;
+
           const txId = 'tx_buy_sandbox_' + Date.now();
           const newTx = {
             id: txId,
             type: 'earn',
             amount: pinsGranted,
-            reason: `Sandbox purchase (${planId})`,
+            reason: `Sandbox purchase (${planId}: +${split.toCurrent} current, +${split.toBonus} bonus)`,
             source: 'purchase',
             timestamp: Date.now(),
           };
@@ -230,11 +246,31 @@ export async function POST(req: Request) {
           await admin
             .from('users')
             .update({
-              bonus_pins: nextBonus,
+              pins: split.newPins,
+              bonus_pins: split.newBonus,
               pin_history: [newTx, ...currentHist].slice(0, 100),
             })
             .eq('id', gated.user!.id);
         }
+
+        return NextResponse.json({
+          ok: true,
+          planId,
+          pinsGranted,
+          newPins: sandboxNewPins,
+          newBonusPins: sandboxNewBonus,
+          creditedToCurrent: sandboxToCurrent,
+          creditedToBonus: sandboxToBonus,
+          isMock: true,
+          message:
+            sandboxToCurrent > 0 && sandboxToBonus > 0
+              ? `Sandbox payment verified! +${sandboxToCurrent} to Current Pins (${sandboxNewPins}/${DAILY_PIN_CAP}) & +${sandboxToBonus} to Bonus Vault.`
+              : sandboxToCurrent > 0
+              ? `Sandbox payment verified! +${sandboxToCurrent} added to Current Pins (${sandboxNewPins}/${DAILY_PIN_CAP}).`
+              : sandboxToBonus > 0
+              ? `Sandbox payment verified! Current Pins full (${DAILY_PIN_CAP}/${DAILY_PIN_CAP}), +${sandboxToBonus} added to Bonus Vault.`
+              : 'Sandbox payment verified successfully.',
+        });
       }
 
       return NextResponse.json({
@@ -443,9 +479,15 @@ export async function POST(req: Request) {
 
       const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
       const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
-      // Airtel/Jio model: Activate 120 daily pins if below 120; deposit 500 into bonus vault for pro
-      nextDailyPins = Math.max(currentPins, 120);
-      nextBonusPins = notesPlanId === 'pro' ? currentBonus + 500 : currentBonus;
+      // Activate 120 daily pins cap; deposit 500 bonus (plus any legacy >120 overflow) into Bonus Vault
+      const subSplit = computeSubscriptionActivation(
+        currentPins,
+        currentBonus,
+        notesPlanId === 'pro' ? 500 : 0,
+        DAILY_PIN_CAP
+      );
+      nextDailyPins = subSplit.newPins;
+      nextBonusPins = subSplit.newBonus;
 
       const { error: updateErr } = await admin
         .from('users')
@@ -471,28 +513,36 @@ export async function POST(req: Request) {
       );
     }
 
-    // Individual pin purchases (1 Rs = 10 pins) are deposited into the Permanent Vault (bonus_pins)
-    // so Airtel-style 1:00 AM daily reset (which renews daily quota) never touches or expires them!
+    // Individual pin purchases (1 Rs = 10 pins): fill Current Pins up to 120 cap FIRST,
+    // and deposit all overflow into the unlimited Bonus Vault (bonus_pins) at once.
+    let creditedToCurrent = 0;
+    let creditedToBonus = 0;
     if (pinsGranted > 0 && !isSub) {
       const { data: profile, error: profileErr } = await admin
         .from('users')
-        .select('bonus_pins, pin_history')
+        .select('pins, bonus_pins, pin_history')
         .eq('id', gated.user!.id)
         .maybeSingle();
 
       if (profileErr) {
-        console.error('[Payment] Failed to query user profile for bonus pins:', profileErr);
+        console.error('[Payment] Failed to query user profile for pin purchase:', profileErr);
         return NextResponse.json({ ok: false, error: 'USER_LOOKUP_FAILED' }, { status: 500 });
       }
 
+      const currentPins = typeof profile?.pins === 'number' ? profile.pins : 0;
       const currentBonus = typeof profile?.bonus_pins === 'number' ? profile.bonus_pins : 0;
-      const nextBonus = currentBonus + pinsGranted;
+      const split = splitCreditIntoWallets(currentPins, currentBonus, pinsGranted, DAILY_PIN_CAP);
+      nextDailyPins = split.newPins;
+      nextBonusPins = split.newBonus;
+      creditedToCurrent = split.toCurrent;
+      creditedToBonus = split.toBonus;
+
       const txId = 'tx_buy_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
       const newTx = {
         id: txId,
         type: 'earn',
         amount: pinsGranted,
-        reason: `Purchase plan ${notesPlanId} (${razorpay_payment_id})`,
+        reason: `Purchase plan ${notesPlanId} (+${split.toCurrent} current, +${split.toBonus} bonus) (${razorpay_payment_id})`,
         source: 'purchase',
         timestamp: Date.now(),
       };
@@ -501,13 +551,14 @@ export async function POST(req: Request) {
       const { error: pinErr } = await admin
         .from('users')
         .update({
-          bonus_pins: nextBonus,
+          pins: split.newPins,
+          bonus_pins: split.newBonus,
           pin_history: [newTx, ...currentHist].slice(0, 100),
         })
         .eq('id', gated.user!.id);
 
       if (pinErr) {
-        console.error('[Payment] Failed to credit bonus pins:', pinErr);
+        console.error('[Payment] Failed to credit purchased pins:', pinErr);
         return NextResponse.json({ ok: false, error: 'PIN_CREDIT_FAILED' }, { status: 500 });
       }
     }
@@ -520,16 +571,24 @@ export async function POST(req: Request) {
       verified: true,
       planId: notesPlanId,
       paymentId: razorpay_payment_id,
-      dailyPins: isSub ? nextDailyPins : undefined,
-      bonusPinsGranted: isPro ? 500 : (!isSub ? pinsGranted : 0),
-      totalBonusPins: isSub ? nextBonusPins : undefined,
+      dailyPins: nextDailyPins,
+      newPins: nextDailyPins,
+      newBonusPins: nextBonusPins,
+      creditedToCurrent: isSub ? undefined : creditedToCurrent,
+      creditedToBonus: isPro ? 500 : (!isSub ? creditedToBonus : 0),
+      bonusPinsGranted: isPro ? 500 : (!isSub ? creditedToBonus : 0),
+      totalBonusPins: nextBonusPins,
       pinsGranted: !isSub ? pinsGranted : 0,
       message: isPro
-        ? 'Pro Pass verified! 120 Daily Pins activated & 500 Bonus Pins deposited to Permanent Vault.'
+        ? `Pro Pass verified! Current Pins set to ${DAILY_PIN_CAP}/${DAILY_PIN_CAP} & 500 Bonus Pins deposited to Bonus Vault.`
         : isBasicStudent
-          ? 'Basic Student Pass verified! 120 Daily Pins activated (resets daily at 1:00 AM IST).'
+          ? `Basic Student Pass verified! Current Pins set to ${DAILY_PIN_CAP}/${DAILY_PIN_CAP} (resets daily at 1:00 AM IST).`
           : pinsGranted
-            ? `Top-up verified! +${pinsGranted} Pins added to your Permanent Vault (never expires).`
+            ? (creditedToCurrent > 0 && creditedToBonus > 0
+                ? `Top-up verified! +${creditedToCurrent} to Current Pins (${nextDailyPins}/${DAILY_PIN_CAP}) & +${creditedToBonus} to Bonus Vault.`
+                : creditedToCurrent > 0
+                  ? `Top-up verified! +${creditedToCurrent} added to Current Pins (${nextDailyPins}/${DAILY_PIN_CAP}).`
+                  : `Top-up verified! Current Pins full (${DAILY_PIN_CAP}/${DAILY_PIN_CAP}), +${creditedToBonus} added to Bonus Vault.`)
             : 'Payment verified successfully.',
     });
   } catch (err: any) {

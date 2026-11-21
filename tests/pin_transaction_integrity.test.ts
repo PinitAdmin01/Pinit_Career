@@ -2,6 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { PIN_COSTS, PIN_EARN, PinTransaction, PinSource } from '../src/hooks/usePinBalance';
 import { generateTxId } from '../src/lib/utils/transactionId';
+import {
+  computeBonusClaimToCurrent,
+  DAILY_PIN_CAP,
+  spendFromCurrentPinsOnly,
+  splitCreditIntoWallets,
+} from '../src/lib/pins/pinWalletRules';
 
 test('Block 161 (TASK-481): PIN_COSTS and PIN_EARN economy catalog invariants', () => {
   // All defined costs must be strictly positive numbers
@@ -39,20 +45,14 @@ test('Block 161 (TASK-481): Debit / Credit transaction engine non-negative balan
     const meta = PIN_COSTS[featureKey];
     if (!meta) return { ok: true };
 
-    const totalAvailable = wallet.pins + wallet.bonusPins;
-    if (totalAvailable < meta.cost) {
-      return { ok: false, reason: 'INSUFFICIENT_PINS' };
+    // STRICT RULE: Every feature usage deducts strictly from Current Pins (`pins`), NEVER Bonus Vault (`bonusPins`).
+    const result = spendFromCurrentPinsOnly(wallet.pins, wallet.bonusPins, meta.cost, DAILY_PIN_CAP);
+    if (!result.ok) {
+      return { ok: false, reason: result.error || 'INSUFFICIENT_PINS' };
     }
 
-    // Deduction order: daily pins spent first, then bonus
-    if (wallet.pins >= meta.cost) {
-      wallet.pins -= meta.cost;
-    } else {
-      const fromDaily = wallet.pins;
-      const fromBonus = meta.cost - fromDaily;
-      wallet.pins = 0;
-      wallet.bonusPins = Math.max(0, wallet.bonusPins - fromBonus);
-    }
+    wallet.pins = result.newPins;
+    wallet.bonusPins = result.newBonus;
 
     const tx: PinTransaction = {
       id: txId,
@@ -76,7 +76,9 @@ test('Block 161 (TASK-481): Debit / Credit transaction engine non-negative balan
     const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
     if (amount <= 0) return;
 
-    wallet.pins += amount;
+    const split = splitCreditIntoWallets(wallet.pins, wallet.bonusPins, amount, DAILY_PIN_CAP);
+    wallet.pins = split.newPins;
+    wallet.bonusPins = split.newBonus;
     const tx: PinTransaction = {
       id: txId,
       type: 'earn',
@@ -88,39 +90,47 @@ test('Block 161 (TASK-481): Debit / Credit transaction engine non-negative balan
     wallet.history.unshift(tx);
   }
 
-  // 1. Starting wallet: 25 daily pins, 20 bonus pins (Total = 45)
+  // 1. Starting wallet: 15 current pins, 20 bonus pins
   const wallet: WalletState = {
     pins: 15,
     bonusPins: 20,
     history: [],
   };
 
-  // 2. Spend 35 pins on interview (25 daily pins exhausted, 10 bonus pins deducted)
+  // 2. Attempt to spend 25 pins on interview with only 15 current pins -> MUST REJECT (never touches bonusPins!)
   const spend1 = simulateSpend(wallet, 'interview');
-  assert.strictEqual(spend1.ok, true);
-  assert.strictEqual(wallet.pins, 0, 'Daily pins should be exhausted');
-  assert.strictEqual(wallet.bonusPins, 10, 'Bonus pins should have 10 remaining');
+  assert.strictEqual(spend1.ok, false);
+  assert.strictEqual(spend1.reason, 'INSUFFICIENT_PINS');
+  assert.strictEqual(wallet.pins, 15, 'Current pins must not change on failed spend');
+  assert.strictEqual(wallet.bonusPins, 20, 'Bonus pins must NEVER be drained by feature spend');
+  assert.strictEqual(wallet.history.length, 0);
+
+  // 3. Refill Current Pins from Bonus Vault -> 15 + 20 = 35 current, 0 bonus
+  const claim = computeBonusClaimToCurrent(wallet.pins, wallet.bonusPins, undefined, DAILY_PIN_CAP);
+  assert.strictEqual(claim.ok, true);
+  wallet.pins = claim.newPins;
+  wallet.bonusPins = claim.remainingBonus;
+  assert.strictEqual(wallet.pins, 35);
+  assert.strictEqual(wallet.bonusPins, 0);
+
+  // 4. Now spend 25 pins on interview -> SUCCESS (35 - 25 = 10 current)
+  const spend2 = simulateSpend(wallet, 'interview');
+  assert.strictEqual(spend2.ok, true);
+  assert.strictEqual(wallet.pins, 10, 'Remaining current pins should be 10');
+  assert.strictEqual(wallet.bonusPins, 0, 'Bonus pins remain 0');
   assert.strictEqual(wallet.history.length, 1);
 
-  // 3. Attempt to spend 20 pins on quest with only 10 bonus pins left -> REJECT
-  const spend2 = simulateSpend(wallet, 'quest');
-  assert.strictEqual(spend2.ok, false);
-  assert.strictEqual(spend2.reason, 'INSUFFICIENT_PINS');
-  assert.strictEqual(wallet.pins, 0, 'Balance must not change on failed spend');
-  assert.strictEqual(wallet.bonusPins, 10, 'Bonus pins must not change on failed spend');
-  assert.strictEqual(wallet.history.length, 1, 'History must not record rejected transactions');
-
-  // 4. Earn 30 pins from vault verification
-  simulateEarn(wallet, 'vault_verify', 30);
-  assert.strictEqual(wallet.pins, 30, 'Daily pins should reflect credited reward');
-  assert.strictEqual(wallet.bonusPins, 10, 'Bonus pins remain intact');
+  // 5. Credit 150 pins (e.g. purchase) -> fills Current Pins to 120 (+110), overflow (+40) into Bonus Vault!
+  simulateEarn(wallet, 'purchase', 150);
+  assert.strictEqual(wallet.pins, 120, 'Current pins must cap strictly at 120');
+  assert.strictEqual(wallet.bonusPins, 40, 'Overflow beyond 120 must go to Bonus Vault');
   assert.strictEqual(wallet.history.length, 2);
 
-  // 5. Spend 20 pins on quest -> SUCCESS
+  // 6. Spend 20 pins on quest -> SUCCESS (120 - 20 = 100 current, 40 bonus untouched)
   const spend3 = simulateSpend(wallet, 'quest');
   assert.strictEqual(spend3.ok, true);
-  assert.strictEqual(wallet.pins, 10, 'Remaining daily pins should be 10');
-  assert.strictEqual(wallet.bonusPins, 10, 'Bonus pins should remain 10');
+  assert.strictEqual(wallet.pins, 100, 'Remaining current pins should be 100');
+  assert.strictEqual(wallet.bonusPins, 40, 'Bonus pins remain untouched at 40');
   assert.strictEqual(wallet.history.length, 3);
 });
 

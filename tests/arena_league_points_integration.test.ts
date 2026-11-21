@@ -44,6 +44,12 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     await db.exec(roomFeeMigration);
     await db.exec(botPracticeMigration);
     await db.exec(botPracticeMigration);
+    const pinsEconomyMigration = fs.readFileSync(
+      path.join(process.cwd(), 'supabase/migrations/20261121_pins_economy_120_cap_and_current_only.sql'),
+      'utf8',
+    );
+    await db.exec(pinsEconomyMigration);
+    await db.exec(pinsEconomyMigration);
     const { rows: cleanedSelfMatches } = await db.query<{
       status: string;
       winner_id: string | null;
@@ -139,10 +145,13 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
 
     const bonusFeeUser = await createUser(db, { email: 'arena-room-bonus-fee@pinit.test', role: 'student', pins: 5 });
     await db.query('update public.users set bonus_pins = 10 where id = $1::uuid', [bonusFeeUser]);
-    const bonusPaidRoom = resultObject((await createPaidRoom('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', bonusFeeUser, 'ARENA-FEE-BONUS')).rows[0].result);
-    assert.equal(bonusPaidRoom.ok, true);
-    assert.equal(bonusPaidRoom.newBalance, 0);
-    assert.equal(bonusPaidRoom.newBonusBalance, 5, 'The 10 Pin fee uses daily Pins first and then the vault balance');
+    const bonusRejectedRoom = resultObject((await createPaidRoom('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', bonusFeeUser, 'ARENA-FEE-BONUS')).rows[0].result);
+    assert.equal(bonusRejectedRoom.ok, false);
+    assert.equal(bonusRejectedRoom.error, 'INSUFFICIENT_PINS', 'The 10 Pin fee uses Current Pins strictly and NEVER drains Bonus Vault directly');
+    const { rows: untouchedBonusWallet } = await db.query<{ pins: number; bonus_pins: number }>(
+      'select pins, bonus_pins from public.users where id = $1::uuid', [bonusFeeUser],
+    );
+    assert.deepEqual(untouchedBonusWallet[0], { pins: 5, bonus_pins: 10 }, 'Failed Arena room fee leaves both Current Pins and Bonus Vault untouched');
 
     const poorFeeUser = await createUser(db, { email: 'arena-room-poor-fee@pinit.test', role: 'student', pins: 9 });
     const rejectedRoom = resultObject((await createPaidRoom('cccccccc-cccc-4ccc-8ccc-cccccccccccc', poorFeeUser, 'ARENA-FEE-REJECT')).rows[0].result);
@@ -206,9 +215,8 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     const soloBonusUser = await createUser(db, { email: 'arena-solo-bonus-fee@pinit.test', role: 'student', pins: 5 });
     await db.query('update public.users set bonus_pins = 10 where id = $1::uuid', [soloBonusUser]);
     const bonusSolo = resultObject((await startPaidSoloMatch('ffffffff-ffff-4fff-8fff-ffffffffffff', soloBonusUser, 'solo-pin-bonus')).rows[0].result);
-    assert.equal(bonusSolo.ok, true);
-    assert.equal(bonusSolo.newBalance, 0);
-    assert.equal(bonusSolo.newBonusBalance, 5);
+    assert.equal(bonusSolo.ok, false);
+    assert.equal(bonusSolo.error, 'INSUFFICIENT_PINS', 'Solo Arena match uses Current Pins strictly and never drains Bonus Vault');
 
     const malformedHistoryUser = await createUser(db, { email: 'arena-solo-history-recovery@pinit.test', role: 'student', pins: 20 });
     await db.query("update public.users set pin_history = '{}'::jsonb where id = $1::uuid", [malformedHistoryUser]);
@@ -227,11 +235,12 @@ test('Arena rewards, league entry, and weekly movement run against PostgreSQL be
     const negativeWalletStart = resultObject((await startPaidSoloMatch(
       '13131313-1313-4131-8131-131313131313', negativeWalletUser, 'solo-negative-wallet',
     )).rows[0].result);
-    assert.equal(negativeWalletStart.ok, true);
+    assert.equal(negativeWalletStart.ok, false);
+    assert.equal(negativeWalletStart.error, 'INSUFFICIENT_PINS', 'Corrupt negative current pins cannot draw from bonus_pins');
     const { rows: normalizedWallet } = await db.query<{ pins: number; bonus_pins: number }>(
       'select pins, bonus_pins from public.users where id = $1::uuid', [negativeWalletUser],
     );
-    assert.deepEqual(normalizedWallet[0], { pins: 0, bonus_pins: 5 }, 'Corrupt negative balances cannot make the 10 Pin fee consume more than 10 available Pins');
+    assert.deepEqual(normalizedWallet[0], { pins: -5, bonus_pins: 15 }, 'Bonus pins remain untouched when Current Pins are insufficient');
 
     const poorSoloUser = await createUser(db, { email: 'arena-solo-poor-fee@pinit.test', role: 'student', pins: 9 });
     const rejectedSolo = resultObject((await startPaidSoloMatch('99999999-9999-4999-8999-999999999999', poorSoloUser, 'solo-pin-reject')).rows[0].result);

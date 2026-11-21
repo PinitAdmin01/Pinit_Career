@@ -221,9 +221,11 @@ test('GET /api/pins/balance authenticates user and returns aggregated pins + tra
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.ok, true);
-    assert.equal(body.pins, 60);
+    assert.equal(body.pins, 45);
     assert.equal(body.dailyPins, 45);
     assert.equal(body.bonusPins, 15);
+    assert.equal(body.totalPins, 60);
+    assert.equal(body.dailyCap, 120);
     assert.equal(body.transactions.length, 1);
   } finally {
     setSupabaseAdminForTests(null);

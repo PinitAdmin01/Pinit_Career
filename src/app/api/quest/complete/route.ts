@@ -3,6 +3,7 @@ import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient 
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { questNeedsPassReceipt } from '@/lib/courses/gradeTest';
 import { verifyPassReceipt } from '@/lib/server/passReceipt';
+import { DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 /**
  * POST /api/quest/complete
@@ -57,7 +58,7 @@ export async function POST(req: Request) {
     // Step 1: Fetch user profile
     const { data: profile, error: fetchErr } = await supabase
       .from('users')
-      .select('id, completed_quests, xp_total, weekly_xp, onboarding_answers, pins')
+      .select('id, completed_quests, xp_total, weekly_xp, onboarding_answers, pins, bonus_pins')
       .eq('id', userId)
       .single();
 
@@ -90,11 +91,18 @@ export async function POST(req: Request) {
       return new Date(ts).toDateString() === today;
     });
 
-    // Step 3: Atomic write with clamped XP and Pins
+    // Step 3: Atomic write with clamped XP and Pins (fill Current Pins up to 120 cap, overflow to Bonus Vault)
     const safePins = registeredQuest.pins || (isExam ? 6 : 5);
     let nextXp = (profile.xp_total || 0) + safeXp;
     let nextWeeklyXp = (profile.weekly_xp || 0) + safeXp;
-    let nextPins = (profile.pins || 0) + safePins;
+    const pinSplit = splitCreditIntoWallets(
+      typeof profile.pins === 'number' ? profile.pins : 0,
+      typeof profile.bonus_pins === 'number' ? profile.bonus_pins : 0,
+      safePins,
+      DAILY_PIN_CAP
+    );
+    const nextPins = pinSplit.newPins;
+    const nextBonusPins = pinSplit.newBonus;
     let xpCreditedByRpc = false;
 
     // Try authoritative increment_xp RPC first if available
@@ -113,21 +121,6 @@ export async function POST(req: Request) {
       // Graceful fallback to direct calculation
     }
 
-    // Try authoritative credit_pins RPC if available
-    try {
-      const { data: rpcPins, error: rpcPinsErr } = await supabase.rpc('credit_pins', {
-        p_user_id: userId,
-        p_amount: safePins,
-        p_reason: `quest:${questId}`,
-        p_source: isExam ? 'exam_pass' : 'mission_complete',
-      });
-      if (!rpcPinsErr && rpcPins?.ok && typeof rpcPins.new_balance === 'number') {
-        nextPins = rpcPins.new_balance;
-      }
-    } catch {
-      // Graceful fallback to direct calculation
-    }
-
     const nextCompleted = [...currentCompleted, questId];
     const timestampTag = `${new Date().toISOString()}|${courseId}`;
     const nextTimestamps = [...timestamps, timestampTag];
@@ -139,6 +132,7 @@ export async function POST(req: Request) {
     const userUpdate: Record<string, unknown> = {
       completed_quests: nextCompleted,
       pins: nextPins,
+      bonus_pins: nextBonusPins,
       onboarding_answers: nextAnswers,
     };
     // increment_xp is atomic and already wrote these columns. Rewriting the

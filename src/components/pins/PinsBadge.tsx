@@ -6,6 +6,7 @@ import React from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import Link from 'next/link';
 import PinCoin from '@/components/pins/PinCoin';
+import { DAILY_PIN_CAP } from '@/lib/pins/pinWalletRules';
 import './pins.css';
 
 interface Props {
@@ -16,10 +17,12 @@ interface Props {
 
 export default function PinsBadge({ size = 'md', showLink = false, className }: Props) {
   const { pins, bonusPins } = useCareerOS();
-  const totalPins = pins + (bonusPins || 0);
+  const currentPins = Math.max(0, pins || 0);
+  const vaultPins = Math.max(0, bonusPins || 0);
 
-  const low = totalPins < 20;
-  const very_low = totalPins < 5;
+  // Warning state strictly reflects Current Pins (used for all features), NEVER Bonus Vault
+  const low = currentPins < 25;
+  const very_low = currentPins < 10;
 
   const sizes = {
     sm: { font: 11, pad: '3px 10px', iconSize: 15, borderRadius: 12 },
@@ -32,6 +35,11 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
     <div
       id="topbar-pins-badge"
       data-pins-badge="true"
+      title={
+        vaultPins > 0
+          ? `Current Pins: ${currentPins}/${DAILY_PIN_CAP} (used for all features, resets daily at 1:00 AM IST) · Bonus Vault: ${vaultPins.toLocaleString()} (click to refill)`
+          : `Current Pins: ${currentPins}/${DAILY_PIN_CAP} (used for all features, resets daily at 1:00 AM IST)`
+      }
       className={`${className || ''} ${!very_low && !low ? 'pins-badge-glow' : ''}`}
       style={{
         display: 'inline-flex',
@@ -62,7 +70,22 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
       }}
     >
       <PinCoin size={s.iconSize} glow={!very_low} animate={!very_low && !low} />
-      <span>{totalPins.toLocaleString()} Pins</span>
+      <span>{currentPins}/{DAILY_PIN_CAP} Pins</span>
+      {vaultPins > 0 && (
+        <span
+          style={{
+            fontSize: Math.max(10, s.font - 2),
+            padding: '1px 6px',
+            borderRadius: 999,
+            background: 'rgba(16, 185, 129, 0.18)',
+            border: '1px solid rgba(16, 185, 129, 0.4)',
+            color: '#34d399',
+            fontWeight: 700,
+          }}
+        >
+          +{vaultPins.toLocaleString()} Bonus
+        </span>
+      )}
       {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠ Low</span>}
     </div>
   );

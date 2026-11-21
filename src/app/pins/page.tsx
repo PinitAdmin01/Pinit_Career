@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
+import { computeSubscriptionActivation, DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type PageTab = 'buy' | 'calculator' | 'wallet';
@@ -116,7 +117,15 @@ function getSourceIcon(source: string, type: 'earn' | 'spend'): string {
 }
 
 // ── Checkout hook ────────────────────────────────────────────────────────────
-function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonusGranted?: number) => void) {
+function useCheckout(
+  user: any,
+  onSuccess: (
+    pins: number,
+    isPro?: boolean,
+    bonusGranted?: number,
+    exactBalances?: { newPins?: number; newBonusPins?: number }
+  ) => void
+) {
   const [loading, setLoading] = useState<string | null>(null);
 
   const checkout = useCallback(async (planId: string, extraBody?: Record<string, any>) => {
@@ -148,16 +157,20 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
             else if (planId === 'pack_300') credited = 300;
             else if (planId === 'pack_500') credited = 500;
           }
+          const exact = {
+            newPins: typeof verifyRes.newPins === 'number' ? verifyRes.newPins : undefined,
+            newBonusPins: typeof verifyRes.newBonusPins === 'number' ? verifyRes.newBonusPins : undefined,
+          };
 
           if (isSub) {
             toast.success(
               planId === 'pro' ? '🎉 Pro Pass Activated!' : '🎉 Student Daily Pass Activated!',
-              verifyRes.message || (planId === 'pro' ? 'Welcome to Pro! 120 Daily Pins + 500 Bonus Pins.' : 'Welcome to Basic Student Pass! 120 Daily Pins reset at 1:00 AM IST.')
+              verifyRes.message || (planId === 'pro' ? 'Welcome to Pro! 120 Current Pins + 500 Bonus Pins.' : 'Welcome to Basic Student Pass! 120 Current Pins reset at 1:00 AM IST.')
             );
-            onSuccess(0, true, planId === 'pro' ? 500 : 0);
+            onSuccess(0, true, planId === 'pro' ? 500 : 0, exact);
           } else {
-            toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
-            onSuccess(credited, false, 0);
+            toast.success(`+${credited} Pins Credited ⚡`, verifyRes.message || 'Your Current Pins and Bonus Vault have been updated.');
+            onSuccess(credited, false, 0, exact);
           }
         } else {
           toast.error('Verification Failed', verifyRes.message || 'Could not verify sandbox payment.');
@@ -199,13 +212,17 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
             });
             if (verifyRes.ok) {
               const isSub = planId === 'pro' || planId === 'basic_student' || planId === 'student_99';
+              const exact = {
+                newPins: typeof verifyRes.newPins === 'number' ? verifyRes.newPins : undefined,
+                newBonusPins: typeof verifyRes.newBonusPins === 'number' ? verifyRes.newBonusPins : undefined,
+              };
               if (isSub) {
                 toast.success(
                   planId === 'pro' ? '🎉 Pro Pass Activated!' : '🎉 Basic Student Pass Activated!',
-                  planId === 'pro' ? 'Welcome to Pro! 120 Daily Pins active & 500 Bonus Pins in Vault.' : 'Welcome to Basic Student Pass! 120 Daily Pins active (1:00 AM IST reset).'
+                  verifyRes.message || (planId === 'pro' ? 'Welcome to Pro! 120 Current Pins active & 500 Bonus Pins in Vault.' : 'Welcome to Basic Student Pass! 120 Current Pins active (1:00 AM IST reset).')
                 );
                 triggerCoinStream({ count: 24 });
-                onSuccess(0, true, planId === 'pro' ? 500 : 0);
+                onSuccess(0, true, planId === 'pro' ? 500 : 0, exact);
               } else {
                 let credited = verifyRes.pinsGranted ?? 0;
                 if (!credited) {
@@ -214,9 +231,9 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
                   else if (planId === 'pack_power_59') credited = 750;
                   else if (planId === 'pack_1000') credited = 1200;
                 }
-                toast.success(`+${credited} Pins Credited!`, 'Your pin balance has been updated.');
+                toast.success(`+${credited} Pins Credited!`, verifyRes.message || 'Your Current Pins and Bonus Vault have been updated.');
                 triggerCoinStream({ count: 18 });
-                onSuccess(credited, false, 0);
+                onSuccess(credited, false, 0, exact);
               }
             } else {
               toast.error('Verification Pending', verifyRes.message || 'Payment processed. Pins will credit shortly.');
@@ -264,24 +281,32 @@ export default function PinsWalletPage({
   const [filter, setFilter] = useState<FilterTab>('all');
   const [page, setPage] = useState(0);
   const [customPins, setCustomPins] = useState(300);
+  const [claimingBonus, setClaimingBonus] = useState(false);
   const [calcPins, setCalcPins] = useState<number>(() => Math.max(pins + (bonusPins || 0), 100));
 
   const customPrice = Math.ceil(customPins / 10);
 
-  const onPurchaseSuccess = useCallback((grantedPins?: number, isSub?: boolean, bonusGranted?: number) => {
+  const onPurchaseSuccess = useCallback((
+    grantedPins?: number,
+    isSub?: boolean,
+    bonusGranted?: number,
+    exactBalances?: { newPins?: number; newBonusPins?: number }
+  ) => {
+    if (typeof exactBalances?.newPins === 'number' && typeof exactBalances?.newBonusPins === 'number') {
+      setPins?.(exactBalances.newPins);
+      setBonusPins?.(exactBalances.newBonusPins);
+      return;
+    }
+
     if (isSub) {
-      // Jio/Airtel model: Activate 120 daily quota, deposit 500 into bonus vault if pro
-      setPins?.(Math.max(pins, 120));
-      if (setBonusPins && typeof bonusGranted === 'number' && bonusGranted > 0) {
-        setBonusPins((bonusPins || 0) + bonusGranted);
-      }
+      const subSplit = computeSubscriptionActivation(pins, bonusPins || 0, bonusGranted || 0, DAILY_PIN_CAP);
+      setPins?.(subSplit.newPins);
+      setBonusPins?.(subSplit.newBonus);
     } else if (typeof grantedPins === 'number' && grantedPins > 0) {
-      // Individual top-ups deposit into Permanent Bonus Vault (Safe from 1AM reset)
-      if (setBonusPins) {
-        setBonusPins((bonusPins || 0) + grantedPins);
-      } else {
-        setPins?.(pins + grantedPins);
-      }
+      // Fill Current Pins up to 120 daily cap first, and deposit all overflow into Bonus Vault
+      const split = splitCreditIntoWallets(pins, bonusPins || 0, grantedPins, DAILY_PIN_CAP);
+      setPins?.(split.newPins);
+      setBonusPins?.(split.newBonus);
     }
   }, [pins, setPins, bonusPins, setBonusPins]);
 
@@ -383,88 +408,111 @@ export default function PinsWalletPage({
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          {/* Total Spendable Balance */}
-          <div id="total-spendable-pins-badge" style={{
+          {/* Current Pins (Strictly used for all features, max 120/day, resets 1:00 AM IST) */}
+          <div id="active-daily-pins-badge" style={{
             display: 'flex', alignItems: 'center', gap: 10,
             padding: '10px 16px', borderRadius: 14,
-            background: 'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(139,92,246,0.08) 100%)',
-            border: '1.5px solid rgba(99,102,241,0.35)',
+            background: pins < 25 ? 'rgba(239,68,68,0.1)' : 'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(139,92,246,0.08) 100%)',
+            border: `1.5px solid ${pins < 25 ? 'rgba(239,68,68,0.35)' : 'rgba(99,102,241,0.35)'}`,
           }}>
             <PinCoin size={26} glow animate />
             <div>
               <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>
-                Total Spendable
+                Current Pins (Feature Wallet)
               </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', lineHeight: 1.1 }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: balColor, lineHeight: 1.1 }}>
+                {pins.toLocaleString()} / {DAILY_PIN_CAP} Pins
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
+                Resets to {DAILY_PIN_CAP} at 1:00 AM IST ({nextRefreshCountdown()})
+              </div>
+            </div>
+          </div>
+
+          {/* Bonus Vault (Unlimited, never wiped, refills Current Pins up to 120) */}
+          {(() => {
+            const vaultCount = Math.max(0, bonusPins || 0);
+            const refillable = Math.min(vaultCount, Math.max(0, DAILY_PIN_CAP - Math.max(0, pins || 0)));
+            const canRefill = refillable > 0;
+            const isCurrentFull = Math.max(0, pins || 0) >= DAILY_PIN_CAP;
+            return (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '10px 16px', borderRadius: 14,
+                background: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(5,150,105,0.08) 100%)',
+                border: '1.5px solid rgba(16,185,129,0.3)',
+              }}>
+                <span style={{ fontSize: 22 }}>🎁</span>
+                <div>
+                  <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#10b981' }}>
+                    Bonus Vault (Unlimited)
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: '#10b981', lineHeight: 1.1 }}>
+                    {vaultCount.toLocaleString()} Pins
+                  </div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
+                    Never resets · Refills Current up to {DAILY_PIN_CAP}
+                  </div>
+                </div>
+
+                <button
+                  onClick={async () => {
+                    if (claimingBonus || !canRefill) return;
+                    setClaimingBonus(true);
+                    try {
+                      await claimBonusPins();
+                    } finally {
+                      setClaimingBonus(false);
+                    }
+                  }}
+                  disabled={!canRefill || claimingBonus}
+                  style={{
+                    marginLeft: 4,
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: canRefill && !claimingBonus ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255,255,255,0.08)',
+                    color: canRefill && !claimingBonus ? '#fff' : 'var(--t3)',
+                    fontWeight: 800,
+                    fontSize: 12,
+                    cursor: canRefill && !claimingBonus ? 'pointer' : 'not-allowed',
+                    boxShadow: canRefill && !claimingBonus ? '0 2px 8px rgba(16,185,129,0.35)' : 'none',
+                    transition: 'all 0.15s ease',
+                    whiteSpace: 'nowrap',
+                  }}
+                  title={
+                    canRefill
+                      ? `Refill +${refillable} pins into Current Pins (${Math.min(DAILY_PIN_CAP, pins + refillable)}/${DAILY_PIN_CAP})`
+                      : isCurrentFull
+                      ? `Current Pins are already at the ${DAILY_PIN_CAP}/${DAILY_PIN_CAP} daily cap`
+                      : 'No bonus pins in vault'
+                  }
+                >
+                  {claimingBonus ? 'Refilling...' : canRefill ? `Refill +${refillable}` : isCurrentFull ? `Full (${DAILY_PIN_CAP}/${DAILY_PIN_CAP})` : 'Refill'}
+                </button>
+              </div>
+            );
+          })()}
+
+          {/* Total Owned Summary */}
+          <div id="total-spendable-pins-badge" style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 14,
+            background: 'rgba(255,255,255,0.03)',
+            border: '1.5px solid var(--border)',
+          }}>
+            <PinCoin size={22} />
+            <div>
+              <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--t3)' }}>
+                Total Owned
+              </div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: 'var(--t1)', lineHeight: 1.1 }}>
                 {(pins + (bonusPins || 0)).toLocaleString()} Pins
               </div>
               <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
-                {pins} daily + {(bonusPins || 0)} vault
+                {pins} current + {(bonusPins || 0)} bonus
               </div>
             </div>
-          </div>
-
-          {/* Active Daily Quota (Airtel/Jio model) */}
-          <div id="active-daily-pins-badge" style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            padding: '10px 16px', borderRadius: 14,
-            background: pins < 20 ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
-            border: `1.5px solid ${pins < 20 ? 'rgba(239,68,68,0.3)' : 'rgba(99,102,241,0.25)'}`,
-          }}>
-            <PinCoin size={26} glow animate />
-            <div>
-              <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--t3)' }}>
-                Active Daily Quota
-              </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: balColor, lineHeight: 1.1 }}>
-                {pins.toLocaleString()} Pins
-              </div>
-              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
-                1:00 AM Reset in {nextRefreshCountdown()}
-              </div>
-            </div>
-          </div>
-
-          {/* Bonus Pins Vault (Never wiped) */}
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            padding: '10px 16px', borderRadius: 14,
-            background: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(5,150,105,0.08) 100%)',
-            border: '1.5px solid rgba(16,185,129,0.3)',
-          }}>
-            <span style={{ fontSize: 22 }}>🎁</span>
-            <div>
-              <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#10b981' }}>
-                Permanent Vault
-              </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: '#10b981', lineHeight: 1.1 }}>
-                {(bonusPins || 0).toLocaleString()} Pins
-              </div>
-              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>
-                Never expires
-              </div>
-            </div>
-
-            <button
-              onClick={() => claimBonusPins()}
-              disabled={!bonusPins || bonusPins <= 0}
-              style={{
-                marginLeft: 4,
-                padding: '6px 12px',
-                borderRadius: 8,
-                border: 'none',
-                background: bonusPins > 0 ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255,255,255,0.08)',
-                color: bonusPins > 0 ? '#fff' : 'var(--t3)',
-                fontWeight: 800,
-                fontSize: 12,
-                cursor: bonusPins > 0 ? 'pointer' : 'not-allowed',
-                boxShadow: bonusPins > 0 ? '0 2px 8px rgba(16,185,129,0.35)' : 'none',
-                transition: 'all 0.15s ease',
-              }}
-              title={bonusPins > 0 ? 'Transfer bonus pins to your active balance' : 'No bonus pins to claim'}
-            >
-              Claim
-            </button>
           </div>
         </div>
       </div>

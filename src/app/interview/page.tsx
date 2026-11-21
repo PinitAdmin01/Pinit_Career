@@ -861,7 +861,14 @@ export default function InterviewPage() {
           (window as any).__pinitInterviewActive = false;
           window.dispatchEvent(new CustomEvent('pinit-interview-toggle', { detail: { active: false } }));
         }
-        toast.error('Insufficient Pins', 'You need 25 Pins to start this corporate interview session. Top up your Pins in the Pins store or claim your daily bonus!');
+        const curPins = cOS.pins ?? 0;
+        const vaultPins = cOS.bonusPins ?? 0;
+        toast.error(
+          'Insufficient Current Pins',
+          vaultPins > 0
+            ? `You need 25 Current Pins to start this interview (you have ${curPins}/120). Refill Current Pins from your ${vaultPins.toLocaleString()} Bonus Vault pins first!`
+            : `You need 25 Current Pins to start this interview (you have ${curPins}/120). Daily pins reset to 120 at 1:00 AM IST or buy pins in the Pins store.`
+        );
         return;
       }
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);

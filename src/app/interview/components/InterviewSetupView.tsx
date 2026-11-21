@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { JdMatchResult } from '@/lib/interview/jdMatch';
 import { COMPANY_PROFILES, resolveCompanyProfile } from '@/lib/interview/companyProfiles';
 import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
+import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { DAILY_PIN_CAP } from '@/lib/pins/pinWalletRules';
 import { getVerdictTone } from '../interviewTypes';
 
 export interface InterviewSetupViewProps {
@@ -61,6 +63,22 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   clearSessionHistory,
   setSelectedHistorySession,
 }) => {
+  const { pins, bonusPins, claimBonusPins } = useCareerOS();
+  const [refillingPins, setRefillingPins] = useState(false);
+  const currentPins = Math.max(0, pins ?? 0);
+  const vaultPins = Math.max(0, bonusPins ?? 0);
+  const refillablePins = Math.min(vaultPins, Math.max(0, DAILY_PIN_CAP - currentPins));
+
+  const handleQuickRefill = async () => {
+    if (refillingPins || refillablePins <= 0) return;
+    setRefillingPins(true);
+    try {
+      await claimBonusPins?.();
+    } finally {
+      setRefillingPins(false);
+    }
+  };
+
   return (
     <div className="iv-setup-grid">
       <div className="iv-panel" style={{ padding: 26 }}>
@@ -444,6 +462,43 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
             />
           </button>
         </div>
+
+        {currentPins < 25 && refillablePins > 0 && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+            padding: '10px 14px',
+            borderRadius: 12,
+            marginBottom: 12,
+            background: 'rgba(16, 185, 129, 0.12)',
+            border: '1px solid rgba(16, 185, 129, 0.35)',
+          }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.4 }}>
+              <strong>Current Pins: {currentPins}/{DAILY_PIN_CAP}</strong> (need 25). You have{' '}
+              <strong style={{ color: '#34d399' }}>{vaultPins.toLocaleString()} Bonus Pins</strong> ready to refill.
+            </div>
+            <button
+              type="button"
+              onClick={handleQuickRefill}
+              disabled={refillingPins}
+              style={{
+                flexShrink: 0,
+                padding: '7px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: '#fff',
+                fontWeight: 800,
+                fontSize: 12,
+                cursor: refillingPins ? 'wait' : 'pointer',
+              }}
+            >
+              {refillingPins ? 'Refilling...' : `⚡ Refill +${refillablePins}`}
+            </button>
+          </div>
+        )}
 
         <button
           data-testid="start-interview-btn"

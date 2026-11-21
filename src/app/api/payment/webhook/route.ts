@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
+import { computeSubscriptionActivation, DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 import { fulfilCardCoursePurchase, isCoursePlanId, normalizeTrack } from '@/lib/server/courseEnrollments';
 
 /**
@@ -267,8 +268,12 @@ export async function POST(req: Request) {
 
       const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
       const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
-      const nextDailyPins = Math.max(currentPins, 120);
-      const nextBonusPins = notesPlanId === 'pro' ? currentBonus + 500 : currentBonus;
+      const subSplit = computeSubscriptionActivation(
+        currentPins,
+        currentBonus,
+        notesPlanId === 'pro' ? 500 : 0,
+        DAILY_PIN_CAP
+      );
 
       await admin
         .from('users')
@@ -278,30 +283,31 @@ export async function POST(req: Request) {
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
           has_purchased_plan: true,
-          pins: nextDailyPins,
-          bonus_pins: nextBonusPins,
+          pins: subSplit.newPins,
+          bonus_pins: subSplit.newBonus,
         })
         .eq('id', notesUid);
     }
 
-    // 4. Pin credit handling: deposit individual purchases into Permanent Vault (bonus_pins)
-    // so Airtel-style 1:00 AM daily reset (which renews daily quota) never touches or expires them!
+    // 4. Pin credit handling: fill Current Pins up to 120 daily cap first,
+    // and deposit any remaining purchased pins into the unlimited Permanent Bonus Vault (bonus_pins).
     if (pinsGranted > 0 && !isSubscriptionPlan) {
       const { data: profile, error: profileErr } = await admin
         .from('users')
-        .select('bonus_pins, pin_history')
+        .select('pins, bonus_pins, pin_history')
         .eq('id', notesUid)
         .maybeSingle();
 
       if (!profileErr && profile) {
+        const currentPins = typeof profile.pins === 'number' ? profile.pins : 0;
         const currentBonus = typeof profile.bonus_pins === 'number' ? profile.bonus_pins : 0;
-        const nextBonus = currentBonus + pinsGranted;
+        const split = splitCreditIntoWallets(currentPins, currentBonus, pinsGranted, DAILY_PIN_CAP);
         const txId = 'tx_buy_webhook_' + Date.now();
         const newTx = {
           id: txId,
           type: 'earn',
           amount: pinsGranted,
-          reason: `Webhook credit ${notesPlanId} (${paymentId})`,
+          reason: `Webhook credit ${notesPlanId} (+${split.toCurrent} current, +${split.toBonus} bonus) (${paymentId})`,
           source: 'purchase',
           timestamp: Date.now(),
         };
@@ -310,7 +316,8 @@ export async function POST(req: Request) {
         await admin
           .from('users')
           .update({
-            bonus_pins: nextBonus,
+            pins: split.newPins,
+            bonus_pins: split.newBonus,
             pin_history: [newTx, ...currentHist].slice(0, 100),
           })
           .eq('id', notesUid);

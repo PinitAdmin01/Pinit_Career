@@ -32,8 +32,9 @@ export default function PinsGate({
   buttonClass,
   disabled
 }: Props) {
-  const { pins, bonusPins, spendPins, canAfford, isItemUnlocked, getItemRemainingSeconds, unlockItem } = useCareerOS();
+  const { pins, bonusPins, spendPins, isItemUnlocked, getItemRemainingSeconds, unlockItem, claimBonusPins } = useCareerOS();
   const [showConfirm, setShowConfirm] = useState(false);
+  const [refilling, setRefilling] = useState(false);
 
   // Inferred category key for PIN_COSTS
   const targetCategory = category || (itemKey ? (itemKey.split(':')[0] as any) : featureKey) || 'quest';
@@ -54,8 +55,21 @@ export default function PinsGate({
     return () => clearInterval(interval);
   }, [active, targetKey, getItemRemainingSeconds]);
 
-  const totalPins = pins + (bonusPins || 0);
-  const affordable = totalPins >= meta.cost;
+  // STRICT RULE: Every feature usage is paid by Current Pins (`pins`), NEVER Bonus Vault (`bonusPins`).
+  const currentPins = Math.max(0, pins || 0);
+  const vaultPins = Math.max(0, bonusPins || 0);
+  const affordable = currentPins >= meta.cost;
+  const refillableAmount = Math.min(vaultPins, Math.max(0, 120 - currentPins));
+
+  async function handleRefillFromBonus() {
+    if (refilling || refillableAmount <= 0) return;
+    setRefilling(true);
+    try {
+      await claimBonusPins?.();
+    } finally {
+      setRefilling(false);
+    }
+  }
 
   function handleClick() {
     if (disabled) return;
@@ -111,7 +125,7 @@ export default function PinsGate({
           ) : (
             <span>{meta.cost} pins{targetCategory !== 'attention_span_game' ? ' · 30m access' : ''}</span>
           )}
-          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 10.5 }}>· Need {meta.cost - totalPins} more</span>}
+          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 10.5 }}>· Need {meta.cost - currentPins} more</span>}
         </div>
 
         {/* Action Trigger */}
@@ -148,14 +162,16 @@ export default function PinsGate({
                 {meta.icon}
               </div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.02em' }}>
-                {affordable ? `Unlock ${meta.label}?` : 'Insufficient Pins'}
+                {affordable ? `Unlock ${meta.label}?` : 'Insufficient Current Pins'}
               </h3>
               <p style={{ fontSize: 15, color: 'var(--t2)', lineHeight: 1.6 }}>
                 {affordable
                   ? targetCategory === 'attention_span_game'
-                    ? `Use ${meta.cost} of your ${totalPins} pins to launch a focus training game.`
-                    : `Use ${meta.cost} of your ${totalPins} pins to unlock 30 minutes of duration access to this ${meta.label}.`
-                  : `You need ${meta.cost} pins for ${meta.label}. You currently have ${totalPins} pins${bonusPins > 0 ? ` (${pins} daily + ${bonusPins} vault)` : ''}. Daily pins refresh to 120 every day at 1:00 AM IST.`
+                    ? `Use ${meta.cost} of your ${currentPins}/120 Current Pins to launch a focus training game.`
+                    : `Use ${meta.cost} of your ${currentPins}/120 Current Pins to unlock 30 minutes of duration access to this ${meta.label}.`
+                  : vaultPins > 0
+                    ? `You need ${meta.cost} Current Pins for ${meta.label} (you have ${currentPins}/120). All features use Current Pins only — refill up to 120 from your ${vaultPins.toLocaleString()} Bonus Vault pins below!`
+                    : `You need ${meta.cost} Current Pins for ${meta.label} (you have ${currentPins}/120). Current Pins reset to 120 every day at 1:00 AM IST, or buy a pin pack.`
                 }
               </p>
             </div>
@@ -166,9 +182,9 @@ export default function PinsGate({
               padding: '12px 18px', background: 'rgba(255,255,255,0.05)', borderRadius: 14,
               border: '1px solid rgba(255,255,255,0.1)', marginBottom: 22,
             }}>
-              <span style={{ fontSize: 14.5, color: 'var(--t2)', fontWeight: 500 }}>Current Student Balance</span>
+              <span style={{ fontSize: 14.5, color: 'var(--t2)', fontWeight: 500 }}>Current Pins (Max 120/day)</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: 16.5, color: affordable ? '#818cf8' : '#ef4444' }}>
-                <PinCoin size={14} /> {totalPins} pins {bonusPins > 0 ? `(${pins} daily + ${bonusPins} vault)` : ''}
+                <PinCoin size={14} /> {currentPins}/120 {vaultPins > 0 ? `· ${vaultPins.toLocaleString()} Bonus` : ''}
               </span>
             </div>
 
@@ -195,20 +211,41 @@ export default function PinsGate({
               </div>
             ) : (
               <div style={{ display: 'flex', gap: 12, flexDirection: 'column' }}>
+                {refillableAmount > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleRefillFromBonus}
+                    disabled={refilling}
+                    style={{
+                      width: '100%',
+                      padding: '13px 16px',
+                      borderRadius: 14,
+                      border: 'none',
+                      cursor: refilling ? 'wait' : 'pointer',
+                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      color: '#fff',
+                      fontWeight: 800,
+                      fontSize: 15,
+                      boxShadow: '0 4px 14px rgba(16,185,129,0.35)',
+                    }}
+                  >
+                    {refilling ? 'Refilling Current Pins...' : `⚡ Refill +${refillableAmount} Current Pins from Bonus Vault`}
+                  </button>
+                )}
                 <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 4, fontWeight: 600 }}>
                   Student Pin System Rules:
                 </div>
                 {[
-                  { icon: '⏰', text: 'Daily Refresh: 120 Pins received every day at 1:00 AM' },
-                  { icon: '💳', text: 'Buy Packs: Instantly top up your pin balance' },
-                  { icon: '⏱', text: '30 Min Duration: Access remains active for 30 minutes per item' },
+                  { icon: '⏰', text: '1:00 AM IST Reset: Current Pins reset to 120 every day' },
+                  { icon: '🎁', text: 'Bonus Vault: Unlimited reserve — refill Current Pins up to 120 anytime' },
+                  { icon: '⚡', text: 'Feature Usage: All features deduct strictly from Current Pins' },
                 ].map((tip, i) => (
                   <div key={i} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--t2)' }}>
                     <span>{tip.icon}</span><span>{tip.text}</span>
                   </div>
                 ))}
                 <div style={{ display: 'flex', gap: 12, marginTop: 14 }}>
-                  <Link href="/pricing" style={{ textDecoration: 'none', flex: 1 }}>
+                  <Link href="/pins" style={{ textDecoration: 'none', flex: 1 }}>
                     <button className="pins-shimmer-button" style={{ width: '100%', padding: '12px', borderRadius: 14, color: '#fff', fontWeight: 700, border: 'none', cursor: 'pointer', justifyContent: 'center' }}>
                       💳 Buy Pin Pack
                     </button>

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 import { consecutiveCalendarStreak } from '@/lib/missions/streak';
+import { DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 /**
  * Server-authoritative streak bonus claim endpoint (DEF-042).
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
     // 1. Fetch user record and verify actual streak timestamps
     const { data: userRecord, error: fetchErr } = await admin
       .from('users')
-      .select('id, onboarding_answers, mission_streak, pins')
+      .select('id, onboarding_answers, mission_streak, pins, bonus_pins, pin_history')
       .eq('id', userId)
       .maybeSingle();
 
@@ -127,29 +128,45 @@ export async function POST(req: Request) {
       );
     }
 
-    // 4. Atomically credit 50 pins via credit_pins stored procedure
+    // 4. Credit 50 pins: fill Current Pins up to 120 daily cap first, overflow to Bonus Vault
     const PINS_BONUS = 50;
-    const { data: rpcRes, error: rpcErr } = await admin.rpc('credit_pins', {
-      p_user_id: userId,
-      p_amount: PINS_BONUS,
-      p_reason: `${milestone}-day streak milestone bonus`,
-      p_source: 'streak_bonus',
-    });
+    const currentPins = typeof userRecord.pins === 'number' ? userRecord.pins : 0;
+    const currentBonus = typeof userRecord.bonus_pins === 'number' ? userRecord.bonus_pins : 0;
+    const split = splitCreditIntoWallets(currentPins, currentBonus, PINS_BONUS, DAILY_PIN_CAP);
+    const txId = 'tx_streak_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    const newTx = {
+      id: txId,
+      type: 'earn',
+      amount: PINS_BONUS,
+      reason: `${milestone}-day streak milestone bonus (+${split.toCurrent} current, +${split.toBonus} bonus)`,
+      source: 'streak_bonus',
+      timestamp: Date.now(),
+    };
+    const currentHist = Array.isArray(userRecord.pin_history) ? userRecord.pin_history : [];
 
-    if (rpcErr) {
-      console.warn('[Streak Bonus] credit_pins RPC failed, using atomic update fallback:', rpcErr);
-      const currentPins = typeof userRecord.pins === 'number' ? userRecord.pins : 120;
-      await admin
-        .from('users')
-        .update({ pins: currentPins + PINS_BONUS })
-        .eq('id', userId);
-    }
+    await admin
+      .from('users')
+      .update({
+        pins: split.newPins,
+        bonus_pins: split.newBonus,
+        pin_history: [newTx, ...currentHist].slice(0, 100),
+      })
+      .eq('id', userId);
 
     return NextResponse.json({
       ok: true,
       milestone,
       pinsGranted: PINS_BONUS,
-      message: `🎉 Verified ${milestone}-day streak! +${PINS_BONUS} pins credited to your balance.`,
+      newPins: split.newPins,
+      newBonusPins: split.newBonus,
+      creditedToCurrent: split.toCurrent,
+      creditedToBonus: split.toBonus,
+      message:
+        split.toCurrent > 0 && split.toBonus > 0
+          ? `🎉 Verified ${milestone}-day streak! +${split.toCurrent} to Current Pins (${split.newPins}/${DAILY_PIN_CAP}) & +${split.toBonus} to Bonus Vault.`
+          : split.toCurrent > 0
+          ? `🎉 Verified ${milestone}-day streak! +${split.toCurrent} added to Current Pins (${split.newPins}/${DAILY_PIN_CAP}).`
+          : `🎉 Verified ${milestone}-day streak! +${split.toBonus} added to your Bonus Vault.`,
     });
   } catch (err: any) {
     console.error('[Streak Bonus] Unexpected error:', err);

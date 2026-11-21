@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
+import { DAILY_PIN_CAP, splitCreditIntoWallets } from '@/lib/pins/pinWalletRules';
 
 const ALLOWED_SOURCES = new Set([
   'streak_bonus',
@@ -71,28 +72,49 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    let newBalance: number | null = null;
-    const { data: rpcRes, error: rpcErr } = await admin.rpc('credit_pins', {
-      p_user_id: gated.user!.id,
-      p_amount: amount,
-      p_reason: `Earned via ${source.replace(/_/g, ' ')}`,
-      p_source: source,
-    });
+    // Fill Current Pins up to 120 daily cap first; overflow goes to unlimited Bonus Vault.
+    const { data: userRow } = await admin
+      .from('users')
+      .select('pins, bonus_pins, pin_history')
+      .eq('id', gated.user!.id)
+      .maybeSingle();
 
-    if (!rpcErr && rpcRes?.ok && typeof rpcRes.new_balance === 'number') {
-      newBalance = rpcRes.new_balance;
-    } else {
-      // Fallback: direct table update if RPC is missing
-      const { data: userRow } = await admin.from('users').select('pins').eq('id', gated.user!.id).maybeSingle();
-      newBalance = (userRow?.pins || 0) + amount;
-      await admin.from('users').update({ pins: newBalance }).eq('id', gated.user!.id);
+    const currentPins = typeof userRow?.pins === 'number' ? userRow.pins : 0;
+    const currentBonus = typeof userRow?.bonus_pins === 'number' ? userRow.bonus_pins : 0;
+    const split = splitCreditIntoWallets(currentPins, currentBonus, amount, DAILY_PIN_CAP);
+    const txId = 'tx_earn_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    const newTx = {
+      id: txId,
+      type: 'earn',
+      amount,
+      reason: `Earned via ${source.replace(/_/g, ' ')} (+${split.toCurrent} current, +${split.toBonus} bonus)`,
+      source,
+      timestamp: Date.now(),
+    };
+    const currentHist = Array.isArray(userRow?.pin_history) ? userRow.pin_history : [];
+
+    const { error: updateErr } = await admin
+      .from('users')
+      .update({
+        pins: split.newPins,
+        bonus_pins: split.newBonus,
+        pin_history: [newTx, ...currentHist].slice(0, 100),
+      })
+      .eq('id', gated.user!.id);
+
+    if (updateErr) {
+      console.error('[pins/earn] Failed to update wallets:', updateErr);
+      return NextResponse.json({ ok: false, error: 'PIN_CREDIT_FAILED' }, { status: 500 });
     }
 
     return NextResponse.json({
       ok: true,
       credited: amount,
       source,
-      newBalance,
+      newBalance: split.newPins,
+      newBonusBalance: split.newBonus,
+      creditedToCurrent: split.toCurrent,
+      creditedToBonus: split.toBonus,
     });
   } catch (err: any) {
     console.error('[pins/earn] Internal error:', err);

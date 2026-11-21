@@ -38,7 +38,42 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, matchId: requestId, problemId: problem.id, startedAt: startedAt.toISOString(), deadlineAt: deadlineAt.toISOString(), persisted: false });
     }
 
-    const { data, error } = await getSupabaseAdmin().rpc('start_solo_arena_match_with_pin_fee', {
+    const admin = getSupabaseAdmin();
+
+    // Enforce strict Current-Pins-only spending (never deduct Arena fees from bonus_pins)
+    // unless this requestId is an idempotent replay of an already-charged match.
+    const { data: existingMatch } = await admin
+      .from('arena_solo_matches')
+      .select('match_id')
+      .eq('create_request_id', requestId)
+      .maybeSingle();
+
+    if (!existingMatch) {
+      const { data: wallet } = await admin
+        .from('users')
+        .select('pins, bonus_pins')
+        .eq('id', auth.user.id)
+        .maybeSingle();
+      const currentPins = typeof wallet?.pins === 'number' ? Math.max(0, wallet.pins) : 0;
+      const bonusPins = typeof wallet?.bonus_pins === 'number' ? Math.max(0, wallet.bonus_pins) : 0;
+      if (currentPins < 10) {
+        return NextResponse.json(
+          {
+            error: 'INSUFFICIENT_PINS',
+            message:
+              bonusPins > 0
+                ? `You need 10 Current Pins to start AI practice (you have ${currentPins}/120). Refill Current Pins from your ${bonusPins} Bonus Vault pins first.`
+                : `You need 10 Current Pins to start AI practice (you have ${currentPins}/120).`,
+            currentBalance: currentPins,
+            bonusBalance: bonusPins,
+            canRefillFromBonus: bonusPins > 0 && currentPins < 120,
+          },
+          { status: 402 }
+        );
+      }
+    }
+
+    const { data, error } = await admin.rpc('start_solo_arena_match_with_pin_fee', {
       p_request_id: requestId,
       p_user_id: auth.user.id,
       p_match_id: randomUUID(),
