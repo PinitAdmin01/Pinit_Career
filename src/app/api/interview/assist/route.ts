@@ -328,6 +328,23 @@ export function getFallbackAssistScript(
   }
 
   if (stage === 'round2_coding') {
+    if (stream === 'non_tech') {
+      return {
+        script: `Start by verifying each Exhibit A line item for ${cleanTopic} before calculating ratios. State the exact formula first, substitute the verified figures carefully, and double-check units (Lakhs vs Crores, percentages vs multiples). Then frame your executive recommendation around profitability, cash-flow risk, and one concrete operational control.`,
+        bulletPoints: [
+          `Verify Exhibit A financial inputs and units before computing ratios`,
+          `Compare every computed ratio against industry/bank benchmark hurdles`,
+          `Anchor your recommendation in cash flow, margin impact, and downside risk control`
+        ],
+        deliveryGuide: {
+          pacing: 'Measured, executive pace (~120 WPM)',
+          tone: 'Analytical, commercial, and board-ready',
+          emphasisWords: ['unit economics', 'benchmark', 'cash flow', 'risk control'],
+          pauseCues: ['Pause before stating your Go / No-Go recommendation', 'Highlight the key sensitivity risk']
+        },
+        success: true
+      };
+    }
     return {
       script: `Start by restating the inputs, expected output, and constraints in your own words. Work through one small example by hand, then identify the simplest correct approach before thinking about optimization. Pay special attention to empty inputs, boundary values, and duplicate data. As you implement, keep each step easy to verify and use the tests to check your assumptions.`,
       bulletPoints: [
@@ -346,6 +363,29 @@ export function getFallbackAssistScript(
   }
 
   if (stage === 'round3_systems') {
+    if (stream === 'non_tech') {
+      return {
+        script: `On the workflow canvas for ${cleanTopic}, I structured the end-to-end customer and operating lifecycle cleanly: Target Audience flows through Ad Campaigns and Landing Pages into the Checkout Engine, which then hands off orders to our Logistics Hub backed by the Supplier Network. Post-purchase, CRM / Support feeds directly into a Retention Loop so repeat orders compound LTV and protect unit margins.`,
+        bulletPoints: [
+          `Walk stage-by-stage from acquisition (Audience ➔ Campaign ➔ Landing Page) into checkout conversion`,
+          `Explain how Checkout connects cleanly to Fulfillment/Logistics and Supplier replenishment SLAs`,
+          `Show how CRM & Retention close the loop to lift LTV/CAC and prevent churn`
+        ],
+        deliveryGuide: {
+          pacing: 'Strategic, boardroom pace (~125 WPM)',
+          tone: 'Commercial authority, structured, and KPI-led',
+          emphasisWords: ['conversion funnel', 'order fulfillment', 'SLA handoff', 'retention loop', 'unit margins'],
+          pauseCues: ['Pause between acquisition, operations, and retention phases so the panel can trace each arrow']
+        },
+        starBreakdown: {
+          situation: `Need for an integrated, profitable commercial operating workflow for ${cleanTopic}`,
+          task: 'Eliminate conversion drop-offs and fulfillment handoff bottlenecks across departments',
+          action: 'Connected acquisition, checkout, fulfillment, supplier replenishment, and CRM retention with clear KPIs',
+          result: 'Improved funnel conversion, protected gross margin, and strengthened repeat customer retention'
+        },
+        success: true
+      };
+    }
     return {
       script: `On the whiteboard for ${cleanTopic}, I designed a decoupled, multi-tier architecture. Read requests hit our edge CDN and Load Balancer, which routes traffic across redundant app microservices. I placed a Redis cache tier in front of our primary database to absorb read spikes, ensuring sub-20ms latency while eliminating single points of failure.`,
       bulletPoints: [
@@ -370,6 +410,31 @@ export function getFallbackAssistScript(
   }
 
   // Round 4 STAR Drill Default
+  if (stream === 'non_tech') {
+    return {
+      script: `In a high-stakes commercial challenge in ${cleanTopic}, our unit margins compressed sharply due to rising acquisition spend and delayed receivable collections. My responsibility was to audit the variance and restore cash-flow discipline within one quarter. I reconciled the ledger line-by-line, tightened credit and campaign ROI thresholds, and aligned finance and operations on weekly KPI dashboards. As a result, we recovered 320 bps of operating margin and reduced working-capital cycle time by 14 days.`,
+      bulletPoints: [
+        `Situation: Concrete financial, audit, compliance, or commercial pressure in ${cleanTopic}`,
+        `Task: Your specific accountability, targets, and stakeholder constraints`,
+        `Action: Exact analytical framework, reconciliation controls, and trade-off decisions you led`,
+        `Result: Quantified business outcome (margin bps, ₹ cash flow saved, DSO reduction, or ROAS lift)`
+      ],
+      deliveryGuide: {
+        pacing: 'Executive storytelling rhythm (~120 WPM)',
+        tone: 'Composed, commercially grounded, and decisive',
+        emphasisWords: ['root cause', 'margin discipline', 'stakeholder alignment', 'quantified impact'],
+        pauseCues: ['Pause after framing the financial stakes', 'Deliver the quantified outcome clearly']
+      },
+      starBreakdown: {
+        situation: `Margin compression and cash-flow slippage in ${cleanTopic}`,
+        task: 'Diagnose root drivers and restore target profitability within one quarter',
+        action: 'Audited cost/revenue drivers, instituted weekly KPI gates, and aligned cross-functional owners',
+        result: 'Recovered 320 bps operating margin and tightened working-capital cycle by 14 days'
+      },
+      success: true
+    };
+  }
+
   return {
     script: `In a high-stakes challenge regarding ${cleanTopic}, our team faced unexpected production latency spikes. My responsibility was to diagnose the root cause and execute an immediate fix without downtime. I analyzed server telemetry, isolated the bottleneck to an unindexed query, and deployed an indexed cache layer. This reduced latency by 45% and restored full system stability.`,
     bulletPoints: [

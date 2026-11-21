@@ -46,6 +46,7 @@ import {
   InterviewVoiceHud,
   VaultDefenseRoom
 } from './components';
+import { resolveCaseStudyData } from './components/Round2CaseStudy';
 import { loadPendingVaultDefense } from '@/lib/vault/vaultDefenseEngine';
 import { useInterviewGaze } from './hooks/useInterviewGaze';
 import { useInterviewVoice } from './hooks/useInterviewVoice';
@@ -538,6 +539,7 @@ export default function InterviewPage() {
     activeStage,
     activeTopicName,
     activeTeacherId: activeTeacher.id,
+    domainStream,
     difficulty,
     onFinalTranscript: handleFinalSpeechTranscript,
     onSilenceNudge: handleSilenceNudge,
@@ -622,11 +624,17 @@ export default function InterviewPage() {
 
     const finalQuestion = cleanQuestion || (
       targetStage === 'round2_coding'
-        ? 'How would you approach solving this problem under time and space constraints?'
+        ? (domainStream === 'non_tech'
+            ? `How do you compute the Exhibit A financial indicators and defend your business recommendation for ${activeTopicName}?`
+            : 'How would you approach solving this problem under time and space constraints?')
         : targetStage === 'round3_systems'
-        ? 'How would you design this system architecture end-to-end?'
+        ? (domainStream === 'non_tech'
+            ? `How would you design the end-to-end business workflow and operating funnel for ${activeTopicName}?`
+            : 'How would you design this system architecture end-to-end?')
         : targetStage === 'round4_star'
-        ? 'Describe a high-stakes engineering situation, task, action, and measurable result.'
+        ? (domainStream === 'non_tech'
+            ? `Describe a high-stakes commercial or financial challenge in ${activeTopicName} using Situation, Task, Action, and Result.`
+            : 'Describe a high-stakes engineering situation, task, action, and measurable result.')
         : `Tell me about your background and experience with ${activeTopicName}.`
     );
 
@@ -676,7 +684,8 @@ export default function InterviewPage() {
           activeTopicName,
           targetLevel,
           targetStage === 'round2_coding',
-          finalQuestion
+          finalQuestion,
+          domainStream
         );
         setAssistData(fallbackData);
       }
@@ -1023,11 +1032,14 @@ export default function InterviewPage() {
     let stagePrompt = '';
     const companyRoundCue = selectedCompanyProfile ? ` We will evaluate this against ${selectedCompanyProfile.name}'s ${selectedCompanyProfile.interviewStyle} bar.` : '';
     if (next === 'round2_coding') {
-      void warmUpCodeRuntime(selectedLang);
-      const prob = await fetchDynamicProblem(activeTopicName, domainStream, selectedLang, codingAttempt);
-      stagePrompt = domainStream === 'non_tech'
-        ? `Welcome to Round 2. I am ${nextTeacher.name}, your analytical evaluator.${companyRoundCue} Your applied challenge is "${prob.title}": ${prob.description} Work through your logic in the workspace and verify all 5 boundary tiers, then I will challenge your assumptions.`
-        : `Welcome to Round 2. I am ${nextTeacher.name}, your technical interviewer.${companyRoundCue} Your challenge is "${prob.title}": ${prob.description} Implement your solution in the workspace and run the 5-tier boundary tests. I will review your complexity and edge cases once you submit.`;
+      if (domainStream === 'non_tech') {
+        const bcomCase = resolveCaseStudyData(activeTopicName);
+        stagePrompt = `Welcome to Round 2. I am ${nextTeacher.name}, your corporate panel evaluator.${companyRoundCue} Your business case study is "${bcomCase.company}". Review the Exhibit A financial figures, calculate the ${bcomCase.metrics.length} quantitative ratios, and write your executive recommendation. Click "Audit & Submit Case Analysis" when ready and I will cross-examine your reasoning.`;
+      } else {
+        void warmUpCodeRuntime(selectedLang);
+        const prob = await fetchDynamicProblem(activeTopicName, domainStream, selectedLang, codingAttempt);
+        stagePrompt = `Welcome to Round 2. I am ${nextTeacher.name}, your technical interviewer.${companyRoundCue} Your challenge is "${prob.title}": ${prob.description} Implement your solution in the workspace and run the 5-tier boundary tests. I will review your complexity and edge cases once you submit.`;
+      }
     } else if (next === 'round3_systems') {
       stagePrompt = domainStream === 'non_tech'
         ? `Welcome to Round 3. I am ${nextTeacher.name}, your strategy and operations evaluator.${companyRoundCue} Map out the end-to-end business workflow for ${activeTopicName} on the canvas. Once you evaluate the workflow, I will probe your biggest operational bottleneck and margin trade-off.`
@@ -1085,8 +1097,8 @@ export default function InterviewPage() {
           topologyContext,
           telemetry: {
             eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
-            wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
-            fillerWords: typeof fillerWordCount === 'number' ? fillerWordCount : undefined,
+            wpm: typeof wpmScore === 'number' && wpmScore > 0 ? wpmScore : undefined,
+            fillerWords: (typeof wpmScore === 'number' && wpmScore > 0) || fillerWordCount > 0 ? fillerWordCount : undefined,
             tabSwitches: tabSwitchCount
           }
         })
@@ -1199,6 +1211,23 @@ export default function InterviewPage() {
     setIsRunning(true);
     setCodeRunFailed(false);
     setCodeSubmitted(false);
+
+    // Non-Tech / B.Com Case Study submission: NEVER run the Python/JS compiler on a financial case memo!
+    if (domainStream === 'non_tech') {
+      try {
+        void recordCodeSubmission();
+        setCodeRunFailed(false);
+        setCodeSubmitted(true);
+        setCodeReviewStarted(false);
+        setCodeReviewQuestionReady(false);
+        setCodeReviewAnswered(false);
+        codeReviewQuestionPendingRef.current = false;
+      } finally {
+        setIsRunning(false);
+      }
+      return;
+    }
+
     setTerminalLogs([`[RUNNER] Compiling ${selectedLang.toUpperCase()} for ${activeTopicName}...`]);
     try {
       const resolvedProb = getDynamicCodingProblem(activeTopicName, selectedLang);
@@ -1277,7 +1306,9 @@ export default function InterviewPage() {
     setCodeReviewQuestionReady(false);
     setCodeReviewAnswered(false);
     codeReviewQuestionPendingRef.current = false;
-    const reviewRequest = `I have completed the ${currentCodingProb.title} challenge and all local tests passed. Here is my ${selectedLang} solution:\n\n\`\`\`${selectedLang}\n${codeContent}\n\`\`\`\n\nPlease review this code and ask me one focused question about my implementation, complexity, or an edge case. Do not provide a replacement solution.`;
+    const reviewRequest = domainStream === 'non_tech'
+      ? `I have submitted my corporate case study analysis for "${resolveCaseStudyData(activeTopicName).company}". Here are my verified calculations and executive memo:\n\n${codeContent}\n\nPlease review my commercial logic and ask me one focused panel cross-examination question about my financial assumptions, risk controls, or trade-offs.`
+      : `I have completed the ${currentCodingProb.title} challenge and all local tests passed. Here is my ${selectedLang} solution:\n\n\`\`\`${selectedLang}\n${codeContent}\n\`\`\`\n\nPlease review this code and ask me one focused question about my implementation, complexity, or an edge case. Do not provide a replacement solution.`;
     void recordCodeSubmission();
     void handleSendMessageWithText(reviewRequest);
   };
@@ -1329,15 +1360,26 @@ export default function InterviewPage() {
         if (!data?.evaluation) throw new Error('Architecture review returned no evaluation.');
         setArchitectureEvaluation(data.evaluation);
         const nodeLabels = (latestTopology?.nodes || []).map((node: any) => node.label || node.type).filter(Boolean);
-        const anchor = nodeLabels[0] || 'the main component';
-        const spoken = `${data.evaluation?.spokenFeedback || `Architecture review complete. Grade: ${data.evaluation?.verdict || 'reviewed'}.`} I noticed ${anchor} in your design. Why did you choose it, and what trade-off does it create for the rest of the system?`;
+        const anchor = nodeLabels[0] || (domainStream === 'non_tech' ? 'your primary workflow stage' : 'the main component');
+        const defaultFeedback = domainStream === 'non_tech'
+          ? `Business workflow review complete. Grade: ${data.evaluation?.verdict || 'reviewed'}.`
+          : `Architecture review complete. Grade: ${data.evaluation?.verdict || 'reviewed'}.`;
+        const followUpProbe = domainStream === 'non_tech'
+          ? `I noticed ${anchor} in your workflow. How do you control conversion or SLA slippage at that handoff, and what margin trade-off does it create?`
+          : `I noticed ${anchor} in your design. Why did you choose it, and what trade-off does it create for the rest of the system?`;
+        const spoken = `${data.evaluation?.spokenFeedback || defaultFeedback} ${followUpProbe}`;
         setArchitectureDefenseAnswered(false);
         architectureQuestionPendingRef.current = true;
         setMessages(prev => [...prev, { role: 'assistant', content: spoken }]);
         speakWithAvatar(spoken, ROUND_INTERVIEWERS.round3_systems.id, () => setAnimState('talking'), () => setAnimState('idle'));
       }
     } catch {
-      toast.error('Architecture review unavailable', 'Your canvas is still saved. Check your connection and try Evaluate Architecture again.');
+      toast.error(
+        domainStream === 'non_tech' ? 'Workflow review unavailable' : 'Architecture review unavailable',
+        domainStream === 'non_tech'
+          ? 'Your canvas is still saved. Check your connection and try Evaluate Workflow again.'
+          : 'Your canvas is still saved. Check your connection and try Evaluate Architecture again.'
+      );
     } finally {
       setIsAnalyzingArchitecture(false);
     }
@@ -1388,7 +1430,8 @@ export default function InterviewPage() {
       domainStream,
       archetype,
       tabSwitchCount,
-      selectedLang
+      selectedLang,
+      codeContent
     });
 
     setEvaluationResult(evalResult);
@@ -1418,8 +1461,8 @@ export default function InterviewPage() {
           topology: latestTopology,
           telemetry: {
             eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
-            wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
-            fillerWords: typeof fillerWordCount === 'number' ? fillerWordCount : undefined,
+            wpm: typeof wpmScore === 'number' && wpmScore > 0 ? wpmScore : undefined,
+            fillerWords: (typeof wpmScore === 'number' && wpmScore > 0) || fillerWordCount > 0 ? fillerWordCount : undefined,
             tabSwitches: tabSwitchCount
           }
         })
@@ -1434,7 +1477,8 @@ export default function InterviewPage() {
           topicEvaluationToken: data.topicEvaluationToken,
           xpAwarded: data.xpAwarded,
           newXp: data.newXp,
-          perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores
+          perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores,
+          roundReports: evalResult.roundReports
         };
       }
     } catch {}

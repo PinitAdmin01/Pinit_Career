@@ -19,12 +19,32 @@ export function buildFallbackAssistData(
   topic: string = 'Software Engineering',
   level: 'standard' | 'advanced' = 'standard',
   isCodingRound: boolean = false,
-  question: string = ''
+  question: string = '',
+  domainStream: 'tech' | 'non_tech' = 'tech'
 ): AssistData {
   const cleanTopic = (topic || 'Software Engineering').trim();
   const lowerQ = (question || '').toLowerCase();
+  const isNonTech = domainStream === 'non_tech';
 
   if (isCodingRound || stage === 'round2_coding') {
+    if (isNonTech) {
+      return {
+        script:
+          level === 'advanced'
+            ? `For this ${cleanTopic} case study, verify every Exhibit A line item first, compute the exact ratios with unit consistency, benchmark them against industry hurdles, and defend your Go/No-Go recommendation with downside risk controls.`
+            : `Start by checking the Exhibit A figures for ${cleanTopic}, compute each financial metric step by step, and then write a crisp recommendation backed by the numbers and one operational risk mitigation.`,
+        bulletPoints: [
+          'Double-check units (₹ Lakhs, ₹ Crores, %, multiples) from Exhibit A before computing',
+          'Compare each ratio against standard corporate / banking benchmark thresholds',
+          'Tie your executive recommendation directly to profitability, cash flow, and risk controls'
+        ],
+        deliveryGuide: {
+          pacing: '120–135 WPM (Clear & commercial)',
+          tone: 'Analytical, structured, board-ready',
+          emphasisWords: ['unit economics', 'benchmark', 'cash flow', 'risk mitigation']
+        }
+      };
+    }
     return {
       script:
         level === 'advanced'
@@ -44,6 +64,24 @@ export function buildFallbackAssistData(
   }
 
   if (stage === 'round3_systems') {
+    if (isNonTech) {
+      return {
+        script:
+          level === 'advanced'
+            ? `For this ${cleanTopic} workflow, I structured acquisition from Target Audience through Ad Campaign and Landing Page into Checkout, synchronized fulfillment with Logistics and Supplier replenishment SLAs, and closed the post-purchase loop through CRM into Retention to lift LTV/CAC.`
+            : `I mapped the ${cleanTopic} business workflow end-to-end from customer acquisition into checkout conversion, fulfillment logistics, and CRM retention so each department hands off cleanly without margin leakage.`,
+        bulletPoints: [
+          'Trace customer & order flow sequentially: Acquisition ➔ Checkout ➔ Fulfillment ➔ CRM/Retention',
+          'Explain the main conversion or SLA handoff bottleneck and how you control it',
+          'Tie the retention loop directly to repeat revenue and healthier LTV:CAC unit economics'
+        ],
+        deliveryGuide: {
+          pacing: '120–135 WPM (Executive workflow clarity)',
+          tone: 'Commercially grounded, strategic, KPI-driven',
+          emphasisWords: ['funnel conversion', 'SLA handoff', 'fulfillment', 'retention loop']
+        }
+      };
+    }
     return {
       script:
         level === 'advanced'
@@ -63,6 +101,24 @@ export function buildFallbackAssistData(
   }
 
   if (stage === 'round4_star') {
+    if (isNonTech) {
+      return {
+        script:
+          level === 'advanced'
+            ? `In a high-stakes ${cleanTopic} business review (Situation), I was responsible for protecting gross margin and cash flow under rising acquisition costs (Task). I audited the unit-economics variance, instituted strict ROI and credit controls, and aligned stakeholders on weekly KPI gates (Action), recovering 320 bps of operating margin within one quarter (Result).`
+            : `In my recent ${cleanTopic} project (Situation), my goal was to resolve a key profitability and compliance gap (Task). I audited the underlying numbers and introduced structured review controls (Action), which improved operational efficiency and margin quality (Result).`,
+        bulletPoints: [
+          'Situation & Task: Frame the commercial stakes, budget, or compliance pressure clearly',
+          'Action: Highlight YOUR quantitative analysis, controls, and stakeholder alignment',
+          'Result: Cite measurable business impact (margin bps, ₹ saved, DSO, or conversion lift)'
+        ],
+        deliveryGuide: {
+          pacing: '125–145 WPM (Executive composure)',
+          tone: 'Accountable, metric-focused, decisive',
+          emphasisWords: ['Situation', 'Task', 'Action', 'Result', 'measurable']
+        }
+      };
+    }
     return {
       script:
         level === 'advanced'

@@ -13,6 +13,7 @@ interface UseInterviewVoiceProps {
   activeStage: Stage;
   activeTopicName: string;
   activeTeacherId: string;
+  domainStream?: 'tech' | 'non_tech';
   difficulty: 'easy' | 'normal' | 'hard';
   onFinalTranscript: (text: string) => void;
   onSilenceNudge: (text: string) => void;
@@ -24,6 +25,7 @@ export function useInterviewVoice({
   isInterviewActive,
   activeStage,
   activeTopicName,
+  domainStream = 'tech',
   difficulty,
   onFinalTranscript,
   onSilenceNudge,
@@ -352,7 +354,9 @@ export function useInterviewVoice({
             silenceTimerRef.current = setTimeout(() => {
               if (autoVoiceLoopRef.current && !isMicBlocked() && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
                 silenceNudgeFiredRef.current = true;
-                const nudgeMsg = `How is your implementation coming along? Feel free to explain your approach out loud, or check the hints toggle if you need a nudge!`;
+                const nudgeMsg = domainStream === 'non_tech'
+                  ? `How is your case analysis coming along? Feel free to walk me through your ratios out loud, ask a clarifying question, or toggle Formula Hints if needed.`
+                  : `How is your implementation coming along? Feel free to explain your approach out loud, or check the hints toggle if you need a nudge!`;
                 onSilenceNudge(nudgeMsg);
               }
             }, 90000);
@@ -360,7 +364,9 @@ export function useInterviewVoice({
             silenceTimerRef.current = setTimeout(() => {
               if (autoVoiceLoopRef.current && !isMicBlocked() && !debouncerRef.current.getCurrentTranscript() && !silenceNudgeFiredRef.current) {
                 silenceNudgeFiredRef.current = true;
-                const nudgeMsg = `As you lay out your architecture nodes for ${activeTopicName}, consider explaining how traffic flows across your tiers.`;
+                const nudgeMsg = domainStream === 'non_tech'
+                  ? `As you map the business workflow for ${activeTopicName}, feel free to explain how customers, orders, or financials move across each stage.`
+                  : `As you lay out your architecture nodes for ${activeTopicName}, consider explaining how traffic flows across your tiers.`;
                 onSilenceNudge(nudgeMsg);
               }
             }, 90000);

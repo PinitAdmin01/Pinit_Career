@@ -168,56 +168,90 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           isAnalyzing={isAnalyzingArchitecture}
         />
 
-        {/* 📊 Architecture Evaluation Scorecard (Renders when analysis completes) */}
-        {architectureEvaluation && (
-          <div className="iv-eval-report">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        {/* 📊 Architecture / Workflow Evaluation Scorecard (Renders when analysis completes) */}
+        {architectureEvaluation && (() => {
+          const isNonTech = domainStream === 'non_tech';
+          const evalMetrics: Array<{ key: string; label: string; score: number }> =
+            Array.isArray(architectureEvaluation.metrics) && architectureEvaluation.metrics.length > 0
+              ? architectureEvaluation.metrics
+              : architectureEvaluation.radar
+              ? [
+                  { key: 'topology', label: isNonTech ? 'Workflow Logic' : 'Architecture', score: Number(architectureEvaluation.radar.systems ?? architectureEvaluation.score ?? 0) },
+                  { key: 'scalability', label: isNonTech ? 'Growth Leverage' : 'Scalability', score: Number(architectureEvaluation.radar.solving ?? 0) },
+                  { key: 'reliability', label: isNonTech ? 'Ops Continuity' : 'Reliability', score: Number(architectureEvaluation.radar.star ?? 0) },
+                  { key: 'defense', label: 'Defense Clarity', score: Number(architectureEvaluation.radar.comms ?? 0) },
+                ]
+              : [];
+          const strengthsList = Array.isArray(architectureEvaluation.strengths)
+            ? architectureEvaluation.strengths.filter(Boolean)
+            : architectureEvaluation.strengths ? [String(architectureEvaluation.strengths)] : [];
+          const bottlenecksList = Array.isArray(architectureEvaluation.weaknesses)
+            ? architectureEvaluation.weaknesses.filter(Boolean)
+            : architectureEvaluation.weaknesses ? [String(architectureEvaluation.weaknesses)] : [];
+          return (
+            <div className="iv-eval-report" data-testid="round3-eval-report" style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <div>
-                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'inherit' }}>Architecture Evaluation Report</h4>
-                  <span style={{ fontSize: 12, opacity: 0.78 }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
+                  <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'inherit' }}>
+                    {isNonTech ? 'Business Workflow Evaluation Report' : 'Architecture Evaluation Report'}
+                  </h4>
+                  <span style={{ fontSize: 12, opacity: 0.82 }}>
+                    {architectureEvaluation.summary || (isNonTech ? 'Business workflow evaluated.' : 'Architecture verified.')}
+                  </span>
+                </div>
+                <div style={{
+                  padding: '5px 12px',
+                  borderRadius: 8,
+                  background: (architectureEvaluation.score ?? 0) >= 75
+                    ? 'rgba(34, 197, 94, 0.14)'
+                    : (architectureEvaluation.score ?? 0) >= 60
+                    ? 'rgba(245, 158, 11, 0.14)'
+                    : 'rgba(239, 68, 68, 0.14)',
+                  color: (architectureEvaluation.score ?? 0) >= 75
+                    ? 'var(--green-mid)'
+                    : (architectureEvaluation.score ?? 0) >= 60
+                    ? 'var(--amber-mid)'
+                    : 'var(--coral-mid)',
+                  border: '1px solid currentColor',
+                  fontWeight: 900,
+                  fontSize: 14.5,
+                  whiteSpace: 'nowrap'
+                }}>
+                  Grade: {architectureEvaluation.verdict || 'N/A'} ({architectureEvaluation.score ?? 0}/100)
                 </div>
               </div>
-              <div style={{
-                padding: '4px 12px',
-                borderRadius: 8,
-                background: 'var(--accent-light)',
-                color: 'var(--accent)',
-                fontWeight: 900,
-                fontSize: 15.5
-              }}>
-                Grade: {architectureEvaluation.verdict || 'A'} ({architectureEvaluation.score ?? 85}/100)
-              </div>
-            </div>
 
-            {/* Radar / Metrics Bar */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 12 }}>
-              {architectureEvaluation.radar && Object.entries(architectureEvaluation.radar).map(([metric, val]: any) => (
-                <div key={metric} style={{ background: 'rgba(var(--brand-rgb), 0.08)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
-                  <div style={{ opacity: 0.72, textTransform: 'uppercase', fontSize: 10.5, fontWeight: 700 }}>{metric}</div>
-                  <div style={{ fontWeight: 800, color: 'inherit', marginTop: 2 }}>{val} / 100</div>
+              {/* Domain-Calibrated Metrics Bar */}
+              {evalMetrics.length > 0 && (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', gap: 8, fontSize: 12 }}>
+                  {evalMetrics.map((m) => (
+                    <div key={m.key} style={{ background: 'rgba(var(--brand-rgb), 0.08)', padding: '8px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
+                      <div style={{ opacity: 0.78, textTransform: 'uppercase', fontSize: 10, fontWeight: 800, letterSpacing: 0.4 }}>{m.label}</div>
+                      <div style={{ fontWeight: 900, fontSize: 14, color: 'inherit', marginTop: 3 }}>{m.score} / 100</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
 
-            {/* Strengths, Weaknesses / Bottlenecks & Recommendations */}
-            {architectureEvaluation.strengths && (
-              <div style={{ fontSize: 12, color: 'var(--green-mid)', lineHeight: 1.4 }}>
-                <strong>Architectural Strengths:</strong> {Array.isArray(architectureEvaluation.strengths) ? architectureEvaluation.strengths.join('; ') : architectureEvaluation.strengths}
-              </div>
-            )}
-            {architectureEvaluation.weaknesses && (
-              <div style={{ fontSize: 12, color: 'var(--coral-mid)', lineHeight: 1.4 }}>
-                <strong>Bottlenecks identified:</strong> {Array.isArray(architectureEvaluation.weaknesses) ? architectureEvaluation.weaknesses.join('; ') : architectureEvaluation.weaknesses}
-              </div>
-            )}
-            {architectureEvaluation.improvements && (
-              <div style={{ fontSize: 12, color: 'var(--teal-mid)', lineHeight: 1.4 }}>
-                <strong>Recommendations:</strong> {architectureEvaluation.improvements}
-              </div>
-            )}
-          </div>
-        )}
+              {/* Strengths, Weaknesses / Bottlenecks & Recommendations */}
+              {strengthsList.length > 0 && (
+                <div style={{ fontSize: 12, color: 'var(--green-mid)', lineHeight: 1.5 }}>
+                  <strong>{isNonTech ? 'Workflow Strengths:' : 'Architectural Strengths:'}</strong> {strengthsList.join('; ')}
+                </div>
+              )}
+              {bottlenecksList.length > 0 && (
+                <div style={{ fontSize: 12, color: 'var(--coral-mid)', lineHeight: 1.5 }}>
+                  <strong>Bottlenecks Identified:</strong> {bottlenecksList.join('; ')}
+                </div>
+              )}
+              {architectureEvaluation.improvements && (
+                <div style={{ fontSize: 12, color: 'var(--teal-mid)', lineHeight: 1.5 }}>
+                  <strong>Recommendations:</strong> {architectureEvaluation.improvements}
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       {/* Right 28%: Avatar Viewport, Review Comments & Defense Input */}

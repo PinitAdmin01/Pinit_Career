@@ -8,7 +8,12 @@ import { createEvaluationSignature, createTopicEvaluationSignature } from '@/lib
 import { completeActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 import { loadActiveLiveSession, markLiveSessionEvaluated, transcriptForModel, type LiveSession } from '@/lib/interview/liveSession';
 import { extractJsonObject } from '@/lib/interview/jsonExtract';
-import { buildQuestionBenchmarks, extractDefendedTechStack } from '@/lib/interview/postInterviewInsights';
+import {
+  buildQuestionBenchmarks,
+  extractDefendedTechStack,
+  isTrivialOrNonSubstantiveAnswer,
+  SKIP_TURN_REGEX
+} from '@/lib/interview/postInterviewInsights';
 
 const InterviewEvaluateSchema = z.object({
   type: z.string().optional(),
@@ -112,11 +117,14 @@ export async function POST(req: Request) {
           ? Math.min(1.0, matchedComponents.length / Math.min(4, uniqueNodeTerms.length))
           : 0.6;
 
-        // 2. Architectural reasoning and causal justification clauses
+        // 2. Domain-aware reasoning and causal justification clauses
         const justificationPhrases = [
           'because', 'in order to', 'trade-off', 'tradeoff', 'mitigate',
           'alleviate', 'bottleneck', 'redundancy', 'failover', 'throughput',
-          'consistency', 'latency', 'decouple', 'prevent', 'handles'
+          'consistency', 'latency', 'decouple', 'prevent', 'handles',
+          // Business / Commerce justification vocabulary
+          'margin', 'conversion', 'retention', 'fulfillment', 'working capital',
+          'cac', 'ltv', 'cash flow', 'audit', 'compliance', 'sla', 'inventory'
         ];
         const matchedJustifications = justificationPhrases.filter(p => lowerDefense.includes(p));
 
@@ -132,16 +140,32 @@ export async function POST(req: Request) {
         dynamicComms = Math.min(95, Math.max(45, 50 + reasoningScore + alignmentScore + articulationScore));
       }
 
+      const isNonTechEval = domainStream === 'non_tech';
+      const domainMetrics = isNonTechEval
+        ? [
+            { key: 'workflow', label: 'Workflow Logic', score: sysEval.score },
+            { key: 'growth', label: 'Growth Leverage', score: sysEval.scalabilityRating },
+            { key: 'continuity', label: 'Ops Continuity', score: sysEval.reliabilityRating },
+            { key: 'defense', label: 'Defense Clarity', score: dynamicComms },
+          ]
+        : [
+            { key: 'topology', label: 'Architecture', score: sysEval.score },
+            { key: 'scalability', label: 'Scalability', score: sysEval.scalabilityRating },
+            { key: 'reliability', label: 'Reliability', score: sysEval.reliabilityRating },
+            { key: 'defense', label: 'Defense Clarity', score: dynamicComms },
+          ];
+
       return NextResponse.json({
         evaluation: {
           score: sysEval.score,
           verdict: sysEval.grade,
-          readiness: `${sysEval.grade} Architecture`,
+          readiness: `${sysEval.grade} ${isNonTechEval ? 'Business Workflow' : 'Architecture'}`,
           summary: sysEval.summary,
           strengths: sysEval.strengths,
           weaknesses: sysEval.bottlenecks,
           improvements: sysEval.recommendations.join(' • '),
           spokenFeedback: sysEval.spokenFeedback,
+          metrics: domainMetrics,
           radar: {
             logic: sysEval.score,
             systems: sysEval.score,
@@ -390,36 +414,73 @@ Return ONLY valid JSON matching this schema:
     const candidateAnswers = (scoredHistory || [])
       .filter((turn: any) => turn?.role !== 'assistant')
       .map((turn: any) => String(turn?.content || ''));
-    const answerQuality = normalizeAnswerQuality(rawParsedEval.answer_quality, candidateAnswers);
+    const nonSkipAnswers = candidateAnswers.filter(a => a.trim().length > 0 && !SKIP_TURN_REGEX.test(a.trim()));
+    const substantiveAnswers = nonSkipAnswers.filter(a => !isTrivialOrNonSubstantiveAnswer(a));
+    const hasTopologyNodes = Array.isArray(topology?.nodes) && topology.nodes.length > 0;
+    const hasSubmittedCoding = typeof codingScore === 'number' && codingScore > 0;
+    const hasZeroRealEvidence = substantiveAnswers.length === 0 && !hasTopologyNodes && !hasSubmittedCoding;
 
-    const extractedDimensions = {
-      logic: clampScore(sanitizedEvaluation.logic, 65),
-      systems: clampScore(sanitizedEvaluation.systems, 65),
-      comms: clampScore(sanitizedEvaluation.comms, 70),
-      // A recorded interview is judged on the code it recorded (via the evaluator), never on a pass
-      // count the page reports.
-      solving: clampScore(sanitizedEvaluation.solving ?? (live ? undefined : codingScore), 65),
-      star: clampScore(sanitizedEvaluation.star, 65),
-    };
+    const answerQuality = hasZeroRealEvidence
+      ? undefined
+      : normalizeAnswerQuality(rawParsedEval.answer_quality, candidateAnswers);
+
+    const rawLogic = clampScore(sanitizedEvaluation.logic, 0);
+    const rawSystems = hasTopologyNodes ? clampScore(sanitizedEvaluation.systems, 0) : 0;
+    const rawComms = nonSkipAnswers.length > 0 ? clampScore(sanitizedEvaluation.comms, 0) : 0;
+    const rawSolving = hasSubmittedCoding || substantiveAnswers.length > 0
+      ? clampScore(sanitizedEvaluation.solving ?? (live ? undefined : codingScore), 0)
+      : 0;
+    const rawStar = substantiveAnswers.length > 0 ? clampScore(sanitizedEvaluation.star, 0) : 0;
+
+    // Anti-inflation guard: never let an LLM award 40-65% when the candidate gave 0 substantive answers
+    const trivialCap = nonSkipAnswers.length > 0 ? 5 : 0;
+    const extractedDimensions = hasZeroRealEvidence
+      ? {
+          logic: Math.min(rawLogic, trivialCap),
+          systems: 0,
+          comms: Math.min(rawComms, trivialCap),
+          solving: 0,
+          star: 0,
+        }
+      : {
+          logic: rawLogic,
+          systems: rawSystems,
+          comms: rawComms,
+          solving: rawSolving,
+          star: rawStar,
+        };
 
     // Deterministic Role-Weighted Score Calculation (Authority: Code, not LLM)
     const scoringResult = calculateRoleWeightedScore(extractedDimensions, roleKey);
 
-    // Persona-Tailored Pedagogical Coaching (Purely advisory; does NOT alter score)
-    const personaCoaching = generatePersonaCoaching(archetype, scoringResult.sanitizedDimensions, roleKey);
+    // Persona-Tailored Pedagogical Coaching (Purely advisory; never fabricate archetype praise when unattempted)
+    const rawPersonaCoaching = generatePersonaCoaching(archetype, scoringResult.sanitizedDimensions, roleKey);
+    const personaCoaching = hasZeroRealEvidence
+      ? {
+          personaSummary: 'Insufficient interview evidence recorded to generate personalized archetype insights yet.',
+          coachingTips: [
+            'Answer at least Round 1 with concrete project examples, decisions, and measurable results.',
+            'Complete Round 2 and Round 3 before submitting so the panel can evaluate real technical or business work.',
+            'Use the STAR structure (Situation, Task, Action, Result) in Round 4.'
+          ],
+          tailoredStrengths: [],
+          growthArea: 'Complete the interview rounds with substantive answers to receive tailored coaching.',
+        }
+      : rawPersonaCoaching;
 
     // Telemetry Practice Diagnostics (Defect 090: Persisted to DB)
     const telemetryDiagnostics = generateTelemetryDiagnostics(telemetry);
 
     const deterministicBreakdown = buildQuestionBenchmarks(scoredHistory, topic, stream);
     const llmBreakdownRaw = Array.isArray(rawParsedEval.question_breakdown) ? rawParsedEval.question_breakdown : [];
-    const questionBreakdown = llmBreakdownRaw.length > 0
+    const questionBreakdown = llmBreakdownRaw.length > 0 && !hasZeroRealEvidence
       ? llmBreakdownRaw.slice(0, 8).map((q: any, idx: number) => ({
           index: idx + 1,
+          round: deterministicBreakdown[idx]?.round ?? 1,
           question: sanitizeLLMOutput(String(q?.question || deterministicBreakdown[idx]?.question || `Question ${idx + 1}`)),
           candidateAnswer: sanitizeLLMOutput(String(q?.candidate_answer || deterministicBreakdown[idx]?.candidateAnswer || '')),
           idealAnswer: sanitizeLLMOutput(String(q?.ideal_answer || deterministicBreakdown[idx]?.idealAnswer || '')),
-          score: clampScore(q?.score, deterministicBreakdown[idx]?.score ?? 65),
+          score: clampScore(q?.score, deterministicBreakdown[idx]?.score ?? 0),
           feedback: sanitizeLLMOutput(String(q?.feedback || deterministicBreakdown[idx]?.feedback || '')),
           missedConcepts: Array.isArray(q?.missed_concepts)
             ? q.missed_concepts.map((c: unknown) => sanitizeLLMOutput(String(c))).filter(Boolean).slice(0, 5)
@@ -429,7 +490,8 @@ Return ONLY valid JSON matching this schema:
     const defendedTechStack = extractDefendedTechStack(
       scoredHistory,
       typeof body.selectedLang === 'string' ? body.selectedLang : undefined,
-      topology
+      topology,
+      hasSubmittedCoding
     );
 
     const finalEvaluation = {
@@ -446,21 +508,28 @@ Return ONLY valid JSON matching this schema:
       strategic_thinking: scoringResult.sanitizedDimensions.systems,
       communication_score: scoringResult.sanitizedDimensions.comms,
       star_alignment: scoringResult.sanitizedDimensions.star,
-      summary: sanitizedEvaluation.summary || `${scoringResult.verdict} performance in ${roleConfig.roleName} interview.`,
+      summary: hasZeroRealEvidence
+        ? `No substantive answers were completed for ${roleConfig.roleName}. Complete at least one round with real explanations to generate a full hiring assessment.`
+        : (sanitizedEvaluation.summary || `${scoringResult.verdict} performance in ${roleConfig.roleName} interview.`),
       answerQuality,
       questionBreakdown,
       defendedTechStack,
-      strengths: Array.isArray(sanitizedEvaluation.strengths) && sanitizedEvaluation.strengths.length > 0
-        ? sanitizedEvaluation.strengths
-        : personaCoaching.tailoredStrengths,
+      strengths: hasZeroRealEvidence
+        ? []
+        : (Array.isArray(sanitizedEvaluation.strengths) && sanitizedEvaluation.strengths.length > 0
+            ? sanitizedEvaluation.strengths
+            : (scoringResult.overallScore >= 40 ? personaCoaching.tailoredStrengths : [])),
       weaknesses: Array.isArray(sanitizedEvaluation.weaknesses) && sanitizedEvaluation.weaknesses.length > 0
         ? sanitizedEvaluation.weaknesses
-        : ['Elaborate further on quantifiable technical impact.'],
-      improvements: Array.isArray(sanitizedEvaluation.improvement_tips)
-        ? sanitizedEvaluation.improvement_tips.join(' • ')
-        : (sanitizedEvaluation.improvements || personaCoaching.coachingTips.join(' • ')),
+        : ['Provide concrete examples, analytical reasoning, and measurable outcomes across rounds.'],
+      improvements: hasZeroRealEvidence
+        ? personaCoaching.coachingTips.join(' • ')
+        : (Array.isArray(sanitizedEvaluation.improvement_tips)
+            ? sanitizedEvaluation.improvement_tips.join(' • ')
+            : (sanitizedEvaluation.improvements || personaCoaching.coachingTips.join(' • '))),
       coaching: personaCoaching,
       telemetryDiagnostics,
+      hasRealEvidence: !hasZeroRealEvidence,
     };
 
     // Persist completed evaluation and telemetry diagnostics to database (Defect 090)

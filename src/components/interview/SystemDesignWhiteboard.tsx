@@ -88,9 +88,17 @@ export default function SystemDesignWhiteboard({
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
-  const [activeProtocol, setActiveProtocol] = useState<string>('HTTPS/REST');
+  const [activeProtocol, setActiveProtocol] = useState<string>(
+    domainStream === 'non_tech' ? 'Funnel Flow' : 'HTTPS/REST'
+  );
   const [pendingPreset, setPendingPreset] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  // Keep activeProtocol & category synchronized with domainStream so non-tech never draws "HTTPS/REST"
+  useEffect(() => {
+    setActiveProtocol(domainStream === 'non_tech' ? 'Funnel Flow' : 'HTTPS/REST');
+    setSelectedCategory('all');
+  }, [domainStream]);
 
   useEffect(() => {
     if (!pendingPreset) return;
@@ -116,6 +124,7 @@ export default function SystemDesignWhiteboard({
       setNodes([]);
       setLinks([]);
       setSelectedSourceId(null);
+      setSelectedCategory('all');
     }
   }, [domainStream, activeTopic]);
 
@@ -128,6 +137,33 @@ export default function SystemDesignWhiteboard({
       toType: nodeTypeMap.get(l.to) || 'Unknown',
       protocol: l.protocol || 'Direct'
     }));
+
+    // Real undirected connectivity check via BFS (prevents spaghetti multi-links between 2 nodes from passing as "fully connected")
+    const computeIsFullyConnected = (): boolean => {
+      if (currentNodes.length === 0) return false;
+      if (currentNodes.length === 1) return true;
+      const adj = new Map<string, Set<string>>();
+      currentNodes.forEach(n => adj.set(n.id, new Set()));
+      currentLinks.forEach(l => {
+        if (adj.has(l.from) && adj.has(l.to)) {
+          adj.get(l.from)!.add(l.to);
+          adj.get(l.to)!.add(l.from);
+        }
+      });
+      const visited = new Set<string>();
+      const queue: string[] = [currentNodes[0].id];
+      visited.add(currentNodes[0].id);
+      while (queue.length > 0) {
+        const curr = queue.shift()!;
+        for (const nb of adj.get(curr) || []) {
+          if (!visited.has(nb)) {
+            visited.add(nb);
+            queue.push(nb);
+          }
+        }
+      }
+      return visited.size === currentNodes.length;
+    };
 
     const snapshot: SystemTopologySnapshot = {
       nodeCount: currentNodes.length,
@@ -142,7 +178,7 @@ export default function SystemDesignWhiteboard({
       hasMatchingEngine: currentNodes.some(n => n.type.toLowerCase().includes('matching') || n.label.toLowerCase().includes('matching') || n.label.toLowerCase().includes('disruptor') || n.label.toLowerCase().includes('orderbook')),
       hasSecurityShield: currentNodes.some(n => /waf|shield|firewall|vault|security|kms/i.test(n.type + ' ' + n.label)),
       hasMediaServer: currentNodes.some(n => /media|webrtc|sfu|video|relay/i.test(n.type + ' ' + n.label)),
-      isFullyConnected: currentNodes.length > 0 && currentLinks.length >= currentNodes.length - 1
+      isFullyConnected: computeIsFullyConnected()
     };
 
     if (onTopologyChangeRef.current) {
@@ -157,17 +193,24 @@ export default function SystemDesignWhiteboard({
   // ─── Node Handlers ───────────────────────────────────────────────────────
   const addNode = (template: typeof palette[0]) => {
     const nextId = 'node_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
-    const randomOffset = (nodes.length % 5) * 20;
-    const newNode: BoardNode = {
-      id: nextId,
-      type: template.type,
-      label: template.type,
-      x: 100 + randomOffset,
-      y: 100 + randomOffset,
-      category: template.category,
-      color: template.color
-    };
-    setNodes(prev => [...prev, newNode]);
+    setNodes(prev => {
+      // Place nodes on a clean 4-column grid so newly added components never overlap
+      const idx = prev.length;
+      const col = idx % 4;
+      const row = Math.floor(idx / 4);
+      const x = 36 + col * 185;
+      const y = 38 + (row % 3) * 112 + (row >= 3 ? 22 : 0);
+      const newNode: BoardNode = {
+        id: nextId,
+        type: template.type,
+        label: template.type,
+        x,
+        y,
+        category: template.category,
+        color: template.color
+      };
+      return [...prev, newNode];
+    });
   };
 
   const deleteNode = (id: string) => {
@@ -466,9 +509,9 @@ export default function SystemDesignWhiteboard({
   const categories = domainStream === 'non_tech'
     ? [
         { id: 'all', label: 'All (8)' },
-        { id: 'marketing', label: '📣 Marketing' },
-        { id: 'operations', label: '🚚 Operations' },
-        { id: 'finance', label: '📊 Finance' },
+        { id: 'acquisition', label: '📣 Acquisition' },
+        { id: 'operations', label: '🚚 Commerce & Ops' },
+        { id: 'retention', label: '🔄 CRM & Retention' },
       ]
     : [
         { id: 'all', label: 'All (16)' },
@@ -482,9 +525,9 @@ export default function SystemDesignWhiteboard({
     ? palette
     : palette.filter(item => {
         if (domainStream === 'non_tech') {
-          if (selectedCategory === 'marketing') return ['Target Audience', 'Ad Campaign', 'Landing Page'].includes(item.type);
+          if (selectedCategory === 'acquisition') return ['Target Audience', 'Ad Campaign', 'Landing Page'].includes(item.type);
           if (selectedCategory === 'operations') return ['Checkout Engine', 'Logistics Hub', 'Supplier Network'].includes(item.type);
-          if (selectedCategory === 'finance') return ['CRM / Support', 'Retention Loop'].includes(item.type);
+          if (selectedCategory === 'retention') return ['CRM / Support', 'Retention Loop'].includes(item.type);
           return true;
         }
         if (selectedCategory === 'client_gateway') return item.category === 'gateway' || item.category === 'client';
@@ -500,7 +543,7 @@ export default function SystemDesignWhiteboard({
             {domainStream === 'non_tech' ? 'Interactive Business Workflow Canvas' : 'Interactive System Whiteboard'}
           </span>
           <h3 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
-            Architecture Topology: {activeTopic}
+            {domainStream === 'non_tech' ? `Business Workflow: ${activeTopic}` : `Architecture Topology: ${activeTopic}`}
           </h3>
         </div>
 
@@ -628,7 +671,11 @@ export default function SystemDesignWhiteboard({
                 cursor: isAnalyzing ? 'not-allowed' : 'pointer',
               }}
             >
-              {isAnalyzing ? '🤖 Evaluating...' : '🤖 Evaluate Architecture'}
+              {isAnalyzing
+                ? '🤖 Evaluating...'
+                : domainStream === 'non_tech'
+                ? '🤖 Evaluate Workflow'
+                : '🤖 Evaluate Architecture'}
             </button>
           )}
         </div>
@@ -808,16 +855,29 @@ export default function SystemDesignWhiteboard({
                   opacity={0.85}
                 />
                 {l.protocol && (
-                  <text
-                    x={midX}
-                    y={midY - 6}
-                    fill='var(--t2)'
-                    fontSize='9.5'
-                    fontWeight='800'
-                    textAnchor='middle'
-                  >
-                    {l.protocol}
-                  </text>
+                  <g>
+                    <rect
+                      x={midX - Math.max(30, l.protocol.length * 3.4 + 8)}
+                      y={midY - 17}
+                      width={Math.max(60, l.protocol.length * 6.8 + 16)}
+                      height={16}
+                      rx={5}
+                      fill='var(--bg2)'
+                      stroke='var(--border)'
+                      strokeWidth='1'
+                      opacity={0.95}
+                    />
+                    <text
+                      x={midX}
+                      y={midY - 6}
+                      fill='var(--t1)'
+                      fontSize='9.5'
+                      fontWeight='800'
+                      textAnchor='middle'
+                    >
+                      {l.protocol}
+                    </text>
+                  </g>
                 )}
               </g>
             );
@@ -832,10 +892,12 @@ export default function SystemDesignWhiteboard({
           }}>
             <div style={{ fontSize: 35, marginBottom: 8, opacity: 0.6 }}>📐</div>
             <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 4 }}>
-              Empty Architecture Whiteboard
+              {domainStream === 'non_tech' ? 'Empty Business Workflow Canvas' : 'Empty Architecture Whiteboard'}
             </div>
-            <div style={{ fontSize: 12, maxWidth: 360, lineHeight: 1.4, color: 'var(--t3)' }}>
-              Click components from the palette above to place nodes, then toggle <strong>🔗 Connect Nodes</strong> to draw data flow arrows.
+            <div style={{ fontSize: 12, maxWidth: 380, lineHeight: 1.45, color: 'var(--t3)' }}>
+              {domainStream === 'non_tech'
+                ? <>Click business stages from the palette above to map your funnel &amp; operations, then toggle <strong>🔗 Connect</strong> to draw directional handover arrows.</>
+                : <>Click components from the palette above to place nodes, then toggle <strong>🔗 Connect</strong> to draw data flow arrows.</>}
             </div>
           </div>
         )}

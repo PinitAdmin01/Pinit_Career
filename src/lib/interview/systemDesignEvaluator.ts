@@ -531,18 +531,29 @@ export function evaluateSystemTopology(
 
   // Edge case 1: Canvas is completely empty
   if (nodes.length === 0) {
+    const isNonTechEmpty = domainStream === 'non_tech';
     return {
       score: 0,
       grade: 'Needs Work',
       scalabilityRating: 0,
       reliabilityRating: 0,
       strengths: [],
-      bottlenecks: ['Blank Whiteboard: No architecture components have been placed.'],
-      recommendations: [
-        `Add client ingress, compute microservices, and storage layers from the palette to satisfy requirements for ${topic}.`
+      bottlenecks: [
+        isNonTechEmpty
+          ? 'Blank Canvas: No business workflow stages have been placed.'
+          : 'Blank Whiteboard: No architecture components have been placed.'
       ],
-      summary: `System architecture is unattempted (0/100) for ${topic}. The whiteboard is blank.`,
-      spokenFeedback: `It looks like the whiteboard is currently blank for ${topic}. Start by placing your entrypoint client, then attach compute services and persistence layers.`
+      recommendations: [
+        isNonTechEmpty
+          ? `Add audience, acquisition funnel, checkout, fulfillment, and retention stages from the palette for ${topic}.`
+          : `Add client ingress, compute microservices, and storage layers from the palette to satisfy requirements for ${topic}.`
+      ],
+      summary: isNonTechEmpty
+        ? `Business workflow is unattempted (0/100) for ${topic}. The canvas is blank.`
+        : `System architecture is unattempted (0/100) for ${topic}. The whiteboard is blank.`,
+      spokenFeedback: isNonTechEmpty
+        ? `It looks like the workflow canvas is currently blank for ${topic}. Start by placing your Target Audience and acquisition stage, then connect checkout, fulfillment, and retention.`
+        : `It looks like the whiteboard is currently blank for ${topic}. Start by placing your entrypoint client, then attach compute services and persistence layers.`
     };
   }
 
@@ -556,56 +567,167 @@ export function evaluateSystemTopology(
   let decouplingScore = 0;
 
   if (domainStream === 'non_tech') {
-    // Non-tech business workflow evaluation
-    const hasAudience = nodes.some(n => /audience|segment|cohort|customer/i.test(n.type + ' ' + n.label));
-    const hasFunnel = nodes.some(n => /funnel|landing|ad|campaign|traffic/i.test(n.type + ' ' + n.label));
-    const hasCheckout = nodes.some(n => /checkout|payment|billing|monetization/i.test(n.type + ' ' + n.label));
-    const hasFulfillment = nodes.some(n => /logistics|supplier|crm|support|fulfillment/i.test(n.type + ' ' + n.label));
-    const hasRetention = nodes.some(n => /retention|loop|crm|lms|nurture/i.test(n.type + ' ' + n.label));
+    // Non-tech business workflow evaluation with real directed-graph & funnel-order validation
+    const classifyBusinessStage = (n: { type: string; label: string }): number => {
+      const text = `${n.type} ${n.label}`.toLowerCase();
+      if (/audience|segment|cohort|customer/.test(text)) return 0; // Target Market
+      if (/ad\s*campaign|campaign|landing|funnel|traffic|seo|social/.test(text)) return 1; // Acquisition
+      if (/checkout|payment|billing|monetization|invoice|order\s*oms/.test(text)) return 2; // Revenue / Conversion
+      if (/logistics|supplier|fulfillment|warehouse|inventory|delivery/.test(text)) return 3; // Operations / Fulfillment
+      if (/crm|support|retention|loop|nurture|ledger|ebitda|audit/.test(text)) return 4; // Post-Purchase / Retention / Reporting
+      return 2;
+    };
 
-    // Foundational Components (30 pts)
-    if (hasAudience) { foundationalScore += 10; strengths.push('Target market segmentation specified'); }
-    else { bottlenecks.push('Missing initial target market or user cohort'); recommendations.push('Define explicit target audience node'); }
+    const hasAudience = nodes.some(n => classifyBusinessStage(n) === 0);
+    const hasFunnel = nodes.some(n => classifyBusinessStage(n) === 1);
+    const hasCheckout = nodes.some(n => classifyBusinessStage(n) === 2);
+    const hasFulfillment = nodes.some(n => classifyBusinessStage(n) === 3);
+    const hasRetention = nodes.some(n => classifyBusinessStage(n) === 4);
 
-    if (hasFunnel) { foundationalScore += 10; strengths.push('Inbound acquisition funnel established'); }
-    else { bottlenecks.push('No conversion funnel between customer acquisition and checkout'); recommendations.push('Add landing page or conversion funnel'); }
+    // 1. Foundational Business Stages (20 pts — placing nodes alone never earns an A)
+    if (hasAudience) { foundationalScore += 7; strengths.push('Target market segmentation defined'); }
+    else { bottlenecks.push('Missing initial target audience or customer cohort'); recommendations.push('Add a Target Audience stage to anchor your funnel'); }
 
-    if (hasCheckout) { foundationalScore += 10; strengths.push('Revenue capture and checkout mechanism defined'); }
-    else { bottlenecks.push('Missing explicit monetization / checkout step'); recommendations.push('Add checkout engine or revenue capture mechanism'); }
+    if (hasFunnel) { foundationalScore += 6; strengths.push('Inbound acquisition funnel established'); }
+    else { bottlenecks.push('Missing acquisition or landing stage before conversion'); recommendations.push('Add an Ad Campaign or Landing Page stage'); }
 
-    // Problem-specific fit (35 pts)
+    if (hasCheckout) { foundationalScore += 7; strengths.push('Revenue capture and checkout stage defined'); }
+    else { bottlenecks.push('Missing explicit checkout / revenue capture step'); recommendations.push('Add a Checkout Engine or Billing stage'); }
+
+    // 2. Domain-Specific Business Fit (20 pts)
     const lowerTopic = topic.toLowerCase();
     if (/retention|subscription|lifecycle/i.test(lowerTopic)) {
-      if (hasRetention) { problemFitScore += 25; strengths.push('Customer retention loop integrated for recurring lifecycle value'); }
-      else { bottlenecks.push('Missing retention loop in subscription lifecycle flow'); recommendations.push('Add retention loop or automated email nurture node'); }
-      if (hasFulfillment) problemFitScore += 10;
+      if (hasRetention) { problemFitScore += 14; strengths.push('Customer retention loop integrated for recurring lifecycle value'); }
+      else { bottlenecks.push('Missing retention loop in subscription lifecycle flow'); recommendations.push('Add a Retention Loop or CRM nurture stage'); }
+      if (hasFulfillment) { problemFitScore += 6; strengths.push('Operational fulfillment connected'); }
     } else if (/supply|logistics|fulfillment|ops/i.test(lowerTopic)) {
-      if (hasFulfillment) { problemFitScore += 25; strengths.push('Fulfillment logistics and supplier networks established'); }
-      else { bottlenecks.push('Missing fulfillment logistics node for operational delivery'); recommendations.push('Add logistics hub or supplier node'); }
-      if (hasRetention) problemFitScore += 10;
+      if (hasFulfillment) { problemFitScore += 14; strengths.push('Fulfillment logistics and supplier network established'); }
+      else { bottlenecks.push('Missing fulfillment logistics stage for operational delivery'); recommendations.push('Add Logistics Hub or Supplier Network'); }
+      if (hasRetention) { problemFitScore += 6; strengths.push('Post-delivery CRM/retention tracking included'); }
     } else {
-      if (hasRetention) { problemFitScore += 18; strengths.push('Post-purchase retention loop included'); }
-      if (hasFulfillment) { problemFitScore += 17; strengths.push('Fulfillment pipeline connected'); }
+      if (hasRetention) { problemFitScore += 10; strengths.push('Post-purchase CRM & retention loop included'); }
+      else { bottlenecks.push('No post-purchase CRM or retention loop to protect LTV'); recommendations.push('Add CRM / Support or Retention Loop after fulfillment'); }
+      if (hasFulfillment) { problemFitScore += 10; strengths.push('Fulfillment and supplier operations included'); }
+      else { bottlenecks.push('No fulfillment or delivery operations stage'); recommendations.push('Add Logistics Hub or Supplier Network to fulfill orders'); }
     }
 
-    // Connectivity (25 pts)
+    // 3. Real Directed Graph Connectivity & Funnel Flow Logic (45 pts)
     const linkCount = rawLinks.length;
-    if (linkCount >= nodes.length - 1 && linkCount > 0) {
-      topologyScore += 25;
-      strengths.push('Cohesive end-to-end customer journey pipeline');
-    } else if (linkCount > 0) {
-      topologyScore += Math.round((linkCount / Math.max(1, nodes.length)) * 25);
-      bottlenecks.push('Fragmented workflow: Some stages lack conversion handover arrows');
-      recommendations.push('Connect all stages from audience down to fulfillment');
+    let flowAccuracyRatio = 0;
+    let illogicalJumpLinks = 0;
+    let connectivityRatio = 0;
+
+    if (linkCount === 0) {
+      bottlenecks.push('Disconnected workflow: No handover arrows drawn between business stages.');
+      recommendations.push('Toggle Connect mode and draw directional arrows from Audience → Acquisition → Checkout → Fulfillment → Retention.');
     } else {
-      bottlenecks.push('Disconnected business nodes: No conversion handovers drawn');
-      recommendations.push('Toggle Connection Mode to link customer stages');
+      const nodeById = new Map(nodes.map(n => [n.id, n]));
+      const nodeByType = new Map(nodes.map(n => [n.type.toLowerCase(), n]));
+      const connectedIds = new Set<string>();
+      let validLogicalLinks = 0;
+      const badFlowExamples: string[] = [];
+
+      for (const l of rawLinks as any[]) {
+        const fromNode = (l.from && nodeById.get(l.from)) || (l.fromType && nodeByType.get(String(l.fromType).toLowerCase()));
+        const toNode = (l.to && nodeById.get(l.to)) || (l.toType && nodeByType.get(String(l.toType).toLowerCase()));
+        if (fromNode) connectedIds.add(fromNode.id);
+        if (toNode) connectedIds.add(toNode.id);
+        if (!fromNode || !toNode) continue;
+
+        const fromStage = classifyBusinessStage(fromNode);
+        const toStage = classifyBusinessStage(toNode);
+
+        // Valid flows:
+        // - Forward step within 1 stage (e.g., Audience(0)->Ad/Landing(1)->Checkout(2)->Logistics(3)->CRM/Retention(4))
+        // - Within same stage (e.g., Ad Campaign(1)->Landing Page(1), Supplier(3)->Logistics(3), CRM(4)->Retention(4))
+        // - Checkout(2) directly to CRM/Retention(4) for digital/service delivery
+        // - Valid retention loop back: Retention/CRM(4) -> Audience(0) or Acquisition(1)
+        const isValidStep =
+          (toStage >= fromStage && toStage - fromStage <= 1) ||
+          (fromStage === 2 && toStage === 4) ||
+          (fromStage === 4 && (toStage === 0 || toStage === 1));
+
+        if (isValidStep) {
+          validLogicalLinks += 1;
+        } else {
+          illogicalJumpLinks += 1;
+          if (badFlowExamples.length < 2) {
+            badFlowExamples.push(`${fromNode.label} → ${toNode.label}`);
+          }
+        }
+      }
+
+      connectivityRatio = nodes.length > 0 ? connectedIds.size / nodes.length : 0;
+      flowAccuracyRatio = (validLogicalLinks + illogicalJumpLinks) > 0
+        ? validLogicalLinks / (validLogicalLinks + illogicalJumpLinks)
+        : 0;
+
+      // Connectivity points are gated by flow validity so spaghetti links cannot farm full connectivity credit
+      const connectPts = Math.round(connectivityRatio * (5 + 10 * flowAccuracyRatio));
+      const orderPts = Math.round(flowAccuracyRatio * 30);
+      topologyScore += connectPts + orderPts;
+
+      if (connectivityRatio < 1) {
+        const orphanCount = nodes.length - connectedIds.size;
+        bottlenecks.push(`${orphanCount} placed stage${orphanCount === 1 ? '' : 's'} left disconnected from the workflow.`);
+        recommendations.push('Connect every placed business stage so there are no orphaned steps.');
+      }
+
+      if (illogicalJumpLinks > 0) {
+        bottlenecks.push(`Illogical stage handovers detected (${badFlowExamples.join(', ')}) — stages skip required funnel or checkout steps.`);
+        recommendations.push('Route flows in sequence: Target Audience → Ad Campaign → Landing Page → Checkout → Fulfillment → CRM/Retention.');
+      } else if (connectivityRatio === 1 && validLogicalLinks >= Math.max(2, nodes.length - 1)) {
+        strengths.push('Cohesive, logically sequenced end-to-end customer & operational workflow');
+      }
     }
 
-    // Decoupling & Growth Levers (10 pts)
-    if (nodes.length >= 4) decouplingScore += 5;
-    if (hasRetention && hasAudience) decouplingScore += 5;
+    // 4. Closed-Loop Growth & Retention Integrity (13 pts — requires valid sequencing!)
+    if (flowAccuracyRatio >= 0.7 && nodes.length >= 4 && hasAudience && hasCheckout) decouplingScore += 6;
+    if (flowAccuracyRatio >= 0.7 && hasRetention && hasAudience && rawLinks.length >= 3) decouplingScore += 7;
 
+    const spaghettiPenalty = illogicalJumpLinks > 0 ? Math.min(20, illogicalJumpLinks * 4) : 0;
+    let rawTotal = foundationalScore + problemFitScore + topologyScore + decouplingScore - spaghettiPenalty;
+    // Cap score strictly if half or more of drawn links violate logical business-stage sequencing
+    if (linkCount > 0 && flowAccuracyRatio < 0.5) {
+      rawTotal = Math.min(rawTotal, 54);
+    }
+    const finalScore = Math.max(0, Math.min(98, Math.round(rawTotal)));
+    const grade: ArchitectureEvaluationResult['grade'] =
+      finalScore >= 88 ? 'A+' :
+      finalScore >= 75 ? 'A' :
+      finalScore >= 60 ? 'B' :
+      finalScore >= 40 ? 'C' : 'Needs Work';
+
+    const flowFactor = linkCount === 0 ? 0.45 : (0.35 + 0.65 * flowAccuracyRatio);
+    const growthLeverageRating = Math.min(98, Math.round(
+      ((hasAudience ? 25 : 0) +
+      (hasFunnel ? 25 : 0) +
+      (hasCheckout ? 25 : 0) +
+      (hasRetention ? 23 : 0)) * flowFactor
+    ));
+    const opsContinuityRating = Math.min(98, Math.round(
+      ((hasFulfillment ? 35 : 0) +
+      (hasRetention ? 30 : 0) +
+      Math.min(33, Math.round((topologyScore / 45) * 33))) * flowFactor
+    ));
+
+    const spokenFeedback = finalScore >= 80
+      ? `Strong business workflow for ${topic}! Your journey cleanly connects customer acquisition, conversion, operational fulfillment, and post-purchase retention.`
+      : finalScore >= 55
+      ? `Workable initial business workflow for ${topic}, scoring ${finalScore}/100. To strengthen commercial execution, address: ${bottlenecks[0] || 'stage sequencing and conversion handovers'}.`
+      : `Your business workflow for ${topic} needs clearer funnel sequencing (${finalScore}/100). Focus first on: ${bottlenecks[0] || 'connecting audience, acquisition, checkout, and fulfillment in order'}.`;
+
+    return {
+      score: finalScore,
+      grade,
+      scalabilityRating: growthLeverageRating,
+      reliabilityRating: opsContinuityRating,
+      strengths: strengths.length > 0 ? strengths : ['Initial business stages placed'],
+      bottlenecks: bottlenecks.length > 0 ? bottlenecks : ['No major workflow gaps detected'],
+      recommendations: recommendations.length > 0 ? recommendations : ['Workflow covers core commercial stages cleanly'],
+      summary: `Business workflow scored ${finalScore}/100 (${grade}) for ${topic}. ${strengths.length} strengths and ${bottlenecks.length} bottleneck${bottlenecks.length === 1 ? '' : 's'} identified.`,
+      spokenFeedback
+    };
   } else {
     // Tech system architecture evaluation
     const hasClient = nodes.some(n => /client|mobile|web|frontend|app/i.test(n.type + ' ' + n.label));
