@@ -61,6 +61,12 @@ export interface Round1BehavioralProps {
   setAnimState?: (state: 'idle' | 'talking' | 'thinking') => void;
   isDockedUnderCam?: boolean;
   onToggleDock?: () => void;
+  /** Optional overrides so Proof Vault Defense reuses the exact live 3D AI Interview stage */
+  customStageBadge?: string;
+  customStageTitle?: string;
+  customProgressText?: string;
+  hideRoundControls?: boolean;
+  footerResultNode?: React.ReactNode;
 }
 
 export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
@@ -100,6 +106,11 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
   setAnimState,
   isDockedUnderCam = false,
   onToggleDock,
+  customStageBadge,
+  customStageTitle,
+  customProgressText,
+  hideRoundControls = false,
+  footerResultNode,
 }) => {
   const userResponseCount = React.useMemo(() => {
     return messages.filter(m => m.role === 'user' && !SKIP_TURN_REGEX.test(m.content.trim())).length;
@@ -198,36 +209,42 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
       }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
           <div>
-            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 1 OF 4</span>
-            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Behavioral &amp; Background Intro</h2>
+            <span style={{ fontSize: 10.5, fontWeight: 800, color: customStageBadge ? '#ef4444' : 'var(--accent-mid)' }}>
+              {customStageBadge || 'ROUND 1 OF 4'}
+            </span>
+            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>
+              {customStageTitle || 'Behavioral & Background Intro'}
+            </h2>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
-            {canProceed ? (
-              <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
-                {domainStream === 'non_tech' ? 'Continue to case study ➔' : 'Continue to coding ➔'}
-              </button>
-            ) : onSkipRound && (
-              <button
-                type="button"
-                data-testid="round1-skip-round-btn"
-                onClick={onSkipRound}
-                title="Skip Round 1 and move directly to Round 2 (recorded as skipped)"
-                style={{
-                  background: 'var(--bg3)',
-                  border: '1px solid var(--border)',
-                  color: 'var(--t2)',
-                  borderRadius: 6,
-                  padding: '5px 10px',
-                  fontSize: 11,
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                ⏭ Skip Round
-              </button>
-            )}
-          </div>
+          {!hideRoundControls && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+              {canProceed ? (
+                <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 6, padding: '5px 10px', fontSize: 11 }}>
+                  {domainStream === 'non_tech' ? 'Continue to case study ➔' : 'Continue to coding ➔'}
+                </button>
+              ) : onSkipRound && (
+                <button
+                  type="button"
+                  data-testid="round1-skip-round-btn"
+                  onClick={onSkipRound}
+                  title="Skip Round 1 and move directly to Round 2 (recorded as skipped)"
+                  style={{
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t2)',
+                    borderRadius: 6,
+                    padding: '5px 10px',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  ⏭ Skip Round
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         <div
@@ -244,7 +261,9 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
             flexShrink: 0
           }}
         >
-          {canProceed
+          {customProgressText
+            ? customProgressText
+            : canProceed
             ? (domainStream === 'non_tech'
                 ? '✅ 3/3 Behavioral responses complete — Ready for Round 2 Case Study!'
                 : '✅ 3/3 Behavioral responses complete — Ready for Round 2 Coding!')
@@ -283,63 +302,69 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
           </div>
         )}
 
-        <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 4, flexShrink: 0 }}>
-          {/* ⌨️ Direct Typed Response Fallback for Noisy Environments */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (!manualTextInput.trim() || isSendingInterviewMessage) return;
-              const textToSend = manualTextInput.trim();
-              setManualTextInput('');
-              console.log('[Interview] ⌨️ Candidate submitted typed response:', textToSend);
-              onSendMessage(textToSend);
-            }}
-            style={{ display: 'flex', gap: 6 }}
-          >
-            <input
-              type="text"
-              value={manualTextInput}
-              disabled={isSendingInterviewMessage}
-              onChange={(e) => setManualTextInput(e.target.value)}
-              onKeyDown={(e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                  e.preventDefault();
-                  if (!manualTextInput.trim() || isSendingInterviewMessage) return;
-                  const textToSend = manualTextInput.trim();
-                  setManualTextInput('');
-                  console.log('[Interview] ⌨️ Candidate submitted typed response via shortcut:', textToSend);
-                  onSendMessage(textToSend);
-                }
+        {footerResultNode ? (
+          <div style={{ marginTop: 8, flexShrink: 0 }}>{footerResultNode}</div>
+        ) : (
+          <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 4, flexShrink: 0 }}>
+            {/* ⌨️ Direct Typed Response Fallback for Noisy Environments */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!manualTextInput.trim() || isSendingInterviewMessage) return;
+                const textToSend = manualTextInput.trim();
+                setManualTextInput('');
+                console.log('[Interview] ⌨️ Candidate submitted typed response:', textToSend);
+                onSendMessage(textToSend);
               }}
-              placeholder="Or type your response here... (Enter or Ctrl+↵ to send)"
-              style={{
-                flex: 1,
-                padding: '6px 10px',
-                borderRadius: 7,
-                border: '1px solid var(--border)',
-                background: 'var(--bg3)',
-                color: 'var(--t1)',
-                fontSize: 11.5
-              }}
-            />
-            <button
-              type="submit"
-              disabled={!manualTextInput.trim() || isSendingInterviewMessage}
-              style={{
-                padding: '6px 12px',
-                borderRadius: 8,
-                border: 'none',
-                background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
-                color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
-                fontSize: 12.5,
-                fontWeight: 800,
-                cursor: manualTextInput.trim() ? 'pointer' : 'default'
-              }}
+              style={{ display: 'flex', gap: 6 }}
             >
-              {isSendingInterviewMessage ? 'Thinking…' : 'Send ➔'}
-            </button>
-          </form>
-        </div>
+              <input
+                type="text"
+                data-testid="vault-defense-answer-input"
+                value={manualTextInput}
+                disabled={isSendingInterviewMessage}
+                onChange={(e) => setManualTextInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!manualTextInput.trim() || isSendingInterviewMessage) return;
+                    const textToSend = manualTextInput.trim();
+                    setManualTextInput('');
+                    console.log('[Interview] ⌨️ Candidate submitted typed response via shortcut:', textToSend);
+                    onSendMessage(textToSend);
+                  }
+                }}
+                placeholder="Or type your response here... (Enter or Ctrl+↵ to send)"
+                style={{
+                  flex: 1,
+                  padding: '6px 10px',
+                  borderRadius: 7,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg3)',
+                  color: 'var(--t1)',
+                  fontSize: 11.5
+                }}
+              />
+              <button
+                type="submit"
+                data-testid="vault-defense-submit-btn"
+                disabled={!manualTextInput.trim() || isSendingInterviewMessage}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 8,
+                  border: 'none',
+                  background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
+                  color: manualTextInput.trim() ? '#ffffff' : 'var(--t3)',
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  cursor: manualTextInput.trim() ? 'pointer' : 'default'
+                }}
+              >
+                {isSendingInterviewMessage ? 'Thinking…' : 'Send ➔'}
+              </button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

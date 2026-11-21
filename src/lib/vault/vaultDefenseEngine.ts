@@ -20,6 +20,12 @@ export interface VaultAuditorProfile {
   emoji: string;
 }
 
+export interface VaultDefenseProject {
+  name: string;
+  techStack: string[];
+  claim: string;
+}
+
 export interface VaultDefenseChallenge {
   docId: string;
   userId?: string;
@@ -27,6 +33,10 @@ export interface VaultDefenseChallenge {
   itemType: string;
   organizationName?: string;
   claimedSkills: string[];
+  projects?: VaultDefenseProject[];
+  summary?: string;
+  defenseQuestions?: string[];
+  analysisSource?: string;
   auditor: VaultAuditorProfile;
   createdAt: string;
 }
@@ -122,6 +132,23 @@ const KNOWN_SKILL_DICTIONARY: Array<{ pattern: RegExp; canonical: string }> = [
   { pattern: /\baudit(?:ing)?\b|\bifrs\b|\bgaap\b/i, canonical: 'Audit & Assurance' },
   { pattern: /\bseo\b|\bdigital marketing\b|\banalytics\b/i, canonical: 'Digital Marketing Analytics' },
   { pattern: /\bexcel\b|\bpower bi\b|\btableau\b/i, canonical: 'Data Analytics & BI' },
+  { pattern: /\bflutter\b|\bdart\b/i, canonical: 'Flutter & Dart' },
+  { pattern: /\breact native\b/i, canonical: 'React Native' },
+  { pattern: /\bfirebase\b|\bfirestore\b/i, canonical: 'Firebase' },
+  { pattern: /\bsupabase\b/i, canonical: 'Supabase' },
+  { pattern: /\bgraphql\b/i, canonical: 'GraphQL' },
+  { pattern: /\bfigma\b|\bui\/ux\b/i, canonical: 'UI/UX & Figma' },
+  { pattern: /\blangchain\b|\bllm\b|\bgenerative ai\b|\bprompt engineering\b/i, canonical: 'Generative AI & LLMs' },
+  { pattern: /\biot\b|\barduino\b|\besp32\b|\braspberry pi\b|\bembedded\b/i, canonical: 'IoT & Embedded Systems' },
+  { pattern: /\bangular\b/i, canonical: 'Angular' },
+  { pattern: /\bvue(?:\.js)?\b/i, canonical: 'Vue.js' },
+  { pattern: /\bspring\s*boot\b/i, canonical: 'Spring Boot' },
+  { pattern: /\bphp\b|\blaravel\b/i, canonical: 'PHP & Laravel' },
+  { pattern: /\bc#\b|\b\.net\b|\basp\.net\b/i, canonical: 'C# / .NET' },
+  { pattern: /\bandroid\b|\bkotlin\b/i, canonical: 'Android & Kotlin' },
+  { pattern: /\bswift\b|\bios\b/i, canonical: 'iOS & Swift' },
+  { pattern: /\bterraform\b|\bansible\b|\bjenkins\b/i, canonical: 'DevOps & IaC' },
+  { pattern: /\bgcp\b|\bgoogle cloud\b|\bazure\b/i, canonical: 'Cloud Infrastructure' },
 ];
 
 /**
@@ -161,6 +188,16 @@ export function generateBrutalDefensePrompt(
   challenge: VaultDefenseChallenge,
   stepIndex: number
 ): string {
+  const auditor = challenge.auditor.name;
+  const aiQuestion = challenge.defenseQuestions?.[stepIndex]?.trim();
+  if (aiQuestion && aiQuestion.length >= 20) {
+    if (stepIndex === 0 && !aiQuestion.toLowerCase().includes(auditor.toLowerCase())) {
+      const skillsPreview = challenge.claimedSkills.slice(0, 6).join(', ');
+      return `${auditor} (Credential Auditor): I just read your "${challenge.title}"${skillsPreview ? ` — you list ${skillsPreview}` : ''}. No generic fluff. ${aiQuestion}`;
+    }
+    return aiQuestion;
+  }
+
   const skills = challenge.claimedSkills.length > 0
     ? challenge.claimedSkills
     : ['Core Technical Foundations', 'Architecture'];
@@ -168,7 +205,6 @@ export function generateBrutalDefensePrompt(
   const skill2 = skills[1] || skills[0];
   const skill3 = skills[2] || skills.slice(0, 3).join(', ');
   const docLabel = challenge.itemType === 'certification' ? 'Certificate' : challenge.itemType === 'resume' ? 'Resume' : 'Document';
-  const auditor = challenge.auditor.name;
 
   if (stepIndex === 0) {
     return `${auditor} (Credential Auditor): Hold on — I audited "${challenge.title}" (${docLabel}) where you claim: ${skills.slice(0, 5).join(', ')}. Buzzwords on a ${docLabel.toLowerCase()} mean nothing to me until you survive questioning. Let's test if this document is real or bluff. Question 1 of 3 — Pick up ${skill1}: explain the exact internal mechanics, memory/data flow, and one concrete failure mode you personally solved using ${skill1}. No textbook definitions.`;

@@ -30,10 +30,10 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
-import { extractDocumentEvidence } from '@/lib/ats/pdfTextExtractor';
 import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
 import { bridgeAtsToCompetencyGraph } from '@/lib/pathway/atsCompetencyBridge';
 import { auditResumeATS } from '@/lib/ats/atsScreener';
+import { analyzeVaultFileBufferWithGroq } from '@/lib/vault/groqDocumentAnalyzer';
 import {
   classifyDocumentCategory,
   checkNameSimilarity,
@@ -87,6 +87,8 @@ export async function POST(req: Request) {
     }
     const targetCategory = (formData.get('category') as string) || '';
     const primaryName = (formData.get('primaryName') as string) || '';
+    const auditorName = (formData.get('auditorName') as string) || 'Mr. Akash';
+    const headerGroqKey = req.headers.get('x-groq-api-key') || (formData.get('groqKey') as string | null);
 
     if (!file) {
       console.error(`❌ [STAGE 1/12 - Validation Error]: No file buffer found in multipart payload.`);
@@ -106,19 +108,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: securityGate.error || 'Document rejected by security gateway.' }, { status: 400 });
     }
 
-    // STAGE 3 & 4: Multi-Path Native Extraction & SHA-256 Fingerprint
-    console.log(`📄 [STAGE 3/12 - Native Stream Extractor]: Routing to ${securityGate.fileFormat} parser...`);
-    const extraction = extractDocumentEvidence(fileBuffer, securityGate.fileFormat);
-    const rawText = extraction.rawText || '';
-    console.log(`🔑 [STAGE 4/12 - Evidence Fingerprint]: Document SHA-256 = ${extraction.documentHash} (Extracted ${rawText.length} clean characters)`);
+    // STAGE 3 & 4: Multi-Path Native Extraction + Groq AI Vision/Text Intelligence
+    console.log(`📄 [STAGE 3/12 - Native + Groq AI Extractor]: Routing ${securityGate.fileFormat} parser + Groq reader...`);
+    const { extraction, groqAnalysis, effectiveRawText } = await analyzeVaultFileBufferWithGroq(
+      fileBuffer,
+      fileName,
+      securityGate.mimeType,
+      {
+        auditorName,
+        customGroqKey: headerGroqKey,
+      }
+    );
+    const rawText = effectiveRawText || extraction.rawText || '';
+    const effectiveConfidence = groqAnalysis
+      ? Math.max(extraction.extractionConfidence, 0.92)
+      : extraction.extractionConfidence;
+    console.log(`🔑 [STAGE 4/12 - Evidence Fingerprint]: Document SHA-256 = ${extraction.documentHash} (Extracted ${rawText.length} clean chars, Groq=${groqAnalysis?.source || 'none'})`);
 
-    // Honest Refusal: Immediately reject unreadable files rather than scoring phantom metadata
-    if (rawText.trim().length < 30 || extraction.extractionConfidence < 0.2 || extraction.error) {
+    // Honest Refusal: Immediately reject truly unreadable files when neither native parser nor Groq Vision could read content
+    if (rawText.trim().length < 30 && !groqAnalysis) {
       console.warn(`🛑 [STAGE 4/12 - Extraction Refusal]: Document contains unreadable content (${rawText.length} chars, confidence ${extraction.extractionConfidence}).`);
       return NextResponse.json(
         {
           error: 'UNREADABLE_DOCUMENT',
-          message: 'We could not read this document. Please ensure your file contains selectable text and is not an encrypted, flattened, or unreadable document.'
+          message: 'We could not read this document. Please ensure your file contains selectable text or a clear image and is not encrypted or corrupted.'
         },
         { status: 422 }
       );
@@ -130,24 +143,45 @@ export async function POST(req: Request) {
       'resume', 'achievement', 'certification', 'internship', 'other'
     ]);
     const validTargetCat = VALID_CATEGORIES.has(targetCategory) ? (targetCategory as VaultCategory) : null;
-    const category: VaultCategory = validTargetCat || classifyDocumentCategory(fileName, rawText);
+    const groqCat =
+      groqAnalysis?.documentType && VALID_CATEGORIES.has(groqAnalysis.documentType)
+        ? (groqAnalysis.documentType as VaultCategory)
+        : null;
+    const category: VaultCategory = validTargetCat || groqCat || classifyDocumentCategory(fileName, rawText);
     console.log(`🏷️ [STAGE 5/12 - Category Classifier]: Classified document as category = "${category}"`);
 
-    // STAGE 6, 7 & 8: Contextual Grounding & Deterministic Fact Validation
+    // STAGE 6, 7 & 8: Contextual Grounding & Deterministic Fact Validation + Groq Deep Skill Merge
     console.log(`⚖️ [STAGE 7/12 - Fact Grounder]: Grounding entities directly into immutable evidence text...`);
     const validatedGraph = groundAndValidateEvidence(
-      rawText,
+      rawText || `${fileName} ${groqAnalysis?.skills.join(', ') || ''}`,
       fileName,
       extraction.documentHash,
-      extraction.extractionMethod,
-      extraction.extractionConfidence,
+      groqAnalysis?.source === 'groq-vision' || groqAnalysis?.source === 'gemini-vision'
+        ? 'OCR_VISION'
+        : extraction.extractionMethod,
+      effectiveConfidence,
       category
     );
 
-    const detectedName = validatedGraph.candidateName;
-    const institution = validatedGraph.institution || 'Academic Institution';
+    const detectedName =
+      validatedGraph.candidateName && validatedGraph.candidateName !== 'Candidate'
+        ? validatedGraph.candidateName
+        : groqAnalysis?.candidateName || 'Candidate';
+    const institution =
+      validatedGraph.institution && validatedGraph.institution !== 'Academic Institution'
+        ? validatedGraph.institution
+        : groqAnalysis?.institution || 'Academic Institution';
     const scoreOrGpa = validatedGraph.scoreOrGpa || (category === '10th' ? '10th Marksheet' : category === '12th_puc' ? '12th/PUC Certificate' : 'Academic Credential');
-    const skills = validatedGraph.documentSupportedSkills;
+
+    // Merge Groq-extracted real skills (primary) with deterministic lexicon skills (secondary)
+    const mergedSkillMap = new Map<string, string>();
+    for (const sk of [...(groqAnalysis?.skills || []), ...(validatedGraph.documentSupportedSkills || [])]) {
+      const clean = String(sk || '').trim();
+      if (clean && !mergedSkillMap.has(clean.toLowerCase())) {
+        mergedSkillMap.set(clean.toLowerCase(), clean);
+      }
+    }
+    const skills = Array.from(mergedSkillMap.values()).slice(0, 15);
 
     console.log(`📊 [STAGE 8/12 - Grounded Entity Summary]:\n   - Name: "${detectedName}"\n   - Institution: "${institution}"\n   - Score/Grade: "${scoreOrGpa}"\n   - Document-Supported Skills (${skills.length}): [${skills.join(', ')}]\n   - Projects Grounded (${validatedGraph.projects.length}): [${validatedGraph.projects.map(p => p.title).join(', ')}]`);
 
@@ -329,6 +363,16 @@ export async function POST(req: Request) {
       ok: true,
       data: slotPayload,
       document: slotPayload,
+      aiAnalysis: groqAnalysis
+        ? {
+            source: groqAnalysis.source,
+            skills,
+            projects: groqAnalysis.projects,
+            certifications: groqAnalysis.certifications,
+            summary: groqAnalysis.summary,
+            defenseQuestions: groqAnalysis.defenseQuestions,
+          }
+        : null,
       provenance: validatedGraph.provenanceRecords,
       executionTimeMs: totalDurationMs,
       message: `Successfully grounded and processed ${fileName}`

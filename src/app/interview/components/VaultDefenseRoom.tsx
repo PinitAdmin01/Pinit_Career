@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
-import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import { api } from '@/lib/api/client';
-import { toast } from '@/lib/store/useAppStore';
+import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 import {
   type VaultDefenseChallenge,
   type VaultDefenseResult,
@@ -24,11 +22,12 @@ import {
   recordCheatingIncident,
 } from '@/lib/trust/trustEngine';
 import { recordMetricLedgerEntry } from '@/lib/telemetry/metricsLedger';
-
-const VRoidInterviewAvatar = dynamic(
-  () => import('@/components/avatar/VRoidInterviewAvatar'),
-  { ssr: false }
-);
+import { InterviewSessionHeader } from './InterviewSessionHeader';
+import { InterviewVoiceHud } from './InterviewVoiceHud';
+import { Round1Behavioral } from './Round1Behavioral';
+import { useInterviewVoice } from '../hooks/useInterviewVoice';
+import { useInterviewGaze } from '../hooks/useInterviewGaze';
+import type { AvatarTeacher, Message } from '../interviewTypes';
 
 interface VaultDefenseRoomProps {
   user: any;
@@ -36,6 +35,32 @@ interface VaultDefenseRoomProps {
   docId: string | null;
   initialChallenge: VaultDefenseChallenge | null;
 }
+
+function buildVaultPromptContext(challenge: VaultDefenseChallenge): string {
+  const lines: string[] = [
+    `Document Title: ${challenge.title}`,
+    `Document Category: ${challenge.itemType}`,
+  ];
+  if (challenge.organizationName) {
+    lines.push(`Organization / Issuer: ${challenge.organizationName}`);
+  }
+  if (challenge.claimedSkills.length > 0) {
+    lines.push(`Extracted Skills & Tools: ${challenge.claimedSkills.join(', ')}`);
+  }
+  if (challenge.projects && challenge.projects.length > 0) {
+    lines.push(
+      `Extracted Projects & Experience:\n${challenge.projects
+        .map((p) => `- ${p.name}${p.techStack.length ? ` [${p.techStack.join(', ')}]` : ''}: ${p.claim}`)
+        .join('\n')}`
+    );
+  }
+  if (challenge.summary) {
+    lines.push(`Document Summary: ${challenge.summary}`);
+  }
+  return lines.join('\n');
+}
+
+const TOTAL_DEFENSE_TURNS = 3;
 
 export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   user,
@@ -46,30 +71,48 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   const router = useRouter();
   const [challenge, setChallenge] = useState<VaultDefenseChallenge | null>(() => initialChallenge);
   const [started, setStarted] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [messages, setMessages] = useState<Array<{ role: 'assistant' | 'user'; content: string }>>([]);
+  const [isPreparing, setIsPreparing] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [answerInput, setAnswerInput] = useState('');
+  const [manualTextInput, setManualTextInput] = useState('');
   const [animState, setAnimState] = useState<AnimState>('idle');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSendingReply, setIsSendingReply] = useState(false);
   const [result, setResult] = useState<VaultDefenseResult | null>(null);
-  const [isListening, setIsListening] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [tabWarnings, setTabWarnings] = useState(0);
 
-  const chatEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<Message[]>([]);
+  messagesRef.current = messages;
+  const userAnswersRef = useRef<string[]>([]);
+  userAnswersRef.current = userAnswers;
   const sessionIdRef = useRef<string>(`vault_defense_${docId || 'doc'}_${Date.now()}`);
+  const preparedDocIdRef = useRef<string | null>(null);
+  const sendingLockRef = useRef<boolean>(false);
 
-  // Fallback reconstruction if page reloaded directly with ?mode=vault_verify&docId=...
+  // Reconstruct challenge on reload directly from ?mode=vault_verify&docId=...
   useEffect(() => {
     if (challenge) return;
     const vaultItem = docId ? (cOS?.vaultItems || []).find((i: any) => i.id === docId) : null;
     const activeMentorId = getActiveUserMentorId(user);
     const auditor = resolveVaultAuditorMentor(activeMentorId);
     if (vaultItem) {
-      const skills = extractSkillsFast(
-        `${vaultItem.title} ${vaultItem.description || ''}`,
-        vaultItem.skill_tags
+      let cachedAi: any = null;
+      if (typeof window !== 'undefined') {
+        try {
+          const raw = localStorage.getItem(`pinit_vault_ai_analysis_${vaultItem.id}`);
+          if (raw) cachedAi = JSON.parse(raw);
+        } catch {}
+      }
+      const skills = Array.from(
+        new Set(
+          [
+            ...(Array.isArray(cachedAi?.skills) ? cachedAi.skills : []),
+            ...(Array.isArray(vaultItem.skill_tags) ? vaultItem.skill_tags : []),
+          ]
+            .map((s: any) => String(s || '').trim())
+            .filter(Boolean)
+        )
       );
       setChallenge({
         docId: vaultItem.id,
@@ -77,18 +120,140 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
         title: vaultItem.title || 'Uploaded Credential',
         itemType: vaultItem.item_type || 'resume',
         organizationName: vaultItem.organization_name,
-        claimedSkills: skills.length > 0 ? skills : ['System Design', 'Problem Solving'],
+        claimedSkills:
+          skills.length > 0
+            ? skills
+            : extractSkillsFast(`${vaultItem.title} ${vaultItem.description || ''}`, vaultItem.skill_tags),
+        projects: cachedAi?.projects,
+        summary: cachedAi?.summary,
+        defenseQuestions: cachedAi?.defenseQuestions,
+        analysisSource: cachedAi?.source,
         auditor,
         createdAt: new Date().toISOString(),
       });
     }
   }, [challenge, docId, cOS?.vaultItems, user]);
 
+  // Step 1: Deep Groq Document Read (reads actual uploaded PDF/DOCX/Image from Supabase Storage)
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (!challenge || started) return;
+    if (preparedDocIdRef.current === challenge.docId) return;
 
-  // Anti-Cheating Proctoring: Deduct -2 once per session if user switches tabs during brutal defense
+    const onlyGenericSkills =
+      challenge.claimedSkills.length === 0 ||
+      challenge.claimedSkills.every((s) => ['system design', 'problem solving'].includes(s.toLowerCase()));
+    const hasAiAnalysis = Boolean(
+      challenge.analysisSource &&
+        challenge.analysisSource !== 'fallback' &&
+        (challenge.projects?.length || challenge.summary)
+    );
+
+    if (hasAiAnalysis && !onlyGenericSkills) {
+      preparedDocIdRef.current = challenge.docId;
+      return;
+    }
+
+    let cancelled = false;
+    let completed = false;
+    const activeDocId = challenge.docId;
+    preparedDocIdRef.current = activeDocId;
+    setIsPreparing(true);
+    setAnimState('thinking');
+
+    api
+      .post<{
+        ok: boolean;
+        analysisSource?: string;
+        claimedSkills?: string[];
+        projects?: Array<{ name: string; techStack: string[]; claim: string }>;
+        summary?: string;
+        defenseQuestions?: string[];
+      }>('/api/vault/defense-session', {
+        action: 'prepare',
+        docId: activeDocId,
+        title: challenge.title,
+        itemType: challenge.itemType,
+        auditorName: challenge.auditor.name,
+        existingSkills: challenge.claimedSkills,
+      })
+      .then((res) => {
+        if (cancelled || !res?.ok) return;
+        completed = true;
+        const nextSkills =
+          Array.isArray(res.claimedSkills) && res.claimedSkills.length > 0
+            ? res.claimedSkills
+            : challenge.claimedSkills.length > 0
+            ? challenge.claimedSkills
+            : ['Core Technical Foundations'];
+        const nextQuestions =
+          Array.isArray(res.defenseQuestions) && res.defenseQuestions.length > 0
+            ? res.defenseQuestions
+            : challenge.defenseQuestions;
+
+        setChallenge((prev) =>
+          prev
+            ? {
+                ...prev,
+                claimedSkills: nextSkills,
+                projects: Array.isArray(res.projects) && res.projects.length > 0 ? res.projects : prev.projects,
+                summary: res.summary || prev.summary,
+                defenseQuestions: nextQuestions,
+                analysisSource: res.analysisSource || prev.analysisSource,
+              }
+            : prev
+        );
+
+        if (res.claimedSkills && res.claimedSkills.length > 0) {
+          cOS?.updateVaultItem?.(activeDocId, { skill_tags: nextSkills }, { skipTrustMutation: true });
+          if (typeof window !== 'undefined') {
+            try {
+              localStorage.setItem(
+                `pinit_vault_ai_analysis_${activeDocId}`,
+                JSON.stringify({
+                  source: res.analysisSource,
+                  skills: nextSkills,
+                  projects: res.projects || [],
+                  summary: res.summary || '',
+                  defenseQuestions: nextQuestions || [],
+                })
+              );
+            } catch {}
+          }
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) {
+          completed = true;
+          setIsPreparing(false);
+          setAnimState('idle');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+      if (!completed && preparedDocIdRef.current === activeDocId) {
+        preparedDocIdRef.current = null;
+        setIsPreparing(false);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [challenge?.docId, started]);
+
+  // Session elapsed timer (reused in InterviewSessionHeader)
+  useEffect(() => {
+    if (!started || result) return;
+    const t = setInterval(() => setElapsedSeconds((s) => s + 1), 1000);
+    return () => clearInterval(t);
+  }, [started, result]);
+
+  const formatElapsed = useCallback((sec: number) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }, []);
+
+  // Anti-Cheating Proctoring: Deduct -2 once per session if user switches tabs during defense
   useEffect(() => {
     if (!started || result) return;
     const onVisibility = () => {
@@ -106,196 +271,338 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     return () => document.removeEventListener('visibilitychange', onVisibility);
   }, [started, result, user?.id]);
 
+  // Auto-scroll live chat transcript
   useEffect(() => {
-    return () => {
-      stopSpeaking();
-      try {
-        recognitionRef.current?.stop();
-      } catch {}
-    };
-  }, []);
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isSendingReply]);
 
-  const startDefense = () => {
-    if (!challenge) return;
-    setStarted(true);
-    setQuestionIndex(0);
-    setUserAnswers([]);
-    const q1 = generateBrutalDefensePrompt(challenge, 0);
-    setMessages([{ role: 'assistant', content: q1 }]);
-    speakWithAvatar(
-      q1,
-      challenge.auditor.id,
-      () => setAnimState('talking'),
-      () => setAnimState('idle')
-    );
-  };
+  const activeTeacher: AvatarTeacher = useMemo(
+    () => ({
+      id: challenge?.auditor.id || 'akash',
+      name: challenge?.auditor.name || 'Mr. Akash',
+      title: challenge?.auditor.title || 'Lead Credential Auditor',
+      emoji: challenge?.auditor.emoji || '🕵️‍♂️',
+    }),
+    [challenge]
+  );
 
-  const toggleVoiceMic = () => {
-    if (typeof window === 'undefined') return;
-    const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRec) {
-      toast.error('Voice Input Unavailable', 'Please type your defense response in the box below.');
-      return;
-    }
-    if (isListening && recognitionRef.current) {
-      try {
-        recognitionRef.current.stop();
-      } catch {}
-      setIsListening(false);
-      return;
-    }
-    try {
-      const rec = new SpeechRec();
-      rec.continuous = false;
-      rec.interimResults = false;
-      rec.lang = 'en-US';
-      rec.onstart = () => setIsListening(true);
-      rec.onresult = (ev: any) => {
-        const transcript = ev.results?.[0]?.[0]?.transcript || '';
-        if (transcript) {
-          setAnswerInput((prev) => (prev ? `${prev} ${transcript}` : transcript));
-        }
-      };
-      rec.onerror = () => setIsListening(false);
-      rec.onend = () => setIsListening(false);
-      recognitionRef.current = rec;
-      rec.start();
-    } catch {
-      setIsListening(false);
-    }
-  };
+  // Reuse Existing AI Interview Camera & Gaze Hook
+  const { showCameraPreview, eyeContactScore, videoPreviewRef, toggleCameraPreview, stopCamera } =
+    useInterviewGaze(started && !result, 'round1_behavioral');
 
-  const finalizeDefense = async (allAnswers: string[]) => {
-    if (!challenge) return;
-    setIsSubmitting(true);
-    setAnimState('thinking');
+  // Forward ref so useInterviewVoice can dispatch voice transcripts directly into the live chat handler
+  const handleSendRef = useRef<(text: string) => void>(() => {});
 
-    const evalRes = evaluateVaultDefenseResponses(challenge.claimedSkills, allAnswers);
-
-    try {
-      await api
-        .post('/api/vault/verify-defense', {
-          docId: challenge.docId,
-          passed: evalRes.passed,
-          score: evalRes.score,
-          auditorName: challenge.auditor.name,
-          claimedSkills: challenge.claimedSkills,
-        })
-        .catch(() => null);
-
-      if (evalRes.passed) {
-        cOS?.updateVaultItem?.(
-          challenge.docId,
-          {
-            verified: true,
-            ai_confidence_score: evalRes.score,
-            used_in_portfolio: true,
-          },
-          { skipTrustMutation: true }
-        );
-        if (typeof window !== 'undefined') {
-          try {
-            localStorage.setItem(
-              `pinit_vault_audit_status_${challenge.docId}`,
-              JSON.stringify({ status: 'verified', score: evalRes.score, auditor: challenge.auditor.name })
-            );
-          } catch {}
-        }
-        await applyTrustReward(
-          user?.id,
-          'vault_verified',
-          undefined,
-          `Verified Vault Defense (${challenge.title}) by ${challenge.auditor.name}`
-        );
-        if (typeof cOS?.addVerifiedSkills === 'function') {
-          cOS.addVerifiedSkills(challenge.claimedSkills, challenge.title);
-        }
-        recordMetricLedgerEntry(user?.id, {
-          metric: 'mentality',
-          feature: 'vault',
-          action: `Survived Brutal Defense · Stabilizer & Pattern Hunter`,
-          delta: 6,
-          previousValue: 0,
-          valueAfter: 6,
-          mentalityTag: 'Stabilizer',
-        });
-      } else {
-        cOS?.updateVaultItem?.(
-          challenge.docId,
-          {
-            verified: false,
-            ai_confidence_score: evalRes.score,
-          },
-          { skipTrustMutation: true }
-        );
-        // Track local rejection marker so UI shows Rejected badge clearly
-        if (typeof window !== 'undefined') {
-          try {
-            localStorage.setItem(
-              `pinit_vault_audit_status_${challenge.docId}`,
-              JSON.stringify({ status: 'rejected', score: evalRes.score, auditor: challenge.auditor.name })
-            );
-          } catch {}
-        }
-        await applyVaultRejectionPenalty(
-          user?.id,
-          undefined,
-          `Failed Skill Defense: Fake/Unsubstantiated "${challenge.title}"`
-        );
-      }
-      clearPendingVaultDefense(challenge.docId);
-    } finally {
-      setResult(evalRes);
-      setIsSubmitting(false);
-      const closingSpeech = evalRes.passed
-        ? `Respect. You backed up every claim on "${challenge.title}" with real engineering depth. I have marked your credential Verified, awarded +5 Trust Score, and pushed ${evalRes.verifiedSkillsAdded.length} verified skills to your Student Portfolio.`
-        : `Rejected. Your answers did not prove genuine mastery of "${challenge.title}". Fake or unverified resume claims cost -5 Trust Score. Come back only when you actually understand these skills.`;
-      setMessages((prev) => [...prev, { role: 'assistant', content: closingSpeech }]);
+  // Reuse Existing AI Interview Voice-First Hook (auto-listening mic, live transcript, barge-in, TTS sync)
+  const {
+    isVoiceListening,
+    isAvatarSpeaking,
+    liveSpeechTranscript,
+    wpmScore,
+    fillerWordCount,
+    micAudioLevel,
+    bargeInEnabled,
+    setBargeInEnabled,
+    avatarVolume,
+    handleVolumeChange,
+    startVoiceListening,
+    stopVoiceListening,
+    speakWithAvatar,
+    interruptSpeech,
+    isSpeechSupported,
+    flushAndSubmitTranscript,
+    isTabInactive,
+    pauseVoiceListening,
+  } = useInterviewVoice({
+    isInterviewActive: started && !result,
+    activeStage: 'round1_behavioral',
+    activeTopicName: challenge?.title || 'Credential Defense',
+    activeTeacherId: activeTeacher.id,
+    difficulty: 'hard',
+    onFinalTranscript: (text) => handleSendRef.current(text),
+    onSilenceNudge: (nudgeText) => {
+      if (!challenge || result) return;
       speakWithAvatar(
-        closingSpeech,
+        nudgeText,
         challenge.auditor.id,
         () => setAnimState('talking'),
         () => setAnimState('idle')
       );
-    }
-  };
+    },
+    isSendingInterviewerReply: isSendingReply,
+  });
 
-  const handleSubmitAnswer = async () => {
-    const trimmed = answerInput.trim();
-    if (!trimmed || !challenge || isSubmitting || result) return;
+  // Clean up camera/mic on unmount
+  useEffect(() => {
+    return () => {
+      stopCamera();
+      stopVoiceListening();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    stopSpeaking();
-    setAnswerInput('');
-    const nextAnswers = [...userAnswers, trimmed];
-    setUserAnswers(nextAnswers);
-    setMessages((prev) => [...prev, { role: 'user', content: trimmed }]);
+  // Live conversational call to the EXISTING /api/interview/chat backend (stage: 'vault_defense')
+  const requestConversationalTurn = useCallback(
+    async (
+      activeChallenge: VaultDefenseChallenge,
+      historyForApi: Message[],
+      latestUserText: string
+    ): Promise<string> => {
+      const vaultContext = buildVaultPromptContext(activeChallenge);
+      try {
+        const res = await api.post<{ reply?: string }>('/api/interview/chat', {
+          message: latestUserText,
+          interviewerId: activeChallenge.auditor.id,
+          stage: 'vault_defense',
+          difficulty: 'hard',
+          customTopic: `${activeChallenge.title} (${activeChallenge.claimedSkills.slice(0, 6).join(', ')})`,
+          domainStream: 'tech',
+          vaultContext,
+          history: historyForApi,
+          telemetry: {
+            wpm: wpmScore,
+            fillerWords: fillerWordCount,
+          },
+        });
+        if (res?.reply && res.reply.trim().length > 10) {
+          return res.reply.trim();
+        }
+      } catch (err) {
+        console.warn('[VaultDefenseRoom] /api/interview/chat fallback:', err);
+      }
 
-    if (nextAnswers.length >= 3) {
-      await finalizeDefense(nextAnswers);
-      return;
-    }
+      // Clean fallback if chat endpoint is unreachable
+      const turnIdx = historyForApi.filter((m) => m.role === 'assistant').length;
+      return generateBrutalDefensePrompt(activeChallenge, turnIdx);
+    },
+    [wpmScore, fillerWordCount]
+  );
 
-    const nextIdx = questionIndex + 1;
-    setQuestionIndex(nextIdx);
-    const nextQuestion = generateBrutalDefensePrompt(challenge, nextIdx);
+  const finalizeDefense = useCallback(
+    async (activeChallenge: VaultDefenseChallenge, allAnswers: string[], fullMessages: Message[]) => {
+      stopVoiceListening();
+      setIsSendingReply(true);
+      setAnimState('thinking');
 
-    setMessages((prev) => [...prev, { role: 'assistant', content: nextQuestion }]);
+      const askedQuestions = fullMessages
+        .filter((m) => m.role === 'assistant')
+        .map((m) => m.content);
+
+      let evalRes: VaultDefenseResult = evaluateVaultDefenseResponses(
+        activeChallenge.claimedSkills,
+        allAnswers
+      );
+
+      try {
+        const groqEval = await api
+          .post<{ ok: boolean; result?: VaultDefenseResult }>('/api/vault/defense-session', {
+            action: 'evaluate',
+            docId: activeChallenge.docId,
+            title: activeChallenge.title,
+            auditorName: activeChallenge.auditor.name,
+            claimedSkills: activeChallenge.claimedSkills,
+            projects: activeChallenge.projects || [],
+            summary: activeChallenge.summary || '',
+            questions: askedQuestions,
+            answers: allAnswers,
+          })
+          .catch(() => null);
+        if (groqEval?.ok && groqEval.result && typeof groqEval.result.score === 'number') {
+          evalRes = groqEval.result;
+        }
+      } catch {}
+
+      try {
+        await api
+          .post('/api/vault/verify-defense', {
+            docId: activeChallenge.docId,
+            passed: evalRes.passed,
+            score: evalRes.score,
+            auditorName: activeChallenge.auditor.name,
+            claimedSkills: activeChallenge.claimedSkills,
+          })
+          .catch(() => null);
+
+        if (evalRes.passed) {
+          cOS?.updateVaultItem?.(
+            activeChallenge.docId,
+            {
+              verified: true,
+              ai_confidence_score: evalRes.score,
+              used_in_portfolio: true,
+            },
+            { skipTrustMutation: true }
+          );
+          if (typeof window !== 'undefined') {
+            try {
+              localStorage.setItem(
+                `pinit_vault_audit_status_${activeChallenge.docId}`,
+                JSON.stringify({
+                  status: 'verified',
+                  score: evalRes.score,
+                  auditor: activeChallenge.auditor.name,
+                })
+              );
+            } catch {}
+          }
+          await applyTrustReward(
+            user?.id,
+            'vault_verified',
+            undefined,
+            `Verified Vault Defense (${activeChallenge.title}) by ${activeChallenge.auditor.name}`
+          );
+          if (typeof cOS?.addVerifiedSkills === 'function') {
+            cOS.addVerifiedSkills(activeChallenge.claimedSkills, activeChallenge.title);
+          }
+          recordMetricLedgerEntry(user?.id, {
+            metric: 'mentality',
+            feature: 'vault',
+            action: `Survived Live Defense · Stabilizer & Pattern Hunter`,
+            delta: 6,
+            previousValue: 0,
+            valueAfter: 6,
+            mentalityTag: 'Stabilizer',
+          });
+        } else {
+          cOS?.updateVaultItem?.(
+            activeChallenge.docId,
+            {
+              verified: false,
+              ai_confidence_score: evalRes.score,
+            },
+            { skipTrustMutation: true }
+          );
+          if (typeof window !== 'undefined') {
+            try {
+              localStorage.setItem(
+                `pinit_vault_audit_status_${activeChallenge.docId}`,
+                JSON.stringify({
+                  status: 'rejected',
+                  score: evalRes.score,
+                  auditor: activeChallenge.auditor.name,
+                })
+              );
+            } catch {}
+          }
+          await applyVaultRejectionPenalty(
+            user?.id,
+            undefined,
+            `Failed Skill Defense: Fake/Unsubstantiated "${activeChallenge.title}"`
+          );
+        }
+        clearPendingVaultDefense(activeChallenge.docId);
+      } finally {
+        setResult(evalRes);
+        setIsSendingReply(false);
+        stopCamera();
+        const closingSpeech = evalRes.passed
+          ? `Well done — you backed up your claims on "${activeChallenge.title}" with real depth. I've verified your document, added +5 Trust Score, and synced ${evalRes.verifiedSkillsAdded.length} skills to your Portfolio.`
+          : `I can't verify "${activeChallenge.title}" based on this defense — ${evalRes.critique} That's a -5 Trust Score deduction; review the skills on your document and come back when you can walk through them clearly.`;
+        setMessages((prev) => [...prev, { role: 'assistant', content: closingSpeech }]);
+        speakWithAvatar(
+          closingSpeech,
+          activeChallenge.auditor.id,
+          () => setAnimState('talking'),
+          () => setAnimState('idle')
+        );
+      }
+    },
+    [cOS, user?.id, stopVoiceListening, stopCamera, speakWithAvatar]
+  );
+
+  const handleSendMessage = useCallback(
+    async (rawText: string) => {
+      const trimmed = String(rawText || '').trim();
+      if (!trimmed || !challenge || sendingLockRef.current || result) return;
+
+      sendingLockRef.current = true;
+      interruptSpeech();
+      setIsSendingReply(true);
+      setAnimState('thinking');
+
+      const nextMessages: Message[] = [...messagesRef.current, { role: 'user', content: trimmed }];
+      const nextAnswers = [...userAnswersRef.current, trimmed];
+      setMessages(nextMessages);
+      setUserAnswers(nextAnswers);
+
+      try {
+        if (nextAnswers.length >= TOTAL_DEFENSE_TURNS) {
+          await finalizeDefense(challenge, nextAnswers, nextMessages);
+          return;
+        }
+
+        // Real reactive follow-up via existing /api/interview/chat engine
+        const reply = await requestConversationalTurn(challenge, nextMessages, trimmed);
+        setMessages((prev) => [...prev, { role: 'assistant', content: reply }]);
+        setIsSendingReply(false);
+        speakWithAvatar(
+          reply,
+          challenge.auditor.id,
+          () => setAnimState('talking'),
+          () => setAnimState('idle')
+        );
+      } finally {
+        sendingLockRef.current = false;
+        setIsSendingReply(false);
+      }
+    },
+    [challenge, result, interruptSpeech, finalizeDefense, requestConversationalTurn, speakWithAvatar]
+  );
+
+  handleSendRef.current = handleSendMessage;
+
+  const startDefense = async () => {
+    if (!challenge || isPreparing) return;
+    unlockSpeechSynthesis();
+    setStarted(true);
+    setElapsedSeconds(0);
+    setUserAnswers([]);
+    setMessages([]);
+    setIsSendingReply(true);
+    setAnimState('thinking');
+
+    // Call the EXISTING /api/interview/chat engine for a natural, resume-grounded opening
+    const openingPrompt = await requestConversationalTurn(
+      challenge,
+      [{ role: 'user', content: 'I am ready to defend my uploaded document.' }],
+      'I am ready to defend my uploaded document.'
+    );
+
+    setMessages([{ role: 'assistant', content: openingPrompt }]);
+    setIsSendingReply(false);
     speakWithAvatar(
-      nextQuestion,
+      openingPrompt,
       challenge.auditor.id,
       () => setAnimState('talking'),
       () => setAnimState('idle')
     );
   };
 
+  const exitDefense = () => {
+    interruptSpeech();
+    stopVoiceListening();
+    stopCamera();
+    router.push('/vault');
+  };
+
   if (!challenge) {
     return (
-      <div style={{ maxWidth: 680, margin: '60px auto', padding: 28, borderRadius: 20, background: 'var(--card)', border: '1px solid var(--border)', textAlign: 'center' }}>
+      <div
+        style={{
+          maxWidth: 640,
+          margin: '60px auto',
+          padding: 28,
+          borderRadius: 20,
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          textAlign: 'center',
+        }}
+      >
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, marginBottom: 8 }}>
           Vault Defense Document Not Found
         </h2>
         <p style={{ color: 'var(--t2)', fontSize: 14, marginBottom: 20 }}>
-          Upload your Resume or Certificate in the Proof Vault first, then launch a Brutal Defense Room from the asset card.
+          Upload your Resume or Certificate in the Proof Vault first, then launch verification from the document card.
         </p>
         <Link href="/vault" className="btn-primary" style={{ textDecoration: 'none' }}>
           Go to Proof Vault
@@ -304,242 +611,247 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     );
   }
 
-  return (
-    <div style={{ maxWidth: 1120, margin: '0 auto', padding: '16px 12px 48px' }} className="animate-fade-in">
-      {/* Top Brutal Defense Room Banner */}
-      <div
-        style={{
-          borderRadius: 18,
-          padding: '16px 22px',
-          marginBottom: 20,
-          background: 'linear-gradient(135deg, rgba(239,68,68,0.12), rgba(15,23,42,0.85))',
-          border: '1px solid rgba(239,68,68,0.35)',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 14,
-        }}
-      >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1, padding: '3px 9px', borderRadius: 99, background: 'rgba(239,68,68,0.2)', color: '#f87171', border: '1px solid rgba(239,68,68,0.4)', fontFamily: 'var(--font-mono)' }}>
-              🔥 ADVERSARIAL CREDENTIAL DEFENSE ROOM
-            </span>
-            <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-              Auditor: <strong style={{ color: 'var(--t1)' }}>{challenge.auditor.name}</strong>
-            </span>
+  // Pre-launch Briefing Card (shows Groq-extracted skills & projects, unlocks live voice + 3D studio on click)
+  if (!started) {
+    return (
+      <div style={{ maxWidth: 820, margin: '24px auto', padding: '0 16px 48px' }} className="animate-fade-in">
+        <div
+          style={{
+            borderRadius: 18,
+            padding: '22px 24px',
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            borderTop: '3px solid #ef4444',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 14 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1, padding: '3px 9px', borderRadius: 99, background: 'rgba(239,68,68,0.14)', color: '#dc2626', border: '1px solid rgba(239,68,68,0.35)', fontFamily: 'var(--font-mono)' }}>
+                🔥 LIVE AI CREDENTIAL DEFENSE
+              </span>
+              {challenge.analysisSource && challenge.analysisSource !== 'fallback' && (
+                <span style={{ fontSize: 10.5, padding: '2px 8px', borderRadius: 99, background: 'rgba(16,185,129,0.12)', color: 'var(--green)', border: '1px solid rgba(16,185,129,0.3)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                  ✓ Groq AI Read Resume
+                </span>
+              )}
+            </div>
+            <button type="button" onClick={() => router.push('/vault')} className="btn-ghost btn-sm">
+              ← Back to Vault
+            </button>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 21, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, margin: '0 0 6px', color: 'var(--t1)' }}>
             Verifying: {challenge.title}
           </h1>
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
-            {challenge.claimedSkills.map((sk) => (
-              <span key={sk} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.14)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.3)', fontFamily: 'var(--font-mono)' }}>
-                {sk}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          {tabWarnings > 0 && (
-            <span style={{ fontSize: 11.5, padding: '4px 10px', borderRadius: 8, background: 'rgba(245,158,11,0.15)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.3)', fontWeight: 700 }}>
-              ⚠️ {tabWarnings} Tab Switch Flagged
-            </span>
-          )}
-          <button
-            type="button"
-            onClick={() => router.push('/vault')}
-            className="btn-ghost btn-sm"
-          >
-            ← Back to Vault
-          </button>
-        </div>
-      </div>
+          <p style={{ color: 'var(--t2)', fontSize: 13.5, lineHeight: 1.55, margin: '0 0 16px' }}>
+            {isPreparing
+              ? `${challenge.auditor.name} is reading your uploaded file with Groq AI to extract your real skills and projects...`
+              : `You will enter the live 3D AI Interview Studio with ${challenge.auditor.name} (${challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'}) for a 3-turn voice & text conversation directly about the skills and projects on your document.`}
+          </p>
 
-      {/* Main Split Grid: 3D Auditor Avatar + Interrogation Feed */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 340px) 1fr', gap: 20, alignItems: 'stretch' }}>
-        {/* Left: Live 3D Auditor Card */}
-        <div
-          style={{
-            background: 'var(--card)',
-            border: '1px solid var(--border)',
-            borderRadius: 18,
-            padding: 18,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
-          }}
-        >
-          <div style={{ width: '100%', textAlign: 'center' }}>
-            <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 1.2, color: '#f87171', fontFamily: 'var(--font-mono)', fontWeight: 700, marginBottom: 6 }}>
-              Cross-Mentor Auditor ({challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'})
+          {/* Extracted Skills */}
+          <div style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+              Skills Read From Your Document
             </div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--t1)' }}>
-              {challenge.auditor.name}
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 12 }}>
-              {challenge.auditor.title}
-            </div>
-          </div>
-
-          <div style={{ width: 260, height: 280, borderRadius: 16, overflow: 'hidden', background: 'radial-gradient(circle at center, rgba(99,102,241,0.14), rgba(10,15,30,0.85))', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <VRoidInterviewAvatar
-              teacherId={challenge.auditor.id}
-              animState={animState}
-              zoom={1.5}
-            />
-          </div>
-
-          <div style={{ width: '100%', marginTop: 14, padding: 12, borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)', fontSize: 12, color: 'var(--t2)' }}>
-            <div style={{ fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>Stakes for This Room:</div>
-            <div>• Pass Defense (&ge;65%): <strong style={{ color: 'var(--green)' }}>+5 Trust Score</strong> + All skills pushed to Portfolio</div>
-            <div>• Fail / Fake Claims: <strong style={{ color: 'var(--coral)' }}>-5 Trust Score</strong> + Document flagged Rejected</div>
-          </div>
-        </div>
-
-        {/* Right: Interrogation Feed or Launch/Result View */}
-        <div
-          style={{
-            background: 'var(--card)',
-            border: '1px solid var(--border)',
-            borderRadius: 18,
-            padding: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: 480,
-            boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
-          }}
-        >
-          {!started ? (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: 24 }}>
-              <div style={{ fontSize: 44, marginBottom: 12 }}>{challenge.auditor.emoji}</div>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
-                Ready to Defend &ldquo;{challenge.title}&rdquo;?
-              </h2>
-              <p style={{ color: 'var(--t2)', fontSize: 14, maxWidth: 520, lineHeight: 1.6, marginBottom: 20 }}>
-                Because your primary AI Mentor cannot vouch for your own uploaded claims, <strong>{challenge.auditor.name}</strong> has entered the room to grill you ruthlessly across 3 technical & practical questions on your claimed skills.
-              </p>
-              <button
-                type="button"
-                data-testid="start-vault-defense-btn"
-                onClick={startDefense}
-                className="btn-primary"
-                style={{ padding: '12px 26px', fontSize: 15, fontWeight: 800 }}
-              >
-                ⚔️ Enter Brutal Interrogation (Question 1 of 3)
-              </button>
-            </div>
-          ) : (
-            <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 12, borderBottom: '1px solid var(--border)', marginBottom: 14 }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--t2)' }}>
-                  LIVE INTERROGATION · QUESTION {Math.min(3, userAnswers.length + 1)} OF 3
-                </div>
-                <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                  {result ? 'Audit Complete' : 'Proctored Session · No Tab Switching'}
-                </div>
-              </div>
-
-              {/* Conversation history */}
-              <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, paddingRight: 4, maxHeight: 340 }}>
-                {messages.map((m, idx) => (
-                  <div
-                    key={idx}
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {isPreparing ? (
+                <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                  🔍 Scanning document with Groq AI...
+                </span>
+              ) : (
+                challenge.claimedSkills.map((sk) => (
+                  <span
+                    key={sk}
                     style={{
-                      alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
-                      maxWidth: '88%',
-                      padding: '12px 15px',
-                      borderRadius: 14,
-                      background: m.role === 'user' ? 'rgba(99,102,241,0.18)' : 'var(--bg2)',
-                      border: `1px solid ${m.role === 'user' ? 'rgba(99,102,241,0.4)' : 'var(--border)'}`,
-                      color: 'var(--t1)',
-                      fontSize: 13.5,
-                      lineHeight: 1.55,
+                      fontSize: 11.5,
+                      padding: '3px 9px',
+                      borderRadius: 6,
+                      background: 'rgba(99,102,241,0.12)',
+                      color: 'var(--accent)',
+                      border: '1px solid rgba(99,102,241,0.3)',
+                      fontFamily: 'var(--font-mono)',
+                      fontWeight: 600,
                     }}
                   >
-                    <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 4, color: m.role === 'user' ? '#a5b4fc' : '#f87171', fontFamily: 'var(--font-mono)' }}>
-                      {m.role === 'user' ? 'You (Candidate)' : challenge.auditor.name}
-                    </div>
-                    {m.content}
+                    {sk}
+                  </span>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Extracted Projects */}
+          {!isPreparing && challenge.projects && challenge.projects.length > 0 && (
+            <div style={{ marginBottom: 16, padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.7, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                Projects &amp; Claims Detected ({challenge.projects.length})
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                {challenge.projects.slice(0, 4).map((proj, idx) => (
+                  <div key={idx} style={{ fontSize: 12.5, color: 'var(--t1)' }}>
+                    <strong>• {proj.name}</strong>
+                    {proj.techStack?.length > 0 && (
+                      <span style={{ color: 'var(--t3)', fontSize: 11.5 }}> ({proj.techStack.slice(0, 5).join(', ')})</span>
+                    )}
                   </div>
                 ))}
-                <div ref={chatEndRef} />
               </div>
-
-              {/* Result Scorecard OR Input Controls */}
-              {result ? (
-                <div
-                  data-testid="vault-defense-result"
-                  style={{
-                    marginTop: 16,
-                    padding: 18,
-                    borderRadius: 14,
-                    background: result.passed ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)',
-                    border: `1px solid ${result.passed ? 'rgba(34,197,94,0.35)' : 'rgba(239,68,68,0.35)'}`,
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, flexWrap: 'wrap', gap: 8 }}>
-                    <div style={{ fontSize: 17, fontWeight: 800, color: result.passed ? 'var(--green)' : '#f87171' }}>
-                      {result.passed ? '✓ DEFENSE PASSED — CREDENTIAL VERIFIED' : '✕ DEFENSE FAILED — CLAIMS UNSUBSTANTIATED'}
-                    </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 800, color: result.passed ? 'var(--green)' : '#f87171' }}>
-                      Score: {result.score}/100 ({result.trustDelta > 0 ? `+${result.trustDelta}` : result.trustDelta} Trust Score)
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 12px' }}>{result.critique}</p>
-                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <Link href="/vault" className="btn-primary btn-sm" style={{ textDecoration: 'none' }}>
-                      ← Return to Proof Vault & Ledger
-                    </Link>
-                    <Link href="/profile?tab=portfolio" className="btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
-                      👤 View Synced Portfolio Skills
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <textarea
-                    data-testid="vault-defense-answer-input"
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSubmitAnswer();
-                      }
-                    }}
-                    placeholder="Defend your skill with concrete mechanisms, edge cases, complexity, or real implementation details..."
-                    rows={3}
-                    className="form-input"
-                    style={{ width: '100%', resize: 'vertical', fontSize: 13.5 }}
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                    <button
-                      type="button"
-                      onClick={toggleVoiceMic}
-                      className="btn-ghost btn-sm"
-                    >
-                      {isListening ? '⏹️ Stop Mic' : '🎤 Answer by Voice'}
-                    </button>
-                    <button
-                      type="button"
-                      data-testid="vault-defense-submit-btn"
-                      onClick={handleSubmitAnswer}
-                      disabled={!answerInput.trim() || isSubmitting}
-                      className="btn-primary btn-sm"
-                    >
-                      {isSubmitting ? 'Auditing...' : userAnswers.length >= 2 ? 'Submit Final Defense Answer' : 'Submit Answer →'}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+            </div>
           )}
+
+          {/* Stakes + Launch */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, paddingTop: 14, borderTop: '1px solid var(--border)' }}>
+            <div style={{ fontSize: 12, color: 'var(--t2)' }}>
+              <div>• Pass (&ge;65%): <strong style={{ color: 'var(--green)' }}>+5 Trust Score</strong> + All skills synced to Portfolio</div>
+              <div>• Fail / Bluff: <strong style={{ color: 'var(--coral)' }}>-5 Trust Score</strong> + Document marked Rejected</div>
+            </div>
+            <button
+              type="button"
+              data-testid="start-vault-defense-btn"
+              onClick={startDefense}
+              disabled={isPreparing}
+              className="btn-primary"
+              style={{ padding: '11px 22px', fontSize: 14, fontWeight: 800, opacity: isPreparing ? 0.65 : 1 }}
+            >
+              {isPreparing ? '⏳ Reading Resume with Groq AI...' : `🎙️ Start Live Defense with ${challenge.auditor.name}`}
+            </button>
+          </div>
         </div>
+      </div>
+    );
+  }
+
+  // LIVE AI INTERVIEW STUDIO — Reusing InterviewSessionHeader + InterviewVoiceHud + Round1Behavioral!
+  const lastInterviewerSpeech =
+    [...messages].reverse().find((m) => m.role === 'assistant')?.content ||
+    (isSendingReply ? `${challenge.auditor.name} is reviewing your resume...` : '');
+
+  const resultFooter = result ? (
+    <div
+      data-testid="vault-defense-result"
+      style={{
+        padding: 12,
+        borderRadius: 12,
+        background: result.passed ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)',
+        border: `1px solid ${result.passed ? 'rgba(34,197,94,0.38)' : 'rgba(239,68,68,0.38)'}`,
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 4 }}>
+        <strong style={{ fontSize: 13.5, color: result.passed ? 'var(--green)' : '#dc2626' }}>
+          {result.passed ? '✓ CREDENTIAL VERIFIED' : '✕ DEFENSE FAILED'}
+        </strong>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 800, color: result.passed ? 'var(--green)' : '#dc2626' }}>
+          {result.score}/100 ({result.trustDelta > 0 ? `+${result.trustDelta}` : result.trustDelta} Trust)
+        </span>
+      </div>
+      <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 10px', lineHeight: 1.45 }}>{result.critique}</p>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <Link href="/vault" className="btn-primary btn-sm" style={{ textDecoration: 'none' }}>
+          ← Return to Proof Vault
+        </Link>
+        <Link href="/profile?tab=portfolio" className="btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
+          👤 View Portfolio Skills
+        </Link>
+      </div>
+    </div>
+  ) : undefined;
+
+  return (
+    <div
+      className="iv-session-shell"
+      style={{
+        padding: '8px 14px 10px',
+        maxWidth: '100vw',
+        margin: 0,
+        height: '100dvh',
+        maxHeight: '100dvh',
+        overflow: 'hidden',
+        color: 'var(--t1)',
+        fontFamily: 'var(--font-sans)',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, height: '100%', flex: '1 1 0%', minHeight: 0, overflow: 'hidden' }}>
+        {/* Reused Existing AI Interview Top Header */}
+        <InterviewSessionHeader
+          activeTeacher={activeTeacher}
+          activeTopicName={`Proof Verification: ${challenge.title}`}
+          activeStage="vault_defense"
+          domainStream="tech"
+          isVoiceListening={isVoiceListening}
+          elapsedSeconds={elapsedSeconds}
+          formatElapsed={formatElapsed}
+          isScoredStage={true}
+          isAssistModeActive={false}
+          setIsAssistModeActive={() => {}}
+          messages={messages}
+          fetchAssistScript={() => {}}
+          avatarVolume={avatarVolume}
+          handleVolumeChange={handleVolumeChange}
+          showCameraPreview={showCameraPreview}
+          toggleCameraPreview={toggleCameraPreview}
+          isAvatarSpeaking={isAvatarSpeaking}
+          interruptSpeech={interruptSpeech}
+          exitInterview={exitDefense}
+          isTabInactive={isTabInactive}
+          bargeInEnabled={bargeInEnabled}
+          setBargeInEnabled={setBargeInEnabled}
+        />
+
+        {/* Reused Existing Hands-Free Voice HUD Banner */}
+        {!result && (
+          <InterviewVoiceHud
+            isVoiceListening={isVoiceListening}
+            isAvatarSpeaking={isAvatarSpeaking}
+            isSendingInterviewerReply={isSendingReply}
+            activeTeacher={activeTeacher}
+            liveSpeechTranscript={liveSpeechTranscript}
+            stopVoiceListening={pauseVoiceListening}
+            startVoiceListening={startVoiceListening}
+            isSpeechSupported={isSpeechSupported}
+            onDoneSpeaking={flushAndSubmitTranscript}
+            isTabInactive={isTabInactive}
+            micAudioLevel={micAudioLevel}
+          />
+        )}
+
+        {/* Reused Existing 60/40 Live 3D Avatar + Camera PiP + Transcript Studio Stage */}
+        <Round1Behavioral
+          domainStream="tech"
+          activeTeacher={activeTeacher}
+          animState={animState}
+          showCameraPreview={showCameraPreview}
+          videoPreviewRef={videoPreviewRef}
+          eyeContactScore={eyeContactScore}
+          wpmScore={wpmScore}
+          isAvatarSpeaking={isAvatarSpeaking}
+          isVoiceListening={isVoiceListening}
+          lastInterviewerSpeech={lastInterviewerSpeech}
+          onProceed={() => {}}
+          canProceed={Boolean(result?.passed)}
+          isSendingInterviewMessage={isSendingReply}
+          fillerWordCount={fillerWordCount}
+          messages={messages}
+          messagesEndRef={messagesEndRef}
+          manualTextInput={manualTextInput}
+          setManualTextInput={setManualTextInput}
+          onSendMessage={handleSendMessage}
+          liveSpeechTranscript={liveSpeechTranscript}
+          activeTopicName={challenge.title}
+          difficulty="hard"
+          customStageBadge={`CREDENTIAL DEFENSE · ${challenge.auditor.name.toUpperCase()}`}
+          customStageTitle={challenge.title}
+          customProgressText={
+            result
+              ? result.passed
+                ? `✅ Verified (${result.score}/100) · +5 Trust Score & ${result.verifiedSkillsAdded.length} skills synced`
+                : `❌ Defense Failed (${result.score}/100) · -5 Trust Score`
+              : `🔥 Live Audit: ${Math.min(TOTAL_DEFENSE_TURNS, userAnswers.length)}/${TOTAL_DEFENSE_TURNS} exchanges · Skills: ${challenge.claimedSkills.slice(0, 5).join(', ')}${tabWarnings > 0 ? ` · ⚠️ ${tabWarnings} tab switch` : ''}`
+          }
+          hideRoundControls={true}
+          footerResultNode={resultFooter}
+        />
       </div>
     </div>
   );

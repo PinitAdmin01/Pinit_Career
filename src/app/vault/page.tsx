@@ -113,13 +113,25 @@ export default function VaultPage() {
     }
   };
 
+  const getLocalAiAnalysis = (itemId: string) => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(`pinit_vault_ai_analysis_${itemId}`);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  };
+
   const launchDefenseRoom = (item: any) => {
-    const inferredSkills = extractSkillsFast(
-      `${item.title || ''} ${item.description || ''} ${(item.skill_tags || []).join(' ')}`,
-      item.skill_tags
+    const cachedAi = getLocalAiAnalysis(item.id);
+    const mergedExistingSkills = Array.from(
+      new Set([...(cachedAi?.skills || []), ...(item.skill_tags || [])].map((s: any) => String(s || '').trim()).filter(Boolean))
     );
-    const challengeSkills =
-      inferredSkills.length > 0 ? inferredSkills : ['System Design', 'Problem Solving'];
+    const inferredSkills =
+      mergedExistingSkills.length > 0
+        ? mergedExistingSkills
+        : extractSkillsFast(`${item.title || ''} ${item.description || ''}`, item.skill_tags);
 
     savePendingVaultDefense({
       docId: item.id,
@@ -127,7 +139,11 @@ export default function VaultPage() {
       title: item.title || 'Uploaded Credential',
       itemType: item.item_type || 'resume',
       organizationName: item.organization_name || '',
-      claimedSkills: challengeSkills,
+      claimedSkills: inferredSkills,
+      projects: cachedAi?.projects || undefined,
+      summary: cachedAi?.summary || undefined,
+      defenseQuestions: cachedAi?.defenseQuestions || undefined,
+      analysisSource: cachedAi?.source || undefined,
       auditor,
       createdAt: new Date().toISOString(),
     });
@@ -144,6 +160,7 @@ export default function VaultPage() {
     if (typeof window !== 'undefined') {
       try {
         localStorage.removeItem(`pinit_vault_audit_status_${item.id}`);
+        localStorage.removeItem(`pinit_vault_ai_analysis_${item.id}`);
       } catch {}
     }
     try {
@@ -189,6 +206,7 @@ export default function VaultPage() {
           formData.append('file', formEvidenceFile);
           formData.append('category', form.itemType === 'project' ? 'achievement' : form.itemType);
           formData.append('primaryName', user?.displayName || 'Candidate');
+          formData.append('auditorName', auditor.name);
           const res = await api.post<any>('/api/vault/upload', formData).catch(() => null);
           if (res?.document?.id || res?.data?.id) resolvedId = res?.document?.id || res?.data?.id;
           if (res?.document?.storageUrl || res?.data?.storageUrl) {
@@ -196,9 +214,14 @@ export default function VaultPage() {
           } else {
             proofFileUrl = formEvidenceFile.name;
           }
-          const serverSkills = res?.document?.skills || res?.data?.skills;
+          const serverSkills = res?.aiAnalysis?.skills || res?.document?.skills || res?.data?.skills;
           if (Array.isArray(serverSkills) && serverSkills.length > 0) {
-            extractedSkills = extractSkillsFast(`${form.title} ${form.description}`, serverSkills);
+            extractedSkills = serverSkills;
+          }
+          if (res?.aiAnalysis && typeof window !== 'undefined') {
+            try {
+              localStorage.setItem(`pinit_vault_ai_analysis_${resolvedId}`, JSON.stringify(res.aiAnalysis));
+            } catch {}
           }
         } catch {
           proofFileUrl = formEvidenceFile.name;
@@ -250,23 +273,36 @@ export default function VaultPage() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('primaryName', user?.displayName || 'Candidate');
+      formData.append('auditorName', auditor.name);
 
       const res = await api
-        .post<{ ok: boolean; document?: any; data?: any; message?: string }>('/api/vault/upload', formData)
+        .post<{ ok: boolean; document?: any; data?: any; aiAnalysis?: any; message?: string }>('/api/vault/upload', formData)
         .catch(() => null);
       const doc = res?.document || res?.data;
 
       if (doc) {
-        const fastSkills = extractSkillsFast(`${doc.title} ${file.name}`, doc.skills);
+        const aiSkills = Array.isArray(res?.aiAnalysis?.skills) && res.aiAnalysis.skills.length > 0
+          ? res.aiAnalysis.skills
+          : Array.isArray(doc.skills) && doc.skills.length > 0
+          ? doc.skills
+          : extractSkillsFast(`${doc.title} ${file.name}`, doc.skills);
         const docCategory = doc.category === 'achievement' ? 'project' : doc.category || 'resume';
+        if (res?.aiAnalysis && typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(`pinit_vault_ai_analysis_${doc.id}`, JSON.stringify(res.aiAnalysis));
+          } catch {}
+        }
         setLatestAnalysis({
           id: doc.id,
           title: doc.title || file.name,
           itemType: docCategory,
-          skills: fastSkills,
-          confidence: Math.round(doc.ai_confidence_score || 75),
+          skills: aiSkills,
+          confidence: Math.round(doc.ai_confidence_score || 85),
         });
-        toast.success('⚡ Document Analyzed', `${fastSkills.length} skills found. Ready to verify with ${auditor.name}!`);
+        toast.success(
+          '⚡ Document Analyzed with AI',
+          `${aiSkills.length} real skills extracted. Ready to verify with ${auditor.name}!`
+        );
         if (user?.id) {
           const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
           if (refreshed) setVaultItems(refreshed.filter((item: any) => item.item_type !== 'campus_kv'));
@@ -703,10 +739,20 @@ export default function VaultPage() {
                   (localAudit?.status === 'rejected' ||
                     String(item.endorsement_note || '').toLowerCase().includes('rejected'));
 
-                const cardSkills = extractSkillsFast(
-                  `${item.title || ''} ${item.description || ''}`,
-                  item.skill_tags
+                const cachedAi = getLocalAiAnalysis(item.id);
+                const rawCardSkills: string[] = Array.from(
+                  new Set(
+                    [...(cachedAi?.skills || []), ...(Array.isArray(item.skill_tags) ? item.skill_tags : [])]
+                      .map((s: any) => String(s || '').trim())
+                      .filter(Boolean)
+                  )
                 );
+                const cardSkills =
+                  rawCardSkills.length > 0
+                    ? rawCardSkills
+                    : extractSkillsFast(`${item.title || ''} ${item.description || ''}`, item.skill_tags).filter(
+                        (s) => !['System Design', 'Problem Solving'].includes(s)
+                      );
                 const cleanDesc = cleanCardDescription(item.description);
 
                 return (

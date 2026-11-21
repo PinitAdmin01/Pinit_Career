@@ -485,6 +485,24 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return `${opener} ${question}`;
   }
 
+  if (stage === 'vault_defense') {
+    const assistantCount = history.filter((h) => h.role === 'assistant').length;
+    const lastUserMsg = [...history].reverse().find((h) => h.role === 'user')?.content || '';
+    const isUnsure = /\b(don'?t know|idk|no idea|not sure|sorry|nothing|skip|pass)\b/i.test(lastUserMsg);
+    if (assistantCount === 0) {
+      return `I just reviewed ${subTopic}. Pick the strongest skill or project you listed there and walk me through what you actually built and how it works under the hood.`;
+    }
+    if (isUnsure) {
+      return `Alright, noted — you couldn't back up that point. Let's try something else from ${subTopic}: pick one real project or tool you actually used yourself and explain a concrete bug or challenge you solved.`;
+    }
+    const defenseFollowUps = [
+      `Interesting point on ${keyTerm}. What broke in practice when you worked with it, and what exact change fixed it?`,
+      `Okay, let's test the depth of that claim in ${subTopic} — what trade-off did you make there, and how did you verify it actually worked?`,
+      `Before we wrap up this verification, walk me through one edge case or real limitation in what you just described.`
+    ];
+    return defenseFollowUps[turnCount % defenseFollowUps.length];
+  }
+
   return `${opener} Could you elaborate on the key trade-offs and decisions you made for ${subTopic}?`;
 }
 
@@ -522,10 +540,18 @@ export async function POST(req: Request) {
       domainSubTopic,
       jdContext,
       companyContext,
-      topologyContext
+      topologyContext,
+      vaultContext
     } = body;
 
-    const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
+    const selectedInterviewer =
+      stage === 'vault_defense' && interviewerId === 'priya'
+        ? {
+            name: 'Ms. Priya',
+            role: 'Lead Credential & Skill Integrity Auditor',
+            nature: 'You are sharp, direct, skeptical, and conversational during credential verification. Candidates claim skills and projects on resumes and certificates — your job is to have a real, probing, human-sounding technical conversation to verify whether they truly built or mastered what they listed.'
+          }
+        : INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
 
     // Recorded interview: the server's record is the conversation (the browser's history is not
     // used), and the topic is the one the interview was started with.
@@ -627,6 +653,25 @@ export async function POST(req: Request) {
       }
     } else if (stage === 'round4_star') {
       stageContext = `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
+    } else if (stage === 'vault_defense') {
+      const assistantTurns = effectiveHistory.filter((m) => m.role === 'assistant').length;
+      const docDetails = typeof vaultContext === 'string' && vaultContext.trim()
+        ? vaultContext.trim().slice(0, 2400)
+        : `Document: ${subTopic}`;
+      if (assistantTurns === 0) {
+        stageContext = `This is a LIVE Proof Vault Credential Defense Interview. You are verifying the candidate's ACTUAL uploaded document below:
+${docDetails}
+
+OPENING TURN: Speak naturally in first person as ${selectedInterviewer.name} (2-3 crisp sentences, NO robotic labels like "Question 1 of 3" or "(Credential Auditor):"). Briefly reference 1-2 REAL skills or a REAL project listed in the document above, and ask ONE sharp, direct opening question testing whether they genuinely know it. NEVER ask about "System Design" or "Problem Solving" unless those exact skills are genuinely listed in the document above.`;
+      } else {
+        stageContext = `This is a LIVE Proof Vault Credential Defense Interview (Exchange ${assistantTurns + 1} of 3). You are verifying the candidate's ACTUAL uploaded document below:
+${docDetails}
+
+LIVE REACTIVE FOLLOW-UP: Read the candidate's LAST message carefully and react like a real human senior interviewer (2-3 crisp spoken sentences, NO robotic labels like "Question 2 of 3:" or canned scripts):
+- If the candidate said "I don't know", "sorry", "nothing", or evaded the question: DO NOT ignore it and DO NOT pretend they answered. Acknowledge it directly and naturally (e.g., "Alright, noted — you couldn't back that one up."), then pivot cleanly to a DIFFERENT real skill, tool, or project explicitly listed in their document above and ask a direct, fair, concrete question about it.
+- If the candidate gave a substantive technical/domain answer: briefly acknowledge one specific thing they said, then either probe one deeper follow-up on an edge case/failure mode OR test a second real skill/project from their document above.
+- Keep it direct, sharp, natural, and strictly grounded in the uploaded document above.`;
+      }
     }
 
     // 5. Telemetry Context (Advisory)
@@ -669,11 +714,12 @@ RULES:
       groqKeys.push(singleGroqKey);
     }
     const openRouterKey = process.env.OPENROUTER_API_KEY;
-    const GROQ_MODELS = [
+    const GROQ_MODELS = Array.from(new Set([
+      'llama-3.3-70b-versatile',
       process.env.GROQ_MODEL || 'qwen/qwen3.8-27b',
       'openai/gpt-oss-20b',
       'openai/gpt-oss-120b'
-    ];
+    ]));
 
     let reply = '';
     const formattedHistory = effectiveHistory.map((h) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }));

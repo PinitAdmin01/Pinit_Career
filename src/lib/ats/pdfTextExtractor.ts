@@ -129,57 +129,102 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
 
   const bufferStr = buffer.toString('binary');
 
-  // Step 1: Index all objects
-  const objRegex = /(?:^|\r?\n)(\d+)\s+0\s+obj([\s\S]*?)endobj/g;
+  // Step 1: Index all top-level objects
+  const objRegex = /(?:^|\r?\n)(\d+)\s+\d+\s+obj\b([\s\S]*?)endobj/g;
   let m: RegExpExecArray | null;
   const objects = new Map<number, string>();
   while ((m = objRegex.exec(bufferStr)) !== null) {
     objects.set(parseInt(m[1], 10), m[2]);
   }
 
-  function getStream(objNum: number): string | null {
-    const body = objects.get(objNum);
-    if (!body) return null;
-    const streamMatch = body.match(/stream\r?\n([\s\S]*?)\r?\nendstream/);
+  function getStreamBuffer(body: string): Buffer | null {
+    const streamMatch = body.match(/stream(?:\r\n|\n|\r)([\s\S]*?)(?:\r\n|\n|\r)?endstream/);
     if (!streamMatch) return null;
     const rawData = Buffer.from(streamMatch[1], 'binary');
 
     if (body.includes('/FlateDecode')) {
       try {
-        return zlib.inflateSync(rawData).toString('utf-8');
+        return zlib.inflateSync(rawData);
       } catch {
         try {
-          return zlib.inflateRawSync(rawData).toString('utf-8');
+          return zlib.inflateRawSync(rawData);
         } catch {
           return null;
         }
       }
     }
 
-    return rawData.toString('utf-8');
+    return rawData;
+  }
+
+  function getStream(objNum: number): string | null {
+    const body = objects.get(objNum);
+    if (!body) return null;
+    const buf = getStreamBuffer(body);
+    return buf ? buf.toString('utf-8') : null;
+  }
+
+  // Step 1B: Unpack PDF 1.5+ compressed object streams (/ObjStm) used by Word, Google Docs, Canva, Chrome PDFs
+  const initialEntries = Array.from(objects.entries());
+  for (const [, body] of initialEntries) {
+    if (/\/Type\s*\/ObjStm\b/.test(body)) {
+      const nMatch = body.match(/\/N\s+(\d+)/);
+      const firstMatch = body.match(/\/First\s+(\d+)/);
+      const decompressed = getStreamBuffer(body);
+      if (nMatch && firstMatch && decompressed) {
+        const count = parseInt(nMatch[1], 10);
+        const firstOffset = parseInt(firstMatch[1], 10);
+        if (count > 0 && count <= 2000 && firstOffset > 0 && firstOffset < decompressed.length) {
+          const headerStr = decompressed.subarray(0, firstOffset).toString('latin1').trim();
+          const nums = headerStr.split(/\s+/).map((v) => parseInt(v, 10)).filter((v) => !Number.isNaN(v));
+          const pairs: Array<{ id: number; offset: number }> = [];
+          for (let i = 0; i + 1 < nums.length && pairs.length < count; i += 2) {
+            pairs.push({ id: nums[i], offset: nums[i + 1] });
+          }
+          for (let i = 0; i < pairs.length; i++) {
+            const start = firstOffset + pairs[i].offset;
+            const end = i + 1 < pairs.length ? firstOffset + pairs[i + 1].offset : decompressed.length;
+            if (start >= firstOffset && end > start && end <= decompressed.length) {
+              const innerBody = decompressed.subarray(start, end).toString('binary');
+              if (!objects.has(pairs[i].id)) {
+                objects.set(pairs[i].id, innerBody);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   // Step 2: Map Font Object IDs to ToUnicode CMap objects
   const fontToUnicodeObj = new Map<number, number>();
   for (const [objNum, body] of objects.entries()) {
-    if (body.includes('/Type /Font') || body.includes('/Type/Font')) {
-      const toUnicodeMatch = body.match(/\/ToUnicode\s+(\d+)\s+0\s+R/);
+    if (/\/Type\s*\/Font\b/.test(body) || body.includes('/ToUnicode')) {
+      const toUnicodeMatch = body.match(/\/ToUnicode\s+(\d+)\s+\d+\s+R/);
       if (toUnicodeMatch) fontToUnicodeObj.set(objNum, parseInt(toUnicodeMatch[1], 10));
     }
   }
 
   const fontNameMap = new Map<string, number>();
+  const registerFontDict = (dict: string) => {
+    const entryRegex = /\/([A-Za-z0-9_+-]+)\s+(\d+)\s+\d+\s+R/g;
+    let entry: RegExpExecArray | null;
+    while ((entry = entryRegex.exec(dict)) !== null) {
+      const fontName = entry[1];
+      const fontObjId = parseInt(entry[2], 10);
+      const toUnicodeObjId = fontToUnicodeObj.get(fontObjId);
+      if (toUnicodeObjId) fontNameMap.set(fontName, toUnicodeObjId);
+    }
+  };
   for (const [, body] of objects.entries()) {
     const fontDictMatch = body.match(/\/Font\s*<<([\s\S]*?)>>/);
     if (fontDictMatch) {
-      const dict = fontDictMatch[1];
-      const entryRegex = /\/([A-Za-z0-9]+)\s+(\d+)\s+0\s+R/g;
-      let entry: RegExpExecArray | null;
-      while ((entry = entryRegex.exec(dict)) !== null) {
-        const fontName = entry[1];
-        const fontObjId = parseInt(entry[2], 10);
-        const toUnicodeObjId = fontToUnicodeObj.get(fontObjId);
-        if (toUnicodeObjId) fontNameMap.set(fontName, toUnicodeObjId);
+      registerFontDict(fontDictMatch[1]);
+    } else {
+      const fontRefMatch = body.match(/\/Font\s+(\d+)\s+\d+\s+R/);
+      if (fontRefMatch) {
+        const refBody = objects.get(parseInt(fontRefMatch[1], 10));
+        if (refBody) registerFontDict(refBody);
       }
     }
   }
@@ -190,31 +235,38 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
     if (cmapText) fontCMaps.set(fontName, parseCMap(cmapText));
   }
 
-  // Step 3: Identify Page Content Objects (/Contents)
+  // Step 3: Identify Page Content Objects (/Contents) & Form XObjects
   const contentObjIds = new Set<number>();
-  for (const [, body] of objects.entries()) {
-    if (body.includes('/Type /Page') || body.includes('/Type/Page')) {
-      const singleMatch = body.match(/\/Contents\s+(\d+)\s+0\s+R/);
+  for (const [objNum, body] of objects.entries()) {
+    if (/\/Type\s*\/Page\b/.test(body) && !/\/Type\s*\/Pages\b/.test(body)) {
+      const singleMatch = body.match(/\/Contents\s+(\d+)\s+\d+\s+R/);
       if (singleMatch) contentObjIds.add(parseInt(singleMatch[1], 10));
 
       const arrMatch = body.match(/\/Contents\s*\[([\s\S]*?)\]/);
       if (arrMatch) {
-        const nums = arrMatch[1].match(/(\d+)\s+0\s+R/g) || [];
-        nums.forEach(n => contentObjIds.add(parseInt(n, 10)));
+        const nums = arrMatch[1].match(/(\d+)\s+\d+\s+R/g) || [];
+        nums.forEach((n) => contentObjIds.add(parseInt(n, 10)));
       }
+    }
+    // Also capture Form XObjects that contain text blocks (used by Canva/Figma/LaTeX)
+    if (/\/Subtype\s*\/Form\b/.test(body) && body.includes('stream')) {
+      contentObjIds.add(objNum);
     }
   }
 
-  // Fallback: If page objects lacked /Contents explicit links, search for streams containing BT/ET
+  // Fallback: If page objects lacked /Contents explicit links, inspect decompressed streams for BT/Tj/TJ
   if (contentObjIds.size === 0) {
     for (const [objNum, body] of objects.entries()) {
-      if (body.includes('stream') && (body.includes('BT') || body.includes('Tj') || body.includes('TJ'))) {
+      if (!body.includes('stream')) continue;
+      if (/\/Subtype\s*\/Image\b|\/Type\s*\/ObjStm\b|\/Type\s*\/XRef\b/.test(body)) continue;
+      const decoded = getStream(objNum);
+      if (decoded && (decoded.includes('BT') || decoded.includes('Tj') || decoded.includes('TJ'))) {
         contentObjIds.add(objNum);
       }
     }
   }
 
-  // Step 4: Decode text operations from content objects
+  // Step 4: Decode text operations from content objects (preserving word spaces & line breaks)
   const decodedLines: string[] = [];
 
   for (const objNum of contentObjIds) {
@@ -223,47 +275,65 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
 
     let currentFontCMap: Map<number, string> | undefined = undefined;
     let currentLine = '';
+    let lastTmY: number | null = null;
 
-    // Regex matching font selection, text operators (Tj, TJ), and positioning (Td, TD, T*, ET)
-    const opRegex = /(?:\/([A-Za-z0-9]+)\s+[\d.]+\s+Tf)|(?:<([0-9a-fA-F]+)>\s*Tj)|(?:\(((?:\\.|[^()\\])*)\)\s*Tj)|(?:\[([\s\S]*?)\]\s*TJ)|(?:([-\d.]+)\s+([-\d.]+)\s+T[dD])|(?:T\*)|(?:ET)/g;
+    // Regex matching font selection, text operators (Tj, TJ, '), Td/TD, Tm, T*, ET
+    const opRegex =
+      /(?:\/([A-Za-z0-9_+-]+)\s+[\d.-]+\s+Tf)|(?:<([0-9a-fA-F]+)>\s*(?:Tj|'))|(?:\(((?:\\.|[^()\\])*)\)\s*(?:Tj|'))|(?:\[([\s\S]*?)\]\s*TJ)|(?:([-\d.]+)\s+([-\d.]+)\s+T[dD])|(?:[-\d.]+\s+[-\d.]+\s+[-\d.]+\s+[-\d.]+\s+([-\d.]+)\s+([-\d.]+)\s+Tm)|(?:T\*)|(?:ET)/g;
     let token: RegExpExecArray | null;
 
     while ((token = opRegex.exec(streamText)) !== null) {
       if (token[1]) {
-        // Font switch: /F4 32 Tf
         currentFontCMap = fontCMaps.get(token[1]) || currentFontCMap;
       } else if (token[2]) {
-        // <hex> Tj
         currentLine += decodeHexWithCMap(token[2], currentFontCMap);
       } else if (token[3]) {
-        // (literal) Tj
         currentLine += decodePdfLiteralString(token[3]);
       } else if (token[4]) {
-        // [ ... ] TJ
+        // [ ... ] TJ — honor negative kerning numbers (< -100) as word spaces!
         const inner = token[4];
-        const itemRegex = /<([0-9a-fA-F]+)>|\(((?:\\.|[^()\\])*)\)/g;
+        const itemRegex = /<([0-9a-fA-F]+)>|\(((?:\\.|[^()\\])*)\)|([-\d.]+)/g;
         let item: RegExpExecArray | null;
         while ((item = itemRegex.exec(inner)) !== null) {
           if (item[1]) {
             currentLine += decodeHexWithCMap(item[1], currentFontCMap);
           } else if (item[2]) {
             currentLine += decodePdfLiteralString(item[2]);
+          } else if (item[3]) {
+            const kern = parseFloat(item[3]);
+            if (kern < -100 && currentLine.length > 0 && !currentLine.endsWith(' ')) {
+              currentLine += ' ';
+            }
           }
         }
       } else if (token[5] && token[6]) {
-        // tx ty Td / TD: vertical shift signifies new line
+        const tx = parseFloat(token[5]);
         const ty = parseFloat(token[6]);
         if (Math.abs(ty) > 0.01) {
           if (currentLine.trim()) {
             decodedLines.push(currentLine.trim());
             currentLine = '';
           }
+        } else if (Math.abs(tx) > 1.5 && currentLine.length > 0 && !currentLine.endsWith(' ')) {
+          currentLine += ' ';
         }
+      } else if (token[7] && token[8]) {
+        const ty = parseFloat(token[8]);
+        if (lastTmY !== null && Math.abs(ty - lastTmY) > 2) {
+          if (currentLine.trim()) {
+            decodedLines.push(currentLine.trim());
+            currentLine = '';
+          }
+        } else if (lastTmY !== null && currentLine.length > 0 && !currentLine.endsWith(' ')) {
+          currentLine += ' ';
+        }
+        lastTmY = ty;
       } else if (token[0] === 'T*' || token[0] === 'ET') {
         if (currentLine.trim()) {
           decodedLines.push(currentLine.trim());
           currentLine = '';
         }
+        if (token[0] === 'ET') lastTmY = null;
       }
     }
 
@@ -526,4 +596,43 @@ export function extractDocumentEvidence(
     textLines: [],
     error: 'UNREADABLE_DOCUMENT: Unsupported document format.'
   };
+}
+
+/**
+ * Extracts embedded JPEG page images from scanned or rasterized (e.g. Canva) PDFs
+ * so multimodal vision models (Groq Vision) can read image-only PDFs directly.
+ */
+export function extractEmbeddedImagesFromPdf(
+  buffer: Buffer,
+  maxImages: number = 2
+): Array<{ mimeType: string; base64: string; bytes: number }> {
+  const found: Array<{ mimeType: string; base64: string; bytes: number }> = [];
+  let pos = 0;
+
+  while (pos < buffer.length - 4) {
+    // JPEG Start of Image: FF D8 FF
+    const soi = buffer.indexOf(Buffer.from([0xff, 0xd8, 0xff]), pos);
+    if (soi === -1) break;
+
+    // Find matching End of Image: FF D9
+    const eoi = buffer.indexOf(Buffer.from([0xff, 0xd9]), soi + 3);
+    if (eoi === -1) break;
+
+    const end = eoi + 2;
+    const size = end - soi;
+    // Ignore tiny thumbnails/icons (< 4KB) and oversized blobs (> 4MB)
+    if (size >= 4096 && size <= 4 * 1024 * 1024) {
+      const slice = buffer.subarray(soi, end);
+      found.push({
+        mimeType: 'image/jpeg',
+        base64: slice.toString('base64'),
+        bytes: size,
+      });
+    }
+    pos = end;
+  }
+
+  return found
+    .sort((a, b) => b.bytes - a.bytes)
+    .slice(0, maxImages);
 }
