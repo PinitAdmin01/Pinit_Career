@@ -539,7 +539,8 @@ export default function InterviewPage() {
     difficulty,
     onFinalTranscript: handleFinalSpeechTranscript,
     onSilenceNudge: handleSilenceNudge,
-    isTabInactive
+    isTabInactive,
+    isSendingInterviewerReply: isSendingInterviewMessage
   });
   speakWithAvatarRef.current = speakWithAvatar;
 
@@ -758,8 +759,12 @@ export default function InterviewPage() {
         .then((d) => { if (!d?.recorded) setLiveSessionId(null); })
         .catch(() => {});
     }
-    const foundTeacher = AVATAR_POOL.find(a => a.id === activeSessionDraft.activeTeacherId);
-    if (foundTeacher) setActiveTeacher(foundTeacher);
+    const requestedId = String(activeSessionDraft.activeTeacherId || '').toLowerCase().trim();
+    const stageKey = activeSessionDraft.activeStage as Exclude<Stage, 'results'>;
+    const foundTeacher = requestedId !== 'priya'
+      ? AVATAR_POOL.find(a => a.id === requestedId)
+      : undefined;
+    setActiveTeacher(foundTeacher || ROUND_INTERVIEWERS[stageKey] || ROUND_INTERVIEWERS.round1_behavioral);
 
     // 🎮 Auto-activate Gaming Mode (Browser Fullscreen & Focus Mode) on resume gesture
     if (typeof window !== 'undefined') {
@@ -1045,6 +1050,13 @@ export default function InterviewPage() {
 
     try {
       const headers = await getAuthHeaders();
+      const topologyNodes = Array.isArray(latestTopology?.nodes) ? latestTopology.nodes : [];
+      const topologyLinks = Array.isArray(latestTopology?.links) ? latestTopology.links : [];
+      const topologyContext = activeStage === 'round3_systems'
+        ? (topologyNodes.length > 0
+            ? `Nodes (${topologyNodes.length}): ${topologyNodes.map((n: any) => n.label || n.type).filter(Boolean).join(', ')}; Links: ${topologyLinks.length}`
+            : 'Empty whiteboard (0 nodes placed yet)')
+        : undefined;
       const res = await fetch('/api/interview/chat', {
         method: 'POST',
         headers,
@@ -1061,6 +1073,7 @@ export default function InterviewPage() {
           reviewDecision: answeringCodeReview,
           jdContext: jdPromptContext,
           companyContext,
+          topologyContext,
           telemetry: {
             eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
             wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
@@ -1600,7 +1613,7 @@ export default function InterviewPage() {
     <div
       className={isInterviewActive ? 'iv-session-shell' : undefined}
       style={{
-        padding: isInterviewActive ? '0 4px' : '0 0 32px',
+        padding: isInterviewActive ? '8px 14px 10px' : '0 0 32px',
         maxWidth: isInterviewActive ? '100vw' : 1380,
         margin: isInterviewActive ? '0' : '0 auto',
         height: isInterviewActive ? '100dvh' : 'auto',
@@ -1665,7 +1678,7 @@ export default function InterviewPage() {
           clearSessionHistory={clearSessionHistory} setSelectedHistorySession={setSelectedHistorySession}
         />
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: '100%', flex: '1 1 0%', minHeight: 0, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, height: '100%', flex: '1 1 0%', minHeight: 0, overflow: 'hidden' }}>
           {/* Top Session Control Header */}
           <InterviewSessionHeader
             activeTeacher={activeTeacher}
@@ -1689,8 +1702,9 @@ export default function InterviewPage() {
             isAvatarSpeaking={isAvatarSpeaking}
             interruptSpeech={interruptSpeech}
             exitInterview={exitInterview}
-            onSkipQuestion={handleSkipQuestion}
             isTabInactive={isTabInactive}
+            bargeInEnabled={bargeInEnabled}
+            setBargeInEnabled={setBargeInEnabled}
           />
 
           {/* Backgrounded Tab Paused Banner */}
@@ -1748,8 +1762,6 @@ export default function InterviewPage() {
               onDoneSpeaking={flushAndSubmitTranscript}
               isTabInactive={isTabInactive}
               micAudioLevel={micAudioLevel}
-              bargeInEnabled={bargeInEnabled}
-              setBargeInEnabled={setBargeInEnabled}
             />
           )}
 

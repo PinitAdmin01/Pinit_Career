@@ -83,7 +83,7 @@ export function InterviewVoiceHud({
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
         {isVoiceListening && !isTabInactive && (
           <div
             data-testid="voice-level-meter"
@@ -171,20 +171,20 @@ export function InterviewVoiceHud({
         <button
           data-testid="interview-voice-hud-action-btn"
           onClick={startVoiceListening}
-          disabled={!isSpeechSupported || isVoiceListening || isAvatarSpeaking || isTabInactive}
+          disabled={!isSpeechSupported || isVoiceListening || isAvatarSpeaking || isSendingInterviewerReply || isTabInactive}
           style={{
-            background: isTabInactive ? 'var(--bg3)' : isVoiceListening ? 'var(--success)' : !isSpeechSupported ? 'var(--bg2)' : 'var(--accent)',
+            background: isTabInactive ? 'var(--bg3)' : isVoiceListening ? 'var(--success)' : (!isSpeechSupported || isAvatarSpeaking || isSendingInterviewerReply) ? 'var(--bg2)' : 'var(--accent)',
             border: isTabInactive ? '1px solid rgba(234, 179, 8, 0.4)' : 'none',
-            color: isTabInactive ? 'var(--warning-bright, #eab308)' : !isSpeechSupported ? 'var(--t3)' : '#ffffff',
+            color: isTabInactive ? 'var(--warning-bright, #eab308)' : (!isSpeechSupported || isAvatarSpeaking || isSendingInterviewerReply) ? 'var(--t3)' : '#ffffff',
             borderRadius: 8,
             padding: '6px 14px',
             fontSize: 12,
             fontWeight: 900,
-            cursor: !isSpeechSupported || isVoiceListening || isAvatarSpeaking || isTabInactive ? 'default' : 'pointer',
-            opacity: !isSpeechSupported ? 0.5 : 1
+            cursor: !isSpeechSupported || isVoiceListening || isAvatarSpeaking || isSendingInterviewerReply || isTabInactive ? 'default' : 'pointer',
+            opacity: (!isSpeechSupported || isAvatarSpeaking || isSendingInterviewerReply) && !isTabInactive ? 0.55 : 1
           }}
         >
-          {isTabInactive ? '⏸️ Paused (Tab Inactive)' : isVoiceListening ? '🎙️ Listening...' : '🎤 Start microphone'}
+          {isTabInactive ? '⏸️ Paused (Tab Inactive)' : isVoiceListening ? '🎙️ Listening...' : isSendingInterviewerReply ? '⏳ Waiting for reply...' : '🎤 Start microphone'}
         </button>
       </div>
     </div>

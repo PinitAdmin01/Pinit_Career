@@ -10,7 +10,7 @@ import {
   codeSubmissionTurn,
   loadActiveLiveSession,
   stageMarker,
-  transcriptForModel,
+  transcriptForStage,
   type LiveSession,
 } from '@/lib/interview/liveSession';
 
@@ -102,6 +102,29 @@ export interface CandidateTurnAnalysis {
   intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive' | 'readiness' | 'clarification' | 'coaching_request' | 'no_experience' | 'language_barrier';
   subject: string;
   keyTerm: string;
+}
+
+export function scopeHistoryToStage<T extends { role: string; content: string }>(
+  history: T[],
+  stage?: string
+): T[] {
+  if (!Array.isArray(history) || history.length === 0) return [];
+  if (stage !== 'round2_coding' && stage !== 'round3_systems') return history;
+
+  const markerRe = stage === 'round2_coding'
+    ? /Welcome to Round 2\b|\[Round 2:|\[Entering Round 2/i
+    : /Welcome to Round 3\b|\[Round 3:|\[Entering Round 3/i;
+
+  for (let i = history.length - 1; i >= 0; i--) {
+    if (markerRe.test(String(history[i]?.content || ''))) {
+      return history.slice(i);
+    }
+  }
+
+  const hasEarlierRoundContext = history.some((m) =>
+    /Corporate Interview!|Welcome to your interview\.|Welcome to Round 1\b|Welcome to Round 2\b|\[Round 1:|\[Round 2:/i.test(String(m?.content || ''))
+  );
+  return hasEarlierRoundContext ? history.slice(-1) : history;
 }
 
 export function stripInterviewerSignoff(text: string): string {
@@ -331,6 +354,14 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
 
   // 7. Candidate honestly stated no experience / not a developer / no projects / just attending
   if (analysis.intent === 'no_experience') {
+    if (stage === 'round3_systems') {
+      return stream === 'non_tech'
+        ? `No worries at all—let's keep the workflow practical. Look at the canvas on the left: try placing two blocks (such as Customer Intake and Fulfillment), connect them, and tell me what could slow that handoff down.`
+        : `No worries at all—we don't need prior production experience to start designing. Look at the whiteboard on the left: try placing Client App, API Gateway, and Postgres DB, connect them, and tell me where traffic flows first.`;
+    }
+    if (stage === 'round2_coding') {
+      return `No problem at all—let's break the active challenge into one small step. Forget syntax for a moment: in plain English, what steps would you take to solve the prompt shown on the left?`;
+    }
     const noExpPivots = [
       `Thank you for being upfront about that. Since you haven't worked on software or technical projects yet, could you share what your educational background is and what field or role you are aiming for?`,
       `I appreciate your honesty—everyone starts somewhere. Tell me a bit about your studies or any non-technical coursework, problem-solving activities, or personal interests you've pursued so far.`,
@@ -341,6 +372,12 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
 
   // 8. Candidate expressed language barrier, incomprehension, or deep confusion
   if (analysis.intent === 'language_barrier') {
+    if (stage === 'round3_systems') {
+      return `Sorry if that sounded unclear! In simple words: please add a Client block and a Database block on the whiteboard on the left, then click Evaluate Architecture.`;
+    }
+    if (stage === 'round2_coding') {
+      return `Sorry for the confusion! Let's make this simple: read the short problem at the top left and try writing your first step, or click Hints if you need a clue.`;
+    }
     const langPivots = [
       `I apologize if my phrasing was complicated. Let's keep it very simple: could you tell me your name, what you studied in college, and what kind of job you are looking for?`,
       `No worries at all, let's take it slow and simple. In plain words, what are the subjects or areas that you feel most comfortable talking about?`,
@@ -470,7 +507,8 @@ export async function POST(req: Request) {
       domainStream,
       domainSubTopic,
       jdContext,
-      companyContext
+      companyContext,
+      topologyContext
     } = body;
 
     const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
@@ -520,8 +558,8 @@ export async function POST(req: Request) {
     }
     const liveUserTurn = live ? clampTurn('user', message, stage) : null;
     const effectiveHistory: Array<{ role: string; content: string }> = live
-      ? [...transcriptForModel(live), ...(liveUserTurn ? [{ role: 'user', content: liveUserTurn.content }] : [])]
-      : (Array.isArray(history) ? history : []);
+      ? [...transcriptForStage(live, stage), ...(liveUserTurn ? [{ role: 'user', content: liveUserTurn.content }] : [])]
+      : scopeHistoryToStage(Array.isArray(history) ? history : [], stage);
 
         console.log(`[Interview Chat API] Authenticated User: ${gated.user.id} | Interviewer: ${selectedInterviewer.name} (${interviewerId}) | Stage: ${stage} | Topic: ${subTopic}`);
     if (gated.user?.id) {
@@ -552,6 +590,9 @@ export async function POST(req: Request) {
     }
 
     // 4. Build Stage-Specific Context
+    const topologySummary = typeof topologyContext === 'string' && topologyContext.trim()
+      ? topologyContext.trim().slice(0, 600)
+      : 'Empty whiteboard (0 nodes placed yet)';
     let stageContext = '';
     if (stage === 'round1_behavioral') {
       const historyLength = effectiveHistory.length;
@@ -562,13 +603,13 @@ export async function POST(req: Request) {
       }
     } else if (stage === 'round2_coding') {
       stageContext = reviewDecision
-        ? `This is the final code-review decision for Round 2. Assess the candidate's code and their explanation in the conversation. If both meet the bar, briefly acknowledge why and append exactly [[ROUND_VERDICT:PASS]]. If the reasoning or implementation has a substantive gap, briefly explain it and append exactly [[ROUND_VERDICT:RETRY]]. Do not ask another question. Never include the marker in spoken prose.`
-        : `This is Round 2 (Technical Assessment & Problem Solving). Review the submitted code when available and ask exactly one focused question about its logic, complexity, edge cases, or trade-offs. If they ask for hints, provide a conceptual clue without giving away code or the complete solution. Keep under 3 sentences.`;
+        ? `This is the final code-review decision for Round 2. STRICT STAGE LOCK: Assess ONLY the candidate's Round 2 code/case solution and explanation. If both meet the bar, briefly acknowledge why and append exactly [[ROUND_VERDICT:PASS]]. If the reasoning or implementation has a substantive gap, briefly explain it and append exactly [[ROUND_VERDICT:RETRY]]. Do not ask another question. Never include the marker in spoken prose.`
+        : `This is Round 2 (Technical Assessment & Problem Solving). STRICT STAGE LOCK: Stay 100% focused on the active Round 2 challenge, algorithm/logic, complexity, edge cases, or case-study calculations. NEVER revert to Round 1 background, college degree, or generic introductory trivia. Review submitted code when available and ask one focused question; if asked for hints, give a conceptual clue without giving away the solution. Keep under 3 sentences.`;
     } else if (stage === 'round3_systems') {
       if (stream === 'non_tech') {
-        stageContext = `This is Round 3 (Business Workflow Canvas). Ask about the conversion funnel, monetization loops, and bottleneck mitigations in their strategy for ${subTopic}. Keep under 3 sentences.`;
+        stageContext = `This is Round 3 (Business Workflow Canvas). STRICT STAGE LOCK: Stay 100% focused on business workflow architecture, funnel conversion, monetization loops, and operational bottlenecks for ${subTopic}. NEVER ask Round 1 background/college/syntax questions. Current Canvas State: ${topologySummary}. If the canvas is empty, guide the candidate to place 2-3 workflow blocks and click Evaluate Architecture; otherwise probe one concrete trade-off or bottleneck. Keep under 3 sentences.`;
       } else {
-        stageContext = `This is Round 3 (System Architecture Canvas). Ask the candidate about failure modes, load balancing, caching consistency, and database scaling trade-offs in ${subTopic}. Keep under 3 sentences.`;
+        stageContext = `This is Round 3 (System Architecture Canvas). STRICT STAGE LOCK: Stay 100% focused on system architecture design for ${subTopic} (components, request flow, load balancing, caching, databases, queues, failure modes, and scaling). NEVER ask Round 1 personal background/degree questions or basic language syntax trivia (like Python lists vs tuples or intro web frameworks). Current Whiteboard State: ${topologySummary}. If the whiteboard is empty, guide the candidate to place 2-3 core blocks (such as Client App, API Gateway, Database) and explain how traffic flows; otherwise probe one concrete architectural trade-off or failure mode. Keep under 3 sentences.`;
       }
     } else if (stage === 'round4_star') {
       stageContext = `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
@@ -593,7 +634,7 @@ ${telemetryContext}
 RULES:
 1. Speak in first person as ${selectedInterviewer.name} in natural spoken dialogue (no markdown bullets, no numbered lists, and NEVER append a sign-off or your name like '— ${selectedInterviewer.name}').
 2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'}
-3. If the candidate says "I don't know", expresses confusion, or feels stuck, NEVER pretend they gave an answer or praise them for not knowing. Supportively acknowledge it ("No problem at all—let's look at this from a different angle...") and guide them with a simpler stepping-stone question or an alternative practical angle in ${subTopic}.
+3. If the candidate says "I don't know", expresses confusion, or feels stuck, NEVER pretend they gave an answer or praise them for not knowing. Supportively acknowledge it ("No problem at all—let's look at this from a different angle...") and guide them with a simpler stepping-stone question strictly inside the CURRENT stage (${stage || 'round1_behavioral'}) — NEVER drift back into Round 1 college background or unrelated syntax trivia during Round 2 or Round 3.
 4. If the candidate gives a broad introductory greeting without project specifics, warmly acknowledge them and ask for one specific project, the technical problem it solved, and their direct contribution.
 5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly skip a question, briefly acknowledge the skip and pivot to a fresh topic.
 6. Never give the complete code or answer away.
@@ -603,7 +644,7 @@ RULES:
 10. If the candidate asks for clarification or asks to explain in depth (e.g. "can you explain in depth", "what do you mean?"), explain the question in simpler, practical terms. NEVER treat their question as a project name or technical approach.
 11. If the candidate asks how to answer (e.g. "how to answer", "what should I say?"), briefly guide them to use the STAR method (Situation, Task, Action, Result).
 12. NEVER parrot back raw candidate phrasing into templates like "You made an insightful observation around [candidate's words]". Always sound like a natural, empathetic, professional corporate hiring manager.
-13. If the candidate states they have no software experience, have not done projects/courses, are not a software developer, or are attending without prior technical preparation: NEVER praise them for a "practical perspective" or ask how they balanced shipping speed. Acknowledge with genuine warmth and empathy: thank them for being honest, and ask about their actual educational background, non-technical studies, or what field they are interested in.
+13. If the candidate states they have no software experience, have not done projects/courses, are not a software developer, or are attending without prior technical preparation: NEVER praise them for a "practical perspective" or ask how they balanced shipping speed. Acknowledge with genuine warmth and empathy; in Round 1 ask about their actual educational background or interests, whereas in Round 2/3 keep the stepping-stone prompt focused on solving a tiny piece of the current round's problem or placing 2 blocks on the architecture canvas.
 14. If the candidate expresses language confusion or a communication barrier (e.g. mentions Telugu, Hindi, can't understand, or asks what you mean): NEVER hallucinate that this was a technical choice. Respond in very simple, reassuring, plain English, apologizing for any confusion, and ask a very simple opening question about their college or interests.`;
 
     // 6. Multi-Key & Multi-Model Rotation Pool & Provider Failover

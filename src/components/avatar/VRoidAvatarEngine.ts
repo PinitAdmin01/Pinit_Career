@@ -51,6 +51,70 @@ export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
   default:  { name: 'Mentor',             domain: 'Multidisciplinary Career Mentor', expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00, warmth: 0.16, gender: 'neutral' }
 };
 
+/**
+ * Exact binary-verified ~1.5MB Draco twin for each HD ~16MB VRoid model in public/avatar/.
+ * Verified against GLB material & mesh signatures so fast models always match the named persona.
+ * Note: avatarsample_m.glb is the blonde Alice-dress female archetype and must never be used for males.
+ */
+export const PERSONA_FAST_MODEL: Record<string, string> = {
+  priya:   '/avatar/avatarsample_u.glb',
+  mentor:  '/avatar/avatarsample_u.glb',
+  sneha:   '/avatar/avatarsample_j.glb',
+  rohan:   '/avatar/avatarsample_v.glb',
+  vikram:  '/avatar/avatarsample_x.glb',
+  kashyap: '/avatar/avatarsample_r.glb',
+  anish:   '/avatar/avatarsample_c.glb',
+  karthic: '/avatar/akira.glb',
+  aditya:  '/avatar/mika.glb',
+  divya:   '/avatar/yuki.glb',
+};
+
+const MALE_FALLBACK_MODELS = [
+  '/avatar/avatarsample_r.glb',
+  '/avatar/avatarsample_c.glb',
+  '/avatar/avatarsample_v.glb',
+  '/avatar/avatarsample_x.glb',
+  '/avatar/kashyap.glb',
+];
+
+const INTERVIEW_FEMALE_FALLBACK_MODELS = [
+  '/avatar/avatarsample_j.glb',
+  '/avatar/yuki.glb',
+  '/avatar/hana.glb',
+  '/avatar/aisha.glb',
+];
+
+const PRIYA_FALLBACK_MODELS = [
+  '/avatar/avatarsample_u.glb',
+  '/avatar/priya.glb',
+  '/avatar/yuki.glb',
+];
+
+/**
+ * Resolves the strictly gender-matched, Priya-isolated ordered GLB load chain for a persona.
+ */
+export function resolveAvatarModelPaths(teacherId: string, _prefersHD = true): string[] {
+  const id = String(teacherId || 'default').toLowerCase().trim();
+  const personaForModel = PERSONA_CONFIGS[id] || PERSONA_CONFIGS.default;
+  const ownFast = PERSONA_FAST_MODEL[id];
+  const modelPath = `/avatar/${id}.glb`;
+
+  const isPriyaPersona = id === 'priya' || id === 'mentor';
+  const genderMatchedFallbacks = isPriyaPersona
+    ? PRIYA_FALLBACK_MODELS
+    : personaForModel.gender === 'male'
+    ? MALE_FALLBACK_MODELS
+    : personaForModel.gender === 'female'
+    ? INTERVIEW_FEMALE_FALLBACK_MODELS
+    : ['/avatar/avatarsample_j.glb', '/avatar/yuki.glb', '/avatar/avatarsample_v.glb'];
+
+  const rawPaths = ownFast
+    ? [ownFast, ...(id !== 'mentor' ? [modelPath] : []), ...genderMatchedFallbacks]
+    : [modelPath, ...genderMatchedFallbacks];
+
+  return Array.from(new Set(rawPaths));
+}
+
 // High-precision delta timer replacing deprecated THREE.Clock in Three.js r163+
 export class PrecisionTimer {
   private lastTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -407,30 +471,7 @@ export class VRoidAvatarEngine {
     );
     const prefersHD = !this.isLowPowerDevice && !isSlowNetwork && (typeof window !== 'undefined' && window.innerWidth >= 1024);
 
-    const modelPath = `/avatar/${id}.glb`;
-
-    // High-speed 1.4MB Draco/WebP archetype fallbacks matching persona gender
-    // avatarsample_u.glb is the identical Draco-compressed rig for Priya & Mentor
-    // avatarsample_m.glb is the Draco-compressed rig for Kashyap
-    const FEMALE_FALLBACK_MODELS = ['/avatar/avatarsample_u.glb', '/avatar/mika.glb', '/avatar/hana.glb', '/avatar/priya.glb'];
-    const MALE_FALLBACK_MODELS = ['/avatar/avatarsample_m.glb', '/avatar/akira.glb', '/avatar/avatarsample_c.glb', '/avatar/kashyap.glb'];
-
-    const genderMatchedFallbacks =
-      personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
-      : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
-      : ['/avatar/avatarsample_u.glb', '/avatar/mentor.glb'];
-
-    // If on mobile or slow network, prioritize the 1.4MB Draco archetype to guarantee < 1s startup
-    const primaryFastModel =
-      personaForModel.gender === 'female' ? '/avatar/avatarsample_u.glb'
-      : personaForModel.gender === 'male' ? '/avatar/avatarsample_m.glb'
-      : '/avatar/avatarsample_u.glb';
-
-    const rawPaths = prefersHD
-      ? [modelPath, ...genderMatchedFallbacks]
-      : [primaryFastModel, modelPath, ...genderMatchedFallbacks];
-
-    const paths = Array.from(new Set(rawPaths));
+    const paths = resolveAvatarModelPaths(id, prefersHD);
 
     console.log(
       `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,

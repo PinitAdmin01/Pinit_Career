@@ -913,3 +913,151 @@ test('Task 4 & Task 7: Round 2 Non-Tech Case Study Studio and Skip Challenge int
   assert.ok(headerNonTechHtml.includes('Case Study'), 'Non-tech header must display Case Study for Round 2');
   assert.ok(headerNonTechHtml.includes('Strategy'), 'Non-tech header must display Strategy for Round 3');
 });
+
+test('5-Task Overhaul Verification: Settings Gear UI, Stage Scoping, Mic Lock, Priya Removal, and Gender-Matched 3D Rigs', async () => {
+  const { scopeHistoryToStage } = await import('../src/app/api/interview/chat/route');
+  const { transcriptForStage } = await import('../src/lib/interview/liveSession');
+  const { resolveAvatarModelPaths } = await import('../src/components/avatar/VRoidAvatarEngine');
+
+  // Task 1: Universal Settings Gear & clean top bar (no broken Skip Question button)
+  const closedHeader = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(InterviewSessionHeader, {
+      activeTeacher: { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', title: 'HR Director' },
+      activeTopicName: 'Full-Stack Software Developer',
+      activeStage: 'round1_behavioral',
+      domainStream: 'tech',
+      domainSubTopic: 'software',
+      isVoiceListening: false,
+      elapsedSeconds: 30,
+      formatElapsed: (s: number) => `0:${s}`,
+      isScoredStage: true,
+      isAssistModeActive: false,
+      setIsAssistModeActive: () => {},
+      messages: [],
+      fetchAssistScript: () => {},
+      avatarVolume: 85,
+      handleVolumeChange: () => {},
+      showCameraPreview: false,
+      toggleCameraPreview: () => {},
+      isAvatarSpeaking: false,
+      interruptSpeech: () => {},
+      exitInterview: () => {},
+      bargeInEnabled: false,
+      setBargeInEnabled: () => {},
+      onSkipQuestion: () => {},
+    })
+  );
+  assert.ok(closedHeader.includes('data-testid="header-settings-toggle"'), 'Header must render Settings gear toggle');
+  assert.ok(!closedHeader.includes('data-testid="header-skip-btn"'), 'Top header must never render broken Skip Question button');
+  assert.ok(!closedHeader.includes('data-testid="header-settings-menu"'), 'Settings popover must stay collapsed by default');
+
+  const openHeader = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(InterviewSessionHeader, {
+      activeTeacher: { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', title: 'Tech Evaluator' },
+      activeTopicName: 'Full-Stack Software Developer',
+      activeStage: 'round2_coding',
+      domainStream: 'tech',
+      isVoiceListening: false,
+      elapsedSeconds: 90,
+      formatElapsed: (s: number) => `1:30`,
+      isScoredStage: true,
+      isAssistModeActive: true,
+      setIsAssistModeActive: () => {},
+      messages: [],
+      fetchAssistScript: () => {},
+      avatarVolume: 90,
+      handleVolumeChange: () => {},
+      showCameraPreview: true,
+      toggleCameraPreview: () => {},
+      isAvatarSpeaking: false,
+      interruptSpeech: () => {},
+      exitInterview: () => {},
+      bargeInEnabled: false,
+      setBargeInEnabled: () => {},
+      defaultSettingsOpen: true,
+    })
+  );
+  assert.ok(openHeader.includes('data-testid="header-settings-menu"'), 'Open settings popover must render');
+  assert.ok(openHeader.includes('data-testid="header-assist-toggle"'), 'Settings popover must house Assist Mode toggle');
+  assert.ok(openHeader.includes('data-testid="header-gaming-mode-toggle"'), 'Settings popover must house Gaming Focus toggle');
+  assert.ok(openHeader.includes('data-testid="header-self-view-toggle"'), 'Settings popover must house Self-View toggle');
+  assert.ok(openHeader.includes('data-testid="voice-barge-in-toggle"'), 'Settings popover must house Barge-In toggle');
+  assert.ok(openHeader.includes('Interviewer Volume'), 'Settings popover must house Volume slider');
+
+  const appShellSrc = fs.readFileSync(path.join(ROOT, 'src/components/ui/AppShell.tsx'), 'utf8');
+  assert.ok(appShellSrc.includes('showGamingPill') && !appShellSrc.includes("top: 20,\n          left: '50%'"), 'Fullscreen pill must not overlap top header bar');
+
+  // Task 2: Strict Stage History Scoping prevents Round 1 Python/BCA bleed into Round 3
+  const mixedHistory = [
+    { role: 'assistant', content: 'Welcome to your Full-Stack Software Developer Corporate Interview! I am Ms. Sneha.' },
+    { role: 'user', content: 'I am pursuing BCA and I know Python.' },
+    { role: 'assistant', content: 'Welcome to Round 3. I am Mr. Vikram, your systems interviewer.' },
+    { role: 'user', content: 'What should I put on the whiteboard?' }
+  ];
+  const round3Scoped = scopeHistoryToStage(mixedHistory, 'round3_systems');
+  assert.equal(round3Scoped.length, 2, 'Round 3 scope must drop all Round 1 Python/BCA turns');
+  assert.ok(!round3Scoped.some(m => m.content.includes('pursuing BCA')), 'Round 3 scope must never retain Round 1 BCA message');
+
+  const round4Scoped = scopeHistoryToStage(mixedHistory, 'round4_star');
+  assert.equal(round4Scoped.length, 4, 'Round 4 executive review retains full cross-round context');
+
+  const liveTranscript = [
+    { role: 'assistant' as const, content: 'Welcome Round 1', stage: 'round1_behavioral', at: '2026-11-21T10:00:00Z' },
+    { role: 'user' as const, content: 'I know Python and Flask', stage: 'round1_behavioral', at: '2026-11-21T10:01:00Z' },
+    { role: 'assistant' as const, content: '[Round 3: System / Workflow Design begins]', stage: 'round3_systems', at: '2026-11-21T10:05:00Z' },
+    { role: 'user' as const, content: 'How do I scale the API?', stage: 'round3_systems', at: '2026-11-21T10:06:00Z' }
+  ];
+  const r3Live = transcriptForStage({
+    id: '00000000-0000-4000-8000-000000000001',
+    user_id: 'u1',
+    topic: 'Full-Stack Software Developer',
+    domain_stream: 'tech',
+    status: 'active',
+    transcript: liveTranscript,
+    evaluation: null,
+    created_at: '2026-11-21T10:00:00Z',
+    updated_at: '2026-11-21T10:06:00Z',
+    evaluated_at: null
+  }, 'round3_systems');
+  assert.equal(r3Live.length, 2);
+  assert.ok(!r3Live.some(t => t.content.includes('Python and Flask')));
+
+  const chatRouteSrc = fs.readFileSync(path.join(ROOT, 'src/app/api/interview/chat/route.ts'), 'utf8');
+  assert.ok(chatRouteSrc.includes('STRICT STAGE LOCK') && chatRouteSrc.includes('topologyContext'), 'Chat API must enforce STRICT STAGE LOCK and whiteboard topologyContext');
+
+  // Task 3: Mic lock while interviewer reply is in flight & HUD disabled button
+  const voiceHookSrc = fs.readFileSync(path.join(ROOT, 'src/app/interview/hooks/useInterviewVoice.ts'), 'utf8');
+  assert.ok(voiceHookSrc.includes('isAwaitingReplyRef') && voiceHookSrc.includes('isMicBlocked') && voiceHookSrc.includes('speechEpochRef'), 'Voice hook must guard async mic restarts with isAwaitingReplyRef, isMicBlocked, and speechEpochRef');
+
+  const sendingHudHtml = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(InterviewVoiceHud, {
+      isVoiceListening: false,
+      isAvatarSpeaking: false,
+      isSendingInterviewerReply: true,
+      activeTeacher: { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', title: 'HR Director' },
+      liveSpeechTranscript: '',
+      stopVoiceListening: () => {},
+      startVoiceListening: () => {},
+      isSpeechSupported: true,
+      isTabInactive: false
+    })
+  );
+  assert.ok(sendingHudHtml.includes('Waiting for reply') && sendingHudHtml.includes('disabled'), 'Voice HUD mic action must disable while awaiting interviewer reply');
+
+  // Task 4 & 5: Priya excluded from AI Interview & strictly gender/persona-matched 3D rigs
+  assert.equal(resolveAvatarModelPaths('sneha')[0], '/avatar/avatarsample_j.glb');
+  assert.ok(!resolveAvatarModelPaths('sneha').includes('/avatar/avatarsample_u.glb'));
+  assert.ok(!resolveAvatarModelPaths('sneha').includes('/avatar/priya.glb'));
+  assert.equal(resolveAvatarModelPaths('rohan')[0], '/avatar/avatarsample_v.glb');
+  assert.ok(!resolveAvatarModelPaths('rohan').includes('/avatar/avatarsample_m.glb'));
+  assert.equal(resolveAvatarModelPaths('vikram')[0], '/avatar/avatarsample_x.glb');
+  assert.ok(!resolveAvatarModelPaths('vikram').includes('/avatar/avatarsample_m.glb'));
+  assert.ok(!resolveAvatarModelPaths('aisha').includes('/avatar/avatarsample_u.glb'));
+  assert.equal(resolveAvatarModelPaths('priya')[0], '/avatar/avatarsample_u.glb');
+
+  const globalAvatarSrc = fs.readFileSync(path.join(ROOT, 'src/components/ui/GlobalAvatar.tsx'), 'utf8');
+  assert.ok(globalAvatarSrc.includes('isLessonOrDetail || isInterview || isGroupDiscussion'), 'GlobalAvatar floating pill must hide across entire /interview route');
+
+  const vroidInterviewSrc = fs.readFileSync(path.join(ROOT, 'src/components/avatar/VRoidInterviewAvatar.tsx'), 'utf8');
+  assert.ok(vroidInterviewSrc.includes("teacherId = 'sneha'"), 'VRoidInterviewAvatar default teacherId must never be priya');
+});

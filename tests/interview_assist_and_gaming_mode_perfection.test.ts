@@ -98,15 +98,18 @@ test('Task 2: Gaming Mode Auto-Activation & Strict Fullscreen CSS Invariants', a
         toggleCameraPreview: () => {},
         isAvatarSpeaking: false,
         interruptSpeech: () => {},
-        exitInterview: () => {}
+        exitInterview: () => {},
+        defaultSettingsOpen: true
       })
     );
 
+    assert.ok(headerMarkup.includes('data-testid="header-settings-toggle"'));
     assert.ok(headerMarkup.includes('data-testid="header-gaming-mode-toggle"'));
     assert.ok(headerMarkup.includes('🎮'));
     assert.ok(headerMarkup.includes('Gaming Focus') || headerMarkup.includes('Gaming Mode: Active'));
     assert.ok(headerMarkup.includes('data-testid="header-assist-toggle"'));
     assert.ok(headerMarkup.includes('🎯 Assist Mode: ON'));
+    assert.ok(!headerMarkup.includes('data-testid="header-skip-btn"'), 'Top header must not render broken Skip Question button');
   });
 
   await t.test('InterviewSetupView start button has data-testid and start triggers', () => {
