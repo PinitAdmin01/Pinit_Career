@@ -93,14 +93,19 @@ describe('Tasks 1–5 Complete Verification Suite', () => {
   });
 
   describe('Task 3: Proof Vault UI, Category Config & Ledger Mounting', () => {
-    it('fixes resume -> OTHER fallback, avoids overlapping UI invariants, and mounts TelemetryAuditLedger', () => {
+    it('fixes resume -> OTHER fallback, uses streamlined 2-tab above-the-fold layout, adds delete action, and mounts TelemetryAuditLedger', () => {
       const root = process.cwd();
       const vaultSrc = fs.readFileSync(path.join(root, 'src/app/vault/page.tsx'), 'utf-8');
+      const ledgerSrc = fs.readFileSync(path.join(root, 'src/components/vault/TelemetryAuditLedger.tsx'), 'utf-8');
       assert.ok(vaultSrc.includes('resume:') && vaultSrc.includes('Master Resume'), 'TYPE_CONFIG must define resume category');
       assert.ok(vaultSrc.includes('proof_url'), 'Must preserve proof_url compatibility');
       assert.ok(vaultSrc.includes('formEvidenceFile'), 'Must preserve formEvidenceFile input');
       assert.ok(!vaultSrc.includes('Verified (100% Match)'), 'Must not falsely auto-verify on upload');
+      assert.ok(!vaultSrc.includes('Avg AI Grounding'), 'Must remove confusing Avg AI Grounding metric');
+      assert.ok(vaultSrc.includes('My Documents') && vaultSrc.includes('Score History'), 'Must render clean 2-tab switcher');
+      assert.ok(vaultSrc.includes('removeVaultItem'), 'Must allow deleting duplicate/unverified documents');
       assert.ok(vaultSrc.includes('<TelemetryAuditLedger'), 'Must render TelemetryAuditLedger component inside Vault');
+      assert.ok(ledgerSrc.includes('Current Synced Trust Balance'), 'Ledger anchor must stay consistent with live Trust Score');
     });
   });
 
