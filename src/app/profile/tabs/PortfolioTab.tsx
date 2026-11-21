@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { CS } from './types';
 import { usePortfolioData } from './portfolio/usePortfolioData';
 import { PitchSection } from './portfolio/PitchSection';
@@ -31,11 +32,23 @@ const sectionCard: React.CSSProperties = {
 
 const divider = <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: 0 }} />;
 
+const DEFAULT_PITCH_PLACEHOLDER = 'add a short professional pitch about your skills and goals.';
+
 export default function PortfolioTab({ user, cOS, passportSkills: propPassportSkills }: PortfolioTabProps) {
+  const [skillsTick, setSkillsTick] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onSkillsUpdated = () => setSkillsTick((t) => t + 1);
+    window.addEventListener('pinit-skills-updated', onSkillsUpdated);
+    window.addEventListener('pinit-portfolio-updated', onSkillsUpdated);
+    return () => {
+      window.removeEventListener('pinit-skills-updated', onSkillsUpdated);
+      window.removeEventListener('pinit-portfolio-updated', onSkillsUpdated);
+    };
+  }, []);
+
   const passportSkills = React.useMemo(() => {
-    if (Array.isArray(propPassportSkills) && propPassportSkills.length > 0) {
-      return propPassportSkills;
-    }
     const map = new Map<string, { id: string; name: string; level: number }>();
     const pushSkill = (raw: any, lvl = 2) => {
       const name = typeof raw === 'string' ? raw.trim() : String(raw?.name || '').trim();
@@ -45,6 +58,9 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
         map.set(key, { id: raw?.id || `sk_${key.replace(/[^a-z0-9]/g, '_')}`, name, level: raw?.level || lvl });
       }
     };
+    if (Array.isArray(propPassportSkills)) {
+      propPassportSkills.forEach((s) => pushSkill(s, s?.level || 2));
+    }
     (cOS?.skills || []).forEach((s: any) => pushSkill(s, 2));
     (user?.skill_tags || user?.skillTags || []).forEach((s: any) => pushSkill(s, 2));
     (cOS?.vaultItems || []).filter((v: any) => v?.verified && Array.isArray(v.skill_tags)).forEach((v: any) => {
@@ -60,7 +76,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
       } catch {}
     }
     return Array.from(map.values());
-  }, [propPassportSkills, cOS?.skills, cOS?.vaultItems, user]);
+  }, [propPassportSkills, cOS?.skills, cOS?.vaultItems, user, skillsTick]);
 
   const isStaff = STAFF_ROLES.includes(user?.role);
   const [view, setView] = useState<PortfolioView>('overview');
@@ -101,10 +117,41 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
 
   const verifiedProjects = projects.filter((p) => p.verified);
   const verifiedCerts = certificates.filter((c) => c.verified);
+
+  const effectivePitch = React.useMemo(() => {
+    const rawPitch = typeof pitch === 'string' ? pitch.trim() : '';
+    const isPlaceholder = !rawPitch || rawPitch.toLowerCase() === DEFAULT_PITCH_PLACEHOLDER;
+    if (!isPlaceholder) return rawPitch;
+    if (passportSkills.length === 0) return rawPitch || pitch;
+    const roleLabel =
+      (user as any)?.targetRole ||
+      (user as any)?.target_role ||
+      (user as any)?.onboardingAnswers?.targetRole ||
+      'Software & Technology Candidate';
+    const topNames = passportSkills.slice(0, 8).map((s) => s.name).join(', ');
+    return `${roleLabel} with live-verified hands-on proficiency in ${topNames}, validated through PinIT oral technical defense and proof-of-work assessments.`;
+  }, [pitch, passportSkills, user]);
+
+  const handleToggleEditPitch = (nextVal: boolean) => {
+    if (nextVal) {
+      const currentTemp = String(tempPitch || '').trim();
+      if (!currentTemp || currentTemp.toLowerCase() === DEFAULT_PITCH_PLACEHOLDER) {
+        setTempPitch(effectivePitch);
+      }
+    }
+    setEditingPitch(nextVal);
+  };
+
+  const shareablePortfolioHref = user?.id ? `/university/portfolio/${encodeURIComponent(user.id)}` : null;
+
   const lastAccomplishment = (() => {
     const verifiedVaultItem = cOS?.vaultItems?.find((v: any) => v.verified)?.title;
     const lastQuest = cOS?.completedQuests?.length ? `Quest: ${cOS.completedQuests[cOS.completedQuests.length - 1]}` : null;
-    return verifiedVaultItem || lastQuest || 'Nothing verified yet — finish a quest to get started.';
+    if (verifiedVaultItem) return verifiedVaultItem;
+    if (passportSkills.length > 0) {
+      return `Live-Verified Skills (${passportSkills.length}): ${passportSkills.slice(0, 6).map((s) => s.name).join(', ')}`;
+    }
+    return lastQuest || 'Nothing verified yet — finish a quest or pass a Proof Vault defense to get started.';
   })();
 
   const views: Array<{ id: PortfolioView; label: string }> = [
@@ -121,13 +168,46 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="animate-fade-in">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', padding: '10px 16px', borderRadius: 12, background: 'var(--accent-light)', border: '1px solid var(--accent)' }}>
           <span style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--accent)' }}>👁️ You are previewing your portfolio as a recruiter sees it</span>
-          <button type="button" className="btn-ghost btn-sm" onClick={() => setRecruiterPreview(false)}>← Back to editing</button>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            {shareablePortfolioHref && (
+              <Link href={shareablePortfolioHref} target="_blank" className="btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
+                🔗 Open Shareable Link
+              </Link>
+            )}
+            <button type="button" className="btn-ghost btn-sm" onClick={() => setRecruiterPreview(false)}>← Back to editing</button>
+          </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, gridColumn: 'span 2' }}>
             <div style={CS.card}>
               <div style={CS.cardLabel}>Professional Pitch</div>
-              <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{pitch ? `"${pitch}"` : 'No pitch written yet.'}</p>
+              <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>{effectivePitch ? `"${effectivePitch}"` : 'No pitch written yet.'}</p>
+            </div>
+            <div style={CS.card}>
+              <div style={CS.cardLabel}>Verified Technical Skills ({passportSkills.length})</div>
+              {passportSkills.length === 0 ? (
+                <div style={{ fontSize: 13.5, color: 'var(--t3)' }}>No verified skills yet.</div>
+              ) : (
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  {passportSkills.map((s) => (
+                    <span
+                      key={s.id}
+                      style={{
+                        fontSize: 12.5,
+                        fontWeight: 700,
+                        padding: '4px 10px',
+                        borderRadius: 8,
+                        background: 'rgba(16,185,129,0.14)',
+                        border: '1px solid rgba(16,185,129,0.35)',
+                        color: 'var(--green)',
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      ✓ {s.name} · L{s.level}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
             <div style={CS.card}>
               <div style={CS.cardLabel}>Verified Projects ({verifiedProjects.length})</div>
@@ -164,7 +244,7 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="animate-fade-in">
-      {/* Sub-view pills + recruiter preview */}
+      {/* Sub-view pills + recruiter preview + shareable link */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
         <div role="tablist" aria-label="Portfolio sections" style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {views.map((v) => {
@@ -193,23 +273,56 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
             );
           })}
         </div>
-        <button type="button" className="btn-ghost btn-sm" onClick={() => setRecruiterPreview(true)}>
-          👁️ Preview as recruiter
-        </button>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+          {shareablePortfolioHref && (
+            <Link href={shareablePortfolioHref} target="_blank" className="btn-ghost btn-sm" style={{ textDecoration: 'none' }}>
+              🔗 Shareable Portfolio
+            </Link>
+          )}
+          <button type="button" className="btn-ghost btn-sm" onClick={() => setRecruiterPreview(true)}>
+            👁️ Preview as recruiter
+          </button>
+        </div>
       </div>
 
       {view === 'overview' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={sectionCard}>
             <PitchSection
-              pitch={pitch}
+              pitch={effectivePitch}
               tempPitch={tempPitch}
               setTempPitch={setTempPitch}
               editingPitch={editingPitch}
-              setEditingPitch={setEditingPitch}
+              setEditingPitch={handleToggleEditPitch}
               savePitch={savePitch}
             />
           </div>
+          {passportSkills.length > 0 && (
+            <div style={{ ...sectionCard, padding: 16 }} data-testid="portfolio-overview-verified-skills">
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.6, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 8 }}>
+                ✓ Verified Technical Skills ({passportSkills.length})
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {passportSkills.map((s) => (
+                  <span
+                    key={s.id}
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      padding: '3px 10px',
+                      borderRadius: 6,
+                      background: 'rgba(16,185,129,0.14)',
+                      border: '1px solid rgba(16,185,129,0.35)',
+                      color: 'var(--green)',
+                      fontFamily: 'var(--font-mono)',
+                    }}
+                  >
+                    ✓ {s.name} · L{s.level}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
             {[
               { label: 'Career Score', value: Number(cOS?.careerScore) || 0, hint: 'out of 100' },
@@ -294,10 +407,10 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
               LIVE FROM PORTFOLIO
             </span>
           </div>
-          {pitch && (
+          {effectivePitch && (
             <>
               {divider}
-              <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, margin: '14px 0' }}>{pitch}</p>
+              <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, margin: '14px 0' }}>{effectivePitch}</p>
             </>
           )}
           {divider}
@@ -306,10 +419,10 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
               Skills ({passportSkills.length})
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              {passportSkills.length === 0 && <span style={{ fontSize: 13, color: 'var(--t3)' }}>Complete quests to add verified skills.</span>}
+              {passportSkills.length === 0 && <span style={{ fontSize: 13, color: 'var(--t3)' }}>Complete quests or defend skills in Proof Vault to add verified skills.</span>}
               {passportSkills.map((s: any) => (
-                <span key={s.id} style={{ fontSize: 12, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 8px', borderRadius: 4, color: 'var(--t1)' }}>
-                  {s.name} · L{s.level}
+                <span key={s.id} style={{ fontSize: 12, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.32)', padding: '2px 8px', borderRadius: 4, color: 'var(--t1)' }}>
+                  ✓ {s.name} · L{s.level}
                 </span>
               ))}
             </div>

@@ -220,16 +220,17 @@ export default function VaultPage() {
             ? {
                 ...prev,
                 loadingFile: false,
-                fileError: errPayload?.message || 'No previewable binary file found for this entry.',
+                fileError: errPayload?.message || errPayload?.error || 'No previewable binary file found for this entry.',
               }
             : null
         );
         return;
       }
 
-      const mimeType = res.headers.get('content-type') || 'application/pdf';
+      const mimeType = (res.headers.get('content-type') || 'application/pdf').split(';')[0].trim();
       const fileName = res.headers.get('x-vault-filename') || item.title || 'document.pdf';
-      const blob = await res.blob();
+      const rawBlob = await res.blob();
+      const blob = rawBlob.type === mimeType ? rawBlob : new Blob([rawBlob], { type: mimeType });
       const blobUrl = URL.createObjectURL(blob);
       const textContent = mimeType.startsWith('text/') ? await blob.text() : '';
 
@@ -271,16 +272,46 @@ export default function VaultPage() {
       });
 
       if (res?.ok && res?.readable) {
+        const prevAi = getLocalAiAnalysis(item.id) || {};
+        const nextSkills =
+          Array.isArray(res.claimedSkills) && res.claimedSkills.length > 0
+            ? res.claimedSkills
+            : Array.isArray(prevAi.skills)
+            ? prevAi.skills
+            : [];
+        const nextProjects =
+          Array.isArray(res.projects) && res.projects.length > 0
+            ? res.projects
+            : Array.isArray(prevAi.projects)
+            ? prevAi.projects
+            : [];
+        const nextCerts =
+          Array.isArray(res.certifications) && res.certifications.length > 0
+            ? res.certifications
+            : Array.isArray(prevAi.certifications)
+            ? prevAi.certifications
+            : [];
+        const isSyntheticRaw =
+          typeof res.rawTextExcerpt === 'string' &&
+          /^Document Title:[\s\S]*Claimed Skills:/i.test(res.rawTextExcerpt.trim());
+        const nextRawText =
+          !isSyntheticRaw && res.rawTextExcerpt && res.rawTextExcerpt.trim().length > 30
+            ? res.rawTextExcerpt
+            : prevAi.rawTextExcerpt || res.rawTextExcerpt || '';
+
         const nextAi = {
-          source: res.analysisSource,
-          documentTitle: res.documentTitle,
-          documentType: res.documentType,
-          skills: res.claimedSkills || [],
-          projects: res.projects || [],
-          certifications: res.certifications || [],
-          summary: res.summary || '',
-          rawTextExcerpt: res.rawTextExcerpt || '',
-          defenseQuestions: res.defenseQuestions || [],
+          source: res.analysisSource || prevAi.source,
+          documentTitle: res.documentTitle || prevAi.documentTitle || item.title,
+          documentType: res.documentType || prevAi.documentType || item.item_type,
+          skills: nextSkills,
+          projects: nextProjects,
+          certifications: nextCerts,
+          summary: res.summary || prevAi.summary || '',
+          rawTextExcerpt: nextRawText,
+          defenseQuestions:
+            Array.isArray(res.defenseQuestions) && res.defenseQuestions.length > 0
+              ? res.defenseQuestions
+              : prevAi.defenseQuestions || [],
         };
         if (typeof window !== 'undefined') {
           try {

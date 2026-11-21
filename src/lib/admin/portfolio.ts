@@ -49,6 +49,8 @@ export interface StudentAcademicProfile {
   feeBalanceDue?: number; // Private PII - must be redacted
   internalDisciplinaryNotes?: string[]; // Private PII - must be redacted
   completedQuestsCount: number;
+  verifiedSkills?: string[];
+  professionalPitch?: string;
   capstones: VerifiedCapstone[];
   exams: VerifiedExamResult[];
   employabilityScore: number; // 0-100
@@ -87,6 +89,8 @@ export interface PublicVerifiablePortfolio {
   cgpa?: number;
   attendancePercentage?: number;
   attendanceStreakDays?: number;
+  verifiedSkills?: string[];
+  professionalPitch?: string;
   verifiedBadges: {
     badgeId: string;
     name: string;
@@ -241,6 +245,23 @@ export function compilePublicPortfolio(
   const sha256Fingerprint = createHash('sha256').update(rawPayload).digest('hex');
   const verificationUrl = `/university/portfolio/${profile.studentId}?inst=${effectiveInstitutionId}&proof=${sha256Fingerprint.slice(0, 16)}`;
 
+  const cleanVerifiedSkills = (() => {
+    if (!Array.isArray(profile.verifiedSkills)) return [];
+    const seen = new Map<string, string>();
+    for (const raw of profile.verifiedSkills) {
+      const clean = String(raw || '').trim();
+      const key = clean.toLowerCase();
+      if (clean && !seen.has(key)) {
+        seen.set(key, clean);
+      }
+    }
+    return Array.from(seen.values());
+  })();
+  const cleanPitch =
+    typeof profile.professionalPitch === 'string' && profile.professionalPitch.trim().length > 0
+      ? profile.professionalPitch.trim()
+      : undefined;
+
   return {
     portfolioId,
     institutionId: effectiveInstitutionId,
@@ -253,6 +274,8 @@ export function compilePublicPortfolio(
     cgpa: profile.cgpa,
     attendancePercentage: profile.attendancePercentage,
     attendanceStreakDays: profile.attendanceStreakDays,
+    verifiedSkills: cleanVerifiedSkills,
+    professionalPitch: cleanPitch,
     verifiedBadges: badges,
     capstones: profile.capstones,
     proctoredExamsSummary: examsSummary,

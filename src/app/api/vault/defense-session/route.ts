@@ -54,7 +54,8 @@ export async function POST(req: Request) {
 
     const token = getBearerToken(req);
     const admin = getSupabaseAdmin();
-    const db = admin || getAuthoritativeSupabaseClient(token);
+    const userClient = getAuthoritativeSupabaseClient(token);
+    const db = admin || userClient;
     const headerGroqKey = req.headers.get('x-groq-api-key');
 
     const body = await req.json().catch(() => ({}));
@@ -97,12 +98,24 @@ export async function POST(req: Request) {
 
     let vaultDoc: any = null;
     if (docId) {
-      const { data } = await db
+      // Always select '*' so missing optional columns (like proof_url) never fail PostgreSQL queries
+      let { data, error: fetchErr } = await db
         .from('vault_items')
-        .select('id, title, item_type, organization_name, description, skill_tags, proof_url')
+        .select('*')
         .eq('id', docId)
         .eq('user_id', userId)
         .maybeSingle();
+      if ((fetchErr || !data) && admin && token) {
+        const retry = await userClient
+          .from('vault_items')
+          .select('*')
+          .eq('id', docId)
+          .eq('user_id', userId)
+          .maybeSingle();
+        if (!retry.error && retry.data) data = retry.data;
+      } else if (fetchErr) {
+        console.warn('[vault/defense-session] DB fetch warning:', fetchErr.message);
+      }
       vaultDoc = data;
     }
 
@@ -117,15 +130,21 @@ export async function POST(req: Request) {
 
     // 1. Download the REAL uploaded file from Supabase Storage ('resumes' bucket) with strict user namespace guard
     const storageMatch = docDesc.match(/Storage:\s*([^\s]+)/i);
-    let storagePath = storageMatch ? storageMatch[1].trim() : '';
-    if (!storagePath && typeof vaultDoc?.proof_url === 'string' && vaultDoc.proof_url.includes('resumes/')) {
-      storagePath = vaultDoc.proof_url.split('resumes/')[1]?.split('?')[0]?.trim() || '';
+    let storagePath = storageMatch ? storageMatch[1].trim().replace(/[.,;)]+$/, '') : '';
+    const proofUrl = typeof vaultDoc?.proof_url === 'string' ? vaultDoc.proof_url : '';
+    if (!storagePath && proofUrl.includes('resumes/')) {
+      storagePath = proofUrl.split('resumes/')[1]?.split('?')[0]?.trim() || '';
     }
 
     if (storagePath && storagePath.startsWith(`vault/${userId}/`)) {
       attemptedFileDownload = true;
       try {
-        const { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
+        let { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
+        if ((dlErr || !blob) && admin && token) {
+          const retry = await userClient.storage.from('resumes').download(storagePath);
+          blob = retry.data;
+          dlErr = retry.error;
+        }
         if (!dlErr && blob) {
           const arrayBuffer = await blob.arrayBuffer();
           const fileBuffer = Buffer.from(arrayBuffer);

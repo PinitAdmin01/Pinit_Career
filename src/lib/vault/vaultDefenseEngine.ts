@@ -49,6 +49,8 @@ export interface VaultDefenseResult {
   verdict: 'Verified Authentic' | 'Rejected — Unsubstantiated Claims';
   trustDelta: 5 | -5;
   verifiedSkillsAdded: string[];
+  /** Individual skills accurately proven during the defense even if the broader document failed overall */
+  provenSkills?: string[];
   critique: string;
 }
 
@@ -233,13 +235,15 @@ export function evaluateVaultDefenseResponses(
 
   const normalizedSkills = claimedSkills.map((s) => s.toLowerCase());
   const technicalMechanismsRe =
-    /\b(because|therefore|since|trade-off|tradeoff|complexity|latency|throughput|index|cache|memory|thread|async|await|promise|schema|transaction|acid|state|hook|render|virtual dom|container|cluster|queue|retry|backoff|validation|auth|token|jwt|sql|join|normalization|margin|reconciliation|audit|variance|ratio|o\(|linear|logarithmic|edge case|bottleneck|timeout|deadlock|race condition)\b/gi;
+    /\b(because|therefore|since|trade-off|tradeoff|complexity|latency|throughput|index|cache|memory|thread|async|await|promise|schema|transaction|acid|state|hook|renders?|useeffect|usememo|usecallback|memoiz\w*|reference|equality|dependency|closure|hydration|middleware|endpoint|exception|constraint|virtual dom|container|cluster|queue|retry|backoff|validation|auth|token|jwt|sql|join|normalization|margin|reconciliation|audit|variance|ratio|o\(|linear|logarithmic|edge case|bottleneck|timeout|deadlock|race condition)\b/gi;
   const bluffOrEvasionRe =
     /^(?:i don'?t know|idk|no idea|not sure|skip|pass|yes|ok|good|fine|maybe|nothing|i used it|just basic|copied|chat ?gpt)\b/i;
 
   let totalPoints = 0;
   let evasionCount = 0;
   let mechanismHitsTotal = 0;
+  const provenSkillsMap = new Map<string, string>();
+  const canonicalSkillKey = (s: string) => s.trim().toLowerCase().replace(/\.js$/i, '');
 
   for (const ans of validAnswers) {
     const words = ans.split(/\s+/).filter(Boolean);
@@ -253,14 +257,40 @@ export function evaluateVaultDefenseResponses(
     const depthPts = Math.min(15, Math.round(words.length / 2.5));
     // Technical/causal mechanism hits (max 15 pts per answer)
     const mechMatches = ans.match(technicalMechanismsRe) || [];
+    const uniqueMechCount = new Set(mechMatches.map((m) => m.toLowerCase())).size;
     mechanismHitsTotal += mechMatches.length;
-    const mechPts = Math.min(15, new Set(mechMatches.map((m) => m.toLowerCase())).size * 4);
+    const mechPts = Math.min(15, uniqueMechCount * 4);
     // Skill relevance bonus
+    const lowerAns = ans.toLowerCase();
     const skillMatch = normalizedSkills.some((sk) =>
-      ans.toLowerCase().includes(sk.split(' ')[0].toLowerCase())
+      lowerAns.includes(sk.split(' ')[0].toLowerCase())
     )
       ? 5
       : 0;
+
+    // Granular per-skill proof: if this single answer demonstrated strong technical depth,
+    // credit ONLY the specific skills proven in this answer (matching claimed skills first, without duplicates)
+    if (words.length >= 14 && uniqueMechCount >= 2) {
+      let matchedClaimedInAns = false;
+      for (const claimed of claimedSkills) {
+        const stem = canonicalSkillKey(claimed).split(/\s+/)[0];
+        if (stem.length >= 3 && new RegExp(`\\b${stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(ans)) {
+          const key = canonicalSkillKey(claimed);
+          const cleanDisplay = claimed.replace(/\.js$/i, (m) =>
+            ['react.js'].includes(claimed.toLowerCase()) ? '' : m
+          );
+          if (!provenSkillsMap.has(key)) provenSkillsMap.set(key, cleanDisplay);
+          matchedClaimedInAns = true;
+        }
+      }
+      if (!matchedClaimedInAns) {
+        const detectedInAns = extractSkillsFast(ans);
+        for (const sk of detectedInAns) {
+          const key = canonicalSkillKey(sk);
+          if (!provenSkillsMap.has(key)) provenSkillsMap.set(key, sk);
+        }
+      }
+    }
 
     totalPoints += Math.min(35, depthPts + mechPts + skillMatch);
   }
@@ -271,6 +301,7 @@ export function evaluateVaultDefenseResponses(
   const score = Math.max(5, Math.min(98, Math.round(totalPoints - completenessPenalty - evasionPenalty)));
 
   const passed = score >= 65 && evasionCount <= 1 && validAnswers.length >= 2 && mechanismHitsTotal >= 2;
+  const provenSkills = Array.from(provenSkillsMap.values());
 
   if (passed) {
     return {
@@ -279,6 +310,7 @@ export function evaluateVaultDefenseResponses(
       verdict: 'Verified Authentic',
       trustDelta: 5,
       verifiedSkillsAdded: claimedSkills,
+      provenSkills: claimedSkills,
       critique: `Strong technical defense (${score}/100). Mechanisms and trade-offs verified under questioning (+5 Trust Score, ${claimedSkills.length} skills synced to Portfolio).`,
     };
   }
@@ -288,8 +320,12 @@ export function evaluateVaultDefenseResponses(
     score,
     verdict: 'Rejected — Unsubstantiated Claims',
     trustDelta: -5,
-    verifiedSkillsAdded: [],
-    critique: `Failed Brutal Skill Defense (${score}/100). Answers lacked concrete implementation mechanics or evaded technical depth. Flagged as unsubstantiated claim (-5 Trust Score).`,
+    verifiedSkillsAdded: provenSkills,
+    provenSkills,
+    critique:
+      provenSkills.length > 0
+        ? `Failed full document defense (${score}/100, -5 Trust Score), but verified real technical command of ${provenSkills.join(', ')} — synced to your Portfolio.`
+        : `Failed Brutal Skill Defense (${score}/100). Answers lacked concrete implementation mechanics or evaded technical depth. Flagged as unsubstantiated claim (-5 Trust Score).`,
   };
 }
 

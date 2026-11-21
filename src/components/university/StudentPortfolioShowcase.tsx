@@ -24,22 +24,63 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
         setPortfolio(prev => {
           let updated = { ...prev };
 
+          let matchedLocalUser: any = null;
           if (storedUser) {
             try {
               const user = JSON.parse(storedUser);
-              const userName = user.displayName || user.name || user.fullName;
-              if (userName) {
-                updated.fullName = userName;
-                if (user.id) updated.studentId = user.id;
-              }
-              const userCollege = user.college || user.university || user.onboardingAnswers?.college || user.onboardingAnswers?.university;
-              if (userCollege) {
-                updated.institutionName = userCollege;
-              }
-              if (user.cgpa && Number(user.cgpa) > 0) {
-                updated.cgpa = Number(user.cgpa);
+              const isMatchingProfile =
+                !user?.id ||
+                user.id === prev.studentId ||
+                prev.studentId === 'usr_demo_student_01';
+              if (isMatchingProfile) {
+                matchedLocalUser = user;
+                const userName = user.displayName || user.name || user.fullName;
+                if (userName) {
+                  updated.fullName = userName;
+                  if (user.id) updated.studentId = user.id;
+                }
+                const userCollege = user.college || user.university || user.onboardingAnswers?.college || user.onboardingAnswers?.university;
+                if (userCollege) {
+                  updated.institutionName = userCollege;
+                }
+                if (user.cgpa && Number(user.cgpa) > 0) {
+                  updated.cgpa = Number(user.cgpa);
+                }
               }
             } catch {}
+          }
+
+          // Merge verified skills strictly scoped to this studentId (never leaking another user's skills)
+          const skillMap = new Map<string, string>();
+          const pushSkill = (raw: unknown) => {
+            const name = typeof raw === 'string' ? raw.trim() : String((raw as any)?.name || '').trim();
+            if (name && !skillMap.has(name.toLowerCase())) {
+              skillMap.set(name.toLowerCase(), name);
+            }
+          };
+          (prev.verifiedSkills || []).forEach(pushSkill);
+          if (matchedLocalUser && Array.isArray(matchedLocalUser.skill_tags || matchedLocalUser.skillTags)) {
+            (matchedLocalUser.skill_tags || matchedLocalUser.skillTags).forEach(pushSkill);
+          }
+          try {
+            const localSkillsRaw = localStorage.getItem(`pinit_verified_skills_${updated.studentId}`);
+            if (localSkillsRaw) {
+              const parsedSkills = JSON.parse(localSkillsRaw);
+              if (Array.isArray(parsedSkills)) parsedSkills.forEach(pushSkill);
+            }
+          } catch {}
+          const mergedVerifiedSkills = Array.from(skillMap.values());
+          if (mergedVerifiedSkills.length > 0) {
+            updated.verifiedSkills = mergedVerifiedSkills;
+            if (!updated.professionalPitch) {
+              const roleLabel =
+                matchedLocalUser?.targetRole ||
+                matchedLocalUser?.target_role ||
+                'Software & Technology Candidate';
+              updated.professionalPitch = `${roleLabel} with live-verified hands-on proficiency in ${mergedVerifiedSkills
+                .slice(0, 8)
+                .join(', ')}, validated through PinIT oral technical defense and proof-of-work assessments.`;
+            }
           }
 
           if (storedEnrollment) {
@@ -183,6 +224,12 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
                 ID: {portfolio.studentId}
               </span>
             </div>
+
+            {portfolio.professionalPitch && (
+              <p className="student-pitch" data-testid="shareable-portfolio-pitch">
+                &ldquo;{portfolio.professionalPitch}&rdquo;
+              </p>
+            )}
           </div>
 
           {/* Employability Rating Gauge Box */}
@@ -318,6 +365,27 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
                 <span className="evidence-task">{enrolled.recentCompletedTask}</span>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* ── VERIFIED TECHNICAL SKILLS (LIVE DEFENSE & PROOF-OF-WORK) ── */}
+      {portfolio.verifiedSkills && portfolio.verifiedSkills.length > 0 && (
+        <section className="section-block" data-testid="shareable-verified-skills">
+          <div className="section-header">
+            <h2 className="section-title">
+              <span>✅</span> Verified Technical Skills
+            </h2>
+            <span className="section-count">
+              {portfolio.verifiedSkills.length} {portfolio.verifiedSkills.length === 1 ? 'Proven Skill' : 'Proven Skills'} · Live Defense
+            </span>
+          </div>
+          <div className="verified-skills-chips">
+            {portfolio.verifiedSkills.map((skill) => (
+              <span key={skill} className="verified-skill-chip">
+                <span>✓</span> {skill}
+              </span>
+            ))}
           </div>
         </section>
       )}
@@ -1347,6 +1415,36 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           height: 6px;
           border-radius: 50%;
           background: #10b981;
+        }
+
+        .student-pitch {
+          margin: 12px 0 0;
+          padding: 10px 14px;
+          border-radius: 10px;
+          background: rgba(16, 185, 129, 0.08);
+          border: 1px solid rgba(16, 185, 129, 0.24);
+          color: #cbd5e1;
+          font-size: 13.5px;
+          line-height: 1.55;
+        }
+
+        .verified-skills-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .verified-skill-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 999px;
+          background: rgba(16, 185, 129, 0.14);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #34d399;
+          font-size: 12.5px;
+          font-weight: 700;
         }
 
         /* ── RESPONSIVE VIEWPORT QUERIES ── */

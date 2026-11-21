@@ -30,6 +30,8 @@ export default async function StudentPortfolioPage({
   let attendancePercentage: number | undefined = undefined; // Undefined unless biometric logged
   let attendanceStreakDays = 1; // 1 active day check-in for enrolled student
   let completedQuestsCount = 1;
+  let verifiedSkills: string[] = [];
+  let professionalPitch: string | undefined = undefined;
   let capstones: VerifiedCapstone[] = [];
   let exams: VerifiedExamResult[] = [];
 
@@ -101,9 +103,17 @@ export default async function StudentPortfolioPage({
       const supabase = getSupabaseAdmin();
       const { data: userRow } = await supabase
         .from('users')
-        .select('id, display_name, name, department, branch, cgpa, attendance, onboarding_answers, batch_year, completed_quests')
+        .select('*')
         .eq('id', studentId)
         .maybeSingle();
+
+      const verifiedSkillMap = new Map<string, string>();
+      const addVerifiedSkill = (raw: unknown) => {
+        const clean = String(raw || '').trim();
+        if (clean && !verifiedSkillMap.has(clean.toLowerCase())) {
+          verifiedSkillMap.set(clean.toLowerCase(), clean);
+        }
+      };
 
       if (userRow) {
         candidateName = userRow.display_name || userRow.name || candidateName;
@@ -118,6 +128,9 @@ export default async function StudentPortfolioPage({
         }
         if (userRow.batch_year) {
           batchYear = Number(userRow.batch_year);
+        }
+        if (Array.isArray(userRow.skill_tags)) {
+          userRow.skill_tags.forEach(addVerifiedSkill);
         }
 
         const ob = (userRow.onboarding_answers || {}) as Record<string, any>;
@@ -140,6 +153,47 @@ export default async function StudentPortfolioPage({
           enrolledCourse.percent = 0;
           enrolledCourse.recentCompletedTask = undefined as any;
         }
+      }
+
+      // Include skills from verified Proof Vault documents as well
+      const { data: verifiedVaultRows } = await supabase
+        .from('vault_items')
+        .select('skill_tags')
+        .eq('user_id', studentId)
+        .eq('verified', true);
+      if (Array.isArray(verifiedVaultRows)) {
+        verifiedVaultRows.forEach((row: any) => {
+          if (Array.isArray(row?.skill_tags)) row.skill_tags.forEach(addVerifiedSkill);
+        });
+      }
+      verifiedSkills = Array.from(verifiedSkillMap.values());
+
+      // Load candidate's Core Professional Pitch from portfolio_items
+      const { data: pitchRow } = await supabase
+        .from('portfolio_items')
+        .select('item_data')
+        .eq('user_id', studentId)
+        .eq('item_type', 'pitch')
+        .maybeSingle();
+      const rawDbPitch =
+        typeof pitchRow?.item_data === 'string'
+          ? pitchRow.item_data
+          : typeof pitchRow?.item_data?.text === 'string'
+          ? pitchRow.item_data.text
+          : '';
+      const trimmedDbPitch = rawDbPitch.trim();
+      if (
+        trimmedDbPitch &&
+        trimmedDbPitch.toLowerCase() !== 'add a short professional pitch about your skills and goals.'
+      ) {
+        professionalPitch = trimmedDbPitch;
+      } else if (verifiedSkills.length > 0) {
+        const roleLabel =
+          (userRow?.target_role && String(userRow.target_role).trim()) ||
+          'Software & Technology Candidate';
+        professionalPitch = `${roleLabel} with live-verified hands-on proficiency in ${verifiedSkills
+          .slice(0, 8)
+          .join(', ')}, validated through PinIT oral technical defense and proof-of-work assessments.`;
       }
 
       // Try looking up real course enrollment from user_crash_enrollments
@@ -220,6 +274,8 @@ export default async function StudentPortfolioPage({
     attendancePercentage,
     attendanceStreakDays,
     completedQuestsCount,
+    verifiedSkills,
+    professionalPitch,
     capstones,
     exams,
     employabilityScore,

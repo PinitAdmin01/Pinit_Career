@@ -458,16 +458,37 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
         }
       } catch {}
 
+      const rawProvenSkills: string[] = Array.isArray(evalRes.provenSkills)
+        ? evalRes.provenSkills
+        : Array.isArray(evalRes.verifiedSkillsAdded)
+        ? evalRes.verifiedSkillsAdded
+        : [];
+      const skillsToSync = evalRes.passed
+        ? Array.from(new Set([...activeChallenge.claimedSkills, ...rawProvenSkills].map((s) => String(s || '').trim()).filter(Boolean)))
+        : Array.from(new Set(rawProvenSkills.map((s) => String(s || '').trim()).filter(Boolean)));
+
+      let finalSyncedSkills = skillsToSync;
+
       try {
-        await api
-          .post('/api/vault/verify-defense', {
+        const verifyRes = await api
+          .post<{
+            ok?: boolean;
+            skillTags?: string[];
+            provenSkillsSynced?: string[];
+            updatedPitch?: string;
+          }>('/api/vault/verify-defense', {
             docId: activeChallenge.docId,
             passed: evalRes.passed,
             score: evalRes.score,
             auditorName: activeChallenge.auditor.name,
             claimedSkills: activeChallenge.claimedSkills,
+            provenSkills: skillsToSync,
           })
           .catch(() => null);
+
+        if (Array.isArray(verifyRes?.provenSkillsSynced) && verifyRes.provenSkillsSynced.length > 0) {
+          finalSyncedSkills = verifyRes.provenSkillsSynced;
+        }
 
         if (evalRes.passed) {
           cOS?.updateVaultItem?.(
@@ -487,6 +508,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
                   status: 'verified',
                   score: evalRes.score,
                   auditor: activeChallenge.auditor.name,
+                  provenSkills: finalSyncedSkills,
                 })
               );
             } catch {}
@@ -497,9 +519,6 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
             undefined,
             `Verified Vault Defense (${activeChallenge.title}) by ${activeChallenge.auditor.name}`
           );
-          if (typeof cOS?.addVerifiedSkills === 'function') {
-            cOS.addVerifiedSkills(activeChallenge.claimedSkills, activeChallenge.title);
-          }
           recordMetricLedgerEntry(user?.id, {
             metric: 'mentality',
             feature: 'vault',
@@ -526,6 +545,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
                   status: 'rejected',
                   score: evalRes.score,
                   auditor: activeChallenge.auditor.name,
+                  provenSkills: finalSyncedSkills,
                 })
               );
             } catch {}
@@ -536,14 +556,40 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
             `Failed Skill Defense: Fake/Unsubstantiated "${activeChallenge.title}"`
           );
         }
+
+        // Sync any proven skills to Portfolio, Resume, Skills Passport & Shareable Profile (both full pass & partial proof!)
+        if (finalSyncedSkills.length > 0 && typeof cOS?.addVerifiedSkills === 'function') {
+          cOS.addVerifiedSkills(finalSyncedSkills, activeChallenge.title);
+        }
+        if (typeof window !== 'undefined' && (finalSyncedSkills.length > 0 || verifyRes?.updatedPitch)) {
+          try {
+            window.dispatchEvent(
+              new CustomEvent('pinit-portfolio-updated', {
+                detail: {
+                  userId: user?.id,
+                  skills: finalSyncedSkills,
+                  pitch: verifyRes?.updatedPitch,
+                },
+              })
+            );
+          } catch {}
+        }
+
         clearPendingVaultDefense(activeChallenge.docId);
       } finally {
-        setResult(evalRes);
+        const finalizedResult: VaultDefenseResult = {
+          ...evalRes,
+          provenSkills: finalSyncedSkills,
+          verifiedSkillsAdded: finalSyncedSkills,
+        };
+        setResult(finalizedResult);
         setIsSendingReply(false);
         stopCamera();
-        const closingSpeech = evalRes.passed
-          ? `Well done — you backed up your claims on "${activeChallenge.title}" with real depth. I've verified your document, added +5 Trust Score, and synced ${evalRes.verifiedSkillsAdded.length} skills to your Portfolio.`
-          : `I can't verify "${activeChallenge.title}" based on this defense — ${evalRes.critique} That's a -5 Trust Score deduction; review the skills on your document and come back when you can walk through them clearly.`;
+        const closingSpeech = finalizedResult.passed
+          ? `Well done — you backed up your claims on "${activeChallenge.title}" with real depth. I've verified your document, added +5 Trust Score, and synced ${finalSyncedSkills.length} verified skills to your Portfolio, Resume, and Shareable Profile.`
+          : finalSyncedSkills.length > 0
+          ? `I can't verify the full "${activeChallenge.title}" document based on this defense — ${finalizedResult.critique} That's a -5 Trust Score deduction for the unverified claims. However, you accurately proved ${finalSyncedSkills.join(', ')}, so I've synced ${finalSyncedSkills.length === 1 ? 'that verified skill' : 'those verified skills'} directly to your Portfolio, Resume, and Shareable Profile.`
+          : `I can't verify "${activeChallenge.title}" based on this defense — ${finalizedResult.critique} That's a -5 Trust Score deduction; review the skills on your document and come back when you can walk through them clearly.`;
         setMessages((prev) => [...prev, { role: 'assistant', content: closingSpeech }]);
         speakWithAvatar(
           closingSpeech,
@@ -842,6 +888,15 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     [...messages].reverse().find((m) => m.role === 'assistant')?.content ||
     (isSendingReply ? `${challenge.auditor.name} is reviewing your resume...` : '');
 
+  const provenSyncedList = result
+    ? Array.from(
+        new Set([
+          ...(Array.isArray(result.provenSkills) ? result.provenSkills : []),
+          ...(Array.isArray(result.verifiedSkillsAdded) ? result.verifiedSkillsAdded : []),
+        ])
+      )
+    : [];
+
   const resultFooter = result ? (
     <div
       data-testid="vault-defense-result"
@@ -860,7 +915,42 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           {result.score}/100 ({result.trustDelta > 0 ? `+${result.trustDelta}` : result.trustDelta} Trust)
         </span>
       </div>
-      <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 10px', lineHeight: 1.45 }}>{result.critique}</p>
+      <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 8px', lineHeight: 1.45 }}>{result.critique}</p>
+      {provenSyncedList.length > 0 && (
+        <div
+          data-testid="vault-defense-proven-skills"
+          style={{
+            marginBottom: 10,
+            padding: '8px 10px',
+            borderRadius: 9,
+            background: 'rgba(16,185,129,0.12)',
+            border: '1px solid rgba(16,185,129,0.32)',
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)', marginBottom: 5 }}>
+            ✓ {result.passed ? 'Verified Skills Synced' : 'Individually Proven & Synced'} to Portfolio, Resume &amp; Shareable Profile:
+          </div>
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+            {provenSyncedList.map((sk) => (
+              <span
+                key={sk}
+                style={{
+                  fontSize: 11,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  background: 'rgba(16,185,129,0.18)',
+                  color: 'var(--green)',
+                  border: '1px solid rgba(16,185,129,0.4)',
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 700,
+                }}
+              >
+                ✓ {sk}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <Link href="/vault" className="btn-primary btn-sm" style={{ textDecoration: 'none' }}>
           ← Return to Proof Vault
@@ -959,7 +1049,9 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           customProgressText={
             result
               ? result.passed
-                ? `✅ Verified (${result.score}/100) · +5 Trust Score & ${result.verifiedSkillsAdded.length} skills synced`
+                ? `✅ Verified (${result.score}/100) · +5 Trust Score & ${provenSyncedList.length} skills synced`
+                : provenSyncedList.length > 0
+                ? `❌ Full Doc Failed (${result.score}/100) · -5 Trust · ✓ ${provenSyncedList.join(', ')} synced to Portfolio`
                 : `❌ Defense Failed (${result.score}/100) · -5 Trust Score`
               : `🔥 Live Audit: ${Math.min(TOTAL_DEFENSE_TURNS, userAnswers.length)}/${TOTAL_DEFENSE_TURNS} exchanges · Skills: ${challenge.claimedSkills.slice(0, 5).join(', ')}${tabWarnings > 0 ? ` · ⚠️ ${tabWarnings} tab switch` : ''}`
           }

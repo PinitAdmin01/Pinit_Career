@@ -16,11 +16,16 @@ import {
   setGroqAnalyzerFetchForTests,
 } from '../src/lib/vault/groqDocumentAnalyzer';
 import {
+  evaluateVaultDefenseResponses,
   extractSkillsFast,
   generateBrutalDefensePrompt,
   resolveVaultAuditorMentor,
   type VaultDefenseChallenge,
 } from '../src/lib/vault/vaultDefenseEngine';
+import {
+  compilePublicPortfolio,
+  verifyPortfolioProof,
+} from '../src/lib/admin/portfolio';
 
 function buildModernPdfWithObjStmAndKerning(): Buffer {
   // Content stream (obj 3) with TJ negative kerning word spacing & Tm newlines
@@ -492,4 +497,163 @@ test('Proof Vault exposes secure /api/vault/file viewer endpoint and in-app Prev
   assert.match(vaultPageSrc, /openDocumentViewer/);
   assert.match(vaultPageSrc, /handleRescanDocument/);
   assert.match(vaultPageSrc, /Re-scan with Groq AI/);
+});
+
+test('Task 1 & 2: Vault file/defense-session/verify-defense routes NEVER query nonexistent proof_url or endorsement_note columns and rescan preserves projects', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const fileRouteSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/api/vault/file/route.ts'),
+    'utf8'
+  );
+  const defenseSessionSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/api/vault/defense-session/route.ts'),
+    'utf8'
+  );
+  const verifyDefenseSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/api/vault/verify-defense/route.ts'),
+    'utf8'
+  );
+  const vaultPageSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/vault/page.tsx'),
+    'utf8'
+  );
+
+  // Must select '*' so missing proof_url never triggers Postgres 42703 errors breaking preview & rescan
+  assert.match(fileRouteSrc, /\.select\('\*'\)/);
+  assert.doesNotMatch(fileRouteSrc, /\.select\([^)]*proof_url/);
+  assert.match(defenseSessionSrc, /\.select\('\*'\)/);
+  assert.doesNotMatch(defenseSessionSrc, /\.select\([^)]*proof_url/);
+
+  // verify-defense must NOT write nonexistent endorsement_note / verified_at columns on vault_items
+  assert.doesNotMatch(verifyDefenseSrc, /endorsement_note/);
+  assert.doesNotMatch(verifyDefenseSrc, /verified_at/);
+  assert.match(verifyDefenseSrc, /provenSkills/);
+  assert.match(verifyDefenseSrc, /portfolio_items/);
+
+  // Rescan must never wipe real projects or overwrite rawTextExcerpt with synthetic Document Title / Claimed Skills text
+  assert.match(vaultPageSrc, /isSyntheticRaw/);
+  assert.match(vaultPageSrc, /prevAi\.projects/);
+});
+
+test('Task 3: Granular per-skill proof syncs accurately proven React even when full resume defense fails (-5 Trust)', async () => {
+  const claimedSkills = ['Python', 'FastAPI', 'PostgreSQL', 'Next.js', 'Supabase', 'React.js'];
+  const questions = [
+    'You listed FastAPI alongside PostgreSQL in your resume. What exception hierarchy converts Pydantic failures into 422?',
+    'In Next.js App Router using Supabase, how do revalidatePath and session expiration interact?',
+    'In React 18, how does useEffect reference equality trigger infinite re-renders on object props and how do you memoize it?',
+  ];
+  const answers = [
+    'i dont know',
+    'i can do html, caa, js, react',
+    'React 18 checks useEffect dependencies using Object.is (reference equality, not deep comparison). When a parent re-renders and creates a new object literal, JavaScript allocates a new memory reference, making React think the prop changed—so the effect re-runs, updates state, re-renders the parent, and loops infinitely. To prevent this, wrap the object in useMemo in the parent (keyed on its primitive values) so the reference stays identical across renders, or pass only the specific primitive properties into the useEffect dependency array.',
+  ];
+
+  // 1. Deterministic evaluator path
+  const detRes = evaluateVaultDefenseResponses(claimedSkills, answers);
+  assert.equal(detRes.passed, false);
+  assert.equal(detRes.trustDelta, -5);
+  assert.ok(
+    (detRes.provenSkills || []).some((s) => s.toLowerCase().startsWith('react')),
+    `Expected React in deterministic provenSkills, got: ${JSON.stringify(detRes.provenSkills)}`
+  );
+  // Must NOT duplicate React + React.js
+  const reactEntries = (detRes.provenSkills || []).filter((s) => s.toLowerCase().startsWith('react'));
+  assert.equal(reactEntries.length, 1, `Should not duplicate React/React.js: ${JSON.stringify(reactEntries)}`);
+  // Must NOT credit unanswered FastAPI / PostgreSQL / Next.js / Supabase
+  for (const unproven of ['fastapi', 'postgresql', 'next.js', 'supabase']) {
+    assert.ok(
+      !(detRes.provenSkills || []).some((s) => s.toLowerCase() === unproven),
+      `Unproven skill ${unproven} must NOT be credited`
+    );
+  }
+
+  // 2. Groq evaluator path returning explicit provenSkills: ['React'] on failed overall defense
+  setGroqAnalyzerFetchForTests(async () =>
+    new Response(
+      JSON.stringify({
+        choices: [
+          {
+            message: {
+              content: JSON.stringify({
+                passed: false,
+                score: 45,
+                provenSkills: ['React'],
+                critique:
+                  'Failed FastAPI/PostgreSQL and deflected Next.js/Supabase, but gave a technically accurate explanation of React 18 useEffect Object.is reference equality and useMemo.',
+              }),
+            },
+          },
+        ],
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    )
+  );
+
+  try {
+    const groqPartial = await evaluateDefenseWithGroq({
+      title: 'Vinay N — Full Stack Developer & AI Engineer Resume',
+      auditorName: 'Mr. Akash',
+      claimedSkills,
+      questions,
+      answers,
+      customGroqKey: 'gsk_test_partial',
+    });
+
+    assert.equal(groqPartial.gradingSource, 'groq');
+    assert.equal(groqPartial.passed, false);
+    assert.equal(groqPartial.score, 45);
+    assert.equal(groqPartial.trustDelta, -5);
+    assert.deepEqual(groqPartial.provenSkills, ['React']);
+    assert.deepEqual(groqPartial.verifiedSkillsAdded, ['React']);
+  } finally {
+    setGroqAnalyzerFetchForTests(null);
+  }
+});
+
+test('Task 3: Shareable public portfolio compiles verifiedSkills + professionalPitch and preserves SHA-256 proof', async () => {
+  const portfolio = compilePublicPortfolio({
+    studentId: 'usr_vinay_test_01',
+    fullName: 'Vinay N',
+    completedQuestsCount: 2,
+    verifiedSkills: ['React', 'react', 'TypeScript'],
+    professionalPitch: 'Full Stack Developer with live-verified hands-on proficiency in React, TypeScript.',
+    capstones: [],
+    exams: [],
+    employabilityScore: 42,
+    tier: 'APPRENTICE_DEVELOPER',
+  });
+
+  assert.deepEqual(portfolio.verifiedSkills, ['React', 'TypeScript']);
+  assert.match(portfolio.professionalPitch || '', /React/);
+  assert.equal(verifyPortfolioProof(portfolio), true, 'SHA-256 cryptographic proof must remain valid');
+
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const roomSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/interview/components/VaultDefenseRoom.tsx'),
+    'utf8'
+  );
+  const portfolioTabSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/profile/tabs/PortfolioTab.tsx'),
+    'utf8'
+  );
+  const publicPageSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/university/portfolio/[studentId]/page.tsx'),
+    'utf8'
+  );
+  const showcaseSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/components/university/StudentPortfolioShowcase.tsx'),
+    'utf8'
+  );
+
+  assert.match(roomSrc, /provenSkills:\s*skillsToSync/);
+  assert.match(roomSrc, /cOS\.addVerifiedSkills\(finalSyncedSkills/);
+  assert.match(portfolioTabSrc, /pinit-skills-updated/);
+  assert.match(portfolioTabSrc, /effectivePitch/);
+  assert.match(portfolioTabSrc, /\/university\/portfolio\//);
+  assert.match(publicPageSrc, /\.from\('users'\)\s*\.select\('\*'\)/);
+  assert.match(publicPageSrc, /portfolio_items/);
+  assert.match(showcaseSrc, /shareable-verified-skills/);
+  assert.match(showcaseSrc, /shareable-portfolio-pitch/);
 });

@@ -58,7 +58,9 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
           }
 
           const realSkills: Array<{ id: string; name: string; level: 1|2|3; evidence: string; recency: string; verified: boolean; category: string }> = [];
+          const seenSkillNames = new Set<string>();
           (data.verified || []).forEach(v => {
+            seenSkillNames.add(v.name.toLowerCase());
             realSkills.push({
               id: v.id,
               name: v.name,
@@ -69,7 +71,46 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
               category: 'Verified Competency'
             });
           });
+          // Include skills proven through Proof Vault Live Technical Defense (cOS.skills / user.skill_tags / localStorage)
+          const vaultVerifiedRaw: Array<{ id?: string; name: string; level?: number; source?: string }> = [];
+          (cOS?.skills || []).forEach((s: any) => {
+            const name = typeof s === 'string' ? s.trim() : String(s?.name || '').trim();
+            if (name) vaultVerifiedRaw.push({ id: s?.id, name, level: s?.level, source: s?.source });
+          });
+          (user?.skill_tags || user?.skillTags || []).forEach((s: any) => {
+            const name = typeof s === 'string' ? s.trim() : String(s?.name || '').trim();
+            if (name) vaultVerifiedRaw.push({ name, level: 2, source: 'vault_defense' });
+          });
+          if (typeof window !== 'undefined' && user?.id) {
+            try {
+              const rawLocal = localStorage.getItem(`pinit_verified_skills_${user.id}`);
+              if (rawLocal) {
+                const parsed = JSON.parse(rawLocal);
+                if (Array.isArray(parsed)) {
+                  parsed.forEach((s: any) => {
+                    const name = typeof s === 'string' ? s.trim() : String(s?.name || '').trim();
+                    if (name) vaultVerifiedRaw.push({ id: s?.id, name, level: s?.level || 2, source: s?.source || 'vault_defense' });
+                  });
+                }
+              }
+            } catch {}
+          }
+          vaultVerifiedRaw.forEach((vs) => {
+            const key = vs.name.toLowerCase();
+            if (seenSkillNames.has(key)) return;
+            seenSkillNames.add(key);
+            realSkills.push({
+              id: vs.id || `sk_${key.replace(/[^a-z0-9]/g, '_')}`,
+              name: vs.name,
+              level: parseSkillLevel(vs.level || 2),
+              evidence: `Verified through PinIT live technical defense${vs.source && vs.source !== 'vault_defense' ? ` (${vs.source})` : ''}.`,
+              recency: 'Live Defense Verified',
+              verified: true,
+              category: 'Proof Vault Verified',
+            });
+          });
           (data.demonstrated || []).forEach(d => {
+            if (seenSkillNames.has(d.name.toLowerCase())) return;
             const isEndorsed = endorsedIds.includes(d.id);
             realSkills.push({
               id: d.id,
@@ -128,7 +169,7 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
     }
     fetchSkills();
     return () => { isMounted = false; };
-  }, [user?.id, user?.endorsedSkills, user?.endorsed_skills]);
+  }, [user?.id, user?.endorsedSkills, user?.endorsed_skills, user?.skill_tags, user?.skillTags, cOS?.skills]);
 
   const toggleEndorsement = (id: string) => {
     const isPrivilegedOrPeer = Boolean(
@@ -218,7 +259,7 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
             {[
-              { label: 'Verified', count: verifiedList.length || passportSkills.filter((s) => s.verified).length, color: 'var(--green)', hint: 'Passed evidence gates & oral defense' },
+              { label: 'Verified', count: Math.max(verifiedList.length, passportSkills.filter((s) => s.verified).length), color: 'var(--green)', hint: 'Passed evidence gates & oral defense' },
               { label: 'Demonstrated', count: demonstratedList.length, color: 'var(--blue)', hint: 'Practical coding tasks completed' },
               { label: 'Claimed', count: claimedList.length, color: 'var(--t3)', hint: 'Self-reported interests' },
             ].map((t) => (
@@ -233,26 +274,39 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
           <div style={CS.card}>
             {sectionTitle('✅ Verified skills')}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {verifiedList.length > 0
-                ? verifiedList.map((s) => (
-                    <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                        <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{s.name}</span>
-                        <span style={{ fontSize: 12, background: 'var(--green-light)', color: 'var(--green)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} · {Math.round(s.score)}/100</span>
+              {(() => {
+                const pathwayIds = new Set(verifiedList.map((s) => s.name.toLowerCase()));
+                const extraVerified = passportSkills.filter(
+                  (s) => s.verified && !pathwayIds.has(s.name.toLowerCase())
+                );
+                if (verifiedList.length === 0 && extraVerified.length === 0) {
+                  return emptyBox('No verified skills yet. Finish course projects or defend skills in Proof Vault to earn verified credentials.');
+                }
+                return (
+                  <>
+                    {verifiedList.map((s) => (
+                      <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                          <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{s.name}</span>
+                          <span style={{ fontSize: 12, background: 'var(--green-light)', color: 'var(--green)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} · {Math.round(s.score)}/100</span>
+                        </div>
+                        <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+                          Credential <code style={{ fontSize: 11, color: 'var(--accent)' }}>{s.credentialId}</code> · verified {new Date(s.verifiedAt).toLocaleDateString()}
+                        </div>
                       </div>
-                      <div style={{ fontSize: 12, color: 'var(--t3)' }}>
-                        Credential <code style={{ fontSize: 11, color: 'var(--accent)' }}>{s.credentialId}</code> · verified {new Date(s.verifiedAt).toLocaleDateString()}
-                      </div>
-                    </div>
-                  ))
-                : passportSkills.filter((s) => s.verified).length > 0
-                  ? passportSkills.filter((s) => s.verified).map((s) => (
+                    ))}
+                    {extraVerified.map((s) => (
                       <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)' }}>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{s.name}</span>
+                        <div>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>✓ {s.name}</div>
+                          <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>{s.evidence}</div>
+                        </div>
                         <span style={{ fontSize: 12, background: 'var(--green-light)', color: 'var(--green)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>Level {s.level}</span>
                       </div>
-                    ))
-                  : emptyBox('No verified skills yet. Finish course projects and pass the oral defense to earn verified credentials.')}
+                    ))}
+                  </>
+                );
+              })()}
             </div>
           </div>
 

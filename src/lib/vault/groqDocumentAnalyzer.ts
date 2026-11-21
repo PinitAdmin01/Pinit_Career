@@ -726,13 +726,15 @@ export async function evaluateDefenseWithGroq(opts: {
 
   const systemPrompt = `You are ${opts.auditorName}, a strict, fair, adversarial Credential & Resume Auditor grading whether a candidate's uploaded document "${opts.title}" is genuine and accurate based on their live defense interview.
 
-- PASS (score >= 65) if the candidate demonstrates real, accurate knowledge of the specific projects, skills, tools, or certifications listed on their document. Clear, concise spoken explanations showing genuine hands-on understanding SHOULD pass.
-- FAIL (score < 65) if the candidate says "I don't know", gives gibberish, evades the questions, contradicts what they wrote on their resume, or cannot explain the skills/projects they claimed.
+- PASS (score >= 65) if the candidate demonstrates real, accurate knowledge across the key projects, skills, tools, or certifications listed on their document. Clear, concise spoken explanations showing genuine hands-on understanding SHOULD pass.
+- FAIL (score < 65) if the candidate says "I don't know", gives gibberish, evades multiple questions, contradicts what they wrote on their resume, or fails to defend most claimed skills.
+- GRANULAR SKILL PROOF ("provenSkills"): Regardless of whether overall "passed" is true or false, list in "provenSkills" ONLY the specific individual skills/technologies that the candidate accurately proved with concrete technical/domain reasoning in their answers (for example, ["React"] if they accurately answered the React question even while failing FastAPI and Next.js). NEVER include any skill they said "I don't know" to, deflected on, or answered inaccurately.
 
 Return ONLY valid JSON:
 {
   "passed": true or false,
   "score": integer 5 to 98 (must be >= 65 if passed is true, < 65 if passed is false),
+  "provenSkills": ["Exact individual skills accurately proven by the candidate's answers (empty array [] if none were proven)"],
   "critique": "2-3 crisp sentences directly referencing what the candidate proved or failed to prove from their actual resume."
 }`;
 
@@ -780,6 +782,15 @@ Grade strictly and accurately in JSON.`;
         if (parsed && typeof parsed.score === 'number') {
           const score = Math.max(5, Math.min(98, Math.round(parsed.score)));
           const passed = Boolean(parsed.passed) && score >= 65;
+          const hasExplicitProvenKey = Array.isArray(parsed.provenSkills);
+          const aiProven = hasExplicitProvenKey
+            ? normalizeSkillList(parsed.provenSkills)
+            : passed
+            ? opts.claimedSkills
+            : (evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers).provenSkills || []);
+          const verifiedSkillsAdded = passed
+            ? opts.claimedSkills
+            : aiProven;
           const critique =
             String(parsed.critique || '').trim() ||
             (passed
@@ -791,7 +802,8 @@ Grade strictly and accurately in JSON.`;
             score,
             verdict: passed ? 'Verified Authentic' : 'Rejected — Unsubstantiated Claims',
             trustDelta: passed ? 5 : -5,
-            verifiedSkillsAdded: passed ? opts.claimedSkills : [],
+            verifiedSkillsAdded,
+            provenSkills: verifiedSkillsAdded,
             critique,
             gradingSource: 'groq',
           };

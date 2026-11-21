@@ -43,17 +43,36 @@ export async function GET(req: Request) {
 
     const token = getBearerToken(req);
     const admin = getSupabaseAdmin();
-    const db = admin || getAuthoritativeSupabaseClient(token);
+    const userClient = getAuthoritativeSupabaseClient(token);
+    const db = admin || userClient;
 
-    const { data: vaultDoc, error: fetchErr } = await db
+    // Select '*' so missing optional columns (like proof_url on legacy schemas) NEVER break PostgreSQL queries
+    let { data: vaultDoc, error: fetchErr } = await db
       .from('vault_items')
-      .select('id, user_id, title, description, proof_url')
+      .select('*')
       .eq('id', docId)
       .eq('user_id', userId)
       .maybeSingle();
 
+    if ((fetchErr || !vaultDoc) && admin && token) {
+      const retry = await userClient
+        .from('vault_items')
+        .select('*')
+        .eq('id', docId)
+        .eq('user_id', userId)
+        .maybeSingle();
+      if (!retry.error && retry.data) {
+        vaultDoc = retry.data;
+        fetchErr = null;
+      }
+    }
+
     if (fetchErr) {
-      return NextResponse.json({ error: fetchErr.message || 'Database query failed' }, { status: 500 });
+      console.error('[GET /api/vault/file] DB fetch error:', fetchErr.message);
+      return NextResponse.json(
+        { error: 'DB_FETCH_FAILED', message: fetchErr.message || 'Database query failed' },
+        { status: 500 }
+      );
     }
     if (!vaultDoc) {
       return NextResponse.json({ error: 'DOCUMENT_NOT_FOUND', message: 'Document not found.' }, { status: 404 });
@@ -61,9 +80,10 @@ export async function GET(req: Request) {
 
     const desc = String(vaultDoc.description || '');
     const storageMatch = desc.match(/Storage:\s*([^\s]+)/i);
-    let storagePath = storageMatch ? storageMatch[1].trim() : '';
-    if (!storagePath && typeof vaultDoc.proof_url === 'string' && vaultDoc.proof_url.includes('resumes/')) {
-      storagePath = vaultDoc.proof_url.split('resumes/')[1]?.split('?')[0]?.trim() || '';
+    let storagePath = storageMatch ? storageMatch[1].trim().replace(/[.,;)]+$/, '') : '';
+    const proofUrl = typeof (vaultDoc as any).proof_url === 'string' ? (vaultDoc as any).proof_url : '';
+    if (!storagePath && proofUrl.includes('resumes/')) {
+      storagePath = proofUrl.split('resumes/')[1]?.split('?')[0]?.trim() || '';
     }
 
     if (!storagePath) {
@@ -85,9 +105,14 @@ export async function GET(req: Request) {
     const cleanFileName = rawFileName.replace(/^\d+_/, '').replace(/[^a-zA-Z0-9._ -]/g, '_') || 'document.pdf';
 
     if (mode === 'url') {
-      const { data: signedData, error: signErr } = await db.storage
+      let { data: signedData, error: signErr } = await db.storage
         .from('resumes')
         .createSignedUrl(storagePath, 60 * 15);
+      if ((signErr || !signedData?.signedUrl) && admin && token) {
+        const retry = await userClient.storage.from('resumes').createSignedUrl(storagePath, 60 * 15);
+        signedData = retry.data;
+        signErr = retry.error;
+      }
       if (signErr || !signedData?.signedUrl) {
         return NextResponse.json(
           { error: 'SIGNED_URL_FAILED', message: signErr?.message || 'Could not generate preview link.' },
@@ -102,7 +127,12 @@ export async function GET(req: Request) {
       });
     }
 
-    const { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
+    let { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
+    if ((dlErr || !blob) && admin && token) {
+      const retry = await userClient.storage.from('resumes').download(storagePath);
+      blob = retry.data;
+      dlErr = retry.error;
+    }
     if (dlErr || !blob) {
       return NextResponse.json(
         { error: 'DOWNLOAD_FAILED', message: dlErr?.message || 'Could not fetch document from storage.' },
