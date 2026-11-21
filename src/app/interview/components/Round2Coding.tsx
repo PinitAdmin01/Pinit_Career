@@ -3,7 +3,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import type { RoundDefenseState } from '@/lib/interview/roundDefenseEngine';
 import { AssistModeDrawer } from './AssistModeDrawer';
+import { DefenseProgressStrip } from './DefenseProgressStrip';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -39,6 +41,7 @@ export interface Round2CodingProps {
   codeRunFailed: boolean;
   codeReviewStarted: boolean;
   codeReviewQuestionReady: boolean;
+  defenseState?: RoundDefenseState | null;
   isSendingInterviewMessage: boolean;
   lastInterviewerSpeech: string;
   manualTextInput: string;
@@ -85,6 +88,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
   codeRunFailed,
   codeReviewStarted,
   codeReviewQuestionReady,
+  defenseState,
   isSendingInterviewMessage,
   lastInterviewerSpeech,
   manualTextInput,
@@ -226,7 +230,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                 {isSendingInterviewMessage || codeReviewStarted ? 'Waiting for interviewer…' : 'Submit solution for review'}
               </button>
             )}
-            {!canProceed && onSkipChallenge && (
+            {!canProceed && defenseState?.status !== 'eliminated' && onSkipChallenge && (
               <button
                 type="button"
                 data-testid="round2-skip-challenge-btn"
@@ -269,17 +273,19 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             color: 'var(--t1)'
           }}
         >
-          {canProceed
-            ? '✅ Code & Review Defense Verified — Click "Continue to architecture ➔" above to proceed!'
+          {defenseState?.status === 'eliminated'
+            ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 3. Generating final scorecard…`
+            : canProceed
+            ? '✅ Code & 5/5 Cross-Examination Defense Cleared — Click "Continue to architecture ➔" above to proceed!'
             : codeRunFailed
             ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or click "Skip Challenge" to move on.`
-            : codeSubmitted && codeReviewQuestionReady
-            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s code review question in the Interviewer panel on the right to unlock Round 3.`
+            : codeSubmitted && (codeReviewQuestionReady || defenseState?.status === 'in_progress')
+            ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber || 1} of ${defenseState?.totalQuestions || 5} from ${activeTeacher.name} on the right. Clear all 5 questions to unlock Round 3.`
             : codeSubmitted && codeReviewStarted
-            ? `⏳ Submitting solution to ${activeTeacher.name} for code review...`
+            ? `⏳ Submitting solution to ${activeTeacher.name} to start the 5-question code defense...`
             : codeSubmitted
-            ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Click "Submit solution for review" above so the interviewer can ask about your approach.'
-            : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your approach in code review.'}
+            ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Click "Submit solution for review" above to start the 5-question code defense.'
+            : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your code across 5 live questions.'}
         </div>
 
         {/* Language Selector */}
@@ -415,10 +421,11 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
           </div>
         )}
 
-        <div className="iv-panel" style={{ padding: 10, display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0, maxHeight: 160, overflowY: 'auto' }} aria-live="polite">
+        <div className="iv-panel" style={{ padding: 10, display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0, maxHeight: 220, overflowY: 'auto' }} aria-live="polite">
           <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Interviewer</div>
+          <DefenseProgressStrip defenseState={defenseState} />
           <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.4 }}>{lastInterviewerSpeech}</div>
-          {codeReviewQuestionReady && !canProceed && !codeRunFailed && (
+          {(codeReviewQuestionReady || defenseState?.status === 'in_progress') && !canProceed && !codeRunFailed && defenseState?.status !== 'eliminated' && (
             <form onSubmit={(event) => {
               event.preventDefault();
               const answer = manualTextInput.trim();

@@ -567,14 +567,19 @@ export function evaluateSystemTopology(
   let decouplingScore = 0;
 
   if (domainStream === 'non_tech') {
-    // Non-tech business workflow evaluation with real directed-graph & funnel-order validation
+    // Non-tech business & finance/audit workflow evaluation with real directed-graph & stage-order validation
     const classifyBusinessStage = (n: { type: string; label: string }): number => {
       const text = `${n.type} ${n.label}`.toLowerCase();
-      if (/audience|segment|cohort|customer/.test(text)) return 0; // Target Market
-      if (/ad\s*campaign|campaign|landing|funnel|traffic|seo|social/.test(text)) return 1; // Acquisition
-      if (/checkout|payment|billing|monetization|invoice|order\s*oms/.test(text)) return 2; // Revenue / Conversion
-      if (/logistics|supplier|fulfillment|warehouse|inventory|delivery/.test(text)) return 3; // Operations / Fulfillment
-      if (/crm|support|retention|loop|nurture|ledger|ebitda|audit/.test(text)) return 4; // Post-Purchase / Retention / Reporting
+      // Stage 0: Entry / Intake (Target Market OR Invoice/Voucher/KYC Intake)
+      if (/audience|segment|cohort|customer|invoice|voucher|intake|kyc/.test(text)) return 0;
+      // Stage 1: Validation / Acquisition (Ad Campaign / Landing Page OR 3-Way Match / Audit / Underwriting)
+      if (/ad\s*campaign|campaign|landing|funnel|traffic|seo|social|3-way|match|maker|verify|underwrit/.test(text)) return 1;
+      // Stage 2: Transaction / Tax / Checkout (Checkout / Billing OR GST / Tax Engine)
+      if (/checkout|payment|billing|monetization|order\s*oms|gst|tax\s*engine|tds/.test(text)) return 2;
+      // Stage 3: Core Operations / Ledger (Logistics / Supplier / Fulfillment OR General Ledger Dr=Cr)
+      if (/logistics|supplier|fulfillment|warehouse|inventory|delivery|general\s*ledger|dr=cr|double-entry/.test(text)) return 3;
+      // Stage 4: Post-Transaction Reconciliation / Reporting / Retention (CRM / Retention OR Treasury / Bank Recon / Ind AS / IFRS Reporting)
+      if (/crm|support|retention|loop|nurture|treasury|bank\s*recon|financial\s*reporting|ind\s*as|ifrs|ebitda|audit\s*trail|close\s*cycle/.test(text)) return 4;
       return 2;
     };
 

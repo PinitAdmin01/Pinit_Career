@@ -11,6 +11,17 @@ import { runTestSuite, warmUpCodeRuntime } from '@/lib/code/codeRunner';
 import { resolveCompanyProfile, buildCompanyPromptContext } from '@/lib/interview/companyProfiles';
 import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
+import {
+  advanceRoundDefense,
+  buildConciseRoundIntro,
+  buildDefenseFinalVerdictSpeech,
+  createInitialDefenseState,
+  evaluateDefenseTurnPass,
+  getFallbackDefenseQuestion,
+  startRoundDefense,
+  type DefenseRoundType,
+  type RoundDefenseState,
+} from '@/lib/interview/roundDefenseEngine';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { toast } from '@/lib/store/useAppStore';
 import { applyTrustReward, recordCheatingIncident } from '@/lib/trust/trustEngine';
@@ -344,9 +355,13 @@ export default function InterviewPage() {
     };
   }, [isInterviewActive]);
 
-  // WebGL context disposal & soundscape cleanup on unmount
+  // WebGL context disposal, timer & soundscape cleanup on unmount
   useEffect(() => {
     return () => {
+      if (eliminationTimerRef.current) {
+        clearTimeout(eliminationTimerRef.current);
+        eliminationTimerRef.current = null;
+      }
       stopSpeaking();
       stopArchetypeSoundscape();
       if (typeof document !== 'undefined') {
@@ -425,9 +440,14 @@ export default function InterviewPage() {
   const codePerLangRef = useRef<Record<string, string>>({});
   const prevLangRef = useRef<'java' | 'python' | 'javascript' | 'sql' | 'cpp'>('python');
   const [selectedLang, setSelectedLang] = useState<'java' | 'python' | 'javascript' | 'sql' | 'cpp'>('python');
-  const [codeContent, setCodeContent] = useState('');
+  const [codeContent, setCodeContentState] = useState('');
   const codeContentRef = useRef(codeContent);
   codeContentRef.current = codeContent;
+  // Synchronously update ref before React render so immediate callers (like B.Com Case submit) always read the fresh memo
+  const setCodeContent = useCallback((val: string) => {
+    codeContentRef.current = val;
+    setCodeContentState(val);
+  }, []);
   const selectedLangRef = useRef(selectedLang);
   selectedLangRef.current = selectedLang;
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
@@ -469,6 +489,29 @@ export default function InterviewPage() {
   const [evaluationResult, setEvaluationResult] = useState<any>(null);
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
 
+  // Reusable 5-Question Post-Submission Defense State (Round 2 & Round 3, Tech & B.Com)
+  const [round2Defense, setRound2DefenseState] = useState<RoundDefenseState>(() => createInitialDefenseState(2, 'code'));
+  const round2DefenseRef = useRef<RoundDefenseState>(round2Defense);
+  const setRound2Defense = useCallback((next: RoundDefenseState) => {
+    round2DefenseRef.current = next;
+    setRound2DefenseState(next);
+  }, []);
+
+  const [round3Defense, setRound3DefenseState] = useState<RoundDefenseState>(() => createInitialDefenseState(3, 'architecture'));
+  const round3DefenseRef = useRef<RoundDefenseState>(round3Defense);
+  const setRound3Defense = useCallback((next: RoundDefenseState) => {
+    round3DefenseRef.current = next;
+    setRound3DefenseState(next);
+  }, []);
+
+  const eliminationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clearEliminationTimer = useCallback(() => {
+    if (eliminationTimerRef.current) {
+      clearTimeout(eliminationTimerRef.current);
+      eliminationTimerRef.current = null;
+    }
+  }, []);
+
   // Server-recorded interview (T22): the id of the record the server keeps of this interview. Every
   // answer and the final evaluation carry it, so the score comes from what the server recorded.
   const [liveSessionId, setLiveSessionIdState] = useState<string | null>(null);
@@ -500,7 +543,9 @@ export default function InterviewPage() {
       const isRound1Complete = activeStage === 'round1_behavioral' && (userTurns.length >= 3 || userTurns.filter(m => m.content.trim().split(/\s+/).length >= 10).length >= 2);
 
       const targetMsg = isRound1Complete
-        ? "You've completed the behavioral intro! Whenever you're ready, click 'Continue to coding' to start Round 2."
+        ? (domainStream === 'non_tech'
+            ? "You've completed the screening intro! Whenever you're ready, click 'Continue to Case Study' to start Round 2."
+            : "You've completed the behavioral intro! Whenever you're ready, click 'Continue to coding' to start Round 2.")
         : nudgeMsg;
 
       // Deduplication: Never append or speak the exact same silence nudge consecutively
@@ -913,6 +958,9 @@ export default function InterviewPage() {
     codeReviewQuestionPendingRef.current = false;
     setArchitectureDefenseAnswered(false);
     architectureQuestionPendingRef.current = false;
+    clearEliminationTimer();
+    setRound2Defense(createInitialDefenseState(2, domainStream === 'non_tech' ? 'case' : 'code'));
+    setRound3Defense(createInitialDefenseState(3, domainStream === 'non_tech' ? 'workflow' : 'architecture'));
     setCodeRunFailed(false);
     setEvaluationResult(null);
     finishingRef.current = false;
@@ -933,11 +981,17 @@ export default function InterviewPage() {
     const jdProbeIntro = interviewMode === 'jd' && jdMatchResult?.analyzable && jdMatchResult.missing_skills.length > 0
       ? ` Based on your target job description, we will pay special attention to ${jdMatchResult.missing_skills.slice(0, 2).join(' and ')}.`
       : '';
-    const difficultyPromptEnd = difficulty === 'hard'
-      ? `Please keep your introduction concise—focus directly on the highest-stakes ${topic} problem you personally owned and the measurable outcome.`
-      : difficulty === 'easy'
-      ? `To warm up, tell me a bit about your background and what excites you most about ${topic}.`
-      : `To kick things off, please introduce yourself, walk me through your background, and highlight one recent project in ${topic}.`;
+    const difficultyPromptEnd = domainStream === 'non_tech'
+      ? (difficulty === 'hard'
+          ? `Let's treat this like a live Big-4 / Tier-1 Corporate panel: briefly introduce your B.Com background and walk me through the toughest financial, audit, or commercial decision you analyzed.`
+          : difficulty === 'easy'
+          ? `To warm up, tell me about your commerce background, your favourite accounting or business subject, and what excites you about ${topic}.`
+          : `To kick off our corporate panel, please introduce your B.Com/commerce background and walk me through one accounting, finance, tax, or business case you have worked on in ${topic}.`)
+      : (difficulty === 'hard'
+          ? `Please keep your introduction concise—focus directly on the highest-stakes ${topic} problem you personally owned and the measurable outcome.`
+          : difficulty === 'easy'
+          ? `To warm up, tell me a bit about your background and what excites you most about ${topic}.`
+          : `To kick things off, please introduce yourself, walk me through your background, and highlight one recent project in ${topic}.`);
 
     const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}.${companyIntro}${jdProbeIntro} ${difficultyPromptEnd}`;
 
@@ -963,6 +1017,7 @@ export default function InterviewPage() {
   };
 
   const exitInterview = () => {
+    clearEliminationTimer();
     stopSpeaking();
     stopVoiceListening();
     stopCamera();
@@ -1017,11 +1072,13 @@ export default function InterviewPage() {
       setCodeReviewAnswered(false);
       codeReviewQuestionPendingRef.current = false;
       setCodeRunFailed(false);
+      setRound2Defense(createInitialDefenseState(2, domainStream === 'non_tech' ? 'case' : 'code'));
     }
     if (next === 'round3_systems') {
       setArchitectureDefenseAnswered(false);
       architectureQuestionPendingRef.current = false;
       setArchitectureEvaluation(null);
+      setRound3Defense(createInitialDefenseState(3, domainStream === 'non_tech' ? 'workflow' : 'architecture'));
     }
     if (next === 'round4_star') {
       const r4Idx = messagesRef.current.length;
@@ -1034,16 +1091,34 @@ export default function InterviewPage() {
     if (next === 'round2_coding') {
       if (domainStream === 'non_tech') {
         const bcomCase = resolveCaseStudyData(activeTopicName);
-        stagePrompt = `Welcome to Round 2. I am ${nextTeacher.name}, your corporate panel evaluator.${companyRoundCue} Your business case study is "${bcomCase.company}". Review the Exhibit A financial figures, calculate the ${bcomCase.metrics.length} quantitative ratios, and write your executive recommendation. Click "Audit & Submit Case Analysis" when ready and I will cross-examine your reasoning.`;
+        stagePrompt = buildConciseRoundIntro({
+          roundNumber: 2,
+          domainStream: 'non_tech',
+          teacherName: nextTeacher.name,
+          topic: activeTopicName,
+          companyCue: companyRoundCue,
+          problemTitle: bcomCase.company,
+        });
       } else {
         void warmUpCodeRuntime(selectedLang);
         const prob = await fetchDynamicProblem(activeTopicName, domainStream, selectedLang, codingAttempt);
-        stagePrompt = `Welcome to Round 2. I am ${nextTeacher.name}, your technical interviewer.${companyRoundCue} Your challenge is "${prob.title}": ${prob.description} Implement your solution in the workspace and run the 5-tier boundary tests. I will review your complexity and edge cases once you submit.`;
+        stagePrompt = buildConciseRoundIntro({
+          roundNumber: 2,
+          domainStream: 'tech',
+          teacherName: nextTeacher.name,
+          topic: activeTopicName,
+          companyCue: companyRoundCue,
+          problemTitle: prob.title,
+        });
       }
     } else if (next === 'round3_systems') {
-      stagePrompt = domainStream === 'non_tech'
-        ? `Welcome to Round 3. I am ${nextTeacher.name}, your strategy and operations evaluator.${companyRoundCue} Map out the end-to-end business workflow for ${activeTopicName} on the canvas. Once you evaluate the workflow, I will probe your biggest operational bottleneck and margin trade-off.`
-        : `Welcome to Round 3. I am ${nextTeacher.name}, your systems interviewer.${companyRoundCue} Architect the production system for ${activeTopicName} using the nodes and protocol links on the canvas. When you click Evaluate Architecture, I will probe one of your core design trade-offs.`;
+      stagePrompt = buildConciseRoundIntro({
+        roundNumber: 3,
+        domainStream,
+        teacherName: nextTeacher.name,
+        topic: activeTopicName,
+        companyCue: companyRoundCue,
+      });
     } else if (next === 'round4_star') {
       const builtNodes = latestTopology?.nodes?.map((n: any) => n.label || n.type).join(', ') || (domainStream === 'non_tech' ? 'business workflow stages' : 'distributed tiers');
       stagePrompt = `Welcome to Round 4. I am ${nextTeacher.name}, your executive interviewer.${companyRoundCue} I have reviewed your background, your Round 2 solution, and your Round 3 design (${builtNodes}). Connect all three using concrete STAR evidence: why did you choose that approach, what trade-offs did it create, and what measurable impact did you achieve?`;
@@ -1058,15 +1133,140 @@ export default function InterviewPage() {
     }
   };
 
-  const handleSendMessageWithText = async (text: string) => {
-    if (!text.trim() || isSendingInterviewMessageRef.current) return;
-    const isSkipTurn = SKIP_TURN_REGEX.test(text.trim());
-    const answeringCodeReview = activeStage === 'round2_coding' && codeReviewQuestionPendingRef.current;
-    const answeringArchitectureQuestion = activeStage === 'round3_systems' && architectureQuestionPendingRef.current;
+  const buildCurrentArtifactSummary = (stageTarget: Stage): string => {
+    if (stageTarget === 'round2_coding') {
+      const snippet = (codeContentRef.current || '').trim().slice(0, 1400);
+      if (domainStream === 'non_tech') {
+        const bcomCase = resolveCaseStudyData(activeTopicName);
+        return `B.Com Case Study: ${bcomCase.company}\n${snippet || 'Submitted quantitative calculations & executive case memo.'}`;
+      }
+      return `Coding Challenge: ${currentCodingProb.title} (${selectedLangRef.current})\n${snippet || 'Submitted verified solution.'}`;
+    }
+    const topologyNodes = Array.isArray(latestTopology?.nodes) ? latestTopology.nodes : [];
+    const topologyLinks = Array.isArray(latestTopology?.links) ? latestTopology.links : [];
+    const nodesStr = topologyNodes.map((n: any) => n.label || n.type).filter(Boolean).join(', ');
+    const linksStr = topologyLinks.map((l: any) => `${l.fromType} -> ${l.toType} (${l.protocol || 'flow'})`).join('; ');
+    return `${domainStream === 'non_tech' ? 'Business Workflow' : 'System Architecture'} for ${activeTopicName} | Nodes (${topologyNodes.length}): ${nodesStr || 'none'} | Links (${topologyLinks.length}): ${linksStr || 'none'}`;
+  };
+
+  const finishInterviewRef = useRef<(opts?: { eliminatedInRound?: 2 | 3; eliminationReason?: string }) => Promise<void>>(async () => {});
+
+  const triggerForcefulElimination = (roundNumber: 2 | 3, reason: string | undefined, spokenVerdict: string, teacherId: string) => {
+    clearEliminationTimer();
+    let ended = false;
+    const concludeNow = () => {
+      if (ended) return;
+      ended = true;
+      clearEliminationTimer();
+      void finishInterviewRef.current({ eliminatedInRound: roundNumber, eliminationReason: reason });
+    };
+    speakWithAvatar(
+      spokenVerdict,
+      teacherId,
+      () => setAnimState('talking'),
+      () => {
+        setAnimState('idle');
+        eliminationTimerRef.current = setTimeout(concludeNow, 1200);
+      }
+    );
+    // Safety net in case speech synthesis is muted or unavailable (generous 12s so full spoken verdict never cuts off)
+    eliminationTimerRef.current = setTimeout(concludeNow, 12000);
+  };
+
+  const startDefenseCrossExam = async (
+    roundNumber: 2 | 3,
+    roundType: DefenseRoundType,
+    artifactSummary: string,
+    submissionNotice: string,
+    prefixSpeech?: string
+  ) => {
+    if (isSendingInterviewMessageRef.current) return;
     isSendingInterviewMessageRef.current = true;
     setIsSendingInterviewMessage(true);
     stopVoiceListening();
-    const newMsgs: Message[] = [...messages, { role: 'user', content: text.trim() }];
+    const targetStage: Stage = roundNumber === 2 ? 'round2_coding' : 'round3_systems';
+    const teacher = ROUND_INTERVIEWERS[targetStage];
+    const baseMsgs: Message[] = [...messagesRef.current, { role: 'user', content: submissionNotice }];
+    setMessages(baseMsgs);
+
+    let q1Text = '';
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/interview/chat', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          liveSessionId: liveSessionIdRef.current,
+          message: submissionNotice,
+          interviewerId: teacher.id,
+          stage: targetStage,
+          history: baseMsgs,
+          difficulty,
+          customTopic: activeTopicName,
+          domainStream,
+          domainSubTopic: activeTopicName,
+          jdContext: jdPromptContext,
+          companyContext,
+          topologyContext: roundNumber === 3 ? artifactSummary : undefined,
+          defenseMode: {
+            phase: 'start',
+            questionNumber: 1,
+            totalQuestions: 5,
+            roundType,
+            artifactSummary,
+          },
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data?.reply) {
+        q1Text = sanitizeLLMOutput(data.reply);
+      }
+    } catch {}
+
+    if (!q1Text) {
+      q1Text = getFallbackDefenseQuestion({
+        roundType,
+        questionNumber: 1,
+        topic: activeTopicName,
+        artifactHint: artifactSummary.slice(0, 80),
+      });
+    }
+
+    const fullOpening = prefixSpeech ? `${prefixSpeech} ${q1Text}` : q1Text;
+    const started = startRoundDefense(roundNumber, roundType, q1Text);
+    if (roundNumber === 2) {
+      setRound2Defense(started);
+      codeReviewQuestionPendingRef.current = true;
+      setCodeReviewQuestionReady(true);
+      setCodeReviewAnswered(false);
+    } else {
+      setRound3Defense(started);
+      architectureQuestionPendingRef.current = true;
+      setArchitectureDefenseAnswered(false);
+    }
+
+    setMessages([...baseMsgs, { role: 'assistant', content: fullOpening }]);
+    speakWithAvatar(fullOpening, teacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+    isSendingInterviewMessageRef.current = false;
+    setIsSendingInterviewMessage(false);
+  };
+
+  const handleSendMessageWithText = async (text: string) => {
+    if (!text.trim() || isSendingInterviewMessageRef.current) return;
+    const isSkipTurn = SKIP_TURN_REGEX.test(text.trim());
+    const activeRound2Defense = activeStage === 'round2_coding' && round2DefenseRef.current.status === 'in_progress'
+      ? round2DefenseRef.current
+      : null;
+    const activeRound3Defense = activeStage === 'round3_systems' && round3DefenseRef.current.status === 'in_progress'
+      ? round3DefenseRef.current
+      : null;
+    const activeDefense = activeRound2Defense || activeRound3Defense;
+    const answeringCodeReview = activeStage === 'round2_coding' && codeReviewQuestionPendingRef.current && !activeDefense;
+    const answeringArchitectureQuestion = activeStage === 'round3_systems' && architectureQuestionPendingRef.current && !activeDefense;
+    isSendingInterviewMessageRef.current = true;
+    setIsSendingInterviewMessage(true);
+    stopVoiceListening();
+    const newMsgs: Message[] = [...messagesRef.current, { role: 'user', content: text.trim() }];
     setMessages(newMsgs);
 
     try {
@@ -1078,6 +1278,7 @@ export default function InterviewPage() {
             ? `Nodes (${topologyNodes.length}): ${topologyNodes.map((n: any) => n.label || n.type).filter(Boolean).join(', ')}; Links: ${topologyLinks.length}`
             : 'Empty whiteboard (0 nodes placed yet)')
         : undefined;
+      const artifactSummary = activeDefense ? buildCurrentArtifactSummary(activeStage) : undefined;
       const res = await fetch('/api/interview/chat', {
         method: 'POST',
         headers,
@@ -1092,6 +1293,15 @@ export default function InterviewPage() {
           domainStream,
           domainSubTopic: activeTopicName,
           reviewDecision: answeringCodeReview,
+          defenseMode: activeDefense
+            ? {
+                phase: 'answer',
+                questionNumber: activeDefense.currentQuestionNumber,
+                totalQuestions: activeDefense.totalQuestions,
+                roundType: activeDefense.roundType,
+                artifactSummary,
+              }
+            : undefined,
           jdContext: jdPromptContext,
           companyContext,
           topologyContext,
@@ -1112,6 +1322,62 @@ export default function InterviewPage() {
       if (!res.ok) throw new Error(data?.message || `The interviewer request failed (${res.status}).`);
       const cleanReply = sanitizeLLMOutput(data?.reply);
       if (!cleanReply) throw new Error('The interviewer returned an empty reply.');
+
+      // ── 5-Question Post-Submission Defense Progression (Round 2 & Round 3, Tech & B.Com) ──
+      if (activeDefense) {
+        const llmGrade: 'PASS' | 'FAIL' | null =
+          data?.defenseGrade === 'PASS' ? 'PASS' : data?.defenseGrade === 'FAIL' ? 'FAIL' : null;
+        const evalTurn = evaluateDefenseTurnPass(text.trim(), llmGrade);
+        const nextDefense = advanceRoundDefense(
+          activeDefense,
+          text.trim(),
+          evalTurn.passed,
+          evalTurn.reason,
+          cleanReply
+        );
+
+        if (activeDefense.roundNumber === 2) {
+          setRound2Defense(nextDefense);
+        } else {
+          setRound3Defense(nextDefense);
+        }
+
+        if (nextDefense.status === 'in_progress') {
+          setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
+          speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+        } else if (nextDefense.status === 'passed') {
+          const passSpeech = buildDefenseFinalVerdictSpeech(nextDefense);
+          setMessages([...newMsgs, { role: 'assistant', content: passSpeech }]);
+          speakWithAvatar(passSpeech, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+          if (nextDefense.roundNumber === 2) {
+            codeReviewQuestionPendingRef.current = false;
+            setCodeReviewQuestionReady(false);
+            setCodeReviewAnswered(true);
+          } else {
+            architectureQuestionPendingRef.current = false;
+            setArchitectureDefenseAnswered(true);
+          }
+        } else {
+          // ELIMINATED: Did not pass all 5 defense questions — avatar announces rejection & forcefully ends session!
+          const failSpeech = buildDefenseFinalVerdictSpeech(nextDefense);
+          setMessages([...newMsgs, { role: 'assistant', content: failSpeech }]);
+          if (nextDefense.roundNumber === 2) {
+            codeReviewQuestionPendingRef.current = false;
+            setCodeReviewQuestionReady(false);
+            setCodeReviewAnswered(false);
+          } else {
+            architectureQuestionPendingRef.current = false;
+            setArchitectureDefenseAnswered(false);
+          }
+          toast.error(
+            `Did Not Advance Past Round ${nextDefense.roundNumber}`,
+            nextDefense.eliminationReason || 'You did not clear all 5 defense questions.'
+          );
+          triggerForcefulElimination(nextDefense.roundNumber, nextDefense.eliminationReason, failSpeech, activeTeacher.id);
+        }
+        return;
+      }
+
       if (activeStage === 'round4_star' && !isSkipTurn) setStarStep(prev => prev + 1);
       setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
       speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
@@ -1141,6 +1407,43 @@ export default function InterviewPage() {
         setArchitectureDefenseAnswered(true);
       }
     } catch {
+      if (activeDefense) {
+        // Offline deterministic fallback keeps the 5-question defense running without losing progress
+        const evalTurn = evaluateDefenseTurnPass(text.trim(), null);
+        const nextNum = activeDefense.currentQuestionNumber + 1;
+        const fallbackQ = nextNum <= activeDefense.totalQuestions
+          ? getFallbackDefenseQuestion({
+              roundType: activeDefense.roundType,
+              questionNumber: nextNum,
+              topic: activeTopicName,
+            })
+          : undefined;
+        const nextDefense = advanceRoundDefense(activeDefense, text.trim(), evalTurn.passed, evalTurn.reason, fallbackQ);
+        if (activeDefense.roundNumber === 2) setRound2Defense(nextDefense);
+        else setRound3Defense(nextDefense);
+
+        if (nextDefense.status === 'in_progress' && fallbackQ) {
+          setMessages([...newMsgs, { role: 'assistant', content: fallbackQ }]);
+          speakWithAvatar(fallbackQ, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+        } else if (nextDefense.status === 'passed') {
+          const passSpeech = buildDefenseFinalVerdictSpeech(nextDefense);
+          setMessages([...newMsgs, { role: 'assistant', content: passSpeech }]);
+          speakWithAvatar(passSpeech, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+          if (nextDefense.roundNumber === 2) {
+            codeReviewQuestionPendingRef.current = false;
+            setCodeReviewQuestionReady(false);
+            setCodeReviewAnswered(true);
+          } else {
+            architectureQuestionPendingRef.current = false;
+            setArchitectureDefenseAnswered(true);
+          }
+        } else {
+          const failSpeech = buildDefenseFinalVerdictSpeech(nextDefense);
+          setMessages([...newMsgs, { role: 'assistant', content: failSpeech }]);
+          triggerForcefulElimination(nextDefense.roundNumber, nextDefense.eliminationReason, failSpeech, activeTeacher.id);
+        }
+        return;
+      }
       const fallback = answeringArchitectureQuestion
         ? 'I could not review that defense because the connection failed. Please send your explanation again.'
         : answeringCodeReview
@@ -1163,8 +1466,6 @@ export default function InterviewPage() {
         setCodeRunFailed(false);
       }
       if (answeringArchitectureQuestion) {
-        // Keep this as the pending defense question so a resubmitted explanation is
-        // evaluated as the defense response, not treated as an unrelated new turn.
         architectureQuestionPendingRef.current = true;
         setArchitectureDefenseAnswered(false);
       }
@@ -1183,7 +1484,7 @@ export default function InterviewPage() {
   const lastRecordedCodeRef = useRef('');
   const recordCodeSubmission = async () => {
     const id = liveSessionIdRef.current;
-    const code = codeContent.trim();
+    const code = codeContentRef.current.trim();
     if (!id || !code || !codeModifiedRef.current || code === lastRecordedCodeRef.current) return;
     try {
       const headers = await getAuthHeaders();
@@ -1195,8 +1496,10 @@ export default function InterviewPage() {
           event: 'code',
           stage: 'round2_coding',
           code,
-          language: selectedLang,
-          problemTitle: dynamicProblemData?.title || getDynamicCodingProblem(activeTopicName, selectedLang).title,
+          language: domainStream === 'non_tech' ? 'case_study' : selectedLangRef.current,
+          problemTitle: domainStream === 'non_tech'
+            ? resolveCaseStudyData(activeTopicName).company
+            : (dynamicProblemData?.title || getDynamicCodingProblem(activeTopicName, selectedLangRef.current).title),
         }),
       });
       if (!res.ok) throw new Error(`Code recording failed (${res.status}).`);
@@ -1213,15 +1516,22 @@ export default function InterviewPage() {
     setCodeSubmitted(false);
 
     // Non-Tech / B.Com Case Study submission: NEVER run the Python/JS compiler on a financial case memo!
+    // Automatically launches the 5-question panel cross-examination directly on the submitted case desk.
     if (domainStream === 'non_tech') {
       try {
         void recordCodeSubmission();
         setCodeRunFailed(false);
         setCodeSubmitted(true);
-        setCodeReviewStarted(false);
-        setCodeReviewQuestionReady(false);
+        setCodeReviewStarted(true);
         setCodeReviewAnswered(false);
-        codeReviewQuestionPendingRef.current = false;
+        const caseSummary = buildCurrentArtifactSummary('round2_coding');
+        const caseTitle = resolveCaseStudyData(activeTopicName).company;
+        void startDefenseCrossExam(
+          2,
+          'case',
+          caseSummary,
+          `I have submitted my B.Com corporate case desk for "${caseTitle}". Please begin my 5-question panel cross-examination based on my journal entry, ratios, and board recommendation.`
+        );
       } finally {
         setIsRunning(false);
       }
@@ -1301,16 +1611,18 @@ export default function InterviewPage() {
   };
 
   const reviewCodingSolution = () => {
-    if (!codeSubmitted || codeReviewStarted) return;
+    if (!codeSubmitted || codeReviewStarted || round2DefenseRef.current.status === 'in_progress') return;
     setCodeReviewStarted(true);
     setCodeReviewQuestionReady(false);
     setCodeReviewAnswered(false);
     codeReviewQuestionPendingRef.current = false;
-    const reviewRequest = domainStream === 'non_tech'
-      ? `I have submitted my corporate case study analysis for "${resolveCaseStudyData(activeTopicName).company}". Here are my verified calculations and executive memo:\n\n${codeContent}\n\nPlease review my commercial logic and ask me one focused panel cross-examination question about my financial assumptions, risk controls, or trade-offs.`
-      : `I have completed the ${currentCodingProb.title} challenge and all local tests passed. Here is my ${selectedLang} solution:\n\n\`\`\`${selectedLang}\n${codeContent}\n\`\`\`\n\nPlease review this code and ask me one focused question about my implementation, complexity, or an edge case. Do not provide a replacement solution.`;
+    const roundType: DefenseRoundType = domainStream === 'non_tech' ? 'case' : 'code';
+    const artifactSummary = buildCurrentArtifactSummary('round2_coding');
+    const submissionNotice = domainStream === 'non_tech'
+      ? `I have submitted my corporate case desk for "${resolveCaseStudyData(activeTopicName).company}". Please start my 5-question panel cross-examination.`
+      : `I have completed the ${currentCodingProb.title} challenge in ${selectedLang} and passed all boundary tests. Please start my 5-question code defense.`;
     void recordCodeSubmission();
-    void handleSendMessageWithText(reviewRequest);
+    void startDefenseCrossExam(2, roundType, artifactSummary, submissionNotice);
   };
 
   const retryWithNewCodingChallenge = () => {
@@ -1318,6 +1630,7 @@ export default function InterviewPage() {
     setCodeReviewQuestionReady(false);
     setCodeReviewAnswered(false);
     codeReviewQuestionPendingRef.current = false;
+    setRound2Defense(createInitialDefenseState(2, domainStream === 'non_tech' ? 'case' : 'code'));
     setCodeSubmitted(false);
     setCodeRunFailed(false);
     setCodeContent('');
@@ -1359,19 +1672,30 @@ export default function InterviewPage() {
         const data = await res.json();
         if (!data?.evaluation) throw new Error('Architecture review returned no evaluation.');
         setArchitectureEvaluation(data.evaluation);
-        const nodeLabels = (latestTopology?.nodes || []).map((node: any) => node.label || node.type).filter(Boolean);
-        const anchor = nodeLabels[0] || (domainStream === 'non_tech' ? 'your primary workflow stage' : 'the main component');
+        const nodeCount = Array.isArray(latestTopology?.nodes) ? latestTopology.nodes.length : 0;
+        const evalScore = Number(data.evaluation?.score || 0);
         const defaultFeedback = domainStream === 'non_tech'
-          ? `Business workflow review complete. Grade: ${data.evaluation?.verdict || 'reviewed'}.`
-          : `Architecture review complete. Grade: ${data.evaluation?.verdict || 'reviewed'}.`;
-        const followUpProbe = domainStream === 'non_tech'
-          ? `I noticed ${anchor} in your workflow. How do you control conversion or SLA slippage at that handoff, and what margin trade-off does it create?`
-          : `I noticed ${anchor} in your design. Why did you choose it, and what trade-off does it create for the rest of the system?`;
-        const spoken = `${data.evaluation?.spokenFeedback || defaultFeedback} ${followUpProbe}`;
-        setArchitectureDefenseAnswered(false);
-        architectureQuestionPendingRef.current = true;
-        setMessages(prev => [...prev, { role: 'assistant', content: spoken }]);
-        speakWithAvatar(spoken, ROUND_INTERVIEWERS.round3_systems.id, () => setAnimState('talking'), () => setAnimState('idle'));
+          ? `Business workflow scored ${evalScore}/100 (${data.evaluation?.verdict || 'reviewed'}).`
+          : `Architecture scored ${evalScore}/100 (${data.evaluation?.verdict || 'reviewed'}).`;
+        const feedbackIntro = data.evaluation?.spokenFeedback || defaultFeedback;
+
+        if (nodeCount > 0 && evalScore >= 60) {
+          // Canvas meets the 60/100 bar -> launch the 5-question cross-examination!
+          const roundType: DefenseRoundType = domainStream === 'non_tech' ? 'workflow' : 'architecture';
+          const artifactSummary = buildCurrentArtifactSummary('round3_systems');
+          const submissionNotice = domainStream === 'non_tech'
+            ? `I have built and evaluated my ${activeTopicName} business workflow (${nodeCount} stages, ${evalScore}/100). Please start my 5-question workflow defense.`
+            : `I have built and evaluated my ${activeTopicName} system architecture (${nodeCount} nodes, ${evalScore}/100). Please start my 5-question architecture defense.`;
+          void startDefenseCrossExam(3, roundType, artifactSummary, submissionNotice, feedbackIntro);
+        } else {
+          // Canvas blank or below 60/100 -> ask candidate to improve canvas before defense begins
+          setArchitectureDefenseAnswered(false);
+          architectureQuestionPendingRef.current = false;
+          setRound3Defense(createInitialDefenseState(3, domainStream === 'non_tech' ? 'workflow' : 'architecture'));
+          const repairPrompt = `${feedbackIntro} Please address the bottlenecks on the canvas and re-evaluate to reach at least 60 out of 100 before we start the 5-question defense.`;
+          setMessages(prev => [...prev, { role: 'assistant', content: repairPrompt }]);
+          speakWithAvatar(repairPrompt, ROUND_INTERVIEWERS.round3_systems.id, () => setAnimState('talking'), () => setAnimState('idle'));
+        }
       }
     } catch {
       toast.error(
@@ -1397,13 +1721,17 @@ export default function InterviewPage() {
       setArchitectureEvaluation(null);
       setArchitectureDefenseAnswered(false);
       architectureQuestionPendingRef.current = false;
+      if (round3DefenseRef.current.status !== 'eliminated') {
+        setRound3Defense(createInitialDefenseState(3, domainStream === 'non_tech' ? 'workflow' : 'architecture'));
+      }
     }
-  }, []);
+  }, [domainStream, setRound3Defense]);
 
   const finishingRef = useRef(false);
-  const finishInterview = async () => {
+  const finishInterview = async (opts?: { eliminatedInRound?: 2 | 3; eliminationReason?: string }) => {
     if (finishingRef.current) return;
     finishingRef.current = true;
+    clearEliminationTimer();
     setIsEvaluating(true);
     stopSpeaking();
     stopVoiceListening();
@@ -1417,9 +1745,10 @@ export default function InterviewPage() {
       } catch {}
     }
     const archetype: MindsetArchetype = cOS?.onboardingAnswers?.mindset_archetype || (user as any)?.mindset_archetype || 'Pattern Hunter';
+    const finalMessages = messagesRef.current;
 
     const evalResult = computeDeterministicEvaluation({
-      messages,
+      messages: finalMessages,
       codeSubmitted,
       latestTopology,
       starStep,
@@ -1431,7 +1760,9 @@ export default function InterviewPage() {
       archetype,
       tabSwitchCount,
       selectedLang,
-      codeContent
+      codeContent: codeContentRef.current,
+      eliminatedInRound: opts?.eliminatedInRound,
+      eliminationReason: opts?.eliminationReason,
     });
 
     setEvaluationResult(evalResult);
@@ -1448,7 +1779,7 @@ export default function InterviewPage() {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          history: messages,
+          history: finalMessages,
           codingScore: evalResult.solvingScore,
           domainStream,
           domainSubTopic: activeTopicName,
@@ -1473,6 +1804,11 @@ export default function InterviewPage() {
         resultObj = {
           ...evalResult,
           ...data.evaluation,
+          verdict: opts?.eliminatedInRound ? evalResult.verdict : data.evaluation.verdict,
+          readiness: opts?.eliminatedInRound ? evalResult.readiness : data.evaluation.readiness,
+          summary: opts?.eliminatedInRound ? evalResult.summary : data.evaluation.summary,
+          eliminatedInRound: opts?.eliminatedInRound,
+          eliminationReason: opts?.eliminationReason,
           evaluationToken: data.evaluationToken,
           topicEvaluationToken: data.topicEvaluationToken,
           xpAwarded: data.xpAwarded,
@@ -1557,7 +1893,7 @@ export default function InterviewPage() {
         fillerWords: typeof fillerWordCount === 'number' ? fillerWordCount : null,
         tabSwitches: tabSwitchCount
       },
-      messages,
+      messages: finalMessages,
       summary: resultObj.summary || '',
       strengths: Array.isArray(resultObj.strengths) ? resultObj.strengths : [resultObj.strengths || 'Good effort'],
       improvements: Array.isArray(resultObj.improvements) ? resultObj.improvements.join('. ') : (resultObj.improvements || ''),
@@ -1594,6 +1930,7 @@ export default function InterviewPage() {
       } catch {}
     }
   };
+  finishInterviewRef.current = finishInterview;
 
   const handleSkipRound = async () => {
     if (stageTransitionRef.current || finishingRef.current) return;
@@ -1899,6 +2236,7 @@ export default function InterviewPage() {
                 codeRunFailed={codeRunFailed}
                 codeReviewStarted={codeReviewStarted}
                 codeReviewQuestionReady={codeReviewQuestionReady}
+                defenseState={round2Defense}
                 isSendingInterviewMessage={isSendingInterviewMessage}
                 lastInterviewerSpeech={lastInterviewerSpeech}
                 manualTextInput={manualTextInput}
@@ -1945,6 +2283,7 @@ export default function InterviewPage() {
                 codeRunFailed={codeRunFailed}
                 codeReviewStarted={codeReviewStarted}
                 codeReviewQuestionReady={codeReviewQuestionReady}
+                defenseState={round2Defense}
                 isSendingInterviewMessage={isSendingInterviewMessage}
                 lastInterviewerSpeech={lastInterviewerSpeech}
                 manualTextInput={manualTextInput}
@@ -1960,6 +2299,9 @@ export default function InterviewPage() {
                   setCodeReviewAnswered(false);
                   setLatestTestOutcomes([]);
                   codeReviewQuestionPendingRef.current = false;
+                  if (round2DefenseRef.current.status !== 'eliminated') {
+                    setRound2Defense(createInitialDefenseState(2, 'code'));
+                  }
                 }}
                 runCodeAndTests={runCodeAndTests}
                 isRunning={isRunning}
@@ -1972,6 +2314,9 @@ export default function InterviewPage() {
                   setCodeReviewQuestionReady(false);
                   setCodeReviewAnswered(false);
                   codeReviewQuestionPendingRef.current = false;
+                  if (round2DefenseRef.current.status !== 'eliminated') {
+                    setRound2Defense(createInitialDefenseState(2, 'code'));
+                  }
                 }}
                 codeModifiedRef={codeModifiedRef}
                 activeTeacher={activeTeacher}
@@ -2017,6 +2362,7 @@ export default function InterviewPage() {
               animState={animState}
               lastInterviewerSpeech={lastInterviewerSpeech}
               architectureEvaluation={architectureEvaluation}
+              defenseState={round3Defense}
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
@@ -2048,7 +2394,7 @@ export default function InterviewPage() {
               eyeContactScore={eyeContactScore}
               wpmScore={wpmScore}
               lastInterviewerSpeech={lastInterviewerSpeech}
-              finishInterview={finishInterview}
+              finishInterview={() => { void finishInterview(); }}
               onSkipRound={handleSkipRound}
               canFinishInterview={(starStep >= 4 || starCoverage.count >= 3) && !isSendingInterviewMessage && !isAvatarSpeaking}
               isSendingInterviewMessage={isSendingInterviewMessage}

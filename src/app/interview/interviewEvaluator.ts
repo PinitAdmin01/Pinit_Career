@@ -60,6 +60,8 @@ export interface EvaluationInput {
   tabSwitchCount?: number;
   selectedLang?: string;
   codeContent?: string;
+  eliminatedInRound?: 2 | 3;
+  eliminationReason?: string;
 }
 
 export function computeDeterministicEvaluation({
@@ -76,7 +78,9 @@ export function computeDeterministicEvaluation({
   roleKey: inputRoleKey,
   tabSwitchCount,
   selectedLang,
-  codeContent
+  codeContent,
+  eliminatedInRound,
+  eliminationReason
 }: EvaluationInput) {
   const safeMessages = Array.isArray(messages) ? messages : [];
   const annotatedMsgs = inferMessageRounds(safeMessages);
@@ -490,15 +494,24 @@ export function computeDeterministicEvaluation({
         growthArea: 'Complete the interview rounds with concrete project examples, quantitative reasoning, and structured STAR answers.',
       };
 
+  const isEliminated = eliminatedInRound === 2 || eliminatedInRound === 3;
+  const finalVerdict = isEliminated ? `Eliminated in Round ${eliminatedInRound}` : scoringResult.verdict;
+  const finalReadiness = isEliminated ? 'Did Not Advance' : scoringResult.readiness;
+  const finalSummary = isEliminated
+    ? `Interview concluded after Round ${eliminatedInRound} defense (${scoringResult.overallScore}%). ${eliminationReason || 'Did not clear all 5 cross-examination defense questions required to advance to the next round.'}`
+    : honestSummary;
+
   return {
-    verdict: scoringResult.verdict,
+    verdict: finalVerdict,
     score: scoringResult.overallScore,
-    readiness: scoringResult.readiness,
+    readiness: finalReadiness,
+    eliminatedInRound,
+    eliminationReason,
     roleName: scoringResult.roleName,
     rubricVersion: 'v2.0',
     appliedWeights: scoringResult.appliedWeights,
     radar: scoringResult.sanitizedDimensions,
-    summary: honestSummary,
+    summary: finalSummary,
     strengths: realStrengths,
     improvements: realImprovements.join(' • '),
     coaching: honestCoaching,

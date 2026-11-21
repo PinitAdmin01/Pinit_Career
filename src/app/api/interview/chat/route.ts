@@ -13,6 +13,11 @@ import {
   transcriptForStage,
   type LiveSession,
 } from '@/lib/interview/liveSession';
+import {
+  evaluateDefenseTurnPass,
+  getFallbackDefenseQuestion,
+  type DefenseRoundType,
+} from '@/lib/interview/roundDefenseEngine';
 
 // Comprehensive Interviewer Persona Roster matching all frontend 3D VRoid Avatars
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
@@ -541,8 +546,32 @@ export async function POST(req: Request) {
       jdContext,
       companyContext,
       topologyContext,
-      vaultContext
+      vaultContext,
+      defenseMode
     } = body;
+
+    const activeDefense: {
+      phase: 'start' | 'answer';
+      questionNumber: number;
+      totalQuestions: number;
+      roundType: DefenseRoundType;
+      artifactSummary?: string;
+    } | null =
+      defenseMode && (defenseMode.phase === 'start' || defenseMode.phase === 'answer')
+        ? {
+            phase: defenseMode.phase,
+            questionNumber: Math.max(1, Math.min(5, Number(defenseMode.questionNumber) || 1)),
+            totalQuestions: Math.max(1, Math.min(5, Number(defenseMode.totalQuestions) || 5)),
+            roundType: (['code', 'case', 'architecture', 'workflow'].includes(defenseMode.roundType)
+              ? defenseMode.roundType
+              : stage === 'round3_systems'
+              ? (domainStream === 'non_tech' ? 'workflow' : 'architecture')
+              : (domainStream === 'non_tech' ? 'case' : 'code')) as DefenseRoundType,
+            artifactSummary: typeof defenseMode.artifactSummary === 'string'
+              ? defenseMode.artifactSummary.trim().slice(0, 1800)
+              : undefined,
+          }
+        : null;
 
     const selectedInterviewer =
       stage === 'vault_defense' && interviewerId === 'priya'
@@ -617,10 +646,12 @@ export async function POST(req: Request) {
     }
 
     // 3. Build Topic Context
-    let topicPrompt = `The candidate is being interviewed for [${subTopic}] in the [${stream === 'non_tech' ? 'Non-Tech / Corporate / Business' : 'Tech / Software / Systems'}] stream.`;
+    let topicPrompt = stream === 'non_tech'
+      ? `The candidate is being interviewed for [${subTopic}] in the [B.Com / Commerce, Accounting, Finance & Corporate Strategy] stream. Conduct this like a realistic India + Global corporate hiring panel (Big-4 Deloitte/EY/PwC/KPMG, Tier-1 Banks like HDFC/ICICI/Goldman Sachs, or Global MNC Finance/Commercial teams). Anchor questions in real-world commerce concepts (Ind AS / IFRS, Golden Rules of Accounting, P&L vs Cash Flow, Balance Sheet solvency, GST / ITC / TDS compliance, Credit Appraisal, Working Capital, or Commercial Unit Economics) — NEVER ask software coding questions.`
+      : `The candidate is being interviewed for [${subTopic}] in the [Tech / Software / Systems] stream.`;
     const topicFocus = live ? live.topic : (typeof customTopic === 'string' ? customTopic.trim() : '');
     if (topicFocus) {
-      topicPrompt += ` Topic Focus: "${topicFocus}". Align all questions and technical drill-downs strictly to this domain.`;
+      topicPrompt += ` Topic Focus: "${topicFocus}". Align all questions and domain drill-downs strictly to this domain.`;
     }
     if (typeof companyContext === 'string' && companyContext.trim()) {
       topicPrompt += `\n${companyContext.trim().slice(0, 1200)}`;
@@ -634,25 +665,64 @@ export async function POST(req: Request) {
       ? topologyContext.trim().slice(0, 600)
       : 'Empty whiteboard (0 nodes placed yet)';
     let stageContext = '';
-    if (stage === 'round1_behavioral') {
+    if (activeDefense) {
+      const { phase, questionNumber, totalQuestions, roundType, artifactSummary } = activeDefense;
+      const artifactLabel =
+        roundType === 'code' ? 'submitted code' :
+        roundType === 'case' ? 'submitted B.Com case study (journal/red-flag call, financial ratios, and board recommendation)' :
+        roundType === 'workflow' ? 'submitted business & financial control workflow canvas' :
+        'submitted system architecture diagram';
+      const artifactBlock = artifactSummary ? `\nCANDIDATE SUBMITTED ARTIFACT:\n${artifactSummary}\n` : '';
+      if (phase === 'start') {
+        stageContext = `5-QUESTION PANEL CROSS-EXAMINATION (QUESTION 1 OF ${totalQuestions}) ON CANDIDATE'S ${artifactLabel.toUpperCase()}:${artifactBlock}
+STRICT RULES:
+- Acknowledge submission in 1 brief clause and ask Question 1 of ${totalQuestions} strictly grounded in a specific detail from the candidate's ${artifactLabel} above.
+- Do NOT ask generic background questions. Keep to 2-3 crisp spoken sentences.`;
+      } else if (questionNumber < totalQuestions) {
+        const nextQ = questionNumber + 1;
+        stageContext = `5-QUESTION PANEL CROSS-EXAMINATION (GRADING ANSWER ${questionNumber} OF ${totalQuestions}, ASKING QUESTION ${nextQ} OF ${totalQuestions}) ON CANDIDATE'S ${artifactLabel.toUpperCase()}:${artifactBlock}
+STRICT RULES:
+1. Critically evaluate the candidate's LAST reply to Question ${questionNumber}:
+   - Append [[DEFENSE_GRADE:PASS]] ONLY if they gave a genuine, accurate, on-topic explanation demonstrating real understanding of their ${artifactLabel}.
+   - Append [[DEFENSE_GRADE:FAIL]] if they said "I don't know", skipped, gave a bare greeting, gave an empty/vague non-answer, or gave a clearly incorrect/contradictory answer.
+2. React concisely in 1 short sentence, then immediately ask Question ${nextQ} of ${totalQuestions} testing a DIFFERENT angle of their ${artifactLabel} (do NOT repeat earlier questions).
+3. Keep spoken prose under 3 sentences and place the [[DEFENSE_GRADE:PASS]] or [[DEFENSE_GRADE:FAIL]] marker at the very end.`;
+      } else {
+        stageContext = `5-QUESTION PANEL CROSS-EXAMINATION (FINAL ANSWER ${totalQuestions} OF ${totalQuestions}) ON CANDIDATE'S ${artifactLabel.toUpperCase()}:${artifactBlock}
+STRICT RULES:
+1. Evaluate the candidate's LAST reply to Question ${totalQuestions}:
+   - Append [[DEFENSE_GRADE:PASS]] ONLY if they gave a genuine, accurate, on-topic explanation.
+   - Append [[DEFENSE_GRADE:FAIL]] if they said "I don't know", skipped, evaded, or answered incorrectly.
+2. Give a crisp 1-sentence closing acknowledgment of their final answer (do NOT ask a 6th question).
+3. Place [[DEFENSE_GRADE:PASS]] or [[DEFENSE_GRADE:FAIL]] at the very end.`;
+      }
+    } else if (stage === 'round1_behavioral') {
       const historyLength = effectiveHistory.length;
       if (historyLength <= 1) {
-        stageContext = `This is Round 1 (Behavioral & Background). Acknowledge the candidate warmly, introduce yourself briefly as ${selectedInterviewer.name}, and ask them to introduce their background and experience with ${subTopic}. Keep under 3 sentences.`;
+        stageContext = stream === 'non_tech'
+          ? `This is Round 1 (B.Com / Corporate Commerce HR & Fundamentals Screening). Acknowledge the candidate warmly as ${selectedInterviewer.name}, and invite them to introduce their commerce background, academic/internship exposure, and one accounting, finance, audit, or business area they know best in ${subTopic}. Keep under 3 sentences.`
+          : `This is Round 1 (Behavioral & Background). Acknowledge the candidate warmly, introduce yourself briefly as ${selectedInterviewer.name}, and ask them to introduce their background and experience with ${subTopic}. Keep under 3 sentences.`;
       } else {
-        stageContext = `This is Round 1 (Behavioral). Listen to the candidate's last answer. If the candidate merely says "hi", "hello", or gives a vague greeting, do NOT praise them or pretend they made a decision; instead, politely re-ask them to introduce themselves and highlight one project or practical experience in ${subTopic}. If they gave a substantive response, acknowledge one specific detail they mentioned, then ask a structured behavioral or background follow-up question related to ${subTopic}. Keep under 3 sentences.`;
+        stageContext = stream === 'non_tech'
+          ? `This is Round 1 (B.Com / Corporate Commerce Screening). Listen closely to the candidate's last reply. If they merely said "hi" or gave a vague greeting, politely re-ask them to introduce their commerce background and practical exposure. Otherwise acknowledge one specific detail and ask a realistic Indian/Global B.Com screening question for ${subTopic} (e.g., practical application of Golden Rules/Ind AS/IFRS, difference between profit and cash flow, GST/audit controls, bank credit assessment, or commercial KPIs). Keep under 3 sentences.`
+          : `This is Round 1 (Behavioral). Listen to the candidate's last answer. If the candidate merely says "hi", "hello", or gives a vague greeting, do NOT praise them or pretend they made a decision; instead, politely re-ask them to introduce themselves and highlight one project or practical experience in ${subTopic}. If they gave a substantive response, acknowledge one specific detail they mentioned, then ask a structured behavioral or background follow-up question related to ${subTopic}. Keep under 3 sentences.`;
       }
     } else if (stage === 'round2_coding') {
       stageContext = reviewDecision
-        ? `This is the final code-review decision for Round 2. STRICT STAGE LOCK: Assess ONLY the candidate's Round 2 code/case solution and explanation. If both meet the bar, briefly acknowledge why and append exactly [[ROUND_VERDICT:PASS]]. If the reasoning or implementation has a substantive gap, briefly explain it and append exactly [[ROUND_VERDICT:RETRY]]. Do not ask another question. Never include the marker in spoken prose.`
-        : `This is Round 2 (Technical Assessment & Problem Solving). STRICT STAGE LOCK: Stay 100% focused on the active Round 2 challenge, algorithm/logic, complexity, edge cases, or case-study calculations. NEVER revert to Round 1 background, college degree, or generic introductory trivia. Review submitted code when available and ask one focused question; if asked for hints, give a conceptual clue without giving away the solution. Keep under 3 sentences.`;
+        ? `This is the final review decision for Round 2. STRICT STAGE LOCK: Assess ONLY the candidate's Round 2 solution and explanation. If both meet the bar, briefly acknowledge why and append exactly [[ROUND_VERDICT:PASS]]. If the reasoning or implementation has a substantive gap, briefly explain it and append exactly [[ROUND_VERDICT:RETRY]]. Do not ask another question. Never include the marker in spoken prose.`
+        : stream === 'non_tech'
+        ? `This is Round 2 (Live B.Com Corporate Case Desk). STRICT STAGE LOCK: Stay 100% focused on the active financial statements, accounting/audit red flag, rectification journal entry, financial ratios, and executive verdict. NEVER ask software coding questions or revert to Round 1 college bio. Keep under 3 sentences.`
+        : `This is Round 2 (Technical Assessment & Problem Solving). STRICT STAGE LOCK: Stay 100% focused on the active Round 2 challenge, algorithm/logic, complexity, edge cases, or implementation. NEVER revert to Round 1 background, college degree, or generic introductory trivia. Review submitted code when available and ask one focused question; if asked for hints, give a conceptual clue without giving away the solution. Keep under 3 sentences.`;
     } else if (stage === 'round3_systems') {
       if (stream === 'non_tech') {
-        stageContext = `This is Round 3 (Business Workflow Canvas). STRICT STAGE LOCK: Stay 100% focused on business workflow architecture, funnel conversion, monetization loops, and operational bottlenecks for ${subTopic}. NEVER ask Round 1 background/college/syntax questions. Current Canvas State: ${topologySummary}. If the canvas is empty, guide the candidate to place 2-3 workflow blocks and click Evaluate Architecture; otherwise probe one concrete trade-off or bottleneck. Keep under 3 sentences.`;
+        stageContext = `This is Round 3 (B.Com Finance & Business Control Workflow Canvas). STRICT STAGE LOCK: Stay 100% focused on real-world corporate workflow design (Order-to-Cash, Procure-to-Pay, GST/Audit compliance, Credit Underwriting, Treasury Reconciliation, or Commercial Growth Funnel) for ${subTopic}. NEVER ask software coding or Round 1 background questions. Current Canvas State: ${topologySummary}. If the canvas is empty, guide the candidate to place 3-4 workflow stages and click Evaluate Workflow; otherwise probe one concrete control, bottleneck, or margin trade-off. Keep under 3 sentences.`;
       } else {
         stageContext = `This is Round 3 (System Architecture Canvas). STRICT STAGE LOCK: Stay 100% focused on system architecture design for ${subTopic} (components, request flow, load balancing, caching, databases, queues, failure modes, and scaling). NEVER ask Round 1 personal background/degree questions or basic language syntax trivia (like Python lists vs tuples or intro web frameworks). Current Whiteboard State: ${topologySummary}. If the whiteboard is empty, guide the candidate to place 2-3 core blocks (such as Client App, API Gateway, Database) and explain how traffic flows; otherwise probe one concrete architectural trade-off or failure mode. Keep under 3 sentences.`;
       }
     } else if (stage === 'round4_star') {
-      stageContext = `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
+      stageContext = stream === 'non_tech'
+        ? `This is Round 4 (Partner / CFO / Executive STAR Deep Dive for B.Com / Commerce). Connect the candidate's earlier-round case study, workflow design, and commercial judgment. Probe realistic boardroom dilemmas (e.g., defending an audit qualification under client pressure, handling a credit covenant breach, or resolving a working-capital crunch) using concrete Situation, Task, Action, and quantified Result evidence. Keep under 3 sentences.`
+        : `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
     } else if (stage === 'vault_defense') {
       const assistantTurns = effectiveHistory.filter((m) => m.role === 'assistant').length;
       const docDetails = typeof vaultContext === 'string' && vaultContext.trim()
@@ -708,7 +778,13 @@ ${stageContext}
 ${telemetryContext}
 RULES:
 1. Speak in first person as ${selectedInterviewer.name} in natural spoken dialogue (no markdown bullets, no numbered lists, and NEVER append a sign-off or your name like '— ${selectedInterviewer.name}').
-2. ${reviewDecision ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.' : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'}
+2. ${
+  activeDefense && activeDefense.phase === 'answer' && activeDefense.questionNumber >= activeDefense.totalQuestions
+    ? 'For this final defense turn, acknowledge briefly and append [[DEFENSE_GRADE:PASS]] or [[DEFENSE_GRADE:FAIL]]; do NOT ask another question.'
+    : reviewDecision
+    ? 'For the final code-review decision, provide a concise verdict and use the required marker; do not ask a question.'
+    : 'Ask exactly ONE sharp, non-repetitive follow-up question per turn that directly reacts to what the candidate just said.'
+}
 3. If the candidate says "I don't know", expresses confusion, or feels stuck, NEVER pretend they gave an answer or praise them for not knowing. Supportively acknowledge it ("No problem at all—let's look at this from a different angle...") and guide them with a simpler stepping-stone question strictly inside the CURRENT stage (${stage || 'round1_behavioral'}) — NEVER drift back into Round 1 college background or unrelated syntax trivia during Round 2 or Round 3.
 4. If the candidate gives a broad introductory greeting without project specifics, warmly acknowledge them and ask for one specific project, the technical problem it solved, and their direct contribution.
 5. If the candidate gives a vague or high-level claim, press politely for a concrete number, trade-off, or failure mode. If they explicitly ask to skip a question or skip the current round/canvas, NEVER say they cannot skip it — politely acknowledge and let them know they can click the "Skip Round" button at the top right of the round panel anytime to move directly to the next round.
@@ -959,17 +1035,55 @@ RULES:
     // Deterministic fallback if all external LLMs are offline
     if (!reply) {
       console.warn('[Interview Chat API] External LLMs unavailable, using contextual deterministic fallback');
-      if (reviewDecision) {
+      if (activeDefense) {
+        if (activeDefense.phase === 'start') {
+          reply = getFallbackDefenseQuestion({
+            roundType: activeDefense.roundType,
+            questionNumber: 1,
+            topic: subTopic,
+            artifactHint: activeDefense.artifactSummary?.slice(0, 80),
+          });
+        } else {
+          const finalAnswer = [...formattedHistory].reverse().find(turn => turn.role === 'user')?.content || '';
+          const gradeCheck = evaluateDefenseTurnPass(finalAnswer, null);
+          const tag = gradeCheck.passed ? '[[DEFENSE_GRADE:PASS]]' : '[[DEFENSE_GRADE:FAIL]]';
+          if (activeDefense.questionNumber < activeDefense.totalQuestions) {
+            const nextQ = getFallbackDefenseQuestion({
+              roundType: activeDefense.roundType,
+              questionNumber: activeDefense.questionNumber + 1,
+              topic: subTopic,
+              artifactHint: activeDefense.artifactSummary?.slice(0, 80),
+            });
+            const ack = gradeCheck.passed
+              ? 'Noted—clear reasoning on that point.'
+              : 'Noted—that did not fully address the question.';
+            reply = `${ack} ${nextQ} ${tag}`;
+          } else {
+            reply = `${gradeCheck.passed ? 'Thank you for explaining that final point.' : 'Noted—that final explanation fell short of the panel bar.'} ${tag}`;
+          }
+        }
+      } else if (reviewDecision) {
         const finalAnswer = [...formattedHistory].reverse().find(turn => turn.role === 'user')?.content || '';
         const answer = finalAnswer.toLowerCase();
-        const hasReasoning = ['because', 'complexity', 'edge case', 'trade-off', 'tradeoff', 'test', 'memory', 'time'].some(term => answer.includes(term));
+        const hasReasoning = ['because', 'complexity', 'edge case', 'trade-off', 'tradeoff', 'test', 'memory', 'time', 'margin', 'ratio', 'audit', 'cash flow', 'covenant'].some(term => answer.includes(term));
         const passes = finalAnswer.trim().split(/\s+/).length >= 18 && hasReasoning;
         reply = passes
-          ? `Your explanation connects the implementation to its complexity or edge cases. That meets the review bar. [[ROUND_VERDICT:PASS]]`
-          : `I need a clearer explanation of the reasoning behind your implementation and how it handles complexity or edge cases. [[ROUND_VERDICT:RETRY]]`;
+          ? `Your explanation connects the solution to its core trade-offs and edge cases. That meets the review bar. [[ROUND_VERDICT:PASS]]`
+          : `I need a clearer explanation of the reasoning behind your solution and how it handles key trade-offs or edge cases. [[ROUND_VERDICT:RETRY]]`;
       } else {
         reply = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name, stream });
       }
+    }
+
+    let defenseGrade: 'PASS' | 'FAIL' | undefined = undefined;
+    if (activeDefense && activeDefense.phase === 'answer') {
+      const gradeMatch = reply.match(/\[\[DEFENSE_GRADE:(PASS|FAIL)\]\]/i);
+      const rawLlmGrade: 'PASS' | 'FAIL' | null = gradeMatch
+        ? (gradeMatch[1].toUpperCase() === 'PASS' ? 'PASS' : 'FAIL')
+        : null;
+      const lastCandidateMsg = [...formattedHistory].reverse().find(turn => turn.role === 'user')?.content || String(message || '');
+      const hybrid = evaluateDefenseTurnPass(lastCandidateMsg, rawLlmGrade);
+      defenseGrade = hybrid.passed ? 'PASS' : 'FAIL';
     }
 
     let roundVerdict: 'PASS' | 'RETRY' | undefined = undefined;
@@ -989,12 +1103,16 @@ RULES:
         roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
       }
     }
-    const sanitizedReply = stripInterviewerSignoff(sanitizeLLMOutput(reviewDecision ? reply.replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/i, '').trim() : reply));
+    const strippedMarkers = reply
+      .replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/gi, '')
+      .replace(/\[\[DEFENSE_GRADE:(PASS|FAIL)\]\]/gi, '')
+      .trim();
+    const sanitizedReply = stripInterviewerSignoff(sanitizeLLMOutput(strippedMarkers));
     if (live) {
       await recordTurns([liveUserTurn, clampTurn('assistant', sanitizedReply, stage)]);
-      return NextResponse.json({ reply: sanitizedReply, recorded: true, roundVerdict });
+      return NextResponse.json({ reply: sanitizedReply, recorded: true, roundVerdict, defenseGrade });
     }
-    return NextResponse.json({ reply: sanitizedReply, roundVerdict });
+    return NextResponse.json({ reply: sanitizedReply, roundVerdict, defenseGrade });
 
   } catch (err: any) {
     console.error('[Interview Chat API Critical Error]:', err);

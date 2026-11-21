@@ -263,6 +263,44 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
       )}
 
+      {/* Elimination Callout Banner (when forcefully concluded after failing Round 2/3 5-question defense) */}
+      {evaluationResult?.eliminatedInRound && (
+        <div
+          data-testid="results-elimination-banner"
+          style={{
+            padding: '14px 18px',
+            borderRadius: 14,
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(239, 68, 68, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+            flexWrap: 'wrap',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <div style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--coral-mid)' }}>
+              ⛔ Interview Concluded — Did Not Advance Past Round {evaluationResult.eliminatedInRound}
+            </div>
+            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+              {evaluationResult.eliminationReason || `You did not clear all 5 cross-examination defense questions in Round ${evaluationResult.eliminatedInRound}.`}
+            </div>
+          </div>
+          <span style={{
+            fontSize: 11,
+            fontWeight: 800,
+            padding: '4px 10px',
+            borderRadius: 999,
+            background: 'rgba(239, 68, 68, 0.18)',
+            color: 'var(--coral-mid)',
+            whiteSpace: 'nowrap',
+          }}>
+            Round {evaluationResult.eliminatedInRound} Gate
+          </span>
+        </div>
+      )}
+
       {/* ── SECTION 1: EXECUTIVE CONCLUSION HERO ──────────────────────────────── */}
       <section
         className="iv-panel iv-results-hero"

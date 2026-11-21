@@ -3,7 +3,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import type { RoundDefenseState } from '@/lib/interview/roundDefenseEngine';
 import { AssistModeDrawer } from './AssistModeDrawer';
+import { DefenseProgressStrip } from './DefenseProgressStrip';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -28,6 +30,7 @@ export interface Round3SystemDesignProps {
   animState: AnimState;
   lastInterviewerSpeech: string;
   architectureEvaluation?: any;
+  defenseState?: RoundDefenseState | null;
   manualTextInput?: string;
   setManualTextInput?: (val: string) => void;
   onSendMessage?: (text: string) => void;
@@ -69,6 +72,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   animState,
   lastInterviewerSpeech,
   architectureEvaluation,
+  defenseState,
   manualTextInput = '',
   setManualTextInput,
   onSendMessage,
@@ -103,7 +107,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
               <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12 }}>
                 Continue to deep dive ➔
               </button>
-            ) : onSkipRound && (
+            ) : onSkipRound && defenseState?.status !== 'eliminated' && (
               <button
                 type="button"
                 data-testid="round3-skip-round-btn"
@@ -147,17 +151,21 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             color: canProceed ? 'var(--green-mid)' : 'var(--t1)'
           }}
         >
-          {canProceed
+          {defenseState?.status === 'eliminated'
+            ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 4. Generating final scorecard…`
+            : canProceed
             ? (domainStream === 'non_tech'
-                ? '✅ Business Workflow & Strategy Defense Verified — Ready for Round 4 Executive Defense!'
-                : '✅ Architecture & Trade-Off Defense Verified — Ready for Round 4 STAR Defense!')
+                ? '✅ Business Workflow & 5/5 Panel Defense Cleared — Ready for Round 4 Executive Deep Dive!'
+                : '✅ Architecture & 5/5 Trade-Off Defense Cleared — Ready for Round 4 STAR Deep Dive!')
             : architectureEvaluation && Number(architectureEvaluation.score) < 60
-            ? `⚠️ ${domainStream === 'non_tech' ? 'Workflow' : 'Topology'} score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate.`
+            ? `⚠️ ${domainStream === 'non_tech' ? 'Workflow' : 'Topology'} score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate to start the 5-question defense.`
+            : architectureEvaluation && defenseState?.status === 'in_progress'
+            ? `🎯 Step 2 of 2: Answer Question ${defenseState.currentQuestionNumber} of ${defenseState.totalQuestions} from ${activeTeacher.name} on the right. Clear all 5 questions to unlock Round 4.`
             : architectureEvaluation
-            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s ${domainStream === 'non_tech' ? 'business strategy' : 'architectural trade-off'} question on the right to unlock Round 4.`
+            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s 5 ${domainStream === 'non_tech' ? 'business workflow' : 'architectural trade-off'} questions on the right to unlock Round 4.`
             : (domainStream === 'non_tech'
-                ? '📐 Step 1 of 2: Connect workflow components on the canvas and click "Evaluate Workflow" to inspect your design.'
-                : '📐 Step 1 of 2: Place components on the canvas and click "Evaluate Architecture" to inspect your topology.')}
+                ? '📐 Step 1 of 2: Plan and connect workflow stages on the canvas and click "Evaluate Workflow" to begin your 5-question defense.'
+                : '📐 Step 1 of 2: Build and connect your system architecture on the whiteboard and click "Evaluate Architecture" to begin your 5-question defense.')}
         </div>
 
         <SystemDesignWhiteboard
@@ -266,6 +274,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
 
         {/* Panel Container for Feedback, Assist, and Defense Input */}
         <div className="iv-panel" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <DefenseProgressStrip defenseState={defenseState} />
           {/* Interviewer Feedback Card */}
           <div style={{
             padding: '8px 10px',
@@ -320,8 +329,8 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             </div>
           )}
 
-          {/* ⌨️ Architectural Defense Typed Input Fallback */}
-          {setManualTextInput && onSendMessage && (
+          {/* ⌨️ Architecture / Workflow Defense Typed Input */}
+          {setManualTextInput && onSendMessage && defenseState?.status !== 'eliminated' && (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -346,7 +355,13 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                     onSendMessage(textToSend);
                   }
                 }}
-                placeholder="Type your architecture defense... (Enter or Ctrl+↵ to send)"
+                placeholder={
+                  defenseState?.status === 'in_progress'
+                    ? `Answer Question ${defenseState.currentQuestionNumber}/${defenseState.totalQuestions}… (Enter to send)`
+                    : domainStream === 'non_tech'
+                    ? 'Type your business workflow defense… (Enter to send)'
+                    : 'Type your architecture defense… (Enter to send)'
+                }
                 style={{
                   flex: 1,
                   padding: '7px 10px',

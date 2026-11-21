@@ -63,6 +63,14 @@ const TECH_COMPONENTS = [
 ];
 
 const NON_TECH_COMPONENTS = [
+  // Finance, Accounting, Tax & Banking Controls (B.Com India & Global)
+  { type: 'Invoice / Voucher Intake', category: 'business' as const, color: '#0ea5e9', icon: '🧾' },
+  { type: '3-Way Match & Audit', category: 'business' as const, color: '#8b5cf6', icon: '🔍' },
+  { type: 'GST / Tax Engine', category: 'business' as const, color: '#f59e0b', icon: '🏛️' },
+  { type: 'General Ledger (Dr=Cr)', category: 'business' as const, color: '#10b981', icon: '📒' },
+  { type: 'Treasury & Bank Recon', category: 'business' as const, color: '#06b6d4', icon: '🏦' },
+  { type: 'Financial Reporting (Ind AS/IFRS)', category: 'business' as const, color: '#ec4899', icon: '📊' },
+  // Commercial, Marketing & Operations
   { type: 'Target Audience', category: 'business' as const, color: 'var(--info)', icon: '👥' },
   { type: 'Ad Campaign', category: 'business' as const, color: 'var(--warning)', icon: '📣' },
   { type: 'Landing Page', category: 'business' as const, color: 'var(--reward)', icon: '🎯' },
@@ -474,17 +482,19 @@ export default function SystemDesignWhiteboard({
       setLinks(l);
     } else if (presetName === 'erp_ledger') {
       const n: BoardNode[] = [
-        { id: 'erp_1', type: 'Checkout Engine', label: 'Billing & Invoicing Sub-Ledger', x: 30, y: 170, category: 'business', color: 'var(--success)' },
-        { id: 'erp_2', type: 'Supplier Network', label: 'Accounts Payable & Payroll', x: 230, y: 90, category: 'business', color: 'var(--accent-teal)' },
-        { id: 'erp_3', type: 'CRM / Support', label: 'Double-Entry General Ledger', x: 440, y: 170, category: 'business', color: 'var(--brand)' },
-        { id: 'erp_4', type: 'Logistics Hub', label: 'Tax / Statutory Audit Trail', x: 650, y: 90, category: 'business', color: '#f97316' },
-        { id: 'erp_5', type: 'Retention Loop', label: 'CFO Cash Flow & EBITDA Report', x: 650, y: 250, category: 'business', color: '#ec4899' },
+        { id: 'erp_1', type: 'Invoice / Voucher Intake', label: 'Invoice & Voucher Intake', x: 28, y: 170, category: 'business', color: '#0ea5e9' },
+        { id: 'erp_2', type: '3-Way Match & Audit', label: 'PO / GRN 3-Way Audit Gate', x: 215, y: 170, category: 'business', color: '#8b5cf6' },
+        { id: 'erp_3', type: 'GST / Tax Engine', label: 'GST / GSTR-2B & TDS Engine', x: 405, y: 95, category: 'business', color: '#f59e0b' },
+        { id: 'erp_4', type: 'General Ledger (Dr=Cr)', label: 'Double-Entry General Ledger', x: 405, y: 245, category: 'business', color: '#10b981' },
+        { id: 'erp_5', type: 'Treasury & Bank Recon', label: 'Bank Recon & Cash Treasury', x: 605, y: 110, category: 'business', color: '#06b6d4' },
+        { id: 'erp_6', type: 'Financial Reporting (Ind AS/IFRS)', label: 'Ind AS / IFRS Board P&L', x: 605, y: 245, category: 'business', color: '#ec4899' },
       ];
       const l: BoardLink[] = [
-        { id: 'erpl_1', from: 'erp_1', to: 'erp_3', protocol: 'Debit/Credit' },
-        { id: 'erpl_2', from: 'erp_2', to: 'erp_3', protocol: 'AP Journal' },
-        { id: 'erpl_3', from: 'erp_3', to: 'erp_4', protocol: 'Reconcile' },
-        { id: 'erpl_4', from: 'erp_3', to: 'erp_5', protocol: 'Close Cycle' },
+        { id: 'erpl_1', from: 'erp_1', to: 'erp_2', protocol: 'SLA Handoff' },
+        { id: 'erpl_2', from: 'erp_2', to: 'erp_3', protocol: 'Data Sync' },
+        { id: 'erpl_3', from: 'erp_3', to: 'erp_4', protocol: 'Ledger Entry' },
+        { id: 'erpl_4', from: 'erp_4', to: 'erp_5', protocol: 'Data Sync' },
+        { id: 'erpl_5', from: 'erp_4', to: 'erp_6', protocol: 'KPI Loop' },
       ];
       setNodes(n);
       setLinks(l);
@@ -493,9 +503,9 @@ export default function SystemDesignWhiteboard({
 
   const presetButtons: Array<{ key: PresetKey; label: string }> = domainStream === 'non_tech'
     ? [
-        { key: 'growth_funnel', label: '📣 Growth Funnel' },
-        { key: 'ecommerce_ops', label: '🚚 E-Commerce Ops' },
-        { key: 'erp_ledger', label: '📊 ERP Double-Entry Ledger' },
+        { key: 'erp_ledger', label: '📒 Order-to-Cash & GST Control' },
+        { key: 'growth_funnel', label: '📣 Growth & Unit Economics Funnel' },
+        { key: 'ecommerce_ops', label: '🚚 E-Commerce Fulfillment Ops' },
       ]
     : [
         { key: '3tier', label: '⚡ 3-Tier Web App' },
@@ -508,7 +518,8 @@ export default function SystemDesignWhiteboard({
 
   const categories = domainStream === 'non_tech'
     ? [
-        { id: 'all', label: 'All (8)' },
+        { id: 'all', label: 'All (14)' },
+        { id: 'finance_audit', label: '📒 Finance & Audit' },
         { id: 'acquisition', label: '📣 Acquisition' },
         { id: 'operations', label: '🚚 Commerce & Ops' },
         { id: 'retention', label: '🔄 CRM & Retention' },
@@ -525,6 +536,16 @@ export default function SystemDesignWhiteboard({
     ? palette
     : palette.filter(item => {
         if (domainStream === 'non_tech') {
+          if (selectedCategory === 'finance_audit') {
+            return [
+              'Invoice / Voucher Intake',
+              '3-Way Match & Audit',
+              'GST / Tax Engine',
+              'General Ledger (Dr=Cr)',
+              'Treasury & Bank Recon',
+              'Financial Reporting (Ind AS/IFRS)',
+            ].includes(item.type);
+          }
           if (selectedCategory === 'acquisition') return ['Target Audience', 'Ad Campaign', 'Landing Page'].includes(item.type);
           if (selectedCategory === 'operations') return ['Checkout Engine', 'Logistics Hub', 'Supplier Network'].includes(item.type);
           if (selectedCategory === 'retention') return ['CRM / Support', 'Retention Loop'].includes(item.type);
