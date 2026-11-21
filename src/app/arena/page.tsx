@@ -30,6 +30,7 @@ import {
 import CompetitionNavigation from '@/components/competition/CompetitionNavigation';
 import { isConfirmedLeagueMembershipCacheValue } from '@/lib/competition/leagueMembershipSnapshot';
 import { recordCheatingIncident } from '@/lib/trust/trustEngine';
+import { recordMetricLedgerEntry } from '@/lib/telemetry/metricsLedger';
 import styles from '../competition-experience.module.css';
 
 const MonacoEditor = dynamic(
@@ -1101,6 +1102,37 @@ function ArenaContent() {
       if (typeof window !== 'undefined') {
         const currentArenaPoints = Number((user as any)?.weekly_arena_points) || 0;
         const addArenaPoints = typeof myArenaPointsAward === 'number' && myArenaPointsAward > 0 ? myArenaPointsAward : 0;
+        const eloDelta = (isHost ? (activeRoom.hostEloDelta ?? 0) : (activeRoom.guestEloDelta ?? 0)) || 0;
+        const prevElo = myNewElo - eloDelta;
+        const didWin = activeRoom.winnerId === studentId;
+        recordMetricLedgerEntry(studentId, {
+          metric: 'arena_elo',
+          feature: 'arena',
+          action: didWin ? `1v1 Arena Victory (${activeRoom.roomCode})` : `1v1 Arena Match (${activeRoom.roomCode})`,
+          delta: eloDelta,
+          previousValue: prevElo,
+          valueAfter: myNewElo,
+          mentalityTag: 'Pattern Hunter',
+        });
+        if (addArenaPoints > 0) {
+          recordMetricLedgerEntry(studentId, {
+            metric: 'arena_league_points',
+            feature: 'arena',
+            action: `1v1 Arena League Points (${activeRoom.roomCode})`,
+            delta: addArenaPoints,
+            previousValue: currentArenaPoints,
+            valueAfter: currentArenaPoints + addArenaPoints,
+          });
+        }
+        recordMetricLedgerEntry(studentId, {
+          metric: 'mentality',
+          feature: 'arena',
+          action: didWin ? 'Tactical Combat Win · Pattern Hunter' : 'Arena Resilience · Stabilizer',
+          delta: didWin ? 6 : 2,
+          previousValue: 0,
+          valueAfter: didWin ? 6 : 2,
+          mentalityTag: didWin ? 'Pattern Hunter' : 'Stabilizer',
+        });
         window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
           detail: {
             arena_elo: myNewElo,
@@ -1143,6 +1175,37 @@ function ArenaContent() {
         } catch {}
         if (typeof window !== 'undefined') {
           const currentArenaPoints = Number((user as any)?.weekly_arena_points) || 0;
+          const eloDelta = Number(data.eloDelta) || 0;
+          const newEloNum = Number(data.newElo) || 100;
+          const addPts = Number(data.arenaPointsAwarded) || 0;
+          recordMetricLedgerEntry(studentId, {
+            metric: 'arena_elo',
+            feature: 'arena',
+            action: isWin ? `Solo Arena Victory (${soloMatch.problemId || 'Challenge'})` : `Solo Arena Attempt`,
+            delta: eloDelta,
+            previousValue: newEloNum - eloDelta,
+            valueAfter: newEloNum,
+            mentalityTag: 'Pattern Hunter',
+          });
+          if (addPts > 0) {
+            recordMetricLedgerEntry(studentId, {
+              metric: 'arena_league_points',
+              feature: 'arena',
+              action: `Solo Arena League Reward`,
+              delta: addPts,
+              previousValue: currentArenaPoints,
+              valueAfter: currentArenaPoints + addPts,
+            });
+          }
+          recordMetricLedgerEntry(studentId, {
+            metric: 'mentality',
+            feature: 'arena',
+            action: isWin ? 'Algorithmic Pattern Victory · Pattern Hunter' : 'Sparring Persistence · Stabilizer',
+            delta: isWin ? 5 : 2,
+            previousValue: 0,
+            valueAfter: isWin ? 5 : 2,
+            mentalityTag: isWin ? 'Pattern Hunter' : 'Stabilizer',
+          });
           window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
             detail: {
               arena_elo: data.newElo,

@@ -31,6 +31,11 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
     role: 'Lead Software Architect & Tech Lead',
     nature: 'You are a pragmatic, seasoned software architect. You probe deep into clean code, algorithmic efficiency, time/space complexity, error handling, and modular component design.'
   },
+  akash: {
+    name: 'Mr. Akash',
+    role: 'Senior Adversarial Credential & Skill Auditor',
+    nature: 'You are ruthless, skeptical, uncompromising, and brutal in verification questioning. Candidates claim skills on resumes and certificates — your job is to expose bluffs vs real hands-on depth by demanding exact internal mechanisms, failure modes, edge cases, and quantitative trade-offs with zero tolerance for fluff.'
+  },
   vikram: {
     name: 'Mr. Vikram',
     role: 'Principal Systems Specialist & Recruiter',

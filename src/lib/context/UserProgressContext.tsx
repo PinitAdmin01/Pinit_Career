@@ -25,6 +25,7 @@ import {
   type TrustActivityType,
   type CheatingFeature
 } from '@/lib/trust/trustEngine';
+import { recordMetricLedgerEntry } from '@/lib/telemetry/metricsLedger';
 
 export interface OnboardingAnswers {
   role?: string;
@@ -89,6 +90,8 @@ export interface UserProgressContextType {
   setGroupPanelPassed: (val: boolean) => void;
   recruiterVisible: boolean;
   setRecruiterVisible: (val: boolean) => void;
+  skills: Array<{ id: string; name: string; level: number; verified: boolean; source?: string }>;
+  addVerifiedSkills: (skillNames: string[], source?: string) => void;
   applyTrustRewardAction?: (type: TrustActivityType) => Promise<number>;
   recordCheatingAction?: (sessionId: string, feature: CheatingFeature, violationType: string, details?: any) => Promise<number>;
 }
@@ -242,15 +245,85 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     return getLocalTrustScore(userId, (user as any)?.trustScore ?? (user as any)?.trust_score);
   });
 
+  // Verified Portfolio Skills State (populated via Quests & Verified Vault Defense)
+  const [verifiedSkillsState, setVerifiedSkillsState] = useState<Array<{ id: string; name: string; level: number; verified: boolean; source?: string }>>(() => {
+    const initial: Array<{ id: string; name: string; level: number; verified: boolean; source?: string }> = [];
+    const seen = new Set<string>();
+    const addName = (raw: string, source: string, lvl = 2) => {
+      const name = String(raw || '').trim();
+      if (!name || seen.has(name.toLowerCase())) return;
+      seen.add(name.toLowerCase());
+      initial.push({ id: `sk_${name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`, name, level: lvl, verified: true, source });
+    };
+    const dbSkills = (user as any)?.skill_tags || (user as any)?.skillTags;
+    if (Array.isArray(dbSkills)) {
+      dbSkills.forEach((s: any) => addName(typeof s === 'string' ? s : s?.name, 'profile'));
+    }
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem(`pinit_verified_skills_${userId || 'guest'}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            parsed.forEach((s: any) => addName(typeof s === 'string' ? s : s?.name, s?.source || 'vault', s?.level || 2));
+          }
+        }
+      } catch {}
+    }
+    return initial;
+  });
+
+  const addVerifiedSkills = useCallback((skillNames: string[], source = 'vault_defense') => {
+    if (!Array.isArray(skillNames) || skillNames.length === 0) return;
+    setVerifiedSkillsState(prev => {
+      const map = new Map(prev.map(s => [s.name.toLowerCase(), s]));
+      for (const raw of skillNames) {
+        const name = String(raw || '').trim();
+        if (!name) continue;
+        const key = name.toLowerCase();
+        if (!map.has(key)) {
+          map.set(key, {
+            id: `sk_${key.replace(/[^a-z0-9]/g, '_')}`,
+            name,
+            level: 2,
+            verified: true,
+            source,
+          });
+        }
+      }
+      const next = Array.from(map.values());
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_verified_skills_${userId || 'guest'}`, JSON.stringify(next));
+          window.dispatchEvent(new CustomEvent('pinit-skills-updated', { detail: { userId, skills: next } }));
+        } catch {}
+      }
+      if (userId && userId !== 'guest') {
+        const tagNames = next.map(s => s.name);
+        updateUserProfile(userId, { skill_tags: tagNames }).catch(() => {});
+      }
+      return next;
+    });
+  }, [userId]);
+
   useEffect(() => {
     const handleTrustUpdated = (e: any) => {
       if (typeof e?.detail?.score === 'number' && Number.isFinite(e.detail.score)) {
         setTrustScoreState(e.detail.score);
       }
     };
+    const handleSkillsUpdated = (e: any) => {
+      if (Array.isArray(e?.detail?.skills)) {
+        setVerifiedSkillsState(e.detail.skills);
+      }
+    };
     if (typeof window !== 'undefined') {
       window.addEventListener('pinit-trust-updated', handleTrustUpdated);
-      return () => window.removeEventListener('pinit-trust-updated', handleTrustUpdated);
+      window.addEventListener('pinit-skills-updated', handleSkillsUpdated);
+      return () => {
+        window.removeEventListener('pinit-trust-updated', handleTrustUpdated);
+        window.removeEventListener('pinit-skills-updated', handleSkillsUpdated);
+      };
     }
   }, []);
 
@@ -421,9 +494,16 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     // 10. Trust Score (default 50)
     const serverTrust = (user as any).trustScore ?? (user as any).trust_score;
     if (typeof serverTrust === 'number' && Number.isFinite(serverTrust)) {
-      setTrustScoreState(getLocalTrustScore(userId, serverTrust));
+      const normalized = serverTrust === 40 || serverTrust === 0 ? 50 : serverTrust;
+      setTrustScoreState(getLocalTrustScore(userId, normalized));
     }
-  }, [user, keys]);
+
+    // 11. Verified Skill Tags hydration
+    const serverSkills = (user as any).skill_tags ?? (user as any).skillTags;
+    if (Array.isArray(serverSkills) && serverSkills.length > 0) {
+      addVerifiedSkills(serverSkills.map((s: any) => (typeof s === 'string' ? s : s?.name)).filter(Boolean), 'profile');
+    }
+  }, [user, keys, userId, addVerifiedSkills]);
 
   // Offline sync queue processor: drains pending quest completions whenever connection returns
   useEffect(() => {
@@ -465,8 +545,19 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       setXpState(newXp);
       save(keys.xp, newXp);
     }
-    if (amount > 0) toast.success(`+${amount} XP Earned 🌟`, reason);
-  }, [keys.xp, save]);
+    if (amount > 0) {
+      const curWeekly = Number((user as any)?.weekly_xp ?? (user as any)?.weeklyXp ?? xp ?? 0);
+      recordMetricLedgerEntry(userId, {
+        metric: 'weekly_xp',
+        feature: 'experience',
+        action: reason || 'XP Reward',
+        delta: amount,
+        previousValue: curWeekly,
+        valueAfter: curWeekly + amount,
+      });
+      toast.success(`+${amount} XP Earned 🌟`, reason);
+    }
+  }, [keys.xp, save, userId, user, xp]);
 
   // Small practice activities the browser reports (max 50 XP each, 500 a day, decided by the
   // server). Signed-in students only see XP once the server has saved it.
@@ -547,8 +638,34 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       setTrustScoreState(res.newScore);
     }).catch(() => {});
 
+    // Record Career Score (+10 up to 50 mission cap) and Stabilizer Mentality shift
+    const prevMissionPts = Math.min(50, completedMissions.length * 10);
+    const nextMissionPts = Math.min(50, updated.length * 10);
+    const careerDelta = Math.max(0, nextMissionPts - prevMissionPts);
+    if (careerDelta > 0) {
+      const prevCareer = Math.min(100, Math.min(50, completedQuests.length * 5) + prevMissionPts);
+      recordMetricLedgerEntry(userId, {
+        metric: 'career_score',
+        feature: 'mission',
+        action: `Daily Mission Completed (${missionId})`,
+        delta: careerDelta,
+        previousValue: prevCareer,
+        valueAfter: Math.min(100, prevCareer + careerDelta),
+        mentalityTag: 'Stabilizer',
+      });
+    }
+    recordMetricLedgerEntry(userId, {
+      metric: 'mentality',
+      feature: 'mission',
+      action: `Streak ${newStreak}d · Stabilizer Discipline`,
+      delta: 4,
+      previousValue: 0,
+      valueAfter: 4,
+      mentalityTag: 'Stabilizer',
+    });
+
     toast.success('Mission Complete! 🎯', 'Great progress today!');
-  }, [commitAnswers, completedMissions, keys, missionStreak, save, userId, trustScoreState]);
+  }, [commitAnswers, completedMissions, completedQuests.length, keys, missionStreak, save, userId, trustScoreState]);
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string, passReceipt?: string) => {
     const timestamps = answersRef.current.completedQuestsTimestamps || [];
@@ -613,7 +730,52 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     applyTrustReward(userId, isExam ? 'exam' : 'lesson', trustScoreState).then(res => {
       setTrustScoreState(res.newScore);
     }).catch(() => {});
-  }, [commitAnswers, completedQuests, keys, save, userId, trustScoreState]);
+
+    // Record Weekly XP, Arena League Points (+LP from XP), Career Score, and Mentality shift
+    const curWeekly = Number((user as any)?.weekly_xp ?? (user as any)?.weeklyXp ?? xp ?? 0);
+    recordMetricLedgerEntry(userId, {
+      metric: 'weekly_xp',
+      feature: isExam ? 'exam' : 'lesson',
+      action: isExam ? `Exam Passed (${questId})` : `Quest Completed (${questId})`,
+      delta: xpToAdd,
+      previousValue: curWeekly,
+      valueAfter: curWeekly + xpToAdd,
+      mentalityTag: 'Pattern Hunter',
+    });
+    const curArenaPts = Number((user as any)?.weekly_arena_points ?? 0) + curWeekly;
+    recordMetricLedgerEntry(userId, {
+      metric: 'arena_league_points',
+      feature: isExam ? 'exam' : 'lesson',
+      action: `Weekly Learning LP Sync (${questId})`,
+      delta: xpToAdd,
+      previousValue: curArenaPts,
+      valueAfter: curArenaPts + xpToAdd,
+    });
+    const prevQuestPts = Math.min(50, completedQuests.length * 5);
+    const nextQuestPts = Math.min(50, next.length * 5);
+    const careerDelta = Math.max(0, nextQuestPts - prevQuestPts);
+    if (careerDelta > 0) {
+      const prevCareer = Math.min(100, prevQuestPts + Math.min(50, completedMissions.length * 10));
+      recordMetricLedgerEntry(userId, {
+        metric: 'career_score',
+        feature: isExam ? 'exam' : 'lesson',
+        action: isExam ? `Exam Mastery (${questId})` : `Lesson Mastery (${questId})`,
+        delta: careerDelta,
+        previousValue: prevCareer,
+        valueAfter: Math.min(100, prevCareer + careerDelta),
+        mentalityTag: 'Pattern Hunter',
+      });
+    }
+    recordMetricLedgerEntry(userId, {
+      metric: 'mentality',
+      feature: isExam ? 'exam' : 'lesson',
+      action: isExam ? 'Exam Logic Verified · Pattern Hunter' : 'Lesson Completed · Explorer',
+      delta: 4,
+      previousValue: 0,
+      valueAfter: 4,
+      mentalityTag: isExam ? 'Pattern Hunter' : 'Explorer',
+    });
+  }, [commitAnswers, completedQuests, completedMissions.length, keys, save, userId, user, xp, trustScoreState]);
 
   const saveQuestCode = useCallback((questId: string, code: string) => {
     const prev = answersRef.current;
@@ -838,6 +1000,8 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setGroupPanelPassed,
     recruiterVisible,
     setRecruiterVisible: setRecruiterVisibleAuthoritative,
+    skills: verifiedSkillsState,
+    addVerifiedSkills,
     applyTrustRewardAction,
     recordCheatingAction,
   }), [
@@ -877,6 +1041,8 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setGroupPanelPassed,
     recruiterVisible,
     setRecruiterVisibleAuthoritative,
+    verifiedSkillsState,
+    addVerifiedSkills,
     applyTrustRewardAction,
     recordCheatingAction,
   ]);

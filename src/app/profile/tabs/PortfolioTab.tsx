@@ -32,11 +32,35 @@ const sectionCard: React.CSSProperties = {
 const divider = <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: 0 }} />;
 
 export default function PortfolioTab({ user, cOS, passportSkills: propPassportSkills }: PortfolioTabProps) {
-  const passportSkills = propPassportSkills || (cOS?.skills || []).map((s: any) => ({
-    id: s.id || s.name,
-    name: s.name,
-    level: s.level || 1
-  }));
+  const passportSkills = React.useMemo(() => {
+    if (Array.isArray(propPassportSkills) && propPassportSkills.length > 0) {
+      return propPassportSkills;
+    }
+    const map = new Map<string, { id: string; name: string; level: number }>();
+    const pushSkill = (raw: any, lvl = 2) => {
+      const name = typeof raw === 'string' ? raw.trim() : String(raw?.name || '').trim();
+      if (!name) return;
+      const key = name.toLowerCase();
+      if (!map.has(key)) {
+        map.set(key, { id: raw?.id || `sk_${key.replace(/[^a-z0-9]/g, '_')}`, name, level: raw?.level || lvl });
+      }
+    };
+    (cOS?.skills || []).forEach((s: any) => pushSkill(s, 2));
+    (user?.skill_tags || user?.skillTags || []).forEach((s: any) => pushSkill(s, 2));
+    (cOS?.vaultItems || []).filter((v: any) => v?.verified && Array.isArray(v.skill_tags)).forEach((v: any) => {
+      v.skill_tags.forEach((s: string) => pushSkill(s, 2));
+    });
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        const raw = localStorage.getItem(`pinit_verified_skills_${user.id}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) parsed.forEach((s: any) => pushSkill(s, 2));
+        }
+      } catch {}
+    }
+    return Array.from(map.values());
+  }, [propPassportSkills, cOS?.skills, cOS?.vaultItems, user]);
 
   const isStaff = STAFF_ROLES.includes(user?.role);
   const [view, setView] = useState<PortfolioView>('overview');

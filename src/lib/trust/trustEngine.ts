@@ -19,6 +19,12 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/lib/store/useAppStore';
+import {
+  recordMetricLedgerEntry,
+  getMetricLedger,
+  clearMetricLedger,
+  type MetricLedgerEntry,
+} from '@/lib/telemetry/metricsLedger';
 
 export const TRUST_CONSTANTS = {
   DEFAULT_SCORE: 50,
@@ -126,6 +132,11 @@ export function clearSessionPenalty(sessionId: string): void {
 export function clearInMemoryTrustState(): void {
   inMemoryPenalizedSessions.clear();
   inMemoryTrustScores.clear();
+  clearMetricLedger();
+}
+
+export function getTrustLedger(userId?: string | null): MetricLedgerEntry[] {
+  return getMetricLedger(userId, 'trust_score');
 }
 
 /**
@@ -206,11 +217,30 @@ export async function persistTrustScore(
 export async function applyTrustReward(
   userId: string | null | undefined,
   type: TrustActivityType,
-  currentScore?: number
+  currentScore?: number,
+  customLabel?: string
 ): Promise<{ previousScore: number; newScore: number; delta: number }> {
   const cur = typeof currentScore === 'number' ? currentScore : getLocalTrustScore(userId);
   const delta = type === 'vault_verified' ? TRUST_CONSTANTS.REWARDS.VAULT_VERIFIED : TRUST_CONSTANTS.REWARDS.LESSON;
   const next = Math.min(TRUST_CONSTANTS.MAX_SCORE, cur + delta);
+
+  const defaultLabels: Record<TrustActivityType, string> = {
+    mission: 'Daily Mission Completed',
+    lesson: 'Course Lesson Completed',
+    exam: 'Assessment Exam Passed',
+    interview: 'AI Interview Completed',
+    vault_verified: 'Vault Proof Verified by Oral Defense',
+  };
+
+  recordMetricLedgerEntry(userId, {
+    metric: 'trust_score',
+    feature: type === 'vault_verified' ? 'vault' : type,
+    action: customLabel || defaultLabels[type] || `Completed ${type}`,
+    delta: next - cur,
+    previousValue: cur,
+    valueAfter: next,
+    mentalityTag: type === 'vault_verified' ? 'Stabilizer' : undefined,
+  });
 
   await persistTrustScore(userId, next, `reward_${type}`);
 
@@ -226,11 +256,21 @@ export async function applyTrustReward(
  */
 export async function applyVaultRejectionPenalty(
   userId: string | null | undefined,
-  currentScore?: number
+  currentScore?: number,
+  customLabel?: string
 ): Promise<{ previousScore: number; newScore: number; delta: number }> {
   const cur = typeof currentScore === 'number' ? currentScore : getLocalTrustScore(userId);
   const delta = TRUST_CONSTANTS.PENALTIES.VAULT_REJECTED;
   const next = Math.max(TRUST_CONSTANTS.MIN_SCORE, cur + delta);
+
+  recordMetricLedgerEntry(userId, {
+    metric: 'trust_score',
+    feature: 'vault',
+    action: customLabel || 'Fake / Unverified Vault Document Rejected',
+    delta: next - cur,
+    previousValue: cur,
+    valueAfter: next,
+  });
 
   await persistTrustScore(userId, next, 'penalty_vault_rejected');
   toast.error('⚠️ Document Verification Failed', `${delta} Trust Score deducted for unverified or invalid documentation.`);
@@ -283,6 +323,16 @@ export async function recordCheatingIncident(
   markSessionPenalized(sessionId);
   const delta = TRUST_CONSTANTS.PENALTIES.CHEATING; // -2
   const next = Math.max(TRUST_CONSTANTS.MIN_SCORE, cur + delta);
+
+  recordMetricLedgerEntry(userId, {
+    metric: 'trust_score',
+    feature,
+    action: `Cheating Detected (${violationType.replace(/_/g, ' ')})`,
+    delta: next - cur,
+    previousValue: cur,
+    valueAfter: next,
+    meta: { sessionId, violationType },
+  });
 
   await persistTrustScore(userId, next, `cheating_${feature}_${violationType}`);
 

@@ -35,6 +35,7 @@ export interface PersonaConfig {
 export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
   priya:    { name: 'Ms. Priya',          domain: 'Career & Professional Growth', expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, baseHeadPitch: 0.122, gender: 'female' },
   anish:    { name: 'Mr. Anish',          domain: 'Applied Systems & Strategy',   expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, baseHeadPitch: 0.07, gender: 'male' },
+  akash:    { name: 'Mr. Akash',          domain: 'Credential & Brutal Technical Audit', expressiveness: 0.76, blinkInterval: 4.6, swayAmp: 0.62, headTiltAmp: 0.72, gestureSpeed: 0.88, warmth: 0.06, baseHeadPitch: 0.08, gender: 'male' },
   aisha:    { name: 'Ms. Aisha',          domain: 'Analytics & Strategic Reasoning', expressiveness: 0.82, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.00, gestureSpeed: 0.95, warmth: 0.18, gender: 'female' },
   vikram:   { name: 'Mr. Vikram',         domain: 'Finance, Commerce & Corporate Ethics', expressiveness: 0.65, blinkInterval: 5.0, swayAmp: 0.50, headTiltAmp: 0.65, gestureSpeed: 0.75, warmth: 0.15, gender: 'male' },
   kashyap:  { name: 'Kashyap Sir',        domain: 'Logical & Systems Foundations', expressiveness: 0.68, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80, warmth: 0.14, gender: 'male' },
@@ -64,6 +65,7 @@ export const PERSONA_FAST_MODEL: Record<string, string> = {
   vikram:  '/avatar/avatarsample_x.glb',
   kashyap: '/avatar/avatarsample_r.glb',
   anish:   '/avatar/avatarsample_c.glb',
+  akash:   '/avatar/avatarsample_r.glb',
   karthic: '/avatar/akira.glb',
   aditya:  '/avatar/mika.glb',
   divya:   '/avatar/yuki.glb',
@@ -109,7 +111,7 @@ export function resolveAvatarModelPaths(teacherId: string, _prefersHD = true): s
     : ['/avatar/avatarsample_j.glb', '/avatar/yuki.glb', '/avatar/avatarsample_v.glb'];
 
   const rawPaths = ownFast
-    ? [ownFast, ...(id !== 'mentor' ? [modelPath] : []), ...genderMatchedFallbacks]
+    ? [ownFast, ...(id !== 'mentor' && id !== 'akash' ? [modelPath] : []), ...genderMatchedFallbacks]
     : [modelPath, ...genderMatchedFallbacks];
 
   return Array.from(new Set(rawPaths));

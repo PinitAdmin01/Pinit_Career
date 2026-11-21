@@ -43,8 +43,10 @@ import {
   buildFallbackAssistData,
   InterviewHistoryModal,
   InterviewSessionHeader,
-  InterviewVoiceHud
+  InterviewVoiceHud,
+  VaultDefenseRoom
 } from './components';
+import { loadPendingVaultDefense } from '@/lib/vault/vaultDefenseEngine';
 import { useInterviewGaze } from './hooks/useInterviewGaze';
 import { useInterviewVoice } from './hooks/useInterviewVoice';
 import { useInterviewPersistence } from './hooks/useInterviewPersistence';
@@ -1608,6 +1610,24 @@ export default function InterviewPage() {
     const secs = sec % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
+
+  const isVaultVerifyMode = searchParams.get('mode') === 'vault_verify';
+  const vaultDocId = searchParams.get('docId');
+  const pendingVaultChallenge = useMemo(
+    () => (isVaultVerifyMode ? loadPendingVaultDefense(vaultDocId) : null),
+    [isVaultVerifyMode, vaultDocId]
+  );
+
+  if (isVaultVerifyMode) {
+    return (
+      <VaultDefenseRoom
+        user={user}
+        cOS={cOS}
+        docId={vaultDocId}
+        initialChallenge={pendingVaultChallenge}
+      />
+    );
+  }
 
   return (
     <div
