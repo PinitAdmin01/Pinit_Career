@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
-import { calculateLeaguePoints, getLeagueCutoffs } from '@/lib/leagues/leaguePoints';
+import { calculateLeaguePoints, getLeagueCutoffs, rankLeagueEntries } from '@/lib/leagues/leaguePoints';
 
 export const dynamic = 'force-dynamic';
 
@@ -514,6 +514,19 @@ export async function GET(req: Request) {
 
           if (!entries.some(e => e.studentId === currentUserEntry?.studentId)) {
             entries.push(currentUserEntry);
+
+            // A fallback member may be added after the cohort query (for
+            // example, when a profile row was briefly absent from a paged
+            // read). Re-sort the actual response cohort so the row order and
+            // displayed rank agree with its League Points.
+            const reconciledEntries = rankLeagueEntries(
+              entries,
+              activeLeague,
+              promotionCutoffRank,
+              demotionCutoffRank,
+            );
+            entries.splice(0, entries.length, ...reconciledEntries);
+            currentUserEntry = entries.find(entry => entry.studentId === currentUserId) || currentUserEntry;
           }
         }
       } catch (err) {

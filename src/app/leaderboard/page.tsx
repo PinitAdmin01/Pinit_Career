@@ -16,6 +16,7 @@ import {
   isConfirmedLeagueMembershipCacheValue,
   shouldApplyLeagueMembershipSnapshot,
 } from '@/lib/competition/leagueMembershipSnapshot';
+import { rankLeagueEntries } from '@/lib/leagues/leaguePoints';
 import styles from '../competition-experience.module.css';
 
 export interface LeaderboardEntry {
@@ -383,20 +384,42 @@ function LeaderboardContent() {
           if (typeof updatedTotalXp === 'number') (user as any).xp_total = updatedTotalXp;
         }
 
-        // Instant HUD recalculation with 0ms latency
-        setServerCurrentUser(prev => {
-          if (!prev) return null;
-          const weeklyXp = typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : prev.weeklyXp;
-          const arenaPoints = typeof updatedArenaPoints === 'number' ? updatedArenaPoints : (prev.arenaPoints || 0);
-          const totalXp = typeof updatedTotalXp === 'number' ? updatedTotalXp : prev.totalXp;
-          return {
-            ...prev,
-            weeklyXp,
-            arenaPoints,
-            leaguePoints: weeklyXp + arenaPoints,
-            totalXp,
-          };
-        });
+        // Keep the visible score, row order, and rank in one optimistic update.
+        // Updating only the HUD score used to leave the table's old rank in place.
+        const currentUserRow = leaderboard.find(entry => entry.studentId === membershipUserId);
+        if (currentUserRow) {
+          const nextEntries = rankLeagueEntries(
+            leaderboard.map(entry => entry.studentId === membershipUserId
+              ? {
+                  ...entry,
+                  weeklyXp: typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : entry.weeklyXp,
+                  arenaPoints: typeof updatedArenaPoints === 'number' ? updatedArenaPoints : (entry.arenaPoints || 0),
+                  eloRating: typeof updatedElo === 'number' ? updatedElo : entry.eloRating,
+                  totalXp: typeof updatedTotalXp === 'number' ? updatedTotalXp : entry.totalXp,
+                }
+              : entry),
+            normalizeLeagueTier(selectedLeague),
+            promotionCutoff,
+            demotionCutoff,
+          );
+          const nextCurrentUser = nextEntries.find(entry => entry.studentId === membershipUserId) || null;
+          setLeaderboard(nextEntries);
+          if (nextCurrentUser) setServerCurrentUser(nextCurrentUser);
+        } else {
+          setServerCurrentUser(prev => {
+            if (!prev) return null;
+            const weeklyXp = typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : prev.weeklyXp;
+            const arenaPoints = typeof updatedArenaPoints === 'number' ? updatedArenaPoints : (prev.arenaPoints || 0);
+            const totalXp = typeof updatedTotalXp === 'number' ? updatedTotalXp : prev.totalXp;
+            return {
+              ...prev,
+              weeklyXp,
+              arenaPoints,
+              leaguePoints: weeklyXp + arenaPoints,
+              totalXp,
+            };
+          });
+        }
       }
       setRefreshTrigger(prev => prev + 1);
     };
@@ -404,7 +427,7 @@ function LeaderboardContent() {
       window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
       return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
     }
-  }, [user, membershipUserId]);
+  }, [user, membershipUserId, leaderboard, selectedLeague, promotionCutoff, demotionCutoff]);
 
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
@@ -469,6 +492,28 @@ function LeaderboardContent() {
             (membershipUserId === requestUserId && Boolean(profileLeagueJoinedAt))
           ) && apiResolvedUserMatches);
           let responseCurrentUser: LeaderboardEntry | null = apiResolvedUserMatches ? (data.currentUser || null) : null;
+          const viewingTier = normalizeLeagueTier(data.activeLeague || selectedLeague);
+
+          // The current-user snapshot is fetched separately from the cohort.
+          // Reconcile it into the row before ranking so a newer score cannot be
+          // rendered beside an older rank from the cohort query.
+          if (apiResolvedUserMatches && requestUserId && data.currentUserStats) {
+            const currentUserIndex = responseEntries.findIndex(entry => entry.studentId === requestUserId);
+            if (currentUserIndex >= 0) {
+              const existing = responseEntries[currentUserIndex];
+              const weeklyXp = Math.max(0, Number(data.currentUserStats.weeklyXp ?? existing.weeklyXp) || 0);
+              const arenaPoints = Math.max(0, Number(data.currentUserStats.arenaPoints ?? existing.arenaPoints) || 0);
+              responseEntries[currentUserIndex] = {
+                ...existing,
+                weeklyXp,
+                arenaPoints,
+                leaguePoints: weeklyXp + arenaPoints,
+                eloRating: Math.max(0, Number(data.currentUserStats.arenaElo ?? existing.eloRating) || 100),
+                totalXp: Math.max(0, Number(data.currentUserTotalXp) || existing.totalXp || 0),
+                isCurrentUser: true,
+              };
+            }
+          }
 
           // A join POST is verified against the saved profile before it succeeds.
           // If a following leaderboard read is briefly stale, keep the confirmed
@@ -507,28 +552,23 @@ function LeaderboardContent() {
               zone: 'safe',
               isCurrentUser: true,
             };
-            const higherRankedCount = responseEntries.filter(entry => {
-              if (normalizeLeagueTier(entry.leagueTier) !== currentTier) return false;
-              const points = Number(entry.leaguePoints ?? (entry.weeklyXp + (entry.arenaPoints || 0))) || 0;
-              if (points !== leaguePoints) return points > leaguePoints;
-              if (entry.weeklyXp !== weeklyXp) return entry.weeklyXp > weeklyXp;
-              if (entry.totalXp !== totalXp) return entry.totalXp > totalXp;
-              return entry.studentId.localeCompare(requestUserId) < 0;
-            }).length;
-            ownEntry.rank = higherRankedCount + 1;
-            const cutoff = Number(data.promotionCutoffRank) || 0;
-            const demotion = Number(data.demotionCutoffRank) || 0;
-            ownEntry.zone = currentTier !== 'ruby' && cutoff > 0 && ownEntry.rank <= cutoff
-              ? 'promotion'
-              : currentTier !== 'browns' && demotion > 0 && ownEntry.rank >= demotion
-                ? 'demotion'
-                : 'safe';
             responseEntries.push(ownEntry);
-            responseEntries.sort((a, b) => a.rank - b.rank);
             responseCurrentUser = ownEntry;
           }
 
-          setLeaderboard(responseEntries);
+          const rankedEntries = activeTab === 'guild'
+            ? responseEntries
+            : rankLeagueEntries(
+                responseEntries,
+                viewingTier,
+                Number(data.promotionCutoffRank) || 0,
+                Number(data.demotionCutoffRank) || 0,
+              );
+          const rankedCurrentUser = requestUserId
+            ? rankedEntries.find(entry => entry.studentId === requestUserId)
+            : null;
+          if (rankedCurrentUser) responseCurrentUser = rankedCurrentUser;
+          setLeaderboard(rankedEntries);
           setServerCurrentUser(responseCurrentUser);
           if (typeof data.currentUserHasJoined === 'boolean') {
             // Ignore responses from another account and don't let a negative,
