@@ -87,7 +87,11 @@ export default function VaultPage() {
   const activeMentorId = getActiveUserMentorId(user);
   const auditor = useMemo(() => resolveVaultAuditorMentor(activeMentorId), [activeMentorId]);
 
-  const getLocalAuditRejection = (itemId: string) => {
+  useEffect(() => {
+    refetch?.();
+  }, [refetch]);
+
+  const getLocalAuditStatus = (itemId: string) => {
     if (typeof window === 'undefined') return null;
     try {
       const raw = localStorage.getItem(`pinit_vault_audit_status_${itemId}`);
@@ -123,7 +127,9 @@ export default function VaultPage() {
     filter === 'all' ? vaultItems : vaultItems.filter((item) => item.item_type === filter);
 
   const total = vaultItems.length;
-  const verified_total = vaultItems.filter((i) => i.verified).length;
+  const verified_total = vaultItems.filter(
+    (i) => Boolean(i.verified) || getLocalAuditStatus(i.id)?.status === 'verified'
+  ).length;
   const avg_score =
     vaultItems.length > 0
       ? Math.round(vaultItems.reduce((acc, i) => acc + (i.ai_confidence_score ?? 0), 0) / vaultItems.length)
@@ -764,9 +770,10 @@ export default function VaultPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: 16 }}>
           {filteredItems.map((item) => {
             const cfg = TYPE_CONFIG[item.item_type as string] || TYPE_CONFIG.other;
-            const score = Math.round(item.ai_confidence_score || 0);
-            const rejectionInfo = !item.verified ? getLocalAuditRejection(item.id) : null;
-            const isRejected = rejectionInfo?.status === 'rejected' || String(item.endorsement_note || '').toLowerCase().includes('rejected');
+            const localAudit = getLocalAuditStatus(item.id);
+            const isItemVerified = Boolean(item.verified) || localAudit?.status === 'verified';
+            const score = Math.round(localAudit?.score || item.ai_confidence_score || 0);
+            const isRejected = !isItemVerified && (localAudit?.status === 'rejected' || String(item.endorsement_note || '').toLowerCase().includes('rejected'));
 
             const cardSkills = extractSkillsFast(
               `${item.title || ''} ${item.description || ''}`,
@@ -784,7 +791,7 @@ export default function VaultPage() {
                   overflow: 'hidden',
                   background: 'linear-gradient(165deg, rgba(255,255,255,0.03), rgba(10,15,30,0.72))',
                   border: `1px solid ${
-                    item.verified
+                    isItemVerified
                       ? 'rgba(34,197,94,0.32)'
                       : isRejected
                       ? 'rgba(239,68,68,0.35)'
@@ -838,7 +845,7 @@ export default function VaultPage() {
                   </div>
 
                   {/* Status Pill (Right-aligned, zero overlap) */}
-                  {item.verified ? (
+                  {isItemVerified ? (
                     <span
                       style={{
                         background: 'rgba(34, 197, 94, 0.16)',
@@ -938,9 +945,9 @@ export default function VaultPage() {
                             fontSize: 11,
                             padding: '3px 8px',
                             borderRadius: 6,
-                            background: item.verified ? 'rgba(34,197,94,0.1)' : 'var(--bg3)',
-                            color: item.verified ? 'var(--green)' : 'var(--t2)',
-                            border: `1px solid ${item.verified ? 'rgba(34,197,94,0.25)' : 'var(--border)'}`,
+                            background: isItemVerified ? 'rgba(34,197,94,0.1)' : 'var(--bg3)',
+                            color: isItemVerified ? 'var(--green)' : 'var(--t2)',
+                            border: `1px solid ${isItemVerified ? 'rgba(34,197,94,0.25)' : 'var(--border)'}`,
                             fontFamily: 'var(--font-mono)',
                           }}
                         >
@@ -971,7 +978,7 @@ export default function VaultPage() {
                     {item.is_public ? '🔒 Private' : '👁 Share'}
                   </button>
 
-                  {item.verified ? (
+                  {isItemVerified ? (
                     <span
                       style={{
                         flex: 1,

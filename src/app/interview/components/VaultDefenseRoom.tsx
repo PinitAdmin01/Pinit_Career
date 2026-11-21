@@ -184,11 +184,23 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
         .catch(() => null);
 
       if (evalRes.passed) {
-        cOS?.updateVaultItem?.(challenge.docId, {
-          verified: true,
-          ai_confidence_score: evalRes.score,
-          used_in_portfolio: true,
-        });
+        cOS?.updateVaultItem?.(
+          challenge.docId,
+          {
+            verified: true,
+            ai_confidence_score: evalRes.score,
+            used_in_portfolio: true,
+          },
+          { skipTrustMutation: true }
+        );
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(
+              `pinit_vault_audit_status_${challenge.docId}`,
+              JSON.stringify({ status: 'verified', score: evalRes.score, auditor: challenge.auditor.name })
+            );
+          } catch {}
+        }
         await applyTrustReward(
           user?.id,
           'vault_verified',
@@ -208,10 +220,14 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           mentalityTag: 'Stabilizer',
         });
       } else {
-        cOS?.updateVaultItem?.(challenge.docId, {
-          verified: false,
-          ai_confidence_score: evalRes.score,
-        });
+        cOS?.updateVaultItem?.(
+          challenge.docId,
+          {
+            verified: false,
+            ai_confidence_score: evalRes.score,
+          },
+          { skipTrustMutation: true }
+        );
         // Track local rejection marker so UI shows Rejected badge clearly
         if (typeof window !== 'undefined') {
           try {

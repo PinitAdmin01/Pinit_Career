@@ -21,7 +21,7 @@ export interface FinanceContextType {
     ai_confidence_score?: number;
     proof_url?: string;
   }) => void;
-  updateVaultItem: (id: string, updates: Partial<VaultItem>) => void;
+  updateVaultItem: (id: string, updates: Partial<VaultItem>, opts?: { skipTrustMutation?: boolean }) => void;
   pins: number;
   setPins: (pins: number) => void;
   bonusPins: number;
