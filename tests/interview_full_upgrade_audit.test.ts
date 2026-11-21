@@ -716,6 +716,53 @@ test('Task 1 & 2 Intent Analysis & Natural Interview Spoken Dialogue Invariants'
     interviewerName: 'Ms. Sneha'
   });
   assert.ok(replyCoaching.includes('STAR'), 'Must provide STAR framework coaching');
+
+  // Test 8: Non-Developer / No-Experience Honesty (Never praise "practical perspective" or ask shipping speed)
+  const noExp1 = analyzeCandidateTurn('I have not done any software course or anything project related things', 'Full-Stack Software Developer');
+  assert.equal(noExp1.intent, 'no_experience', 'Must classify having done no course/project as no_experience');
+  const replyNoExp1 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Full-Stack Software Developer',
+    history: [
+      { role: 'assistant', content: 'Could you walk me through your background?' },
+      { role: 'user', content: 'I have not done any software course or anything project related things' }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyNoExp1.includes('practical perspective'), 'Must never praise lack of experience as a practical perspective');
+  assert.ok(!replyNoExp1.includes('shipping speed'), 'Must never ask how they balanced shipping speed');
+  assert.ok(!replyNoExp1.includes('deadline pressure'), 'Must never ask about deadline pressure');
+  assert.ok(replyNoExp1.toLowerCase().includes('educational background') || replyNoExp1.toLowerCase().includes('honesty') || replyNoExp1.toLowerCase().includes('fine') || replyNoExp1.toLowerCase().includes('starts somewhere'), 'Must respond supportively to honesty about background');
+
+  const noExp2 = analyzeCandidateTurn("I don't have any tried it", 'Full-Stack Software Developer');
+  assert.equal(noExp2.intent, 'no_experience', 'Must classify "don\'t have any tried it" as no_experience');
+
+  const noExp3 = analyzeCandidateTurn('I am not a software developer', 'Full-Stack Software Developer');
+  assert.equal(noExp3.intent, 'no_experience', 'Must classify "I am not a software developer" as no_experience');
+
+  const noExp4 = analyzeCandidateTurn('I don\'t know I have not done anything till date I am just attending interview right now', 'Full-Stack Software Developer');
+  assert.equal(noExp4.intent, 'no_experience', 'Must classify "just attending interview right now" as no_experience');
+
+  // Test 9: Language Barrier & Communication Incomprehension (Never treat Telugu as a project success)
+  const lang1 = analyzeCandidateTurn('Telugu you are saying something which are can\'t understand', 'Full-Stack Software Developer');
+  assert.equal(lang1.intent, 'language_barrier', 'Must classify Telugu/cannot understand as language_barrier');
+  const replyLang1 = generateProgressiveFallbackQuestion({
+    stage: 'round1_behavioral',
+    subTopic: 'Full-Stack Software Developer',
+    history: [
+      { role: 'assistant', content: 'Tell me about your technical challenges.' },
+      { role: 'user', content: 'Telugu you are saying something which are can\'t understand' }
+    ],
+    difficulty: 'normal',
+    interviewerName: 'Ms. Sneha'
+  });
+  assert.ok(!replyLang1.includes('highlighting that experience'), 'Must never praise language barrier as an experience');
+  assert.ok(!replyLang1.includes('decision was a success'), 'Must never hallucinate success for language barrier');
+  assert.ok(replyLang1.toLowerCase().includes('apologize') || replyLang1.toLowerCase().includes('simple') || replyLang1.toLowerCase().includes('reset'), 'Must simplify language and apologize for confusion');
+
+  const lang2 = analyzeCandidateTurn('wait what what', 'Full-Stack Software Developer');
+  assert.equal(lang2.intent, 'language_barrier', 'Must classify "wait what what" as language_barrier');
 });
 
 test('Task 4 & Task 7: Round 2 Non-Tech Case Study Studio and Skip Challenge integration', () => {

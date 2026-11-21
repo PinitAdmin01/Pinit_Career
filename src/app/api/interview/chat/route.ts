@@ -99,7 +99,7 @@ interface FallbackContext {
 }
 
 export interface CandidateTurnAnalysis {
-  intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive' | 'readiness' | 'clarification' | 'coaching_request';
+  intent: 'skip' | 'stuck' | 'greeting' | 'intro' | 'vague' | 'substantive' | 'readiness' | 'clarification' | 'coaching_request' | 'no_experience' | 'language_barrier';
   subject: string;
   keyTerm: string;
 }
@@ -130,9 +130,24 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'skip', subject: subTopic, keyTerm: subTopic };
   }
 
-  // 2. Check for candidate uncertainty, confusion, or "I don't know"
+  // 2. Check for language barrier, communication mismatch, or deep incomprehension
   if (
-    /\b(don'?t know|do not know|no idea|not sure|not certain|never worked with|haven'?t worked|haven'?t done|unclear|stuck|lost|what to do|cannot say|can'?t answer|not familiar|blanking)\b/i.test(lower) ||
+    /\b(?:telugu|hindi|tamil|kannada|malayalam|bengali|marathi|gujarati)\b/i.test(lower) ||
+    /\b(?:can'?t\s+understand|cannot\s+understand|what\s+are\s+you\s+saying|what\s+you\s+are\s+saying|don'?t\s+understand\s+english|speak\s+in\s+telugu|speak\s+in\s+hindi|wait\s+what\s+what|wait\s+what|can\s+not\s+understand|unable\s+to\s+understand|not\s+understanding)\b/i.test(lower)
+  ) {
+    return { intent: 'language_barrier', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 3. Check for candidate stating lack of experience / non-tech background / no projects / just attending
+  if (
+    /\b(?:have\s+not\s+done|haven'?t\s+done|never\s+done|haven'?t\s+tried|have\s+not\s+tried|don'?t\s+have\s+any\s+tried|not\s+done\s+anything|not\s+a\s+(?:software|developer|engineer|coder|programmer)|not\s+an\s+engineer|no\s+(?:software\s+)?course|no\s+(?:technical\s+)?project|no\s+practical\s+experience|no\s+coding\s+experience|just\s+attending\s+(?:interview|the\s+interview|right\s+now)|not\s+from\s+(?:cs|it|computer|tech)\s+background|zero\s+experience|not\s+done\s+any\s+course)\b/i.test(lower)
+  ) {
+    return { intent: 'no_experience', subject: subTopic, keyTerm: subTopic };
+  }
+
+  // 4. Check for candidate uncertainty, confusion, or "I don't know"
+  if (
+    /\b(don'?t know|do not know|no idea|not sure|not certain|never worked with|haven'?t worked|unclear|stuck|lost|what to do|cannot say|can'?t answer|not familiar|blanking)\b/i.test(lower) ||
     /^(?:i don'?t know|no idea|not sure|dunno|idk|nothing)[.!]?$/i.test(lower)
   ) {
     return { intent: 'stuck', subject: subTopic, keyTerm: subTopic };
@@ -174,7 +189,7 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: metricMatch[1].trim(), keyTerm: metricMatch[1].trim() };
   }
 
-  // 8. Common high-value technical & business keywords (matched with strict word boundaries)
+  // 10. Common high-value technical & business keywords (matched with strict word boundaries)
   const techKeywords = [
     'redis', 'kafka', 'postgresql', 'postgres', 'mongodb', 'mysql', 'docker', 'kubernetes',
     'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'api', 'websocket', 'websockets',
@@ -198,7 +213,7 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     }
   }
 
-  // 9. Broad self-introduction check (greeting or background introduction)
+  // 11. Broad self-introduction check (greeting or background introduction)
   const isIntroGreeting = /\b(?:my name is\b|i am a\b|i'm a\b|i am full stack\b|i'm full stack\b|as a software\b|fresher\b|recent graduate\b|student\b)/i.test(lower);
   if (isIntroGreeting) {
     return {
@@ -212,7 +227,7 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: matchedTech, keyTerm: matchedTech };
   }
 
-  // 10. Extract substantive action/problem clauses
+  // 12. Extract substantive action/problem clauses
   const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{3,24}/i);
   if (actionMatch) {
     const rawPhrase = actionMatch[0].trim().replace(/\s+/g, ' ');
@@ -220,8 +235,8 @@ export function analyzeCandidateTurn(text: string, subTopic: string): CandidateT
     return { intent: 'substantive', subject: rawPhrase, keyTerm: parts.slice(-2).join(' ') };
   }
 
-  // 11. Meaningful substantive response check (only if 8+ words and contains verbs/substance)
-  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|doing|done|does|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our|don'?t|dont|not|what|who|when|where|why|how|scenario|approach|hi|hello|hey|yes|no|ok|okay)$/i.test(w));
+  // 13. Meaningful substantive response check (only if 8+ words and contains verbs/substance)
+  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|doing|done|does|would|could|should|can|will|just|really|basically|like|you|know|there|here|then|some|all|our|don'?t|dont|not|what|who|when|where|why|how|scenario|approach|hi|hello|hey|yes|no|ok|okay|anything|everything|course|courses|project|projects|something|saying|attending|interview|date|till|right|now|can't|cannot|understand)$/i.test(w));
   if (words.length >= 6) {
     return { intent: 'substantive', subject: subTopic, keyTerm: subTopic };
   }
@@ -253,7 +268,7 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
   }
 
   // First turn: warm welcome & initial background question (only turn that includes self-intro)
-  if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15) && analysis.intent !== 'substantive') {
+  if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15) && analysis.intent !== 'substantive' && analysis.intent !== 'language_barrier' && analysis.intent !== 'no_experience' && analysis.intent !== 'stuck') {
     return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
   }
 
@@ -314,25 +329,50 @@ export function generateProgressiveFallbackQuestion(ctx: FallbackContext): strin
     return `Great to have you here! Diving into your hands-on experience with ${subTopic}, could you highlight one specific project you worked on, the core problem it addressed, and your direct contribution?`;
   }
 
-  // 7. Candidate gave an extremely brief or vague answer
-  if (analysis.intent === 'vague') {
-    return `Understood. Could you expand a bit more on that? Specifically, what was your personal responsibility and the primary technical challenge you navigated for ${subTopic}?`;
+  // 7. Candidate honestly stated no experience / not a developer / no projects / just attending
+  if (analysis.intent === 'no_experience') {
+    const noExpPivots = [
+      `Thank you for being upfront about that. Since you haven't worked on software or technical projects yet, could you share what your educational background is and what field or role you are aiming for?`,
+      `I appreciate your honesty—everyone starts somewhere. Tell me a bit about your studies or any non-technical coursework, problem-solving activities, or personal interests you've pursued so far.`,
+      `That is completely fine. What originally motivated you to attend this interview today, and what specific skills or subjects are you most excited to learn?`
+    ];
+    return noExpPivots[turnCount % noExpPivots.length];
   }
 
-  // 8. Candidate explicitly skipped
+  // 8. Candidate expressed language barrier, incomprehension, or deep confusion
+  if (analysis.intent === 'language_barrier') {
+    const langPivots = [
+      `I apologize if my phrasing was complicated. Let's keep it very simple: could you tell me your name, what you studied in college, and what kind of job you are looking for?`,
+      `No worries at all, let's take it slow and simple. In plain words, what are the subjects or areas that you feel most comfortable talking about?`,
+      `I hear you—let's reset. Tell me simply: what is your educational background and what degree did you complete?`
+    ];
+    return langPivots[turnCount % langPivots.length];
+  }
+
+  // 9. Candidate gave an extremely brief or vague answer
+  if (analysis.intent === 'vague') {
+    const vaguePivots = [
+      `Understood. Could you expand a bit more on that? Specifically, what was your personal responsibility and the primary challenge you navigated for ${subTopic}?`,
+      `Got it. Could you share a bit more detail on that? For example, what tools or methods did you use, and what was the outcome?`,
+      `Thanks for sharing. To help me understand better, could you walk me through one specific example of how you approached that?`
+    ];
+    return vaguePivots[turnCount % vaguePivots.length];
+  }
+
+  // 10. Candidate explicitly skipped
   if (analysis.intent === 'skip') {
     return `Understood—we'll note the skip and move forward. Let's pivot to another dimension of ${subTopic}: what is an area in this domain where you've spent significant hands-on time?`;
   }
 
-  // 9. Candidate provided substantive response with technical / metric / action details
+  // 11. Candidate provided substantive response with technical / metric / action details
   const { keyTerm } = analysis;
   const opener = (keyTerm && keyTerm !== subTopic)
     ? `Regarding your experience with ${keyTerm}:`
     : [
         `Understood—thanks for walking through that scenario.`,
         `That provides helpful context on your approach.`,
-        `I see your point—that's a practical perspective.`,
-        `Appreciate you highlighting that experience.`
+        `Thanks for sharing that overview.`,
+        `That gives good context on your background.`
       ][turnCount % 4];
 
   // Stage-specific contextual follow-up questions (Natural spoken dialogue — no robotic sign-offs)
@@ -562,9 +602,11 @@ RULES:
 9. If the candidate indicates readiness (e.g. "ok im ready", "ready to start"), welcome them enthusiastically and invite them directly to walk through their background and a key project in ${subTopic}.
 10. If the candidate asks for clarification or asks to explain in depth (e.g. "can you explain in depth", "what do you mean?"), explain the question in simpler, practical terms. NEVER treat their question as a project name or technical approach.
 11. If the candidate asks how to answer (e.g. "how to answer", "what should I say?"), briefly guide them to use the STAR method (Situation, Task, Action, Result).
-12. NEVER parrot back raw candidate phrasing into templates like "You made an insightful observation around [candidate's words]". Always sound like a natural, empathetic, professional corporate hiring manager.`;
+12. NEVER parrot back raw candidate phrasing into templates like "You made an insightful observation around [candidate's words]". Always sound like a natural, empathetic, professional corporate hiring manager.
+13. If the candidate states they have no software experience, have not done projects/courses, are not a software developer, or are attending without prior technical preparation: NEVER praise them for a "practical perspective" or ask how they balanced shipping speed. Acknowledge with genuine warmth and empathy: thank them for being honest, and ask about their actual educational background, non-technical studies, or what field they are interested in.
+14. If the candidate expresses language confusion or a communication barrier (e.g. mentions Telugu, Hindi, can't understand, or asks what you mean): NEVER hallucinate that this was a technical choice. Respond in very simple, reassuring, plain English, apologizing for any confusion, and ask a very simple opening question about their college or interests.`;
 
-    // 6. Multi-Key Rotation Pool & Provider Failover
+    // 6. Multi-Key & Multi-Model Rotation Pool & Provider Failover
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
     let groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
     const singleGroqKey = process.env.GROQ_API_KEY;
@@ -572,6 +614,11 @@ RULES:
       groqKeys.push(singleGroqKey);
     }
     const openRouterKey = process.env.OPENROUTER_API_KEY;
+    const GROQ_MODELS = [
+      process.env.GROQ_MODEL || 'qwen/qwen3.8-27b',
+      'openai/gpt-oss-20b',
+      'openai/gpt-oss-120b'
+    ];
 
     let reply = '';
     const formattedHistory = effectiveHistory.map((h) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }));
@@ -581,85 +628,87 @@ RULES:
 
     // 7. If client requested SSE streaming, attempt streaming Groq inference
     if (wantsStream) {
-      for (const key of groqKeys) {
-        try {
-          console.log(`[Interview Chat API] Attempting streaming Groq inference with key ending in ...${key.slice(-4)}`);
-          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${key}`
-            },
-            body: JSON.stringify({
-              model: 'llama-3.1-8b-instant',
-              messages: [
-                { role: 'system', content: systemPrompt },
-                ...formattedHistory
-              ],
-              max_tokens: 280,
-              temperature: 0.7,
-              stream: true
-            }),
-            signal: AbortSignal.timeout(3500)
-          });
+      streamLoop: for (const key of groqKeys) {
+        for (const model of GROQ_MODELS) {
+          try {
+            console.log(`[Interview Chat API] Attempting streaming Groq inference with model ${model} and key ending in ...${key.slice(-4)}`);
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${key}`
+              },
+              body: JSON.stringify({
+                model,
+                messages: [
+                  { role: 'system', content: systemPrompt },
+                  ...formattedHistory
+                ],
+                max_tokens: 280,
+                temperature: 0.7,
+                stream: true
+              }),
+              signal: AbortSignal.timeout(6000)
+            });
 
-          if (res.ok && res.body) {
-            console.log('[Interview Chat API] Streaming Groq connection established');
-            const encoder = new TextEncoder();
-            const decoder = new TextDecoder();
-            const groqReader = res.body.getReader();
+            if (res.ok && res.body) {
+              console.log(`[Interview Chat API] Streaming Groq connection established with model ${model}`);
+              const encoder = new TextEncoder();
+              const decoder = new TextDecoder();
+              const groqReader = res.body.getReader();
 
-            const streamResponse = new ReadableStream({
-              async start(controller) {
-                let buffer = '';
-                try {
-                  while (true) {
-                    const { done, value } = await groqReader.read();
-                    if (done) break;
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
-                    buffer = lines.pop() || '';
+              const streamResponse = new ReadableStream({
+                async start(controller) {
+                  let buffer = '';
+                  try {
+                    while (true) {
+                      const { done, value } = await groqReader.read();
+                      if (done) break;
+                      buffer += decoder.decode(value, { stream: true });
+                      const lines = buffer.split('\n');
+                      buffer = lines.pop() || '';
 
-                    for (const line of lines) {
-                      const trimmed = line.trim();
-                      if (!trimmed || trimmed.startsWith(':')) continue;
-                      if (trimmed === 'data: [DONE]') {
-                        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-                        controller.close();
-                        return;
-                      }
-                      if (trimmed.startsWith('data: ')) {
-                        try {
-                          const json = JSON.parse(trimmed.slice(6));
-                          const token = json.choices?.[0]?.delta?.content;
-                          if (token) {
-                            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token })}\n\n`));
+                      for (const line of lines) {
+                        const trimmed = line.trim();
+                        if (!trimmed || trimmed.startsWith(':')) continue;
+                        if (trimmed === 'data: [DONE]') {
+                          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                          controller.close();
+                          return;
+                        }
+                        if (trimmed.startsWith('data: ')) {
+                          try {
+                            const json = JSON.parse(trimmed.slice(6));
+                            const token = json.choices?.[0]?.delta?.content;
+                            if (token) {
+                              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token })}\n\n`));
+                            }
+                          } catch {
+                            // Ignore parse error on partial chunks
                           }
-                        } catch {
-                          // Ignore parse error on partial chunks
                         }
                       }
                     }
+                    controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                    controller.close();
+                  } catch (streamErr) {
+                    controller.error(streamErr);
                   }
-                  controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-                  controller.close();
-                } catch (streamErr) {
-                  controller.error(streamErr);
                 }
-              }
-            });
+              });
 
-            return new Response(streamResponse, {
-              headers: {
-                'Content-Type': 'text/event-stream; charset=utf-8',
-                'Cache-Control': 'no-cache, no-transform',
-                'Connection': 'keep-alive',
-                'X-Accel-Buffering': 'no'
-              }
-            });
+              return new Response(streamResponse, {
+                headers: {
+                  'Content-Type': 'text/event-stream; charset=utf-8',
+                  'Cache-Control': 'no-cache, no-transform',
+                  'Connection': 'keep-alive',
+                  'X-Accel-Buffering': 'no'
+                }
+              });
+            }
+          } catch (streamAttemptErr: any) {
+            console.warn(`[Interview Chat API] Groq streaming key/model failed (${model}):`, streamAttemptErr?.message);
           }
-        } catch (streamAttemptErr: any) {
-          console.warn('[Interview Chat API] Groq streaming key failed:', streamAttemptErr?.message);
         }
       }
 
@@ -682,41 +731,44 @@ RULES:
       });
     }
 
-    // Attempt Groq Multi-Key Pool with ultra-fast 8B conversational model and 3.5s timeout (Non-Streaming JSON)
+    // Attempt Groq Multi-Key & Multi-Model Pool with 6s timeout (Non-Streaming JSON)
     for (const key of groqKeys) {
-      try {
-        console.log(`[Interview Chat API] Attempting Groq inference with key ending in ...${key.slice(-4)}`);
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${key}`
-          },
-          body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
-            messages: [
-              { role: 'system', content: systemPrompt },
-              ...formattedHistory
-            ],
-            max_tokens: 280,
-            temperature: 0.7
-          }),
-          signal: AbortSignal.timeout(3500)
-        });
+      for (const model of GROQ_MODELS) {
+        try {
+          console.log(`[Interview Chat API] Attempting Groq inference with model ${model} and key ending in ...${key.slice(-4)}`);
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${key}`
+            },
+            body: JSON.stringify({
+              model,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                ...formattedHistory
+              ],
+              max_tokens: 280,
+              temperature: 0.7
+            }),
+            signal: AbortSignal.timeout(6000)
+          });
 
-        if (res.ok) {
-          const data = await res.json();
-          reply = (data.choices?.[0]?.message?.content || '').trim();
-          if (reply) {
-            console.log(`[Interview Chat API] Groq inference successful (${reply.length} chars)`);
-            break;
+          if (res.ok) {
+            const data = await res.json();
+            reply = (data.choices?.[0]?.message?.content || '').trim();
+            if (reply) {
+              console.log(`[Interview Chat API] Groq inference successful via ${model} (${reply.length} chars)`);
+              break;
+            }
+          } else {
+            console.warn(`[Interview Chat API] Groq model ${model} returned status: ${res.status}`);
           }
-        } else {
-          console.warn(`[Interview Chat API] Groq key returned status: ${res.status}`);
+        } catch (err: any) {
+          console.warn(`[Interview Chat API] Groq request failed for model ${model}:`, err?.message);
         }
-      } catch (err: any) {
-        console.warn(`[Interview Chat API] Groq request failed for key:`, err?.message);
       }
+      if (reply) break;
     }
 
     // Fallback to Google Gemini API if Groq pool is exhausted
@@ -724,7 +776,7 @@ RULES:
     if (!reply && geminiKey) {
       try {
         console.log('[Interview Chat API] Falling back to Gemini inference...');
-        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -739,7 +791,7 @@ RULES:
               temperature: 0.7
             }
           }),
-          signal: AbortSignal.timeout(3500)
+          signal: AbortSignal.timeout(6000)
         });
         if (geminiRes.ok) {
           const gemData = await geminiRes.json();
