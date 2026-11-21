@@ -13,27 +13,21 @@ test('stores confirmed membership with a parseable timestamp marker', () => {
 });
 
 test('accepts a positive server membership confirmation', () => {
-  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', true, null, false), true);
+  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', true), true);
 });
 
-test('accepts a first server response that confirms no membership', () => {
-  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false, null, false), true);
+test('a fresh server response removes a stale local membership confirmation', () => {
+  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false), true);
 });
 
-test('ignores a contradictory false response after this account was confirmed joined', () => {
-  assert.equal(
-    shouldApplyLeagueMembershipSnapshot('student-a', false, { userId: 'student-a', joined: true }, true),
-    false,
-  );
+test('a fresh server response can reconcile a previously confirmed join', () => {
+  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false), true);
 });
 
-test('keeps a persisted server-confirmed join across a page remount', () => {
-  assert.equal(shouldApplyLeagueMembershipSnapshot('student-a', false, null, true), false);
+test('rejects a membership snapshot without an account identity', () => {
+  assert.equal(shouldApplyLeagueMembershipSnapshot('', true), false);
 });
 
-test('does not carry another account’s confirmation into this account', () => {
-  assert.equal(
-    shouldApplyLeagueMembershipSnapshot('student-b', false, { userId: 'student-a', joined: true }, false),
-    true,
-  );
+test('server membership state is account-scoped by the caller-provided request identity', () => {
+  assert.equal(shouldApplyLeagueMembershipSnapshot('student-b', false), true);
 });

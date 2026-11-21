@@ -75,7 +75,7 @@ test('League membership survives stale requests and resynchronizes from the acco
   assert.ok(leaderboardPage.includes('membershipStatusRef.current = { userId: joiningUserId, joined: true }'), 'A successful POST becomes the current account’s confirmed membership state');
   assert.ok(leaderboardPage.includes('membershipStatusRef.current?.userId === membershipUserId'), 'The rendered join button uses membership belonging to the active account');
   assert.ok(leaderboardPage.includes('eventUserId === membershipUserId'), 'A profile event from another account cannot mark this account as joined');
-  assert.ok(leaderboardPage.includes('shouldApplyLeagueMembershipSnapshot'), 'A stale false refresh cannot undo a confirmed join');
+  assert.ok(leaderboardPage.includes('shouldApplyLeagueMembershipSnapshot'), 'A fresh server snapshot must reconcile the membership cache');
   assert.ok(leaderboardPage.includes('responseIsCurrent && snapshotIsSafeToApply'), 'Only a safe, current membership snapshot updates the join state');
   assert.ok(leaderboardPage.includes(') : !joinedForCurrentAccount ? ('), 'The Join Browns prompt is hidden for a confirmed member');
   assert.ok(leaderboardPage.includes('encodeConfirmedLeagueMembership(joinedAt)'), 'A successful join survives a page remount as a confirmed cache value');

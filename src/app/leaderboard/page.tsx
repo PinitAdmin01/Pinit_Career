@@ -66,15 +66,6 @@ function hasStoredLeagueMembership(userId?: string | null): boolean {
   }
 }
 
-function hasConfirmedStoredLeagueMembership(userId?: string | null): boolean {
-  if (!userId || typeof window === 'undefined') return false;
-  try {
-    return isConfirmedLeagueMembershipCacheValue(localStorage.getItem(`pinit_joined_league_${userId}`));
-  } catch {
-    return false;
-  }
-}
-
 function storeLeagueMembership(userId: string | null | undefined, joined: boolean, joinedAt?: string | null): void {
   if (!userId || typeof window === 'undefined') return;
   try {
@@ -482,8 +473,6 @@ function LeaderboardContent() {
             const snapshotIsSafeToApply = requestUserId && shouldApplyLeagueMembershipSnapshot(
               requestUserId,
               data.currentUserHasJoined,
-              membershipStatusRef.current,
-              hasConfirmedStoredLeagueMembership(requestUserId),
             );
             if (responseStillMatchesAccount && responseIsCurrent && snapshotIsSafeToApply) {
               membershipStatusRef.current = { userId: requestUserId, joined: data.currentUserHasJoined };

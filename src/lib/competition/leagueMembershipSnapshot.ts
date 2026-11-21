@@ -1,8 +1,3 @@
-export type LeagueMembershipStatus = {
-  userId: string;
-  joined: boolean;
-} | null;
-
 const CONFIRMED_CACHE_PREFIX = 'confirmed:';
 
 export function encodeConfirmedLeagueMembership(joinedAt: string | null | undefined): string {
@@ -18,19 +13,15 @@ export function isConfirmedLeagueMembershipCacheValue(value: string | null): boo
 }
 
 /**
- * League membership has no leave operation. Once the server has confirmed a
- * join, an older or contradictory `false` snapshot must not resurrect the
- * Join button for that account. A fresh `true` server response is always safe
- * to apply; `false` is accepted only when this client has no prior confirmation.
+ * Decide whether a successful, account-specific server snapshot can be applied.
+ * The caller rejects responses from another account and responses that started
+ * before a membership change. Once those freshness checks pass, the server is
+ * authoritative in both directions so stale browser storage cannot claim that
+ * a user is enrolled when the persisted profile is not.
  */
 export function shouldApplyLeagueMembershipSnapshot(
   userId: string,
   serverJoined: boolean,
-  currentStatus: LeagueMembershipStatus,
-  locallyConfirmed: boolean,
 ): boolean {
-  if (serverJoined) return true;
-
-  const confirmedForAccount = currentStatus?.userId === userId && currentStatus.joined;
-  return !confirmedForAccount && !locallyConfirmed;
+  return Boolean(userId.trim()) && typeof serverJoined === 'boolean';
 }
