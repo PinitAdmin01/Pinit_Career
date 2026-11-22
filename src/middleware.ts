@@ -80,11 +80,11 @@ const CSP = [
     'https://api.groq.com',
   ].join(' '),
 
-  // ── UPDATED frame-src ──────────────────────────────────────────
-  // Added: https://checkout.razorpay.com (Razorpay checkout iframe)
-  // Added: https://*.razorpay.com (wildcard for all razorpay subdomains)
-  // Kept:  https://api.razorpay.com
-  "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
+  // ── UPDATED frame-src & object-src ──────────────────────────────
+  // Added: blob: and https://*.supabase.co for in-app Proof Vault PDF/document preview,
+  // plus Razorpay checkout iframe origins.
+  "frame-src 'self' blob: https://*.supabase.co https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
+  "object-src 'self' blob: https://*.supabase.co",
 
   // remaining directives (unchanged)
   "frame-ancestors 'self'",

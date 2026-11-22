@@ -547,6 +547,7 @@ export async function POST(req: Request) {
       companyContext,
       topologyContext,
       vaultContext,
+      totalDefenseTurns,
       defenseMode
     } = body;
 
@@ -725,6 +726,7 @@ STRICT RULES:
         : `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
     } else if (stage === 'vault_defense') {
       const assistantTurns = effectiveHistory.filter((m) => m.role === 'assistant').length;
+      const expectedVaultTurns = Math.max(3, Math.min(8, Number(totalDefenseTurns) || 6));
       const docDetails = typeof vaultContext === 'string' && vaultContext.trim()
         ? vaultContext.trim().slice(0, 4800)
         : `Document: ${subTopic}`;
@@ -732,8 +734,8 @@ STRICT RULES:
         stageContext = `ACTUAL UPLOADED RESUME / CERTIFICATE CONTENT TO AUDIT:
 ${docDetails}
 
-OPENING TURN (EXCHANGE 1 OF 3):
-- Your ONLY job is to verify whether THIS uploaded resume or certificate is genuine and accurate, or fake/exaggerated.
+OPENING TURN (EXCHANGE 1 OF ${expectedVaultTurns}):
+- Your ONLY job is to verify whether THIS uploaded resume or certificate is genuine and accurate, or fake/exaggerated across ${expectedVaultTurns} thorough resume-grounded questions.
 - Pick ONE specific, concrete project, internship, skill, tool, or certification explicitly written in the document above — quote its EXACT name from the document.
 - Ask ONE sharp, direct, natural question testing whether the candidate truly built or mastered that exact item (2-3 spoken sentences max).
 - NEVER ask generic "tell me about yourself" or "walk me through your background" questions.
@@ -742,10 +744,11 @@ OPENING TURN (EXCHANGE 1 OF 3):
         stageContext = `ACTUAL UPLOADED RESUME / CERTIFICATE CONTENT TO AUDIT:
 ${docDetails}
 
-LIVE REACTIVE FOLLOW-UP (EXCHANGE ${assistantTurns + 1} OF 3):
-- Read the candidate's LAST reply carefully and respond like a real human senior auditor verifying their uploaded resume/certificate (2-3 crisp spoken sentences max).
-- If the candidate said "I don't know", "sorry", "nothing", or evaded the question: acknowledge it directly and candidly ("Alright, noted — you couldn't back up that claim."), then pick a DIFFERENT specific project, skill, tool, or certification explicitly written in the document above and ask a concrete verification question about it.
-- If the candidate gave a real technical or domain answer: briefly acknowledge one specific detail they gave, then either drill one level deeper into an edge case/implementation detail of that exact claim OR test a DIFFERENT named skill/project/certification from their document above.
+LIVE REACTIVE FOLLOW-UP (EXCHANGE ${assistantTurns + 1} OF ${expectedVaultTurns}):
+- Read the candidate's LAST reply AND earlier exchanges carefully, and respond like a real human senior auditor verifying their uploaded resume/certificate (2-3 crisp spoken sentences max).
+- BREADTH REQUIREMENT: Across these ${expectedVaultTurns} questions, systematically audit DIFFERENT items from the document (different projects, internships, backend stack, frontend/UI stack, database/cloud, certifications, or core tools) — NEVER repeat a project or skill you already grilled in an earlier turn unless the candidate specifically pivoted to it.
+- If the candidate said "I don't know", "sorry", "nothing", gave vague filler, or evaded the question: acknowledge it candidly ("Alright, noted — you couldn't back up that claim."), then immediately pivot to a DIFFERENT specific project, internship, skill, or certification explicitly written in the document above and ask a concrete verification question about it.
+- If the candidate gave a real technical or domain answer: briefly acknowledge one specific detail they got right, then test a DIFFERENT named project, internship, skill, or edge case from their document above so you cover the breadth of their resume.
 - Stay 100% anchored to what is actually written in the uploaded document above.`;
       }
     }

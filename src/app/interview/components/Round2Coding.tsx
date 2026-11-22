@@ -74,6 +74,12 @@ export interface Round2CodingProps {
   difficulty?: string;
   speakWithAvatarRaw?: any;
   setAnimState?: (state: 'idle' | 'talking' | 'thinking') => void;
+  /** Optional custom labels so Proof Vault Defense can reuse Round2Coding cleanly without duplicating Monaco/Runner UI */
+  stageBadgeLabel?: string;
+  proceedLabel?: string;
+  reviewLabel?: string;
+  skipLabel?: string;
+  bannerOverride?: string;
 }
 
 export const Round2Coding: React.FC<Round2CodingProps> = ({
@@ -121,6 +127,11 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
   difficulty = 'normal',
   speakWithAvatarRaw,
   setAnimState,
+  stageBadgeLabel,
+  proceedLabel,
+  reviewLabel,
+  skipLabel,
+  bannerOverride,
 }) => {
   const [hintLevel, setHintLevel] = React.useState<0 | 1 | 2 | 3>(0);
   const runCodeAndTestsRef = React.useRef(runCodeAndTests);
@@ -160,7 +171,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
       <div className="iv-panel" style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 8, height: '100%', minHeight: 0, overflowY: 'auto' }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--pink)' }}>ROUND 2 OF 4</span>
+            <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--pink)' }}>{stageBadgeLabel || 'ROUND 2 OF 4'}</span>
             <h2 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>
               {domainStream === 'non_tech' ? 'Case Study & Analytics:' : 'Technical Problem:'} {currentCodingProb.title}
             </h2>
@@ -219,7 +230,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             {canProceed ? (
               <button onClick={onProceed} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12 }}>
-                Continue to architecture ➔
+                {proceedLabel || 'Continue to architecture ➔'}
               </button>
             ) : codeRunFailed ? (
               <button onClick={onRetryChallenge} style={{ background: 'var(--amber-light)', border: '1px solid var(--amber)', color: 'var(--amber-mid)', borderRadius: 8, padding: '7px 12px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
@@ -227,7 +238,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
               </button>
             ) : codeSubmitted && (
               <button onClick={onReviewSolution} disabled={isSendingInterviewMessage || codeReviewStarted} className="iv-btn-primary" style={{ borderRadius: 8, padding: '7px 12px', fontSize: 12, cursor: isSendingInterviewMessage || codeReviewStarted ? 'wait' : 'pointer', opacity: isSendingInterviewMessage || codeReviewStarted ? 0.7 : 1 }}>
-                {isSendingInterviewMessage || codeReviewStarted ? 'Waiting for interviewer…' : 'Submit solution for review'}
+                {isSendingInterviewMessage || codeReviewStarted ? 'Waiting for interviewer…' : (reviewLabel || 'Submit solution for review')}
               </button>
             )}
             {!canProceed && defenseState?.status !== 'eliminated' && onSkipChallenge && (
@@ -235,7 +246,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                 type="button"
                 data-testid="round2-skip-challenge-btn"
                 onClick={onSkipChallenge}
-                title="Skip this coding challenge (allows advancing to Round 3 with a skip recorded)"
+                title="Skip this coding challenge"
                 style={{
                   background: 'var(--bg3)',
                   border: '1px solid var(--border)',
@@ -247,7 +258,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                   cursor: 'pointer'
                 }}
               >
-                ⏭ Skip Challenge
+                {skipLabel || '⏭ Skip Challenge'}
               </button>
             )}
           </div>
@@ -273,7 +284,9 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             color: 'var(--t1)'
           }}
         >
-          {defenseState?.status === 'eliminated'
+          {bannerOverride
+            ? bannerOverride
+            : defenseState?.status === 'eliminated'
             ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 3. Generating final scorecard…`
             : canProceed
             ? '✅ Code & 5/5 Cross-Examination Defense Cleared — Click "Continue to architecture ➔" above to proceed!'

@@ -75,6 +75,24 @@ export async function POST(req: Request) {
         ? body.answers.map((a: any) => String(a || '').trim())
         : [];
 
+      const codingResult =
+        body?.codingResult && typeof body.codingResult === 'object'
+          ? {
+              required: Boolean(body.codingResult.required),
+              language: (['python', 'javascript', 'java', 'cpp', 'sql'].includes(body.codingResult.language)
+                ? body.codingResult.language
+                : 'python') as 'python' | 'javascript' | 'java' | 'cpp' | 'sql',
+              problemTitle: String(body.codingResult.problemTitle || 'Live Coding Check').slice(0, 140),
+              passedTests: Math.max(0, Number(body.codingResult.passedTests) || 0),
+              totalTests: Math.max(0, Number(body.codingResult.totalTests) || 0),
+              passed: Boolean(body.codingResult.passed),
+              skipped: Boolean(body.codingResult.skipped),
+              codeSnippet: typeof body.codingResult.codeSnippet === 'string'
+                ? body.codingResult.codeSnippet.slice(0, 2000)
+                : undefined,
+            }
+          : undefined;
+
       const result = await evaluateDefenseWithGroq({
         title,
         auditorName,
@@ -84,6 +102,7 @@ export async function POST(req: Request) {
         rawTextExcerpt,
         questions,
         answers,
+        codingResult,
         customGroqKey: headerGroqKey,
       });
 

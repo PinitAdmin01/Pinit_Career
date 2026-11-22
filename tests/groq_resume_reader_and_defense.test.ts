@@ -19,6 +19,9 @@ import {
   evaluateVaultDefenseResponses,
   extractSkillsFast,
   generateBrutalDefensePrompt,
+  inferPreferredCodingLanguage,
+  isCodingResumeChallenge,
+  resolveOralDefenseTurnCount,
   resolveVaultAuditorMentor,
   type VaultDefenseChallenge,
 } from '../src/lib/vault/vaultDefenseEngine';
@@ -656,4 +659,121 @@ test('Task 3: Shareable public portfolio compiles verifiedSkills + professionalP
   assert.match(publicPageSrc, /portfolio_items/);
   assert.match(showcaseSrc, /shareable-verified-skills/);
   assert.match(showcaseSrc, /shareable-portfolio-pitch/);
+});
+
+test('Task 1 (PDF Preview CSP & New Tab): middleware, next.config, and firebase.json allow blob: + supabase in frame-src & object-src, and vault uses signedUrl for new tab', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const middlewareSrc = fs.readFileSync(path.join(process.cwd(), 'src/middleware.ts'), 'utf8');
+  const nextCfgSrc = fs.readFileSync(path.join(process.cwd(), 'next.config.js'), 'utf8');
+  const firebaseSrc = fs.readFileSync(path.join(process.cwd(), 'firebase.json'), 'utf8');
+  const fileRouteSrc = fs.readFileSync(path.join(process.cwd(), 'src/app/api/vault/file/route.ts'), 'utf8');
+  const vaultPageSrc = fs.readFileSync(path.join(process.cwd(), 'src/app/vault/page.tsx'), 'utf8');
+
+  for (const [name, src] of [
+    ['src/middleware.ts', middlewareSrc],
+    ['next.config.js', nextCfgSrc],
+    ['firebase.json', firebaseSrc],
+  ]) {
+    assert.match(src, /frame-src 'self' blob: https:\/\/\*\.supabase\.co/, `${name} must allow blob: and supabase in frame-src`);
+    assert.match(src, /object-src 'self' blob: https:\/\/\*\.supabase\.co/, `${name} must allow blob: and supabase in object-src`);
+  }
+
+  assert.match(fileRouteSrc, /'Content-Length':\s*String\(fileBuffer\.byteLength\)/);
+  assert.match(vaultPageSrc, /mode=url/);
+  assert.match(vaultPageSrc, /previewDoc\.signedUrl/);
+  assert.doesNotMatch(vaultPageSrc, /href=\{previewDoc\.blobUrl\}[^>]*rel="noopener noreferrer"/);
+});
+
+test('Task 2 (5-6 Resume Questions + Tech Coding / B.Com Auto-Skip): classifier, turn count, coding evaluation, and Round2Coding reuse', async () => {
+  // Tech resume -> 6 oral questions + coding required (Python)
+  const techResume = {
+    title: 'Vinay N — Full Stack Developer & AI Engineer Resume',
+    itemType: 'resume',
+    claimedSkills: ['Python', 'FastAPI', 'React.js', 'Next.js', 'PostgreSQL', 'MongoDB', 'Firebase'],
+    projects: [
+      { name: 'PinIT Careers', techStack: ['React', 'FastAPI', 'PostgreSQL'], claim: 'Built AI SaaS' },
+      { name: 'DSAI Portal', techStack: ['Next.js', 'Firebase'], claim: 'Online exam portal' },
+    ],
+    summary: 'Full Stack & AI Engineer building SaaS platforms.',
+  };
+  assert.equal(isCodingResumeChallenge(techResume), true);
+  assert.equal(inferPreferredCodingLanguage(techResume), 'python');
+  assert.equal(resolveOralDefenseTurnCount(techResume), 6);
+
+  // React/JS-only resume -> JavaScript coding language, 5 oral questions for compact doc
+  const jsCompact = {
+    title: 'Frontend Developer Certificate',
+    itemType: 'certification',
+    claimedSkills: ['React', 'TypeScript', 'Tailwind CSS'],
+    projects: [],
+  };
+  assert.equal(isCodingResumeChallenge(jsCompact), true);
+  assert.equal(inferPreferredCodingLanguage(jsCompact), 'javascript');
+  assert.equal(resolveOralDefenseTurnCount(jsCompact), 5);
+
+  // B.Com / Commerce / Finance resume -> coding automatically SKIPPED!
+  const bcomResume = {
+    title: 'Kiran Verma — B.Com Accounting & Statutory Audit Resume',
+    itemType: 'resume',
+    claimedSkills: ['Tally Prime', 'GST Filing', 'IFRS', 'Financial Modeling', 'Statutory Audit', 'Corporate Finance'],
+    projects: [
+      { name: '3-Statement DCF Valuation Model', techStack: ['Financial Modeling', 'Excel'], claim: 'Built WACC model' },
+    ],
+    summary: 'B.Com graduate specializing in statutory audit, GST reconciliation, and corporate finance.',
+  };
+  assert.equal(isCodingResumeChallenge(bcomResume), false, 'B.Com / Commerce resume must skip coding round');
+  assert.equal(resolveOralDefenseTurnCount(bcomResume), 6);
+
+  // 6-turn evaluation with passed live coding check credits proven coding language even if oral failed
+  const codingPartial = evaluateVaultDefenseResponses(
+    techResume.claimedSkills,
+    ['i dont know', 'idk', 'not sure', 'i dont know', 'idk', 'not sure'],
+    {
+      required: true,
+      language: 'python',
+      problemTitle: 'API Rate Limiter Counter',
+      passedTests: 5,
+      totalTests: 5,
+      passed: true,
+      skipped: false,
+    }
+  );
+  assert.equal(codingPartial.passed, false);
+  assert.ok(codingPartial.provenSkills?.includes('Python'), 'Passing Python coding test must credit Python');
+
+  // Verify VaultDefenseRoom reuses existing Round2Coding, runTestSuite, and dynamic totalDefenseTurns
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const roomSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/interview/components/VaultDefenseRoom.tsx'),
+    'utf8'
+  );
+  const chatSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/api/interview/chat/route.ts'),
+    'utf8'
+  );
+  assert.match(roomSrc, /import \{ Round2Coding \} from '\.\/Round2Coding'/);
+  assert.match(roomSrc, /runTestSuite/);
+  assert.match(roomSrc, /\/api\/interview\/generate-problem/);
+  assert.match(roomSrc, /totalDefenseTurns:\s*turnsForDoc/);
+  assert.match(chatSrc, /totalDefenseTurns/);
+  assert.match(chatSrc, /BREADTH REQUIREMENT/);
+});
+
+test('Task 3 (/profile React Error #310): PortfolioTab declares all React hooks strictly before early if (loading) return', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const portfolioTabSrc = fs.readFileSync(
+    path.join(process.cwd(), 'src/app/profile/tabs/PortfolioTab.tsx'),
+    'utf8'
+  );
+  const loadingIdx = portfolioTabSrc.indexOf('if (loading)');
+  assert.ok(loadingIdx > 0, 'PortfolioTab should keep loading guard');
+  const afterLoading = portfolioTabSrc.slice(loadingIdx);
+  assert.doesNotMatch(
+    afterLoading,
+    /\b(?:React\.)?(?:useState|useEffect|useMemo|useCallback|useRef)\s*\(/,
+    'No React hook may be called after early `if (loading)` return (causes React Error #310)'
+  );
 });

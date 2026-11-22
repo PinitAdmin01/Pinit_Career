@@ -141,12 +141,20 @@ export async function GET(req: Request) {
     }
 
     const arrayBuffer = await blob.arrayBuffer();
+    const fileBuffer = Buffer.from(arrayBuffer);
+    if (fileBuffer.byteLength === 0) {
+      return NextResponse.json(
+        { error: 'EMPTY_FILE', message: 'Stored document file is empty.' },
+        { status: 404 }
+      );
+    }
     const mimeType = inferMimeType(cleanFileName, blob.type);
 
-    return new Response(arrayBuffer, {
+    return new Response(fileBuffer, {
       status: 200,
       headers: {
         'Content-Type': mimeType,
+        'Content-Length': String(fileBuffer.byteLength),
         'Content-Disposition': `inline; filename="${cleanFileName}"`,
         'X-Vault-Filename': cleanFileName,
         'Cache-Control': 'private, max-age=300',

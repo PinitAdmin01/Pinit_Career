@@ -43,6 +43,17 @@ export interface VaultDefenseChallenge {
   createdAt: string;
 }
 
+export interface VaultDefenseCodingResult {
+  required: boolean;
+  language: 'python' | 'javascript' | 'java' | 'cpp' | 'sql';
+  problemTitle: string;
+  passedTests: number;
+  totalTests: number;
+  passed: boolean;
+  skipped: boolean;
+  codeSnippet?: string;
+}
+
 export interface VaultDefenseResult {
   passed: boolean;
   score: number;
@@ -51,6 +62,7 @@ export interface VaultDefenseResult {
   verifiedSkillsAdded: string[];
   /** Individual skills accurately proven during the defense even if the broader document failed overall */
   provenSkills?: string[];
+  codingResult?: VaultDefenseCodingResult;
   critique: string;
 }
 
@@ -177,14 +189,84 @@ export function extractSkillsFast(text: string, existingSkills?: string[]): stri
   return Array.from(result.values()).slice(0, 15);
 }
 
+const CODING_SIGNAL_RE =
+  /\b(python|javascript|typescript|react(?:\.js)?|next\.?js|vue(?:\.js)?|angular|node\.?js|express(?:\.js)?|fastapi|django|flask|java|spring\s*boot|c\+\+|cpp|c#|golang|rust|php|ruby|kotlin|swift|dart|flutter|sql|postgresql|postgres|mysql|mongodb|firebase|supabase|graphql|rest\s*apis?|docker|kubernetes|html5?|css3?|tailwind|full[\s-]*stack|software\s+(?:engineer|developer)|web\s+developer|backend|frontend|ai\s+engineer|machine\s+learning|pytorch|tensorflow|data\s+structures|algorithms|devops|esp32|arduino|embedded\s+c)\b/i;
+
+const NON_CODING_COMMERCE_RE =
+  /\b(b\.?\s*com|bcom|commerce|accounting|bookkeeping|tally(?:\s*prime)?|gst\s*filing|ifrs|statutory\s*audit|chartered\s*accountant|taxation|corporate\s*finance|investment\s*banking|financial\s*modeling|brand\s*management|digital\s*marketing|human\s*resources|bba|mba\s+finance)\b/i;
+
+const STRICT_LANGUAGE_RE =
+  /\b(python|javascript|typescript|react(?:\.js)?|next\.?js|node\.?js|fastapi|django|flask|java|spring|c\+\+|cpp|c#|golang|rust|php|kotlin|swift|dart|flutter|sql|postgresql|mysql|mongodb)\b/i;
+
+/**
+ * Determines whether a Proof Vault resume/document represents a coding/software profile
+ * (requiring 1 live coding check) vs a non-coding profile such as B.Com / Commerce / Finance
+ * (which skips the coding check automatically).
+ */
+export function isCodingResumeChallenge(
+  challenge: Pick<VaultDefenseChallenge, 'title' | 'itemType' | 'claimedSkills' | 'projects' | 'summary' | 'rawTextExcerpt'>
+): boolean {
+  const skillText = (challenge.claimedSkills || []).join(' ');
+  const projectText = (challenge.projects || [])
+    .map((p) => `${p.name} ${(p.techStack || []).join(' ')} ${p.claim || ''}`)
+    .join(' ');
+  const combined = `${challenge.title || ''} ${skillText} ${projectText} ${challenge.summary || ''} ${(challenge.rawTextExcerpt || '').slice(0, 1800)}`;
+
+  const hasStrictLanguage = STRICT_LANGUAGE_RE.test(skillText) || STRICT_LANGUAGE_RE.test(projectText) || STRICT_LANGUAGE_RE.test(combined);
+  if (hasStrictLanguage) return true;
+
+  const hasNonCodingCommerce = NON_CODING_COMMERCE_RE.test(combined);
+  if (hasNonCodingCommerce) return false;
+
+  return CODING_SIGNAL_RE.test(combined);
+}
+
+/**
+ * Picks the candidate's strongest claimed programming language for the live coding check.
+ */
+export function inferPreferredCodingLanguage(
+  challenge: Pick<VaultDefenseChallenge, 'title' | 'claimedSkills' | 'projects' | 'summary' | 'rawTextExcerpt'>
+): 'python' | 'javascript' | 'java' | 'cpp' | 'sql' {
+  const corpus = [
+    ...(challenge.claimedSkills || []),
+    ...(challenge.projects || []).flatMap((p) => p.techStack || []),
+    challenge.title || '',
+    challenge.summary || '',
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  if (/\b(python|fastapi|django|flask|pytorch|tensorflow|scikit|pandas|numpy)\b/.test(corpus)) return 'python';
+  if (/\b(javascript|typescript|react|next\.?js|node\.?js|express|vue|angular)\b/.test(corpus)) return 'javascript';
+  if (/\b(java|spring)\b/.test(corpus)) return 'java';
+  if (/\b(c\+\+|cpp|embedded|esp32|arduino)\b/.test(corpus)) return 'cpp';
+  if (/\b(sql|postgresql|postgres|mysql)\b/.test(corpus)) return 'sql';
+  return 'python';
+}
+
+/**
+ * Computes how many resume-grounded oral questions the auditor must ask (5 to 6).
+ * Rich resumes with >= 6 skills or >= 2 projects get 6 questions; compact documents get 5.
+ */
+export function resolveOralDefenseTurnCount(
+  challenge: Pick<VaultDefenseChallenge, 'claimedSkills' | 'projects' | 'rawTextExcerpt'>
+): number {
+  const skillCount = (challenge.claimedSkills || []).length;
+  const projectCount = (challenge.projects || []).length;
+  const textLen = (challenge.rawTextExcerpt || '').trim().length;
+  return skillCount >= 6 || projectCount >= 2 || textLen >= 900 ? 6 : 5;
+}
+
 /**
  * Generates brutal, confrontational credential defense questions targeting exact claimed skills.
  */
 export function generateBrutalDefensePrompt(
   challenge: VaultDefenseChallenge,
-  stepIndex: number
+  stepIndex: number,
+  totalTurns?: number
 ): string {
   const auditor = challenge.auditor.name;
+  const expectedTotal = totalTurns || resolveOralDefenseTurnCount(challenge);
   const aiQuestion = challenge.defenseQuestions?.[stepIndex]?.trim();
   if (aiQuestion && aiQuestion.length >= 20) {
     if (stepIndex === 0 && !aiQuestion.toLowerCase().includes(auditor.toLowerCase())) {
@@ -197,29 +279,44 @@ export function generateBrutalDefensePrompt(
   const skills = challenge.claimedSkills.length > 0
     ? challenge.claimedSkills
     : ['Core Technical Foundations', 'Architecture'];
-  const skill1 = skills[0];
-  const skill2 = skills[1] || skills[0];
-  const skill3 = skills[2] || skills.slice(0, 3).join(', ');
+  const targetSkill = skills[stepIndex % skills.length];
+  const secondarySkill = skills[(stepIndex + 1) % skills.length] || targetSkill;
+  const project = challenge.projects?.[stepIndex % Math.max(1, challenge.projects.length)];
   const docLabel = challenge.itemType === 'certification' ? 'Certificate' : challenge.itemType === 'resume' ? 'Resume' : 'Document';
 
   if (stepIndex === 0) {
-    return `${auditor} (Credential Auditor): Hold on — I audited "${challenge.title}" (${docLabel}) where you claim: ${skills.slice(0, 5).join(', ')}. Buzzwords on a ${docLabel.toLowerCase()} mean nothing to me until you survive questioning. Let's test if this document is real or bluff. Question 1 of 3 — Pick up ${skill1}: explain the exact internal mechanics, memory/data flow, and one concrete failure mode you personally solved using ${skill1}. No textbook definitions.`;
+    return `${auditor} (Credential Auditor): Hold on — I audited "${challenge.title}" (${docLabel}) where you claim: ${skills.slice(0, 6).join(', ')}. Buzzwords on a ${docLabel.toLowerCase()} mean nothing to me until you survive questioning. Let's test if this document is real or bluff. Question 1 of ${expectedTotal} — Pick up ${targetSkill}: explain the exact internal mechanics, memory/data flow, and one concrete failure mode you personally solved using ${targetSkill}. No textbook definitions.`;
   }
 
   if (stepIndex === 1) {
-    return `Too many candidates fake ${skill2} on their ${docLabel.toLowerCase()}. Question 2 of 3: Imagine your ${skill2} system gets hit with 10x malformed concurrent requests or tight latency SLAs right now. What breaks first, what exact trade-offs or complexity bounds apply, and how do you architect the fix?`;
+    return `Too many candidates fake ${targetSkill} on their ${docLabel.toLowerCase()}. Question 2 of ${expectedTotal}: Imagine your ${targetSkill} system gets hit with 10x malformed concurrent requests or tight latency SLAs right now. What breaks first, what exact trade-offs or complexity bounds apply, and how do you architect the fix?`;
   }
 
-  return `Final Audit Check (Question 3 of 3): Looking at your claimed stack (${skill3}) in "${challenge.title}", walk me through an end-to-end production decision where ${skill1} and ${skill2} had to work together under strict security, edge-case validation, or cost limits. Prove this credential belongs to you.`;
+  if (stepIndex < expectedTotal - 1) {
+    const projRef = project?.name ? ` in "${project.name}"` : '';
+    return `Question ${stepIndex + 1} of ${expectedTotal}: You list ${targetSkill}${projRef} on "${challenge.title}". Walk me through one concrete production bug, edge case, or design decision you personally debugged with ${targetSkill} — be specific about inputs, failure symptoms, and your fix.`;
+  }
+
+  return `Final Audit Check (Question ${expectedTotal} of ${expectedTotal}): Looking at your claimed stack (${skills.slice(0, 4).join(', ')}) in "${challenge.title}", walk me through an end-to-end production decision where ${targetSkill} and ${secondarySkill} had to work together under strict security, edge-case validation, or cost limits. Prove this credential belongs to you.`;
+}
+
+function languageDisplayName(lang: VaultDefenseCodingResult['language']): string {
+  if (lang === 'python') return 'Python';
+  if (lang === 'javascript') return 'JavaScript';
+  if (lang === 'java') return 'Java';
+  if (lang === 'cpp') return 'C++';
+  return 'SQL';
 }
 
 /**
  * Evaluates all candidate defense answers strictly (anti-bluff, depth-based scoring).
+ * Supports both 3-turn and 5-6-turn defenses plus optional live coding verification.
  * Bar to pass: >= 65/100. Fail -> -5 Trust Score. Pass -> +5 Trust Score + Portfolio Skills Sync.
  */
 export function evaluateVaultDefenseResponses(
   claimedSkills: string[],
-  userResponses: string[]
+  userResponses: string[],
+  codingResult?: VaultDefenseCodingResult
 ): VaultDefenseResult {
   const validAnswers = userResponses.map((a) => String(a || '').trim()).filter(Boolean);
   if (validAnswers.length === 0) {
@@ -229,6 +326,8 @@ export function evaluateVaultDefenseResponses(
       verdict: 'Rejected — Unsubstantiated Claims',
       trustDelta: -5,
       verifiedSkillsAdded: [],
+      provenSkills: [],
+      codingResult,
       critique: 'Zero substantive answers submitted during skill defense. Credential claims failed verification (-5 Trust Score).',
     };
   }
@@ -295,12 +394,42 @@ export function evaluateVaultDefenseResponses(
     totalPoints += Math.min(35, depthPts + mechPts + skillMatch);
   }
 
-  // Penalize missing questions out of 3
+  // Normalize across actual turn count (works identically for 3-turn and 5-6-turn defenses)
+  const expectedTurns = Math.max(3, validAnswers.length);
+  const maxRawPoints = expectedTurns * 35;
+  const scaledOralScore = (totalPoints / maxRawPoints) * 100;
   const completenessPenalty = validAnswers.length < 3 ? (3 - validAnswers.length) * 18 : 0;
-  const evasionPenalty = evasionCount * 15;
-  const score = Math.max(5, Math.min(98, Math.round(totalPoints - completenessPenalty - evasionPenalty)));
+  const evasionPenalty = Math.round((evasionCount / expectedTurns) * 45);
 
-  const passed = score >= 65 && evasionCount <= 1 && validAnswers.length >= 2 && mechanismHitsTotal >= 2;
+  let codingAdjustment = 0;
+  let codingNote = '';
+  if (codingResult?.required) {
+    const langName = languageDisplayName(codingResult.language);
+    if (codingResult.passed) {
+      codingAdjustment = 12;
+      const key = canonicalSkillKey(langName);
+      if (!provenSkillsMap.has(key)) provenSkillsMap.set(key, langName);
+      codingNote = ` Passed live ${langName} coding check (${codingResult.passedTests}/${codingResult.totalTests} tests).`;
+    } else if (codingResult.skipped) {
+      codingAdjustment = -10;
+      codingNote = ` Skipped live ${langName} coding verification.`;
+    } else {
+      codingAdjustment = codingResult.passedTests > 0 ? 0 : -6;
+      codingNote = ` Live ${langName} coding check passed ${codingResult.passedTests}/${codingResult.totalTests} tests.`;
+    }
+  }
+
+  const score = Math.max(
+    5,
+    Math.min(98, Math.round(scaledOralScore - completenessPenalty - evasionPenalty + codingAdjustment))
+  );
+
+  const maxAllowedEvasions = Math.max(1, Math.floor(expectedTurns / 3));
+  const passed =
+    score >= 65 &&
+    evasionCount <= maxAllowedEvasions &&
+    validAnswers.length >= 2 &&
+    mechanismHitsTotal >= 2;
   const provenSkills = Array.from(provenSkillsMap.values());
 
   if (passed) {
@@ -311,7 +440,8 @@ export function evaluateVaultDefenseResponses(
       trustDelta: 5,
       verifiedSkillsAdded: claimedSkills,
       provenSkills: claimedSkills,
-      critique: `Strong technical defense (${score}/100). Mechanisms and trade-offs verified under questioning (+5 Trust Score, ${claimedSkills.length} skills synced to Portfolio).`,
+      codingResult,
+      critique: `Strong technical defense (${score}/100). Mechanisms and trade-offs verified under questioning.${codingNote} (+5 Trust Score, ${claimedSkills.length} skills synced to Portfolio).`,
     };
   }
 
@@ -322,10 +452,11 @@ export function evaluateVaultDefenseResponses(
     trustDelta: -5,
     verifiedSkillsAdded: provenSkills,
     provenSkills,
+    codingResult,
     critique:
       provenSkills.length > 0
-        ? `Failed full document defense (${score}/100, -5 Trust Score), but verified real technical command of ${provenSkills.join(', ')} — synced to your Portfolio.`
-        : `Failed Brutal Skill Defense (${score}/100). Answers lacked concrete implementation mechanics or evaded technical depth. Flagged as unsubstantiated claim (-5 Trust Score).`,
+        ? `Failed full document defense (${score}/100, -5 Trust Score), but verified real technical command of ${provenSkills.join(', ')} — synced to your Portfolio.${codingNote}`
+        : `Failed Brutal Skill Defense (${score}/100). Answers lacked concrete implementation mechanics or evaded technical depth.${codingNote} Flagged as unsubstantiated claim (-5 Trust Score).`,
   };
 }
 

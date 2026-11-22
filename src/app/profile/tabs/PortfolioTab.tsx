@@ -107,17 +107,6 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
     loading
   } = usePortfolioData(user);
 
-  if (loading) {
-    return (
-      <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
-        Loading portfolio…
-      </div>
-    );
-  }
-
-  const verifiedProjects = projects.filter((p) => p.verified);
-  const verifiedCerts = certificates.filter((c) => c.verified);
-
   const effectivePitch = React.useMemo(() => {
     const rawPitch = typeof pitch === 'string' ? pitch.trim() : '';
     const isPlaceholder = !rawPitch || rawPitch.toLowerCase() === DEFAULT_PITCH_PLACEHOLDER;
@@ -131,6 +120,17 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
     const topNames = passportSkills.slice(0, 8).map((s) => s.name).join(', ');
     return `${roleLabel} with live-verified hands-on proficiency in ${topNames}, validated through PinIT oral technical defense and proof-of-work assessments.`;
   }, [pitch, passportSkills, user]);
+
+  if (loading) {
+    return (
+      <div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5 }}>
+        Loading portfolio…
+      </div>
+    );
+  }
+
+  const verifiedProjects = projects.filter((p) => p.verified);
+  const verifiedCerts = certificates.filter((c) => c.verified);
 
   const handleToggleEditPitch = (nextVal: boolean) => {
     if (nextVal) {

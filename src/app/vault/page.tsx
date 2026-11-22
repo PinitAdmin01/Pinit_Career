@@ -76,6 +76,7 @@ export default function VaultPage() {
     loadingFile: boolean;
     fileError: string;
     blobUrl: string | null;
+    signedUrl: string | null;
     mimeType: string;
     fileName: string;
     textContent: string;
@@ -193,6 +194,7 @@ export default function VaultPage() {
       loadingFile: true,
       fileError: '',
       blobUrl: null,
+      signedUrl: null,
       mimeType: '',
       fileName: item.title || 'document.pdf',
       textContent: '',
@@ -208,12 +210,37 @@ export default function VaultPage() {
       const headers: Record<string, string> = { 'X-Pinit-Direct': '1' };
       if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
 
-      const res = await fetch(`/api/vault/file?docId=${encodeURIComponent(item.id)}`, {
-        method: 'GET',
-        headers,
-      });
+      const [res, signedRes] = await Promise.all([
+        fetch(`/api/vault/file?docId=${encodeURIComponent(item.id)}`, {
+          method: 'GET',
+          headers,
+        }),
+        fetch(`/api/vault/file?docId=${encodeURIComponent(item.id)}&mode=url`, {
+          method: 'GET',
+          headers,
+        }).catch(() => null),
+      ]);
+
+      const signedPayload = signedRes && signedRes.ok ? await signedRes.json().catch(() => null) : null;
+      const signedUrl = typeof signedPayload?.signedUrl === 'string' ? signedPayload.signedUrl : null;
 
       if (!res.ok) {
+        if (signedUrl) {
+          setPreviewDoc((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  loadingFile: false,
+                  blobUrl: null,
+                  signedUrl,
+                  mimeType: signedPayload?.mimeType || 'application/pdf',
+                  fileName: signedPayload?.fileName || item.title || 'document.pdf',
+                  textContent: '',
+                }
+              : null
+          );
+          return;
+        }
         const errPayload = await res.json().catch(() => ({}));
         setPreviewDoc((prev) =>
           prev
@@ -240,6 +267,7 @@ export default function VaultPage() {
               ...prev,
               loadingFile: false,
               blobUrl,
+              signedUrl,
               mimeType,
               fileName,
               textContent,
@@ -1186,15 +1214,38 @@ export default function VaultPage() {
                 >
                   {previewDoc.rescanning ? '⏳ Scanning with Groq AI...' : '🔄 Re-scan with Groq AI'}
                 </button>
-                {previewDoc.blobUrl && (
+                {(previewDoc.signedUrl || previewDoc.blobUrl) && (
+                  previewDoc.signedUrl ? (
+                    <a
+                      href={previewDoc.signedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-ghost btn-sm"
+                      style={{ fontSize: 12, textDecoration: 'none' }}
+                    >
+                      ↗ Open in New Tab
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (previewDoc.blobUrl) window.open(previewDoc.blobUrl, '_blank');
+                      }}
+                      className="btn-ghost btn-sm"
+                      style={{ fontSize: 12 }}
+                    >
+                      ↗ Open in New Tab
+                    </button>
+                  )
+                )}
+                {(previewDoc.blobUrl || previewDoc.signedUrl) && (
                   <a
-                    href={previewDoc.blobUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={previewDoc.blobUrl || previewDoc.signedUrl || undefined}
+                    download={previewDoc.fileName}
                     className="btn-ghost btn-sm"
                     style={{ fontSize: 12, textDecoration: 'none' }}
                   >
-                    ↗ Open in New Tab
+                    ⬇ Download
                   </a>
                 )}
                 <button
@@ -1222,16 +1273,16 @@ export default function VaultPage() {
                     <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>Document Preview Unavailable</div>
                     <div style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360 }}>{previewDoc.fileError}</div>
                   </div>
-                ) : previewDoc.blobUrl && previewDoc.mimeType.includes('pdf') ? (
+                ) : (previewDoc.blobUrl || previewDoc.signedUrl) && previewDoc.mimeType.includes('pdf') ? (
                   <iframe
-                    src={previewDoc.blobUrl}
+                    src={`${previewDoc.blobUrl || previewDoc.signedUrl}#toolbar=1&navpanes=0`}
                     title={previewDoc.fileName}
                     style={{ width: '100%', height: '100%', minHeight: 480, border: 'none' }}
                   />
-                ) : previewDoc.blobUrl && previewDoc.mimeType.startsWith('image/') ? (
+                ) : (previewDoc.blobUrl || previewDoc.signedUrl) && previewDoc.mimeType.startsWith('image/') ? (
                   <div style={{ flex: 1, overflow: 'auto', padding: 14, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src={previewDoc.blobUrl}
+                      src={previewDoc.blobUrl || previewDoc.signedUrl || undefined}
                       alt={previewDoc.fileName}
                       style={{ maxWidth: '100%', borderRadius: 10, boxShadow: '0 6px 20px rgba(0,0,0,0.25)' }}
                     />

@@ -8,6 +8,7 @@ import { api } from '@/lib/api/client';
 import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 import {
   type VaultDefenseChallenge,
+  type VaultDefenseCodingResult,
   type VaultDefenseResult,
   resolveVaultAuditorMentor,
   getActiveUserMentorId,
@@ -15,6 +16,9 @@ import {
   evaluateVaultDefenseResponses,
   clearPendingVaultDefense,
   extractSkillsFast,
+  isCodingResumeChallenge,
+  inferPreferredCodingLanguage,
+  resolveOralDefenseTurnCount,
 } from '@/lib/vault/vaultDefenseEngine';
 import {
   applyTrustReward,
@@ -22,9 +26,12 @@ import {
   recordCheatingIncident,
 } from '@/lib/trust/trustEngine';
 import { recordMetricLedgerEntry } from '@/lib/telemetry/metricsLedger';
+import { runTestSuite, warmUpCodeRuntime } from '@/lib/code/codeRunner';
 import { InterviewSessionHeader } from './InterviewSessionHeader';
 import { InterviewVoiceHud } from './InterviewVoiceHud';
 import { Round1Behavioral } from './Round1Behavioral';
+import { Round2Coding } from './Round2Coding';
+import { createSemanticFallbackProblem, resolveDynamicCodingProblem } from '../problemGenerator';
 import { useInterviewVoice } from '../hooks/useInterviewVoice';
 import { useInterviewGaze } from '../hooks/useInterviewGaze';
 import type { AvatarTeacher, Message } from '../interviewTypes';
@@ -66,8 +73,6 @@ function buildVaultPromptContext(challenge: VaultDefenseChallenge): string {
   return lines.join('\n\n');
 }
 
-const TOTAL_DEFENSE_TURNS = 3;
-
 export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   user,
   cOS,
@@ -77,6 +82,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   const router = useRouter();
   const [challenge, setChallenge] = useState<VaultDefenseChallenge | null>(() => initialChallenge);
   const [started, setStarted] = useState(false);
+  const [defensePhase, setDefensePhase] = useState<'oral' | 'coding' | 'summary'>('oral');
   const [isPreparing, setIsPreparing] = useState(false);
   const [unreadableReason, setUnreadableReason] = useState<string>('');
   const [showTextPreview, setShowTextPreview] = useState(false);
@@ -89,6 +95,39 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [tabWarnings, setTabWarnings] = useState(0);
 
+  // Dynamic audit scope: 5-6 resume-grounded oral questions + 1 live coding check (auto-skipped for non-coding / B.Com resumes)
+  const totalOralTurns = useMemo(
+    () => (challenge ? resolveOralDefenseTurnCount(challenge) : 5),
+    [challenge]
+  );
+  const requiresCoding = useMemo(
+    () => (challenge ? isCodingResumeChallenge(challenge) : false),
+    [challenge]
+  );
+  const preferredCodingLang = useMemo(
+    () => (challenge ? inferPreferredCodingLanguage(challenge) : 'python'),
+    [challenge]
+  );
+  const codingTopic = useMemo(() => {
+    if (!challenge) return 'Full Stack Engineering';
+    const topSkills = challenge.claimedSkills.slice(0, 3).join(', ');
+    return topSkills || challenge.projects?.[0]?.name || challenge.title || 'Software Engineering';
+  }, [challenge]);
+
+  // Reused Round2Coding Workspace State (zero duplicated editor/runner code!)
+  const [selectedLang, setSelectedLang] = useState<'python' | 'javascript' | 'java' | 'cpp' | 'sql'>(() =>
+    initialChallenge ? inferPreferredCodingLanguage(initialChallenge) : 'python'
+  );
+  const [dynamicProblemData, setDynamicProblemData] = useState<any>(null);
+  const [codingAttempt, setCodingAttempt] = useState(0);
+  const [codeContent, setCodeContentState] = useState('');
+  const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
+  const [latestTestOutcomes, setLatestTestOutcomes] = useState<any[]>([]);
+  const [isRunningCode, setIsRunningCode] = useState(false);
+  const [codeSubmitted, setCodeSubmitted] = useState(false);
+  const [codeRunFailed, setCodeRunFailed] = useState(false);
+  const [hasRunCode, setHasRunCode] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<Message[]>([]);
   messagesRef.current = messages;
@@ -97,6 +136,89 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
   const sessionIdRef = useRef<string>(`vault_defense_${docId || 'doc'}_${Date.now()}`);
   const preparedDocIdRef = useRef<string | null>(null);
   const sendingLockRef = useRef<boolean>(false);
+  const codeModifiedRef = useRef<boolean>(false);
+  const codePerLangRef = useRef<Record<string, string>>({});
+  const prevLangRef = useRef<'python' | 'javascript' | 'java' | 'cpp' | 'sql'>(selectedLang);
+  const codeContentRef = useRef<string>(codeContent);
+  codeContentRef.current = codeContent;
+  const selectedLangRef = useRef<'python' | 'javascript' | 'java' | 'cpp' | 'sql'>(selectedLang);
+  selectedLangRef.current = selectedLang;
+  const codingProblemFetchedRef = useRef<boolean>(false);
+
+  const setCodeContent = useCallback((val: string) => {
+    codeContentRef.current = val;
+    setCodeContentState(val);
+  }, []);
+
+  // Keep preferred coding language aligned when Groq finishes scanning a resume before launch
+  useEffect(() => {
+    if (!started && !codeModifiedRef.current) {
+      setSelectedLang(preferredCodingLang);
+      prevLangRef.current = preferredCodingLang;
+    }
+  }, [preferredCodingLang, started]);
+
+  const currentCodingProb = useMemo(
+    () => resolveDynamicCodingProblem(codingTopic, 'tech', selectedLang, dynamicProblemData),
+    [codingTopic, selectedLang, dynamicProblemData]
+  );
+
+  // Sync starter code into Monaco when switching language or when dynamic problem arrives
+  useEffect(() => {
+    if (!requiresCoding) return;
+    const prevLang = prevLangRef.current;
+    const snapshot = codeContentRef.current;
+    if (prevLang !== selectedLang) {
+      if (snapshot) codePerLangRef.current[prevLang] = snapshot;
+      prevLangRef.current = selectedLang;
+      if (codePerLangRef.current[selectedLang]) {
+        setCodeContent(codePerLangRef.current[selectedLang]);
+        return;
+      }
+    } else if (codeModifiedRef.current && snapshot.trim().length > 0) {
+      return;
+    }
+    if (currentCodingProb?.starterCode) {
+      setCodeContent(currentCodingProb.starterCode);
+    }
+  }, [requiresCoding, selectedLang, currentCodingProb?.starterCode, setCodeContent]);
+
+  const fetchVaultCodingProblem = useCallback(
+    async (lang: 'python' | 'javascript' | 'java' | 'cpp' | 'sql', variation = 0) => {
+      try {
+        const data = await api
+          .post<any>('/api/interview/generate-problem', {
+            topic: codingTopic,
+            domainStream: 'tech',
+            language: lang,
+            difficulty: 'normal',
+            variation,
+            projectContext: challenge?.projects?.[0]?.name || challenge?.title,
+          })
+          .catch(() => null);
+        if (
+          data?.title &&
+          data?.starterCode &&
+          (lang !== 'sql' || (typeof data.testSuite === 'string' && data.testSuite.includes('-- CHECKS --')))
+        ) {
+          setDynamicProblemData(data);
+          return data;
+        }
+      } catch {}
+      const fallback = createSemanticFallbackProblem(codingTopic, 'normal');
+      setDynamicProblemData(fallback);
+      return fallback;
+    },
+    [codingTopic, challenge?.projects, challenge?.title]
+  );
+
+  // Prefetch the resume-tailored coding problem & warm up the sandbox runtime once live session starts
+  useEffect(() => {
+    if (!started || !requiresCoding || codingProblemFetchedRef.current) return;
+    codingProblemFetchedRef.current = true;
+    void warmUpCodeRuntime(selectedLang);
+    void fetchVaultCodingProblem(selectedLang, 0);
+  }, [started, requiresCoding, selectedLang, fetchVaultCodingProblem]);
 
   // Reconstruct challenge on reload directly from ?mode=vault_verify&docId=...
   useEffect(() => {
@@ -359,14 +481,14 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     isTabInactive,
     pauseVoiceListening,
   } = useInterviewVoice({
-    isInterviewActive: started && !result,
+    isInterviewActive: started && !result && defensePhase === 'oral',
     activeStage: 'round1_behavioral',
     activeTopicName: challenge?.title || 'Credential Defense',
     activeTeacherId: activeTeacher.id,
     difficulty: 'hard',
     onFinalTranscript: (text) => handleSendRef.current(text),
     onSilenceNudge: (nudgeText) => {
-      if (!challenge || result) return;
+      if (!challenge || result || defensePhase !== 'oral') return;
       speakWithAvatar(
         nudgeText,
         challenge.auditor.id,
@@ -394,6 +516,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
       latestUserText: string
     ): Promise<string> => {
       const vaultContext = buildVaultPromptContext(activeChallenge);
+      const turnsForDoc = resolveOralDefenseTurnCount(activeChallenge);
       try {
         const res = await api.post<{ reply?: string }>('/api/interview/chat', {
           message: latestUserText,
@@ -401,8 +524,9 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           stage: 'vault_defense',
           difficulty: 'hard',
           customTopic: `${activeChallenge.title} (${activeChallenge.claimedSkills.slice(0, 6).join(', ')})`,
-          domainStream: 'tech',
+          domainStream: isCodingResumeChallenge(activeChallenge) ? 'tech' : 'non_tech',
           vaultContext,
+          totalDefenseTurns: turnsForDoc,
           history: historyForApi,
           telemetry: {
             wpm: wpmScore,
@@ -418,24 +542,32 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
 
       // Clean fallback if chat endpoint is unreachable
       const turnIdx = historyForApi.filter((m) => m.role === 'assistant').length;
-      return generateBrutalDefensePrompt(activeChallenge, turnIdx);
+      return generateBrutalDefensePrompt(activeChallenge, turnIdx, turnsForDoc);
     },
     [wpmScore, fillerWordCount]
   );
 
   const finalizeDefense = useCallback(
-    async (activeChallenge: VaultDefenseChallenge, allAnswers: string[], fullMessages: Message[]) => {
+    async (
+      activeChallenge: VaultDefenseChallenge,
+      allAnswers: string[],
+      fullMessages: Message[],
+      codingResult?: VaultDefenseCodingResult
+    ) => {
       stopVoiceListening();
+      setDefensePhase('summary');
       setIsSendingReply(true);
       setAnimState('thinking');
 
       const askedQuestions = fullMessages
         .filter((m) => m.role === 'assistant')
-        .map((m) => m.content);
+        .map((m) => m.content)
+        .slice(0, allAnswers.length);
 
       let evalRes: VaultDefenseResult = evaluateVaultDefenseResponses(
         activeChallenge.claimedSkills,
-        allAnswers
+        allAnswers,
+        codingResult
       );
 
       try {
@@ -451,10 +583,11 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
             rawTextExcerpt: activeChallenge.rawTextExcerpt || '',
             questions: askedQuestions,
             answers: allAnswers,
+            codingResult,
           })
           .catch(() => null);
         if (groqEval?.ok && groqEval.result && typeof groqEval.result.score === 'number') {
-          evalRes = groqEval.result;
+          evalRes = { ...groqEval.result, codingResult: groqEval.result.codingResult || codingResult };
         }
       } catch {}
 
@@ -602,10 +735,133 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     [cOS, user?.id, stopVoiceListening, stopCamera, speakWithAvatar]
   );
 
+  // Reuse existing 5-tier sandbox test runner (exact same engine as Round 2 AI Interview)
+  const runVaultCodeAndTests = useCallback(async () => {
+    if (isRunningCode) return;
+    setIsRunningCode(true);
+    setHasRunCode(true);
+    setCodeRunFailed(false);
+    setCodeSubmitted(false);
+    setTerminalLogs([`[RUNNER] Executing ${selectedLang.toUpperCase()} verification tests for "${currentCodingProb.title}"...`]);
+
+    try {
+      let fnName =
+        dynamicProblemData?.functionName ||
+        currentCodingProb?.functionName ||
+        /def\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
+        /function\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
+        /(?:const|let|var)\s+([a-zA-Z0-9_]+)\s*=/.exec(codeContent)?.[1] ||
+        /(?:public|private|static)?\s*(?:[\w<>\[\]]+\s+)+([a-zA-Z0-9_]+)\s*\(/.exec(codeContent)?.[1] ||
+        'evaluateSolution';
+      if (
+        fnName.includes('_') &&
+        (selectedLang === 'javascript' ||
+          ((selectedLang === 'java' || selectedLang === 'cpp') && !codeContent.includes(fnName)))
+      ) {
+        fnName = fnName.replace(/_([a-z0-9])/g, (_: string, c: string) => c.toUpperCase());
+      }
+
+      const rawTestCases =
+        Array.isArray(dynamicProblemData?.testCases) && dynamicProblemData.testCases.length > 0
+          ? dynamicProblemData.testCases
+          : Array.isArray(currentCodingProb?.testCases) && currentCodingProb.testCases.length > 0
+          ? currentCodingProb.testCases
+          : [
+              { input: '([10, 20, 30, 40], 25)', output: '2', expectedOutput: '2', name: '[T1: Standard] Nominal check' },
+              { input: '([100, 200, 300, 400, 500], 250)', output: '3', expectedOutput: '3', name: '[T2: Scale] Scale sequence' },
+              { input: '([], 0)', output: '0', expectedOutput: '0', name: '[T3: Zero/Empty] Empty input' },
+              { input: '([-50, -20, 0, 10], -10)', output: '2', expectedOutput: '2', name: '[T4: Edge] Negative values' },
+              { input: '([15, 15, 15, 15], 15)', output: '0', expectedOutput: '0', name: '[T5: Complexity] Boundary check' },
+            ];
+      const testCases = rawTestCases.map((tc: any) => ({
+        ...tc,
+        output: String(tc.output ?? tc.expectedOutput ?? ''),
+        expectedOutput: String(tc.expectedOutput ?? tc.output ?? ''),
+      }));
+
+      const runRes = await runTestSuite(codeContent, selectedLang as any, {
+        functionName: fnName,
+        testCases,
+        testSuite: selectedLang === 'sql' ? (dynamicProblemData?.testSuite || currentCodingProb.testSuite) : undefined,
+        timeoutMs: 5000,
+      });
+
+      setLatestTestOutcomes(runRes.testOutcomes || []);
+      setTerminalLogs((prev) => [
+        ...prev,
+        ...runRes.terminalLogs,
+        ...(runRes.testOutcomes?.length
+          ? [
+              '\n--- CODING VERIFICATION TEST RESULTS ---',
+              ...runRes.testOutcomes.map((o, idx) => {
+                const mark = o.passed ? '✅' : '❌';
+                const name = o.testCaseName || `Test ${idx + 1}`;
+                return `  ${mark} ${name}: ${o.passed ? 'PASSED' : `FAILED (Expected ${o.expectedOutput}, got ${o.actualOutput || 'error'})`}`;
+              }),
+            ]
+          : []),
+      ]);
+
+      const unchanged = codeContentRef.current === codeContent && selectedLangRef.current === selectedLang;
+      setCodeRunFailed(!runRes.allPassed || !unchanged);
+      if (runRes.allPassed && unchanged) {
+        setCodeSubmitted(true);
+        setTerminalLogs((prev) => [...prev, `\n✅ [PASSED] All ${runRes.passedTests} tests verified! Click "Submit Code & Finish Audit" above.`]);
+      } else {
+        setCodeSubmitted(false);
+      }
+    } catch (e: any) {
+      setCodeRunFailed(true);
+      setTerminalLogs((prev) => [...prev, `[ERROR] Execution failed: ${e?.message || 'Syntax error'}`]);
+    } finally {
+      setIsRunningCode(false);
+    }
+  }, [isRunningCode, selectedLang, currentCodingProb, dynamicProblemData, codeContent]);
+
+  const retryVaultCodingChallenge = useCallback(() => {
+    setCodeSubmitted(false);
+    setCodeRunFailed(false);
+    setHasRunCode(false);
+    setTerminalLogs([]);
+    setLatestTestOutcomes([]);
+    setDynamicProblemData(null);
+    codeModifiedRef.current = false;
+    codePerLangRef.current = {};
+    const nextAttempt = codingAttempt + 1;
+    setCodingAttempt(nextAttempt);
+    void fetchVaultCodingProblem(selectedLang, nextAttempt);
+  }, [codingAttempt, fetchVaultCodingProblem, selectedLang]);
+
+  const handleCompleteCodingPhase = useCallback(
+    async (skipped: boolean) => {
+      if (!challenge || sendingLockRef.current || result) return;
+      sendingLockRef.current = true;
+      interruptSpeech();
+      const passedCount = latestTestOutcomes.filter((o) => o?.passed).length;
+      const totalCount = Math.max(latestTestOutcomes.length, currentCodingProb?.testCases?.length || 5);
+      const codingSummary: VaultDefenseCodingResult = {
+        required: true,
+        language: selectedLang,
+        problemTitle: currentCodingProb.title,
+        passedTests: skipped ? 0 : passedCount,
+        totalTests: totalCount,
+        passed: !skipped && codeSubmitted,
+        skipped,
+        codeSnippet: skipped ? undefined : codeContentRef.current.slice(0, 1800),
+      };
+      try {
+        await finalizeDefense(challenge, userAnswersRef.current, messagesRef.current, codingSummary);
+      } finally {
+        sendingLockRef.current = false;
+      }
+    },
+    [challenge, result, interruptSpeech, latestTestOutcomes, currentCodingProb, selectedLang, codeSubmitted, finalizeDefense]
+  );
+
   const handleSendMessage = useCallback(
     async (rawText: string) => {
       const trimmed = String(rawText || '').trim();
-      if (!trimmed || !challenge || sendingLockRef.current || result) return;
+      if (!trimmed || !challenge || sendingLockRef.current || result || defensePhase !== 'oral') return;
 
       sendingLockRef.current = true;
       interruptSpeech();
@@ -618,7 +874,24 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
       setUserAnswers(nextAnswers);
 
       try {
-        if (nextAnswers.length >= TOTAL_DEFENSE_TURNS) {
+        if (nextAnswers.length >= totalOralTurns) {
+          if (requiresCoding) {
+            pauseVoiceListening();
+            setDefensePhase('coding');
+            setIsSendingReply(false);
+            if (!dynamicProblemData) {
+              void fetchVaultCodingProblem(selectedLang, 0);
+            }
+            const codingCue = `That wraps up all ${totalOralTurns} oral resume questions. Since your resume lists technical coding skills, let's do 1 hands-on ${selectedLang.toUpperCase()} coding verification — solve the problem, run the tests, and submit (or click Skip if you can't solve it).`;
+            setMessages((prev) => [...prev, { role: 'assistant', content: codingCue }]);
+            speakWithAvatar(
+              codingCue,
+              challenge.auditor.id,
+              () => setAnimState('talking'),
+              () => setAnimState('idle')
+            );
+            return;
+          }
           await finalizeDefense(challenge, nextAnswers, nextMessages);
           return;
         }
@@ -638,7 +911,21 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
         setIsSendingReply(false);
       }
     },
-    [challenge, result, interruptSpeech, finalizeDefense, requestConversationalTurn, speakWithAvatar]
+    [
+      challenge,
+      result,
+      defensePhase,
+      totalOralTurns,
+      requiresCoding,
+      dynamicProblemData,
+      selectedLang,
+      interruptSpeech,
+      pauseVoiceListening,
+      fetchVaultCodingProblem,
+      finalizeDefense,
+      requestConversationalTurn,
+      speakWithAvatar,
+    ]
   );
 
   handleSendRef.current = handleSendMessage;
@@ -647,9 +934,18 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
     if (!challenge || isPreparing || unreadableReason) return;
     unlockSpeechSynthesis();
     setStarted(true);
+    setDefensePhase('oral');
     setElapsedSeconds(0);
     setUserAnswers([]);
     setMessages([]);
+    setResult(null);
+    setCodeSubmitted(false);
+    setCodeRunFailed(false);
+    setHasRunCode(false);
+    setTerminalLogs([]);
+    setLatestTestOutcomes([]);
+    codingProblemFetchedRef.current = false;
+    codeModifiedRef.current = false;
     setIsSendingReply(true);
     setAnimState('thinking');
 
@@ -741,7 +1037,9 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           <p style={{ color: 'var(--t2)', fontSize: 13.5, lineHeight: 1.55, margin: '0 0 16px' }}>
             {isPreparing
               ? `${challenge.auditor.name} is reading your uploaded file with Groq AI to extract your real skills and projects...`
-              : `You will enter the live 3D AI Interview Studio with ${challenge.auditor.name} (${challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'}) for a 3-turn voice & text conversation directly about the skills and projects on your document.`}
+              : requiresCoding
+              ? `You will enter the live 3D AI Interview Studio with ${challenge.auditor.name} (${challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'}) for ${totalOralTurns} resume-grounded voice & text questions followed by 1 hands-on ${preferredCodingLang.toUpperCase()} coding verification.`
+              : `You will enter the live 3D AI Interview Studio with ${challenge.auditor.name} (${challenge.auditor.gender === 'male' ? 'Opposite Male Auditor' : 'Opposite Female Auditor'}) for ${totalOralTurns} resume-grounded voice & text questions (live coding check automatically skipped for non-coding resume).`}
           </p>
 
           {/* Unreadable File Honest Guard (never launch an interview on an unreadable file) */}
@@ -916,6 +1214,28 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
         </span>
       </div>
       <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 8px', lineHeight: 1.45 }}>{result.critique}</p>
+      {result.codingResult?.required && (
+        <div
+          data-testid="vault-defense-coding-summary"
+          style={{
+            marginBottom: 8,
+            padding: '6px 10px',
+            borderRadius: 8,
+            background: result.codingResult.passed ? 'rgba(16,185,129,0.12)' : 'rgba(245,158,11,0.12)',
+            border: `1px solid ${result.codingResult.passed ? 'rgba(16,185,129,0.35)' : 'rgba(245,158,11,0.35)'}`,
+            fontSize: 11.5,
+            fontWeight: 700,
+            color: result.codingResult.passed ? 'var(--green)' : '#f59e0b',
+          }}
+        >
+          💻 Live {result.codingResult.language.toUpperCase()} Coding Check:{' '}
+          {result.codingResult.skipped
+            ? 'Skipped'
+            : result.codingResult.passed
+            ? `PASSED (${result.codingResult.passedTests}/${result.codingResult.totalTests} tests)`
+            : `${result.codingResult.passedTests}/${result.codingResult.totalTests} tests passed`}
+        </div>
+      )}
       {provenSyncedList.length > 0 && (
         <div
           data-testid="vault-defense-proven-skills"
@@ -982,7 +1302,7 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           activeTeacher={activeTeacher}
           activeTopicName={`Proof Verification: ${challenge.title}`}
           activeStage="vault_defense"
-          domainStream="tech"
+          domainStream={requiresCoding ? 'tech' : 'non_tech'}
           isVoiceListening={isVoiceListening}
           elapsedSeconds={elapsedSeconds}
           formatElapsed={formatElapsed}
@@ -1003,8 +1323,8 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           setBargeInEnabled={setBargeInEnabled}
         />
 
-        {/* Reused Existing Hands-Free Voice HUD Banner */}
-        {!result && (
+        {/* Reused Existing Hands-Free Voice HUD Banner (Oral phase only) */}
+        {!result && defensePhase === 'oral' && (
           <InterviewVoiceHud
             isVoiceListening={isVoiceListening}
             isAvatarSpeaking={isAvatarSpeaking}
@@ -1020,44 +1340,89 @@ export const VaultDefenseRoom: React.FC<VaultDefenseRoomProps> = ({
           />
         )}
 
-        {/* Reused Existing 60/40 Live 3D Avatar + Camera PiP + Transcript Studio Stage */}
-        <Round1Behavioral
-          domainStream="tech"
-          activeTeacher={activeTeacher}
-          animState={animState}
-          showCameraPreview={showCameraPreview}
-          videoPreviewRef={videoPreviewRef}
-          eyeContactScore={eyeContactScore}
-          wpmScore={wpmScore}
-          isAvatarSpeaking={isAvatarSpeaking}
-          isVoiceListening={isVoiceListening}
-          lastInterviewerSpeech={lastInterviewerSpeech}
-          onProceed={() => {}}
-          canProceed={Boolean(result?.passed)}
-          isSendingInterviewMessage={isSendingReply}
-          fillerWordCount={fillerWordCount}
-          messages={messages}
-          messagesEndRef={messagesEndRef}
-          manualTextInput={manualTextInput}
-          setManualTextInput={setManualTextInput}
-          onSendMessage={handleSendMessage}
-          liveSpeechTranscript={liveSpeechTranscript}
-          activeTopicName={challenge.title}
-          difficulty="hard"
-          customStageBadge={`CREDENTIAL DEFENSE · ${challenge.auditor.name.toUpperCase()}`}
-          customStageTitle={challenge.title}
-          customProgressText={
-            result
-              ? result.passed
-                ? `✅ Verified (${result.score}/100) · +5 Trust Score & ${provenSyncedList.length} skills synced`
-                : provenSyncedList.length > 0
-                ? `❌ Full Doc Failed (${result.score}/100) · -5 Trust · ✓ ${provenSyncedList.join(', ')} synced to Portfolio`
-                : `❌ Defense Failed (${result.score}/100) · -5 Trust Score`
-              : `🔥 Live Audit: ${Math.min(TOTAL_DEFENSE_TURNS, userAnswers.length)}/${TOTAL_DEFENSE_TURNS} exchanges · Skills: ${challenge.claimedSkills.slice(0, 5).join(', ')}${tabWarnings > 0 ? ` · ⚠️ ${tabWarnings} tab switch` : ''}`
-          }
-          hideRoundControls={true}
-          footerResultNode={resultFooter}
-        />
+        {/* Phase 2 (Tech/Coding Resumes Only): Reused Existing Round2Coding Monaco + 5-Tier Runner Stage */}
+        {defensePhase === 'coding' && !result ? (
+          <Round2Coding
+            domainStream="tech"
+            currentCodingProb={currentCodingProb}
+            testOutcomes={latestTestOutcomes}
+            onProceed={() => void handleCompleteCodingPhase(false)}
+            onReviewSolution={() => void handleCompleteCodingPhase(false)}
+            onRetryChallenge={retryVaultCodingChallenge}
+            canProceed={codeSubmitted}
+            codeSubmitted={codeSubmitted}
+            codeRunFailed={codeRunFailed}
+            codeReviewStarted={isSendingReply}
+            codeReviewQuestionReady={false}
+            isSendingInterviewMessage={isSendingReply}
+            lastInterviewerSpeech={lastInterviewerSpeech}
+            manualTextInput={manualTextInput}
+            setManualTextInput={setManualTextInput}
+            onSendMessage={() => {}}
+            selectedLang={selectedLang}
+            setSelectedLang={setSelectedLang}
+            runCodeAndTests={runVaultCodeAndTests}
+            isRunning={isRunningCode}
+            codeContent={codeContent}
+            setCodeContent={setCodeContent}
+            codeModifiedRef={codeModifiedRef}
+            activeTeacher={activeTeacher}
+            animState={animState}
+            terminalLogs={terminalLogs}
+            setTerminalLogs={setTerminalLogs}
+            onSkipChallenge={() => void handleCompleteCodingPhase(!hasRunCode)}
+            stageBadgeLabel="LIVE CODING VERIFICATION · PROOF VAULT"
+            proceedLabel="✅ Submit Code & Finish Audit ➔"
+            reviewLabel="✅ Submit Code & Finish Audit ➔"
+            skipLabel={hasRunCode && !codeSubmitted ? 'Finish Audit With Current Attempt ➔' : '⏭ Skip Coding & Finish Audit'}
+            bannerOverride={
+              codeSubmitted
+                ? '✅ All coding test cases passed! Click "Submit Code & Finish Audit ➔" above to compute your final Proof Vault verdict.'
+                : codeRunFailed
+                ? '⚠️ Some coding tests failed. Refine your solution and run again (Ctrl+↵), try a different challenge, or click "Finish Audit With Current Attempt ➔".'
+                : `💻 Final Verification Step: Solve this 1 coding challenge in ${selectedLang.toUpperCase()} (Ctrl+↵ to run tests) to verify hands-on coding proficiency from your resume.`
+            }
+          />
+        ) : (
+          /* Reused Existing 60/40 Live 3D Avatar + Camera PiP + Transcript Studio Stage */
+          <Round1Behavioral
+            domainStream={requiresCoding ? 'tech' : 'non_tech'}
+            activeTeacher={activeTeacher}
+            animState={animState}
+            showCameraPreview={showCameraPreview}
+            videoPreviewRef={videoPreviewRef}
+            eyeContactScore={eyeContactScore}
+            wpmScore={wpmScore}
+            isAvatarSpeaking={isAvatarSpeaking}
+            isVoiceListening={isVoiceListening}
+            lastInterviewerSpeech={lastInterviewerSpeech}
+            onProceed={() => {}}
+            canProceed={Boolean(result?.passed)}
+            isSendingInterviewMessage={isSendingReply}
+            fillerWordCount={fillerWordCount}
+            messages={messages}
+            messagesEndRef={messagesEndRef}
+            manualTextInput={manualTextInput}
+            setManualTextInput={setManualTextInput}
+            onSendMessage={handleSendMessage}
+            liveSpeechTranscript={liveSpeechTranscript}
+            activeTopicName={challenge.title}
+            difficulty="hard"
+            customStageBadge={`CREDENTIAL DEFENSE · ${challenge.auditor.name.toUpperCase()}`}
+            customStageTitle={challenge.title}
+            customProgressText={
+              result
+                ? result.passed
+                  ? `✅ Verified (${result.score}/100) · +5 Trust Score & ${provenSyncedList.length} skills synced`
+                  : provenSyncedList.length > 0
+                  ? `❌ Full Doc Failed (${result.score}/100) · -5 Trust · ✓ ${provenSyncedList.join(', ')} synced to Portfolio`
+                  : `❌ Defense Failed (${result.score}/100) · -5 Trust Score`
+                : `🔥 Live Audit: ${Math.min(totalOralTurns, userAnswers.length)}/${totalOralTurns} questions${requiresCoding ? ' + 1 coding check' : ''} · Skills: ${challenge.claimedSkills.slice(0, 5).join(', ')}${tabWarnings > 0 ? ` · ⚠️ ${tabWarnings} tab switch` : ''}`
+            }
+            hideRoundControls={true}
+            footerResultNode={resultFooter}
+          />
+        )}
       </div>
     </div>
   );

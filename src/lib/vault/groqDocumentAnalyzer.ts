@@ -20,6 +20,7 @@ import {
 } from '@/lib/ats/pdfTextExtractor';
 import {
   evaluateVaultDefenseResponses,
+  type VaultDefenseCodingResult,
   type VaultDefenseResult,
 } from '@/lib/vault/vaultDefenseEngine';
 
@@ -195,7 +196,7 @@ function normalizeQuestions(rawQuestions: unknown): string[] {
   return rawQuestions
     .map((q) => String(q || '').replace(/\s+/g, ' ').trim())
     .filter((q) => q.length >= 25)
-    .slice(0, 3);
+    .slice(0, 6);
 }
 
 function normalizeDocType(rawType: unknown): GroqDocumentAnalysis['documentType'] {
@@ -277,8 +278,11 @@ Return ONLY valid JSON matching this exact schema:
   "summary": "2 concise sentences summarizing what this specific document claims",
   "defenseQuestions": [
     "Question 1: Direct, natural spoken verification question naming an EXACT project, internship, or core skill from THIS document and asking how they built/used it.",
-    "Question 2: Second sharp verification question naming a DIFFERENT real skill, tool, or certification written in THIS document.",
-    "Question 3: Third specific verification question testing another concrete claim or project bullet from THIS document to confirm authenticity."
+    "Question 2: Second sharp verification question naming a DIFFERENT real skill, tool, or framework written in THIS document.",
+    "Question 3: Third specific verification question testing another named project, database, API, or certification from THIS document.",
+    "Question 4: Fourth verification question drilling into a concrete edge case, failure mode, or architecture choice from a different section of THIS document.",
+    "Question 5: Fifth verification question targeting another listed internship, certification, or core stack claim from THIS document.",
+    "Question 6: Sixth verification question synthesizing real production trade-offs across two different skills explicitly listed on THIS document."
   ]
 }
 
@@ -702,12 +706,13 @@ export async function evaluateDefenseWithGroq(opts: {
   rawTextExcerpt?: string;
   questions: string[];
   answers: string[];
+  codingResult?: VaultDefenseCodingResult;
   customGroqKey?: string | null;
 }): Promise<VaultDefenseResult & { gradingSource: 'groq' | 'fallback' }> {
   const validAnswers = (opts.answers || []).map((a) => String(a || '').trim()).filter(Boolean);
   if (validAnswers.length === 0) {
     return {
-      ...evaluateVaultDefenseResponses(opts.claimedSkills, []),
+      ...evaluateVaultDefenseResponses(opts.claimedSkills, [], opts.codingResult),
       gradingSource: 'fallback',
     };
   }
@@ -715,7 +720,7 @@ export async function evaluateDefenseWithGroq(opts: {
   const keys = getGroqApiKeys(opts.customGroqKey);
   if (keys.length === 0) {
     return {
-      ...evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers),
+      ...evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers, opts.codingResult),
       gradingSource: 'fallback',
     };
   }
@@ -724,17 +729,27 @@ export async function evaluateDefenseWithGroq(opts: {
     .map((q, idx) => `Q${idx + 1}: ${q}\nCandidate Answer ${idx + 1}: ${opts.answers[idx] || '[No answer]'}`)
     .join('\n\n');
 
-  const systemPrompt = `You are ${opts.auditorName}, a strict, fair, adversarial Credential & Resume Auditor grading whether a candidate's uploaded document "${opts.title}" is genuine and accurate based on their live defense interview.
+  const codingTranscript = opts.codingResult?.required
+    ? `\n\n--- LIVE CODING VERIFICATION ---\nProblem: ${opts.codingResult.problemTitle}\nLanguage: ${opts.codingResult.language.toUpperCase()}\nOutcome: ${
+        opts.codingResult.skipped
+          ? 'SKIPPED BY CANDIDATE'
+          : opts.codingResult.passed
+          ? `PASSED ALL ${opts.codingResult.passedTests}/${opts.codingResult.totalTests} TEST CASES`
+          : `FAILED (${opts.codingResult.passedTests}/${opts.codingResult.totalTests} tests passed)`
+      }${opts.codingResult.codeSnippet ? `\nSubmitted Code:\n${opts.codingResult.codeSnippet.slice(0, 1200)}` : ''}\n--- END CODING VERIFICATION ---`
+    : '';
 
-- PASS (score >= 65) if the candidate demonstrates real, accurate knowledge across the key projects, skills, tools, or certifications listed on their document. Clear, concise spoken explanations showing genuine hands-on understanding SHOULD pass.
+  const systemPrompt = `You are ${opts.auditorName}, a strict, fair, adversarial Credential & Resume Auditor grading whether a candidate's uploaded document "${opts.title}" is genuine and accurate based on their live defense interview${opts.codingResult?.required ? ' and live coding verification' : ''}.
+
+- PASS (score >= 65) if the candidate demonstrates real, accurate knowledge across the key projects, skills, tools, or certifications listed on their document${opts.codingResult?.required ? ' (and shows genuine hands-on coding ability when tested)' : ''}. Clear, concise spoken explanations showing genuine hands-on understanding SHOULD pass.
 - FAIL (score < 65) if the candidate says "I don't know", gives gibberish, evades multiple questions, contradicts what they wrote on their resume, or fails to defend most claimed skills.
-- GRANULAR SKILL PROOF ("provenSkills"): Regardless of whether overall "passed" is true or false, list in "provenSkills" ONLY the specific individual skills/technologies that the candidate accurately proved with concrete technical/domain reasoning in their answers (for example, ["React"] if they accurately answered the React question even while failing FastAPI and Next.js). NEVER include any skill they said "I don't know" to, deflected on, or answered inaccurately.
+- GRANULAR SKILL PROOF ("provenSkills"): Regardless of whether overall "passed" is true or false, list in "provenSkills" ONLY the specific individual skills/technologies that the candidate accurately proved with concrete technical/domain reasoning in their answers or by passing the live coding check (for example, ["React"] if they accurately answered the React question even while failing FastAPI and Next.js). NEVER include any skill they said "I don't know" to, deflected on, or answered inaccurately.
 
 Return ONLY valid JSON:
 {
   "passed": true or false,
   "score": integer 5 to 98 (must be >= 65 if passed is true, < 65 if passed is false),
-  "provenSkills": ["Exact individual skills accurately proven by the candidate's answers (empty array [] if none were proven)"],
+  "provenSkills": ["Exact individual skills accurately proven by the candidate's answers or passed coding check (empty array [] if none were proven)"],
   "critique": "2-3 crisp sentences directly referencing what the candidate proved or failed to prove from their actual resume."
 }`;
 
@@ -746,7 +761,7 @@ ${opts.rawTextExcerpt ? `Document Excerpt:\n${opts.rawTextExcerpt.slice(0, 1500)
 
 --- INTERROGATION TRANSCRIPT ---
 ${qaTranscript}
---- END TRANSCRIPT ---
+--- END TRANSCRIPT ---${codingTranscript}
 
 Grade strictly and accurately in JSON.`;
 
@@ -783,11 +798,25 @@ Grade strictly and accurately in JSON.`;
           const score = Math.max(5, Math.min(98, Math.round(parsed.score)));
           const passed = Boolean(parsed.passed) && score >= 65;
           const hasExplicitProvenKey = Array.isArray(parsed.provenSkills);
-          const aiProven = hasExplicitProvenKey
+          const rawAiProven = hasExplicitProvenKey
             ? normalizeSkillList(parsed.provenSkills)
             : passed
             ? opts.claimedSkills
-            : (evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers).provenSkills || []);
+            : (evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers, opts.codingResult).provenSkills || []);
+          const aiProven = [...rawAiProven];
+          if (opts.codingResult?.required && opts.codingResult.passed) {
+            const langMap: Record<VaultDefenseCodingResult['language'], string> = {
+              python: 'Python',
+              javascript: 'JavaScript',
+              java: 'Java',
+              cpp: 'C++',
+              sql: 'SQL',
+            };
+            const provenLang = langMap[opts.codingResult.language];
+            if (provenLang && !aiProven.some((s) => s.toLowerCase() === provenLang.toLowerCase())) {
+              aiProven.push(provenLang);
+            }
+          }
           const verifiedSkillsAdded = passed
             ? opts.claimedSkills
             : aiProven;
@@ -804,6 +833,7 @@ Grade strictly and accurately in JSON.`;
             trustDelta: passed ? 5 : -5,
             verifiedSkillsAdded,
             provenSkills: verifiedSkillsAdded,
+            codingResult: opts.codingResult,
             critique,
             gradingSource: 'groq',
           };
@@ -815,7 +845,7 @@ Grade strictly and accurately in JSON.`;
   }
 
   return {
-    ...evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers),
+    ...evaluateVaultDefenseResponses(opts.claimedSkills, opts.answers, opts.codingResult),
     gradingSource: 'fallback',
   };
 }
