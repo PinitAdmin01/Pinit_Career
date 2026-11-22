@@ -141,8 +141,14 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
             flexDirection: 'column',
             gap: 12
           }}>
-            {sessionTranscript.map((msg, idx) => (
-              <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'SDE Candidate' ? 'flex-end' : 'flex-start' }}>
+            {sessionTranscript.map((msg, idx) => {
+              const isCandidate =
+                msg.sender === 'You' ||
+                msg.role === 'Participant' ||
+                msg.role === 'Candidate' ||
+                msg.role === 'SDE Candidate';
+              return (
+              <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: isCandidate ? 'flex-end' : 'flex-start' }}>
                 <div style={{ display: 'flex', gap: 4, fontSize: 9.5, color: 'var(--t3)', marginBottom: 2 }}>
                   <span>{msg.emoji}</span>
                   <strong>{msg.sender}</strong>
@@ -152,15 +158,16 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
                   padding: '8px 12px',
                   borderRadius: 10,
                   fontSize: 12.5,
-                  background: msg.role === 'SDE Candidate' ? 'var(--accent)' : 'var(--bg2)',
-                  color: msg.role === 'SDE Candidate' ? 'white' : 'var(--t1)',
+                  background: isCandidate ? 'var(--accent)' : 'var(--bg2)',
+                  color: isCandidate ? 'white' : 'var(--t1)',
                   maxWidth: '85%',
                   wordBreak: 'break-word'
                 }}>
                   {msg.content}
                 </div>
               </div>
-            ))}
+              );
+            })}
             {sessionTranscript.length === 0 && (
               <p style={{ margin: 0, color: 'var(--t3)', fontSize: 13 }}>No transcript was saved for this session.</p>
             )}

@@ -1,567 +1,514 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
-import { toast } from '@/lib/store/useAppStore';
-import GdReport from '@/components/group-discussion/GdReport';
-import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
-import PinsGate from '@/components/pins/PinsGate';
-import { resolveFloatingMentorId, resolveGdHostId } from '@/lib/group-discussion/gdTurnEngine';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import '@/styles/group-discussion.css';
 
-import { AVATARS, SUGGESTED_TOPICS, getAuthHeaders } from './constants';
-import { useGdOrchestrator } from './hooks/useGdOrchestrator';
+import { AVATARS, SUGGESTED_TOPICS } from './constants';
+import {
+  GD_COMMON_RULES,
+  isAvatarEligibleAsGdHost,
+  resolveFloatingMentorId,
+  resolveGdHostId,
+} from '@/lib/group-discussion/gdTurnEngine';
+import { useGdOrchestrator, type GdStep } from './hooks/useGdOrchestrator';
 import GdMeetGrid from './components/GdMeetGrid';
 import GdTranscriptDrawer from './components/GdTranscriptDrawer';
-import GdAvatarGuideModal from './components/GdAvatarGuideModal';
-import GdHistoryModal, { GdHistoryRecord } from './components/GdHistoryModal';
+import GdReport from '@/components/group-discussion/GdReport';
+import PinsGate from '@/components/pins/PinsGate';
+import GdHistoryModal, { type GdHistoryRecord } from './components/GdHistoryModal';
+import { toast } from '@/lib/store/useAppStore';
 
-const DISCUSSION_TOPICS_BY_DOMAIN = {
-  technical: SUGGESTED_TOPICS,
-  sales: [
-    { name: 'Recovering a Strategic Account After a Service Failure', desc: 'Agree on how to rebuild trust, coordinate a recovery plan, and measure whether the customer relationship is improving.' },
-    { name: 'Choosing a Launch Segment for a New Product', desc: 'Compare customer segments, evidence, acquisition costs, and the risks of committing the launch budget too early.' },
-    { name: 'Responding to a Competitor Price Cut', desc: 'Decide how to protect customer value and retention without reacting with an unsustainable discount.' },
-  ],
-  business: [
-    { name: 'Reducing Support Costs Without Hurting Customer Trust', desc: 'Balance service quality, staffing, automation, and measurable operating costs.' },
-    { name: 'Prioritizing Two Products With Limited Runway', desc: 'Compare expected value, execution risk, customer impact, and the cost of delaying either product.' },
-    { name: 'Expanding Into a New Region', desc: 'Assess customer demand, compliance, operating costs, and a low-risk way to test the market.' },
-  ],
-};
-
-function normalizeGdHistoryRecords(value: unknown): GdHistoryRecord[] {
-  if (!Array.isArray(value)) return [];
-
-  return value.flatMap((entry): GdHistoryRecord[] => {
-    if (typeof entry !== 'object' || entry === null || Array.isArray(entry)) return [];
-    const item = entry as Record<string, unknown>;
-    if (typeof item.id !== 'string' || typeof item.topic !== 'string') return [];
-
-    const rawReport = typeof item.report === 'object' && item.report !== null && !Array.isArray(item.report)
-      ? item.report as Record<string, unknown>
-      : null;
-    const rawScore = rawReport?.score;
-    const report = rawReport ? {
-      score: typeof rawScore === 'number' && Number.isFinite(rawScore) && rawScore >= 0 && rawScore <= 100 ? rawScore : undefined,
-      verdict: typeof rawReport.verdict === 'string' ? rawReport.verdict.slice(0, 4000) : undefined,
-      gapsIdentified: Array.isArray(rawReport.gapsIdentified)
-        ? rawReport.gapsIdentified.filter((gap): gap is string => typeof gap === 'string').slice(0, 20)
-        : undefined,
-      keyMoments: Array.isArray(rawReport.keyMoments)
-        ? rawReport.keyMoments.filter((moment): moment is string => typeof moment === 'string').slice(0, 20)
-        : undefined,
-      evaluated: typeof rawReport.evaluated === 'boolean' ? rawReport.evaluated : undefined,
-    } : undefined;
-    const transcript = Array.isArray(item.transcript)
-      ? item.transcript.flatMap((message) => {
-          if (typeof message !== 'object' || message === null || Array.isArray(message)) return [];
-          const row = message as Record<string, unknown>;
-          if (typeof row.content !== 'string') return [];
-          return [{
-            sender: typeof row.sender === 'string' ? row.sender.slice(0, 100) : 'Participant',
-            role: typeof row.role === 'string' ? row.role.slice(0, 100) : 'Participant',
-            content: row.content.slice(0, 6000),
-            emoji: typeof row.emoji === 'string' ? row.emoji.slice(0, 16) : '💬',
-          }];
-        }).slice(-120)
-      : undefined;
-
-    return [{
-      id: item.id.slice(0, 120),
-      topic: item.topic.slice(0, 200),
-      objective: typeof item.objective === 'string' ? item.objective.slice(0, 1000) : undefined,
-      date: typeof item.date === 'string' ? item.date.slice(0, 80) : '',
-      domain: item.domain === 'technical' || item.domain === 'sales' || item.domain === 'business' ? item.domain : undefined,
-      report,
-      transcript,
-    }];
-  }).slice(0, 25);
-}
+const DOMAIN_OPTIONS: Array<{
+  id: 'technical' | 'business' | 'commerce' | 'sales';
+  label: string;
+  icon: string;
+}> = [
+  { id: 'technical', label: 'Tech & AI', icon: '💻' },
+  { id: 'business', label: 'Business', icon: '📊' },
+  { id: 'commerce', label: 'B.Com / Finance', icon: '🧾' },
+  { id: 'sales', label: 'Sales & Growth', icon: '📣' },
+];
 
 export default function GroupDiscussionPage({
   embedded = false,
   autoStartGd = false,
-}: { embedded?: boolean; autoStartGd?: boolean } = {}) {
+}: {
+  embedded?: boolean;
+  autoStartGd?: boolean;
+}) {
   const { user } = useAuth();
   const cOS = useCareerOS();
-  const currentMentorId = resolveFloatingMentorId({
-    guidanceMentorId: user?.guidanceMentorId,
-    selectedTeacherId: user?.selectedTeacherId,
-  });
-  const gdHostId = resolveGdHostId(currentMentorId);
+  const router = useRouter();
 
-  // Exclude user's currently active mentor to prevent overlap
-  const filteredAvatars = AVATARS.filter(a => a.id !== currentMentorId);
+  // Core setup state
+  const [step, setStep] = useState<GdStep>('setup');
+  const [roomName, setRoomName] = useState(SUGGESTED_TOPICS[0].title);
+  const [objective, setObjective] = useState(SUGGESTED_TOPICS[0].objective);
+  const [domain, setDomain] = useState<'technical' | 'sales' | 'business' | 'commerce'>(
+    SUGGESTED_TOPICS[0].domain
+  );
+  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
+  const [sessionDurationMinutes, setSessionDurationMinutes] = useState<number>(10);
 
-  // Navigation steps: 'create_room' | 'invite_concept' | 'call_grid'
-  const [step, setStep] = useState<'create_room' | 'invite_concept' | 'call_grid'>('create_room');
+  // User's selected AI Mentor (default: 'priya') — strictly excluded from being GD Host
+  const floatingMentorId = resolveFloatingMentorId(user?.guidanceMentorId || user?.selectedTeacherId);
+  const defaultHost = resolveGdHostId(floatingMentorId, 'akash');
 
-  // Voice action deep-link: `/interview?tab=gd&autostart=gd`
-  // Advances from room setup to the ready-to-launch panelist confirmation step (0 Pins spent).
-  const autoStartGdHandledRef = useRef(false);
+  const [hostId, setHostId] = useState<string>(defaultHost);
+  const [invitedAvatars, setInvitedAvatars] = useState<string[]>([
+    defaultHost,
+    'kashyap',
+    'divya',
+  ]);
+
+  // Settings adapted from AI Interview Studio
+  const [showCoachChips, setShowCoachChips] = useState<boolean>(true);
+  const [audioVolume, setAudioVolume] = useState<number>(100);
+  const [historyModalOpen, setHistoryModalOpen] = useState<boolean>(false);
+  const [historySearch, setHistorySearch] = useState<string>('');
+  const [historyDomainFilter, setHistoryDomainFilter] = useState<'all' | 'technical' | 'sales' | 'business' | 'commerce'>('all');
+
+  // Sync hostId if user profile loads and their AI mentor conflicts with hostId
   useEffect(() => {
-    if (!autoStartGd) {
-      autoStartGdHandledRef.current = false;
-      return;
+    if (!isAvatarEligibleAsGdHost(hostId, floatingMentorId)) {
+      const safeHost = resolveGdHostId(floatingMentorId, 'akash');
+      setHostId(safeHost);
+      setInvitedAvatars(prev => {
+        const cleaned = prev.filter(id => id !== hostId);
+        return cleaned.includes(safeHost) ? cleaned : [safeHost, ...cleaned];
+      });
     }
-    if (autoStartGdHandledRef.current || step !== 'create_room') return;
-    autoStartGdHandledRef.current = true;
-    setStep('invite_concept');
-    toast.info('GD Boardroom Ready 👥', 'Review your AI panelists and start the group discussion when ready.');
+  }, [floatingMentorId, hostId]);
+
+  // Support autoStartGd deep-link from /interview?tab=gd&autostart=true
+  useEffect(() => {
+    if (autoStartGd && step === 'setup') {
+      setStep('select_avatars');
+    }
   }, [autoStartGd, step]);
 
-  // Difficulty & Custom Avatar Guide & History Modal States
-  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
-  const [domain, setDomain] = useState<'technical' | 'sales' | 'business'>('technical');
-  const [sessionDurationMinutes, setSessionDurationMinutes] = useState<number>(10);
-  const [avatarGuideOpen, setAvatarGuideOpen] = useState(false);
-  const [historyModalOpen, setHistoryModalOpen] = useState(false);
-  const [selectedHistoryItem, setSelectedHistoryItem] = useState<GdHistoryRecord | null>(null);
-  const [historySearchQuery, setHistorySearchQuery] = useState('');
-  const [historyDomainFilter, setHistoryDomainFilter] = useState<'all' | 'technical' | 'sales' | 'business'>('all');
-  const [historyListState, setHistoryListState] = useState<GdHistoryRecord[]>([]);
-
-  // Room details
-  const [roomName, setRoomName] = useState('AWS Multi-Region Hydration Sync');
-  const [roomDesc, setRoomDesc] = useState('Present caching architecture proposal to managers.');
-  const [selectedConcept, setSelectedConcept] = useState('Microservices Orchestration');
-  const [invitedAvatars, setInvitedAvatars] = useState<string[]>([]);
-
-  const refreshHistoryList = useCallback(async () => {
-    if (typeof window === 'undefined') return;
-    const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
-    let localList: GdHistoryRecord[] = [];
-    try {
-      const stored = localStorage.getItem(historyKey);
-      localList = normalizeGdHistoryRecords(stored ? JSON.parse(stored) : []);
-      setHistoryListState(localList);
-    } catch (e) {
-      console.warn('Failed to load local GD history:', e);
-    }
-
-    if (user?.id) {
-      try {
-        const headers = await getAuthHeaders();
-        const res = await fetch('/api/gd/history', { headers });
-        if (res.ok) {
-          const data = await res.json();
-          const remoteSessions = normalizeGdHistoryRecords(data.sessions);
-          if (remoteSessions.length > 0) {
-            const map = new Map<string, GdHistoryRecord>();
-            localList.forEach(item => map.set(item.id, item));
-            remoteSessions.forEach(item => map.set(item.id, item));
-            const merged = Array.from(map.values()).slice(0, 25);
-            setHistoryListState(merged);
-            localStorage.setItem(historyKey, JSON.stringify(merged));
-          }
-        }
-      } catch (err) {
-        console.warn('[GD History] Remote cloud fetch error:', err);
-      }
-    }
-  }, [user?.id]);
-
+  // Clean up stale ?call=true URL parameter if not actively in a call
   useEffect(() => {
-    refreshHistoryList();
-  }, [refreshHistoryList]);
-  useEffect(() => {
-    if (typeof window !== 'undefined' && step !== 'call_grid') {
+    if (step !== 'call_grid' && typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       if (url.searchParams.has('call')) {
         url.searchParams.delete('call');
-        window.history.replaceState(null, '', url.pathname + (url.search ? url.search : ''));
-        window.dispatchEvent(new Event('popstate'));
+        window.history.replaceState({}, '', url.toString());
       }
     }
   }, [step]);
 
-
-  const handleDeleteHistoryItem = (id: string) => {
-    if (typeof window === 'undefined') return;
-    try {
-      const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
-      const stored = localStorage.getItem(historyKey);
-      const list = normalizeGdHistoryRecords(stored ? JSON.parse(stored) : []);
-      const updated = list.filter((item: any) => item.id !== id);
-      localStorage.setItem(historyKey, JSON.stringify(updated));
-      setHistoryListState(updated);
-      if (selectedHistoryItem?.id === id) {
-        setSelectedHistoryItem(null);
-      }
-      toast.success('Record Deleted', 'Past boardroom history item removed.');
-
-      if (user?.id) {
-        getAuthHeaders().then(async headers => {
-          try {
-            await fetch(`/api/gd/history?id=${encodeURIComponent(id)}`, {
-              method: 'DELETE',
-              headers
-            });
-          } catch (err) {
-            console.warn('[GD History] Remote delete failed:', err);
-          }
-        }).catch(() => {});
-      }
-    } catch (e) {
-      console.warn('Failed to delete history item:', e);
-    }
-  };
-
-  const handleExportHistoryJSON = (record: GdHistoryRecord) => {
-    try {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(record, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `gd_session_${(record.topic || 'session').replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      toast.success('JSON Exported', 'Session recap file downloaded.');
-    } catch (e) {
-      toast.error('Export Failed', 'Unable to download JSON file.');
-    }
-  };
-
-  // Wire Orchestrator Hook
   const orch = useGdOrchestrator({
     user,
-    cOS,
+    spendPins: (_amount, reason) => cOS.spendPins('gd', `gd:${roomName || 'default-room'}`, reason),
+    embedded,
     roomName,
-    roomDesc,
-    selectedConcept,
+    objective,
     domain,
     difficulty,
     sessionDurationMinutes,
     invitedAvatars,
+    hostId,
+    setHostId,
     setInvitedAvatars,
-    currentMentorId,
-    gdHostId,
-    filteredAvatars,
+    setRoomName,
+    setObjective,
+    setDomain,
     setStep,
-    embedded,
-    onRecordSaved: (record) => {
-      setHistoryListState(prev => [record, ...prev.filter(r => r.id !== record.id)].slice(0, 25));
-    }
+    step,
+    audioVolume,
   });
 
-  const handleCreateRoom = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!roomName.trim()) {
-      toast.error('Room Name Required', 'Please enter a name for your group discussion room.');
+  // Active topic starter prompts for live room idea chips
+  const activeStarterPrompts = useMemo(() => {
+    const exact = SUGGESTED_TOPICS.find(
+      t => t.title.toLowerCase() === roomName.trim().toLowerCase()
+    );
+    if (exact) return exact.starterPrompts;
+    const byDomain = SUGGESTED_TOPICS.find(t => t.domain === domain);
+    return byDomain?.starterPrompts || SUGGESTED_TOPICS[0].starterPrompts;
+  }, [roomName, domain]);
+
+  const filteredTopics = useMemo(
+    () => SUGGESTED_TOPICS.filter(t => t.domain === domain),
+    [domain]
+  );
+
+  const handleDomainSwitch = (nextDomain: 'technical' | 'sales' | 'business' | 'commerce') => {
+    setDomain(nextDomain);
+    const firstForDomain = SUGGESTED_TOPICS.find(t => t.domain === nextDomain);
+    if (firstForDomain) {
+      setRoomName(firstForDomain.title);
+      setObjective(firstForDomain.objective);
+    }
+  };
+
+  const handleSelectHost = (candidateId: string) => {
+    if (!isAvatarEligibleAsGdHost(candidateId, floatingMentorId)) {
+      const mentorObj = AVATARS.find(a => a.id === floatingMentorId);
+      toast.warning(
+        `${mentorObj?.name || 'Your AI Mentor'} cannot be GD Host`,
+        'Because you selected them as your AI Mentor, choose another panelist as your GD Host.'
+      );
       return;
     }
-    setStep('invite_concept');
+
+    setHostId(candidateId);
+    setInvitedAvatars(prev => {
+      const withoutNew = prev.filter(id => id !== candidateId);
+      return [candidateId, ...withoutNew].slice(0, Math.max(3, prev.length));
+    });
   };
 
-  // Demo audio play for Avatar Guide
-  const handlePlayDemo = (avatarId: string, name: string) => {
-    stopSpeaking();
-    const demoText = `Hello! I am ${name}. My voice profile is calibrated and preselected. I will be debating you in the corporate boardroom!`;
-    speakWithAvatar(demoText, avatarId, () => {}, () => {}, false, true);
-    toast.success(`Playing Demo`, `Speaking in ${name}'s voice profile.`);
+  const togglePanelist = (id: string) => {
+    if (id === hostId) return; // Host stays seated in the room
+    setInvitedAvatars(prev => {
+      const exists = prev.includes(id);
+      const currentPanelists = prev.filter(x => x !== hostId);
+      if (exists) {
+        if (currentPanelists.length <= 2) {
+          toast.info(
+            'Keep at least 2 panelists',
+            'You need Avatar 1 (Challenger) and Avatar 2 (Diplomat) for the live GD loop.'
+          );
+          return prev;
+        }
+        return prev.filter(x => x !== id);
+      }
+      if (prev.length >= 6) {
+        toast.info(
+          'Boardroom full',
+          'Up to 6 AI members (Host + 5 panelists) keep the conversation sharp and focused.'
+        );
+        return prev;
+      }
+      return [...prev, id];
+    });
   };
+
+  const mentorProfile = AVATARS.find(a => a.id === floatingMentorId);
+  const currentHostProfile = AVATARS.find(a => a.id === orch.effectiveHostId);
+  const currentPanelists = invitedAvatars.filter(id => id !== orch.effectiveHostId);
 
   return (
-    <div className="gd-boardroom-container animate-fade-in">
-      {/* Header banner (Suppressed title when embedded in /interview) */}
-      <div className="gd-header-banner" style={embedded ? { marginTop: 0, marginBottom: 12, justifyContent: 'flex-end' } : undefined}>
-        {!embedded && (
+    <div
+      className="gd-boardroom-container animate-fade-in"
+      style={embedded ? { padding: '6px 0 0', minHeight: 'auto' } : undefined}
+    >
+      {/* Top Banner (Hidden during active live call for clean focus) */}
+      {step !== 'call_grid' && (
+        <div className="gd-header-banner">
           <div>
-            <h1 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
-              Group Discussion Practice
+            <h1 className="gd-header-title">
+              <span>🏛️</span>
+              <span>Live Group Discussion Boardroom</span>
             </h1>
-            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>Practice clear, collaborative discussion with a timed host and a diverse panel.</p>
+            <p className="gd-header-subtitle">
+              Host Intro &amp; Rules → You Speak → Avatar 1 Challenges → Avatar 2 Bridges Both → Repeat.
+            </p>
           </div>
-        )}
-        {step !== 'call_grid' && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <button
-              onClick={() => {
-                refreshHistoryList();
-                setHistoryModalOpen(true);
-              }}
-              className="btn-primary"
-              style={{
-                padding: '6px 12px',
-                fontSize: 12,
-                borderRadius: 8,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                background: 'var(--bg3)',
-                color: 'var(--teal)',
-                border: '1.5px solid var(--teal)',
-                fontWeight: 800,
-                cursor: 'pointer'
-              }}
-            >
-              Past History ({historyListState.length})
-            </button>
-
-            <button
-              onClick={() => setAvatarGuideOpen(true)}
-              className="btn-primary"
-              style={{
-                padding: '6px 12px',
-                fontSize: 12,
-                borderRadius: 8,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
-                color: 'white',
-                fontWeight: 800,
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Open Avatar Guide
-            </button>
-
-            <button
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  const doc = document.documentElement;
-                  const isDark = doc.getAttribute('data-theme') === 'dark';
-                  doc.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                  window.dispatchEvent(new Event('theme-change'));
-                }
-              }}
-              className="btn-ghost"
-              style={{
-                padding: '5px 10px',
-                fontSize: 12,
-                borderRadius: 8,
-                border: '1px solid var(--border)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                cursor: 'pointer',
-                fontWeight: 600,
-                color: 'var(--t1)'
-              }}
-            >
-              Theme
-            </button>
-            <Link href="/dashboard" className="btn-ghost" style={{ fontSize: 12, textDecoration: 'none' }}>
-              ➔ Return to Command
-            </Link>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            {step === 'select_avatars' && (
+              <button
+                type="button"
+                onClick={() => setStep('setup')}
+                className="btn-ghost"
+                style={{ padding: '7px 13px', fontSize: 12.5, fontWeight: 800, borderRadius: 10 }}
+              >
+                ← Back to Topic
+              </button>
+            )}
+            {!embedded && (
+              <Link
+                href="/interview"
+                className="btn-ghost"
+                style={{ padding: '7px 13px', fontSize: 12.5, fontWeight: 800, borderRadius: 10, textDecoration: 'none' }}
+              >
+                🎙️ 1-on-1 Interview
+              </Link>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {step === 'create_room' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 1000, margin: '20px auto' }}>
-          <div className="gd-setup-column-grid">
-            {/* Left Column: Boardroom Setup Form */}
-            <div className="gd-setup-card animate-fade-in">
-              <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 20 }}>
-                Step 1: Setup Boardroom Metadata
-              </h2>
-              <form onSubmit={handleCreateRoom} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4 }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const availableTopics = DISCUSSION_TOPICS_BY_DOMAIN[domain];
-                      const randomTopic = availableTopics[Math.floor(Math.random() * availableTopics.length)];
-                      setRoomName(randomTopic.name);
-                      setRoomDesc(randomTopic.desc);
-                      setSelectedConcept(randomTopic.name);
-                      toast.success('Random Topic Loaded', `Configured debate around "${randomTopic.name}".`);
-                    }}
-                    style={{
-                      background: 'rgba(var(--accent-teal-rgb),  0.1)',
-                      border: '1.5px solid var(--teal)',
-                      borderRadius: 10,
-                      padding: '6px 12px',
-                      color: 'var(--teal)',
-                      fontSize: 12,
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 6
-                    }}
-                  >
-                    Suggest {domain.charAt(0).toUpperCase() + domain.slice(1)} Topic
-                  </button>
-                </div>
-
-                <div>
-                  <label className="gd-form-label">BOARDROOM NAME</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. AWS Multi-Region Hydration Sync"
-                    value={roomName}
-                    onChange={(e) => {
-                      setRoomName(e.target.value);
-                      setSelectedConcept(e.target.value);
-                    }}
-                    className="gd-form-input"
-                  />
-                </div>
-                <div>
-                  <label className="gd-form-label">ROOM OBJECTIVE (OPTIONAL)</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Present caching architecture proposal to managers."
-                    value={roomDesc}
-                    onChange={(e) => setRoomDesc(e.target.value)}
-                    className="gd-form-input"
-                  />
-                </div>
-
-                {/* Boardroom Domain Selector */}
-                <div>
-                  <label className="gd-form-label" style={{ marginBottom: 8 }}>BOARDROOM DOMAIN</label>
-                  <div className="gd-domain-grid">
-                    {(['technical', 'sales', 'business'] as const).map(dom => {
-                      const isActive = domain === dom;
-                      const labelMap = {
-                        technical: 'Technical',
-                        sales: 'Sales',
-                        business: 'Business'
-                      };
-                      return (
-                        <button
-                          key={dom}
-                          type="button"
-                          onClick={() => setDomain(dom)}
-                          className="gd-select-btn"
-                          style={{
-                            background: isActive ? 'var(--accent)' : 'var(--bg3)',
-                            border: `1.5px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
-                            color: isActive ? 'white' : 'var(--t1)'
-                          }}
-                        >
-                          {labelMap[dom]}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {domain === 'technical' && 'Focus on technology, code integrations, and hardware.'}
-                    {domain === 'sales' && 'Focus on marketing budget, campaigns, and conversions.'}
-                    {domain === 'business' && 'Focus on unit economics, operational costs, and structures.'}
-                  </p>
-                </div>
-
-                {/* Difficulty Selector */}
-                <div>
-                  <label className="gd-form-label" style={{ marginBottom: 8 }}>BOARDROOM DEBATE DIFFICULTY</label>
-                  <div className="gd-domain-grid">
-                    {(['easy', 'medium', 'hard'] as const).map(level => {
-                      const isActive = difficulty === level;
-                      return (
-                        <button
-                          key={level}
-                          type="button"
-                          onClick={() => setDifficulty(level)}
-                          className="gd-select-btn"
-                          style={{
-                            background: isActive ? 'var(--accent)' : 'var(--bg3)',
-                            border: `1.5px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
-                            color: isActive ? 'white' : 'var(--t1)',
-                            textTransform: 'capitalize'
-                          }}
-                        >
-                          {level}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {difficulty === 'easy' && 'Supportive questions and a gentle 25-second response window.'}
-                    {difficulty === 'medium' && 'Balanced follow-ups and a 25-second response window.'}
-                    {difficulty === 'hard' && 'Tougher evidence and trade-off questions; 25 seconds to respond.'}
-                  </p>
-                </div>
-
-                {/* Session Duration Selector */}
-                <div>
-                  <label className="gd-form-label" style={{ marginBottom: 8 }}>SESSION LENGTH</label>
-                  <div className="gd-domain-grid">
-                    {([5, 10, 15] as const).map(mins => {
-                      const isActive = sessionDurationMinutes === mins;
-                      return (
-                        <button
-                          key={mins}
-                          type="button"
-                          onClick={() => setSessionDurationMinutes(mins)}
-                          className="gd-select-btn"
-                          style={{
-                            background: isActive ? 'var(--teal)' : 'var(--bg3)',
-                            border: `1.5px solid ${isActive ? 'var(--teal)' : 'var(--border)'}`,
-                            color: isActive ? 'white' : 'var(--t1)'
-                          }}
-                        >
-                          {mins} Mins {mins === 5 ? '(Express)' : mins === 10 ? '(Standard)' : '(Deep Dive)'}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {sessionDurationMinutes === 5 && 'Express session with fast-paced interventions and 5-min recap.'}
-                    {sessionDurationMinutes === 10 && 'Standard 10-min corporate debate with mid-session summary.'}
-                    {sessionDurationMinutes === 15 && 'Deep dive architectural boardroom with comprehensive closing synthesis.'}
-                  </p>
-                </div>
-
-                <button type="submit" className="btn-primary" style={{ justifyContent: 'center', padding: '12px', marginTop: 8 }}>
-                  ➔ Configure Discussion Room
-                </button>
-              </form>
+      {/* ══════════════════════════════════════════════════════════════════════
+          STEP 1: TOPIC SETUP + COMMON GD ROOM RULES + HISTORY
+         ══════════════════════════════════════════════════════════════════════ */}
+      {step === 'setup' && (
+        <div className="gd-setup-column-grid animate-fade-in">
+          {/* Left Column: Topic & Session Configuration */}
+          <div className="gd-setup-card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* Domain Selector */}
+            <div>
+              <label className="gd-form-label">1. Choose Discussion Domain</label>
+              <div className="gd-domain-grid gd-domain-grid-4">
+                {DOMAIN_OPTIONS.map(d => {
+                  const active = domain === d.id;
+                  return (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => handleDomainSwitch(d.id)}
+                      className="gd-select-btn"
+                      style={{
+                        background: active ? 'rgba(20,184,166,0.16)' : 'var(--bg3)',
+                        border: `1.5px solid ${active ? 'var(--teal)' : 'var(--border)'}`,
+                        color: active ? '#5eead4' : 'var(--t2)',
+                      }}
+                    >
+                      <span>{d.icon}</span>
+                      <span>{d.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Right Column: Previous Boardroom Sessions */}
-            <div className="gd-history-panel animate-fade-in">
-              <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 16 }}>
-                Previous Boardrooms
-              </h2>
-              {historyListState.length === 0 ? (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--teal)', fontSize: 13, fontWeight: 900 }}>GD</div>
-                  <span style={{ fontSize: 12, fontWeight: 700 }}>No previous boardroom sessions found.</span>
-                </div>
-              ) : (
-                <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
-                  {historyListState.map((past: GdHistoryRecord) => (
-                    <div key={past.id} className="gd-history-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>{past.date}</span>
-                        <span style={{ fontSize: 11, color: past.report?.evaluated === false || !Number.isFinite(past.report?.score) ? 'var(--t3)' : 'var(--teal)', fontWeight: 800 }}>
-                          {past.report?.evaluated === false || !Number.isFinite(past.report?.score) ? 'Not scored' : `Score: ${past.report!.score}%`}
+            {/* Creative Suggested Topics */}
+            <div>
+              <label className="gd-form-label">2. Pick a High-Energy Topic (Or Write Your Own)</label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 8, marginBottom: 10 }}>
+                {filteredTopics.map(t => {
+                  const selected = roomName === t.title;
+                  return (
+                    <button
+                      key={t.title}
+                      type="button"
+                      onClick={() => {
+                        setRoomName(t.title);
+                        setObjective(t.objective);
+                      }}
+                      style={{
+                        textAlign: 'left',
+                        padding: '10px 13px',
+                        borderRadius: 12,
+                        border: `1.5px solid ${selected ? 'var(--teal)' : 'var(--border)'}`,
+                        background: selected ? 'rgba(20,184,166,0.1)' : 'var(--bg3)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                        <span style={{ fontSize: 13.5, fontWeight: 900, color: selected ? '#5eead4' : 'var(--t1)' }}>
+                          {t.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 800,
+                            padding: '2px 7px',
+                            borderRadius: 6,
+                            background: 'rgba(255,255,255,0.06)',
+                            color: 'var(--t2)',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {t.badge}
                         </span>
                       </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{past.topic}</h4>
-                      <p style={{ fontSize: 10.5, color: 'var(--t3)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{past.objective}</p>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
-                        <div style={{ display: 'flex', gap: 6 }}>
-                          {past.domain && (
-                            <span style={{ fontSize: 9.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
-                              {past.domain}
-                            </span>
-                          )}
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setRoomName(past.topic);
-                            setRoomDesc(past.objective || '');
-                            setSelectedConcept(past.topic);
-                            orch.setMessages((past.transcript as any) || []);
-                            orch.setGdReport(past.report || null);
-                          }}
-                          className="gd-review-btn"
-                        >
-                          Review Recap
-                        </button>
-                      </div>
+                      <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>{t.objective}</div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <input
+                type="text"
+                value={roomName}
+                onChange={e => setRoomName(e.target.value)}
+                placeholder="Or type any custom GD topic you want to debate..."
+                className="gd-form-input"
+                maxLength={180}
+              />
+              <input
+                type="text"
+                value={objective}
+                onChange={e => setObjective(e.target.value)}
+                placeholder="Optional goal (e.g., Reach a practical 3-step recommendation)"
+                className="gd-form-input"
+                style={{ marginTop: 8, fontSize: 13 }}
+                maxLength={220}
+              />
+            </div>
+
+            {/* Difficulty & Session Duration */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div>
+                <label className="gd-form-label">3. Challenger Intensity</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+                  {(['easy', 'medium', 'hard'] as const).map(lvl => (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => setDifficulty(lvl)}
+                      style={{
+                        padding: '8px 6px',
+                        borderRadius: 10,
+                        border: `1.5px solid ${difficulty === lvl ? 'var(--teal)' : 'var(--border)'}`,
+                        background: difficulty === lvl ? 'rgba(20,184,166,0.14)' : 'var(--bg3)',
+                        color: difficulty === lvl ? '#5eead4' : 'var(--t2)',
+                        fontSize: 12,
+                        fontWeight: 800,
+                        textTransform: 'capitalize',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {lvl}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="gd-form-label">4. Duration (5m &amp; 1m Host Alerts)</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
+                  {[5, 8, 10, 15].map(mins => (
+                    <button
+                      key={mins}
+                      type="button"
+                      onClick={() => setSessionDurationMinutes(mins)}
+                      style={{
+                        padding: '8px 4px',
+                        borderRadius: 10,
+                        border: `1.5px solid ${sessionDurationMinutes === mins ? '#818cf8' : 'var(--border)'}`,
+                        background: sessionDurationMinutes === mins ? 'rgba(99,102,241,0.18)' : 'var(--bg3)',
+                        color: sessionDurationMinutes === mins ? '#c7d2fe' : 'var(--t2)',
+                        fontSize: 12,
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {mins}m
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setStep('select_avatars')}
+              className="btn-primary"
+              style={{
+                width: '100%',
+                padding: '13px 16px',
+                borderRadius: 12,
+                border: 'none',
+                fontWeight: 900,
+                fontSize: 14.5,
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              Next: Choose GD Host &amp; Panelists →
+            </button>
+          </div>
+
+          {/* Right Column: Common GD Room Rules + Recent History */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* Common GD Room Rules Card */}
+            <div className="gd-setup-card" style={{ borderColor: 'rgba(20,184,166,0.35)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                  📜 Common GD Room Rules
+                </h2>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    padding: '3px 8px',
+                    borderRadius: 999,
+                    background: 'rgba(20,184,166,0.14)',
+                    color: 'var(--teal)',
+                  }}
+                >
+                  Host Explains Live
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {GD_COMMON_RULES.map(rule => (
+                  <div
+                    key={rule.id}
+                    style={{
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 10,
+                      padding: '8px 11px',
+                    }}
+                  >
+                    <div style={{ fontSize: 12.5, fontWeight: 900, color: 'var(--t1)' }}>
+                      {rule.icon} {rule.title}
                     </div>
+                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2, lineHeight: 1.4 }}>
+                      {rule.detail}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mentor Exclusion & Flow Note */}
+              <div
+                style={{
+                  marginTop: 12,
+                  padding: '9px 11px',
+                  borderRadius: 10,
+                  background: 'rgba(99,102,241,0.1)',
+                  border: '1px solid rgba(129,140,248,0.35)',
+                  fontSize: 11.5,
+                  color: '#c7d2fe',
+                  lineHeight: 1.45,
+                }}
+              >
+                <strong>👑 Host Policy:</strong> Because <strong>{mentorProfile?.name || 'Ms. Priya'}</strong> is your
+                selected AI Mentor, they cannot serve as GD Host. Your default Host is{' '}
+                <strong>{currentHostProfile?.name || 'Mr. Akash'}</strong> (changeable in Step 2).
+              </div>
+            </div>
+
+            {/* Past GD Sessions */}
+            <div className="gd-setup-card" style={{ maxHeight: 280, overflowY: 'auto' }}>
+              <h2 style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)', margin: '0 0 10px' }}>
+                🗂️ Recent GD Sessions ({orch.historyList.length})
+              </h2>
+              {orch.historyList.length === 0 ? (
+                <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5 }}>
+                  No GD sessions completed yet. Finish a boardroom session to unlock your scored verdict and downloadable
+                  transcript!
+                </p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {orch.historyList.slice(0, 6).map(item => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        orch.setSelectedHistorySession(item);
+                        setHistoryModalOpen(true);
+                      }}
+                      className="gd-history-card"
+                      style={{ textAlign: 'left', width: '100%' }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                        <strong style={{ fontSize: 12.5, color: 'var(--t1)' }}>{item.topic}</strong>
+                        <span
+                          style={{
+                            fontSize: 11.5,
+                            fontWeight: 900,
+                            color: item.score >= 70 ? '#4ade80' : item.score >= 45 ? '#fcd34d' : '#fca5a5',
+                          }}
+                        >
+                          {item.score}%
+                        </span>
+                      </div>
+                      <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+                        {item.domain.toUpperCase()} • {new Date(item.date).toLocaleDateString()}
+                      </span>
+                    </button>
                   ))}
                 </div>
               )}
@@ -570,110 +517,207 @@ export default function GroupDiscussionPage({
         </div>
       )}
 
-      {step === 'invite_concept' && (
-        <div className="gd-invite-panel animate-fade-in">
-          <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 4 }}>
-            Step 2: Invite Avatars & Define Focus Concept
-          </h2>
-          <p style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 18 }}>
-            Your mentor ({AVATARS.find(a => a.id === currentMentorId)?.name || 'Priya'}) stays with you. {AVATARS.find(a => a.id === gdHostId)?.name || 'Your host'} will facilitate automatically; choose up to 7 panelists.
-          </p>
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '12px 14px', borderRadius: 14, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 24 }}>{AVATARS.find(a => a.id === gdHostId)?.emoji}</span>
+      {/* ══════════════════════════════════════════════════════════════════════
+          STEP 2: SELECT GD HOST (MENTOR STRICTLY EXCLUDED) + PANELISTS
+         ══════════════════════════════════════════════════════════════════════ */}
+      {step === 'select_avatars' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="animate-fade-in">
+          {/* Section A: GD Host Selection (AI Mentor Locked Out!) */}
+          <div className="gd-setup-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
               <div>
-                <strong style={{ color: 'var(--t1)', fontSize: 13 }}>{AVATARS.find(a => a.id === gdHostId)?.name} · Host</strong>
-                <div style={{ color: 'var(--t3)', fontSize: 11 }}>Introduces the topic, keeps time, and guides turn-taking.</div>
+                <h2 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                  👑 Step 1: Select Your GD Host
+                </h2>
+                <p style={{ fontSize: 12, color: 'var(--t3)', margin: '3px 0 0' }}>
+                  Your Host opens the room, explains rules, and steps in at 5 min &amp; 1 min left.{' '}
+                  <strong style={{ color: '#fcd34d' }}>
+                    {mentorProfile?.name || 'Ms. Priya'} is your AI Mentor and cannot be selected as Host.
+                  </strong>
+                </p>
               </div>
+              <span
+                style={{
+                  fontSize: 11.5,
+                  fontWeight: 800,
+                  padding: '4px 10px',
+                  borderRadius: 8,
+                  background: 'rgba(99,102,241,0.16)',
+                  border: '1px solid #818cf8',
+                  color: '#c7d2fe',
+                }}
+              >
+                Active Host: {currentHostProfile?.name}
+              </span>
             </div>
-            <span style={{ color: 'var(--teal)', fontSize: 11, fontWeight: 800, whiteSpace: 'nowrap' }}>AUTOMATIC</span>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(195px, 1fr))', gap: 10 }}>
+              {AVATARS.map(avatar => {
+                const isMentorBlocked = !isAvatarEligibleAsGdHost(avatar.id, floatingMentorId);
+                const isSelectedHost = orch.effectiveHostId === avatar.id;
+
+                return (
+                  <button
+                    key={avatar.id}
+                    type="button"
+                    disabled={isMentorBlocked}
+                    onClick={() => handleSelectHost(avatar.id)}
+                    style={{
+                      textAlign: 'left',
+                      padding: '10px 12px',
+                      borderRadius: 12,
+                      border: `1.5px solid ${
+                        isMentorBlocked
+                          ? 'rgba(245,158,11,0.4)'
+                          : isSelectedHost
+                            ? '#818cf8'
+                            : 'var(--border)'
+                      }`,
+                      background: isMentorBlocked
+                        ? 'rgba(245,158,11,0.06)'
+                        : isSelectedHost
+                          ? 'rgba(99,102,241,0.18)'
+                          : 'var(--bg3)',
+                      opacity: isMentorBlocked ? 0.65 : 1,
+                      cursor: isMentorBlocked ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 4,
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)' }}>
+                        {avatar.emoji} {avatar.name}
+                      </span>
+                      {isMentorBlocked ? (
+                        <span style={{ fontSize: 9.5, fontWeight: 900, color: '#fcd34d' }}>🔒 AI MENTOR</span>
+                      ) : isSelectedHost ? (
+                        <span style={{ fontSize: 9.5, fontWeight: 900, color: '#c7d2fe' }}>👑 HOST</span>
+                      ) : null}
+                    </div>
+                    <span style={{ fontSize: 11, color: 'var(--t3)' }}>{avatar.role}</span>
+                    <span style={{ fontSize: 10, fontWeight: 800, color: isMentorBlocked ? '#fcd34d' : 'var(--teal)' }}>
+                      {isMentorBlocked ? 'Unavailable as GD Host' : avatar.styleTag}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div>
-              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>TARGET DISCUSSION TOPIC (FROM STEP 1)</label>
-              <input
-                type="text"
-                disabled
-                value={`${roomName}${roomDesc ? ' — ' + roomDesc : ''}`}
-                style={{
-                  width: '100%',
-                  padding: '10px 14px',
-                  background: 'var(--bg2)',
-                  border: '1.5px solid var(--border)',
-                  borderRadius: 10,
-                  color: 'var(--t3)',
-                  fontSize: 14.5,
-                  outline: 'none',
-                  cursor: 'not-allowed'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 8 }}>CHOOSE PANELISTS · {invitedAvatars.filter(id => id !== gdHostId && id !== currentMentorId).length}/7</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', gap: 12, maxHeight: 320, overflowY: 'auto', paddingRight: 6 }}>
-                {filteredAvatars.filter(a => a.id !== gdHostId).map(a => {
-                  const isInvited = invitedAvatars.includes(a.id) && a.id !== currentMentorId;
-                  return (
-                    <div
-                      key={a.id}
-                      className="gd-avatar-card"
-                      style={{
-                        background: isInvited ? 'rgba(var(--accent-teal-rgb), 0.06)' : 'var(--bg3)',
-                        border: `1.5px solid ${isInvited ? 'var(--teal)' : 'var(--border)'}`
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ width: 30, height: 30, borderRadius: '50%', background: a.color || 'var(--teal)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 11 }}>{a.name.slice(0, 2).toUpperCase()}</div>
-                        <button
-                          type="button"
-                          aria-pressed={isInvited}
-                          onClick={() => {
-                            if (!isInvited && invitedAvatars.filter(id => id !== gdHostId && id !== currentMentorId).length >= 7) {
-                              toast.info('Panel is full', 'Choose up to seven panelists; your host joins automatically.');
-                              return;
-                            }
-                            setInvitedAvatars(prev => isInvited ? prev.filter(x => x !== a.id && x !== gdHostId) : [...prev.filter(x => x !== gdHostId && x !== currentMentorId), a.id]);
-                          }}
-                          style={{ fontSize: 10, color: isInvited ? 'var(--teal)' : 'var(--t3)', fontWeight: 800, fontFamily: 'var(--font-mono)', border: '1px solid var(--border)', borderRadius: 8, padding: '5px 8px', background: 'var(--bg2)', cursor: 'pointer' }}
-                        >
-                          {isInvited ? '✓ Added' : '+ Invite'}
-                        </button>
-                      </div>
-                      <div>
-                        <h4 style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{a.name}</h4>
-                        <p style={{ fontSize: 10.5, color: 'var(--t3)', margin: '2px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.role}</p>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
-                        <span style={{ fontSize: 9, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
-                          {a.trait}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlePlayDemo(a.id, a.name);
-                          }}
-                          className="gd-avatar-demo-btn"
-                        >
-                          Voice Demo
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
+          {/* Section B: Select Panelists (Avatar 1 Challenger & Avatar 2 Diplomat) */}
+          <div className="gd-setup-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+              <div>
+                <h2 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                  🎭 Step 2: Pick Your Debate Panelists (Unique Personalities)
+                </h2>
+                <p style={{ fontSize: 12, color: 'var(--t3)', margin: '3px 0 0' }}>
+                  Avatar 1 argues/challenges (Groq Key 1) • Avatar 2 diplomatically bridges both views (Groq Key 2, zero delay).
+                </p>
               </div>
+              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--teal)' }}>
+                {currentPanelists.length} Panelists Seated
+              </span>
             </div>
 
-            <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
-              <button onClick={() => setStep('create_room')} className="btn-ghost" style={{ flex: 1, padding: 12 }}>
-                ⇠ Back to Step 1
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
+              {AVATARS.filter(a => a.id !== orch.effectiveHostId).map(avatar => {
+                const seated = invitedAvatars.includes(avatar.id);
+                const panelIndex = currentPanelists.indexOf(avatar.id);
+                const roleTag =
+                  panelIndex === 0
+                    ? '🔥 Avatar 1 • Challenger (Key 1)'
+                    : panelIndex === 1
+                      ? '🤝 Avatar 2 • Diplomat (Key 2)'
+                      : seated
+                        ? '🎙️ Rotating Panelist'
+                        : '';
+
+                return (
+                  <button
+                    key={avatar.id}
+                    type="button"
+                    onClick={() => togglePanelist(avatar.id)}
+                    style={{
+                      textAlign: 'left',
+                      padding: '12px 13px',
+                      borderRadius: 12,
+                      border: `1.5px solid ${
+                        panelIndex === 0
+                          ? '#f97316'
+                          : panelIndex === 1
+                            ? '#a855f7'
+                            : seated
+                              ? 'var(--teal)'
+                              : 'var(--border)'
+                      }`,
+                      background: seated ? 'rgba(20,184,166,0.08)' : 'var(--bg3)',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 4,
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 6 }}>
+                      <span style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)' }}>
+                        {avatar.emoji} {avatar.name}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 9.5,
+                          fontWeight: 800,
+                          padding: '2px 6px',
+                          borderRadius: 6,
+                          background: 'rgba(255,255,255,0.06)',
+                          color: 'var(--teal)',
+                        }}
+                      >
+                        {avatar.styleTag}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>{avatar.role}</span>
+                    <span style={{ fontSize: 11, color: 'var(--t3)', lineHeight: 1.35 }}>{avatar.description}</span>
+                    {roleTag && (
+                      <span
+                        style={{
+                          marginTop: 4,
+                          fontSize: 10,
+                          fontWeight: 900,
+                          color: panelIndex === 0 ? '#fdba74' : panelIndex === 1 ? '#e9d5ff' : 'var(--teal)',
+                        }}
+                      >
+                        {roleTag}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ marginTop: 16, display: 'flex', gap: 12, justifyContent: 'flex-end', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setStep('setup')}
+                className="btn-ghost"
+                style={{ padding: '11px 18px', borderRadius: 12, fontWeight: 800, fontSize: 13.5 }}
+              >
+                ← Back
               </button>
               <PinsGate itemKey={`gd:${roomName || 'default-room'}`} category="gd" onUnlocked={() => orch.handleStartCall(true)}>
-                <button className="btn-primary" style={{ width: '100%', padding: 12, justifyContent: 'center' }}>
-                  ➔ Open Group Call Workspace
+                <button
+                  type="button"
+                  className="btn-primary"
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: 12,
+                    border: 'none',
+                    fontWeight: 900,
+                    fontSize: 14.5,
+                    cursor: 'pointer',
+                  }}
+                >
+                  🚀 Launch Live GD Room ({sessionDurationMinutes} min)
                 </button>
               </PinsGate>
             </div>
@@ -681,97 +725,106 @@ export default function GroupDiscussionPage({
         </div>
       )}
 
+      {/* ══════════════════════════════════════════════════════════════════════
+          STEP 3: LIVE GD BOARDROOM (70% VIDEO PANEL / 30% TRANSCRIPT & CONTROLS)
+         ══════════════════════════════════════════════════════════════════════ */}
       {step === 'call_grid' && (
-        <div className="gd-call-layout">
-          {/* Active Video Call Emulation Grid */}
+        <div className="gd-call-layout animate-fade-in">
           <GdMeetGrid
             invitedAvatars={invitedAvatars}
-            avatarsList={AVATARS}
             activeSpeakingAvatar={orch.activeSpeakingAvatar}
             currentAvatarARoleId={orch.currentAvatarARoleId}
             currentAvatarBRoleId={orch.currentAvatarBRoleId}
             isUserTurn={orch.isUserTurn}
-            onUserFinishSpeaking={() => orch.handleUserFinishSpeaking()}
-            onToggleRaiseHand={orch.toggleRaiseHand}
-            onInterjectImmediately={orch.handleInterjectImmediately}
-            onEndCall={orch.handleEndCall}
-            onForceExit={orch.handleForceExitCall}
-            hostId={orch.activeHostId}
+            turnPhase={orch.turnPhase}
+            activeTimeAlert={orch.activeTimeAlert}
+            turnCount={orch.turnCount}
+            hostId={orch.effectiveHostId}
             handRaised={orch.handRaised}
             micActive={orch.micActive}
+            activeStream={orch.activeStream}
             callDurationSeconds={orch.callDuration}
             sessionDurationMinutes={sessionDurationMinutes}
+            showCoachChips={showCoachChips}
+            onToggleCoachChips={() => setShowCoachChips(v => !v)}
+            audioVolume={audioVolume}
+            onAudioVolumeChange={setAudioVolume}
+            onUserFinishSpeaking={orch.handleUserFinishSpeaking}
+            onToggleRaiseHand={() => orch.setHandRaised(v => !v)}
+            onInterjectImmediately={orch.handleInterjectImmediately}
+            onEndCall={orch.handleEndCall}
+            onForceExit={orch.handleForceExit}
           />
 
-          {/* Socratic Board Presentation Chat Log & Controls */}
           <GdTranscriptDrawer
-            selectedConcept={selectedConcept}
+            selectedConcept={roomName}
             callDuration={orch.callDuration}
             candidateTurnTimer={orch.candidateTurnTimer}
             isUserTurn={orch.isUserTurn}
+            turnPhase={orch.turnPhase}
             inputText={orch.inputText}
+            liveTranscript={orch.liveTranscript}
             messages={orch.messages}
             loading={orch.loading}
             suggestedHelperText={orch.suggestedHelperText}
+            starterPrompts={activeStarterPrompts}
+            showCoachChips={showCoachChips}
             micActive={orch.micActive}
             onClearHelperText={() => orch.setSuggestedHelperText('')}
             onInputTextChange={orch.setInputText}
             onToggleMic={orch.toggleMic}
             onSendMessage={orch.handleSendMessage}
+            onQuickSendChip={chip => orch.setInputText(chip)}
             onSuggestArgument={orch.handleSuggestArgument}
-            onExportTranscript={orch.exportGdTranscript}
+            onExportTranscript={orch.handleExportTranscript}
             bottomRef={orch.bottomRef}
           />
         </div>
       )}
 
-      {/* Avatar Voice & Cast Guide Modal */}
-      <GdAvatarGuideModal
-        isOpen={avatarGuideOpen}
-        avatars={AVATARS}
-        currentMentorId={currentMentorId}
-        onClose={() => { stopSpeaking(); setAvatarGuideOpen(false); }}
-        onPlayDemo={handlePlayDemo}
-      />
+      {/* ══════════════════════════════════════════════════════════════════════
+          STEP 4: HONEST GD PERFORMANCE REPORT
+         ══════════════════════════════════════════════════════════════════════ */}
+      {step === 'report' && orch.report && (
+        <GdReport
+          report={orch.report}
+          transcript={orch.messages}
+          onRestart={() => {
+            setStep('setup');
+            if (embedded) {
+              router.replace('/interview?tab=gd');
+            } else {
+              router.replace('/group-discussion');
+            }
+          }}
+        />
+      )}
 
-      {/* Boardroom History & Analytics Modal */}
+      {/* History Session Inspection Modal */}
       <GdHistoryModal
         isOpen={historyModalOpen}
-        historyList={historyListState}
-        selectedItem={selectedHistoryItem}
-        searchQuery={historySearchQuery}
+        historyList={orch.historyList as GdHistoryRecord[]}
+        selectedItem={orch.selectedHistorySession as GdHistoryRecord | null}
+        searchQuery={historySearch}
         domainFilter={historyDomainFilter}
-        onClose={() => { setHistoryModalOpen(false); setSelectedHistoryItem(null); }}
-        onSelectItem={(item) => setSelectedHistoryItem(item)}
-        onSearchChange={(q) => setHistorySearchQuery(q)}
-        onDomainFilterChange={(d) => setHistoryDomainFilter(d)}
-        onExportJSON={handleExportHistoryJSON}
-        onDeleteItem={handleDeleteHistoryItem}
+        onClose={() => {
+          setHistoryModalOpen(false);
+          orch.setSelectedHistorySession(null);
+        }}
+        onSelectItem={item => orch.setSelectedHistorySession(item as any)}
+        onSearchChange={setHistorySearch}
+        onDomainFilterChange={setHistoryDomainFilter}
+        onExportJSON={item => {
+          const blob = new Blob([JSON.stringify(item, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `gd_${item.id}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        }}
+        onDeleteItem={orch.deleteHistorySession}
       />
-
-      {/* Report Generation View */}
-      {orch.gdReport && (
-        <div ref={orch.reportRef}>
-          <GdReport
-            report={orch.gdReport}
-            transcript={orch.messages}
-            onRestart={() => {
-              setStep('create_room');
-              orch.setGdReport(null);
-              setInvitedAvatars([]);
-              orch.setMessages([]);
-              orch.setInputText('');
-              orch.setSuggestedHelperText('');
-              setRoomName('');
-              setRoomDesc('');
-              setSelectedConcept('Microservices Orchestration');
-              setDifficulty('medium');
-              setSessionDurationMinutes(10);
-              setDomain('technical');
-            }}
-          />
-        </div>
-      )}
     </div>
   );
 }

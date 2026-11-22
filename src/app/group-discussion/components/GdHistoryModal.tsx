@@ -28,11 +28,11 @@ interface GdHistoryModalProps {
   historyList: GdHistoryRecord[];
   selectedItem: GdHistoryRecord | null;
   searchQuery: string;
-  domainFilter: 'all' | 'technical' | 'sales' | 'business';
+  domainFilter: 'all' | 'technical' | 'sales' | 'business' | 'commerce';
   onClose: () => void;
   onSelectItem: (item: GdHistoryRecord | null) => void;
   onSearchChange: (q: string) => void;
-  onDomainFilterChange: (domain: 'all' | 'technical' | 'sales' | 'business') => void;
+  onDomainFilterChange: (domain: 'all' | 'technical' | 'sales' | 'business' | 'commerce') => void;
   onExportJSON: (item: GdHistoryRecord) => void;
   onDeleteItem: (id: string) => void;
 }
@@ -127,9 +127,10 @@ export default function GdHistoryModal({
             style={{ flex: 1, padding: '10px 14px' }}
           >
             <option value="all">🌐 All Domains</option>
-            <option value="technical">Technical</option>
-            <option value="sales">Sales</option>
+            <option value="technical">Tech &amp; AI</option>
             <option value="business">Business</option>
+            <option value="commerce">B.Com / Finance</option>
+            <option value="sales">Sales &amp; Growth</option>
           </select>
         </div>
 
@@ -215,8 +216,14 @@ export default function GdHistoryModal({
                 flexDirection: 'column',
                 gap: 10
               }}>
-                {(selectedItem.transcript || []).map((msg: any, idx: number) => (
-                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'SDE Candidate' ? 'flex-end' : 'flex-start' }}>
+                {(selectedItem.transcript || []).map((msg: any, idx: number) => {
+                  const isCandidate =
+                    msg.sender === 'You' ||
+                    msg.role === 'Participant' ||
+                    msg.role === 'Candidate' ||
+                    msg.role === 'SDE Candidate';
+                  return (
+                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: isCandidate ? 'flex-end' : 'flex-start' }}>
                     <div style={{ display: 'flex', gap: 4, fontSize: 9.5, color: 'var(--t3)', marginBottom: 2 }}>
                       <span>{msg.emoji || '💬'}</span>
                       <strong>{msg.sender}</strong>
@@ -226,15 +233,16 @@ export default function GdHistoryModal({
                       padding: '8px 12px',
                       borderRadius: 10,
                       fontSize: 12.5,
-                      background: msg.role === 'SDE Candidate' ? 'var(--accent)' : 'var(--bg2)',
-                      color: msg.role === 'SDE Candidate' ? 'white' : 'var(--t1)',
+                      background: isCandidate ? 'var(--accent)' : 'var(--bg2)',
+                      color: isCandidate ? 'white' : 'var(--t1)',
                       maxWidth: '85%',
                       wordBreak: 'break-word'
                     }}>
                       {msg.content}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

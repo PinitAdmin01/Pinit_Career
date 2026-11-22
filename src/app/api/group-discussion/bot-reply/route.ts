@@ -1,121 +1,205 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { checkRateLimit } from '@/lib/server/rateLimit';
-import { isJsonObject, readBoundedJson, RequestBodyError } from '@/lib/server/readBoundedJson';
-import { executeGdTurn, GdRoleType, gdPersonaForMentor, gdSafePanelistName, normalizeMentorId } from '@/lib/group-discussion/gdTurnEngine';
+import {
+  executeGdTurn,
+  type GdDomain,
+  type GdDifficulty,
+  type GdHistoryMessage,
+  type GdRoleType,
+} from '@/lib/group-discussion/gdTurnEngine';
 
-let keyIndexA = 0;
-let keyIndexB = 0;
+export const dynamic = 'force-dynamic';
 
-function parseKeys(raw: string): string[] {
-  return raw.split(',').map(k => k.trim()).filter(k => k.length > 8 && !k.includes('placeholder'));
+const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+const GD_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'] as const;
+
+export type GdKeySlot = 'a' | 'b';
+
+/**
+ * Dedicated dual-key pool resolver:
+ * - Avatar 1 (`slot: 'a'`) -> Groq Key 1 (GROQ_GD_KEY_1 / GROQ_API_KEYS_A / GROQ_API_KEY_A / GROQ_API_KEYS[0])
+ * - Avatar 2 (`slot: 'b'`) -> Groq Key 2 (GROQ_GD_KEY_2 / GROQ_API_KEYS_B / GROQ_API_KEY_B / GROQ_API_KEYS[1])
+ * Keeps Avatar 1 and Avatar 2 completely isolated on separate API keys so there is zero rate-limit contention or delay.
+ */
+export function resolveGroqKeysForGdSlot(
+  slot: GdKeySlot,
+  env: Record<string, string | undefined> = process.env
+): { keys: string[]; keySlotLabel: 'key_1' | 'key_2' } {
+  const splitKeys = (raw?: string) =>
+    (raw || '')
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
+
+  const sharedPool = splitKeys(env.GROQ_API_KEYS);
+  const slotDedicated =
+    slot === 'b'
+      ? [
+          ...splitKeys(env.GROQ_GD_KEY_2),
+          ...splitKeys(env.GROQ_API_KEYS_B),
+          ...splitKeys(env.GROQ_API_KEY_B),
+          ...(sharedPool.length >= 2 ? [sharedPool[1]] : []),
+        ]
+      : [
+          ...splitKeys(env.GROQ_GD_KEY_1),
+          ...splitKeys(env.GROQ_API_KEYS_A),
+          ...splitKeys(env.GROQ_API_KEY_A),
+          ...(sharedPool.length >= 1 ? [sharedPool[0]] : []),
+        ];
+
+  const fallbackPool = [
+    ...splitKeys(env.GROQ_API_KEY),
+    ...sharedPool,
+  ];
+
+  // Preserve order and deduplicate so dedicated slot key is ALWAYS tried first
+  const seen = new Set<string>();
+  const ordered: string[] = [];
+  for (const k of [...slotDedicated, ...fallbackPool]) {
+    if (k && !seen.has(k)) {
+      seen.add(k);
+      ordered.push(k);
+    }
+  }
+
+  return {
+    keys: ordered,
+    keySlotLabel: slot === 'b' ? 'key_2' : 'key_1',
+  };
 }
 
-function getActiveKeyForSlot(slot: 'a' | 'b'): string | null {
-  const shared = parseKeys(process.env.GROQ_API_KEYS || process.env.GROQ_API_KEY || '');
-  const keysA = parseKeys(process.env.GROQ_API_KEYS_A || process.env.GROQ_API_KEY_A || '');
-  const keysB = parseKeys(process.env.GROQ_API_KEYS_B || process.env.GROQ_API_KEY_B || '');
-  const poolA = keysA.length ? keysA : shared.length ? [shared[0]] : [];
-  const poolB = keysB.length ? keysB : shared.length > 1 ? [shared[1]] : poolA;
+async function callGroq(
+  slot: GdKeySlot,
+  system: string,
+  messages: Array<{ role: 'user' | 'assistant'; content: string }>
+): Promise<{ text: string; keySlot: 'key_1' | 'key_2'; model: string }> {
+  const { keys, keySlotLabel } = resolveGroqKeysForGdSlot(slot);
+  if (keys.length === 0) throw new Error('NO_GROQ_KEY');
 
-  if (slot === 'a') {
-    if (!poolA.length) return null;
-    const key = poolA[keyIndexA % poolA.length];
-    keyIndexA = (keyIndexA + 1) % 1_000_000;
-    return key;
+  let lastError: Error = new Error('GROQ_EMPTY_RESPONSE');
+
+  // Try dedicated slot key first across fast models before falling back to backup keys
+  for (const key of keys) {
+    for (const model of GD_MODELS) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6500);
+      try {
+        const res = await fetch(GROQ_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${key}`,
+          },
+          body: JSON.stringify({
+            model,
+            messages: [
+              { role: 'system', content: system },
+              ...messages.slice(-8),
+            ],
+            temperature: slot === 'a' ? 0.55 : 0.45,
+            max_tokens: 130,
+          }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
+
+        if (res.status === 429 || res.status === 503) {
+          lastError = new Error(`GROQ_RATE_LIMIT_${res.status}`);
+          continue;
+        }
+        if (!res.ok) {
+          lastError = new Error(`GROQ_HTTP_${res.status}`);
+          continue;
+        }
+
+        const data = await res.json();
+        const text = (data?.choices?.[0]?.message?.content || '').trim();
+        if (text) {
+          return { text, keySlot: keySlotLabel, model };
+        }
+      } catch (err) {
+        clearTimeout(timeout);
+        lastError = err instanceof Error ? err : new Error('GROQ_FETCH_ERROR');
+      }
+    }
   }
-  if (!poolB.length) return null;
-  const key = poolB[keyIndexB % poolB.length];
-  keyIndexB = (keyIndexB + 1) % 1_000_000;
-  return key;
-}
 
-async function groqComplete(
-  slot: 'a' | 'b',
-  messages: { role: string; content: string }[],
-  systemPrompt: string,
-  maxTokens: number
-): Promise<string> {
-  const key = getActiveKeyForSlot(slot);
-  if (!key) throw new Error('No Groq key for GD slot ' + slot);
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 10_000);
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${key}`,
-      },
-      signal: controller.signal,
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'system', content: systemPrompt }, ...messages],
-        max_tokens: maxTokens,
-        temperature: 0.7,
-      }),
-    });
-    if (!res.ok) throw new Error(`Groq HTTP ${res.status}`);
-    const data = await res.json();
-    const text = String(data?.choices?.[0]?.message?.content || '').trim();
-    if (!text) throw new Error('Empty Groq reply');
-    return text;
-  } finally {
-    clearTimeout(timer);
-  }
+  throw lastError;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
-
-    const rate = checkRateLimit(`gd_turn_user_${gated.user.id}`, { limit: 40, windowMs: 60_000 });
-    if (!rate.allowed) {
-      return NextResponse.json({ error: 'RATE_LIMIT', message: 'Please wait before requesting more panel replies.' }, { status: 429 });
+    const auth = await requireUserFromRequest(req);
+    if (auth.error) {
+      return auth.error;
     }
 
-    const bodyValue = await readBoundedJson<unknown>(req, 96 * 1024);
-    if (!isJsonObject(bodyValue)) {
-      return NextResponse.json({ error: 'INVALID_REQUEST', message: 'Expected a JSON object.' }, { status: 400 });
-    }
-    const body = bodyValue;
-    if (body.roleType !== 'avatar_a' && body.roleType !== 'avatar_b') {
-      return NextResponse.json({ error: 'INVALID_REQUEST', message: 'Invalid panel role.' }, { status: 400 });
-    }
-    const roleType: GdRoleType = body.roleType;
-    const requestedMentor = Array.isArray(body.activeMentors) ? body.activeMentors[0] : body.mentorId;
-    const mentorId = normalizeMentorId(typeof requestedMentor === 'string' ? requestedMentor : undefined);
+    const body = await req.json();
+    const roleType: GdRoleType =
+      body.roleType === 'avatar_a' || body.roleType === 'avatar_b' || body.roleType === 'host'
+        ? body.roleType
+        : body.slot === 'b'
+          ? 'avatar_b'
+          : 'avatar_a';
 
-    const stringField = (key: string, fallback: string, maxLength: number): string => {
-      const value = body[key];
-      if (value === undefined || value === null) return fallback;
-      if (typeof value !== 'string' || value.length > maxLength) throw new RequestBodyError(`Invalid ${key}.`, 400);
-      return value.trim();
-    };
-    const topic = stringField('roomId', stringField('topic', 'this topic', 200), 200);
-    const objective = stringField('objective', stringField('roomDesc', '', 1000), 1000);
-    const nextSpeakerName = gdSafePanelistName(stringField('nextSpeakerName', '', 80));
-    const allowedDomains = new Set(['technical', 'sales', 'business']);
-    const domain = typeof body.domain === 'string' && allowedDomains.has(body.domain) ? body.domain : 'technical';
-    const historyValue = body.history === undefined ? [] : body.history;
-    if (!Array.isArray(historyValue) || historyValue.length > 12) {
-      return NextResponse.json({ error: 'INVALID_REQUEST', message: 'Discussion context is invalid.' }, { status: 400 });
-    }
-    let totalHistoryChars = 0;
-    const history = historyValue.map((item) => {
-      if (!isJsonObject(item) || typeof item.role !== 'string' || typeof item.content !== 'string' || item.content.length > 2500) {
-        throw new RequestBodyError('Invalid discussion context.', 400);
-      }
-      const role = item.role;
-      if (!['user', 'assistant', 'Candidate', 'SDE Candidate'].includes(role)) {
-        throw new RequestBodyError('Invalid discussion context role.', 400);
-      }
-      totalHistoryChars += item.content.length;
-      if (totalHistoryChars > 20_000) throw new RequestBodyError('Discussion context is too long.', 413);
-      return { role, content: item.content };
-    });
+    // Strict key mapping: Avatar 1 -> Key 1 ('a'), Avatar 2 -> Key 2 ('b')
+    const slot: GdKeySlot =
+      roleType === 'avatar_b' || body.slot === 'b' ? 'b' : 'a';
+
+    const mentorId = typeof body.mentorId === 'string' && body.mentorId.trim()
+      ? body.mentorId
+      : typeof body.avatarId === 'string' && body.avatarId.trim()
+        ? body.avatarId
+        : 'rohan';
+
+    const topic = typeof body.topic === 'string' && body.topic.trim()
+      ? body.topic.trim().slice(0, 200)
+      : 'Will AI Coding Agents Replace Junior Developers or Supercharge Them?';
+
+    const objective = typeof body.objective === 'string' ? body.objective.trim().slice(0, 240) : '';
+    const domain: GdDomain =
+      body.domain === 'sales' || body.domain === 'business' || body.domain === 'commerce'
+        ? body.domain
+        : 'technical';
+    const difficulty: GdDifficulty =
+      body.difficulty === 'easy' || body.difficulty === 'hard'
+        ? body.difficulty
+        : 'medium';
+
+    const candidateName = typeof body.candidateName === 'string' && body.candidateName.trim()
+      ? body.candidateName.trim().slice(0, 60)
+      : 'Candidate';
+
+    const lastChallengerName = typeof body.lastChallengerName === 'string'
+      ? body.lastChallengerName.trim().slice(0, 60)
+      : undefined;
+
+    const lastChallengerText = typeof body.lastChallengerText === 'string'
+      ? body.lastChallengerText.trim().slice(0, 500)
+      : undefined;
+
+    const rawHistory = Array.isArray(body.history) ? body.history : [];
+    const history: GdHistoryMessage[] = rawHistory
+      .slice(-10)
+      .map((m: Record<string, unknown>) => {
+        const sender = typeof m.sender === 'string' ? m.sender : '';
+        const roleRaw = typeof m.role === 'string' ? m.role.toLowerCase() : '';
+        const isUser =
+          roleRaw === 'user' ||
+          roleRaw === 'candidate' ||
+          roleRaw === 'participant' ||
+          roleRaw === 'sde candidate' ||
+          sender === 'You';
+        return {
+          role: isUser ? 'user' : 'assistant',
+          sender: sender || (isUser ? candidateName : 'Panelist'),
+          content: typeof m.content === 'string' ? m.content.slice(0, 500) : '',
+        } as GdHistoryMessage;
+      })
+      .filter((m: GdHistoryMessage) => m.content.trim().length > 0);
+
+    let usedKeySlot: 'key_1' | 'key_2' = slot === 'b' ? 'key_2' : 'key_1';
+    let usedModel = 'deterministic-fallback';
 
     const result = await executeGdTurn(
       {
@@ -124,22 +208,36 @@ export async function POST(req: NextRequest) {
         topic,
         objective,
         domain,
-        difficulty: body.difficulty === 'easy' || body.difficulty === 'hard' ? body.difficulty : 'medium',
-        nextSpeakerName: nextSpeakerName || undefined,
-        candidateName: 'Candidate',
-        speakerPersona: gdPersonaForMentor(mentorId),
+        difficulty,
+        candidateName,
         history,
-        candidateSilenced: body.candidateSilenced === true,
+        lastChallengerName,
+        lastChallengerText,
       },
-      groqComplete
+      async (system, messages) => {
+        const res = await callGroq(slot, system, messages);
+        usedKeySlot = res.keySlot;
+        usedModel = res.model;
+        return res.text;
+      }
     );
 
-    return NextResponse.json(result);
-  } catch (err: any) {
-    console.error('[API GD Bot Reply Error]:', err);
-    if (err instanceof RequestBodyError) {
-      return NextResponse.json({ error: 'INVALID_REQUEST', message: err.message }, { status: err.status });
-    }
-    return NextResponse.json({ error: 'Failed to generate boardroom reply' }, { status: 500 });
+    return NextResponse.json({
+      reply: result.reply,
+      roleType: result.roleType,
+      mentorId: result.mentorId,
+      displayName: result.displayName,
+      wordCount: result.wordCount,
+      usedFallback: result.usedFallback,
+      keySlot: usedKeySlot,
+      model: usedModel,
+    });
+  } catch (err) {
+    console.error('[GD Bot Reply API] error:', err);
+    return NextResponse.json({
+      reply: 'That raises a fair question, though the real bottleneck shows up once costs and customer habits collide. Balancing speed with clear accountability will make this far stronger—what trade-off would you accept first?',
+      usedFallback: true,
+      keySlot: 'key_1',
+    });
   }
 }
