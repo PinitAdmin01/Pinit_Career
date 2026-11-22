@@ -15,6 +15,7 @@ import {
 } from '@/lib/interview/liveSession';
 import {
   evaluateDefenseTurnPass,
+  evaluateRound4AnswerAccuracy,
   getFallbackDefenseQuestion,
   type DefenseRoundType,
 } from '@/lib/interview/roundDefenseEngine';
@@ -721,9 +722,11 @@ STRICT RULES:
         stageContext = `This is Round 3 (System Architecture Canvas). STRICT STAGE LOCK: Stay 100% focused on system architecture design for ${subTopic} (components, request flow, load balancing, caching, databases, queues, failure modes, and scaling). NEVER ask Round 1 personal background/degree questions or basic language syntax trivia (like Python lists vs tuples or intro web frameworks). Current Whiteboard State: ${topologySummary}. If the whiteboard is empty, guide the candidate to place 2-3 core blocks (such as Client App, API Gateway, Database) and explain how traffic flows; otherwise probe one concrete architectural trade-off or failure mode. Keep under 3 sentences.`;
       }
     } else if (stage === 'round4_star') {
+      const starGradeRule =
+        ' Also critically grade the candidate\'s LAST reply for full STAR accuracy (concrete action + domain reasoning + measurable impact): append [[STAR_GRADE:PASS]] ONLY if their last reply was genuinely accurate, substantive, and on-topic, or [[STAR_GRADE:FAIL]] if it was vague, off-topic, skipped, or "I don\'t know". Place the marker at the very end.';
       stageContext = stream === 'non_tech'
-        ? `This is Round 4 (Partner / CFO / Executive STAR Deep Dive for B.Com / Commerce). Connect the candidate's earlier-round case study, workflow design, and commercial judgment. Probe realistic boardroom dilemmas (e.g., defending an audit qualification under client pressure, handling a credit covenant breach, or resolving a working-capital crunch) using concrete Situation, Task, Action, and quantified Result evidence. Keep under 3 sentences.`
-        : `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.`;
+        ? `This is Round 4 (Partner / CFO / Executive STAR Deep Dive for B.Com / Commerce). Connect the candidate's earlier-round case study, workflow design, and commercial judgment. Probe realistic boardroom dilemmas (e.g., defending an audit qualification under client pressure, handling a credit covenant breach, or resolving a working-capital crunch) using concrete Situation, Task, Action, and quantified Result evidence. Keep under 3 sentences.${starGradeRule}`
+        : `This is Round 4 (Executive Deep Dive). Use the candidate's actual earlier-round background, submitted code, and architecture choices from the conversation. Ask one probing question that connects at least two rounds—for example, why they chose that implementation, how it fits the system they designed, what trade-off it creates, and how they would measure its impact. Avoid generic STAR prompts when specific project evidence is present. Keep under 3 sentences.${starGradeRule}`;
     } else if (stage === 'vault_defense') {
       const assistantTurns = effectiveHistory.filter((m) => m.role === 'assistant').length;
       const expectedVaultTurns = Math.max(3, Math.min(8, Number(totalDefenseTurns) || 6));
@@ -1106,16 +1109,28 @@ RULES:
         roundVerdict = (isPositive && !isNegative) ? 'PASS' : 'RETRY';
       }
     }
+    let starGrade: 'PASS' | 'FAIL' | undefined = undefined;
+    if (stage === 'round4_star') {
+      const starMatch = reply.match(/\[\[STAR_GRADE:(PASS|FAIL)\]\]/i);
+      const rawStarGrade: 'PASS' | 'FAIL' | null = starMatch
+        ? (starMatch[1].toUpperCase() === 'PASS' ? 'PASS' : 'FAIL')
+        : null;
+      const lastCandidateMsg = [...formattedHistory].reverse().find(turn => turn.role === 'user')?.content || String(message || '');
+      const hybridStar = evaluateRound4AnswerAccuracy(lastCandidateMsg, rawStarGrade);
+      starGrade = hybridStar.accurate ? 'PASS' : 'FAIL';
+    }
+
     const strippedMarkers = reply
       .replace(/\[\[ROUND_VERDICT:(PASS|RETRY)\]\]/gi, '')
       .replace(/\[\[DEFENSE_GRADE:(PASS|FAIL)\]\]/gi, '')
+      .replace(/\[\[STAR_GRADE:(PASS|FAIL)\]\]/gi, '')
       .trim();
     const sanitizedReply = stripInterviewerSignoff(sanitizeLLMOutput(strippedMarkers));
     if (live) {
       await recordTurns([liveUserTurn, clampTurn('assistant', sanitizedReply, stage)]);
-      return NextResponse.json({ reply: sanitizedReply, recorded: true, roundVerdict, defenseGrade });
+      return NextResponse.json({ reply: sanitizedReply, recorded: true, roundVerdict, defenseGrade, starGrade });
     }
-    return NextResponse.json({ reply: sanitizedReply, roundVerdict, defenseGrade });
+    return NextResponse.json({ reply: sanitizedReply, roundVerdict, defenseGrade, starGrade });
 
   } catch (err: any) {
     console.error('[Interview Chat API Critical Error]:', err);

@@ -32,6 +32,7 @@ const InterviewEvaluateSchema = z.object({
   companyContext: z.string().optional(),
   jdContext: z.string().optional(),
   selectedLang: z.string().optional(),
+  eliminatedInRound: z.number().optional(),
 }).passthrough();
 import {
   calculateRoleWeightedScore,
@@ -47,10 +48,14 @@ import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { grantXp, todaysXp } from '@/lib/server/xpGrant';
 import { normalizeAnswerQuality } from '@/lib/interview/evaluationQuality';
+import {
+  calculateInterviewWeeklyXp,
+  isSuccessfulInterviewForCareerSync,
+  syncSuccessfulInterviewToPortfolioAndResume,
+} from '@/lib/interview/interviewRewards';
 
-/** XP for a passed interview, granted here (never by the browser), for at most this many passes a day. */
-const INTERVIEW_PASS_XP = 150;
-const INTERVIEW_XP_PER_DAY = 3;
+/** Max server-verified interview XP awards per day (chunked 500-XP ledger rows). */
+const INTERVIEW_XP_LEDGER_CAP_PER_DAY = 6;
 
 /**
  * Expands evaluation context to 35,000 chars while preserving both
@@ -568,21 +573,53 @@ Return ONLY valid JSON matching this schema:
     const evaluationToken = recorded && gated.user?.id
       ? createEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict)
       : undefined;
+    const isEliminated = Boolean(body.eliminatedInRound);
+    const weeklyXpTier = calculateInterviewWeeklyXp(finalEvaluation.score, { eliminated: isEliminated });
     let xpAwarded = 0;
     let newXp: number | undefined;
-    if (recorded && gated.user?.id && (finalEvaluation.verdict === 'Hire' || finalEvaluation.verdict === 'Conditional Hire')) {
+    let portfolioSynced = false;
+    let resumeSynced = false;
+
+    if (recorded && gated.user?.id && weeklyXpTier.xp > 0) {
       try {
         const admin = getSupabaseAdmin();
         const today = await todaysXp(admin, gated.user.id, '[interview]');
-        if (today && today.count < INTERVIEW_XP_PER_DAY) {
-          const grant = await grantXp(admin, gated.user.id, INTERVIEW_PASS_XP, `[interview] Passed AI interview: ${String(topic).slice(0, 120)}`);
+        if (today && today.count < INTERVIEW_XP_LEDGER_CAP_PER_DAY) {
+          const grant = await grantXp(
+            admin,
+            gated.user.id,
+            weeklyXpTier.xp,
+            `[interview] ${weeklyXpTier.tierLabel} (${finalEvaluation.score}%): ${String(topic).slice(0, 100)}`
+          );
           if (grant.ok) {
-            xpAwarded = INTERVIEW_PASS_XP;
+            xpAwarded = weeklyXpTier.xp;
             newXp = grant.newXp;
           }
         }
       } catch (xpErr: unknown) {
-        console.warn('[Interview Evaluate] XP grant failed:', xpErr instanceof Error ? xpErr.message : xpErr);
+        console.warn('[Interview Evaluate] Weekly XP grant failed:', xpErr instanceof Error ? xpErr.message : xpErr);
+      }
+    }
+
+    // Automatically add successful interview (score >= 50%, not eliminated) to Portfolio & Resume
+    if (gated.user?.id && isSuccessfulInterviewForCareerSync(finalEvaluation.score, { eliminated: isEliminated })) {
+      try {
+        const admin = getSupabaseAdmin();
+        const syncRes = await syncSuccessfulInterviewToPortfolioAndResume(admin, {
+          userId: gated.user.id,
+          sessionId: String(body.liveSessionId || `iv_${Date.now()}`),
+          topic: String(topic || roleConfig.roleName),
+          roleName: roleConfig.roleName,
+          domainStream: body.domainStream === 'non_tech' ? 'non_tech' : 'tech',
+          score: finalEvaluation.score,
+          verdict: finalEvaluation.verdict,
+          defendedSkills: Array.isArray(finalEvaluation.defendedTechStack) ? finalEvaluation.defendedTechStack : [],
+          summary: finalEvaluation.summary,
+        });
+        portfolioSynced = syncRes.portfolioSynced;
+        resumeSynced = syncRes.resumeSynced;
+      } catch (syncErr: unknown) {
+        console.warn('[Interview Evaluate] Portfolio/Resume sync warning:', syncErr);
       }
     }
 
@@ -618,7 +655,11 @@ Return ONLY valid JSON matching this schema:
       evaluationToken,
       topicEvaluationToken,
       xpAwarded,
+      weeklyXpAwarded: xpAwarded,
+      weeklyXpTierLabel: weeklyXpTier.tierLabel,
       newXp,
+      portfolioSynced,
+      resumeSynced,
       recorded,
       success: true,
     });

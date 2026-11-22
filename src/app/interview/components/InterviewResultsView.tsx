@@ -6,6 +6,7 @@ import { toast } from '@/lib/store/useAppStore';
 import RadarChart from './RadarChart';
 import { getVerdictTone, formatReadinessBadge } from '../interviewTypes';
 import type { RoundReportDetail, RoundStatus } from '../interviewEvaluator';
+import { calculateInterviewWeeklyXp, isSuccessfulInterviewForCareerSync } from '@/lib/interview/interviewRewards';
 
 export interface InterviewResultsViewProps {
   evaluationResult: any;
@@ -235,8 +236,45 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
     round4: '⭐',
   };
 
+  const heroToneClass =
+    verdictTone === 'positive'
+      ? 'iv-res-hero--positive'
+      : verdictTone === 'conditional'
+      ? 'iv-res-hero--conditional'
+      : 'iv-res-hero--negative';
+
+  const scoreRingStroke =
+    verdictTone === 'positive'
+      ? '#22c55e'
+      : verdictTone === 'conditional'
+      ? '#f59e0b'
+      : '#f87171';
+
+  const ringRadius = 34;
+  const ringCircumference = 2 * Math.PI * ringRadius;
+  const ringOffset = ringCircumference * (1 - Math.max(0, Math.min(100, overallScore)) / 100);
+
+  const formatRoundVerdictLabel = (verdictText: string) => {
+    const t = String(verdictText || '').trim();
+    if (/^[A-F][+-]?$/.test(t)) return `Grade ${t}`;
+    return t || 'Evaluated';
+  };
+
+  const isEliminatedSession = Boolean(evaluationResult?.eliminatedInRound);
+  const computedWeeklyXp = calculateInterviewWeeklyXp(overallScore, { eliminated: isEliminatedSession });
+  const displayedWeeklyXp =
+    typeof evaluationResult?.weeklyXpAwarded === 'number'
+      ? evaluationResult.weeklyXpAwarded
+      : typeof evaluationResult?.xpAwarded === 'number'
+      ? evaluationResult.xpAwarded
+      : computedWeeklyXp.xp;
+  const displayedXpTierLabel = evaluationResult?.weeklyXpTierLabel || computedWeeklyXp.tierLabel;
+  const syncedToPortfolio = Boolean(evaluationResult?.portfolioSynced);
+  const syncedToResume = Boolean(evaluationResult?.resumeSynced);
+  const qualifiedForCareerSync = isSuccessfulInterviewForCareerSync(overallScore, { eliminated: isEliminatedSession });
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 1220, margin: '0 auto', paddingBottom: 24 }}>
+    <div className="iv-res-shell">
       {/* Live Deliberation Banner */}
       {isEvaluating && (
         <div
@@ -284,7 +322,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
               ⛔ Interview Concluded — Did Not Advance Past Round {evaluationResult.eliminatedInRound}
             </div>
             <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
-              {evaluationResult.eliminationReason || `You did not clear all 5 cross-examination defense questions in Round ${evaluationResult.eliminatedInRound}.`}
+              {evaluationResult.eliminationReason || `You did not clear 3 of 5 cross-examination defense questions in Round ${evaluationResult.eliminatedInRound}.`}
             </div>
           </div>
           <span style={{
@@ -303,24 +341,21 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
 
       {/* ── SECTION 1: EXECUTIVE CONCLUSION HERO ──────────────────────────────── */}
       <section
-        className="iv-panel iv-results-hero"
+        className={`iv-panel iv-results-hero iv-res-hero ${heroToneClass}`}
         style={{
-          padding: 24,
-          borderRadius: 16,
-          border: '1px solid var(--border)',
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.45fr) minmax(220px, 0.75fr)',
-          gap: 24,
+          gridTemplateColumns: 'minmax(0, 1.4fr) minmax(250px, 0.8fr)',
+          gap: 26,
           alignItems: 'center',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
           {/* Meta Badges Row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{
               fontSize: 11,
               fontWeight: 900,
-              letterSpacing: '0.08em',
+              letterSpacing: '0.09em',
               color: 'var(--accent-mid)',
               textTransform: 'uppercase',
             }}>
@@ -328,10 +363,10 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
             </span>
             <span style={{
               fontSize: 10.5,
-              padding: '2px 8px',
-              borderRadius: 6,
-              background: 'var(--bg3)',
-              border: '1px solid var(--border)',
+              padding: '3px 9px',
+              borderRadius: 999,
+              background: 'rgba(15, 23, 42, 0.7)',
+              border: '1px solid rgba(148, 163, 184, 0.22)',
               color: 'var(--t3)',
               fontFamily: 'var(--font-mono)',
             }}>
@@ -341,19 +376,19 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
               <span
                 data-testid="results-readiness-badge"
                 style={{
-                  fontSize: 10.5,
-                  padding: '2px 10px',
+                  fontSize: 11,
+                  padding: '3px 11px',
                   borderRadius: 999,
                   background: readinessInfo.tone === 'positive'
-                    ? 'rgba(34, 197, 94, 0.14)'
+                    ? 'rgba(34, 197, 94, 0.16)'
                     : readinessInfo.tone === 'conditional'
-                    ? 'rgba(245, 158, 11, 0.14)'
-                    : 'rgba(239, 68, 68, 0.14)',
+                    ? 'rgba(245, 158, 11, 0.16)'
+                    : 'rgba(239, 68, 68, 0.16)',
                   border: readinessInfo.tone === 'positive'
-                    ? '1px solid rgba(34, 197, 94, 0.4)'
+                    ? '1px solid rgba(34, 197, 94, 0.45)'
                     : readinessInfo.tone === 'conditional'
-                    ? '1px solid rgba(245, 158, 11, 0.4)'
-                    : '1px solid rgba(239, 68, 68, 0.35)',
+                    ? '1px solid rgba(245, 158, 11, 0.45)'
+                    : '1px solid rgba(239, 68, 68, 0.4)',
                   color: readinessInfo.tone === 'positive'
                     ? 'var(--green-mid)'
                     : readinessInfo.tone === 'conditional'
@@ -367,36 +402,88 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
             )}
           </div>
 
-          {/* Main Verdict Headline */}
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
-              Executive Conclusion
+          {/* Main Verdict Headline + Circular Score Gauge */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative', width: 82, height: 82, flexShrink: 0 }}>
+              <svg width="82" height="82" viewBox="0 0 82 82" style={{ transform: 'rotate(-90deg)' }}>
+                <circle
+                  cx="41"
+                  cy="41"
+                  r={ringRadius}
+                  fill="none"
+                  stroke="rgba(148, 163, 184, 0.16)"
+                  strokeWidth="7"
+                />
+                <circle
+                  cx="41"
+                  cy="41"
+                  r={ringRadius}
+                  fill="none"
+                  stroke={scoreRingStroke}
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  strokeDasharray={ringCircumference}
+                  strokeDashoffset={ringOffset}
+                  style={{ transition: 'stroke-dashoffset 0.55s ease' }}
+                />
+              </svg>
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <span style={{ fontSize: 19, fontWeight: 900, fontFamily: 'var(--font-mono)', color: verdictColor, lineHeight: 1 }}>
+                  {overallScore}%
+                </span>
+                <span style={{ fontSize: 9, fontWeight: 800, color: 'var(--t3)', letterSpacing: '0.06em', marginTop: 2 }}>
+                  SCORE
+                </span>
+              </div>
             </div>
-            <h1 style={{ fontSize: 26, fontWeight: 900, margin: 0, color: verdictColor, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-              {evaluationResult?.verdict || 'Needs Practice'} · {overallScore}%
-            </h1>
-            <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: '8px 0 0' }}>
-              {evaluationResult?.summary || `Performance evaluation recorded for ${activeTopicName}.`}
-            </p>
+
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                Executive Conclusion
+              </div>
+              <h1 style={{ fontSize: 28, fontWeight: 900, margin: 0, color: verdictColor, letterSpacing: '-0.025em', lineHeight: 1.15 }}>
+                {evaluationResult?.verdict || 'Needs Practice'} · {overallScore}%
+              </h1>
+              <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: '7px 0 0' }}>
+                {evaluationResult?.summary || `Performance evaluation recorded for ${activeTopicName}.`}
+              </p>
+            </div>
           </div>
 
           {/* Quick Session Snapshot Strip */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: 10,
+            gap: 12,
           }}>
-            <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Rounds Completed</div>
-              <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 2 }}>{completedCount} / 4</div>
+            <div className="iv-res-stat-card">
+              <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                🏁 Rounds Completed
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 900, fontFamily: 'var(--font-mono)', color: 'var(--t1)', marginTop: 4 }}>
+                {completedCount} <span style={{ fontSize: 13, color: 'var(--t3)' }}>/ 4</span>
+              </div>
             </div>
-            <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Skipped / Blank</div>
-              <div style={{ fontSize: 16, fontWeight: 900, color: skippedCount > 0 ? 'var(--amber-mid)' : 'var(--green-mid)', marginTop: 2 }}>{skippedCount} / 4</div>
+            <div className="iv-res-stat-card">
+              <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                ⏭️ Skipped / Blank
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 900, fontFamily: 'var(--font-mono)', color: skippedCount > 0 ? 'var(--amber-mid)' : 'var(--green-mid)', marginTop: 4 }}>
+                {skippedCount} <span style={{ fontSize: 13, color: 'var(--t3)' }}>/ 4</span>
+              </div>
             </div>
-            <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Q&amp;A Exchanges</div>
-              <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 2 }}>
+            <div className="iv-res-stat-card">
+              <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                💬 Q&amp;A Exchanges
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 900, fontFamily: 'var(--font-mono)', color: 'var(--t1)', marginTop: 4 }}>
                 {Array.isArray(evaluationResult?.questionBreakdown) ? evaluationResult.questionBreakdown.length : 0}
               </div>
             </div>
@@ -406,33 +493,21 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           {evaluationResult?.appliedWeights && (
             <div style={{
               padding: '10px 14px',
-              borderRadius: 10,
-              background: 'var(--bg3)',
-              border: '1px solid var(--border)',
+              borderRadius: 12,
+              background: 'rgba(15, 23, 42, 0.55)',
+              border: '1px solid rgba(148, 163, 184, 0.14)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: 8,
             }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Hiring Weights
               </span>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {Object.entries(evaluationResult.appliedWeights).map(([dim, weight]: [string, any]) => (
-                  <span
-                    key={dim}
-                    style={{
-                      fontSize: 11,
-                      padding: '2px 8px',
-                      borderRadius: 6,
-                      background: 'var(--bg2)',
-                      border: '1px solid var(--border)',
-                      color: 'var(--t1)',
-                      fontWeight: 700,
-                      fontFamily: 'var(--font-mono)',
-                    }}
-                  >
+                  <span key={dim} className="iv-res-weight-chip">
                     {dim.toUpperCase()} {Math.round(Number(weight) * 100)}%
                   </span>
                 ))}
@@ -441,40 +516,168 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           )}
         </div>
 
-        {/* Right: Clean 5-Dimension Radar */}
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 12,
-          borderRadius: 14,
-          background: 'var(--bg3)',
-          border: '1px solid var(--border)',
-        }}>
-          <RadarChart scores={radarScores} size={200} />
-          <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700, marginTop: 4 }}>
+        {/* Right: Polished 5-Dimension Radar + Compact Dimension Pill Strip */}
+        <div className="iv-res-radar-card">
+          <RadarChart scores={radarScores} size={212} />
+          <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, marginTop: 4, letterSpacing: '0.03em' }}>
             Evidence-Scored Competency Profile
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+            gap: 5,
+            width: '100%',
+            marginTop: 10,
+          }}>
+            {[
+              ['LOG', radarScores.logic],
+              ['SYS', radarScores.systems],
+              ['SLV', radarScores.solving],
+              ['COM', radarScores.comms],
+              ['STR', radarScores.star],
+            ].map(([label, val]) => {
+              const num = Number(val) || 0;
+              return (
+                <div
+                  key={String(label)}
+                  style={{
+                    textAlign: 'center',
+                    padding: '4px 2px',
+                    borderRadius: 8,
+                    background: 'rgba(15, 23, 42, 0.65)',
+                    border: '1px solid rgba(148, 163, 184, 0.14)',
+                  }}
+                >
+                  <div style={{ fontSize: 9, fontWeight: 800, color: 'var(--t3)' }}>{label}</div>
+                  <div style={{ fontSize: 11.5, fontWeight: 900, fontFamily: 'var(--font-mono)', color: getScoreColor(num) }}>
+                    {num}%
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
+      {/* ── WEEKLY XP & CAREER SYNC STRIP (Portfolio + Resume) ────────────────── */}
+      <section
+        data-testid="results-rewards-strip"
+        className="iv-panel iv-res-section-card"
+        style={{
+          padding: '14px 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <div
+            data-testid="results-weekly-xp-badge"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '7px 14px',
+              borderRadius: 12,
+              background: displayedWeeklyXp > 0 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(148, 163, 184, 0.12)',
+              border: displayedWeeklyXp > 0 ? '1px solid rgba(245, 158, 11, 0.42)' : '1px solid rgba(148, 163, 184, 0.25)',
+              color: displayedWeeklyXp > 0 ? '#fcd34d' : 'var(--t3)',
+              fontWeight: 900,
+              fontSize: 13.5,
+              fontFamily: 'var(--font-mono)',
+            }}
+          >
+            <span>⚡</span>
+            <span>+{displayedWeeklyXp} Weekly XP</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
+              {displayedXpTierLabel}
+            </span>
+            <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+              100%→1000 · 90%+→500 · 75%+→350 · 60%+→250 · 50%+→220 · 35%+→120 · &lt;35%→0 XP
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          {syncedToPortfolio || qualifiedForCareerSync ? (
+            <Link
+              href="/profile?tab=portfolio"
+              data-testid="results-portfolio-sync-badge"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 12px',
+                borderRadius: 10,
+                background: 'rgba(34, 197, 94, 0.14)',
+                border: '1px solid rgba(34, 197, 94, 0.38)',
+                color: 'var(--green-mid)',
+                fontSize: 12,
+                fontWeight: 800,
+                textDecoration: 'none',
+              }}
+            >
+              <span>✅</span>
+              <span>{syncedToPortfolio ? 'Added to Portfolio' : 'Portfolio Eligible'}</span>
+            </Link>
+          ) : (
+            <span style={{
+              padding: '6px 11px',
+              borderRadius: 10,
+              background: 'rgba(148, 163, 184, 0.1)',
+              border: '1px solid rgba(148, 163, 184, 0.2)',
+              color: 'var(--t3)',
+              fontSize: 11.5,
+              fontWeight: 700,
+            }}>
+              Score 50%+ to add to Portfolio &amp; Resume
+            </span>
+          )}
+          {(syncedToResume || qualifiedForCareerSync) && (
+            <Link
+              href="/vault"
+              data-testid="results-resume-sync-badge"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 12px',
+                borderRadius: 10,
+                background: 'rgba(99, 102, 241, 0.16)',
+                border: '1px solid rgba(129, 140, 248, 0.42)',
+                color: '#c7d2fe',
+                fontSize: 12,
+                fontWeight: 800,
+                textDecoration: 'none',
+              }}
+            >
+              <span>📄</span>
+              <span>{syncedToResume ? 'Added to Resume' : 'Resume Eligible'}</span>
+            </Link>
+          )}
+        </div>
+      </section>
+
       {/* ── SECTION 2: INTERACTIVE ROUND-WISE REPORT SELECTOR ────────────────── */}
-      <section className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }}>
+      <section className="iv-panel iv-res-section-card">
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: 10,
-          marginBottom: 14,
+          marginBottom: 16,
         }}>
           <div>
-            <h2 style={{ fontSize: 15, fontWeight: 900, margin: 0, color: 'var(--t1)', letterSpacing: '0.02em' }}>
+            <h2 style={{ fontSize: 16, fontWeight: 900, margin: 0, color: 'var(--t1)', letterSpacing: '-0.01em' }}>
               Round-by-Round Inspection Report
             </h2>
-            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '3px 0 0' }}>
-              Select the Conclusion Overview or click any individual round card below to inspect what happened.
+            <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0' }}>
+              Select the Conclusion Overview or click any round card below to inspect detailed evidence and Q&amp;A.
             </p>
           </div>
           <button
@@ -482,14 +685,14 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
             data-testid="report-tab-overview"
             onClick={() => setActiveTab('overview')}
             style={{
-              padding: '7px 14px',
-              borderRadius: 10,
+              padding: '8px 15px',
+              borderRadius: 11,
               fontSize: 12,
               fontWeight: 800,
               cursor: 'pointer',
-              border: activeTab === 'overview' ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-              background: activeTab === 'overview' ? 'rgba(var(--brand-rgb), 0.16)' : 'var(--bg3)',
-              color: activeTab === 'overview' ? 'var(--accent-mid)' : 'var(--t2)',
+              border: activeTab === 'overview' ? '1.5px solid var(--accent)' : '1px solid rgba(148, 163, 184, 0.22)',
+              background: activeTab === 'overview' ? 'rgba(99, 102, 241, 0.20)' : 'rgba(30, 41, 59, 0.6)',
+              color: activeTab === 'overview' ? '#c7d2fe' : 'var(--t2)',
               transition: 'all 0.15s ease',
             }}
           >
@@ -497,7 +700,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
           {roundReports.map((round) => {
             const isActive = activeTab === round.key;
             const statusPill = getStatusPillStyle(round.status);
@@ -508,28 +711,30 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
                 type="button"
                 data-testid={`report-tab-${round.key}`}
                 onClick={() => setActiveTab(round.key)}
-                style={{
-                  textAlign: 'left',
-                  padding: 16,
-                  borderRadius: 14,
-                  background: isActive ? 'rgba(var(--brand-rgb), 0.10)' : 'var(--bg3)',
-                  border: isActive ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-                  boxShadow: isActive ? '0 0 0 3px rgba(var(--brand-rgb), 0.12)' : 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 10,
-                  cursor: 'pointer',
-                  transition: 'all 0.16s ease',
-                }}
+                className={`iv-res-round-card ${isActive ? 'iv-res-round-card--active' : ''}`}
               >
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 3,
+                  background: round.status === 'completed'
+                    ? 'linear-gradient(90deg, #22c55e, #14b8a6)'
+                    : round.status === 'partial'
+                    ? 'linear-gradient(90deg, #f59e0b, #fbbf24)'
+                    : round.status === 'skipped'
+                    ? 'rgba(148, 163, 184, 0.35)'
+                    : 'linear-gradient(90deg, #ef4444, #f87171)',
+                }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     {roundIcons[round.key]} Round {round.roundNumber}
                   </span>
                   <span style={{
                     fontSize: 10,
                     fontWeight: 800,
-                    padding: '2px 8px',
+                    padding: '2px 9px',
                     borderRadius: 999,
                     background: statusPill.bg,
                     border: statusPill.border,
@@ -540,25 +745,26 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-                  <span style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--t1)' }}>{round.shortTitle}</span>
-                  <span style={{ fontSize: 18, fontWeight: 900, fontFamily: 'var(--font-mono)', color: scoreColor }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>{round.shortTitle}</span>
+                  <span style={{ fontSize: 21, fontWeight: 900, fontFamily: 'var(--font-mono)', color: scoreColor }}>
                     {round.score}%
                   </span>
                 </div>
 
-                <div style={{ height: 5, background: 'var(--bg2)', borderRadius: 999, overflow: 'hidden' }}>
+                <div style={{ height: 6, background: 'rgba(15, 23, 42, 0.85)', borderRadius: 999, overflow: 'hidden' }}>
                   <div style={{
                     height: '100%',
                     width: `${Math.max(0, Math.min(100, round.score))}%`,
                     background: scoreColor,
                     borderRadius: 999,
+                    boxShadow: round.score > 0 ? `0 0 10px ${scoreColor}` : 'none',
                     transition: 'width 0.4s ease',
                   }} />
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5, color: 'var(--t3)' }}>
-                  <span style={{ fontWeight: 700, color: 'var(--t2)' }}>{round.verdict}</span>
-                  <span style={{ color: isActive ? 'var(--accent-mid)' : 'var(--t3)', fontWeight: 700 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5, color: 'var(--t3)', paddingTop: 2 }}>
+                  <span style={{ fontWeight: 700, color: 'var(--t2)' }}>{formatRoundVerdictLabel(round.verdict)}</span>
+                  <span style={{ color: isActive ? '#a5b4fc' : 'var(--t3)', fontWeight: 800 }}>
                     {isActive ? 'Viewing ●' : 'Inspect →'}
                   </span>
                 </div>
@@ -572,44 +778,50 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
       {activeTab === 'overview' ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} data-testid="report-panel-overview">
           {/* Verified Strengths & Concrete Improvements */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
-            <div className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }}>
-              <h3 style={{ fontSize: 14, fontWeight: 900, margin: '0 0 12px', color: 'var(--green-mid)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span>✓</span> Verified Strengths
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: 16 }}>
+            <div className="iv-panel iv-res-section-card">
+              <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: '0 0 14px', color: 'var(--green-mid)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span>✅</span> Verified Strengths
               </h3>
               {strengthsList.length > 0 ? (
-                <ul style={{ margin: 0, paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {strengthsList.map((str, idx) => (
-                    <li key={idx}>{str}</li>
+                    <div key={idx} className="iv-res-list-item">
+                      <span style={{ color: 'var(--green-mid)', fontWeight: 900, flexShrink: 0 }}>✓</span>
+                      <span>{str}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               ) : (
                 <div style={{
-                  padding: '12px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg3)',
-                  border: '1px dashed var(--border)',
+                  padding: '13px 15px',
+                  borderRadius: 12,
+                  background: 'rgba(30, 41, 59, 0.45)',
+                  border: '1px dashed rgba(148, 163, 184, 0.25)',
                   fontSize: 12.5,
                   color: 'var(--t3)',
-                  lineHeight: 1.5,
+                  lineHeight: 1.55,
                 }}>
                   No verified strengths were demonstrated in this session yet. Complete at least one round with substantive explanations, code/case analysis, or architecture to unlock strengths.
                 </div>
               )}
             </div>
 
-            <div className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }} data-testid="improvements-card">
-              <h3 style={{ fontSize: 14, fontWeight: 900, margin: '0 0 12px', color: 'var(--amber-mid)', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div className="iv-panel iv-res-section-card" data-testid="improvements-card">
+              <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: '0 0 14px', color: 'var(--amber-mid)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span>📈</span> Priority Areas to Improve
               </h3>
               {improvementList.length > 0 ? (
-                <ul style={{ margin: 0, paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {improvementList.map((tip, idx) => (
-                    <li key={idx}>{tip}</li>
+                    <div key={idx} className="iv-res-list-item">
+                      <span style={{ color: 'var(--amber-mid)', fontWeight: 900, flexShrink: 0 }}>→</span>
+                      <span>{tip}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               ) : (
-                <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.55 }}>
                   Keep practicing structured explanations with quantified trade-offs across all 4 rounds.
                 </p>
               )}
@@ -618,7 +830,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
 
           {/* Answer Quality Assessment (Only when substantive answers exist) */}
           {evaluationResult?.answerQuality && (
-            <div className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }}>
+            <div className="iv-panel iv-res-section-card">
               <div style={{ marginBottom: 14 }}>
                 <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Answer Quality Rubric
@@ -664,7 +876,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
 
           {/* Delivery Diagnostics + STAR Summary */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
-            <div className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }}>
+            <div className="iv-panel iv-res-section-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                 <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>📡 Delivery Diagnostics</h3>
                 <span style={{ fontSize: 10.5, padding: '2px 8px', borderRadius: 6, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t3)', fontWeight: 700 }}>
@@ -701,7 +913,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
               </div>
             </div>
 
-            <div className="iv-panel" style={{ padding: 20, borderRadius: 16, border: '1px solid var(--border)' }} data-testid="star-metrics-card">
+            <div className="iv-panel iv-res-section-card" data-testid="star-metrics-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, gap: 8, flexWrap: 'wrap' }}>
                 <h3 style={{ fontSize: 14, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>⭐ STAR Framework Coverage</h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1046,11 +1258,8 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
 
       {/* ── SECTION 4: CLEAN ORGANIZED ACTION FOOTER ─────────────────────────── */}
       <footer
-        className="iv-panel"
+        className="iv-panel iv-res-footer"
         style={{
-          padding: 16,
-          borderRadius: 16,
-          border: '1px solid var(--border)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',

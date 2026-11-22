@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { AnimState } from '@/components/avatar/VRoidAvatarEngine';
+import type { Round4CompletionState } from '@/lib/interview/roundDefenseEngine';
 import { AssistModeDrawer } from './AssistModeDrawer';
 
 const VRoidInterviewAvatar = dynamic(
@@ -28,6 +29,7 @@ export interface Round4StarDrillProps {
   onSendMessage: (text: string) => void;
   starStep?: number;
   starCoverage?: { hasS: boolean; hasT: boolean; hasA: boolean; hasR: boolean; count: number };
+  round4State?: Round4CompletionState | null;
   messages?: any[];
   messagesEndRef?: React.RefObject<HTMLDivElement>;
   activeTopicName?: string;
@@ -74,6 +76,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
   onSendMessage,
   starStep = 0,
   starCoverage,
+  round4State,
   messages = [],
   messagesEndRef,
   activeTopicName = 'Software Engineering',
@@ -185,8 +188,31 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
       >
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           <div>
-            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 4 OF 4</span>
-            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Executive STAR Deep Dive</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent-mid)' }}>ROUND 4 OF 4</span>
+              {round4State && (
+                <span
+                  data-testid="round4-question-limit-pill"
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    padding: '1px 7px',
+                    borderRadius: 999,
+                    fontFamily: 'var(--font-mono)',
+                    background: round4State.completed ? 'rgba(34, 197, 94, 0.16)' : 'rgba(99, 102, 241, 0.14)',
+                    border: round4State.completed ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(129, 140, 248, 0.35)',
+                    color: round4State.completed ? 'var(--green-mid)' : 'var(--accent-mid)',
+                  }}
+                >
+                  {round4State.completed
+                    ? `✅ Interview Done (${round4State.answeredCount}Q)`
+                    : `Q${round4State.questionsAsked}/${round4State.maxQuestions} · ${round4State.accurateCount}/${round4State.earlyPassTarget} Accurate`}
+                </span>
+              )}
+            </div>
+            <h2 style={{ fontSize: 13.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>
+              {domainStream === 'non_tech' ? 'Partner & CFO STAR Deep Dive' : 'Executive STAR Deep Dive'}
+            </h2>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
             <button
@@ -205,11 +231,13 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                 flexShrink: 0
               }}
             >
-              {canFinishInterview
+              {round4State?.completed
+                ? 'View Final Scorecard ➔'
+                : canFinishInterview
                 ? 'Complete interview ➔'
                 : (starStep >= 4 || (starCoverage?.count ?? 0) >= 3)
                 ? 'Waiting for interviewer…'
-                : `Answer ${Math.max(1, 4 - starStep)} more STAR question${4 - starStep === 1 ? '' : 's'}`}
+                : `Q${round4State?.questionsAsked ?? (starStep + 1)} of 4–5 (3/3 wraps early)`}
             </button>
             {!canFinishInterview && onSkipRound && (
               <button
@@ -358,7 +386,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           <input
             type="text"
             value={manualTextInput}
-            disabled={isSendingInterviewMessage}
+            disabled={isSendingInterviewMessage || Boolean(round4State?.completed)}
             onChange={(e) => setManualTextInput(e.target.value)}
             onKeyDown={(e) => {
               if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -370,7 +398,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                 onSendMessage(textToSend);
               }
             }}
-            placeholder="Or type your STAR response (Situation, Task, Action, Result)... (Enter or Ctrl+↵ to send)"
+            placeholder={round4State?.completed ? 'Interview complete — finalizing your scorecard…' : 'Or type your STAR response (Situation, Task, Action, Result)... (Enter or Ctrl+↵ to send)'}
             style={{
               flex: 1,
               padding: '9px 12px',

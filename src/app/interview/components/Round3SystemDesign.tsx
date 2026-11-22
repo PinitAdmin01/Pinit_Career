@@ -152,20 +152,20 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           }}
         >
           {defenseState?.status === 'eliminated'
-            ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 4. Generating final scorecard…`
+            ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.requiredToPass || 3} required) — You did not qualify for Round 4. Generating final scorecard…`
             : canProceed
             ? (domainStream === 'non_tech'
-                ? '✅ Business Workflow & 5/5 Panel Defense Cleared — Ready for Round 4 Executive Deep Dive!'
-                : '✅ Architecture & 5/5 Trade-Off Defense Cleared — Ready for Round 4 STAR Deep Dive!')
+                ? `✅ Business Workflow & Panel Defense Cleared (${defenseState?.passedCount ?? 3}/${defenseState?.requiredToPass ?? 3}) — Ready for Round 4 Executive Deep Dive!`
+                : `✅ Architecture & Trade-Off Defense Cleared (${defenseState?.passedCount ?? 3}/${defenseState?.requiredToPass ?? 3}) — Ready for Round 4 STAR Deep Dive!`)
             : architectureEvaluation && Number(architectureEvaluation.score) < 60
-            ? `⚠️ ${domainStream === 'non_tech' ? 'Workflow' : 'Topology'} score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate to start the 5-question defense.`
+            ? `⚠️ ${domainStream === 'non_tech' ? 'Workflow' : 'Topology'} score (${architectureEvaluation.score}/100) is below the 60/100 threshold. Address the bottlenecks below and re-evaluate to start the panel defense.`
             : architectureEvaluation && defenseState?.status === 'in_progress'
-            ? `🎯 Step 2 of 2: Answer Question ${defenseState.currentQuestionNumber} of ${defenseState.totalQuestions} from ${activeTeacher.name} on the right. Clear all 5 questions to unlock Round 4.`
+            ? `🎯 Step 2 of 2: Answer Question ${defenseState.currentQuestionNumber} of ${defenseState.totalQuestions} from ${activeTeacher.name} on the right. Clear ${defenseState.requiredToPass || 3} of 5 correctly to unlock Round 4.`
             : architectureEvaluation
-            ? `💬 Step 2 of 2: Answer ${activeTeacher.name}'s 5 ${domainStream === 'non_tech' ? 'business workflow' : 'architectural trade-off'} questions on the right to unlock Round 4.`
+            ? `💬 Step 2 of 2: Clear 3 of 5 ${domainStream === 'non_tech' ? 'business workflow' : 'architectural trade-off'} questions from ${activeTeacher.name} on the right to unlock Round 4.`
             : (domainStream === 'non_tech'
-                ? '📐 Step 1 of 2: Plan and connect workflow stages on the canvas and click "Evaluate Workflow" to begin your 5-question defense.'
-                : '📐 Step 1 of 2: Build and connect your system architecture on the whiteboard and click "Evaluate Architecture" to begin your 5-question defense.')}
+                ? '📐 Step 1 of 2: Plan and connect workflow stages on the canvas and click "Evaluate Workflow", then clear 3 of 5 defense questions.'
+                : '📐 Step 1 of 2: Build and connect your system architecture on the whiteboard and click "Evaluate Architecture", then clear 3 of 5 defense questions.')}
         </div>
 
         <SystemDesignWhiteboard

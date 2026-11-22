@@ -16,12 +16,13 @@ export const DefenseProgressStrip: React.FC<DefenseProgressStripProps> = ({ defe
   if (!defenseState || defenseState.status === 'idle') return null;
 
   const { totalQuestions, currentQuestionNumber, passedCount, status, records } = defenseState;
+  const requiredToPass = defenseState.requiredToPass || 3;
   const slots = Array.from({ length: totalQuestions }, (_, i) => {
     const qNum = i + 1;
     const rec = records.find(r => r.questionNumber === qNum);
     return {
       qNum,
-      verdict: rec?.verdict || (qNum < currentQuestionNumber ? 'passed' : 'upcoming'),
+      verdict: rec?.verdict || 'upcoming',
       isCurrent: status === 'in_progress' && qNum === currentQuestionNumber,
     };
   });
@@ -61,11 +62,11 @@ export const DefenseProgressStrip: React.FC<DefenseProgressStripProps> = ({ defe
           {isEliminated
             ? '⛔ Defense Failed — Session Ending'
             : isPassed
-            ? '✅ 5/5 Defense Cleared — Next Round Unlocked'
-            : `🎯 Defense Cross-Exam · Question ${currentQuestionNumber} of ${totalQuestions}`}
+            ? `✅ Defense Cleared (${passedCount}/${requiredToPass}) — Next Round Unlocked`
+            : `🎯 Defense · Q${currentQuestionNumber}/${totalQuestions} (Need ${requiredToPass} Correct)`}
         </span>
         <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-          {passedCount}/{totalQuestions} Cleared
+          {passedCount}/{requiredToPass} Cleared
         </span>
       </div>
 

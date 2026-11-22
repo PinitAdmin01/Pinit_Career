@@ -611,8 +611,8 @@ export const Round2CaseStudy: React.FC<Round2CodingProps> = ({
       setTerminalLogs(newLogs);
       setAuditSummary(
         fullPass
-          ? `✅ Case Desk Verified (${passedCount}/${caseData.metrics.length} ratios + journal entry) — Answer all 5 panel questions on the right to advance!`
-          : `⚠️ Working submitted (${passedCount}/${caseData.metrics.length} ratios) — Defend your analysis across 5 panel questions on the right!`
+          ? `✅ Case Desk Verified (${passedCount}/${caseData.metrics.length} ratios + journal entry) — Clear 3 of 5 panel questions on the right to advance!`
+          : `⚠️ Working submitted (${passedCount}/${caseData.metrics.length} ratios) — Clear 3 of 5 panel questions on the right to advance!`
       );
       runCodeAndTests();
     } else {
@@ -818,10 +818,10 @@ export const Round2CaseStudy: React.FC<Round2CodingProps> = ({
             {defenseEliminated
               ? `⛔ Panel Defense Concluded (${defenseState?.passedCount}/${defenseState?.totalQuestions} cleared) — Did not qualify for Round 3. Generating final scorecard…`
               : canProceed
-              ? '✅ Case Desk & 5/5 Panel Defense Cleared — Click "Continue to Round 3 ➔" above!'
+              ? `✅ Case Desk & Panel Defense Cleared (${defenseState?.passedCount ?? 3}/${defenseState?.requiredToPass ?? 3}) — Click "Continue to Round 3 ➔" to proceed!`
               : defenseActive
-              ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber} of ${defenseState?.totalQuestions} in the Corporate Panel chat on the right. Clear all 5 questions to advance!`
-              : auditSummary || '📊 Step 1 of 2: Inspect Exhibit A & Exhibit B, pass the red-flag/journal entry, compute the 4 ratios, select your verdict, and submit for your 5-question panel defense.'}
+              ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber} of ${defenseState?.totalQuestions} in the Corporate Panel chat on the right. Clear ${defenseState?.requiredToPass || 3} of 5 correctly to advance!`
+              : auditSummary || '📊 Step 1 of 2: Inspect Exhibit A & Exhibit B, pass the red-flag/journal entry, compute the 4 ratios, select your verdict, and submit (clear 3 of 5 panel questions to advance).'}
           </div>
 
           {/* Exhibit A: Financial Statements (shown on Exhibit A tab + compact reference on Workbench so SSR & candidates always see figures) */}

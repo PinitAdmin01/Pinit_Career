@@ -13,14 +13,19 @@ import { unlockSpeechSynthesis } from '@/lib/interview/voiceActivity';
 import { SKIP_TURN_REGEX } from '@/lib/interview/postInterviewInsights';
 import {
   advanceRoundDefense,
+  advanceRound4State,
   buildConciseRoundIntro,
   buildDefenseFinalVerdictSpeech,
+  buildRound4CompletionSpeech,
   createInitialDefenseState,
+  createInitialRound4State,
   evaluateDefenseTurnPass,
+  evaluateRound4AnswerAccuracy,
   getFallbackDefenseQuestion,
   startRoundDefense,
   type DefenseRoundType,
   type RoundDefenseState,
+  type Round4CompletionState,
 } from '@/lib/interview/roundDefenseEngine';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { toast } from '@/lib/store/useAppStore';
@@ -506,6 +511,13 @@ export default function InterviewPage() {
     setRound3DefenseState(next);
   }, []);
 
+  const [round4State, setRound4StateInternal] = useState<Round4CompletionState>(() => createInitialRound4State());
+  const round4StateRef = useRef<Round4CompletionState>(round4State);
+  const setRound4State = useCallback((next: Round4CompletionState) => {
+    round4StateRef.current = next;
+    setRound4StateInternal(next);
+  }, []);
+
   const eliminationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const clearEliminationTimer = useCallback(() => {
     if (eliminationTimerRef.current) {
@@ -789,6 +801,7 @@ export default function InterviewPage() {
     setLatestTopology(activeSessionDraft.latestTopology || null);
     setRound2Defense(createInitialDefenseState(2, activeSessionDraft.domainStream === 'non_tech' ? 'case' : 'code'));
     setRound3Defense(createInitialDefenseState(3, activeSessionDraft.domainStream === 'non_tech' ? 'workflow' : 'architecture'));
+    setRound4State(createInitialRound4State());
     codePerLangRef.current = {};
     codeModifiedRef.current = Boolean(activeSessionDraft.codeContent);
     setSelectedLang(activeSessionDraft.selectedLang || 'python');
@@ -965,6 +978,7 @@ export default function InterviewPage() {
     clearEliminationTimer();
     setRound2Defense(createInitialDefenseState(2, domainStream === 'non_tech' ? 'case' : 'code'));
     setRound3Defense(createInitialDefenseState(3, domainStream === 'non_tech' ? 'workflow' : 'architecture'));
+    setRound4State(createInitialRound4State());
     setCodeRunFailed(false);
     setEvaluationResult(null);
     finishingRef.current = false;
@@ -1089,6 +1103,7 @@ export default function InterviewPage() {
       round4StartMsgIndexRef.current = r4Idx;
       setRound4StartMsgIndex(r4Idx);
       setStarStep(0);
+      setRound4State(createInitialRound4State());
     }
     let stagePrompt = '';
     const companyRoundCue = selectedCompanyProfile ? ` We will evaluate this against ${selectedCompanyProfile.name}'s ${selectedCompanyProfile.interviewStyle} bar.` : '';
@@ -1125,7 +1140,9 @@ export default function InterviewPage() {
       });
     } else if (next === 'round4_star') {
       const builtNodes = latestTopology?.nodes?.map((n: any) => n.label || n.type).join(', ') || (domainStream === 'non_tech' ? 'business workflow stages' : 'distributed tiers');
-      stagePrompt = `Welcome to Round 4. I am ${nextTeacher.name}, your executive interviewer.${companyRoundCue} I have reviewed your background, your Round 2 solution, and your Round 3 design (${builtNodes}). Connect all three using concrete STAR evidence: why did you choose that approach, what trade-offs did it create, and what measurable impact did you achieve?`;
+      stagePrompt = domainStream === 'non_tech'
+        ? `Welcome to Round 4, our Partner and CFO Executive Deep Dive. I am ${nextTeacher.name}.${companyRoundCue} I will ask up to 4 to 5 focused questions—and if you answer the first 3 with full accuracy, your interview concludes right away. Question 1: Connecting your ${activeTopicName} case desk and workflow (${builtNodes}), walk me through a high-stakes financial, audit, or commercial dilemma using Situation, Task, Action, and measurable Result.`
+        : `Welcome to Round 4. I am ${nextTeacher.name}, your executive interviewer.${companyRoundCue} I will ask up to 4 to 5 STAR questions—and if you answer the first 3 with full accuracy, your interview wraps up right away. Question 1: Connecting your Round 2 code and Round 3 design (${builtNodes}), walk me through why you chose that approach, what trade-offs it created, and what measurable impact you achieved.`;
     }
     if (stagePrompt) {
       postLiveEvent('stage', next);
@@ -1257,6 +1274,7 @@ export default function InterviewPage() {
 
   const handleSendMessageWithText = async (text: string) => {
     if (!text.trim() || isSendingInterviewMessageRef.current) return;
+    if (activeStage === 'round4_star' && round4StateRef.current.completed) return;
     const isSkipTurn = SKIP_TURN_REGEX.test(text.trim());
     const activeRound2Defense = activeStage === 'round2_coding' && round2DefenseRef.current.status === 'in_progress'
       ? round2DefenseRef.current
@@ -1382,7 +1400,32 @@ export default function InterviewPage() {
         return;
       }
 
-      if (activeStage === 'round4_star' && !isSkipTurn) setStarStep(prev => prev + 1);
+      if (activeStage === 'round4_star') {
+        if (!isSkipTurn) setStarStep(prev => prev + 1);
+        const starEval = evaluateRound4AnswerAccuracy(
+          text.trim(),
+          data?.starGrade === 'PASS' || data?.starGrade === 'FAIL' ? data.starGrade : null
+        );
+        const nextR4 = advanceRound4State(round4StateRef.current, text.trim(), starEval.accurate, starEval.reason);
+        setRound4State(nextR4);
+
+        if (nextR4.completed) {
+          const closingSpeech = buildRound4CompletionSpeech(nextR4, domainStream);
+          setMessages([...newMsgs, { role: 'assistant', content: closingSpeech }]);
+          clearEliminationTimer();
+          let concluded = false;
+          const concludeR4 = () => {
+            if (concluded) return;
+            concluded = true;
+            clearEliminationTimer();
+            setAnimState('idle');
+            void finishInterview();
+          };
+          speakWithAvatar(closingSpeech, activeTeacher.id, () => setAnimState('talking'), concludeR4);
+          eliminationTimerRef.current = setTimeout(concludeR4, 11000);
+          return;
+        }
+      }
       setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
       speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
       if (activeStage === 'round2_coding' && codeSubmitted && !answeringCodeReview) {
@@ -1447,6 +1490,28 @@ export default function InterviewPage() {
           triggerForcefulElimination(nextDefense.roundNumber, nextDefense.eliminationReason, failSpeech, activeTeacher.id);
         }
         return;
+      }
+      if (activeStage === 'round4_star') {
+        if (!isSkipTurn) setStarStep(prev => prev + 1);
+        const starEval = evaluateRound4AnswerAccuracy(text.trim(), null);
+        const nextR4 = advanceRound4State(round4StateRef.current, text.trim(), starEval.accurate, starEval.reason);
+        setRound4State(nextR4);
+        if (nextR4.completed) {
+          const closingSpeech = buildRound4CompletionSpeech(nextR4, domainStream);
+          setMessages([...newMsgs, { role: 'assistant', content: closingSpeech }]);
+          clearEliminationTimer();
+          let concluded = false;
+          const concludeR4 = () => {
+            if (concluded) return;
+            concluded = true;
+            clearEliminationTimer();
+            setAnimState('idle');
+            void finishInterview();
+          };
+          speakWithAvatar(closingSpeech, activeTeacher.id, () => setAnimState('talking'), concludeR4);
+          eliminationTimerRef.current = setTimeout(concludeR4, 11000);
+          return;
+        }
       }
       const fallback = answeringArchitectureQuestion
         ? 'I could not review that defense because the connection failed. Please send your explanation again.'
@@ -1797,6 +1862,7 @@ export default function InterviewPage() {
           jdContext: jdPromptContext,
           companyContext: fullCompanyContext,
           liveSessionId: liveSessionIdRef.current,
+          eliminatedInRound: opts?.eliminatedInRound,
           archetype,
           topology: latestTopology,
           telemetry: {
@@ -1821,7 +1887,11 @@ export default function InterviewPage() {
           evaluationToken: data.evaluationToken,
           topicEvaluationToken: data.topicEvaluationToken,
           xpAwarded: data.xpAwarded,
+          weeklyXpAwarded: data.weeklyXpAwarded ?? data.xpAwarded ?? 0,
+          weeklyXpTierLabel: data.weeklyXpTierLabel,
           newXp: data.newXp,
+          portfolioSynced: Boolean(data.portfolioSynced),
+          resumeSynced: Boolean(data.resumeSynced),
           perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores,
           roundReports: evalResult.roundReports
         };
@@ -1875,9 +1945,20 @@ export default function InterviewPage() {
         toast.error('Capstone defense not recorded', 'Could not reach the server. Please try again.');
       }
     }
-    // The server grants the interview XP when it evaluates a pass (max 3 a day); show what it granted.
+    // The server grants tiered Weekly XP (100%->1000, 90%+->500, 75%+->350, 60%+->250, 50%+->220, 35%+->120, <35%->0)
     if (typeof resultObj.xpAwarded === 'number' && resultObj.xpAwarded > 0) {
-      applyServerXp(resultObj.newXp, resultObj.xpAwarded, 'Completed AI Interview');
+      applyServerXp(
+        resultObj.newXp,
+        resultObj.xpAwarded,
+        `AI Interview (${resultObj.score}% · ${resultObj.weeklyXpTierLabel || 'Weekly XP'})`
+      );
+    }
+    if (resultObj.portfolioSynced || resultObj.resumeSynced) {
+      const syncedTargets = [
+        resultObj.portfolioSynced ? 'Portfolio' : null,
+        resultObj.resumeSynced ? 'Resume' : null,
+      ].filter(Boolean).join(' & ');
+      toast.success(`Added to ${syncedTargets}`, `Verified ${activeTopicName} interview (${resultObj.score}%) synced cleanly.`);
     }
     // Award +3 Trust Score for completing the AI Interview (baseline 50, max 100)
     applyTrustReward(user?.id, 'interview').catch(() => {});
@@ -2411,13 +2492,14 @@ export default function InterviewPage() {
               lastInterviewerSpeech={lastInterviewerSpeech}
               finishInterview={() => { void finishInterview(); }}
               onSkipRound={handleSkipRound}
-              canFinishInterview={(starStep >= 4 || starCoverage.count >= 3) && !isSendingInterviewMessage && !isAvatarSpeaking}
+              canFinishInterview={(round4State.completed || starStep >= 4 || starCoverage.count >= 3) && !isSendingInterviewMessage && !isAvatarSpeaking}
               isSendingInterviewMessage={isSendingInterviewMessage}
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
               starStep={starStep}
               starCoverage={starCoverage}
+              round4State={round4State}
               messages={messages}
               messagesEndRef={messagesEndRef}
               isAssistModeActive={isAssistModeActive}

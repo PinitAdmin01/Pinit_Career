@@ -295,16 +295,16 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
               : defenseState?.status === 'eliminated'
               ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 3. Generating final scorecard…`
               : canProceed
-              ? '✅ Code & 5/5 Cross-Examination Defense Cleared — Click "Continue to architecture ➔" to proceed!'
+              ? `✅ Code & Defense Cleared (${defenseState?.passedCount ?? 3}/${defenseState?.requiredToPass ?? 3}) — Click "Continue to architecture ➔" to proceed!`
               : codeRunFailed
               ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or try a different challenge.`
               : codeSubmitted && (codeReviewQuestionReady || defenseState?.status === 'in_progress')
-              ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber || 1} of ${defenseState?.totalQuestions || 5} from ${activeTeacher.name} in the Interviewer panel to unlock Round 3.`
+              ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber || 1} of ${defenseState?.totalQuestions || 5} from ${activeTeacher.name} in the Interviewer panel. Clear ${defenseState?.requiredToPass || 3} of 5 correctly to unlock Round 3.`
               : codeSubmitted && codeReviewStarted
-              ? `⏳ Submitting solution to ${activeTeacher.name} to start the 5-question code defense...`
+              ? `⏳ Submitting solution to ${activeTeacher.name} to start the code defense...`
               : codeSubmitted
-              ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Submit your solution to start the 5-question code defense, or try another coding challenge.'
-              : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your code across 5 live questions.'}
+              ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Submit your solution to start the code defense (3 of 5 correct unlocks Round 3), or try another challenge.'
+              : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then clear 3 of 5 live defense questions to unlock Round 3.'}
           </span>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', flexShrink: 0 }}>
             {canProceed ? (
