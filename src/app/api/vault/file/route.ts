@@ -127,28 +127,57 @@ export async function GET(req: Request) {
       });
     }
 
+    let fileBuffer = Buffer.alloc(0);
+    let blobType = '';
+
     let { data: blob, error: dlErr } = await db.storage.from('resumes').download(storagePath);
-    if ((dlErr || !blob) && admin && token) {
-      const retry = await userClient.storage.from('resumes').download(storagePath);
-      blob = retry.data;
-      dlErr = retry.error;
+    if (blob) {
+      blobType = blob.type || '';
+      fileBuffer = Buffer.from(await blob.arrayBuffer());
     }
-    if (dlErr || !blob) {
+    if ((dlErr || fileBuffer.byteLength === 0) && admin && token) {
+      const retry = await userClient.storage.from('resumes').download(storagePath);
+      if (retry.data) {
+        blobType = retry.data.type || blobType;
+        const retryBuf = Buffer.from(await retry.data.arrayBuffer());
+        if (retryBuf.byteLength > 0) {
+          fileBuffer = retryBuf;
+          dlErr = null;
+        }
+      }
+    }
+
+    // Fallback: fetch directly from a short-lived signed URL if Storage download() returned 0 bytes
+    if (fileBuffer.byteLength === 0) {
+      try {
+        const { data: signedData } = await db.storage.from('resumes').createSignedUrl(storagePath, 120);
+        if (signedData?.signedUrl) {
+          const directRes = await fetch(signedData.signedUrl);
+          if (directRes.ok) {
+            const directBuf = Buffer.from(await directRes.arrayBuffer());
+            if (directBuf.byteLength > 0) {
+              fileBuffer = directBuf;
+              blobType = directRes.headers.get('content-type') || blobType;
+              dlErr = null;
+            }
+          }
+        }
+      } catch {}
+    }
+
+    if (dlErr && fileBuffer.byteLength === 0) {
       return NextResponse.json(
         { error: 'DOWNLOAD_FAILED', message: dlErr?.message || 'Could not fetch document from storage.' },
         { status: 404 }
       );
     }
-
-    const arrayBuffer = await blob.arrayBuffer();
-    const fileBuffer = Buffer.from(arrayBuffer);
     if (fileBuffer.byteLength === 0) {
       return NextResponse.json(
-        { error: 'EMPTY_FILE', message: 'Stored document file is empty.' },
+        { error: 'EMPTY_FILE', message: 'Stored file is 0 bytes in storage (from an earlier upload). Re-upload this file once to store the full PDF.' },
         { status: 404 }
       );
     }
-    const mimeType = inferMimeType(cleanFileName, blob.type);
+    const mimeType = inferMimeType(cleanFileName, blobType);
 
     return new NextResponse(new Uint8Array(fileBuffer), {
       status: 200,

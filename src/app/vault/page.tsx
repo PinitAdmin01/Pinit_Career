@@ -1305,11 +1305,77 @@ export default function VaultPage() {
                     ⏳ Loading your uploaded document from Secure Vault...
                   </div>
                 ) : previewDoc.fileError ? (
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, textAlign: 'center', gap: 10 }}>
-                    <div style={{ fontSize: 28 }}>📂</div>
-                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>Document Preview Unavailable</div>
-                    <div style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360 }}>{previewDoc.fileError}</div>
-                  </div>
+                  previewDoc.aiAnalysis?.rawTextExcerpt || previewDoc.item?.description ? (
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          padding: '9px 14px',
+                          background: 'rgba(245,158,11,0.12)',
+                          borderBottom: '1px solid rgba(245,158,11,0.35)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 10,
+                          flexWrap: 'wrap',
+                        }}
+                      >
+                        <span style={{ fontSize: 11.5, color: '#fbbf24', fontWeight: 700 }}>
+                          📄 Showing Extracted Document Content ({previewDoc.fileError})
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            closeDocumentViewer();
+                            setShowUploadPanel(true);
+                            fileRef.current?.click();
+                          }}
+                          className="btn-primary btn-sm"
+                          style={{ fontSize: 11, padding: '4px 10px' }}
+                        >
+                          📤 Re-upload Full PDF
+                        </button>
+                      </div>
+                      <div style={{ flex: 1, overflowY: 'auto', padding: 18, background: '#0b1120' }}>
+                        <div
+                          style={{
+                            maxWidth: 640,
+                            margin: '0 auto',
+                            padding: 20,
+                            borderRadius: 10,
+                            background: '#ffffff',
+                            color: '#0f172a',
+                            boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+                            fontSize: 12.5,
+                            lineHeight: 1.65,
+                            whiteSpace: 'pre-wrap',
+                            fontFamily: 'var(--font-sans)',
+                          }}
+                        >
+                          <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 8, borderBottom: '1px solid #e2e8f0', paddingBottom: 6 }}>
+                            {previewDoc.item.title}
+                          </div>
+                          {previewDoc.aiAnalysis?.rawTextExcerpt || cleanCardDescription(previewDoc.item.description)}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, textAlign: 'center', gap: 10 }}>
+                      <div style={{ fontSize: 28 }}>📂</div>
+                      <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>Document Preview Unavailable</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360 }}>{previewDoc.fileError}</div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          closeDocumentViewer();
+                          setShowUploadPanel(true);
+                          fileRef.current?.click();
+                        }}
+                        className="btn-primary btn-sm"
+                      >
+                        📤 Upload / Re-upload File
+                      </button>
+                    </div>
+                  )
                 ) : previewDoc.pdfBytes && previewDoc.mimeType.includes('pdf') ? (
                   <PdfCanvasViewer
                     data={previewDoc.pdfBytes}

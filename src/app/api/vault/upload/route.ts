@@ -28,6 +28,7 @@
 
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
 import { isReadableDocumentText } from '@/lib/ats/pdfTextExtractor';
@@ -239,12 +240,26 @@ export async function POST(req: Request) {
     const storagePath = `vault/${userId}/${category}/${sanitizedFileName}`;
 
     try {
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const admin = getSupabaseAdmin();
+      const storageClient = admin || supabase;
+      const uploadBytes = new Uint8Array(fileBuffer.buffer, fileBuffer.byteOffset, fileBuffer.byteLength);
+      let { data: uploadData, error: uploadError } = await storageClient.storage
         .from('resumes')
-        .upload(storagePath, fileBuffer, {
+        .upload(storagePath, uploadBytes, {
           contentType: securityGate.mimeType,
           upsert: true
         });
+
+      if ((uploadError || !uploadData) && admin) {
+        const retry = await supabase.storage
+          .from('resumes')
+          .upload(storagePath, uploadBytes, {
+            contentType: securityGate.mimeType,
+            upsert: true
+          });
+        uploadData = retry.data;
+        uploadError = retry.error;
+      }
 
       if (uploadError || !uploadData) {
         console.error(`❌ [STAGE 11/12 - Storage Upload Failed]:`, uploadError);
@@ -255,12 +270,12 @@ export async function POST(req: Request) {
       }
 
       // Private bucket: create a signed URL (7 days) rather than an unauthenticated 403 public URL
-      const { data: signedData } = await supabase.storage
+      const { data: signedData } = await storageClient.storage
         .from('resumes')
         .createSignedUrl(storagePath, 60 * 60 * 24 * 7);
 
       storageUrl = signedData?.signedUrl || storagePath;
-      console.log(`✅ [STAGE 11/12 - Storage Signed URL Generated]: ${storagePath}`);
+      console.log(`✅ [STAGE 11/12 - Storage Signed URL Generated]: ${storagePath} (${uploadBytes.byteLength} bytes)`);
     } catch (storageErr: any) {
       console.error(`❌ [STAGE 11/12 - Storage Upload Exception]:`, storageErr);
       return NextResponse.json(
