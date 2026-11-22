@@ -1,6 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { runTestSuite } from '../src/lib/code/codeRunner';
+import { Round2Coding } from '../src/app/interview/components/Round2Coding';
 
 const FIVE_TIER_CASES = [
   { input: '([10, 50, 75, 100], 50)', output: '3', expectedOutput: '3', name: '[T1: Standard] Standard Filtering Test' },
@@ -85,5 +88,55 @@ describe('Python Round 2 Interview Runner — Function Name & 5-Tier Execution F
       res.terminalLogs.join(' ').includes("Function 'full_stack_software' was not defined"),
       `Expected clear NameError mentioning full_stack_software, got: ${res.terminalLogs.join(' | ')}`
     );
+  });
+
+  it('Round2Coding renders inline Submit & 5-Q Defense + Next Challenge controls immediately after 5/5 pass', () => {
+    const html = renderToStaticMarkup(
+      React.createElement(Round2Coding, {
+        domainStream: 'tech',
+        currentCodingProb: {
+          title: 'Full-Stack Software Developer Algorithmic Pipeline & Data Optimizer',
+          description: 'Count items >= threshold in O(N) time.',
+          starterCode: 'def full_stack_software(items, threshold):\n    return 0',
+          testCases: FIVE_TIER_CASES,
+        },
+        testOutcomes: FIVE_TIER_CASES.map((tc, idx) => ({
+          index: idx + 1,
+          testCaseName: tc.name,
+          passed: true,
+          expectedOutput: tc.expectedOutput,
+          actualOutput: tc.expectedOutput,
+        })),
+        onProceed: () => {},
+        onReviewSolution: () => {},
+        onRetryChallenge: () => {},
+        canProceed: false,
+        codeSubmitted: true,
+        codeRunFailed: false,
+        codeReviewStarted: false,
+        codeReviewQuestionReady: false,
+        defenseState: null,
+        isSendingInterviewMessage: false,
+        lastInterviewerSpeech: 'Welcome to Round 2.',
+        manualTextInput: '',
+        setManualTextInput: () => {},
+        onSendMessage: () => {},
+        selectedLang: 'python',
+        setSelectedLang: () => {},
+        runCodeAndTests: () => {},
+        isRunning: false,
+        codeContent: 'def full_stack_software(items, threshold):\n    return sum(1 for x in items if x >= threshold)',
+        setCodeContent: () => {},
+        codeModifiedRef: { current: true },
+        activeTeacher: { id: 'rohan', name: 'Mr. Rohan', emoji: '⚡', title: 'Evaluator' },
+        animState: 'idle',
+        terminalLogs: ['All 5 tiers passed'],
+        setTerminalLogs: () => {},
+      })
+    );
+
+    assert.ok(html.includes('data-testid="round2-banner-submit-btn"'), 'Must show inline Submit & Start 5-Q Defense button inside the green banner');
+    assert.ok(html.includes('data-testid="round2-banner-next-challenge-btn"'), 'Must show inline Next Challenge button inside the green banner');
+    assert.ok(html.includes('data-testid="round2-toolbar-submit-btn"'), 'Must show Submit & Defend button right beside Run Code & Tests');
   });
 });

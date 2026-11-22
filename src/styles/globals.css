@@ -2078,6 +2078,7 @@ body[data-interview-active='true'] .main-area {
     height: auto !important;
     max-height: none !important;
     min-height: 0 !important;
+    overflow: visible !important;
   }
 
   .iv-avatar-stage,

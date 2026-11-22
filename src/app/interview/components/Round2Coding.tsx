@@ -281,29 +281,99 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             padding: '8px 12px',
             fontSize: 12,
             fontWeight: 700,
-            color: 'var(--t1)'
+            color: 'var(--t1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 10,
+            flexWrap: 'wrap'
           }}
         >
-          {bannerOverride
-            ? bannerOverride
-            : defenseState?.status === 'eliminated'
-            ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 3. Generating final scorecard…`
-            : canProceed
-            ? '✅ Code & 5/5 Cross-Examination Defense Cleared — Click "Continue to architecture ➔" above to proceed!'
-            : codeRunFailed
-            ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or click "Skip Challenge" to move on.`
-            : codeSubmitted && (codeReviewQuestionReady || defenseState?.status === 'in_progress')
-            ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber || 1} of ${defenseState?.totalQuestions || 5} from ${activeTeacher.name} on the right. Clear all 5 questions to unlock Round 3.`
-            : codeSubmitted && codeReviewStarted
-            ? `⏳ Submitting solution to ${activeTeacher.name} to start the 5-question code defense...`
-            : codeSubmitted
-            ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Click "Submit solution for review" above to start the 5-question code defense.'
-            : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your code across 5 live questions.'}
+          <span style={{ flex: 1, minWidth: 200 }}>
+            {bannerOverride
+              ? bannerOverride
+              : defenseState?.status === 'eliminated'
+              ? `⛔ Defense Concluded (${defenseState.passedCount}/${defenseState.totalQuestions} cleared) — You did not qualify for Round 3. Generating final scorecard…`
+              : canProceed
+              ? '✅ Code & 5/5 Cross-Examination Defense Cleared — Click "Continue to architecture ➔" to proceed!'
+              : codeRunFailed
+              ? `⚠️ Some test cases failed. Check the execution output below to see expected vs actual values, refine your logic, or try a different challenge.`
+              : codeSubmitted && (codeReviewQuestionReady || defenseState?.status === 'in_progress')
+              ? `🎯 Step 2 of 2: Answer Question ${defenseState?.currentQuestionNumber || 1} of ${defenseState?.totalQuestions || 5} from ${activeTeacher.name} in the Interviewer panel to unlock Round 3.`
+              : codeSubmitted && codeReviewStarted
+              ? `⏳ Submitting solution to ${activeTeacher.name} to start the 5-question code defense...`
+              : codeSubmitted
+              ? '✅ Step 1 of 2 Complete: All 5 boundary tiers passed! Submit your solution to start the 5-question code defense, or try another coding challenge.'
+              : '🧪 Step 1 of 2: Implement your solution and pass all 5 boundary test tiers (Ctrl+↵), then defend your code across 5 live questions.'}
+          </span>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', flexShrink: 0 }}>
+            {canProceed ? (
+              <button
+                type="button"
+                data-testid="round2-banner-proceed-btn"
+                onClick={onProceed}
+                className="iv-btn-primary"
+                style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12, fontWeight: 900 }}
+              >
+                {proceedLabel || 'Continue to architecture ➔'}
+              </button>
+            ) : codeSubmitted && !codeRunFailed && !codeReviewStarted && defenseState?.status !== 'in_progress' && defenseState?.status !== 'eliminated' ? (
+              <>
+                <button
+                  type="button"
+                  data-testid="round2-banner-submit-btn"
+                  onClick={onReviewSolution}
+                  disabled={isSendingInterviewMessage}
+                  className="iv-btn-primary"
+                  style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12, fontWeight: 900, cursor: isSendingInterviewMessage ? 'wait' : 'pointer' }}
+                >
+                  {isSendingInterviewMessage ? 'Starting defense…' : (reviewLabel || '🚀 Submit & Start 5-Q Defense →')}
+                </button>
+                <button
+                  type="button"
+                  data-testid="round2-banner-next-challenge-btn"
+                  onClick={onRetryChallenge}
+                  disabled={isRunning || isSendingInterviewMessage}
+                  style={{
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t1)',
+                    borderRadius: 8,
+                    padding: '7px 12px',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    cursor: 'pointer'
+                  }}
+                >
+                  🔄 Next Challenge
+                </button>
+              </>
+            ) : codeRunFailed ? (
+              <button
+                type="button"
+                data-testid="round2-banner-retry-btn"
+                onClick={onRetryChallenge}
+                disabled={isRunning}
+                style={{
+                  background: 'var(--amber-light)',
+                  border: '1px solid var(--amber)',
+                  color: 'var(--amber-mid)',
+                  borderRadius: 8,
+                  padding: '6px 12px',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  cursor: 'pointer'
+                }}
+              >
+                🔄 Try a different challenge
+              </button>
+            ) : null}
+          </div>
         </div>
 
         {/* Language Selector */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {(['python', 'javascript', 'java', 'cpp', 'sql'] as const).map(lang => (
               <button
                 key={lang}
@@ -319,7 +389,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             ))}
           </div>
 
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             {onRequestHint && (
               <button
                 data-testid="coding-hint-btn"
@@ -363,6 +433,28 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             >
               {isRunning ? 'Executing...' : (domainStream === 'non_tech' ? 'Run Calculation (Ctrl+↵)' : '▶️ Run Code & Tests (Ctrl+↵)')}
             </button>
+            {codeSubmitted && !codeRunFailed && !codeReviewStarted && !canProceed && defenseState?.status !== 'in_progress' && defenseState?.status !== 'eliminated' && (
+              <button
+                type="button"
+                data-testid="round2-toolbar-submit-btn"
+                onClick={onReviewSolution}
+                disabled={isSendingInterviewMessage}
+                className="iv-btn-primary"
+                style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12.5, fontWeight: 900 }}
+              >
+                {reviewLabel || '🚀 Submit & Defend →'}
+              </button>
+            )}
+            {canProceed && (
+              <button
+                type="button"
+                onClick={onProceed}
+                className="iv-btn-primary"
+                style={{ borderRadius: 8, padding: '7px 14px', fontSize: 12.5, fontWeight: 900 }}
+              >
+                {proceedLabel || 'Continue ➔'}
+              </button>
+            )}
           </div>
         </div>
 
@@ -398,7 +490,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
       </div>
 
       {/* Right 30%: Avatar Viewport & Execution Terminal */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: '100%', minHeight: 0, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: '100%', minHeight: 0, overflowY: 'auto' }}>
         <div style={{ height: 130, flexShrink: 0, background: 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
           <div style={{ position: 'absolute', bottom: 6, left: 6, padding: '2px 7px', borderRadius: 5, background: 'rgba(10, 14, 26, 0.78)', color: '#f8fafc', fontSize: 10.5, fontWeight: 800 }}>

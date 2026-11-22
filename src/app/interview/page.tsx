@@ -1615,7 +1615,12 @@ export default function InterviewPage() {
   };
 
   const reviewCodingSolution = () => {
-    if (!codeSubmitted || codeReviewStarted || round2DefenseRef.current.status === 'in_progress') return;
+    if (
+      !codeSubmitted ||
+      codeReviewStarted ||
+      isSendingInterviewMessageRef.current ||
+      round2DefenseRef.current.status === 'in_progress'
+    ) return;
     setCodeReviewStarted(true);
     setCodeReviewQuestionReady(false);
     setCodeReviewAnswered(false);
