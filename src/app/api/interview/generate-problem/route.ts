@@ -52,12 +52,20 @@ function generateSemanticProblemFallback(
   const strictComparison = variation % 2 === 1;
   const comparisonText = strictComparison ? 'strictly greater than' : 'greater than or equal to';
 
-  // Slugify topic into a safe function identifier
-  const safeFnName = cleanTopic
+  // Slugify topic into a clean, readable function identifier (trimming on underscore boundaries, never mid-word)
+  const rawSlug = cleanTopic
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .slice(0, 24) || 'evaluate_metric';
+    .replace(/^_+|_+$/g, '');
+  let safeFnName = rawSlug;
+  if (safeFnName.length > 24) {
+    const cut = safeFnName.slice(0, 24);
+    const lastSep = cut.lastIndexOf('_');
+    safeFnName = (lastSep >= 10 ? cut.slice(0, lastSep) : cut).replace(/_+$/g, '');
+  }
+  if (!safeFnName || /^[0-9]/.test(safeFnName)) {
+    safeFnName = 'evaluate_metric';
+  }
 
   const jsFnName = safeFnName.replace(/_([a-z0-9])/g, (_, char) => char.toUpperCase());
 
@@ -128,21 +136,33 @@ SELECT (SELECT round(avg_salary) FROM answer WHERE department_id = 101) = 99333 
     testCases: [
       {
         input: '([10, 50, 75, 100], 50)',
-          expectedOutput: strictComparison ? '2' : '3',
-          output: strictComparison ? '2' : '3',
-        name: 'Standard Filtering Test'
+        expectedOutput: strictComparison ? '2' : '3',
+        output: strictComparison ? '2' : '3',
+        name: '[T1: Standard] Standard Filtering Test'
       },
       {
-        input: '([10, 20, 30], 100)',
-        expectedOutput: '0',
-        output: '0',
-        name: 'Empty Matches Boundary Test'
+        input: '([10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 50)',
+        expectedOutput: strictComparison ? '5' : '6',
+        output: strictComparison ? '5' : '6',
+        name: '[T2: Scale] Large Scale Batch Filtering Test'
       },
       {
         input: '([], 10)',
         expectedOutput: '0',
         output: '0',
-        name: 'Empty Input Dataset Test'
+        name: '[T3: Zero/Empty] Empty Input Dataset Test'
+      },
+      {
+        input: '([-50, -10, 0, 10], -10)',
+        expectedOutput: strictComparison ? '2' : '3',
+        output: strictComparison ? '2' : '3',
+        name: '[T4: Edge Values] Negative & Exact Threshold Boundary Test'
+      },
+      {
+        input: '([10, 20, 30], 100)',
+        expectedOutput: '0',
+        output: '0',
+        name: '[T5: Complexity] Zero Matches Full-Scan Test'
       }
     ],
     suggestedWhiteboardNodes: [
@@ -207,7 +227,7 @@ Generate:
 2. Description: Real-world problem statement with constraints and expected return format.
 3. functionName: Pythonic snake_case function identifier (e.g. "calculate_latency", "evaluate_portfolio").
 4. starterCode: Empty function signatures/stubs with parameter comments and a TODO placeholder. Strictly DO NOT implement or leak the solution algorithm.
-5. testCases: Exactly 3 deterministic unit test cases (Standard, Edge/Boundary, Zero/Empty). "input" MUST be a valid function argument tuple e.g. "([1, 2, 3], 5)" and "expectedOutput" MUST be a machine-parsable literal (e.g. "3", "true", "42") without descriptive prose.
+5. testCases: Exactly 5 deterministic unit test cases covering all 5 tiers: (1) Standard Case, (2) Large Scale, (3) Zero/Empty, (4) Edge/Negative Values, (5) Complexity/Boundary. "input" MUST be a valid function argument tuple e.g. "([1, 2, 3], 5)" and "expectedOutput" MUST be a machine-parsable literal (e.g. "3", "true", "42") without descriptive prose.
 6. suggestedWhiteboardNodes: 4 recommended architecture/workflow nodes for this topic.
 7. testSuite: For SQL language only, include deterministic setup SQL, then a line containing -- CHECKS --, then SQL checks that query the candidate's result through the answer view. Each check must return boolean ok and text msg columns. The SQL starter query must satisfy all checks. For other languages, return an empty string.
 

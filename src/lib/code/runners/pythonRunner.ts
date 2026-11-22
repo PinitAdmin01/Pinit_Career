@@ -365,22 +365,35 @@ export async function runPythonScript(
   return executeInNode(script, extractVars, timeoutMs);
 }
 
+function normalizePythonLiteralsToJson(raw: string): string {
+  return raw
+    .replace(/\bTrue\b/g, 'true')
+    .replace(/\bFalse\b/g, 'false')
+    .replace(/\bNone\b/g, 'null')
+    .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, (_, inner) => JSON.stringify(inner));
+}
+
 function parseInputArgs(raw: string): unknown[] {
   const trimmed = (raw || '').trim();
   if (!trimmed) return [];
-  if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+
+  const candidates = [trimmed, normalizePythonLiteralsToJson(trimmed)];
+  for (const cand of candidates) {
+    if (cand.startsWith('(') && cand.endsWith(')')) {
+      try {
+        const parsed = JSON.parse('[' + cand.slice(1, -1) + ']');
+        if (Array.isArray(parsed)) return parsed;
+      } catch {}
+    }
     try {
-      return JSON.parse('[' + trimmed.slice(1, -1) + ']');
+      const wrapped = JSON.parse('[' + cand + ']');
+      if (Array.isArray(wrapped)) return wrapped;
+    } catch {}
+    try {
+      const parsed = JSON.parse(cand);
+      return Array.isArray(parsed) ? [parsed] : [parsed];
     } catch {}
   }
-  try {
-    const wrapped = JSON.parse('[' + trimmed + ']');
-    if (Array.isArray(wrapped)) return wrapped;
-  } catch {}
-  try {
-    const parsed = JSON.parse(trimmed);
-    return Array.isArray(parsed) ? [parsed] : [parsed];
-  } catch {}
   return [trimmed];
 }
 
@@ -547,20 +560,52 @@ _stderr_log = sys.stderr.getvalue()
     const tc = testCases[i];
     const tcStart = Date.now();
     const args = parseInputArgs(tc.input);
-    const argStr = args.map(a => JSON.stringify(a)).join(', ');
+    const serializedArgsJson = JSON.stringify(JSON.stringify(args));
+    const safeTargetFnJson = JSON.stringify(fnName);
 
     const pythonExecutionScript = `
-import sys, io, json
+import sys, io, json, re, types, traceback
 sys.stdout = io.StringIO()
 sys.stderr = io.StringIO()
+def _pinit_excepthook(exc_type, exc_value, exc_tb):
+    _t = getattr(sys, '__stderr__', None)
+    if _t:
+        _t.write(''.join(traceback.format_exception(exc_type, exc_value, exc_tb)))
+        _t.flush()
+sys.excepthook = _pinit_excepthook
 
 ${code}
 
-if '${fnName}' not in locals() and '${fnName}' not in globals():
-    raise NameError("Function '${fnName}' was not defined in the Python solution.")
+_target_name = ${safeTargetFnJson}
+_ns = dict(globals())
+_ns.update(locals())
 
-_fn = globals().get('${fnName}') or locals().get('${fnName}')
-_res = _fn(${argStr})
+def _to_snake(_s):
+    return re.sub(r'([a-z0-9])([A-Z])', r'\\1_\\2', _s).lower()
+
+def _to_camel(_s):
+    _parts = [p for p in _s.split('_') if p]
+    return _parts[0] + ''.join(p[:1].upper() + p[1:] for p in _parts[1:]) if _parts else _s
+
+_fn = _ns.get(_target_name)
+if not callable(_fn):
+    for _alt in (_to_snake(_target_name), _to_camel(_target_name)):
+        if callable(_ns.get(_alt)):
+            _fn = _ns.get(_alt)
+            break
+if not callable(_fn) and _target_name == 'solution':
+    _user_fns = [
+        _v for _k, _v in _ns.items()
+        if isinstance(_v, types.FunctionType) and not _k.startswith('_') and _k not in ('_to_snake', '_to_camel')
+    ]
+    if len(_user_fns) == 1:
+        _fn = _user_fns[0]
+
+if not callable(_fn):
+    raise NameError(f"Function '{_target_name}' was not defined in the Python solution.")
+
+_args = json.loads(${serializedArgsJson})
+_res = _fn(*_args)
 
 if isinstance(_res, str):
     _out = _res

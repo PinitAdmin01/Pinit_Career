@@ -5,14 +5,17 @@ export async function executePythonJudgeSuite(
   code: string,
   testSuite?: string,
   testCases: TestCase[] = [],
-  timeoutMs: number = 3500
+  timeoutMs: number = 3500,
+  fnName: string = 'solution'
 ): Promise<SuiteExecutionResult> {
   const startTime = Date.now();
+  const resolvedFnName = (fnName || 'solution').trim() || 'solution';
 
-  // 1. In browser environments: prioritize Pyodide WebAssembly for zero server footprint & complete isolation
-  if (typeof window !== 'undefined') {
+  // 1. In browser environments (or when running explicit function TestCase suites in Node tests):
+  //    execute directly with Pyodide WASM (browser) or isolated local Python (Node) using the exact function name.
+  if (typeof window !== 'undefined' || (Array.isArray(testCases) && testCases.length > 0 && !testSuite?.trim())) {
     try {
-      return await executePythonSuite(code, 'solution', testCases, timeoutMs, testSuite);
+      return await executePythonSuite(code, resolvedFnName, testCases, timeoutMs, testSuite);
     } catch (e: any) {
       return {
         language: 'python',
