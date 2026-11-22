@@ -680,9 +680,19 @@ test('Task 1 (PDF Preview CSP & New Tab): middleware, next.config, and firebase.
   }
 
   assert.match(fileRouteSrc, /'Content-Length':\s*String\(fileBuffer\.byteLength\)/);
+  assert.match(fileRouteSrc, /new NextResponse\(new Uint8Array\(fileBuffer\)/);
+  assert.match(fileRouteSrc, /no-transform/);
   assert.match(vaultPageSrc, /mode=url/);
   assert.match(vaultPageSrc, /previewDoc\.signedUrl/);
+  assert.match(vaultPageSrc, /<PdfCanvasViewer/);
+  assert.doesNotMatch(vaultPageSrc, /<iframe[\s\S]*previewDoc\.blobUrl/);
   assert.doesNotMatch(vaultPageSrc, /href=\{previewDoc\.blobUrl\}[^>]*rel="noopener noreferrer"/);
+
+  const pdfViewerSrc = fs.readFileSync(path.join(process.cwd(), 'src/components/vault/PdfCanvasViewer.tsx'), 'utf8');
+  assert.match(pdfViewerSrc, /\/pdfjs\/pdfjs\.mjs/);
+  assert.match(pdfViewerSrc, /canvasContext/);
+  assert.match(middlewareSrc, /\/pdfjs/);
+  assert.ok(fs.existsSync(path.join(process.cwd(), 'scripts/utils/copy-pdfjs.cjs')));
 });
 
 test('Task 2 (5-6 Resume Questions + Tech Coding / B.Com Auto-Skip): classifier, turn count, coding evaluation, and Round2Coding reuse', async () => {

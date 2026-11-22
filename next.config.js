@@ -81,6 +81,15 @@ try {
 }
 
 try {
+  const pdfjsTarget = path.join(__dirname, 'public', 'pdfjs', 'pdfjs.mjs');
+  if (!fs.existsSync(pdfjsTarget)) {
+    execSync('node scripts/utils/copy-pdfjs.cjs', { stdio: 'inherit' });
+  }
+} catch (_e) {
+  // Handled gracefully by PdfCanvasViewer fallback
+}
+
+try {
   const manifestTarget = path.join(__dirname, 'src', 'generated', 'longLessons', '_manifest.json');
   if (!fs.existsSync(manifestTarget)) {
     execSync('node scripts/utils/build-long-lessons-json.cjs', { stdio: 'inherit' });

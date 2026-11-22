@@ -16,6 +16,7 @@ import {
   savePendingVaultDefense,
 } from '@/lib/vault/vaultDefenseEngine';
 import { TelemetryAuditLedger } from '@/components/vault/TelemetryAuditLedger';
+import { PdfCanvasViewer } from '@/components/vault/PdfCanvasViewer';
 
 const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }> = {
   resume:        { icon: '📄', color: 'var(--accent)', label: 'Master Resume'   },
@@ -77,6 +78,7 @@ export default function VaultPage() {
     fileError: string;
     blobUrl: string | null;
     signedUrl: string | null;
+    pdfBytes: Uint8Array | null;
     mimeType: string;
     fileName: string;
     textContent: string;
@@ -187,6 +189,23 @@ export default function VaultPage() {
     });
   };
 
+  const hasPdfHeader = (bytes: Uint8Array | null): boolean => {
+    if (!bytes || bytes.byteLength < 5) return false;
+    const limit = Math.min(bytes.byteLength, 1024);
+    for (let i = 0; i <= limit - 5; i++) {
+      if (
+        bytes[i] === 0x25 &&
+        bytes[i + 1] === 0x50 &&
+        bytes[i + 2] === 0x44 &&
+        bytes[i + 3] === 0x46 &&
+        bytes[i + 4] === 0x2d
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const openDocumentViewer = async (item: any) => {
     const cachedAi = getLocalAiAnalysis(item.id);
     setPreviewDoc({
@@ -195,6 +214,7 @@ export default function VaultPage() {
       fileError: '',
       blobUrl: null,
       signedUrl: null,
+      pdfBytes: null,
       mimeType: '',
       fileName: item.title || 'document.pdf',
       textContent: '',
@@ -224,29 +244,47 @@ export default function VaultPage() {
       const signedPayload = signedRes && signedRes.ok ? await signedRes.json().catch(() => null) : null;
       const signedUrl = typeof signedPayload?.signedUrl === 'string' ? signedPayload.signedUrl : null;
 
-      if (!res.ok) {
-        if (signedUrl) {
-          setPreviewDoc((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  loadingFile: false,
-                  blobUrl: null,
-                  signedUrl,
-                  mimeType: signedPayload?.mimeType || 'application/pdf',
-                  fileName: signedPayload?.fileName || item.title || 'document.pdf',
-                  textContent: '',
-                }
-              : null
-          );
-          return;
-        }
-        const errPayload = await res.json().catch(() => ({}));
+      let mimeType = res.ok
+        ? (res.headers.get('content-type') || 'application/pdf').split(';')[0].trim()
+        : (signedPayload?.mimeType || 'application/pdf');
+      const fileName =
+        (res.ok ? res.headers.get('x-vault-filename') : null) ||
+        signedPayload?.fileName ||
+        item.title ||
+        'document.pdf';
+
+      let fileBytes: Uint8Array | null = null;
+      if (res.ok) {
+        const ab = await res.arrayBuffer();
+        fileBytes = new Uint8Array(ab);
+      }
+
+      // If stream failed OR didn't return valid %PDF- bytes, fetch directly from Supabase signed HTTPS URL
+      if ((!fileBytes || fileBytes.byteLength === 0 || (mimeType.includes('pdf') && !hasPdfHeader(fileBytes))) && signedUrl) {
+        try {
+          const directRes = await fetch(signedUrl);
+          if (directRes.ok) {
+            const directAb = await directRes.arrayBuffer();
+            const directBytes = new Uint8Array(directAb);
+            if (directBytes.byteLength > 0) {
+              fileBytes = directBytes;
+              const directCt = (directRes.headers.get('content-type') || '').split(';')[0].trim();
+              if (directCt && directCt !== 'application/octet-stream') {
+                mimeType = directCt;
+              }
+            }
+          }
+        } catch {}
+      }
+
+      if (!fileBytes || fileBytes.byteLength === 0) {
+        const errPayload = !res.ok ? await res.json().catch(() => ({})) : {};
         setPreviewDoc((prev) =>
           prev
             ? {
                 ...prev,
                 loadingFile: false,
+                signedUrl,
                 fileError: errPayload?.message || errPayload?.error || 'No previewable binary file found for this entry.',
               }
             : null
@@ -254,12 +292,10 @@ export default function VaultPage() {
         return;
       }
 
-      const mimeType = (res.headers.get('content-type') || 'application/pdf').split(';')[0].trim();
-      const fileName = res.headers.get('x-vault-filename') || item.title || 'document.pdf';
-      const rawBlob = await res.blob();
-      const blob = rawBlob.type === mimeType ? rawBlob : new Blob([rawBlob], { type: mimeType });
-      const blobUrl = URL.createObjectURL(blob);
-      const textContent = mimeType.startsWith('text/') ? await blob.text() : '';
+      const typedBlob = new Blob([new Uint8Array(fileBytes)], { type: mimeType });
+      const blobUrl = URL.createObjectURL(typedBlob);
+      const textContent = mimeType.startsWith('text/') ? new TextDecoder('utf-8').decode(fileBytes) : '';
+      const isPdf = mimeType.includes('pdf') || fileName.toLowerCase().endsWith('.pdf') || hasPdfHeader(fileBytes);
 
       setPreviewDoc((prev) =>
         prev
@@ -268,7 +304,8 @@ export default function VaultPage() {
               loadingFile: false,
               blobUrl,
               signedUrl,
-              mimeType,
+              pdfBytes: isPdf ? fileBytes : null,
+              mimeType: isPdf ? 'application/pdf' : mimeType,
               fileName,
               textContent,
             }
@@ -1273,11 +1310,12 @@ export default function VaultPage() {
                     <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)' }}>Document Preview Unavailable</div>
                     <div style={{ fontSize: 12.5, color: 'var(--t3)', maxWidth: 360 }}>{previewDoc.fileError}</div>
                   </div>
-                ) : (previewDoc.blobUrl || previewDoc.signedUrl) && previewDoc.mimeType.includes('pdf') ? (
-                  <iframe
-                    src={`${previewDoc.blobUrl || previewDoc.signedUrl}#toolbar=1&navpanes=0`}
-                    title={previewDoc.fileName}
-                    style={{ width: '100%', height: '100%', minHeight: 480, border: 'none' }}
+                ) : previewDoc.pdfBytes && previewDoc.mimeType.includes('pdf') ? (
+                  <PdfCanvasViewer
+                    data={previewDoc.pdfBytes}
+                    fileName={previewDoc.fileName}
+                    signedUrl={previewDoc.signedUrl}
+                    blobUrl={previewDoc.blobUrl}
                   />
                 ) : (previewDoc.blobUrl || previewDoc.signedUrl) && previewDoc.mimeType.startsWith('image/') ? (
                   <div style={{ flex: 1, overflow: 'auto', padding: 14, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>

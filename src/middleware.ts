@@ -117,6 +117,7 @@ export async function middleware(request: NextRequest) {
     path.startsWith('/brand') ||
     path.startsWith('/draco') ||
     path.startsWith('/esbuild') ||
+    path.startsWith('/pdfjs') ||
     path.startsWith('/pyodide') ||
     path.startsWith('/sandbox') ||
     path.startsWith('/sql') ||
@@ -286,6 +287,6 @@ export const config = {
      * - static directories: avatar, audio, brand, draco, esbuild, pyodide, sandbox, sql
      * - static file extensions: svg, png, jpg, jpeg, gif, webp, ico, glb, gltf, wasm, bin, mp3, wav, mp4, webm, woff, woff2, ttf, eot
      */
-    '/((?!_next/static|_next/image|favicon.ico|avatar/|audio/|brand/|draco/|esbuild/|pyodide/|sandbox/|sql/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|glb|gltf|wasm|bin|mp3|wav|mp4|webm|woff|woff2|ttf|eot)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|avatar/|audio/|brand/|draco/|esbuild/|pdfjs/|pyodide/|sandbox/|sql/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|glb|gltf|wasm|bin|mp3|wav|mp4|webm|woff|woff2|ttf|eot)$).*)',
   ],
 };

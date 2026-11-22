@@ -150,14 +150,14 @@ export async function GET(req: Request) {
     }
     const mimeType = inferMimeType(cleanFileName, blob.type);
 
-    return new Response(fileBuffer, {
+    return new NextResponse(new Uint8Array(fileBuffer), {
       status: 200,
       headers: {
         'Content-Type': mimeType,
         'Content-Length': String(fileBuffer.byteLength),
         'Content-Disposition': `inline; filename="${cleanFileName}"`,
         'X-Vault-Filename': cleanFileName,
-        'Cache-Control': 'private, max-age=300',
+        'Cache-Control': 'no-transform, private, max-age=300',
       },
     });
   } catch (err: any) {

@@ -56,6 +56,7 @@ graphify-out/
 
 # Pyodide runtime, copied from node_modules by scripts/utils/copy-pyodide.cjs
 public/pyodide/
+public/pdfjs/
 public/sql/
 public/esbuild/
 public/sandbox/
